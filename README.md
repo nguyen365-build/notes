@@ -333,36 +333,33 @@
 # Section 2: Short-Answer Questions and Exercises
 
 # Chapter 2 - Investigating System Requirements
-## Solutions to End-of-Chapter Problems 
 
-### Review Questions 
-
-### **1. List and briefly describe the five activites of systems analysis.** 
+## **1. List and briefly describe the five activites of systems analysis.** 
 * Gather detailed information - meet with users to understand the business processes and needs 
 * Define requirements document findings by building models such as use case diagram and class diagram 
 * Prioritize requirements - Decide which requirements (such as use cases) should be done first 
 * Develop user-interface dialogs work with the users to define exactly how they will use the system and what interactions with the system are required 
 * Evaluate requirements with users  - ensure that the requirements are complete, accurate, and prioritized correctly 
 
-**2. What are three types of models?** 
+## **2. What are three types of models?** 
 Textual models, graphical models, and mathematical models 
 
-**3. What is the difference between functional requirements and nonfunctional requirements?** 
+## **3. What is the difference between functional requirements and nonfunctional requirements?** 
 Functional requirements describe the business rules that must be supported by the new system, while non-functional requirements are the system characteristics such as speed, throughput, response time, and security.  Both are important. 
 
-**4. Describe the steps in preparing for, conducting, and following up an interview session.** 
+## **4. Describe the steps in preparing for, conducting, and following up an interview session.** 
 Prepare for an interview by establishing the objective, determining the users and project team members, write questions, review preliminary materials, set up the interview time and location and tell everybody.  Conduct the interview by asking questions, looking for exception conditions and probing for good details.  Also take good notes, and document all the follow-up items.  Follow-up the interview by reviewing everybody's notes, building the models as necessary, document open issues, then follow-up with them.  Be sure to thank contributors. 
 
-**5. What are the benefits of doing vendor research during information-gathering activities?** 
+## **5. What are the benefits of doing vendor research during information-gathering activities?** 
 It can inform the current team and users of new ideas and possibly more effective methods  The team can possibly find out about more current state-of-the-art solutions that vendors have created.  It may even be cheaper, faster, and more effective to purchase a solution instead of building. 
 
-**6. What types of stakeholders should you include in fact finding?** 
+## **6. What types of stakeholders should you include in fact finding?** 
 Both internal and external stakeholders.  Internal stakeholders would include operational people who work with the system and executive stakeholders who may receive executive reports, or depend on the success of the system. [cite: 486, 489] External stakeholders may include customers or partner organizations, who also receive information directly from the system.  At the executive level, external stakeholders may be investors or regulators. 
 
-**7. Describe the open-items list and then explain why it is important.** 
+## **7. Describe the open-items list and then explain why it is important.** 
 During fact finding activities, and in fact throughout all the project, some issues can be answered immediately, but others cannot be answered immediately.  Some questions may not be answered because more research may need to be done, or other items may need to be decided first, or the user procedure has not be finalized, etc.  Those items will need to be tracked so that they are not left out of the solution system.  The open-items list provides that tracking function by noting the item, assigning a responsible person, and tracking the completion of the open item. 
 
-**8. List and briefly describe the six information gathering techniques.** 
+## **8. List and briefly describe the six information gathering techniques.** 
 Information gathering techniques include 
 * Interview users and stakeholders - the most effective for information gathering, but the most expensive 
 * Distribute questionnaires  - good for finding overview or summary information from many people [cite: 500, 501]
@@ -371,22 +368,22 @@ Information gathering techniques include
 * Research vendor solutions good for generating new ideas and learning what already has been done 
 * Collect user comments good for finding out about problems with current processes 
 
-**9. What is the purpose of an activity diagram?** 
+## **9. What is the purpose of an activity diagram?** 
 One purpose of an activity diagram is to document current user workflows.  Activity diagrams are often called workflow diagrams.  They can be used to document a user procedure as he/she interacts with the computer system. 
 
-**10. Draw and explain the symbols used on an activity diagram.** 
+## **10. Draw and explain the symbols used on an activity diagram.** 
 See Figure 2-14. 
-
+<img width="1190" height="688" alt="activity_diagram" src="https://github.com/user-attachments/assets/1532db43-a28a-4f2b-83f2-ef75c6a52586" />
 ---
 
 ### Problems and Exercises 
 
-**1. Provide an example of each of the three types of models that might apply to designing a car, a house, and an office building.** 
+## **1. Provide an example of each of the three types of models that might apply to designing a car, a house, and an office building.** 
 * **Car:**  Mathematical model might be a set of calculatations having to do with horse-power, torque and acceleration.  Graphical model might be a set of 3 dimensional drawings of the body style.  Textual model might be some written specification of the materials to be used. 
 * **House:**  Mathematical model might be some calculations to deteremine angle of roof and types of materials needed.  Graphical would be a set of blueprints.  Descriptive textual model might be a description of the materials to be used. 
 * **Office building:**  An office building might have all types of mathematical models of the stresses and earthquake requirements.  Graphical would be blueprints or even a 3 dimensional physical model.  Descriptive textual model could be of materials or steps in the construction process. 
 
-**2. One of the toughest problems in investigating system requirements is to make sure they are complete and comprehensive.**  **How would you ensure that you get all the right information during an interview session?** 
+## **2. One of the toughest problems in investigating system requirements is to make sure they are complete and comprehensive.**  **How would you ensure that you get all the right information during an interview session?** 
 Answers should include the following points: 
 * Ensure that all stakeholders are identified and included in the requirements definition activities. 
 * Review every existing form and report to make sure that all information needs are understood. 
@@ -394,17 +391,17 @@ Answers should include the following points:
 * Ensure that all exception conditions have been identified and associated processing has been defined. 
 * Maintain an open-items list and ensure that all items are resolved. 
 
-**3. One of the problems you will encounter during your investigation is "scope creep" (i.e., user requests for additional features and functions).**  **Scope creep happens because users sometimes have many unsolved problems and the system investigation may be the first time anybody has listened to their needs.**  **How do you keep the system from growing and including new functions that should not be part of the system?** 
+## **3. One of the problems you will encounter during your investigation is "scope creep" (i.e., user requests for additional features and functions).**  **Scope creep happens because users sometimes have many unsolved problems and the system investigation may be the first time anybody has listened to their needs.**  **How do you keep the system from growing and including new functions that should not be part of the system?** 
 This problem is really a project management issue.  The project manager should establish guidelines to control this problem.  One preventative method is to be sure that the initial scope definition is adequate and comprehensive.  A partial definition during the scoping activities will exacerbate the problem of scope creep. [cite: 542, 545] Even for Agile projects, the users and the project team should attempt to do a thorough job of identifying all of the functional requirements. 
 An effective way to control scope creep is to establish a committee that consists of both project team members and user (or client) members.  All new additions to the scope of the system need to be approved by the committee.  Prior to approval, an estimate should be done to determine the criticality of the request and the impact on the project schedule.  The client and the users should participate in the decision so that it is a combined decision and not dictated by the project manager.  An additional technique is to begin a list of enhancements for the next version of the system.  Some requests can easily be deferred to a later version. 
 
-**4. What would you do if you got conflicting answers for the same procedure from two different people you interviewed?**  **What would you do if one was a clerical person and the other was the department manager?** 
+## **4. What would you do if you got conflicting answers for the same procedure from two different people you interviewed?**  **What would you do if one was a clerical person and the other was the department manager?** 
 The first thought would be to take the opinion of the department manager as the correct answer.  However, it is not uncommon for the department manager to be behind on some of the latest details of business procedures.  The best solution in this case is to get the two people together and let them discuss the differences until they both agree on the correct procedure.  The systems analyst should not make the decision as to which answer is correct, nor should he or she try to resolve the difference.  It is the users' responsibility to do so. 
 
-**5. You have been assigned to resolve several issues on the open-items list, and you are having a hard time getting policy decisions from the user contact.**  **How can you encourage the user to finalize these policies?** 
+## **5. You have been assigned to resolve several issues on the open-items list, and you are having a hard time getting policy decisions from the user contact.**  **How can you encourage the user to finalize these policies?** 
 Delayed policy decisions impact the project schedule.  Sometimes the user does not understand the impact of delayed decisions.  Thus, the first approach should be to explain the negative impact that a given decision is having on the project.  If that doesn't work, then stronger measures can be taken, such suggesting that the project steering committee review the outstanding-items list.  Also, if the outstanding-items list indicates the length of time that items have been open, the analyst can assign or adjust the priority of those items that have become critical. 
 
-**6. In the running case of RMO, assume that you have set up an interview with the manager of the shipping department.**  **Your objective is to determine how shipping works and what the information requirements for the new system will be.**  **Make a list of questions-open ended and closed ended-that you would use.**  **Include any questions or techniques you would use to ensure you find out about the exceptions.** 
+## **6. In the running case of RMO, assume that you have set up an interview with the manager of the shipping department.**  **Your objective is to determine how shipping works and what the information requirements for the new system will be.**  **Make a list of questions-open ended and closed ended-that you would use.**  **Include any questions or techniques you would use to ensure you find out about the exceptions.** 
 Three areas should be addressed in this answer: (1) closed-ended questions, (2) open- ended questions, and (3) questions related to exception conditions. 
 Sample closed-ended questions: 
 * What is the volume of shipments on an average day? 
@@ -427,7 +424,7 @@ Sample exception condition questions:
 * What happens when shipments are returned due to a bad address? 
 * What do you do about lost shipments?  How are you notified? 
 
-**7. Develop an activity diagram based on the following narrative.**  **Note any ambiguities or questions that you have as you develop the model.**  **If you need to make assumptions, also note them.** 
+## **7. Develop an activity diagram based on the following narrative.**  **Note any ambiguities or questions that you have as you develop the model.**  **If you need to make assumptions, also note them.** 
 The purchasing department handles purchase requests from other departments in the company.  People in the company who initiate the original purchase request are the "customers" of the purchasing department.  A case worker within the purchasing department receives the request and monitors it until it is ordered and received.  Case workers process requests for the purchase of products under $1,500, write a purchase order, and then send it to the approved vendor.  Purchase requests over $1,500 must first be sent out for bid from the vendor that supplies the product.  When the bids return, the case worker selects one bid and then writes a purchase order and sends it to the vendor. 
 
 * In-house Customer 
@@ -443,7 +440,7 @@ The purchasing department handles purchase requests from other departments in th
 * Vendar 
     * Develop bid 
 
-**8. Develop an activity diagram based on the following narrative.**  **Note any ambiguities or questions that you have as you develop the model.**  **If you need to make assumptions, also note them.** 
+## **8. Develop an activity diagram based on the following narrative.**  **Note any ambiguities or questions that you have as you develop the model.**  **If you need to make assumptions, also note them.** 
 The shipping department receives all shipments on outstanding purchase orders.  When the clerk in the shipping department receives a shipment, he or she finds the outstanding purchase order for those items.  The clerk then sends multiple copies of the shipment packing slip.  One copy goes to Purchasing, and the department updates its records to indicate that the purchase order has been fulfilled.  Another copy goes to Accounting so a payment can be made.  A third copy goes to the requesting in- ouse customer so he or she can receive the shipment.  After payment is made, the accounting department sends a notification to Purchasing.  After the customer receives and accepts the goods, he or she sends notification to Purchasing.  When Purchasing receives these other verifications, it closes the purchase order as fulfilled and paid. 
 
 * Shipping 
@@ -459,10 +456,10 @@ The shipping department receives all shipments on outstanding purchase orders.  
     * Receive shipment 
     * Send notification 
 
-**9. Conduct a fact-finding interview with someone involved in a procedure that is used in a business or organization.**  **This person could be someone at the university, in a small business in your neighborhood, in the student volunteer office at the university, in a doctor's or dentist's office, or in a volunteer organization.**  **Identify a process that is done, such as keeping student records, customer records, or member records.**  **Make a list of questions and then conduct the interview.**  **Remember, your objective is to understand that procedure thoroughly (i.e., to become an expert on that single procedure).** 
+## **9. Conduct a fact-finding interview with someone involved in a procedure that is used in a business or organization.**  **This person could be someone at the university, in a small business in your neighborhood, in the student volunteer office at the university, in a doctor's or dentist's office, or in a volunteer organization.**  **Identify a process that is done, such as keeping student records, customer records, or member records.**  **Make a list of questions and then conduct the interview.**  **Remember, your objective is to understand that procedure thoroughly (i.e., to become an expert on that single procedure).** 
 Responses will vary.  Answers should include both closed-ended questions and open-ended questions.  Anwers might also include some questions to address exception conditions.  Answers to the questions can be written in text form or presented in an activity diagram. 
 
-**10. Using RMO and the CSMS as your guide, develop a list of all the procedures that may need to be researched.**  **You may want to think about the exercise in the context of your experience with such retailers as L.L. Bean, Lands' End, or Amazon.com.**  **Check out the Internet marketing done on the retailers' Web sites and then think about the underlying business procedures that are required to support those sales activities.**  **List the procedures and then describe your understanding of each.** 
+## **10. Using RMO and the CSMS as your guide, develop a list of all the procedures that may need to be researched.**  **You may want to think about the exercise in the context of your experience with such retailers as L.L. Bean, Lands' End, or Amazon.com.**  **Check out the Internet marketing done on the retailers' Web sites and then think about the underlying business procedures that are required to support those sales activities.**  **List the procedures and then describe your understanding of each.** 
 Answers will vary, but a good set of procedures might include all of the use cases identified in Figure 3-11 of the next chapter.  Figure 3-11 has five subsystems, each with several use cases. 
 
 ---
@@ -471,13 +468,13 @@ Answers will vary, but a good set of procedures might include all of the use cas
 
 ### Case Study: Jacob and Jacob, Inc. On-Line Trading System 
 
-**1. What is the best method for Edward to involve the brokers (users) in development of the new online trading system?**  **Should he use a questionnaire? Should he interview the brokers in each of the company's 30 offices, or would one or two brokers representing the entire group be better?**  **How can Edward ensure that the information about requirements is complete, yet not lose too much time doing so?** 
+## **1. What is the best method for Edward to involve the brokers (users) in development of the new online trading system?**  **Should he use a questionnaire? Should he interview the brokers in each of the company's 30 offices, or would one or two brokers representing the entire group be better?**  **How can Edward ensure that the information about requirements is complete, yet not lose too much time doing so?** 
 This situation is a viable candidate for a questionnaire.  The users are dispersed and probably diverse.  The questionnaire should focus on needs and preferences and can also help to establish which topics need further refinement.  It will probably cost too much to interview the brokers in all of the offices.  One way to select offices is to develop a set of characteristics that distinguish the various offices, and then to select a representative office from each set of similar offices.  If the answers to questions are very similar as interviews progress, it may be possible to abbreviate or shorten later visits to offices.  If there is a wide variation between needs and procedures, then additional interviews can be scheduled. 
 
-**2. Concerning customer input for the new system, how can Edward involve customers in the process?**  **How can he interest them in participating? What are some ways that Edward can be sure that the customers he does involve are representative of Jacob and Jacob's entire customer group?** 
+## **2. Concerning customer input for the new system, how can Edward involve customers in the process?**  **How can he interest them in participating? What are some ways that Edward can be sure that the customers he does involve are representative of Jacob and Jacob's entire customer group?** 
 This may also be a viable candidate for a questionnaire.  Statistically, sampling can guarantee that a large enough group can be studied, at least for the questionnaire.  The questionnaire should focus on the types of services and reports (statements) that the customer receives from the system.  If interviews are needed, some distinguishing characteristics should first be identified.  Then, representative samples of customers could be interviewed.  The cost of interviewing can also be controlled through the use of telephone interviews. 
 
-**3. As Edward considers what other stakeholders he should include, what are some criteria he should use?**  **Develop some guidelines to help him build a list of people to include.** 
+## **3. As Edward considers what other stakeholders he should include, what are some criteria he should use?**  **Develop some guidelines to help him build a list of people to include.** 
 Guidelines include: 
 * Look at all the existing reports and destinations.  All of the destination persons will have an interest in the information provided by the system. 
 * Look at all the different departments in the company to see if they currently receive or need to receive information from the new system. 
@@ -487,7 +484,7 @@ Guidelines include:
 
 ### Running Cases: Community Board of Realtors 
 
-**1. Who are the stakeholders for the issues related to real estate in your community, and what are their main interests?** 
+## **1. Who are the stakeholders for the issues related to real estate in your community, and what are their main interests?** 
 Answers will vary.  Usually for each state/county there are such organizations as: 
 * A Division of Real Estate for the state.  Often in a state's department of commerce 
 * A state Association of Realtors 
@@ -495,7 +492,7 @@ Answers will vary.  Usually for each state/county there are such organizations a
 * Local Realtor Boards and Associations 
 * Real Estate Offices and Agents 
 
-**2. What types of information does the board collect and make available to its members and to the community?** 
+## **2. What types of information does the board collect and make available to its members and to the community?** 
 Answers will vary. 
 * **Real Estate Offices:** 
     * Collects information about offices 
@@ -508,18 +505,18 @@ Answers will vary.
     * Provides seach and display about listed properties 
     * Provides maps of listed properties 
 
-**3. Research the real estate industry in at least two countries other than the United States.**  **For each of these countries, what are some of the cultural and legal issues that differ from those in the United States?**  **If you were working on support for an international real estate cooperative system, in what ways would the information collection activity process be complicated?** 
+## **3. Research the real estate industry in at least two countries other than the United States.**  **For each of these countries, what are some of the cultural and legal issues that differ from those in the United States?**  **If you were working on support for an international real estate cooperative system, in what ways would the information collection activity process be complicated?** 
 Answers will vary. 
 
 ---
 
 ### Running Cases: The Spring Breaks 'R' Us Travel Service 
 
-**1. Who are the stakeholders for SBRU? For each type of stakeholder, what aspects of the SBRU booking system are of particular interest?** 
+## **1. Who are the stakeholders for SBRU? For each type of stakeholder, what aspects of the SBRU booking system are of particular interest?** 
 * Students Student booking, Social Networking, Accounting and Finance 
 * Resorts - Resort relations, Student Booking, Social Networking, Accounting and Finance 
 
-**2. What are the main functional requirements for the major subsystem areas (i.e., resort relations, student booking, accounting and finance, and social networking)?** 
+## **2. What are the main functional requirements for the major subsystem areas (i.e., resort relations, student booking, accounting and finance, and social networking)?** 
 * **Resort Relations:** 
     * Sign up with SBRU (get an account) 
     * Edit account information 
@@ -548,20 +545,20 @@ Answers will vary.
     * Post comments on resort page 
     * Upload pictures to resort page 
 
-**3. Describe some usability requirements for students, booking interactions, and social networking interactions.** 
+## **3. Describe some usability requirements for students, booking interactions, and social networking interactions.** 
 Students will be using all types of laptops, tablets (iPads), smartphones (iPhones) to make reservations, check status, and especially social networking.  Displays must be adaptable for all these types of computing devices.  Internet access will also be through ethernet, Wifi, and telephone access, with the varying speeds associated with each.  Hence images and text should be combined judiciously. 
 
-**4. Assuming that social networking at the resorts will require wireless communication and connection to the Internet, what are some reliability requirements that resorts might be asked to maintain?**  **What are some performance requirements? Is this a bigger issue because resorts are in international locations?** 
+## **4. Assuming that social networking at the resorts will require wireless communication and connection to the Internet, what are some reliability requirements that resorts might be asked to maintain?**  **What are some performance requirements? Is this a bigger issue because resorts are in international locations?** 
 Social networking capabilities can be provided two ways, either through SBRUs central servers or locally through the resort's server.  For smaller resorts using SBRU servers - provide high-bandwidth access to the Internet.  Service level should be close to 100% availability with very wide bandwidth.  For those resorts with high usage of SBRU clients, they may want to provide local connectivity services.  This would require the same support as the smaller resorts, but also allow local chatting and communication ability.  For international resorts sometimes there are problems of connectivity, bandwidth, and reliability.  Resorts that want to join SBRU will require a minimum service level guarantee. 
 
-**5. What are some security requirements? Is there any reason why students in Europe, Asia, or other locations could not book rooms through SBRU?**  **What issues might be anticipated?** 
+## **5. What are some security requirements? Is there any reason why students in Europe, Asia, or other locations could not book rooms through SBRU?**  **What issues might be anticipated?** 
 There are many security issues that must be addressed. 
 1. Resorts have accounts with resort availability, reservations, accounts, and payments.  Different levels of security, data transmittal, and authorization is required.  Resort information only requires protection from hacking and defacing.  Reservations contain personal information and use HTTPS sites with TLS.  Consideration should be given to encryption.  Account and payment information most definitely requires TLS and encryption. 
 2. Student information is also personal and private.  It will include payment and credit card information.  All financial information requires TLS and encryption. 
 3. Social networking capabilities require protection of personal information and "friend" information. 
 It SBRU should be able to support students from throughout the world. [cite: 774, 775] However, supporting international students may require web pages to be translated into other languages.  It will also require establishing relationships with international bank clearing houses to handle different currency systems. [cite: 777, 780]
 
-**6. To collect information on functional requirements for the social networking subsystem, what are some techniques that might be used?**  **Be specific and include some sample questions you might ask by using various techniques.** 
+## **6. To collect information on functional requirements for the social networking subsystem, what are some techniques that might be used?**  **Be specific and include some sample questions you might ask by using various techniques.** 
 Assuming SBRU has an existing system, with existing student customers and desires to add social networking (thus an existing customer base does exist).  The social networking system should be heavily driven by student desires and requests.  Some possible ways to determine the functional requirements are: 
 1. Review other social networking sites to see how they work. 
 2. Send out questionnaires to existing customers on the desirability and possible use of social networking. 
@@ -572,7 +569,7 @@ Assuming SBRU has an existing system, with existing student customers and desire
 
 ### Running Cases: On the Spot Courier Services 
 
-**1. Who are the stakeholders for On the Spot? How involved should On the Spot's customers be in system definition?**  **As the business grows, who else might be potential stakeholders and interested in system functions?** 
+## **1. Who are the stakeholders for On the Spot? How involved should On the Spot's customers be in system definition?**  **As the business grows, who else might be potential stakeholders and interested in system functions?** 
 Stakeholders include: 
 * Bill Wiley owner 
 * Customers, usually businesses 
@@ -580,7 +577,7 @@ Stakeholders include:
 * Warehouse staff 
 Since Bill was the visionary for the business and the system, he will understand the needs of the system.  However, since he is letting business customers use the system to schedule packages, it would be a good idea to form a focus group of users who would be willing to help in requirements definition. [cite: 802, 803] Both the delivery persons and the warehouse staff will have suggestions on how to make their jobs easier.  They should be involved in requirements definition.  Bill's accountant should be involved to ensure that the system has sufficient financial information and controls. 
 
-**2. If you were commissioned to build a system for Bill, how would you determine the requirements?**  **Be specific in your answer. Make a list of the questions you need answered.** 
+## **2. If you were commissioned to build a system for Bill, how would you determine the requirements?**  **Be specific in your answer. Make a list of the questions you need answered.** 
 Since this is a small start-up company, the work procedures are very probably not efficient and probably are not scaleable.  Therefore, care should be taken not to build the system to only support these small scale work procedures.  Either of two approaches can be taken.  If Bill has a good vision of how he wants his business to function as it expands and grows, then interviewing Bill is a good starting place.  However, if Bill is still focusing on the current procedures, it may be a good idea to start by research commercial solutions from vendors.  The courier business is well established with many players and several commercial systems available.  Researching commercial solutions can expand the vision and view of how On The Spot can provide expanded services.  After researching commercial solutions, Bill should be interviewed to discuss the exact requirements for On The Spot.  Other stakeholders, as identified in Answer 1, should also be interviewed. 
 Kinds of questions that need answers. 
 * Services offered by On The Spot: Same-day delivery, Overnight delivery, Package pickup, sizes and rates 
@@ -591,7 +588,7 @@ Kinds of questions that need answers.
 * Warehouse: Windows of processing, equipment required, what information is tracked 
 * Package delivery: routes, tracking of packages, 
 
-**3. What technology and communication requirements do you see? What are the hardware requirements, and what kind of equipment will provide viable options to the system?**  **What would you recommend to Bill?** 
+## **3. What technology and communication requirements do you see? What are the hardware requirements, and what kind of equipment will provide viable options to the system?**  **What would you recommend to Bill?** 
 There appear to be four locations that will require interaction with the system. 
 1. Customer Web pages where customers can list packages for pickup and also make payment. [cite: 829, 830] Regular customers may also print out their own labels. 
 2. A work station where a clerk can handle phone requests for pickup. 
@@ -603,7 +600,7 @@ Equipment to support these functions might be:
 * Warehouse equipment, such as scanners, to note tracking information. 
 * Mobile devices for the trucks.  Probably tablet computers Internet access and with scanning wand.  Also a mobile printer in the truck.  (If rates are by size, then they can be measured.  If rates are by weight, then set of scales is also needed.)  The mobile devices will need Internet access to communicate with the home office.  This can be provided either with cell phone technology and support, or with wide-area Wi-fi that is available in some cities.  Cell phone access to the Internet is more widespread. 
 
-**4. What are the primary functional requirements for the system as described so far in the case?** 
+## **4. What are the primary functional requirements for the system as described so far in the case?** 
 Functional requirements can be listed as use cases. 
 * Add/update a customer 
 * Request a pickup 
@@ -621,7 +618,7 @@ Functional requirements can be listed as use cases.
 
 ### Running Cases: Sandia Medical Devices 
 
-**1. Who are RTGM's stakeholders? Should NMHS's patients be included in defining the system requirements? Why or why not?**  **Should RTGM interact with medical professionals other than physicians? Why or why not?** 
+## **1. Who are RTGM's stakeholders? Should NMHS's patients be included in defining the system requirements? Why or why not?**  **Should RTGM interact with medical professionals other than physicians? Why or why not?** 
 Stakeholders include: 
 * Patients (users of the monitoring device and of the phone application) 
 * Doctors (users of the information transmitted) 
@@ -632,10 +629,10 @@ Stakeholders include:
 
 Patients should be included in defining system requirements for those areas that impact their use.  This would include the medical device (comfort, wearability, maintenance), and the phone app (installing, executing, user interface screen).  Other medical professionals other than physicians may need to be involved.  This would include medical staff that are involved in the design of the device (is it sensitive enough to read glucose levels, etc.).  Other medical professionals may want to research results for medical studies.  As such they will dictate what data should be captured. 
 
-**2. If you were the lead analyst for RTGM, how would you determine the requirements? Be specific in your answer.**  **List several questions you need answered.** 
+## **2. If you were the lead analyst for RTGM, how would you determine the requirements? Be specific in your answer.**  **List several questions you need answered.** 
 Assuming we are limiting the fact finding and requirements definition to the smartphone app.  Questions for the medical equipment engineers would include: What are the specifications for the device - range, transmit parameters, data formats, occurance of transmittal, ranges of values for normal, abnormal, and dangerous?  What "test" capabilities does it have and how is it enabled?  Questions for the patient would be about the user interface for the phone app how readable, how understandable, signalling for normal and abnormal conditions, message format?  How usable are the screens for entering data, reading information, "testing" the equipment?  Questions for the medical professionals include information about the data formats to be sent, how often data should be sent, how to notify the system about abnormal, emergency situations, what other patient information needs to be captured? 
 
-**3. What are the primary functional requirements for the system as described so far in the case?** 
+## **3. What are the primary functional requirements for the system as described so far in the case?** 
 * Enter user (patient) information 
 * Test monitoring device 
 * Receive monitor-device data 
@@ -643,10 +640,10 @@ Assuming we are limiting the fact finding and requirements definition to the sma
 * Receive data from server 
 * Alert patient (user) of abnormal situation 
 
-**4. Are the parameters for alerting patients and medical personnel the same for every patient?**  **Can they vary over time for the same patient? What are the implications for the system's functional requirements?** 
+## **4. Are the parameters for alerting patients and medical personnel the same for every patient?**  **Can they vary over time for the same patient? What are the implications for the system's functional requirements?** 
 The case does not describe medical parameter variation by patient, but it may be assumed that depending on severity of illness, or weight of the patient, or sex may impact the acceptable and dangerous levels.  Hence entering patient may need to be done by trained medical personnel, or it needs to be accessed from the central server.  The case does not address if alerts can change over time.  But assuming that severity of illness will cause the parameters to change, patient information should be updated as appropriate.  The functional requirements may need to change to maintain or access from the server, history information to automatically update alert levels. 
 
-**5. Briefly describe some possible nonfunctional requirements for RTGM.** 
+## **5. Briefly describe some possible nonfunctional requirements for RTGM.** 
 * **Usability** - Patients may be completely non-technical, may also be ill, may be disabled.  Usability needs to be assessed very carefully. 
 * **Reliability** - Both the monitoring device and the phone app must be error free.  In addition, some type of fail safe capability should be built in.  For example if the monitoring device fails to communicate, the phone app should sound an alert.  The phone app should have a "normal operation" icon showing at all times (maybe a green light). 
 * **Performance** - Probably not a problem for the phone app.  Performance, e.g. throughput will need to be evaluated for the central server and the telephone connectivity. [cite: 900, 901]
@@ -654,7 +651,7 @@ The case does not describe medical parameter variation by patient, but it may be
 The "+" requirements should also be address.  How easy is it to install the phone app?  How much memory does it require?  What kinds of devices is it compatible with?  How does it interface with the server application? 
 # Chapter 3 - Identifying Use Stories and Use Case
 
-**1. What are the six activities of systems analysis, and which activity is discussed beginning with this chapter?** 
+## **1. What are the six activities of systems analysis, and which activity is discussed beginning with this chapter?** 
 The five activities of systems analysis are: 
 
 1.  Gather detailed information - begun in Chapter 2 with discussion of fact finding, stakeholders, interviewing, etc. 
@@ -663,19 +660,19 @@ The five activities of systems analysis are:
 4.  Develop user-interface dialogs 
 5.  Evaluate requirements with users 
 
-**2. What is a use case?** 
+## **2. What is a use case?** 
 A use case is an activity that the system performs as a result of some event or action by a user. 
 
-**3. What are the two techniques used to identify use cases?** 
+## **3. What are the two techniques used to identify use cases?** 
 User goal technique and the event decomposition technique 
 
-**4. Describe the user goal technique for identifying use cases.** 
+## **4. Describe the user goal technique for identifying use cases.** 
 The user goal technique is done by interviewing a user (or user role) to see what their work "goals" or objectives are.  These are low level objectives to accomplish a piece of work or to complete a work procedure.  The system then must have use cases to support each user goal. 
 
-**5. What are some examples of users with different functional roles and at different operational levels?** 
+## **5. What are some examples of users with different functional roles and at different operational levels?** 
 Functional roles may be like department organization such as shipping, or sales, or accounting.  Different operational level may be like clerks, or middle management like supervisors, and then executives. 
 
-**6. What are some examples of use case names that correspond to your goals as a student going through the college registration process?** 
+## **6. What are some examples of use case names that correspond to your goals as a student going through the college registration process?** 
 Be sure to use the verb-noun naming convention. 
 Answers will vary: 
 
@@ -683,97 +680,97 @@ Answers will vary:
   * Register for a section of a course
   * Cancel a registration 
 
-**7. What is the overarching objective of asking users about their specific goals?** 
+## **7. What is the overarching objective of asking users about their specific goals?** 
 To discover and document every use case that the system must support. 
 
-**8. How many types of users can have the same user goals for using the system?** 
+## **8. How many types of users can have the same user goals for using the system?** 
 No real limit. Users from different departments can access the same use cases, e.g.  can have the same user goal for using the system. 
 
-**9. Describe the event decomposition technique for identifying use cases.** 
+## **9. Describe the event decomposition technique for identifying use cases.** 
 Look at all of the business processes that result in some type of business event.  The business events are triggers that require system processing, e.g. that require use cases. 
 
-**10. Why is the event decomposition technique considered more comprehensive than the user goal technique?** 
+## **10. Why is the event decomposition technique considered more comprehensive than the user goal technique?** 
 Event decomposition not only looks at user initiated events (the same as the user goal technique), but it also considers temporal events and state events.  Hence it is more comprehensive. 
 
-**11. What is an elementary business process (EBP)?** 
+## **11. What is an elementary business process (EBP)?** 
 An EBP is a fundamental business process that may input data and receive information, but upon completion of the EBP the system has finished processing and can enter a quiescent state ready for a new event. 
 
-**12. Explain how the event decomposition technique helps identify use cases at the right level of analysis.** 
+## **12. Explain how the event decomposition technique helps identify use cases at the right level of analysis.** 
 Since event decomposition depends on EBP, then it automatically arrives at the right level of analysis.  EBP, where the system has finished a complete transaction, is the same level that is required for a use case definition. 
 
-**13. What is an event?** 
+## **13. What is an event?** 
 Something that occurs at a specific time and place. It can be identified, and for purposes of systems analysis, the system must recognize it and capture some information from it or about it. 
 
-**14. What are the three types of events?** 
+## **14. What are the three types of events?** 
 
   * External event - usually from a user 
   * Temporal event - occurs at a point in time, or due to a time interval
   * State event a change of state or condition of some data within the system 
 
-**15. Define an external event and then give an example that applies to a checking account system.** 
+## **15. Define an external event and then give an example that applies to a checking account system.** 
 An external event is something that occurs external to the system, and is trigger by a user action.  An example might be that a user makes a direct deposit to his/her account. 
 
-**16. Define a temporal event and then give an example that applies to a checking account system.** 
+## **16. Define a temporal event and then give an example that applies to a checking account system.** 
 A temporal event is one that occurs at a point in time.  An example might be that at the end of the month interest (or monthly checking account fee) is calculated and credited to the account. 
 
-**17. What are system controls, and why are they not considered part of the users' functional requirements?** 
+## **17. What are system controls, and why are they not considered part of the users' functional requirements?** 
 System controls are safety procedures or mechanisms that protect the system and the data.  They are not part of the users' functional requirements because the users normally do not initiate nor activate these controls.  They must exist above and overriding the external events. These controls are not normally part of the users' work processes. 
 
-**18. What is the perfect technology assumption?** 
+## **18. What is the perfect technology assumption?** 
 It assumes that technology will work perfectly and that in the early stages of systems analysis we do not worry about such things as security, logging in, database backup, etc. Those issues are addressed after the initial functional requirements are determined. 
 
-**19. What are three examples of events that are system controls in a typical information system that should not be included as a use case because of the perfect technology assumption?** 
+## **19. What are three examples of events that are system controls in a typical information system that should not be included as a use case because of the perfect technology assumption?** 
 
   * Backing up a database 
   * User logging onto the system 
   * Restoring the database 
 
-**20. What are the four operations that make up the CRUD acronym?** 
+## **20. What are the four operations that make up the CRUD acronym?** 
 
   * C= Create 
   * R= Read or Report (output) 
   * U= Update 
   * D= Delete 
 
-**21. What is the main purpose of using the CRUD technique?** 
+## **21. What is the main purpose of using the CRUD technique?** 
 The CRUD technique is a good way to validate the use cases that have been identified using the user goal and event decomposition techniques.  It is a double check to make sure the list of use cases covers all of the processes against the database.  When it is used as the primary method to find use cases, the 
 use cases often do not track the business procedures very well. 
 
-**22. What is a brief use case description?** 
+## **22. What is a brief use case description?** 
 A one or two sentence description of the use case and what it accomplishes. 
 
-**23. What is UML?** 
+## **23. What is UML?** 
 UML stands for Unified Modeling Language, and it is the graphical modeling technique used to model object-oriented models.  It is the industry standard for OO modeling. 
 
-**24. What is the purpose of UML use case diagrams?** 
+## **24. What is the purpose of UML use case diagrams?** 
 Use case diagrams provide a graphical view of use cases and the actors that invoke those use cases.  They provide a nice overview of use cases. They can organize use cases together in meaningful ways. 
 
-**25. What is another name for "actor" in UML, and how is it represented on a use case diagram?** 
+## **25. What is another name for "actor" in UML, and how is it represented on a use case diagram?** 
 An actor is also an external agent. In a use case diagram it is represented as a stick figure. 
 
-**26. What is the automation boundary on a use case diagram, and how is it represented?** 
+## **26. What is the automation boundary on a use case diagram, and how is it represented?** 
 The automation boundary is the boundary between the automated system, i.e. the application, and the external world, including the actors.  It is represented by a rectangular boundary box. 
 
-**27. How many actors can be related to a use case on a use case diagram?** 
+## **27. How many actors can be related to a use case on a use case diagram?** 
 As many as necessary. All those that use that particular use case. 
 
-**28. Why might a systems analyst draw many different use case diagrams when reviewing use cases with end users?** 
+## **28. Why might a systems analyst draw many different use case diagrams when reviewing use cases with end users?** 
 An analyst will draw different use case diagrams to organize the use cases in different ways to illustrate different subsystems, or departments, or work associations. 
 
-**29. What is the «includes relationship between two use cases?** 
+## **29. What is the «includes relationship between two use cases?** 
 The \<\<includes\>\> relationship is where one use case effectively uses the services of another use case.  It is as though one use case were embedded within another use case. 
 
 
 ### Problems and Exercises 
 
-**1. Review the external event checklist in Figure 3-3 and then think about a university course registration system.**  What is an example of an event of each type in the checklist?  Name each event by using the guidelines for naming an external event. 
+## **1. Review the external event checklist in Figure 3-3 and then think about a university course registration system.**  What is an example of an event of each type in the checklist?  Name each event by using the guidelines for naming an external event. 
 
   * External agent wants something - Student registers for a section of a course
   * External agent wants some information - Student searches for a course 
   * Data changed and needs to be updated - Instructor assigned to teach a course section
   * Management wants some information - Show enrollments for all courses in a department 
 
-**2. Review the temporal event checklist in Figure 3-4. Would a student grade report be an internal or external output?**  Would a class list for the instructor be an internal or external output?  What are some other internal and external outputs for a course registration system?  Using the guidelines for naming temporal events, what would you name the events that trigger these outputs? 
+## **2. Review the temporal event checklist in Figure 3-4. Would a student grade report be an internal or external output?**  Would a class list for the instructor be an internal or external output?  What are some other internal and external outputs for a course registration system?  Using the guidelines for naming temporal events, what would you name the events that trigger these outputs? 
 
   * Grade report: External 
   * Class list: Internal 
@@ -781,14 +778,14 @@ The \<\<includes\>\> relationship is where one use case effectively uses the ser
   * Other internal: Enrollment report and paycheck 
     To name the temporal events, include Time to produce with the output name, as well as the recipient.  For example, Time to produce grade report for students. Others are similar. 
 
-**3. Consider the following sequence of actions taken by a customer at a bank.**  Which action is the event the analyst should define for a bank account transaction-processing system?  (1) Kevin gets a check from Grandma for his birthday. (2) Kevin wants a car.  (3) Kevin decides to save his money. (4) Kevin goes to the bank. (5) Kevin waits in line.  (6) Kevin makes a deposit in his  savings account. (7) Kevin grabs the deposit receipt. (8) Kevin asks for a brochure on auto loans. 
+## **3. Consider the following sequence of actions taken by a customer at a bank.**  Which action is the event the analyst should define for a bank account transaction-processing system?  (1) Kevin gets a check from Grandma for his birthday. (2) Kevin wants a car.  (3) Kevin decides to save his money. (4) Kevin goes to the bank. (5) Kevin waits in line.  (6) Kevin makes a deposit in his  savings account. (7) Kevin grabs the deposit receipt. (8) Kevin asks for a brochure on auto loans. 
 The event for the bank is Customer makes a deposit.  Grabbing the receipt is just the way the response (receipt) is implemented.  Asking for a brochure on auto loans might be a separate event if the bank wants to remember that Kevin asked about it, or if they want to deduct one brochure in their brochure inventory system (if they have such a thing).  If the bank does not need to remember the event, then doing something by the system is not "required." 
 
-**4. Consider the perfect technology assumption, which states that use cases should be included during analysis only if the system would be required to respond under perfect conditions.**  Could any of the use cases listed for the RMO CSMS be eliminated based on this assumption? Explain.  Why are such use cases as Log on to the system and Back up the database required only under imperfect conditions? 
+## **4. Consider the perfect technology assumption, which states that use cases should be included during analysis only if the system would be required to respond under perfect conditions.**  Could any of the use cases listed for the RMO CSMS be eliminated based on this assumption? Explain.  Why are such use cases as Log on to the system and Back up the database required only under imperfect conditions? 
 All of the events listed must be included because the system must do something each time one 
 of the events occurs even if there is perfect technology.  User logs on to system and Time to back up the data are only required because users are not perfectly honest, and disk drives are prone to crash or corrupt data. 
 
-**5. Visit some Web sites of car manufacturers, such as Honda, BMW, Toyota, and Acura.**  Many of these sites have a use case that is typically named Build and price a car.  As a potential customer, you can select a car model, select features and options, and get the car's suggested price and list of specifications.  Write a brief use case description for this use case (see Figure 3-10). 
+## **5. Visit some Web sites of car manufacturers, such as Honda, BMW, Toyota, and Acura.**  Many of these sites have a use case that is typically named Build and price a car.  As a potential customer, you can select a car model, select features and options, and get the car's suggested price and list of specifications.  Write a brief use case description for this use case (see Figure 3-10). 
 
 | Use case name: | Brief Description: |
 |---|---|
@@ -796,7 +793,7 @@ of the events occurs even if there is perfect technology.  User logs on to syste
 
 
 
-**6. Again looking at a Web site for one of the car manufacturers, consider yourself a potential buyer and then identify all the use cases included on the site that correspond to your goals.** 
+## **6. Again looking at a Web site for one of the car manufacturers, consider yourself a potential buyer and then identify all the use cases included on the site that correspond to your goals.** 
 Answers will vary: 
 
   * View available models 
@@ -807,7 +804,7 @@ Answers will vary:
   * Find a dealer 
   * Get a quote on specific model 
 
-**7. Set up a meeting with a librarian. During your meeting, ask the librarian to describe the situations that come up in the library to which the book checkout system needs to respond.**  List these external events. Now ask about points in time, or deadlines, that require the system to produce a statement, notice, report, or other output.  List these temporal events. Does it seem natural for the librarian to describe the system in this way?  List each event and then name the resulting use case. 
+## **7. Set up a meeting with a librarian. During your meeting, ask the librarian to describe the situations that come up in the library to which the book checkout system needs to respond.**  List these external events. Now ask about points in time, or deadlines, that require the system to produce a statement, notice, report, or other output.  List these temporal events. Does it seem natural for the librarian to describe the system in this way?  List each event and then name the resulting use case. 
 Answers will vary. 
 External events might include 
 
@@ -819,7 +816,7 @@ External events might include
   * End of month → Time to produce monthly summary reports 
   * Book has not returned in a year → Time to declare book is lost 
 
-**8. Again considering the library, ask some students what their goals are in using the library system.**  Also ask some library employees about their goals in using the system.  Name these goals as use cases (verb-noun) and discuss whether student users have different goals than employee users. 
+## **8. Again considering the library, ask some students what their goals are in using the library system.**  Also ask some library employees about their goals in using the system.  Name these goals as use cases (verb-noun) and discuss whether student users have different goals than employee users. 
 Answers will vary: 
 Students may have goals of: 
 
@@ -836,13 +833,13 @@ Students may have goals of:
   * Remove a book from library
   * Update book information 
 
-**9. Visit a restaurant or the college food service to talk to a server (or talk with a friend who is a food server).**  Ask about the external events and temporal events, as you did in exercise 7. What are the events and resulting use cases for order processing at a restaurant? 
+## **9. Visit a restaurant or the college food service to talk to a server (or talk with a friend who is a food server).**  Ask about the external events and temporal events, as you did in exercise 7. What are the events and resulting use cases for order processing at a restaurant? 
 Answers will vary. External events might include Customer places order, Customer changes order, Kitchen returns completed order, Customer pays bill, and so on.  Temporal events might include Time to produce daily order totals report, Time to produce weekly sales analysis reports, and so on. 
 
-**10. Review the procedures for course registration at your university and then talk with the staff in advising, in registration, and in your major department.**  Think about the sequence that goes on over an entire semester. What are the events that students trigger?  What are the events that your own department triggers? What are the temporal events that result in information going to students?  What are the temporal events that result in information going to instructors or departments?  List all the events and the resulting use cases that should be included in the system. 
+## **10. Review the procedures for course registration at your university and then talk with the staff in advising, in registration, and in your major department.**  Think about the sequence that goes on over an entire semester. What are the events that students trigger?  What are the events that your own department triggers? What are the temporal events that result in information going to students?  What are the temporal events that result in information going to instructors or departments?  List all the events and the resulting use cases that should be included in the system. 
 Answers will vary. Events might include Department schedules a class, Student enrolls in a class, Student changes schedule, Student drops a class, Instructor submits final grades, Time to generate grade report for students, Time to produce enrollment totals report for administration, and Time to produce class lists for faculty.  Note that the event names should indicate information about the external agent or actor involved.  Temporal events make the most sense if Time to is used at the beginning of the event name. 
 
-**11. Refer to the RMO CSMS Order Fulfillment subsystem shown in Figure 3-11.**  Draw a use case diagram that shows all actors and all use cases.  Use a drawing tool such as Microsoft Visio if it is available. 
+## **11. Refer to the RMO CSMS Order Fulfillment subsystem shown in Figure 3-11.**  Draw a use case diagram that shows all actors and all use cases.  Use a drawing tool such as Microsoft Visio if it is available. 
 
   * Shipping 
   * Track shipment 
@@ -858,7 +855,7 @@ Answers will vary. Events might include Department schedules a class, Student en
   * Look up order status 
   * Review suggestion 
 
-**12. Again for the Order Fulfillment subsystem, draw a use case diagram showing just the use cases for the shipping department in preparation for a meeting with them about the system requirements.**  Use a drawing tool such as Microsoft Visio if it is available. 
+## **12. Again for the Order Fulfillment subsystem, draw a use case diagram showing just the use cases for the shipping department in preparation for a meeting with them about the system requirements.**  Use a drawing tool such as Microsoft Visio if it is available. 
 
   * Track shipment 
   * Ship items 
@@ -870,7 +867,7 @@ Answers will vary. Events might include Department schedules a class, Student en
   * Look up order 
   * status 
 
-**13. Refer to the RMO CSMS Marketing subsystem shown in Figure 3-11.**  Draw a use case diagram that shows all actors and all use cases.  Use a drawing tool such as Microsoft Visio if it is available. 
+## **13. Refer to the RMO CSMS Marketing subsystem shown in Figure 3-11.**  Draw a use case diagram that shows all actors and all use cases.  Use a drawing tool such as Microsoft Visio if it is available. 
 
   * Add/update product information 
   * Marketing 
@@ -880,7 +877,7 @@ Answers will vary. Events might include Department schedules a class, Student en
   * Add/update business partner link 
 
 
-**14. Refer to the RMO CSMS Reporting subsystem shown in Figure 3-11.**  These reports were identified by asking users about temporal events, meaning points in time that require the system to produce information of value.  In most actual systems today, an actor is assigned responsibility for producing the reports or other outputs when they are due.  Recall that the actor is part of the system-the manual, non-automated part.  Thus, this is one way the "system" can be responsible for producing an output at a point in time.  In the future, more outputs will be produced automatically. Draw a use case diagram that shows the use cases and actors, as shown in Figure 3-11.  Use a drawing tool such as Microsoft Visio if it is available. 
+## **14. Refer to the RMO CSMS Reporting subsystem shown in Figure 3-11.**  These reports were identified by asking users about temporal events, meaning points in time that require the system to produce information of value.  In most actual systems today, an actor is assigned responsibility for producing the reports or other outputs when they are due.  Recall that the actor is part of the system-the manual, non-automated part.  Thus, this is one way the "system" can be responsible for producing an output at a point in time.  In the future, more outputs will be produced automatically. Draw a use case diagram that shows the use cases and actors, as shown in Figure 3-11.  Use a drawing tool such as Microsoft Visio if it is available. 
 
   * Management 
   * Produce daily 
@@ -900,7 +897,7 @@ Answers will vary. Events might include Department schedules a class, Student en
 
 ### Case Study: The State Patrol Ticket-Processing System 
 
-**1. To what events must the ticket-processing system respond? List each event, the type of event, and the resulting use case.** 
+## **1. To what events must the ticket-processing system respond? List each event, the type of event, and the resulting use case.** 
 
 | Event | Type | Use case |
 |---|---|---|
@@ -912,7 +909,7 @@ Answers will vary. Events might include Department schedules a class, Student en
 
 
 
-**2. Write a brief use case description for each use case.** 
+## **2. Write a brief use case description for each use case.** 
 
 | Use case | Description |
 |---|---|
@@ -923,7 +920,7 @@ Answers will vary. Events might include Department schedules a class, Student en
 | Produce warrant request | After two weeks, the system produces a warrant request to be sent to the court. |
 
 
-**3. The portion of the database used with the ticket-processing system involves driver data, ticket data, officer data, and court data.**  Driver data, officer data, and court data are read by the system, and the ticket-processing system creates and updates ticket data.  In an integrated system like the ticket-processing system, some domain classes are created by and updated by other systems, as described in this case.  Create a table with systems down the rows and the four types of data (domain classes) across the columns.  Indicate C, R, U, or D for each domain class and each system. 
+## **3. The portion of the database used with the ticket-processing system involves driver data, ticket data, officer data, and court data.**  Driver data, officer data, and court data are read by the system, and the ticket-processing system creates and updates ticket data.  In an integrated system like the ticket-processing system, some domain classes are created by and updated by other systems, as described in this case.  Create a table with systems down the rows and the four types of data (domain classes) across the columns.  Indicate C, R, U, or D for each domain class and each system. 
 
 | Use Case/Class | Driver | Ticket | Officer | Court |
 |---|---|---|---|---|
@@ -934,7 +931,7 @@ Answers will vary. Events might include Department schedules a class, Student en
 
 ### Running Cases: Community Board of Realtors 
 
-**1. To what events must the MLS system respond? List each event, the type of event, and the resulting use case.**  Be sure to consider all the use cases that would be needed to maintain the data in the MLS system, thinking in terms of the CRUD technique. 
+## **1. To what events must the MLS system respond? List each event, the type of event, and the resulting use case.**  Be sure to consider all the use cases that would be needed to maintain the data in the MLS system, thinking in terms of the CRUD technique. 
 
 | Event | Type | Use case |
 |---|---|---|
@@ -951,7 +948,7 @@ Answers will vary. Events might include Department schedules a class, Student en
 | Agent retires/quits (from CRUD) | External | Delete real estate agent |
 
 
-**2. Draw a use case diagram based on the actors and use cases you identified in question 1.** 
+## **2. Draw a use case diagram based on the actors and use cases you identified in question 1.** 
 
   * Real estate Office 
   * Add new listing 
@@ -969,7 +966,7 @@ Answers will vary. Events might include Department schedules a class, Student en
   * Delete real estate office 
     3-15 
 
-**3. Given the information available in the system, consider yourself a potential customer looking for real estate.**  List as many specific use cases you would like to see based on your specific goals. 
+## **3. Given the information available in the system, consider yourself a potential customer looking for real estate.**  List as many specific use cases you would like to see based on your specific goals. 
 Answers will vary. 
 
   * Find real estate agent 
@@ -979,7 +976,7 @@ Answers will vary.
   * Request a property visit 
   * Send a message to real estate agent 
 
-**4. Draw a use case diagram for all the use cases for the potential customer you identified in question 3.** 
+## **4. Draw a use case diagram for all the use cases for the potential customer you identified in question 3.** 
 
   * Buyer 
   * Find real estate agent 
@@ -991,7 +988,7 @@ Answers will vary.
 
 ### Running Cases: The Spring Breaks 'R' Us Travel Service 
 
-**1. Using the event decomposition technique for each event you identify in the description here, name the event, state the type of event, and name the resulting use case.**  Draw a use case diagram for these use cases. 
+## **1. Using the event decomposition technique for each event you identify in the description here, name the event, state the type of event, and name the resulting use case.**  Draw a use case diagram for these use cases. 
 
 | Event (Booking subsystem) | Type | Use Case |
 |---|---|---|
@@ -1006,7 +1003,7 @@ Answers will vary.
 
 
 
-**2. Consider the new Social Networking subsystem that SBRU is researching.**  Think in terms of the user goal technique to identify as many use cases as you can think of that you would like to have in the system.  SBRU is guessing you might want to join, send messages, and so forth, but there must be many interesting and useful things the system could do before, during, and after the trip.  Draw a use case diagram for these use cases. 
+## **2. Consider the new Social Networking subsystem that SBRU is researching.**  Think in terms of the user goal technique to identify as many use cases as you can think of that you would like to have in the system.  SBRU is guessing you might want to join, send messages, and so forth, but there must be many interesting and useful things the system could do before, during, and after the trip.  Draw a use case diagram for these use cases. 
 Answers will vary. A few possibilities 
 
   * Create an individual account (join)
@@ -1040,14 +1037,14 @@ Answers will vary. A few possibilities
 
 ### Running Cases: On the Spot Courier Services 
 
-**1. From this description as well as the information from Chapter 2, identify all the actors that will be using the system.** 
+## **1. From this description as well as the information from Chapter 2, identify all the actors that will be using the system.** 
 
   * Bill Wiley (owner and manager) 
   * Delivery person 
   * Warehouse person 
   * Customer 
 
-**2. Using the actors that you identified in question 1, develop a list of use cases based on the user goal technique.**  Draw a use case diagram for these use cases. 
+## **2. Using the actors that you identified in question 1, develop a list of use cases based on the user goal technique.**  Draw a use case diagram for these use cases. 
 Note: This list is based on the use case descriptions so far.  See Chapter 9 for a more complete list of use cases based on narratives and CRUD analysis. 
 
   * Bill Wiley 
@@ -1103,13 +1100,13 @@ It is interesting in this case the event decomposition yielded fewer use cases. 
 
 ### Running Cases: Sandia Medical Devices 
 
-**1. Identify all the actors that will use RTGM.** 
+## **1. Identify all the actors that will use RTGM.** 
 
   * Patient 
   * Health-care provider (Physician) 
   * Nurse (physician assistant) 
 
-**2. Using the actors that you identified in question 1, develop a list of use cases based on the user goal technique.**  Draw a use case diagram for these use cases. 
+## **2. Using the actors that you identified in question 1, develop a list of use cases based on the user goal technique.**  Draw a use case diagram for these use cases. 
 
   * Patient: 
   * View current data 
@@ -1134,7 +1131,7 @@ It is interesting in this case the event decomposition yielded fewer use cases. 
   * Physician 
 
 
-**3. Using the event decomposition technique for each event you identified in the description, name the event, state the type of event, and name the resulting use case.**  Draw a use case diagram for these use cases. 
+## **3. Using the event decomposition technique for each event you identified in the description, name the event, state the type of event, and name the resulting use case.**  Draw a use case diagram for these use cases. 
 
 | Event | Type | Use Case |
 |---|---|---|
