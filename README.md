@@ -4068,6 +4068,265 @@ The following table:
 
 Primary keys. Foreign Keys. All tables are in 3NF. (Correctly built class diagrams always result in tables in 3NF.)
 
+
+# Data flow diagrams
+
+A Data Flow Diagram (DFD) is a graphical technique used by systems analysts to show how data moves through an information system. I.e. from Input to the resulting output or useful information.
+
+Take note: A set of DFDs provides a logical model that shows what the system does, not how it does it
+
+DFD use four basic symbols representing:
+* Processes
+* data flows
+* data stores and
+* External entity.
+
+(Refer to Gane and Sarson symbols in your prescribed text book)
+
+Below is a brief of what each symbol in DFD represents;
+
+**Process** - A process represents an activity or a function that is performed for some specific reason. It can be manual or computerized but ultimately each process should perform only one activity. 
+
+Processes can vary from simple to complex. A process receives input data and produces output. The output has different content or/and form. The process contains business logic also called business rules that act on the inputs to convert them into output. 
+
+The name of the process appears inside the tringle. The process name identifies a specific function and consist of a verb (and an adjective, if necessary) followed by a singular noun. Examples include: CALCULATE STUDENT DP, VERIFY ORDER, and VERIFY CUSTOMER DETAILS.
+
+Processing details are never shown on a DFD. The document logic is documented in a process description NOT revealed in the process symbol.
+
+The following terms are commonly applied to processes:
+* **Black box** - it's a metaphor for a process or action that produces results in a non-transparent or non-observable manner. A process symbols is referred to as a black box. The inputs, outputs and general function of the process is known whereas the underlying details and logic of the processes are hidden.
+* **Spontaneous generation** - refers to a process in a data flow diagram that has no inputs. (Note this is not desirable when you construct a DFD. A process must have inputs and outputs)
+* **Black hole** - it's a process that has input but has no output. (Note this is not desirable when you construct a DFD. A process must have inputs and outputs)
+* **Grey hole** - it's a process that has at least one input and one output, but the input is insufficient to generate the output shown. (Note this is not desirable when you construct a DFD. Inputs should provide sufficient data to yield outputs)
+
+**Data Flow**
+A data flow is a flow of a piece of data moving from one part of system to another. It may represent a single data item or a set of data items. 
+The data flow does not show the detailed content. The details are included in the data dictionary. 
+The data flow name consists of a singular noun and an adjective if needed. Example include: DEPOSIT, INVENTORY, STUDENT GRADE, CUSTOMERS. 
+A dataflow name may appear below, above or a alongside the line that represent data flow item. A dataflow must at least have a process symbol on at least one end.
+
+**Data Store** - a data store represents collection of data that the system stores and may be used later by one or more processes. 
+The DFD does not show detailed contents of the data store, they are defined in the data dictionary. 
+The name of the data store appears between the lines of the symbol. 
+A data store name is always in Plural consisting of a noun with or without an adjective. Example: STUDENTS, PURCHASE REQUISITIONS, PRODUCTS. 
+A data store must be connected to a process with a data flow. A data store must have at least one incoming and one outgoing data flow.
+
+**External Entity** - an external entity may be a person, organization, or system that is external to the system but interacts with it and may provide data (input) to the system or may receive information (output) from the system. 
+Entities are also called Terminators because they are either origin of data or final destination. 
+An entity that supply data to the system may be called a source. An entity that receive data from the system may be referred to as a sink. 
+An entity name should be singular. Each entity must be connected to a process by data flow.
+
+**Context Diagram**
+A context diagram represents the first step in constructing a set of DFD's for the system. It represents the highest-level overview of an information system that shows the system's boundaries and scope. It represents the system with a single process and then shows the external agents with Which the system interacts. 
+
+Data flows are used to link the external entities with the process. Data stores are not part of the context diagram because they are contained within the system and remain hidden until more detailed diagrams are created. 
+
+A context diagram is often assigned the name of the system and does not start with a verb as do other processes. By creating the context diagram first, the system analyst focuses on the outward communications and exchanges and later the inward communications and exchanges. 
+
+After the context diagram is created the process is exploded to the next level to show the major processes in the system. Depending upon the complexity of the system, each of these processes can also be exploded into their own process model. The process of explosion continues until the goal of each process accomplishing a single function is reached. 
+
+Because the context diagram is the highest level, the process in context diagram is designated Process 0 (zero).
+
+**Diagram 0 (Zero)**
+In order to show the details inside the context diagram (process zero), a DFD diagram 0 (zero) is created. Diagram 0 is the DFD one level below the context diagram. Diagram zero shows major processes, data flows, data stores hidden in the process zero of the context diagram. 
+
+When the context diagram is expanded, it's important to retain all the connections that flow into and out of process 0. Depending on the system, diagram zero is expanded/exploded further to lower levels to reveal more processes, data stores and data flows. This expansion goes on until a state is reached whereby a process consists of a single function that may not be exploded further. 
+
+A process that consists of a single function is called a Primitive process. When a DFD is exploded to a lower level, the higher-level diagram is referred to as the parent diagram and the lower level diagram is referred to as the child diagram. In order to accurately create lower level DFD, levelling and balancing techniques are used. 
+
+(Refer to your prescribed book chapter 5 for detailed illustration on how to move from context diagram to diagram 0 and beyond)
+
+**LEVELING**
+It's the process of drawing a series of increasingly detailed DFD until all primitive processes are identified. Other terms used for levelling are: exploding, portioning, or decomposition. The process begins with constructing a context diagram, followed by diagram 0 (zero). This is followed by creating lower level DFDs. 
+Also, note the numbering of processes in the lower DFD with reference to the parent process in the higher DFD.
+
+(Refer to chap 5 in your prescribed book for detailed illustrations)
+
+**BALANCING**
+It's the process that aims at maintaining consistency among set of DFD by ensuring that the total inputs and outputs of the parent DFD are maintained on the child DFD (refer page 194-196 prescribed book for illustrations)
+
+**Some basic guidelines for drawing DFD**
+1. A process must have both data inflows and outflows. Name of the process appears inside the rectangle. Process name identifies a specific function and consist of a verb (and an adjective, if necessary) followed by singular noun. Examples. STUDENT
+2. All data flows must be labeled with the precise data that is being exchanged.
+3. Each Process must have a unique name and a reference number. Names should start with a verb and end with a descriptive noun with exceptional of a context diagram.
+4. Data flows are named as descriptive nouns.
+5. A data store must have at least one data inflow.
+6. A data flow cannot go between an external entity and a data store, but a process must be in between.
+7. Data flow lines must never cross
+
+
+# Normalization
+
+Normalization is a process in which we systematically examine relations between tables for anomalies and, when detected, remove those anomalies by splitting up the relation into two or more new, related tables.
+
+To help us properly design tables we have a set of guidelines which, if followed properly, will help reduce the redundancy and chance of data corruption. We call this "Normalization".
+
+The normalization process involves three stages, namely: first normal form (1NF), second normal form (2NF), and third normal form (3NF). The Three normal forms are constructed in progression, and the 3NF represents the best design.
+
+Tables that have reached the 3NF are considered as "normalized".
+
+Normalization is used for mainly two purposes:
+* Eliminating redundant (repeated or useless) data.
+* Ensuring data dependencies make sense i.e. data is logically stored.
+
+### Problem without Normalization
+
+Without Normalization, it becomes difficult to handle and update databases without facing loss of data. And hence anomalies would result.
+
+**Example of Problem without Normalization:**
+To understand these anomalies let us take an example of a Student table below with four fields. Assume Student_id is the primary key.
+
+| Student_id | Student_Name | Student_Address | Subject |
+| :--- | :--- | :--- | :--- |
+| 401 | Adam | Silver Town | Bio |
+| 402 | Boko | Mpekweni | Maths |
+| 403 | Sipho | kimberly | Maths |
+| 401 | Adam | SilverTown | Physics |
+
+The table contains a repeated set of fields on student 401:
+
+| | | | |
+| :--- | :--- | :--- | :--- |
+| 401 | Adam | Silver Town | Bio |
+| 401 | Adam | Silver Town | Physics |
+
+This will essentially result into the following practical anomalies:
+* **Update Anomaly:** To update the address of a student e.g., Adam who occurs twice in a table, we will have to update the `S_Address` column in all the rows, else data will become inconsistent.
+* **Insertion Anomaly:** Suppose for a new admission, we have a Student id, name and address of that student but if the student has not opted for any subjects yet then we have to insert NULL/BLANK there, leading to Insertion Anomaly.
+* **Deletion Anomaly:** If (Student_id) 402 has only one subject and temporarily he drops it, when we delete that row, the entire student record will be deleted along with it.
+
+So in order to avoid these problems we carry out the Normalization procedure.
+
+---
+
+### First Normal Form (1NF)
+
+A table is in first normal form (1NF) if it does not contain repeating groups. This means each row of data must have a unique identifier. In order to achieve this, the normalized design is expanded to include a primary key.
+
+For example consider a student table below which is in un-normalized form:
+
+**Student Table:**
+
+| Student_id | Student_Name | Subject_ID | Subject |
+| :--- | :--- | :--- | :--- |
+| 401 | Adam | 101 | Biology |
+| 401 | Adam | 121 | Physics |
+| 402 | Boko | 131 | Maths |
+| 403 | Sipho | 131 | Maths |
+
+You can clearly see here that student id and corresponding student name Adam are used twice in the table and subject maths with corresponding subject id 131 is repeated as well. These constitute repeating groups and hence violates the First Normal form. 
+
+To reduce the above table to First Normal form, break the table into two different tables: Student table and Subject table.
+
+**Student Table:**
+| Student_id | S_Name |
+| :--- | :--- |
+| 401 | Adam |
+| 402 | Boko |
+| 403 | Sipho |
+
+**Subject Table:**
+| Subject_ID | Subject |
+| :--- | :--- |
+| 101 | Biology |
+| 121 | Physics |
+| 131 | Maths |
+
+Now both the Student table and Subject table are normalized to first normal form because they do not have repeating groups of data.
+
+---
+
+### Second Normal Form (2NF)
+
+A table to be in Second Normal Form (2NF) should meet all the requirements of First Normal Form (1NF). In addition, all other fields which are not part of the primary key must be functionally dependent on the entire key. Implying that there must not be any partial dependency of any field on the primary key. 
+
+It means that for a table that has a combination of fields as the primary key, each of the other fields in the table that is not part of the primary key must depend upon the entire combined primary key for its existence. If there is at least one field that depends only on one part of the combined primary key, then the table fails 2NF.
+
+For example, consider the Customer table below:
+
+**Customer Table:**
+
+| Cust_id | Cust_Name | Order_id | Order_Name | Sale_Detail |
+| :--- | :--- | :--- | :--- | :--- |
+| 101 | Adam | 10 | Order1 | Sale1 |
+| 101 | Adam | 11 | Order2 | Sale2 |
+| 102 | Boko | 12 | Order3 | Sale3 |
+| 103 | Sipho | 13 | Order4 | Sale4 |
+
+In the Customer table above, if a combination of `Cust_id` and `Order_id` is made the primary key, then there are no repeating groups and hence this table is in 1NF.
+`CUSTOMER (Cust_id, Order_id, Cust_Name, Order_Name, sale_Detail)`
+
+However, there are partial dependencies of fields on the primary key. `Customer_Name` is only dependent on `customer_id`, likewise `Order_name` is dependent on only `Order_id`. Only `sale_detail` depends on the primary key (both `Customer_Id` and `Order_Id`) of table CUSTOMER.
+
+To reduce the Customer table to Second Normal form break the table into the following three different tables in order to remove the partial dependencies:
+
+**Customer Table:**
+| Customer_id | Customer_Name |
+| :--- | :--- |
+| 101 | Adam |
+| 102 | Boko |
+| 103 | Sipho |
+
+Here `customer_id` is the primary key.
+`CUSTOMER(Customer_id, Cust_Name)`
+
+**Order Table:**
+| Order_id | Order_name |
+| :--- | :--- |
+| 10 | Order1 |
+| 11 | Order2 |
+| 12 | Order3 |
+| 13 | Order4 |
+
+Here the `order_id` is the primary key.
+`ORDER (Order_id, Order_Name)`
+
+**Sale Detail Table:**
+| Order_ID | Customer_ID | Sale_detail |
+| :--- | :--- | :--- |
+| 10 | 101 | Sale1 |
+| 11 | 101 | Sale2 |
+| 12 | 102 | Sale3 |
+| 13 | 103 | Sale4 |
+
+In the `sale_detail` table, the primary key is a combination of `Order_Id` and `Customer_ID`. Also note each component of the primary key is a foreign key as well in this table.
+`SALE-DETAIL (Order_id, Customer_id, Sale_detail)`
+
+Now all these three tables comply with Second Normal form.
+
+---
+
+### Third Normal Form (3NF)
+
+Third Normal form stipulates that every non-key field of a table must be dependent on the primary key. The table must be in Second Normal form. Hence in First Normal Form as well. The 3NF design removes the redundancy and data integrity problems that may still exist in the 2NF.
+
+Consider the Student_Detail table with following fields: Student id, student name, date of birth (DOB), street, city and postal code. I will present the field names in short form.
+
+**Student_Detail Table:**
+
+| ID | Name | DOB | Street | City | Province | Pcode |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| R145 | Jack | 30011998 | Ibhayi | PE | EC | 6001 |
+| R155 | Amanda | 15081996 | Vincent | JHB | GP | 2019 |
+| R4235 | Sipho | 12051999 | Phola | Hazy view | MP | 1240 |
+
+`STUDENT (Stu_id, stu_name, DOB, Street, City, Province, Postal_code)`
+
+In this table `Stu_id` is the Primary key. However, in a real sense, Street, city and Province depend upon `Postal_code` not necessarily on the `Stu_id` which is the primary key. This may cause data integrity problems. So the table is not in 3NF.
+
+In order to apply 3NF, we need to move the street, city and province to a new table (ADDRESS), with Postal code as primary key.
+
+**Address Table:**
+`ADDRESS(Postal_code, Street, City, Province)`
+
+**Student Table:**
+`STUDENT(Stu_id, stu_name, DOB, Postal_code)`
+
+The database design is now in 3NF. In this way the amount of data duplication is reduced and data integrity is achieved. 
+
+*Note: `Postal_code` is a foreign key in table STUDENT. It links the student table data to the address table details.*
+
+
 **Part 2.**
 Based on what you learned in this chapter about databases, controls, and system security, review your answers to the questions for this case in Chapter 6. Assume that the patient's cell phone and the centralized servers are different nodes in a replicated database architecture and are regularly synchronized. What changes, if any, should be made to your answers now that you have a deeper understanding of databases, controls, security, and related design issues?
 
