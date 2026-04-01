@@ -1159,9 +1159,838 @@ Note: Physician activity and patient activity may be quite different, hence we h
   * Physician 
 
   
-# Chapter 4 - Domain Modeling
+# Chapter 4 – Domain Modeling 
+
+### Review Questions 
+
+## **1. What are the two key concepts—one from Chapter 3 and one from this chapter—that define functional requirements?** 
+Use cases and Problem domain model (objects) 
+
+## **2. What is the problem domain?** 
+The area of the user's business need.  It is called “problem” because there is a need or something to be fixed. 
+It is the domain, or the area of the business. 
+
+## **3. What is a “thing” called in models used by traditional analysts and database analysts?** 
+Data entity 
+
+## **4. What is a “thing” called in newer approaches that use UML?** 
+Object or object class 
+
+## **5. What are two techniques for identifying things in the problem domain?** 
+The Brainstorming technique and the Noun technique 
+
+## **6. What are some examples of tangible things in the problem domain of a restaurant?** 
+Meal, food item, menu... 
+
+## **7. What are some sites or locations in the problem domain of a restaurant?** 
+Restaurant location (for a chain), 
+
+## **8. What are some roles played by people in the problem domain of a restaurant?** 
+Customer, cook, waiter, supplier 
+
+## **9. What are the main steps of the brainstorming technique?** 
+1. Identify a group of users and their related use cases. 
+2. Brainstorm with this group about all the things they need to keep track of with these use cases. 
+3. Expand the list of things by asking related questions about locations, roles, etc. 
+4. Return to step 1 with different groups of users. 
+5. Combine and merge, eliminating duplicates. 
+
+## **10. Explain why identifying nouns helps identify things in the problem domain?** 
+Nouns are always “things.”  So finding all the nouns will find all the things (and more, so it needs to be refined). 
+
+## **11. What are the main steps of the noun technique?** 
+1. Using use cases, dialogs, conversations, etc. list all the nouns. 
+2. Using information from existing systems, etc. list all the nouns. 
+3. Refine the list by asking 3 questions for each noun – Include it?  Exclude it?  Research it more? 
+4. Create a master list out of step 3. 
+5. Review the list with users, stakeholders, and other team members. 
+
+## **12. What is an attribute, an identifier or key, and a compound attribute?** 
+An attribute is a a descriptor of a data entity (Object).  For example a Customer (object) has a name (attribute). 
+So although attributes are also nouns, they are descriptor or qualifier nouns. 
+An identifier or key is an attribute that can uniquely identify a particular object. 
+A compound attribute is an attribute consists of “sub-attributes” or components, like address consists of street, city, state, postal code. 
+
+## **13. What is an association, and what system development standard defines it?** 
+An association is a relationship between things in the problem domain.  It is the term used by UML. 
+
+## **14. How would you describe or name the association between a ship and a captain?** 
+A captain is in charge of a ship.  or A captain directs a ship. 
+
+## **15. What is the term used for association by traditional analysts and database analysts?** 
+It is called a relationship. 
+
+## **16. What is multiplicity, and what is the other term used by traditional analysts and database analysts?** 
+It is a measure of the number of links in an association between an object in one class and the objects in another class. 
+In traditional analysis it is called cardinality. 
+
+## **17. What is the minimum multiplicity for the association that reads a customer places zero or more orders?** 
+Zero 
+
+## **18. What is the maximum multiplicity for the association that reads an order is placed by exactly one customer?** 
+One 
+
+## **19. What are some examples of multiplicity constraints?** 
+Customer places one or more orders. 
+Customer has only one account. 
+Order is place by only one customer. 
+
+## **20. What are the three types of associations, and which is the most commonly used?** 
+Binary, unary, ternary.  Binary is most common. 
+
+## **21. What are the three key parts of an entity relationship diagram (ERD)?** 
+Data entities, relationships, and cardinality constraints. 
+
+## **22. Sketch a simple ERD that shows a team has zero or more players and each player is on one and only one team.** 
+
+
+## **23. Sketch a semantic net that shows two teams and five players based on your ERD.** 
+
+
+## **24. What is a class, a domain class, and the key parts of a class diagram?** 
+A class is a set of objects that are similar in nature had have the same “classification.” 
+A domain class is a class in the problem domain. 
+A class diagram has classes with attributes, associations, and multiplicity constraints. 
+
+## **25. What does a domain model class diagram show about system requirements, and how is it different from an ERD?** 
+A domain model shows the classes, i.e. the things, and their relationships and constraints. 
+These are the specific system requirements that must be built into the database. 
+The problem domain classes are the classes from the domain and are “persistent”, e.g.  they must be stored in a database. 
+An ERD has different notation than a domain model.  An ERD is not as powerful as a domain model to model specific real world conditions. 
+
+## **26. List appropriate UML class names by using the camelback notation for the following classes: graduate student, undergraduate major, course instructor, and final exam feedback.** 
+GraduateStudent 
+UndergraduateMajor 
+CourseInstructor 
+FinalExamFeedback 
+
+## **27. List appropriate UML attribute names for the following attributes: student name, course grade, major name, and final exam quantity score.** 
+studentName 
+courseGrade 
+majorName 
+finalExamQuantityScore 
+
+## **28. Draw a simple domain model class diagram for the example in question #22 where a team has zero or more players and each player is on one and only one team.** 
+
+
+## **29. What is an association class? Extend the domain model class diagram for teams and players about to show a record of game statistics for each player in each game.** 
+An association class is an association that needs to also be treated as a class. 
+It is an association that requires attributes just like any class. 
+
+
+## **30. In UML, what are three types of relationships found on a class diagram?** 
+Regular association, Generalization/Specialization, Whole-part 
+
+## **31. What is a generalization/specialization relationship, and what object-oriented terms does it illustrate?** 
+A generalization/specialization is a hierarchical relationship between classes, where some classes are subsets (e.g. subclasses) of other classes. 
+
+## **32. Compare/contrast superclass and subclass. Compare/contrasts abstract class and concrete class.** 
+A superclass is higher in the relationship hierarchy and is a superset. 
+A subclass is lower and is a subset of the superset. 
+An abstract class is a class with no objects allowed. 
+It serves only as a template for attributes so that subclasses, which are concrete classes, will have objects with inherited attributes. 
+
+## **33. What is a whole-part relationship, and why does it show multiplicity?** 
+A whole-part relationship in which a class is part of another class. 
+It can have multiplicity constraints that allow multiple part-classes to belong to a single whole class. 
+
+## **34. Compare/contrast aggregation with composition for a whole part relationship.** 
+Aggregation is where the “part” objects may exist outside of the whole-part relationship. 
+This often applies to physical devices that can exist prior to becoming part of the aggregate. 
+Composition is where the parts do not exist outside of the whole-part relationship. 
+An example might be a sale which is “composed” of sale items. 
+The sale items do not exist separate and apart from the “sale” object. 
+
+---
+
+### Problems and Exercises 
+
+## **1. Draw an entity-relationship diagram, including minimum and maximum cardinality, for the following: The system stores information about two things: cars and owners.** 
+A car has attributes for make, model, and year. The owner has attributes for name and address. 
+Assume that a car must be owned by one owner and an owner can own many cars, but an owner might not own any cars (perhaps she just sold them all, but you still want a record of her in the system). 
+
+
+## **2. Draw a class diagram for the cars and owners described in exercise 1, but include subclasses for sports car, sedan, and minivan, with appropriate attributes.** 
+
+
+## **3. Consider the domain model class diagram shown in Figure 4-16—the refined diagram showing course enrollment with an association class.** 
+Does this model allow a student to enroll in more than one course section at a time? 
+Does the model allow a course section to contain more than one student? 
+Does the model allow a student to enroll in several sections of the same course and get a grade for each enrollment? 
+Does the model store information about all grades earned by all students in all sections? 
+More than one section? → Yes, he/she can enroll in zero to many 
+Course section more than one student? → Yes, zero to many students in a section 
+More than one section of same course? → Yes, there is no constraint to limit it 
+Store of grades? → Yes it captures all student grades 
+
+## **4. Again consider the domain model class diagram shown in Figure 4-16.** 
+Add the following to the diagram and list any assumptions you had to make: A faculty member usually teaches many course sections, but some semesters, a faculty member may not teach any. 
+Each course section must have at least one faculty member teaching it, but sometimes, faculty teams teach course sections. 
+Furthermore, to make sure that all course sections are similar, one faculty member is assigned as course coordinator to oversee the course, and each faculty member can be the coordinator of many courses. 
+
+
+## **5. If the domain model class diagram you drew in exercise 4 showed a many-to-many association between faculty member and course section, a further look at the association might reveal the need to store some additional information.** 
+What might this information include? (Hint: Does the instructor have specific office hours for each course section? Do you give an instructor some sort of evaluation for each course section?) Expand the domain model class diagram to allow the system to store this additional information. 
+
+
+## **6. Consider a system that needs to store information about computers in a computer lab at a university, such as the features and location of each computer.** 
+What are the domain classes that might be included in a model? 
+What are some of the associations among these classes? What are some of the attributes of each class? 
+Draw an domain model class diagram for this system. 
+
+
+## **7. Consider the domain model class diagram for the RMO CSMS Sales subsystem shown in Figure 4-21.** 
+If an InStoreSale is created, how many attributes does it have? 
+If an OnlineSale is created, how many attributes does it have? 
+If an existing customer places a telephone order for one item, how many new objects are created overall for this transaction? 
+Explain. 
+InStoreSale has 6 + 3 = 9 attributes 
+OnlineSale has 6 + 2 = 8 attributes 
+For a telephone sale to an existing customer: 
+TelephoneSale 
+SaleItem 
+Sale Trans 
+No Sale is created because it is an abstract class. 
+
+## **8. Again consider the domain model class diagram shown in Figure 4-21.** 
+How many attributes does an active cart object have? Can an on-reserve cart contain cart items? Explain. 
+An active cart object has 4 + 1 = 5 attributes 
+OnReserveCart → Yes it can have CartItems.  An OnReserveCart is also an OnlineCart (It is a subset). 
+
+## **9. A product item for RMO is not the same as an inventory item.** 
+A product item is something like a men’s leather hunting jacket supplied by Leather ‘R’ Us. 
+An inventory item is a specific size and color of the jacket—like a size medium brown leather hunting jacket. 
+If RMO adds a new jacket to its catalog and six sizes and three colors are available in inventory, how many objects need to be added overall? 
+Explain. 
+New jacket requires 1 product item object and 3 * 6 = 18 inventory item objects.  Total of 19. 
+
+## **10. Consider the domain model class diagram shown in Figure 4-24, which includes classes for college, department, and faculty members.** 
+a. What kind of UML relationships are shown in the model? 
+There are two binary association relationships 
+b. How many attributes does a “faculty member” have? Which (if any) have been inherited from another class? 
+FacultyMember has 5 attributes.  None inherited. 
+c. If you add information about one college, one department, and four faculty members, how many objects do you add to the system? 
+You add 6 objects. 
+d. Can a faculty member work in more than one department at the same time? Explain. 
+Using minimum and maximum multiplicity (cardinality), we can say that a faculty member can be in more than one department at the same time. 
+In the real world, for example, one teacher can be part of both the computer science and computer information systems departments (a split appointment is possible). 
+e. Can a faculty member work in two departments at the same time, where one department is in the college of business and the other department is in the college of arts and sciences? 
+Explain. 
+This is a good question to discuss in class. Draw a circle for a FacultyMember object (Billy Bob) and two circles for two separate Department objects (computer science and CIS). 
+Connect the FacultyMember to each Department with two lines.  These lines associate one FacultyMember object with two Department objects. 
+Next, draw two College objects (business and sciences). Connect computer science to sciences and CIS to business. 
+Now it should be clear that a faculty member can be part of two departments at the same time. 
+
+## **11. Review information about your own university. Create generalization/specialization hierarchies by using the domain model class diagram notation for (1) types of faculty, (2) types of students, (3) types of courses, (4) types of financial aid, and (5) types of housing.** 
+Include attributes for the superclass and the subclasses in each case. 
+Answers will vary. Types of faculty might include tenure track or lecturer, and tenure track might include tenured or non-tenured. 
+Types of students might include undergraduate or graduate or, in some cases, day student (full time) or evening student (part time). 
+Financial aid might include scholarships, loans, or work-study. Housing might include on campus or off campus. 
+On campus might include dorm, suite, or apartment. Please note that a subclass is included only if there are additional attributes (or methods) for it that do not apply to the superclass. 
+Also, the subclass and its attributes are only included if the system being described requires keeping track of the distinction. 
+Should there be a subclass? Only if the system must remember the additional specific details it provides. 
+
+
+## **12. Consider the classes involved when modeling a car and all its parts.** 
+Draw a domain model class diagram that shows the whole-part relationships involved, including multiplicity. 
+Which type of whole-part relationships are involved? 
+
+
+## **13. Refer to the complete RMO CSMS domain model class diagram shown in Figure 4-23.** 
+Based on that model and on the discussion of subsystems in Chapter 3, draw a domain model class diagram for the CSMS Marketing subsystem. 
+Answers may vary depending on how they interpret the use cases. 
+
+
+## **14. Again based on the complete RMO CSMS domain model class diagram shown in Figure 4-23, draw a domain model class diagram for the CSMS Order Fulfillment subsystem.** 
+Answers may vary.  But this subsystem reads a lot of database classes, although it does not necessarily create or update all the data. 
+
+
+---
+
+### Solutions to End-of-Chapter Cases 
+
+#### Case Study: Metropolitan car Service Bureau 
+
+## **1. Draw a UML domain model class diagram for the system as described here.** 
+Be as specific and accurate as possible, given the information provided. If needed information is not given, make realistic assumptions. 
+
+
+## **2. Answer True or False to the following statements, which are based on the domain model.** 
+You may want to draw a semantic net to help you think through the questions 
+a. This domain model is for a single car dealer service department. 
+False 
+b. This domain model is for a single car manufacturer. 
+False 
+c. A vehicle can have service records with more than one dealer. 
+True 
+d. A dealer can service vehicles from more than one manufacturer. 
+True 
+e. Current mileage is recorded for service records and warranty service records. 
+True 
+f. An owner can have each of his or her cars serviced by a different dealer. 
+True 
+g. A warranty service for a car can include many parts. 
+True 
+h. A vehicle can be made by more than one manufacturer. 
+False 
+
+#### Running Cases: Community Board of Realtors 
+
+## **1. Based on the information here, draw a domain model class diagram for the MLS system.** 
+Be sure to consider what information needs to be included versus information that is not in the problem domain. 
+For example, is detailed information about the owner, such as his employer or his credit history, required in the MLS system? 
+Is that information required regarding a potential buyer? 
+
+
+## **2. Draw a second domain model class diagram that adds the following specifications.** 
+First, there are two types of listings: a listing for sale and a listing for lease. 
+Additionally, a listing might include no structures, such as vacant land, or it might include more than one structure, such as a main house and a guest house, each with separate values for square footage, number of bedrooms, and number of bathrooms. 
+
+
+Note: Here is an additional solution to Question 2 with a few more attributes added that are not requested by the case, but that will be helpful for later chapters. 
+It adds some attributes to produce more reports. 
+
+
+## **3. Draw a third domain model class diagram that assumes a listing might have multiple owners.** 
+Additionally, a listing might be shared by two or more agents, and the percentage of the commission that each agent gets from the sale can be different for each agent. 
+
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service 
+
+## **1. For the Social Networking subsystem as described here, list the domain classes and their attributes that should be included in the Social Networking subsystem.** 
+Be creative and add those you think should be included to make the system useful and appealing. 
+See solution below 
+
+## **2. Based on the domain classes you identified, draw a domain model class diagram showing domain classes with attributes and associations with multiplicity.** 
+
+
+Note: Student solutions will vary.  “Comment” will probably not appear on student solutions. 
+Note: Some students might try to make an accommodation class as an association class between Traveler and Resort, e.g.  on an association such as Traveler stays at Resort. 
+However, this will only work if it is defined as CurrentAccommodation and only one is allowed in the database at a time. 
+In other words, a given Traveler may stay at the same Resort on multiple dates. 
+In that case an Accommodation association would not be unique by the keys TravelerID-ResortID, and the above solution is more general. 
+
+#### Running Cases: On the Spot Courier Services 
+
+## **1. Using the noun technique, read through this case and identify all the nouns that may be important for this system.** 
+You may also find it helpful to read back through the case descriptions in the previous chapters. 
+The noun technique yielded the following list. 
+* pickup requests - class 
+* package pickups – class ? 
+* mobile phone - ? 
+* packages - class 
+* driver - class 
+* warehouse - ? 
+* warehouse employee – class ? 
+* deliveries – class ? 
+* desk – self: not important 
+* delivery van - ? 
+* business – self: not important 
+* services – ? 
+* customers – class 
+* businesses – class 
+* individuals – subclass 
+* address – attribute 
+* contact information – attribute 
+* contact person – attribute 
+* monthly statements – output 
+* shipments – class ?  duplicate 
+* bill month – attribute 
+* cost – attribute 
+* cash – attribute 
+* running account – class 
+* outstanding balances – attribute 
+* payments – class 
+* invoices – output 
+* type of payment – attribute 
+* amount – attribute 
+* delivery request – class 
+* delivery order – class ?  duplicate 
+* pickup location – attribute 
+* date and time – attribute 
+* delivery order – class ?  duplicate 
+* delivery person – duplicate 
+* delivery to name – attribute 
+* type of delivery – attribute 
+* weight – attribute 
+* names – duplicate 
+* dateTimeStamp - attribute 
+* delivery trip – class 
+
+## **2. Once you have identified all the nouns, identify which are classes and which are attributes of these primary classes.** 
+Begin constructing a class diagram based on the classes and attributes you have identified. 
+Note: In the analysis, it was determined that dateTimeStamp was an attribute of package movements. 
+However, no Movement noun was identified.  So we added a general class called “MovementEvent” to track package movements, such as pickups, deliveries, warehouse movements. 
+Also a trip noun was not specifically mentioned but it was strongly implied by the driver delivering packages. 
+“Delivery Trip” was included above, which has been added as RouteTrip since it handles both deliveries and pickups. 
+See below for solution. 
+
+## **3. Now that you have identified the classes, determine what the relationships should be among the classes.** 
+Add multiplicity constraints, being especially cognizant of zero-to-many versus one-to-many differences. 
+See below for solution. 
+
+## **4. Finalize the class diagram, including all your classes, attributes, primary keys, relationships, and multiplicity constraints.** 
+Note: With this domain model it becomes evident that the use cases identified in Chapter 3 are insufficient. 
+A CRUD analysis will yield additional use cases. 
+Note: DT means Date & Time, such as DTRequested. 
+
+
+#### Running Cases: Sandia Medical Devices 
+
+## **1. Modify the diagram (Figure 4-25) to incorporate the changes under consideration.** 
+You may need to use association classes and generalization/specialization (inheritance). 
+
+
+## **2. Are a set of abstract and concrete classes needed to represent variations among cell phones? Why or why not?** 
+Answers will vary. 
+Possibly to distinguish between different types of cell phones, a general abstract class and specialized concrete classes might be necessary. 
 
 # Chapter 5 - Use Case Modeling
+
+Systems Analysis and Design in a Changing World, sixth edition
+5-1
+
+# Chapter 5 - Extending the Requirements Models
+
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+## **1. What are the models that describe use cases in more detail?**
+Fully developed use case description, activity diagrams, and system sequence diagrams.
+
+## **2. What two UML diagrams are used to model domain classes?**
+Problem domain class diagram and state machine diagram.
+
+## **3. Which part of a use case description can also be modeled by using an activity diagram?**
+The "flow of activities" section.
+
+## **4. Explain the difference between a use case and a scenario. Give a specific example of a use case with a few possible scenarios.**
+A use case is the entire function or user goal or event. A scenario is one specific version or instance of that use case.
+From RMO we have Create customer account as a use case. But we might have Create online Customer account and Create instore customer account and even Create phone customer account as different scenarios.
+
+## **5. List the parts or compartments of a fully developed use case description.**
+
+  * Use case name
+  * Scenario
+  * Triggering event
+  * Brief description
+  * Actors
+  * Related use cases
+  * Stakeholders
+  * Preconditions
+  * Postconditions
+  * Flow of activities
+  * Exception conditions
+
+## **6. Compare/contrast precondition and postcondition.**
+A precondition describes the "states" of data and the system that must exist before the use case can begin. For example to add an item to a shopping cart, the item must exist in the database.
+A postcondition describes the states of data and the system that must exist after the use case completes. For example after Create a customer account use case, a customer account object (record) must exist.
+
+-----
+
+Systems Analysis and Design in a Changing World, sixth edition
+5-2
+
+## **7. Compare/contrast postcondition and exception condition.**
+A post condition, as explained about describes states of the data and the system. An exception condition describes some non-normal situation in the processing, i.e. in the flow of activities, that must be handled in some way.
+
+## **8. Compare/contrast business process and flow of activities for a use case. Explain how an activity diagram can be used to model both.**
+A business process is larger than a use case. A business process might include various manual business procedures both before and after the "business event" that causes the use case to occur. However, an activity diagram is a powerful model to describe all types of sequences of tasks and activities. The various swimlanes can represent various users or user groups as well as system activities.
+
+## **9. What is the purpose of an SSD? What symbols are used in an SSD?**
+An SSD (system sequence diagram) is used to describe the messages that flow into and out of a system, i.e. between the system and the use case user.
+The symbols include:
+
+  * Stick figure for the actor
+  * Box with object name for the system object
+  * Vertical dashed lines for object lifelines
+  * Horizontal arrows for messages
+  * Horizontal dashed arrows for return data
+  * Comment box for comments
+
+## **10. What are the steps required to develop an SSD?**
+
+1.  Identify the input messages (from the activity diagram)
+2.  Describe the input message using the SSD message syntax
+3.  Add message conditions such as looping or true/false conditions
+4.  Add all output message data
+
+## **11. Write a complete SSD message from the actor to the system, with the actor asking the system to begin the process for updating information about a specific product.**
+`updateProductInformation (productID, updateInformation)`
+
+## **12. What is the name of the sequence diagram symbol used to represent the extension of an object throughout the duration of a use case?**
+Lifeline or object lifeline
+
+## **13. What are the two ways to show a returned value on a sequence diagram?**
+Either with a return value on the left hand side of the equal $(:=)$ sign, or with a return message shown by a dashed line and labeled with the return data.
+
+-----
+
+Systems Analysis and Design in a Changing World, sixth edition
+5-3
+
+## **14. What are two ways to show repetition on a sequence diagram?**
+Either with an asterisk on the message label or a loop frame around the message(s).
+
+## **15. What are the three types of frames used on a sequence diagram?**
+
+  * Loop frame - repeat or loop the contents of the frame
+  * Opt frame - send or do not send the message based on true/false condition
+  * Alt frame - if-else alternative flows based on condition
+
+## **16. What is the symbol for a true/false condition on a sequence diagram?**
+A true/false condition is shown in brackets `[]`
+
+## **17. What are the parameters of a message?**
+The parameters represent the input data, i.e. the data that is being passed to the destination object.
+
+## **18. List the primary steps for developing a SSD.**
+Ooops, duplicate question. See question 10.
+
+## **19. What is an object state?**
+An object state is the state of being of an object, and is usually measured by a set of values. It is comparable to a status condition.
+
+## **20. What is a state transition?**
+A state transition is the movement of an object from one state to another state.
+
+## **21. When considering requirements, states and state transitions are important for understanding which other diagram?**
+States and Transitions are part of the state machine diagram for an object class. Therefore, they help to understand the objects in the class diagram.
+
+## **22. What UML diagram is used to show the states and transitions for an object?**
+States and Transitions are part of the state machine diagram, which describes the activity of the objects in an object class.
+
+## **23. List the elements that make up a transition description. Which elements are optional?**
+
+-----
+
+Systems Analysis and Design in a Changing World, sixth edition
+5-4
+
+`Transition-name (parameters,...) [guard-condition]/action-expression`
+Any of the three elements may be empty, i.e. are optional.
+
+## **24. What is a composite state? What is it used for?**
+A composite state is a high-level state in that it may have other states and transitions inside of it. It is used to represent concurrent states. For example, a printer may be in the "on" state, which is a composite state, and it may be "idle" which is an internal state within "on."
+
+## **25. What is meant by the term path?**
+A path is a sequence of states and transitions. It may be a complete path to describe an entire origin to destination path, or it may be a "snippet" of a path and only contain a few states and transitions.
+
+## **26. What is the purpose of a guard-condition?**
+A guard-condition determines whether or not a transition can fire. Usually first the trigger fires to notify the transition that it should execute, but before it begins execution, it tests to see if the guard-condition is true.
+
+## **27. Identify the models explained in this chapter and their relationship to one another.**
+The two main models for requirements are the Use case model, which identifies the use cases or the "processes," and the Domain model class diagram, which identifies the information or data for the system.
+The Use case diagram is supported by Use Case Descriptions, Activity diagrams, and System Sequence diagrams.
+The Domain model class diagram is supported by State machine diagrams.
+
+-----
+
+### Problems and Exercises
+
+## **1. After reading the following narrative, do the following:**
+i. Develop an activity diagram for each scenario.
+ii. Complete a fully developed use case description for each scenario.
+
+**Contractor Sale fully developed use case description:**
+
+| Field | Description |
+|---|---|
+| **Use Case Name:** | Create a new sale |
+| **Scenario:** | Create new sale to a contractor (on account sale) |
+| **Triggering Event:** | Contractor wants to purchase items. |
+| **Brief Description:** | A contractor wants to purchase items. The clerk rings up the items and then adds them to the contractor's account. |
+| **Actors:** | Sales clerk |
+| **Stakeholders:** | Sales clerk, Accounting department, Sales department |
+| **Preconditions:** | Customer account must exist. Inventory items must exist. |
+| **Postconditions:** | New sale is created. Sales line items are created and connected to the sale. Customer (contractor) account is updated. |
+| **Flow of Activities:** | **Actor**<br>1. Clerk enters contractor ID.<br>2. Clerk enters each item.<br>3. Clerk indicates the end of the sale.<br>4. If contractor wants receipt, requests receipt.<br><br>**System**<br>1.1 System validates contractor account.<br>2.1 System finds item in inventory, finds price, adds to total.<br>3.1 System calculates total and adds to contractor account.<br>4.1 System prints receipt. |
+| **Exception Conditions:** | 1.1 If contractor account is out of balance, treat this sale as a cash sale, or stop process and send contractor to accounting clerk.<br>2.1 If system has information missing, sales clerk calls manager and manually enters information.<br>3.1 If contractor account balance is over the limit, treat as cash sale, cancel, or send contractor to accounting clerk. |
+
+-----
+
+**Sale to public fully developed use case description:**
+
+| Field | Description |
+|---|---|
+| **Use Case Name:** | Create a new sale |
+| **Scenario:** | A new cash sale |
+| **Triggering Event:** | Cash customer wants to purchase items. |
+| **Brief Description:** | A cash customer wants to purchase items. The clerk enters the item ID, and the system creates a sales ticket. Customer pays with cash, check or credit card. |
+| **Actors:** | Sales clerk |
+| **Stakeholders:** | Sales clerk, Accounting department, Sales department |
+| **Preconditions:** | Inventory items must exist. |
+| **Postconditions:** | New sale is created. Sales line items are created and connected to the sale. Payment transaction is created. |
+| **Flow of Activities:** | **Actor**<br>1. Clerk starts new cash sale.<br>2. Clerk enters each item.<br>3. Clerk indicates the end of the sale.<br>4. Clerk indicates type of payment and enters information.<br><br>**System**<br>2.1 System finds item in inventory, finds price, displays information, adds to total.<br>3.1 System calculates total.<br>4.1 System processes payment and creates payment transaction. |
+| **Exception Conditions:** | 2.1 If system has information missing, sales clerk calls manager and manually enters information.<br>4.1 If customer credit card fails approval, require cash or cancel sale. |
+
+-----
+
+## **2. Based on the following narrative, develop either an activity diagram or a fully developed description for the use case of Add a new vehicle to an existing policy in a car insurance system.**
+
+| Field | Description |
+|---|---|
+| **Use Case Name:** | Add a new vehicle to an existing policy |
+| **Scenario:** | Telephone instance with customer and clerk |
+| **Triggering Event:** | Customer buys a new vehicle. |
+| **Brief Description:** | Customer provides car information, requests coverage with amounts, identifies drivers of the new car. System updates the policy. |
+| **Actors:** | Customer service clerk |
+| **Stakeholders:** | Customer, Customer service department |
+| **Preconditions:** | Customer policy must exist and be up to date. Standard Vehicle control tables for this vehicle type and year must exist. StandardCoverage tables exist. |
+| **Postconditions:** | New vehicle object created and connected to policy. Also connected to Standard Vehicle. New coverage objects created and connected to vehicle. Also connected to StandardCoverage. New driver (InsuredPerson) (if necessary) created and added to policy. Existing drivers and percentages updated. Policy updated with new premiums. |
+| **Flow of Activities:** | **Actor**<br>1. Clerk enters customer information.<br>2. Clerk verifies policy is current.<br>3. Clerk enters car identification information.<br>4. Clerk enters each type of coverage customer requests, including deductibles and coverage amount.<br>5. Clerk indicates all coverages have been entered.<br>6. Clerk invokes Add new person use case if necessary.<br>7. Clerk changes driver percentages on this car and other cars.<br>8. Clerk indicates everything is complete.<br><br>**System**<br>1.1 System finds policy and displays details.<br>3.1 System validates that car has known standard.<br>4.1 System validates coverage requests.<br>5.1 System does combination validation on policy.<br>7.1 System updates driver information.<br>8.1 System updates policy, calculates new premium, prints new statement. |
+| **Exception Conditions:** | 2.1 If policy is not current, clerk requests payment or collects necessary information.<br>3.1 If car type is not in system, clerk refers customer to underwriting to handle this situation.<br>4.1 If coverage requests are out of range, clerk asks customer for changed amount.<br>5.1 If some combination is invalid, return to step 4. |
+
+-----
+
+## **3. Given the following list of classes and associations for the previous car insurance system, list the preconditions and postconditions for the use case Add a new vehicle to an existing policy.**
+
+| Field | Description |
+|---|---|
+| **Preconditions:** | Customer policy must exist and be up to date.<br>Standard Vehicle control tables for this vehicle type and year must exist.<br>StandardCoverage tables exist. |
+| **Postconditions:** | New vehicle object created and connected to policy. Also connected to Standard Vehicle.<br>New coverage objects created and connected to vehicle. Also connected to StandardCoverage.<br>New driver (InsuredPerson) (if necessary) created and added to policy.<br>Existing drivers and percentages updated.<br>Policy updated with new premiums. |
+
+-----
+
+## **4. Develop an SSD based on the narrative and your activity diagram for problem 1.**
+
+-----
+
+## **5. Develop an SSD based on the narrative or your activity diagram for problem 2.**
+
+-----
+
+## **6. Review the cellular telephone state machine diagram shown in Figure 5-21 and then answer the following questions.**
+
+  * **i. What happens to turn on the telephone?**
+    A person has to switch it on with some external event.
+  * **ii. What states does the telephone go into when it is turned on?**
+    It goes into the composite state (unlabeled, but should have a label of ON). It goes into the Quiet state for one path. It can also go into Charged, Low Warning, or Discharged.
+  * **iii. What are the three ways the telephone can be turned off?**
+    SwitchOff, Quiet and Low Warning, or Discharged.
+  * **iv. Can the telephone turn off in the middle of the Active (Talking) state?**
+    Yes, if it is discharged, it leaves the Discharged nested state and the On composite state.
+  * **v. How can the telephone get to the Active (Talking) state?**
+    Through the origin state of connecting or by answering from the origin state of ringing.
+  * **vi. Can the telephone be plugged in while someone is talking?**
+    No. The state chart says it can only be plugged in from the Quiet state.
+  * **vii. Can the telephone change battery states while someone is talking? Explain which movement is allowed and which isn't allowed.**
+    It can go from Charged to Low Warning and from Low Warning to Discharged. However, because it cannot be plugged in while someone is talking, it cannot move back up from Discharged to Low Warning or Charged.
+  * **viii. What states are concurrent with what other states? Make a two-column table showing the concurrent states.**
+
+| Concurrent States | |
+|---|---|
+| Quiet, Dialing, Connecting, Ringing, Active, and Plugged In | Charged, Low Warning, Discharged |
+
+-----
+
+## **7. Based on the following description of a shipment made by Union Parcel Shipments, identify all the states and exit transitions and then develop a state machine diagram.**
+
+| STATE | EXIT TRANSITION |
+|---|---|
+| active | delivered ( ), [misplaced two weeks] |
+| in transit | onTruck ( ) |
+| delivery pending | delivered ( ) |
+| delivered | final ( ) |
+| handedOver | delivered ( ) |
+| misplaced | [for two weeks] |
+| lost | final ( ) |
+
+-----
+
+## **8. Locate a company in your area that develops software. Consulting companies or companies with a large staff of information systems professionals tend to be more rigorous in their approach to systems development. Set up an interview. Determine the development approaches that the company uses...**
+Answers will vary.
+
+-----
+
+### Solutions to End-of-Chapter Cases
+
+#### Case Study: TheEyes Havelt.com Book Exchange
+
+For this case, develop these diagrams:
+
+## **1. A domain model class diagram**
+
+## **2. A list of uses cases and a use case diagram**
+
+## **3. A fully developed description for two use cases: Add a seller and Record a book order**
+
+| Field | Description |
+|---|---|
+| **Use Case Name:** | Register |
+| **Scenario:** | Register/add a new seller |
+| **Triggering Event:** | A new seller wants to sell books. |
+| **Brief Description:** | Seller decides he/she would like to list a book(s). Seller registers and receives a confirmation e-mail. |
+| **Actors:** | Seller, E-mail server |
+| **Preconditions:** | Seller must not exist in the system. Seller must have all information necessary to register. |
+| **Postconditions:** | Seller has an account to list books. |
+| **Flow of Activities:** | **Actor**<br>1. Seller connects to EyesHavelt.com and fills out registration form.<br>2. Seller submits registration form.<br><br>**System**<br>2.1 System notifies seller a confirmation e-mail will be sent.<br>2.2 System e-mails confirmation of registration to seller. |
+| **Exception Conditions:** | 1.1 If the seller already exists in the system, the system sends prior login and password to e-mail address.<br>2.1 If the seller was removed from the system for bad transactions/credit, the system sends the seller an e-mail notifying the seller of the situation and no account is created. |
+
+| Field | Description |
+|---|---|
+| **Use Case Name:** | Purchase a book |
+| **Scenario:** | Purchase a book |
+| **Triggering Event:** | A buyer decides to purchase a book from EyesHavelt.com. |
+| **Brief Description:** | Customer searches for a book(s) on EyesHavelt.com. Customer selects from search results and adds a book(s) to the shopping cart. Customer then proceeds to checkout. If an account exists, the customer confirms purchase, and the system sends a confirmation e-mail to the customer. If an account doesn't exist, an account is created, the purchase is confirmed, and the confirmation e-mail is sent. |
+| **Actors:** | Buyer, E-mail server, Seller |
+| **Preconditions:** | Books and book information must exist in the system. |
+| **Postconditions:** | Customer account must exist. Order must be placed. E-mail must be sent to seller. |
+| **Flow of Activities:** | **Actor**<br>1. Buyer searches EyesHaveIt.com for a book(s).<br>2. Buyer selects a book(s) to purchase from search results.<br>3. Repeat steps 1 and 2 until all desired books are added to shopping cart.<br>4. Customer proceeds to checkout by selecting the Checkout button.<br>4a. If customer wishes to remove an item, he/she selects the item to be removed and then selects the Delete button.<br>4b. If buyer wishes to add an item, he/she selects the Continue Shopping button and proceeds to steps 1 and 2.<br>5. Buyer verifies displayed information.<br>6. If information is incorrect or buyer account does not exist, buyer updates displayed information or enters new information into the registration form.<br>7. Buyer confirms purchase.<br><br>**System**<br>1.1 Searches for all matches related to buyer's search criteria.<br>2.1 Creates shopping cart. Adds selected item(s) to the shopping cart.<br>4.1 Displays list of shopping cart items for verification.<br>4a.1 Displays list of shopping cart items with deleted items removed.<br>5.1 Displays buyer information.<br>6.1 Updates new buyer information for existing account.<br>6.2 Creates account for new buyer and sends confirmation.<br>7.1 Records order.<br>7.2 Sends e-mail to seller. |
+| **Exception Conditions:** | 1.1 If book is sold out, buyer cannot add book to shopping cart.<br>2.1 If buyer account does not exist, a new account must be created. If buyer is rejected for new account based on credit, system sends buyer notification.<br>3.1 If payment is rejected, system notifies buyer and seller. |
+
+## **4. An SSD for each of the two use cases in question 3**
+
+-----
+
+#### Running Cases: Community Board of Realtors
+
+## **1. For the use case Add agent to real estate office, write a fully developed use case description and draw an SSD.**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Add agent to real estate office |
+| **Scenario:** | MLS clerk adding agent |
+| **Triggering event:** | New agent hired in a real estate office |
+| **Brief description:** | The correct real estate office is identified, and the new real estate agent information is entered into the system. |
+| **Actors:** | MLS clerk |
+| **Related use cases:** | Real estate office adds new agent (Web based version scenario) |
+| **Stakeholders:** | Real estate office, real estate agent |
+| **Preconditions:** | The real estate office must exist |
+| **Postconditions:** | Real estate agent is created and associated with real estate office |
+| **Flow of activities** | **Actor**<br>1. Find correct real estate office<br>2. Enter new agent information<br><br>**System**<br>1.1 Display real estate office information<br>2.1 Create new agent record, including with relationship to real estate office |
+| **Exception conditions:** | 1.1 No real estate office found for requested id/name. Display not found message. |
+
+## **2. For the use case Create new listing, write a fully developed use case description and draw an SSD.**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Create a new listing |
+| **Scenario:** | MLS clerk creates a new listing |
+| **Triggering event:** | New property is put up for sale |
+| **Brief description:** | The listing agent is identified and verified. The new property information is entered into the system, along with images etc. |
+| **Actors:** | MLS clerk |
+| **Related use cases:** | Real estate office/agent creates a new listing (Web version scenario) |
+| **Stakeholders:** | Real estate office, Real estate agent, Property owner |
+| **Preconditions:** | Real estate office must exist, Real estate agent must exist |
+| **Postconditions:** | New listing must be created and associated with RE office and RE agent |
+| **Flow of activities** | **Actor**<br>1. Find real estate agent<br>2. Enter new listing information<br><br>**System**<br>1.1 Display agent and office information<br>2.1 Create new property listing record, associated with agent. Display results. |
+| **Exception conditions:** | 1.1 Agent information not found. Display not found message. |
+
+## **3. Draw a state machine diagram showing the states and transitions for a Listing object.**
+
+| State | Exit transition |
+|---|---|
+| For sale | Offer to buy |
+| Sale pending | Close the sale |
+| Sold | |
+| Removed | Reinstate listing |
+
+-----
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service
+
+## **1. For the use case Book a reservation, write a fully developed use case description and draw an SSD.**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Book a reservation |
+| **Scenario:** | Book a reservation online |
+| **Triggering event:** | Student wants to make a reservation and initiates booking |
+| **Brief description:** | Student searches or browses the resorts. He/she checks accommodations and availability. Then he/she makes a reservation for either a single person or a group. (Allow both individual and group reservations.) |
+| **Actors:** | Student |
+| **Related use cases:** | Create individual account (includes Traveler), Create group account, Add person to group (new use case previously undefined) |
+| **Stakeholders:** | Student, Resort |
+| **Preconditions:** | Traveler and Individual account must exist. Group must exist (for group reservation). Resort must exist. |
+| **Postconditions:** | Reservation must be created and associated with Resort and Group/Traveler. Payment must be created and associated with IndividualAccount. |
+| **Flow of activities** | **Actor**<br>1. Find a resort (search or browse)<br>2. Check availability of accommodations<br>3. Choose reservation type<br>4. Enter reservation details<br>5. Enter reservation payment information<br><br>**System**<br>1.1 Display resort and accommodation information<br>2.1 Display accommodation availability information<br>4.1 Make reservation<br>5.1 Verify individualInfo and paymentInfo. Create Payment Transaction for Reservation. Display confirmation. Send email confirmation. |
+| **Exception conditions:** | 5.1 Payment transaction fails |
+
+## **2. For the use case Add new resort, write a fully developed use case description and draw an SSD.**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Add a new resort |
+| **Scenario:** | Add a new resort |
+| **Triggering event:** | A new resort contracts with SBRU to participate in the vacation program |
+| **Brief description:** | A new resort is added with descriptive information. Information about the accommodations available to this program are entered. Information about the facilities available for activities in this program are entered |
+| **Actors:** | SBRU clerk, Resort employee |
+| **Stakeholders:** | SBRU management, Resort management |
+| **Preconditions:** | Resort must not already exist |
+| **Postconditions:** | Resort is created. Facilities are created and associated with the resort. Accommodations are created for this resort. |
+| **Flow of activities** | **Actor**<br>1. Verify that the resort does not exist<br>2. Enter resort description<br>3. (loop) Enter facilities information<br>4. (loop) Enter accommodations information<br><br>**System**<br>1.1 Check database for resort information<br>2.1 Create resort record<br>3.1 Create facilities record<br>4.1 Create accommodations record |
+| **Exception conditions:** | 1.1 Resort already exists |
+
+## **3. Draw an activity diagram to show the flow of activities for the use case Add a new resort.**
+
+## **4. Draw a state machine diagram showing the state and transitions for a Reservation object.**
+| State | Exit transition |
+|---|---|
+| Open | Fulfill reservation, cancel reservation |
+| Fulfilled | |
+| Canceled | |
+
+-----
+
+#### Running Cases: On the Spot Courier Services
+
+## **1. Based on this description, develop the following for the use case Request a package pickup and for the Web customer scenario: i. A fully developed use case description ii. An activity diagram iii. An SSD**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Request a package pickup |
+| **Scenario:** | Web customer requests package pickup |
+| **Triggering event:** | Web customer has package(s) to be picked up and requests pickup |
+| **Brief description:** | User enters package information (TO address, type of service, size/weight). System returns the cost, expected pickup time, and prints label |
+| **Actors:** | Web customer |
+| **Related use cases:** | Request package pickup (phone in), Enter package info (pickup package) |
+| **Stakeholders:** | Bill, Customer, Delivery employee |
+| **Preconditions:** | Customer and customer account must exist |
+| **Postconditions:** | Pickup request is created and associated with Customer |
+| **Flow of activities** | **Actor**<br>1. For each package<br>1.1 Enter type of service<br>1.2 Enter TO information<br>1.3 Enter package size/weight<br>1.4 Request label print<br><br>**System**<br>1.3.1 Display Cost<br>1.3.2 Display expected pickup time<br>1.3.3 Create Request record. Create Package record.<br>1.4.1 Print label |
+| **Exception conditions:** | 1.4.1 Label cannot print |
+
+## **2. Based on the same description, develop the following for the use case Pickup a package: i. A fully developed use case description ii. An activity diagram iii. System sequence diagram**
+
+| Field | Description |
+|---|---|
+| **Use case name:** | Pickup a package (Enter package pickup information) |
+| **Scenario:** | Delivery employee picks up package |
+| **Triggering event:** | Delivery employee arrives at customer's location and picks up a package |
+| **Brief description:** | Delivery employee verifies package with pickup request information, OR enters new package information. If cash customer, process payment. |
+| **Actors:** | Driver |
+| **Related use cases:** | Create customer and customer account, Accept payment, Scan package (movement) |
+| **Stakeholders:** | Customer, Driver, Bill |
+| **Preconditions:** | Customer should exist (else invoke Create customer use case) |
+| **Postconditions:** | Create package record and connect with Customer, PickupRequest, Movement event |
+| **Flow of activities** | **Actor**<br>1. If package has NO label, search for request by Customer name<br>2. If pickup request not found, enter new package info<br>3. Request print label<br>4. Scan package label<br>5. If cash customer, enter payment info<br><br>**System**<br>1.1 Access pickup info, update package. If no pickup info, display none.<br>2.1 Process new package info<br>3.1 Print label<br>4.1 Update pickup request, package. Create pickup MovementEvent<br>5.1 Process payment |
+| **Exception conditions:** | 5.1 Invalid payment data |
+
+## **3. Develop a state machine diagram describing all the possible status conditions for a Package object.**
+
+| State | Exit transition |
+|---|---|
+| Pending pickup | packagePickup () |
+| Picked up | arriveAtWarehouse () |
+| At warehouse | loadedOnDeliveryTruck () |
+| Out for delivery | delivered () |
+| Delivered | none |
+| Lost | found () |
+
+-----
+
+#### Running Cases: Sandia Medical Devices
+
+Figure 5-22 shows a set of use cases for the patient and physician actors. Answer the following questions and/or complete the following exercises:
+
+## **1. Which use cases include which other use cases? Modify the diagram to incorporate included relationships.**
+
+## **2. Consider the use cases View/respond to alert and View history. Both actors share the latter, but each has a different version of the former. Why do the actors have different versions of the View/respond to alert use case? Would the diagram be incorrect if each actor had his own version of the View history use case? Why or why not?**
+
+  * **View/respond to alert**: Even though the names are the same, the detail steps might be very different. It would be possible to make them different scenarios of the same use case. But making them separate use cases also works since the actors are different, the steps are different, and the system responses are different.
+  * **View history**: View history does the same activities no matter who the actor is. In this case it would not make sense to have separate use cases since the processing steps, the data, the activities are both the same.
+
+## **3. Develop an SSD for the View history use case. Assume that the system will automatically display the most recent glucose level, which is updated at five-minute intervals by default. Assume further that the user can ask the system to view glucose levels during a user-specified time period and that the levels can be displayed in tabular form or as a graph.**
 
 # Chapter 6 - Foundation for System Design
 
