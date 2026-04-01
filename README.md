@@ -2733,14 +2733,1345 @@ Answers will vary. This project is highly technical, and especially this iterati
 # Chapter 10 - Approaches to System Development
 
 # Chapter 11 - Project Planning and Project Management
+# Chapter 9 - Project Planning and Project Management
 
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+## **1. List the six major reasons that projects fail.**
+
+1.  Undefined project management practices
+2.  Poor IT management and procedures
+3.  Inadequate executive support
+4.  Inexperienced project managers
+5.  Unclear business objectives
+6.  Inadequate user involvement
+
+## **2. List six critical factors that contribute to project success.**
+Oops. Only a summary of these critical factors was included in this edition. However, the success factors are basically the reverse of the failure reasons. Here is a list of a few:
+
+  * Clear system requirement definitions
+  * Substantial user involvement
+  * Support from upper management
+  * Thorough and detailed project plans
+  * Realistic work schedules and milestones
+
+## **3. Define project management.**
+Project management is the organizing and directing of other people to achieve a planned result within a predetermined schedule and budget.
+
+## **4. List five internal responsibilities of a project manager.**
+
+  * Developing the project schedule
+  * Recruiting and training team members
+  * Assigning work to teams and team members
+  * Assessing project risks
+  * Monitoring and controlling project deliverables and milestones
+
+## **5. What is the difference between the client and the user?**
+The user is the person that actually will use the new system. The client is the person or group that is paying for the development of the new system. In some cases they can be the same person, but they do not need to be.
+
+## **6. What is meant by an organic approach?**
+The way a plant or animal grows is an organic approach. It starts small and increases in size. But even when it is small it still has all the essential components and is fully functional. As it grows it develops more capability and expands its scope. Developing a piece of software "organically" attempts to take a similar approach. It starts small, but is functional, and grows piece by piece adding more capability.
+
+## **7. What is the importance of "ceremony"?**
+Another word for ceremony is formality. Instead of letting the ceremony of the project happen by default without any thought, the project ceremony should be a conscious and deliberate decision. Without define level of ceremony, the project stakeholders and team members will not know what is expected of them and how to work together.
+
+## **8. List the nine areas of the PMBOK.**
+
+1.  Scope Management
+2.  Time Management
+3.  Cost Management
+4.  Quality Management
+5.  Human Resource Management
+6.  Communications Management
+7.  Risk Management
+8.  Procurement Management
+9.  Integration Management
+
+## **9. What is meant by Agile project management?**
+Agile project management is an approach to project management that includes the Agile philosophies in managing the project and the team of people. Basically Agile project management focuses on being flexible in project procedures, working relationships, and working software. Chapter 8 described the four basic values of Agile development.
+
+## **10. How is scope management accomplished with Agile project management?**
+Since Agile projects are more flexible, frequently there are more requests for additional functionality to be added. To control these requests a prioritized list of functions is maintained. In order for new functions or requirements to be added, they must go through a review process and be added to the prioritized list.
+
+## **11. What are the four activities of Core Process 1?**
+
+  * Identify the problem
+  * Quantify the project approval factors
+  * Perform risk and feasibility analysis
+  * Review the approval factors with the client to obtain approval
+
+## **12. What are three reasons that projects are initiated?**
+
+  * To respond to an opportunity
+  * To resolve a business problem or need
+  * To respond to an external (such as legal) mandate
+
+## **13. What is the difference between system capabilities and business benefits?**
+The business benefits are measured in the dollars that are brought to the organization, either as increased revenue or reduced costs. (Intangible benefits are those where a dollar amount cannot be easily assigned, but still will add value to the organization.) The system capabilities are the functions that support the business procedures. The system capabilities are those things that enable or lead to the business benefits.
+
+## **14. What factors are usually considered when approving a project?**
+
+  * How long will the project take?
+  * How much will it cost?
+  * What are the anticipated benefits to the organization?
+
+## **15. List 10 types of benefits that may be considered when approving a project.**
+
+  * Opening up new markets with new services, products, or locations
+  * Increasing market share in existing markets
+  * Enhancing cross-sales capabilities with existing customers
+  * Reducing staff by automating manual functions or increasing efficiency
+  * Decreasing operating expenses, such as shipping charges for "emergency shipments"
+  * Reducing error rates through automated editing or validation
+  * Reducing bad accounts or bad credit losses
+  * Reducing inventory or merchandise losses through tighter controls
+  * Collecting receivables (accounts receivable) more rapidly
+
+## **16. Explain how net present value (NPV) is calculated.**
+Net present value is the net, i.e. the difference between costs and benefits, brought back to present value dollars. First the cost of development is considered as being done in year 0. The for each future year, up to some number of years, the costs, which are negative dollars, and the benefits, which are positive dollars, are netted together. Then that amount for each year is brought back to present value using the discount factor for the percentage rate and the number of years in the future.
+
+## **17. What is the difference between tangible benefits and intangible benefits?**
+A tangible benefit is one that can be estimated or measured in terms of dollars. An intangible benefit may be just as important, but the client is not able to quantify it by assigning a dollar value to it.
+
+## **18. What are some factors to consider when assessing organizational feasibility?**
+Organizational feasibility is a consideration of the risks within the organization itself - these risks are usually people risks, i.e. that they will be unable to accept or utilize the new system. Such things as computer phobia, fear of losing a job, political impacts on people's importance or position, or difficulty of changing work procedures.
+
+## **19. What are the five activities of Core Process 2?**
+
+  * Establish the project environment.
+  * Schedule the work.
+  * Staff and allocate resources.
+  * Evaluate work processes.
+  * Monitor progress and make corrections.
+
+## **20. List seven types of information that should be captured during a project.**
+
+  * Project plans and schedules
+  * Analysis documentation
+  * Design specifications
+  * Test cases and test results
+  * Outstanding issues and problems
+  * Screen and report definitions
+  * Program code
+
+## **21. What is the difference between the project iteration schedule and the detailed work schedule?**
+The project iteration schedule is a broad, overview schedule that identifies the iterations and the use cases or functions assigned to each iteration. Generally this schedule is not detailed enough to assign work. The detailed work schedule is a shorter view and more detailed schedule, such as for each iteration, from which work assignments can be made and progress can be measured.
+
+## **22. What is a work breakdown structure used for?**
+The work breakdown structure is the first step in building a detailed work schedule. It identifies all of the pieces of work that must be done to complete a certain milestone or that covers a period of the project. Along with identifying the work, it can be used to organize the work by noting which tasks are dependent on other tasks. It also describes how much effort is estimated for each task.
+
+## **23. What is the benefit of an iteration review and retrospective?**
+The purpose of a retrospective is to improve the project management and work processes within the project. Since most iterative projects have many iterations, by taking the time to review the processes at the end of each iteration, the project team can improve how it works. The purpose of a retrospective is to ask "How are we doing as a project team?"
+
+-----
+
+### Problems and Exercises
+
+## **1. Read this description and then make a list of expected business benefits that the company might derive from a new system:**
+*Especially for You Jewelers is a small jewelry company in a college town. Over the last couple of years, it has experienced a tremendous increase in its business. However, its financial performance hasn't kept pace with its growth. The current system, which is partly manual and partly automated, doesn't track accounts receivables sufficiently, and the company is finding it difficult to determine why the receivables are so high. It runs frequent specials to attract customers, but it has no idea whether these are profitable or if the benefit if there is one comes from associated sales. Especially for You wants to increase repeat sales to its existing customers, thus it needs to develop a customer database. It also wants to install a new direct sales and accounting system to help solve these problems.*
+
+  * Reduce the level of accounts receivables.
+  * Determine which type of specials and promotions increased sales.
+  * Increase repeat sales to existing customers.
+  * Closely track financial performance of the store.
+
+## **2. Read this narrative and then make a list of system capabilities for the company:**
+*The new direct sales and accounting system for Especially for You Jewelers will be an important element in the growth and success of the jewelry company. The direct sales portion needs to track every sale and be able to link to the inventory system for cost data to provide a daily profit and loss report. The customer database needs to be able to produce purchase histories to assist management in preparing special mailings and special sales to existing customers. Detailed credit balances and aged accounts for each customer would help solve the problem with the high balance of accounts receivables. Special notice letters and credit history reports would help management reduce accounts receivable.*
+
+  * Track individual sales.
+  * Report on cost data for inventory items.
+  * Produce daily profit and loss reports.
+  * Track purchase histories of individual customers.
+  * Produce special mailings.
+  * Maintain accounts aging with reporting.
+
+## **3. Develop a System Vision Document for Especially for You Jewelers based on the work you did for Problem 1 and Problem 2.**
+Answers will vary. See Figure 9-5 on page 244 for an example of a project charter. Students should create a system scope document similar to Figure 9-5. The business benefits and system capabilities from problems 1 and 2 can also be included. A brief description of the problem should be taken from the case description.
+
+## **4. Develop a work breakdown structure (WBS) based on the following narrative. It should cover all aspects of the move-from the beginning of the project (now) to the end, when all employees are moved into their new offices. Format your solution in tabular form with the following column headings: Task ID No, Task Description, Estimated Effort, Predecessor Task ID.**
+*(Narrative text omitted for brevity...)*
+
+Answers will vary. Here is one group's solution.
+
+| ID | Task Name | Predecessor | Effort |
+|---|---|---|---|
+| 1 | Prepare the Building | | |
+| 2 | Design refurbish work | | |
+| 3 | Research Designers | none | 4 hrs |
+| 4 | Choose Top 3 | 3 | 4 hrs |
+| 5 | Write/Send Request for Proposal | 4 | 16 hrs |
+| 6 | Review Proposals | 5 | 8 hrs |
+| 7 | Select Designer | 6 | 5 hrs |
+| 8 | Develop Draft Plan (Designer) | 7 | 16 hrs |
+| 9 | Review Plan and Give Feedback | 8 | 12 hrs |
+| 10 | Develop Final Plan (Designer) | 9 | 8 hrs |
+| 11 | Approve Plan | 10 | 2 hrs |
+| 12 | Setup Network/Phones | | |
+| 13 | Plan wiring and cabling | 11 | 25 hrs |
+| 14 | Install Network Jacks | 13 | 34 hrs |
+| 15 | Install Phones | 14 | 34 hrs |
+| 16 | Test Network Jacks and Phones | 15 | 16 hrs |
+| 17 | Refurbish Building | | |
+| 18 | Paint walls | 16 | 40 hrs |
+| 19 | Install New Carpet | 18 | 25 hrs |
+| 20 | Purchase Furniture | 11 | 16 hrs |
+| 21 | Place Furniture in Cubicles | 20 | 25 hrs |
+| 22 | Decorate | 18,21 | 25 hrs |
+| 23 | Inspect building | 22 | 8 hrs |
+| 24 | Organize the Move | | |
+| 25 | Review Calendar for Long Weekends | 11 | 4 hrs |
+| 26 | Select Moving Date | 25 | 4 hrs |
+| 27 | Notify Employees About the Move | 26 | 10 hrs |
+| 28 | Plan Employee Moving Meeting | 27 | 8 hrs |
+| 29 | Create Moving Agenda for Employees | 28 | 8 hrs |
+| 30 | Conduct Meeting/Distribute Agenda | 29 | 3 hrs |
+| 31 | Gather Boxes and Moving Equipment | 30 | 5 hrs |
+| 32 | Arrange for Moving Trucks | 31 | 3 hrs |
+| 33 | Notify Clients of New Address and Phone | 32 | 16 hrs |
+| 34 | Plan for Client Services Continuity | | |
+| 35 | Review Outsourcing Provider Options | 11 | 4 hrs |
+| 36 | Select Outsourcing Provider | 35 | 3 hrs |
+| 37 | Make Arrangements During Transition | 36 | 4 hrs |
+| 38 | Carry Out the Move | | |
+| 39 | Pack and Move Employee Office Supplies | | |
+| 40 | Provide Boxes and Start Packing | 23, 33, 37 | 12 hrs |
+| 41 | Load onto Trucks | 40 | 8 hrs |
+| 42 | Move to New Office | 41 | 3 hrs |
+| 43 | Unload into New Office Space | 42 | 16 hrs |
+| 44 | Pack and Move Servers and Equipment | | |
+| 45 | Outsourcing Vendor Temporarily Takes Over | 23, 33, 37 | 2 hrs |
+| 46 | Disconnect Servers | 45 | 2 hrs |
+| 47 | Test Outsourcing Vendor Service | 46 | 2 hrs |
+| 48 | Pack Equipment | 47 | 6 hrs |
+| 49 | Move Equipment | 48 | 2 hrs |
+| 50 | Set up Equipment in New Location | 49 | 10 hrs |
+| 51 | Test Equipment in New Location | 50 | 3 hrs |
+| 52 | Turn off Outsourcing Service | 51 | 3 hrs |
+| 53 | Re-test Equipment | 52 | 4 hrs |
+
+## **5. Enter your WBS from Problem 4 into MS Project. First, enter the tasks, dependencies, and durations. Write a paragraph on your experience using MS Project.**
+Answers will vary. Students can take a snapshot of their schedule to turn in.
+
+## **6. Develop a six-year NPV spreadsheet similar to the one shown in Figure 9-10. Use the following table of benefits, costs, and discount factors (see Figure 9-20). The development costs for the system were $225,000.**
+
+| | Year 0 | Year 1 | Year 2 | Year 3 | Year 4 | Year 5 | Year 6 |
+|---|---|---|---|---|---|---|---|
+| Value of benefits | | $55,000 | $60,000 | $70,000 | $80,000 | $80,000 | $80,000 |
+| Costs | -$225,000 | -$5,000 | -$5,000 | -$5,000 | -$5,000 | -$5,000 | -$5,000 |
+| Net | -$225,000 | $50,000 | $55,000 | $65,000 | $75,000 | $75,000 | $75,000 |
+| Discount factor (6%) | 1.0000 | 0.9524 | 0.9070 | 0.8638 | 0.8227 | 0.7835 | 0.7462 |
+| NPV | -$225,000 | $47,620 | $49,885 | $56,147 | $61,703 | $58,763 | $55,965 |
+| Cumulative NPV | -$225,000 | -$177,380 | -$127,495 | -$71,348 | -$9,646 | $49,117 | $105,082 |
+| Payback Period | | | | | 4 years + 60 days | (.164 \* 365) | $9,646/(9,646+49,117)=.164 |
+
+## **7. Build a Gantt chart by using MS Project based on the table shown in Figure 9-21. Enter the tasks, dependencies, and durations. Print out the PERT chart (Network chart) and the Gantt chart.**
+Figure 9-21 presents a list of tasks for a student who wants to have an international experience by attending a university abroad. Assume that all predecessor tasks must finish before the succeeding task can begin (the simplest version). Also, insert a few overview tasks, such as Application tasks, Preparation tasks, Travel tasks, and Arrival tasks. Be sure to state your assumption.
+
+*(A table describing the schedule tasks, durations, and dependencies follows in the source text, representing typical inputs for MS Project.)*
+
+## **8. The state university wants to implement a better system to keep track of all the computer equipment it owns and needs to maintain. The university purchases a tremendous number of computers and software that are distributed throughout the campus and are used by faculty, staff, departments, and colleges. Currently, the university has very sparse records of its equipment and almost no records about maintenance or the software that has been purchased. A list of use cases has been defined; it will serve as the starting point to develop this system. Take the following list of use cases to create a project iteration schedule. You should try to arrange the use cases so similar ones are developed together. Also, the most important use cases should be developed first. State your assumptions, and explain your reasons for your solution.**
+Note: For brevity, we use the word computer to refer to any type of computing equipment, such as a desktop computer, laptop computer, server computer, printer, monitor, projector, wireless access point, and so forth.
+*(Use case list omitted for brevity...)*
+
+Answers will vary. Here is one possible solution.
+
+| Iteration | Use Cases |
+|---|---|
+| \#1 | Buy a computer.<br>Put a computer in service.<br>Assign a computer to a person. |
+| \#2 | Assign a computer to a department or college.<br>Record the location of a computer.<br>Purchase a warranty for a computer.<br>Record a warranty for a computer. |
+| \#3 | Buy a software license.<br>Renew a software license.<br>Install software on a computer. |
+| \#4 | Identify computers ready for replacement.<br>Take a computer out of service (surplus).<br>Sell a computer. |
+| \#5 | Search for a specific computer by various options.<br>Search for multiple computers by various options.<br>Search for software on computers by various options. |
+| \#6 | Remove software from a computer.<br>Repair a computer (in house).<br>Return a computer for repair. |
+
+-----
+
+### Solutions to Chapter 9 Cases (found at the end of the textbook)
+
+#### Case Study: Custom Load Trucking
+
+## **1. Do you think the decision by CLT to build project managers from its existing employee base is a good one? What advice would you give CLT to make sure it has strong project management skills in the company?**
+Answers will vary. Generally students will respond that it is a good idea to promote from within. Two points however. First the set of skills to be a project manager is not the same as those skills required to be a good programmer or analyst. So not every programmer or analyst will make a good project manager. Second, good mentoring and training is necessary to ensure good project managers.
+
+## **2. What kind of criteria would you develop for Monica to use to measure whether Stewart (or any other potential project manager) is ready for project management responsibility?**
+Answers will vary. The case gives some good insight. Stewart has shown aptitude in leading people (as a team leader), and in building the schedule, etc. Having a list of project management skills and aptitudes and then observing if Stewart has an aptitude to develop those skills will indicate if he is ready and able to become a project manager.
+
+## **3. How would you structure the job for new project managers to ensure or at least increase the possibility of a high level of success?**
+Answers will vary. A few points might be to start with smaller, less complex projects. Also projects that are not high risk in all the areas that were discussed. Projects with a similar deployment environment as the existing environment. Also assign a mentor project manager to watch and coach his project.
+
+## **4. If you were Monica, what kind of advice would you give Stewart about managing his career and attaining his immediate goal of becoming a project manager?**
+Answers will vary. Project management is a career of advancement. There is always a need for good project managers, so it can be a highly beneficial career with substantial income. However, it tends to be a high-stress position trying to meet deadlines in the face of many problems and unknowns. It requires extensive people skills. Project managers often drop out of the details of technology and programming. So if the employment satisfaction is from getting one's fingers into the code, a project management career might not be satisfying.
+
+-----
+
+#### Running Cases: Community Board of Realtors
+
+## **1. Given the total vision of this system, develop a System Vision Document. Focus primarily on finding the benefits to the community board, the real estate agents, and home buyers.**
+
+**Community Board of Realtors System Vision Document**
+
+**Problem Description**
+In any community or metropolitan area there are normally many different real estate offices, each with many different real estate agents. Each of the offices will have a clientèle of sellers who list their properties with the real estate office. Each office will also have a clientèle of buyers who are looking to buy a property. Since these real estate offices are independent there is a need to have a common database of all properties available for sale within the entire metropolitan area. This service is usually provided by a centralized organization, often called the Community Board of Realtors. Centralized information is required of all properties with detailed descriptions. This information needs to be available to all real estate offices and agents, as well as to buyers. The system needs to support adding and updating property information by the offices and agents. The system also must keep track of information about the real estate offices and the agents.
+
+**System Capabilities**
+The following functional areas must be supported in the new system:
+
+  * Maintain listing information
+  * Maintain real estate office information
+  * Maintain real estate agent information
+  * Provide listing data in book form
+  * Provide search and view of property details
+  * Support requests for property visits
+  * Centralized database of all property listing information
+
+**Business Benefits**
+Benefits apply to the centralized board, real estate offices and agents, the sellers and the buyers.
+
+  * Board benefits: Easy to maintain information. Small staff
+  * Offices and agents: Current information on all listings, Automated updates and changes to listing information, Listing books for perusing listings and for advertising, Better able to serve clientèle
+  * Sellers: Broad listing of property listing, Wide advertising of property listing, Availability of listing information throughout the area
+  * Buyers: Detailed information and images available, Easily able to schedule property visits
+
+## **2. Including the uses cases and functions identified in Chapters 3 and 8, make a list of all the uses cases that must be developed. Divide them into subsystems as appropriate. You should have at least two subsystems: one for viewing data and one for updating data. Add any additional use cases (and subsystems) that might be important to the Community Board of Realtors itself.**
+Answers will vary.
+
+| Subsystem | Use Cases |
+|---|---|
+| Update Data | Add new listing<br>Record listing change<br>Delete listing<br>Add real estate office<br>Update real estate office info<br>Delete real estate office<br>Add new real estate agent<br>Update real estate agent<br>Delete real estate agent |
+| View Data | Obtain listing data (View listings)<br>Produce ML book<br>Produce list of RE offices and agents<br>View statistics on RE office (History, Open, Sold)<br>View statistics on RE agents (History, Open, Sold)<br>View histories of sold properties<br>View statistics of open properties |
+
+## **3. Decide on a work sequence, and develop a project iteration schedule.**
+Answers will vary.
+
+| Iteration | Use Cases |
+|---|---|
+| \#1 | Add real estate office<br>Update real estate office info<br>Delete real estate office<br>Add new real estate agent<br>Update real estate agent<br>Delete real estate agent |
+| \#2 | Add new listing<br>Record listing change<br>Delete listing<br>Obtain listing data (View listings)<br>Produce ML book |
+| \#3 | Produce list of RE offices and agents<br>View statistics on RE office (History, Open, Sold)<br>View statistics on RE agents (History, Open, Sold)<br>View histories of sold properties<br>View statistics of open properties |
+| \#4 | Cleanup and acceptance test |
+
+## **4. Estimate the development cost and the time required.**
+Answers will vary.
+
+| Subsystem | Function Requirements | Iterations | Estimated time |
+|---|---|---|---|
+| Update Data | 9 | 2 | 8 weeks |
+| View/Report Data | 7 | 2 (some overlap) | 6 weeks |
+| Final Cleanup | | 1 | 2 weeks |
+| Total | | | 16 weeks |
+
+| Expense Category | Amount |
+|---|---|
+| Salaries (2 person team @ $1500/week) | $46,000.00 |
+| Equipment/Install (1 server + network) | $5,000.00 |
+| Training (1 person 1 week) | $1,500.00 |
+| Facilities | $5,000.00 |
+| Total | $59,500.00 |
+
+## **5. Develop a work breakdown structure (WBS) for the project's first iteration.**
+
+| Discipline | Activity | Effort | Dependency |
+|---|---|---|---|
+| Planning | Set up work environment<br>Develop WBS and plan work | 2 days<br>1 day | |
+| Analysis Activities | Meet with Community Board users<br>Meet with several agents<br>Define data<br>Model use cases | 2 days<br>2 days<br>1 day<br>2 days | |
+| Design Activities | Design screen layouts<br>Design Database<br>Design use case processing | 3 days<br>1 day<br>3 days | |
+| Build Activities | Build database<br>Write program code<br>Build test data<br>Set up for user test<br>Conduct acceptance test<br>Release first use cases<br>Do retrospective | 1 days<br>8 days<br>2 days<br>1 day<br>2 days<br>$1/2$ day<br>$1/2$ day | |
+| Total Days | | 32 days = 6.5 weeks | |
+
+## **6. Enter your WBS into MS Project to create a detailed work schedule.**
+Answers will vary.
+
+-----
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service
+
+## **1. Based on the answers you gave to the Chapter 2 running case questions, develop a System Vision Document.**
+
+**Spring Breaks 'R' Us Travel Service System Vision Document**
+
+**Problem Description**
+Spring Breaks arranges with travel resorts for spring break vacation packages and markets those packages to students. Historically it has done its business using campus sales persons and printed fliers. However, students now prefer to do their own browsing and vacation scheduling using the Internet. Hence Spring Breaks needs to build an entirely new Web based system that allows resorts to self-publish their vacation packages, and supports student desires to browse and schedule their vacations. Additional features are to be added to the system to enhance utility for students. One popular feature is a social networking component to the system.
+
+**System Capabilities**
+
+  * Resort Relations: Create/enter resort information, Post availability and prices of rooms/facilities, Retrieve completed reservations
+  * Student Booking: View resort information and availability of rooms/facilities, Make a reservation (book a room/facility)
+  * Accounting and Finance: Process student payments, Process payouts to resorts
+  * Social Networking: Link up and chat with "friends", Post comments and pictures
+
+**Business Benefits**
+
+  * For Spring Breaks: Increased student use (increase sales), Social media marketing of Spring Breaks services, Better support for resorts will help to recruit additional resorts, Reduce costs of 'on-campus' sales representatives
+  * For Resorts: Easier to add vacation packages, Faster payments for reservation, Closer, more rapid communication with Spring Breaks
+  * For Students: Easier to browse vacation packages, More detailed information about vacation packages, Mobile access to resorts, packages, friends, Easier to reserve and change packages, Easier to form vacation 'groups' with friends, Locating and connecting with friends via social networking capability
+
+## **2. Based on the functional descriptions you provided for the Chapter 2 running case and the use cases you defined in Chapter 3, finish identifying a complete list of use cases for each of the four subsystems. One important decision you will have to make is which subsystems to develop first.**
+Answers will vary. Probably the best order to deploy the system is:
+
+1.  Resort relations - so they can start entering vacation packages
+2.  Student booking - so students can start using the system
+3.  Accounting and finance about as important as student booking. Need to process payments
+4.  Social networking - Some portions will need to be done early (individual and group accounts that book rooms together). Other portions are not required until students begin taking vacations
+
+<!-- end list -->
+
+  * Resort Relations: Sign up with SBRU (get an account), Edit account information, Create/enter resort information for SBRU website, Post availability and prices of rooms/facilities, View/edit room availability, Retrieve completed reservations, Submit damage report
+  * Student Booking: Join SBRU/enter personal and financial information, View resort information and availability of rooms/facilities, Make a reservation (book a room/facility), Make a payment for reservation, Cancel a reservation
+  * Accounting and Finance: Process student payments, Make refunds/correct payment errors, Process payouts to resorts, Edit/update/correct payouts
+  * Social Networking: Create an individual account (join), Set preferences on account, Create a group account, Assign admin rights to account, Search for a person or group, Link up with a person or group, Send a private message to a friend, Chat with friend(s), Post a comment to a friend/group/photo, Upload photo or video, Tag photo, Write/update vacation experience
+
+## **3. A related decision is whether to organize your programmers into one larger team or multiple smaller teams and how many programmers you can use on this project. Make that decision and then defend your answer.**
+Answers will vary. One way would be to have a "Student functions" team, and a "Resort functions and finance" team.
+
+## **4. Once those decisions are made, develop a project iteration plan. If you have multiple independent teams, your project iteration plan will have parallel paths.**
+Answers will vary. This solution is for a two team project. Note due to dependencies, the database for the resorts will need to be developed first. It is important for both teams. Immediately thereafter student reservation information is required for both teams. Both teams will coordinate together on database development.
+
+| Iteration | Student Function Team | Iteration | Resort Function Team |
+|---|---|---|---|
+| \#1 | Join/Enter account info<br>Create an individual account<br>Create group account | \#1 | Sign up with SBRU<br>Create/enter resort information<br>Post room and package info |
+| \#2 | View resort information<br>View vacation package options<br>Make a reservation<br>Change/Cancel a reservation | \#2 | Edit account information<br>View/edit rooms/packages<br>Retrieve reservations<br>Submit damage report |
+| \#3 | Set preferences on individual account<br>Set admin rights to group<br>Make a payment | \#3 | Process payments<br>Make corrections on payments<br>Process payouts<br>Correct payouts |
+| \#4 | Search for person/group<br>Link up with person<br>Send message<br>Post comment | \#4 | Write vacation experience<br>Upload photo/video<br>Tag photo/video |
+
+## **5. Based on your previous answers, develop an estimate for the total project cost and the time required to complete the project.**
+
+| Iter | Student Function Team (No. Use cases / Estimate) | Iter | Resort Function Team (No. Use cases / Estimate) |
+|---|---|---|---|
+| \#1 | 3 / 6 weeks | \#1 | 3 / 6 weeks |
+| \#2 | 4 / 5 weeks | \#2 | 4 / 5 weeks |
+| \#3 | 3 / 4 weeks | \#3 | 4 / 4 weeks |
+| \#4 | 4 / 4 weeks | \#4 | 4 / 4 weeks |
+| \#5 | Cleanup/Test / 4 weeks | \#5 | Cleanup/test / 4 weeks |
+
+| Expense Category | Amount |
+|---|---|
+| Salaries (2 person teams @ $1500/week+ PM @ $2000/week + support staff @ $1200/week) | $208,400 |
+| Equipment/Install (2 servers + network) | $25,000 |
+| Training | $15,000 |
+| Facilities | $20,000 |
+| Licenses | $10,000 |
+| Travel/miscellaneous | $20,000 |
+| Total | $298,400 |
+
+## **6. Assuming an annual revenue increase of $250,000 per year (benefit) and an annual operating cost of $75,000, develop a five-year NPV worksheet by using your estimates for developing the system. Use a 6 percent discount factor.**
+The following answer uses a constant $250,000 for the benefit and constant $75,000 for the costs. In reality, the benefit would increase gradually, and costs would also increase over time. For consistency we provide this simple solution.
+
+| Category | Year 0 | Year 1 | Year 2 | Year 3 | Year 4 | Year 5 |
+|---|---|---|---|---|---|---|
+| Value of benefits | | $250,000 | $250,000 | $250,000 | $250,000 | $250,000 |
+| Development costs | -$298,400 | | | | | |
+| Annual Expenses | | -$75,000 | -$75,000 | -$75,000 | -$75,000 | -$75,000 |
+| Net benefit/costs | -$298,400 | $175,000 | $175,000 | $175,000 | $175,000 | $175,000 |
+| Discount Factor (6%) | 1.0000 | 0.9524 | 0.9070 | 0.8638 | 0.8227 | 0.7835 |
+| Net Present Value | -$298,400 | $166,670 | $158,725 | $151,165 | $143,973 | $137,113 |
+| Cumulative NPV | -$298,400 | -$131,730 | $26,995 | $178,160 | $322,133 | $459,245 |
+| Payback Period | | 1 year + | $131,730/(158,725)=.83 | 1 year + 303 days (.83\*365) | | |
+
+-----
+
+#### Running Cases: On the Spot Courier Services
+
+## **1. Create a System Vision Document.**
+
+**On The Spot Courier Services System Vision Document**
+
+**Problem Definition**
+Currently information about requests for pickup, package pickups and deliveries is maintain manually on spreadsheets and paper forms. A new system is needed to allow regular customers to use the Web to request pickups and enter information about their packages. The system needs to also track the movement of packages from pickup, through the warehouse, and on to delivery. Finally, the system should also support real time communication with the delivery trucks to facilitate rapid pickup from recent requests. In order for this business to handle the day to day processes, as well as prepare for future growth, it is mandatory that the system be built and deployed as soon as possible.
+
+**System Capabilities**
+The system should support the following functions:
+
+  * All customers able to request pickups through the Internet
+  * Support call in requests for package pickups
+  * Track all movements of packages from pickup, through warehouse, until delivery
+  * Provide tracking information over the Internet
+  * Support customer accounts for regular customers
+  * Provide delivery trip information about what to deliver and what to pick up
+  * Send out invoices and accept payments
+
+**Business Benefits**
+First, of course, the new system will enable On the Spot to support the current level of business. Additionally the benefits include:
+
+  * Provide support for growth and increased volumes
+  * Support customer requests for Web access and tracking of packages
+  * Increase customer service through Web capabilities and tracking information
+  * Improve speed of pickup and delivery by real time communication with delivery trucks
+
+## **2. Review all the use cases that you identified in Chapter 2 and then enhance the list to achieve a complete solution. Assign each use case to one of these four subsystems from Chapter 8.**
+Note: After doing a CRUD analysis based on the class diagram from Chapter 4, another subsystem called "Administration" will need to be added to support purely management use cases. CRUD analysis showed that we need use cases to maintain the Employee table. Also to 'R'eport data, we need new use cases.
+
+| Subsystem | Use Cases |
+|---|---|
+| Customer account subsystem | Add/update a customer<br>Delete a customer<br>View customer account information<br>Print invoices<br>Enter payment information |
+| Pickup request subsystem | Enter/update request for pickup information<br>Cancel request for pickup<br>Enter package pickup information (scan)<br>Update package pickup information<br>Print label |
+| Package delivery subsystem | Enter package delivery information (scan)<br>Enter customer signature (delivery)<br>Get package tracking information |
+| Routing and scheduling subsystem | Enter package event information (scan)<br>Create trip manifest<br>Update trip manifest<br>Print trip manifest (packages to be delivered)<br>Display trip manifest (real time)<br>Assign package to trip (truck route) |
+| Administration subsystem | Adjust customer account information<br>Add/update employee information<br>Delete employee information<br>View employee information<br>Report statistics on package activity (on time, late, volumes, etc)<br>Report statistics on revenues<br>Report statistics on Customer accounts (receivables) |
+
+## **3. Create a project iteration schedule for each subsystem. The project consultant is planning to assign one team of two people to this project, and the subsystems will be built consecutively.**
+Answers will vary. We show only the final combined answer.
+
+| Iteration | Subsystem | Use case |
+|---|---|---|
+| \#1 | Customer account | Add/update a customer<br>Delete a customer<br>View customer account information |
+| \#2 | Customer account | Print invoices<br>Enter payment information |
+| \#3 & \#4 | Pickup request / Package delivery / Routing | Enter/update request for pickup information<br>Cancel request for pickup<br>Enter package pickup information (scan)<br>Update package pickup information<br>Print label<br>Enter package delivery information (scan)<br>Enter customer signature (delivery)<br>Get package tracking information<br>Enter package event information (scan) |
+| \#5 | Routing and scheduling | Create trip manifest<br>Update trip manifest<br>Print trip manifest (packages to be delivered)<br>Display trip manifest (real time)<br>Assign package to trip (truck route) |
+| \#6 | Administration | Adjust customer account information<br>Add/update employee information<br>Delete employee information<br>View employee information |
+| \#7 | Administration | Report statistics on package activity (on time, late, volumes, etc)<br>Report statistics on revenues<br>Report statistics on Customer accounts (receivables) |
+
+## **4. Create a work breakdown structure (WBS) for the first iteration of the project as you have outlined it. Estimate the effort required for each task in the WBS.**
+
+| Discipline | Activity | Effort | Dependency |
+|---|---|---|---|
+| Planning | Set up work environment<br>Develop WBS and plan work | 1 day<br>1 day | |
+| Analysis Activities | Meet with Bill about customer info<br>Define data<br>Model use cases | 2 days<br>$1/2$ day<br>1 day | |
+| Design Activities | Design screen layouts<br>Design Database<br>Design use case processing | 2 days<br>1 day<br>1 day | |
+| Build Activities | Build database<br>Write program code<br>Build test data<br>Set up for user test<br>Conduct acceptance test<br>Release first use cases<br>Do retrospective | $1/2$ day<br>4 days<br>$1/2$ day<br>$1/2$ day<br>1 day<br>$1/2$ day<br>$1/2$ day | |
+| Total Days | | 17 days | |
+
+## **5. Enter the WBS into MS Project to create a detailed work schedule.**
+Answers will vary.
+
+-----
+
+#### Running Cases: Sandia Medical Devices
+
+## **1. Based on the use case diagram and other project information, develop a list of software components (subsystems) that must be acquired or developed. Describe the function(s) of each component in detail.**
+
+| Subsystem | Use cases |
+|---|---|
+| Patient alert subsystem | View/respond to alert<br>View history<br>Annotate history<br>Phone system receive monitor data (internal use case)<br>Phone system send data to server (internal use case) |
+| Patient message subsystem | Send message to physician<br>View/hear message from physician |
+| Physician alert subsystem | View/respond to alert<br>View history (monitor data)<br>Set alert conditions<br>Server receive data from phone (internal use case) |
+| Physician message subsystem | Send message to patient<br>View/hear message from patient |
+
+## **2. Prioritize the list of software components based on risk.**
+Answers will vary. Students should justify their answers. Technological risk would indicate the following use cases are highest risk:
+
+1.  Phone system receive monitor data (internal use case)
+2.  Phone system send data to server (internal use case)
+3.  Server receive data from phone (internal use case)
+4.  View/respond to alert (patient)
+5.  View history (patient)
+6.  Annotate history (patient)
+
+## **3. Prepare a project iteration schedule based on iterations that last between two and four weeks.**
+Answers will vary.
+
+| Iteration | Subsystem | Use case |
+|---|---|---|
+| \#1 & \#2 | Patient alert | Phone system receive monitor data (internal use case)<br>Phone system send data to server (internal use case)<br>(note: this is complex due to multiple mobile devices) |
+| \#3 & \#4 | Patient alert | View/respond to alert<br>View history<br>Annotate history<br>(note: this is complex due to multiple mobile devices) |
+| \#5 | Physician alert | Server receive data from phone (internal use case)<br>View/respond to alert<br>View history (monitor data)<br>(note: this is medium complex due to multiple sending devices) |
+| \#6 | Physician message | Send message to patient<br>View/hear message from patient |
+| \#7 & \#8 | Patient message / Integration test | Send message to physician<br>View/hear message from physician<br>(3 weeks) |
+| \#9 | Acceptance test | (3 months) |
+
+## **4. Prepare a detailed work schedule for the first iteration. If you have access to project management software, prepare the schedule and a Gantt chart by using the software.**
+Answers will vary. This project is highly technical, and especially this iteration requires little user involvement. It addresses technical areas.
+
+| Discipline | Activity | Effort | Dependency |
+|---|---|---|---|
+| Planning | Set up work environment<br>Develop WBS and plan work | 1 day<br>$1/2$ day | |
+| Analysis Activities | Meet with tech staff on specs of monitoring device<br>Learn specs on selected phone devices<br>Define data<br>Define interface requirements | 2 days<br>4 days<br>1 days<br>2 days | |
+| Design Activities | Design detailed interfaces<br>Design program structure | 1 days<br>2 days | |
+| Build Activities | Write program code<br>Set up for communication/integration test<br>Conduct communication & integration test<br>Do retrospective | 8 days<br>1 day<br>2 days<br>$1/2$ day | |
+| Total Days | | 25 days = 5 wks | |
 # Chapter 11 - Project Management Techniques
+
+# Chapter 10 – Object-Oriented Design: Principles
+
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+**1. Describe in your own words how an object-oriented program works.**
+As per Figure 10-1, view objects (windows) receive inputs, and send and receive data via messages to business layer objects. As required, business objects send and receive data to database access objects, which retrieve and update the database. The basic approach is that an object-oriented program is a set of interacting objects that get work done sending messages and requesting services from each other.
+
+**2. What is instantiation?**
+It is the process of creating and new “instance” of an object using the template provided by the class definition.
+
+**3. List the models that are used for object-oriented systems design.**
+The primary UML models are component diagrams deployment diagrams, design class diagrams, Interaction diagrams (sequence diagrams and communication diagrams), state machine diagrams, and package diagrams. Although not a UML model, CRC cards can also be considered a model.
+
+**4. What UML diagram is used to model architectural design?**
+Component diagrams can be used to model architectural design.
+
+**5. Explain how domain classes are different from design classes.**
+Domain classes usually contain the class name and a list of attributes. Design classes extend domain classes by type casting the attributes, identifying keys, identifying initial values. Design classes also include method signatures with return type and passed parameters.
+
+**6. What is an enterprise-level system? Why is it an important consideration in design?**
+An enterprise-level system is one which is used by multiple people or groups and has common resources that must be shared by all users. Designing an enterprise-level system requires considerations about the network and how these common resources will be made available to all users. Hence designing an enterprise-level system requires a broader view of the system and how it will fit into the organization.
+
+**7. What are some of the differences between a client-server network system and an Internet system?**
+There are three primary differences identified in the chapter (Figure 10-3).
+* **State** – or the ability of the system (both clients and server) to remember what was the last activity and know what to do next. Client-server systems have state, particularly remembering the last connection activity, where Internet system is stateless and the server does not remember what each client was doing.
+* **Screens and reports** – a client-server has its screens directly programmed, while an Internet system depends on a browser to display and present the screens. “Active screens” which do things dynamically on Internet system must also use browser accepted programming languages, where client-server can program the screens directly in any desired language.
+* **Server configuration** – client-server systems are connected directly where an Internet system uses the services of an Internet server.
+
+**8. What is an API? Why is it important?**
+API stands for Application Program Interface and it is mechanism that a subsystem or a component provides its services to the world. An API is set of method signatures for public methods that can be used by other systems to access internal services. Since OO systems depend on objects (and at a higher level, subsystems or components) to work together by invoking methods, the API is a critical part of this interacting set of objects.
+
+**9. What notation is used to identify the interface of a component?**
+The notation is a port and socket. The port is represented by a ball and the socket is represented by a cup into which the ball fits.
+
+**10. What is the difference between the notation for problem domain classes and design classes?**
+Problem domain classes usually only contain two internal compartments, one for the class name, and the other for the attribute list. Design classes add an addition compartment to list the method names.
+
+**11. In your own words, list the steps for doing object-oriented detailed design.**
+* The domain model is enhanced to add type information to the attributes and to add navigation visibility. (First cut).
+* The following steps are done on a use-case by use-case basis, i.e. for each use case independently.
+* For simple use cases use CRC cards to design the method interactions.
+* For more complex use cases use sequence diagrams to define multi-level interactions.
+* Update the design class diagram to add method signatures and additional navigation visibility.
+* Add package diagrams as necessary.
+
+**12. What do we mean by use-case driven design, and what is use case realization?**
+Use case driven design means that detailed design is performed on a use-case by use-case basis. Use case realization is the process of identifying and defining all of the internal messages (methods) between the view layer, business logic layer, and data access layer objects for the specified use case.
+
+**13. What are a) persistent classes, b) entity classes, c) boundary classes, d) control classes, and e) data access classes?**
+* **Persistent classes** are those where the data must be stored between program executions, usually in a database. The genesis of persistent classes are usually the problem domain classes.
+* **Entity classes** are the business classes, which also come from the problem domain classes.
+* **Boundary classes** are the view layer classes.
+* **Control classes** are those classes that act as the interface between the view layer and the business layer. These classes are like switchboard classes.
+* **Data access classes** are those in the data layer and contain the logic necessary to read and write to the database.
+
+**14. What are class-level methods and class-level attributes?**
+Class-level methods and attributes are those that are maintained at the class level and do not need an instantiated object. A class level method can either provide a service method that does not depend on an object, or it can provide a service across all instantiated objects.
+
+**15. What are attribute and method visibility, and what are the types of visibility shown on a design class diagram?**
+Attribute and method visibility define whether attributes and methods are public or private, if objects from other classes can access them or if only objects of the same type (class) can access them. On a design class diagram are attribute and method visibility plus navigation visibility, which indicates which classes (objects) have references to which other classes (objects).
+
+**16. What is a method signature?**
+A method signature is a unique identifier of a method. Depending on the programming language, it usually consists of the method name, the return type, and the list of all the parameters with the type of each.
+
+**17. Compare and contrast abstract and concrete classes. Give an example of each.**
+An abstract class is one which cannot have any objects instantiated. A concrete class does allow for objects to be instantiated. An abstract class might be a “vehicle”, with concrete subclasses of “car” and “truck.” There are no vehicles that are not also a car or truck.
+
+**18. Describe navigation visibility. Why is it important in detailed design?**
+Navigation visibility is the ability of the objects in one class to have a reference to, and thus access the API, of the objects in another class. Obviously, if a class does not have a reference to another class, it cannot access its methods. It is a critical design concept.
+
+**19. List some typical conditions that dictate in which direction navigation visibility occurs.**
+* A superior/subordinate relationship with the superior being able to view the subordinate
+* Mandatory relationship such as a client and order. A client object should know about its orders.
+* Informational requirements will need visibility to access the class with the information
+
+**20. What information is maintained on CRC cards?**
+CRC cards have one card for each class. On the card are listed the class name, the responsibilities (which are like the methods), other classes that are required to collaborate, and on the back a list of the attributes for that class.
+
+**21. What is the objective of a CRC card design session?**
+A CRC design session is to define a set of collaborating classes (i.e. a set of CRC cards) that work together to carry out a use case. It is a simple way to do use case realization.
+
+**22. Compare and contrast the ideas of coupling and cohesion.**
+* **Coupling** has to do with how closely connect two (or more) classes are connected. Ideally classes are loosely coupled so that programming changes to one do not also require changes to the other class. So coupling is a concept describing the relationship between classes.
+* **Cohesion** is an internal concept to describe the “focus” or “unity” within a class. A class with high cohesion is easier to maintain because it does not have a lot of extraneous methods of functions that may be negatively impacted to programming changes.
+
+**23. What is protection from variations, and why is it important in detailed design?**
+Protection from variations is a technique to isolate or segregate those portions of the system that change frequently from those portions that are more stable. By isolating the less stable portions, changes can be made without having to investigate large portions of the system. It isolates the changes to a few classes.
+
+**24. What is meant by object responsibility, and why is it important in detailed design?**
+Object responsibility is a principle to help decide which classes should have which methods. By considering object responsibility during design, the result is a set of classes with high cohesion. Classes are given responsibility for their own data and for their own functions.
+
+---
+
+### Problems and Exercises
+
+**1. Given the following system description, develop a component diagram for a desktop-operated internal network system (i.e., Internet access not required).**
+The new Benefits for Employees, Spouses, and Dependents (BESD) system will be used primarily by the human resources department and will contain confidential information. Consequently, it will be built as a totally in-house system, without any Internet elements. The database for the system is the human resource employee database (HRED), which is shared by several other systems within the company. There are two types of screens from a systems design viewpoint: simple inquiry screens and complex inquiry/update screens. The simple inquiry screens just access the database, with no business logic required. The complex screens usually do fairly complicated calculations based on sophisticated business rules. These programs often have to access other data tables from other databases in the company. The database will always remain on a central database server. The application program itself will be installed on each desktop that is allowed access. However, authentication is a centralized process, and it will control which screens and program functions can be accessed by which users.
+
+
+**2. Develop a component diagram for the following description of a Facebook application.**
+The Facebook platform is available for entrepreneurs to develop applications for use among all Facebook users. A new application is being written that allows Facebook users to send gifts and greeting cards to their friends. (These are real gifts and greeting cards, not just electronic images.) The application running within Facebook is on its own server and has its own database of information, which includes a list of gifts and cards that have been sent or received. The actual retail store of gifts and cards to send must be located on a different server because it is part of a regular Internet sales storefront. This storefront maintains the database of inventory items to sell and collects credit card payment information.
+
+
+**3. In this chapter, we developed a first-cut DCD, a set of CRC cards, and a final DCD for the Create phone sale use case for RMO. Create the same three drawings for the Look up item availability use case.**
+
+
+**4. Find a company that does object-oriented design by using CRC cards. The information systems unit at your university often uses object-oriented techniques. Sit in on a CRC design brainstorming session. Interview some of the developers about their feelings regarding the effectiveness of doing CRC design. Find out what documentation remains after the sessions and how it is used.**
+Answers will vary.
+
+**5. Find a company that has an enterprise system. (If you are working for a company, see what systems they use.) Analyze the system and then develop a component diagram and a deployment diagram.**
+Answers will vary.
+
+**6. Find a system that was developed by using Java. If possible, find one that has an Internet user interface and a network- based user interface. Is it multi-layered—three layers or two layers? Can you identify the view layer classes, the domain layer classes, and the data access layer classes?**
+Answers will vary.
+
+**7. Find a system that was developed by using Visual Studio .NET (Visual Basic or C#). If possible, find one that has an Internet user interface and a network-based user interface. Is it multi-layered? Where is the business logic? Can you identify the view layer classes, the domain layer classes, and the data access layer classes?**
+Answers will vary.
+
+**8. Pick an OOP language with which you are familiar. Find a programming IDE tool that supports that language. Test its reverse-engineering capabilities to generate UML class diagrams from existing code. Evaluate how well it does and how easy the models are to use. Does it have any capability to input UML diagrams and generate skeletal class definitions? Write a report on how it works and what UML models it can generate.**
+Answers will vary.
+
+**9. Draw a UML design class that shows the following information.**
+The class name is Boat, and it is a concrete entity class. All three attributes are private strings with initial null values. The attribute boat identifier has the property of “key.” The other attributes are the manufacturer of the boat and the model of the boat. There is also an integer class-level attribute containing the total count of all boat objects that have been instantiated. Boat methods include creating a new instance, updating the manufacturer, updating the model, and getting the boat identifier, manufacturer, and model year. There is a class-level method for getting the count of all boats.
+
+
+---
+
+### Solutions to End-of-Chapter Cases
+
+#### Case Study: The State Patrol Ticket-Processing System (Revisited)
+In Chapter 3, you identified use cases and considered the domain classes for the State Patrol Ticket Processing System. Review the descriptions in Chapter 3 for the use case Record a traffic ticket. Recall that the domain classes included Driver, Officer, Ticket, and Court.
+
+**1. Draw a domain class diagram for the ticket-processing system based on the four classes just listed and include attributes, association, and multiplicity.**
+
+**2. List the classes that would be involved in the use cases and decide which class should be responsible for collaborating with the other classes for the use case Record a traffic ticket.**
+Consider some possibilities: 1) a driver object should be responsible for recording his/her ticket; 2) the officer object should be responsible for recording the ticket that he or she writes; and 3) a ticket object should be responsible for recording itself. To record a traffic ticket, the system will want to verify the officer, verify the driver information, and then record the ticket. The ticket should be responsible for recording itself. The officer and driver are only verification.
+
+**3. Create a set of CRC cards showing these classes, responsibilities, and collaborations for the use case.**
+
+**4. Draw a first-cut design class diagram (DCD) based on your CRC cards.**
+
+#### Running Cases: Community Board of Realtors
+In Chapter 3 and Chapter 5, you identified and then modeled use cases for the Multiple Listing Service (MLS) application. You also identified and modeled domain classes. Use your solutions from these chapters to do the following:
+
+**1. Draw a basic component diagram showing the architectural design for the system, assuming that it is a two-layer Internet architecture.**
+
+**2. Use the CRC cards technique to identify the classes that are involved in the Create new listing use case.**
+Recall that creating a new listing involves an agent, a real estate office, and a listing. Decide which class should have the primary responsibility for collaborating with the other classes and then complete the CRC cards for the use case.
+
+**3. Draw a first-cut design class diagram (DCD) based on the CRD cards for this use case.**
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service
+In Chapter 3, you identified use cases for the Spring Breaks ‘R’ Us Travel Service. In Chapter 5, you elaborated those use cases. In Chapter 4, you identified the classes associated with these use cases. Using your solutions from these chapters, do the following:
+
+**1. Draw a basic component diagram showing the architectural design for the system, assuming it is a two-layer Internet architecture.**
+Note: Three components (subsystems) are identified for this architectural design. Each basically operates independently. The Reservation component works with student travelers, while the Resort component is for the resorts. They share several tables in the database. The Chat/Message component also shares some of the database, but also has its own chat data.
+
+**2. Use the CRC cards technique to identify the classes that are involved in the Book a reservation use case.**
+Recall that creating a booking involves at least a student group, a resort, a week, and a room type. Decide which class should have the primary responsibility for collaborating with the other classes and then complete the CRC cards for the use case.
+Note: We are using the expanded class diagram developed in Chapter 5. We are also using the SSD developed for in Chapter 5 for Book a Reservation use case. It has five input messages to:
+* findResorts
+* showResortDetails
+* checkAvailability
+* requestReservation
+* payForReservation
+As shown in the solution, it has many classes involved in the solution. We used UML notation to show class level methods. This use case is pushing the limits of CRC cards. It is fairly complex.
+
+**3. Draw a first-cut design class diagram (DCD) based on the CRD cards for this use case.**
+Note: A first-cut design class diagram is a “best guess” at the navigation visibility required. It often changes as the detail design progresses. Notice in this solution that the Resort and the Traveler take responsibility for many of the actions.
+
+#### Running Cases: On the Spot Courier Services
+In Chapter 6, you considered the issues relevant to the specification of the hardware equipment and networking requirements. The case description in Chapter 6 also reviewed the three primary types of users for the system and many of their respective system-supported activities. 
+
+**Consistent with the network that you recommended in Chapter 6, develop a component diagram.** Show which parts of the system may use general Internet access and which parts may use VPN capabilities.
+
+In Chapter 5, you developed activity diagrams and system sequence diagrams for two use cases: Request a package pickup and Pickup a package. In Chapter 4, you developed a domain model class diagram for the system.
+
+**For each of the two use cases, develop a first-cut design class diagram and a set of CRC cards.** The design class diagram should elaborate the attributes and show navigation visibility. You may also need to add more classes from your solution in Chapter 4. It isn’t uncommon for developers to enhance early models as they begin to understand system requirements better. The CRC cards should include classes for the Controller class and any classes for screens you identified in Chapter 7.
+
+#### Running Cases: Sandia Medical Devices
+Review the original system description in Chapter 2, additional project information in Chapters 3, 4, 6, 8, and 9, and the use case diagram shown in Figure 10-20 to refamiliarize yourself with the proposed system. Complete these tasks:
+
+**1. Develop a deployment diagram that shows the equipment specified in Chapter 6 and the list of software components you developed while answering question 1 in Chapter 9.**
+
+**2. For the moment, assume that the database will store two glucose levels for each patient—normal minimum and normal maximum—and that an alert will be generated if three or more consecutive glucose readings are above or below those levels. Expand the domain class diagram in Chapter 4 to include this information and then develop a firstcut design class diagram to support the patient use case View/respond to alert.**
 
 # Chapter 12 - Object-Oriented Design: Fundamental
 
 # Chapter 13 - Object-Oriented Design: Use Case Realization
+Systems Analysis and Design in a Changing World, sixth edition
+11-1
+
+# Chapter 11 - Object-Oriented Design: Use Case Realizations
+
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+**1. What is meant by the term use case realization?**
+The term realization means to create or bring into reality. Hence use case realization means to bring the use case to life or into reality by defining the detail steps and processes required to implement it.
+
+**2. What are the benefits of knowing and using design patterns?**
+Design patterns are a widely held approach to implementing standard programming constructs. It is important to know about and to understand both the idea of design patterns and to have a repertoire of understood patterns. Just as the vocabulary for any discipline is important in order to be educated in that discipline, system developers should be aware and have a working knowledge of design patterns.
+
+**3. What is the contribution to systems development by the Gang of Four?**
+The Gang of Four were the first developers to specifically define the idea of design patterns and to identify several fundamental common design patterns.
+
+**4. What are the five components of a standard design pattern definition?**
+The name, the description of the problem or need, the description of the solution, an example or diagram of the solution, and specific benefits or consequences of this solution.
+
+**5. List five elements included in a sequence diagram.**
+An actor, objects, lifelines, activation lifelines, messages, and loop control boxes.
+
+**6. How does a sequence diagram differ from an SSD?**
+A systems sequence diagram only has one object, the system. A sequence diagram explodes the system object into all of the internal objects of the system. The idea is similar to a black box test and a white box test—one looks only at the outside while the other observes the details of what is going on inside.
+
+**7. What is the difference between designing with CRC cards and designing with sequence diagrams?**
+CRC cards is a more elementary process. It does not try to identify the messages at the same level of detail as is done with a sequence diagram. CRC cards gives an overview of the process, but leaves many details to the programmer. Sequence diagram goes more in depth.
+
+**8. Explain the syntax of a message on a sequence diagram.**
+* `*` - means multiply occurring or looping
+* `[true/false]` - means test condition which is tested before the message is sent
+* `return-value` - is the return value which is returned to the originator of the message
+* `:=` - is used to denote that a return value exists
+* `message-name` - this is the message name or service requested
+* `(parameter-list)` - this is the list of data parameters being sent with the message
+
+**9. What is the purpose of the first-cut sequence diagram? What kinds of classes are included?**
+The purpose of the first-cut sequence diagram is to design and describe the logic within the problem domain objects, or the set of messages and connections between the various problem domain classes, e.g. business layer logic. Only problem domain classes are included.
+
+**10. What is the purpose of the use case controller?**
+A use case controller class is a completely artificial class that is used to provide a link between the view layer and the domain layer. A controller helps reduce the coupling between the view and domain layers in that the view layer does not need to know about all the classes in the domain layer. It only needs to know about the controller.
+
+**11. What is meant by an activation lifeline? How is it used on a sequence diagram?**
+An activation lifeline indicates the active execution or 'life' of the destination object. It is used as part of the lifeline of an object, but denoting that period of time when the object is actively executing some logic.
+
+**12. Describe the three major steps in developing the set of messages for the first-cut sequence diagram.**
+1. Start with each input message and identify all information and services that it will need in order to complete the requested service, e.g. identify all internal messages.
+2. Identify all of the classes that will be involved to process.
+3. Make sure each internal message is complete with parameters, true/false condition, and looping.
+
+**13. What assumptions do developers usually make while doing the initial use case realization?**
+* Perfect technology assumption
+* Perfect memory assumption
+* Perfect solution assumption
+
+**14. When doing multilayer design, what is the order in which layers should be designed? Why?**
+The business logic layer is done first to yield the first-sequence diagram. Often the data access layer is done next. Finally the view layer is added.
+
+**15. What is the "separation of responsibilities" principle?**
+Separation of responsibilities is the concept that each unique task within a use case should be done by a separate method/object. Don't try to jam all of the processing logic into one giant method in one class. Make the methods and the objects cohesive by having them complete the task that applies to their primary purpose or reason for being.
+
+**16. Explain the two methods of accessing the database to create new objects in memory.**
+One method is to create an empty shell of an object, say by the controller or a factory. Then in the constructor of that newly instantiated object, it will call the data access object to read the database and fill in all of the fields. The other method is to issue a call to the data access object and have it read the database and instantiate a new object, or multiple objects, based on what is returned from the database.
+
+**17. What symbols are used in a communication diagram, and what do they mean?**
+* Stick figure is an actor
+* Boxes mean classes
+* Lines between the boxes are links to pass messages - much like navigation visibility. Arrows with labels are the messages
+
+**18. Explain the components of message syntax in a communication diagram. How does this syntax differ from that of a sequence diagram message?**
+* `[true/false]` is the true/false condition to determine if the message is sent
+* `number` is the sequence number or order of the message on the diagram
+* `return-value :=` is the value returned to the originating object
+* `message-name` is the name of the requested service
+* `(parameter-list)` - is the data fields that are sent with the message
+
+**19. Explain the method syntax on design classes.**
+* `+/-` - is the visibility. + is visible externally, - is hidden
+* `name` is the name of the method
+* `parameter` - is the parameter list required by the method
+* `type` - is the type of any returned values by the method
+
+**20. What is meant by a dependency relationship? How is it indicated on a drawing?**
+A dependency relationship is shown by a dashed arrow. It indicates that the item that the arrow points from (tail) is dependent on the item that the arrow points to (head). If something changes in the independent item, then the dependent item probably will also have to change.
+
+**21. List the major implementation responsibilities of each layer in a three-layer design.**
+* View layer - display forms and screens, capture external events, capture entered data, edit entered data, forward data to domain layer, start and stop the system.
+* Domain layer - create and manage problem domain/persistent objects, process business logic.
+* Data access layer - connect to database, access the database with SQL or equivalent, process data returned from data base and write to database, disconnect from database.
+
+**22. What is the purpose of the adapter pattern?**
+The adapter pattern is used when a new component needs to be "plugged into" an existing system, but the API is not exactly the same. The adapter adapts the API of the new component so that it can fit into the existing system.
+
+**23. What common element is found in the singleton pattern and the factory pattern? What is the basic difference between the two patterns?**
+Both have code to test if the object exists and if not to create the object. If it does exist just return it. The difference is that the singleton has responsibility for itself, where the factory takes responsibility for other objects.
+
+---
+
+### Problems and Exercises
+
+**EXPLANATORY NOTE:** Chapter 11 refers to two sets problems from Chapter 5 that review the student's skills to develop a problem domain class diagram and a use case diagram. Unfortunately those two sets of problems were not included in the final iteration of Chapter 5. To do the problem sets in Chapter 11, you will need to either supply the students with a class diagram and a use case diagram, or alternatively, you may provide the problem descriptions to allow them to create a class diagram and use case diagram. The second option provides a good review alternative. Both the diagrams and the descriptions are provided below.
+
+Problems 1 through 7 are based on the solutions you developed in Chapter 5 for problems 1 and 2, which involved a university library system. Alternatively, your instructor may provide you with a use case diagram and a class diagram.
+
+**University Library System**
+This case is a simplified version of a new system for the University Library. Of course, the library system must keep track of books. Information is maintained both about book titles and the individual book copies. Book titles maintain information about title, author, publisher, and catalog number. Individual copies maintain copy number, edition, publication year, ISBN, book status (whether it is on the shelf or loaned out), and date due back in.
+
+The library also keeps track of its patrons. Because it is a university library, there are several types of patrons, each with different privileges. There are faculty patrons, graduate student patrons, and undergraduate student patrons. Basic information about all patrons is name, address, and telephone number. For faculty patrons, additional information is office address and telephone number. For graduate students, information such as graduate program and advisor information is maintained. For undergraduate students, program and total credit hours are maintained.
+
+The library also keeps information about library loans. A library loan is a somewhat abstract object. A loan occurs when a patron approaches the circulation desk with a stack of books to check out. Over time a patron can have many loans. A loan can have many physical books associated with it. (And a physical book can be on many loans over a period of time. Information about past loans is kept in the database.) So, in this case, an association class should probably be created for loaned books.
+
+If a patron wants a book that is already checked out, the patron can put that title on reserve. This is another class that does not represent a concrete object. Each reservation is for only one title and one patron. Information such as date reserved, priority, and date fulfilled is maintained. When a book is fulfilled, the system associates it with the loan on which it was checked out.
+
+Patrons have access to the library information to search for book titles and to see whether a book is available. A patron can also reserve a title if all copies are checked out. When patrons bring books to the circulation desk, a clerk checks out the books on a loan. Clerks also check books in. When books are dropped in the return slot, clerks check in the books. Stocking clerks keep track of the arrival of new books.
+
+The managers in the library have their own activities. They will print reports of book titles by category. They also like to see (online) all overdue books. When books get damaged or destroyed, managers delete information about book copies. Managers also like to see what books are on reserve.
+
+
+**1. Figure 11-25 is an SSD for the use case Check out books in the university library system. Do the following:**
+a. Develop a first-cut sequence diagram that only includes the actor and problem domain classes.
+
+b. Develop a design class diagram based on your solution. Be sure to include your controller class.
+
+**2. Using your solution to problem 1, do the following:**
+a. Add the view layer classes and the data access classes to your diagram. You may do this with two separate diagrams to make them easier to work with and read.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**3. Figure 11-26 is an activity diagram for the use case Return books in the university library system. Do the following:**
+a. Develop a first-cut sequence diagram that only includes the actor and problem domain classes.
+Note: As with all design solutions, there are several ways to implement the solution. This one assumes that information that can be scanned from the book includes a bookID and a copy#.
+
+b. Develop a design class diagram based on the domain class diagram.
+
+**4. Using your solution to problem 3, do the following:**
+a. Add the view layer classes and the data access classes to your diagram.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**5. Figure 11-27 is a fully developed use case description for the use case Receive new book in the university library system. Do the following:**
+a. Develop a first-cut communication diagram that only includes the actor and problem domain classes.
+
+b. Develop a design class diagram based on the domain class diagram.
+
+**6. Using your solution to problem 5, do the following:**
+a. Add the view layer classes and the data access classes to your diagram.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**7. Integrate the design class diagram solutions you developed for problems 1, 3, and 5 into a single design class diagram.**
+
+---
+
+Problems 8 through 14 are based on the solutions you developed for problems 3 and 4 in Chapter 5, which involved a dental clinic system. Alternatively, your instructor may provide you with a use case diagram and a class diagram.
+
+**Dental Clinic System**
+A clinic with three dentists and several dental hygienists needs a system to help administer patient records. This system does not keep any medical records. It only processes patient administration. Each patient has a record with his or her name, date of birth, gender, date of first visit, and date of last visit. Patient records are grouped together under a household. A household has attributes such as name of head of household, address, and telephone number. Each household is also associated with an insurance carrier record. The insurance carrier record contains name of insurance company, address, billing contact person, and telephone number.
+
+In the clinic, each dental staff person also has a record that tracks who works with a patient (dentist, dental hygienist, x-ray technician). Because the system focuses on patient administration records, only minimal information is kept about each dental staff person, such as name, address, and telephone number. Information is maintained about each office visit, such as date, insurance copay amount (amount paid by the patient), paid code, and amount actually paid. Each visit is for a single patient, but, of course, a patient will have many office visits in the system. During each visit, more than one dental staff person may be involved by doing a procedure. For example, the x-ray technician, dentist, and dental hygienist may all be involved on a single visit. In fact, some dentists are specialists in such things as crown work, and even multiple dentists may be involved with a patient. For each staff person does procedure in a visit combination (many-to-many), detailed information is kept about the procedure. This information includes the type of procedure, a description, the tooth involved, the copay amount, the total charge, the amount paid, and the amount the insurance company denied.
+
+Finally, the system also keeps track of invoices. There are two types of invoices: invoices to insurance companies and invoices to heads of household. Both types of invoices are fairly similar, listing each visit, the procedures involved, the patient copay amount, and the total due. Obviously, the totals for the insurance company are different from the patient amounts owed. Even though an invoice is a report (when printed), it also maintains some information such as date sent, total amount, amount already paid, amount due and the total received, date received, and total denied. (Insurance companies do not always pay all they are billed.)
+
+The receptionist keeps track of patient and head-of-household information, and will enter this information in the system. The receptionist will also keep track of office visits by the patients. Patient information is also entered and maintained by the office business manager. In addition, the business manager maintains the information about the dental staff.
+
+The business manager also prints the invoices. Patient invoices are printed monthly and sent to the head of household. Insurance invoices are printed weekly. When the invoices are printed, the business manager double-checks a few invoices against information in the system to make sure it is being aggregated correctly. She also enters the payment information when it is received.
+
+Dental staff are responsible for entering information about the dental procedures they perform. The business manager also prints an overdue invoice report that shows heads of household who are behind on their payments. Sometimes dentists like to see a list of the procedures they performed during a week or month, and they can request that report.
+
+
+**8. Figure 11-28 is an SSD for the use case Record dental procedure in the dental clinic system. Do the following:**
+a. Develop a first-cut sequence diagram that only includes the actor and problem domain classes.
+
+b. Develop a design class diagram based on the domain class diagram.
+
+**9. Using your solution to problem 8, do the following:**
+a. Add the view layer classes and the data access classes to your diagram.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**10. Figure 11-29 is an activity diagram for the use case Enter new patient information in the dental clinic system. Do the following:**
+a. Develop a first-cut sequence diagram that only includes the actor and problem domain classes.
+
+b. Develop a design class diagram based on the domain class diagram.
+
+**11. Using your solution to problem 10, do the following:**
+a. Add the view layer classes and the data access classes to your diagram.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**12. Figure 11-30 is a fully developed use case description for the use case Print patient invoices in the dental clinic system. Do the following:**
+a. Develop a first-cut communication diagram that only includes the actor and problem domain classes.
+
+b. Develop a design class diagram based on the domain class diagram.
+
+**13. Using your solution to problem 12, do the following:**
+a. Add the view layer classes and the data access classes to your diagram.
+
+b. Develop a package diagram showing a three layer solution with view layer, domain layer, and data access layer packages.
+
+**14. Integrate the design class diagram solutions that you developed for problems 8, 10, and 12 into a single design class diagram.**
+
+**15. In Figure 11-31, the package on the left contains the classes in a payroll system. The package on the right is a payroll tax subsystem. What technique would you use to integrate the payroll tax subsystem into the payroll system? Show how you would solve the problem by modifying the existing classes (in either figure). What new classes would you add? Use UML notation.**
+
+---
+
+### Solutions to End-of-Chapter Cases
+
+#### Case Study: Move Your BooksNow.com Book Exchange
+For this case, develop the following diagrams:
+
+**1. A domain model class diagram**
+
+**2. A use case diagram**
+
+**3. SSDs for two use cases, such as Add a seller and Record a book order**
+
+**4. A first-cut sequence diagram for each of the above use cases**
+
+**5. An integrated design class diagram that includes classes, methods, and navigation attributes**
+
+---
+
+#### Running Cases: Community Board of Realtors
+In Chapter 3, you identified use cases for the business events for the Community Board of Realtors. In Chapter 5, you elaborated on those use cases. In Chapter 4, you identified the classes associated with the business events. Using your solutions from those chapters, develop:
+
+**1. A first-cut DCD by using the problem domain classes that you identified in Chapter 4.**
+
+**2. A first-cut communication diagram for the Create new listing use case (domain classes and controller class only).**
+
+**3. A first-cut sequence diagram for the Update agent information use case (domain classes and controller class only).**
+
+**4. A multilayer sequence diagram for the Update agent information use case that includes domain classes and data access classes.**
+
+**5. A separate multilayer sequence diagram for the Update agent information use case that includes the domain classes and the view layer classes.**
+
+**6. A final design class diagram that includes the classes from both use cases. Include elaborated attributes, navigation arrows, and all the method signatures from both use cases.**
+
+---
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service
+In Chapter 3, you identified use cases for the business events for the Spring Breaks 'R' Us Travel Service. In Chapter 5, you elaborated on those use cases. In Chapter 4, you identified the classes associated with the business events. Using your solutions from those chapters, develop:
+
+**1. A first-cut DCD by using the problem domain classes you identified in Chapter 4.**
+Note: This DCD is an expanded one, which also includes the classes that were added in Chapter 5 to support the use cases. Student answers will not have as many classes.
+
+**2. A first-cut communication diagram for the Add a resort use case (domain classes and controller class only).**
+
+**3. A first-cut sequence diagram for the Book a reservation use case.**
+Note: Students can use the SSD given in Chapter 5 or the CRC cards from Chapter 10 as guidelines.
+
+**4. A multilayer sequence diagram for the Book a reservation use case that includes domain classes and data access classes.**
+
+**5. A separate multilayer sequence diagram for the Book a reservation use case that includes the domain classes and the view layer classes.**
+Note: Due to the complexity of this diagram, it will be best to divide this use case into two pages. A good dividing point is before checkAvailability () message.
+
+**6. A final design class diagram that includes the classes from both use cases. Include elaborated attributes, navigation arrows, and all the method signatures from both use cases.**
+
+**7. A package diagram of the four subsystems (Resort relations, Student booking, Accounting and finance, and Social networking) that includes all the problem domain classes.**
+
+---
+
+#### Running Cases: On the Spot Courier Services
+In Chapter 10, you developed a first-cut design class diagram and CRC card solutions for two use cases: Request a package pickup and Pickup a package. Let us extend your solution from that chapter by developing the following:
+
+**1. A first-cut sequence diagram for each use case (domain classes and controller classes only).**
+
+**2. A multilayer sequence diagram for each use case that includes domain classes and data access classes.**
+
+**3. A separate multilayer sequence diagram for each use case that includes the domain classes and the view layer classes.**
+(We won't combine view and data access layers on the same drawing. It makes the drawing too complex.)
+
+**4. A final design class diagram that includes the classes from both use cases. Include elaborated attributes, navigation arrows, and all the method signatures from both use cases.**
+
+In Chapter 9, we defined four subsystems:
+* Customer account (like customer account)
+* Pickup request (like sales)
+* Package delivery (like order fulfillment)
+* Routing and scheduling
+
+Even though these subsystems are somewhat arbitrary, we can treat each one as a separate package. **Develop a package diagram for each of the four subsystems by assigning domain model classes to each package. A domain model class should belong to only one subsystem package. Normally, it is the subsystem that instantiates objects from that class. Also, show dependency relationships among the various packages and classes.**
+
+---
+
+#### Running Cases: Sandia Medical Devices
+Review your answers to the case-related questions in Chapter 10 and then do the following:
+
+**1. Develop a first-cut sequence diagram for the patient use case View/respond to alert.**
+
+**2. Develop a multilayer sequence diagram that includes domain classes and data access classes.**
+
+**3. Develop a separate multilayer sequence diagram that includes the domain classes and the view layer classes.**
+(We won't combine view and data access layers on the same drawing. It makes the drawing too complex.)
+
+**4. Update your DCD from Chapter 10 to include the methods you have identified. Also, include any changes you may have made to navigation visibility and attribute details.**
 
 # Chapter 14 - Deploying the New System
+
+Systems Analysis and Design in a Changing World, sixth edition
+
+# Chapter 12 - Database, Security, and Controls
+
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+## **1. List the components of a DBMS and describe the function of each.**
+* **Application program interface** - An interface engine or library of precompiled subroutines that enable application programs (such as those written in C or Java) to interact with the database.
+* **End-user query processor** - A program or utility that allows end users to retrieve data and generate reports without writing application programs.
+* **Data definition interface** - A program or utility that allows a database administrator to define or modify the content and structure of the database (for example, add new fields or redefine data types or relationships).
+* **Data access and control logic** - The system software that controls access to the physical database and maintains various internal data structures (for example, indexes and pointers).
+* **Database** - The physical data store (or stores) combined with the schema.
+* **Schema** - A store of data that describes various aspects of the "real" data, including data types, relationships, indexes, content restrictions, and access controls.
+* **Physical data store** - The "real" data as stored on a physical storage medium (for example, a magnetic disk).
+
+## **2. What is a database schema? What information does it contain?**
+A database schema is a store of data that describes the content and structure of the physical data store (sometimes called metadata—data about data). It contains a variety of information about data types, relationships, indexes, content restrictions, and access controls.
+
+## **3. Why are databases the preferred method of storing data used by an information system?**
+Databases are a common point of access, management, and control. They allow data to be managed as an enterprise-wide resource while providing simultaneous access to many different users and application programs. They solve many of the problems associated with separately maintained data stores, including redundancy, inconsistent security, and inconsistent data access methods.
+
+## **4. With respect to relational databases, briefly define the terms row and attribute value.**
+* **Row** - The portion of a table containing data that describes one entity, relationship, or object.
+* **Attribute value** - The portion of a table (a column) containing data that describes the same fact about all entities, relationships, or objects in the table.
+
+## **5. What is a primary key? Are duplicate primary key values allowed? Why or why not?**
+A primary key is a field or set of fields, the values of which uniquely identify a row of a table. Because primary keys must uniquely identify a row, duplicate key values aren't allowed.
+
+## **6. What is the difference between a natural key and an invented key? Which type is most commonly used in business information processing?**
+A natural key is a naturally occurring attribute of or fact about something represented in a database (for example, a human fingerprint or the atomic weight of an element). An invented key is one that is assigned by a system (for example, a social security or credit card number). Most keys used in business information processing are invented.
+
+## **7. What is a foreign key? Why are foreign keys used or required in a relational database? Are duplicate foreign key values allowed? Why or why not?**
+A foreign key is a field value (or set of values) stored in one table that also exists as a primary key value in another table. Foreign keys are used to represent relationships among entities that are represented as tables. Duplicate foreign keys are not allowed within the same table because they would redundantly represent the same relationship. Duplicate foreign keys may exist in different tables because they would represent different relationships.
+
+## **8. Describe the steps used to transform a domain class diagram into a relational database schema.**
+1. Create a table for each class.
+2. Choose a primary key for each table.
+3. Add foreign keys to represent one-to-many relationships.
+4. Create new tables to represent many-to-many relationships.
+5. Define referential integrity constraints.
+6. Evaluate schema quality and make necessary improvements.
+7. Choose appropriate data types and value restrictions for each field.
+
+## **9. What is referential integrity? Describe how it is enforced when a new foreign key value is created, when a row containing a primary key is deleted, and when a primary key value is changed.**
+Referential integrity is a content constraint between the values of a foreign key and the values of the corresponding primary key in another table. The constraint is that values of the foreign key field(s) must either exist as values of a primary key or must be NULL. A valid value must exist in the foreign key field(s) before the row can be added. When a row containing the primary key is deleted, the row with the foreign key must also be deleted for the data to maintain referential integrity. A primary key should never be changed; but in the event that it is, the value of the foreign key must also be changed.
+
+## **10. What types of data (or attributes) should never be stored more than once in a relational database? What types of data (or attributes) usually must be stored more than once in a relational database?**
+Non-key fields should never be stored more than once. If a table represents a class, the primary key values of each class represented in the table are redundantly stored (as foreign keys) for every relationship in which the class participates.
+
+## **11. What is relational database normalization? Why is a database schema in third normal form considered to be of higher quality than an unnormalized database schema?**
+Relational database normalization is a process that increases schema quality by minimizing data redundancy. A schema with tables in third normal form has less non-key data redundancy than a schema with unnormalized tables. Less redundancy makes the schema and database contents easier to maintain over the long term.
+
+## **12. Describe the process of relational database normalization. Which normal forms rely on the definition of functional dependency?**
+The process of normalization modifies the schema and table definitions by successively applying higher order rules of table construction. The rules each define a normal form, and the normal forms are numbered one through three. First normal form eliminates repeating groups that are embedded in tables. Second and third normal forms are based on a concept called functional dependency—a one-to-one correspondence between two field values. Second normal form ensures that every field in a table is functionally dependent on the primary key. Third normal form ensures that no non-key field is functionally dependent on any other non-key field.
+
+## **13. What is the difference between a primitive data type and a complex data type?**
+A primitive data type (for example, integer, real, or character) is directly supported (represented) by the CPU or a programming language. A complex data type (for example, record, linked list, or object) contains one or more data elements constructed using the primitive data types as building blocks.
+
+## **14. Briefly describe these distributed database architectures: replicated database servers, partitioned database servers, and cloud-based database servers. What are the comparative advantages of each?**
+* **Replicated database servers** - An entire database is replicated on multiple servers, and each server is located near a group of clients. Best performance and fault tolerance for clients because all data is available from a "nearby" server.
+* **Partitioned database servers** - A database is partitioned so that each partition is a database subset used by a single group of clients. Each partition is located on a separate server, and each server is located close to the clients that access it. Better performance and less replication traffic than replicated servers if similar collocated clients use only a subset of database content.
+* **Cloud-based database servers** - A cloud based database server is really one of the previously defined architectures, but implemented using the cloud-based services of a cloud computing vendor. The cloud provider hosts the database and provides the services across defined geographical areas. The cloud provider manages the database including synchronization and backup.
+
+## **15. What additional database management complexities are introduced when database contents are replicated in multiple locations?**
+Replicated copies are redundant data stores. Thus, any changes to data content must be redundantly implemented on each copy. Implementing redundant maintenance of data content requires all servers to periodically exchange database updates.
+
+## **16. Describe the risk factors associated with database design.**
+Since the database is an integral part of any information system, the performance and operation of the database is critical. Hence design decisions about what DBMS to use, how to configure it, and how to optimize it are usually quite complex and critically important. Another risk factor is how to integrate a new database with existing databases. New systems normally are not completely independent of existing systems and databases, and usually must interface with existing architectures. It is important that the new database not only integrate well, but that it not cause problems with existing configurations. Finally, good database design depends on having a complete, or mostly complete problem domain model. While enhancing and adding tables and attributes is possible to already constructed databases, doing so can sometimes cause sub-optimization of data structures.
+
+## **17. When should database design be performed? Can the database be designed iteratively or must the entire database be designed at once?**
+Database design is usually done as early as possible in the project. For an iterative project, it is usually designed and implemented in the earlier iterations. The database does not have to be designed completely all at once, however, it should be designed and refined as much as possible in the early iterations.
+
+## **18. Explain four types of integrity controls for input forms. Which have you seen most frequently? Why are they important?**
+* **Field combination controls** verify that the data in one field is based on the data in another field or fields.
+* **Value limit controls** identify when a value in a field is too large or too small.
+* **Completeness controls** ensure that all necessary fields on an input form have been entered.
+* **Data validation controls** validate the input data for correctness.
+*(Answers will vary on importance and frequency).*
+
+## **19. What are the objectives of integrity controls in information systems? In your own words, explain what each of the three objectives means. Give an example of each.**
+* **Ensure that only appropriate and correct business transactions occur.** This objective ensures that no erroneous or fraudulent transactions are entered. *Example:* A control to ensure that a clerk does not request a check for a service that was never provided.
+* **Ensure that the transactions are recorded and processed correctly.** This objective ensures that the system processes and stores the data completely. *Example:* A control to ensure that a double-entry bookkeeping entry always processes both entries.
+* **Protect and safeguard the assets (including information) of the organization.** This objective ensures that information is not lost due to theft, fire, or some other mishap. *Example:* Storing backup data periodically off site.
+
+## **20. What are the four types of input controls used to reduce input errors? Describe how each works.**
+* **Field combination control:** An integrity control that verifies that the data in one field is based on the data in another field or fields.
+* **Value limit control:** An integrity control that identifies when a value in a field is too large or too small.
+* **Completeness control:** An integrity control that ensures that all necessary fields on an input form have been entered.
+* **Data validation control:** An integrity control that validates the input data for correctness and appropriateness.
+
+## **21. What is the basic purpose of transaction logging?**
+Transaction logging takes every update to the database and logs exactly how it happened (sometimes with an image of the transaction). It is extremely important for audit trails and for recovery in case something goes wrong.
+
+## **22. What are the two primary objectives of security controls?**
+* Maintain a stable, functioning operating environment for users and application systems (usually 24 hours a day, seven days a week).
+* Protect information and transactions during transmission outside the organization (public carriers).
+
+## **23. Briefly define or describe authentication, access control lists, and authorization.**
+* **Authentication** is the process used to identify who a user is to authenticate that this is the right person. This process is often done with user ID and password. Other methods of identifying a person might be with smart card, biometric devices, and questions and answers.
+* **Authorization** is done after authentication. Once a user has been verified, i.e. the system knows who it is, then that user will have rights or privileges to access particular data and system functions. He/she is authorized to access particular parts of the system.
+* What parts of the system a user has access to is often determined by an **Access Control list**. An access control list contains a list of all the users and what rights or privileges he/she has.
+
+## **24. How does single-key (symmetric) encryption work? What are its strengths? What are its weaknesses?**
+A single key is used to encrypt and decrypt a message. Both parties must have the key. Its strength is that it is simple and fast. Its weaknesses are that it might be easy to break the encryption and that it is difficult to distribute the key in a secret fashion to all the authorized participants.
+
+## **25. How does public key (asymmetric) encryption work? What are its strengths? What are its weaknesses?**
+A public-key encryption has two keys, a public one that is widely distributed and a private one that is secret. To send data to the owner of the keys, someone uses the public key. The data can then only be decrypted with the private key. So, the owner is the only one who can decrypt the data. After the message is encrypted, it can only be decrypted with the private key. Its strengths are that it is very secure, and the public key can be widely distributed. So if an entity wants to receive secret messages, it can distribute its public key, and it will be the only one able to decrypt the message. One weakness is that it tends to be quite slow in decrypting. So it is not suitable for high volume, rapidly changing data.
+
+## **26. What is a digital certificate? What role do certifying authorities play in security systems?**
+A digital certificate is an institution's name and public key (plus other information such as address, Web site URL, and validity date of the certificate) that is encrypted and certified by a third party. Certifying authorities are companies that are very well known so that everybody knows for sure what their public keys are. These certifying authorities sell digital certificates to other companies (that are not as well known) so that these companies can convince their customers that they are legitimate.
+
+## **27. What is a digital signature? What does it tell a user?**
+A digital signature is a technique in which a document is encrypted using a private key to verify who wrote the document. If you have the public key of an entity, and that entity sends you a message with its private key, you can decode it with the public key. You know that the party is the one you want to communicate with because that entity is the only one who can encode a message with that private key.
+
+---
+
+### Problems and Exercises
+
+## **1. The Universal Product Code (UPC) is a bar-coded number that uniquely identifies many products sold in the United States. For example, all printed copies of this textbook sold in the United States have the same UPC bar code on the back cover. Now consider how the design of the RMO database might change if all items sold by RMO were required by law to carry a permanently attached UPC (e.g., on a label sewn into a garment or on a radio frequency ID tag attached to a product). How might the RMO relational database schema change under this requirement?**
+The change to the schema is relatively simple. ProductID is replaced with the UPC bar code both as the primary key of ProductItem and all corresponding foreign keys. The change might be more complex if the DBMS were previously responsible for generating values of ProductItem.Number. That function would now be removed from the DBMS because the key values would be externally assigned. This would potentially add more complexity to the system in order to determine what the UPC values were and to get them entered into the system.
+
+## **2. Assume that RMO will begin asking a random sample of customers who order by telephone about purchases made from competitors. RMO will give customers a 15 percent discount on their current order in exchange for answering a few questions. To store and use this information, RMO will add two new classes and three new associations to the class diagram. The new classes are Competitor and ProductCategory. Competitor has a one-to-many association with Product Category, and the existing Customer class also has a one-to-many association with Product Category. Competitor has a single attribute called Name. Product Category has four attributes: Description, Dollar Amount Purchased, MonthPurchased, and YearPurchased. Revise the relational database schema shown in Figure 12-10 to include the new classes and associations. All tables must be in 3NF.**
+The following tables must be added to the relational database schema:
+* Competitor = **Name**
+* ProductCategory = **CompetitorName**, **CustomerAccountNo**, **Month Purchased**, **YearPurchased**, Description, DollarAmount Purchased
+
+Primary keys are shown in bold, and foreign keys are shown in italics. Note that the primary key of ProductCategory is guaranteed to be unique only if multiple customer purchases from a competitor in the same month and for the same product category (description) are combined in a single row.
+
+## **3. Assume that RMO will use a relational database, as shown in Figure 12-10. Assume further that a new catalog group located in Milan, Italy, will now create and maintain the product catalog. To minimize networking costs, the catalog group will have a dedicated database server attached to its LAN. Develop a plan to partition the RMO database. Which tables should be replicated on the catalog group's local database server? Update Figure 12-18 to show the new distributed database architecture.**
+Assumptions: Milan will have responsibility for describing and maintaining product items and accessory packages. Milan will also have responsibility for supporting and maintaining Promotions. The following tables will need to be replicated on the local LAN. Access requirements (C,R,U, and D) are shown in parentheses.
+* Promotion (CRUD)
+* PromoOffering (CRUD)
+* ProductItem (CRUD)
+* AccessoryPackage (CRUD)
+* InventoryItem (R)
+
+Updates to all of these tables are assumed to be relatively infrequent and, thus, the performance cost of complete replication with immediate or frequent updates is minimal. Milan can be represented in Figure 10-32 in the same manner as the warehouse LAN or retail store LAN.
+
+## **4. Visit the Web site of an online catalog vendor similar to RMO (such as [www.llbean.com](https://www.llbean.com)) or an online vendor of computers and related merchandise (such as [www.cdw.com](https://www.cdw.com)). Browse the online catalog and note the various types of information contained there. Construct a list of complex data types that would be needed to store all the online catalog information.**
+Answers will vary. Some examples of typical complex data types include:
+* Graphic images in formats such as GIF and JPEG.
+* Motion video in formats such as MPEG and AVI.
+* Sound in formats such as WAV and MP3.
+* Executable programs in formats such as Java and VBScript.
+* Browser-formatted documents in HTML and XML.
+* Hard-copy documents in formats such as Postscript or Acrobat.
+
+## **5. This chapter described various situations that emphasized the need for controls. In the first scenario presented, a furniture store sells merchandise on credit. Based on the descriptions of controls given in this chapter, identify the various controls that should be implemented in the system to ensure that corrections to customer balances are made only by someone with the correct authorization.**
+Answers will vary but should include at least the following:
+* Transaction logging to note all changes (especially financial) made to the database. Log records should include the login ID of the person making the transaction.
+* Financial transaction screens should be available (and visible) only via authorization of the correct level of registered user.
+* Possibly a notification report of any changes (other than standard payments) made to correct account balances.
+
+**In the second scenario illustrating the need for controls, an accounts payable clerk uses the system to write checks to suppliers. Based on the information in this chapter, what kinds of controls would you implement to ensure that checks are written only to valid suppliers, that checks are written for the correct amount, and that all payouts have the required authorization? How would you design the controls if different payment amounts required different levels of authorization?**
+Answers will vary but should include at least the following:
+* Both manual and automated controls might be needed for this process. The manual control will require authorization by a supervisor on paper documents for payment. Also, a paper audit trail (numbered invoice) might be required.
+* Payments made only to valid suppliers can be controlled by having pre-defined PayTo fields that come from a supplier file. The supplier file should be maintained by different people to ensure separation of duties.
+* Ensuring that checks are written for the correct amount can be accomplished by making sure a payment amount corresponds with the invoice amount in the system.
+* A supervisor can also verify payments for correct amounts and viable suppliers. This can be done either with paper documents or with electronic forms.
+* Before a check is written, a payment transaction can be approved by an electronic signature of a different person. Output reports detailing payments should be provided and reviewed.
+* Internal edits can be developed to note whether payments are customary and normal. Out-of-range payments can be flagged as exceptions and verified by a manager. Different levels of payments will require the same types of controls; however, they may require different electronic signatures by higher-level registered users.
+
+## **6. Look on the Web for an e-commerce site (such as Amazon.com or eBay). What kinds of security and controls are integrated into the system?**
+Answers will vary. The following explanation uses Amazon.com as an example.
+* **Data Site Pages:** Fairly easy to navigate. Lots of tabs. Has plenty of search capability. Can narrow focus by entering different portals. Some pages seem fairly busy; however, most pages are laid out fairly well. Hotlinks appear to be easy to find.
+* **Data Entry:** Mostly done with clicks, which reduces data errors. Gives lots of opportunities to double check and correct choices. Implements one-click method to expedite data entry and reduce errors.
+* **Security and Controls:** Use user ID and password. Do not give option of system remembering password. Make user sign in to secure server. Use secure socket layer.
+* **Potential Security Problems:** Will let you work with standard, non-secure servers. If you forget your password, system allows you (or someone else) to set up a new one. Remembers all credit card information for various credit cards.
+
+## **7. Examine the information system of a local business, such as a fast-food restaurant, doctor's office, video store, grocery store, etc. Evaluate the screens (and reports, if possible). What kind of integrity controls are in place? What kinds of improvements would you make?**
+Answers will vary.
+
+## **8. Search the Web and find out what you can about Pretty Good Privacy. What is it? How does it work? Find what you can about a pass phrase. What does it mean? Start your research at www.pgpi.org.**
+Answers will vary. PGP is a program that makes your e-mail messages private. It does this by encrypting your e-mail so that nobody but the intended person can read it. When encrypted, the message looks like a meaningless jumble of random characters. PGP has proven itself quite capable of resisting even the most sophisticated forms of analysis aimed at reading the encrypted text. PGP can also be used to apply a digital signature to a message without encrypting it. This is normally used in public postings where you don't want to hide what you are saying, but rather want to allow others to confirm that the message actually came from you. After a digital signature is created, it is impossible for anyone to modify either the message or the signature without the modification being detected by PGP. PGP uses public key encryption to encrypt and decrypt e-mail messages. A pass phrase is a longer version of a password. It can be an entire phrase. It is used to generate the public key/private key combination for a PGP user.
+
+---
+
+### Solutions to End-of-Chapter Cases
+
+#### Case Study: Computer Publishing, Inc.
+
+## **1. Consider the contents of this textbook as a template for CPI's database content. Draw a class diagram that represents the book and its key content elements. Expand your diagram to include related product content, such as a set of PowerPoint slides, an electronic book formatted as a Web site or PDF file, and a Web based test bank.**
+
+## **2. Develop a list of data types required to store the content of the book, slides, and Web sites. Are the relational DBMS data types listed in Figure 12-15 sufficient?**
+Relational databases have the option of storing the actual data or of only storing a pointer to the data. Where the data is complex such as image files, video files, slide shows, and sound files, most often those are stored outside of the database with the address or locater stored in the database. If the data itself is stored in the database, then a data type of "blob" is often used.
+
+## **3. Authors and editors are often independent contractors, not publishing company employees. Consider the implications of this fact for controls and security. How would you enable authors and editors to interact with the database? How would you protect database content from hackers and other unauthorized accesses?**
+Interacting with an SQL relational database is not easy to do at the low level - at the SQL level. Therefore an entire system would need to be designed to allow authors to write text and create the figures and upload them into the appropriate places in the textbook structure. Writing and editing a textbook would probably require a different approach than an author simply sitting down and writing from front to back. The new system would need to have login capability to allow only authenticated authors to access the textbook materials. Authorization would also be required to control which parts of the textbook authors and editors could access and update. One potential problem is how to prevent the database for a particular textbook from becoming corrupted, or out of order, or jumbled if the authors entered the information incorrectly. The problem with hackers is the same as with any proprietary data that is available over the Internet. Access to the database must be through secure measures and encrypted passwords, or perhaps even more secure login procedures.
+
+---
+
+#### Running Cases: Community Board of Realtors
+
+In Chapter 4, you developed a domain model class diagram. Using your previous solution or one provided to you by your instructor, update your domain model class diagram with any additional problem domain classes, new associations, or additional attributes that you have discovered as you worked through the previous chapters. Finalize this comprehensive domain model and then turn it in as part of your solution. Using this comprehensive domain model class diagram, develop a relational database schema. In the schema, identify the foreign keys that are required. Also, identify a key attribute for each table. You may need to add a key field if there isn't an attribute that could logically serve as the key. Remember that a candidate key for an association class is the combination of the keys of the connected classes. However, it may make sense to define a shorter, more concise key field. Verify that each table is in first, second, and third normal form. Discuss any discrepancies you had to fix from your first solution. Discuss any tables that may not be in third normal form and why you are leaving it as not-normalized.
+
+Note: We will use the following class diagram from Chapter 4 problem 3 for this problem. The following changes/additions were made:
+1. Commissioner was dropped. It is not a logical piece of the MLS system.
+2. A few new attributes were added.
+
+
+The following table:
+
+| Table | Fields (columns) |
+|---|---|
+| REOffice | office_number, office_name, manager, street, city, state_province, postal_code, telephone |
+| REAgent | agent_number, office_number, agent_lastname, agent_firstname, street, city, state_province, postal_code, office_phone, mobile_phone, email_address |
+| Listing | listing_number, listing_type, property_street, property_city, property_state, property_postal, status_code, date_listed, date_sold, date_unlisted, asking_price, sold_price |
+| ForLeaseListing | listing_number, rental_amount, rented_amount, date_available, furnishing_desc, utilities_desc |
+| Owner | owner_number, owner_lastname, owner_firstname, street, city, state_province, postal_code |
+| Structures | structure_number, listing_number, description, year_built, square_feet, number_bedrooms, number_bathrooms |
+| AgentOnListing | agent_number, listing_number |
+| OwnerOnListing | owner_number, listing_number |
+
+Note:
+* Primary key is bold. Foreign key is italicized.
+* The ForSaleListing was combined with the listing table, since most listings are For Sale Listings. ForRentListing is a separate table because the information is unique and there are only a few of those types of records. A new field, listing_type, was added to denote rental listings.
+* The type codes (string, integer, number, etc.) nor the length have been included; this information will have to be added before the tables can be entered into a database.
+* The tables are in 3NF with one exception. State is functionally dependent on Postal_code, i. e. a state can be determined by postal code. But due to common usage of always having state and postal-code included, they are maintained together. (Alternative is to have a separate postal_code to state translation table.)
+
+---
+
+#### Running Cases: The Spring Breaks 'R' Us Travel Service
+
+As with other social networking sites and systems, users of the Spring Breaks 'R' Us social networking system face such risks as identity theft, phishing attacks, and viruses. Review the following information related to social networking risks and security published by the United States Computer Emergency Readiness Team, including:
+* Socializing Securely: Using Social Networking Services (www.us-cert.gov/reading_room/safe_social_networking.pdf)
+* Cyber Security Tip ST06-003: Staying Safe on Social Network Sites (www.us-cert.gov/cas/tips/ST06-003.html)
+* Cyber Security Tip ST05-013: Guidelines for Publishing Information Online (www.us-cert.gov/cas/tips/ST05-013.html)
+
+After reviewing this information, revisit the questions for this case in Chapter 6 for the Social Networking subsystem. Based on the contents of this chapter and the information contained in the readings, what specific controls and security measures should be incorporated into the Social Networking subsystem?
+
+Answers will vary. There is always an issue about how easy to make it for friends to "find" and "interact" with each other, when contrasted with how secure (i.e. how difficult) the system to be. Students should address such things as:
+* **Login Protection:**
+    * Strong passwords
+    * Remember MAC address
+    * Personal questions
+* **Connection Protection:**
+    * What is allowed to be searched to find people
+    * What is publicly viewable
+    * Approval process for connected friends
+* **Posting Protection:**
+    * What can be posted on one's own account
+    * What can be posted on friend's account
+* **Viewing Protection:**
+    * Different categories of friends
+    * Privacy settings for posted materials
+* **Log off protection:**
+    * Automatic log off based on time or activity
+
+---
+
+#### Running Cases: On the Spot Courier Services
+
+In Chapter 6, you discussed hardware requirements, and in Chapter 10, you developed component and deployment diagrams. Based on your work in those chapters, take these steps:
+1. For each user and each type of device, discuss what security precautions and techniques should be used to protect access to the device itself.
+2. For each user and each type of device, discuss what security precautions and techniques should be used to protect access to the application programs, connect to the home system, and protect the data being transmitted to the foreign devices.
+3. Discuss any security precautions and techniques you would recommend for the home office and the network servers.
+
+Answers will vary.
+
+| User | Device | Protect Device | Protect data, connection, and software |
+|---|---|---|---|
+| Customer | Customer computer | Customer responsibility | Customer login required, Strong passwords required, Encrypt sent data (HTTPS), Validate all data entered to guard against XSS attacks, etc. |
+| Delivery Person | Mobile device | Install tracking software (GPS), Have secure place in truck, Serial number on device | User login required, Encrypt all data transmitted, Limited inputs and outputs, Validate all inputs, Routes start/stop times to validate inputs |
+| Warehouse person | Scanning device | Keep in warehouse, Have secure storage location, Serial number on device, Check out/check in device | Limited data transmittal, Keep software up to date, Validate device and expected inputs |
+| Warehouse person | Warehouse computer | Keep in secure office, Automatic turn off | Login required, Automatic turn off |
+| Bill | Home laptop | Bill keep in secure location | Keep software up to date, Login required, MAC address remembered, VPN Encrypted connections |
+| Bill | Warehouse servers | Keep in secure office, Server security software | Validate all inputs, Encrypt all data transmissions, Keep software up to date |
+
+---
+
+#### Running Cases: Sandia Medical Devices
+
+**Part 1.**
+Review the original system description in Chapter 2, the additional project information in Chapters 3, 4, and 8, and the domain class diagram shown in Figure 12-26 to refamiliarize yourself with the proposed system. Assume that the type attribute of the AlertCondition class identifies one of three alert types:
+1. Glucose levels that fall outside the specified range for 15 minutes (three consecutive readings)
+2. Glucose levels that fall outside the specified range for 60 minutes (12 consecutive readings)
+3. An average of glucose levels over a eight-hour period that falls outside a specified range
+
+The specified range for an AlertCondition object is the set of values between and including lowerBound and upperBound. AlertCondition objects also include an effective time period specified by the attributes startHour and endHour, which enables physicians to set different alert parameters for sleeping and waking hours. When an alert is triggered, an object of type Alert is created and associated with an alertCondition object. The dateTime attribute records when the Alert object was created, and the value(s) attribute record(s) the glucose levels (alert types 1 and 2) or average level (alert type 3) that fell outside the specified range. Each Alert object is indirectly related to a Patient object via the association between Alert and AlertCondition and the association between AlertCondition and Patient. Develop a set of relational database tables based on the domain class diagram. Identify all primary and foreign keys, and ensure that the tables are in 3NF.
+
+The following table:
+
+| Table | Fields (Columns) |
+|---|---|
+| Patient | patientID, physicianID, deviceID, medical_rec_number, last_name, first_name, birthdate, gender, race, height, weight |
+| Physician | physicianID, last_name, first_name |
+| Monitor Device | deviceID, serial_number, manufacturer, manufacture_date, firmware_version |
+| AlertCondition | alert_condID, patientID, type, start_hour, end_hour, upper_bound, lower_bound |
+| Alert | alert_number, alert_condID, date_time, value |
+| CellPhone | phoneID, patientID, phone_number, operating_system, os_version, application_version |
+| Glucose Observation | observation_number, patientID, date_time, level |
+
+Primary keys. Foreign Keys. All tables are in 3NF. (Correctly built class diagrams always result in tables in 3NF.)
+
+**Part 2.**
+Based on what you learned in this chapter about databases, controls, and system security, review your answers to the questions for this case in Chapter 6. Assume that the patient's cell phone and the centralized servers are different nodes in a replicated database architecture and are regularly synchronized. What changes, if any, should be made to your answers now that you have a deeper understanding of databases, controls, security, and related design issues?
+
+Answers will vary by student.
 
 Use Case Diagram
 
