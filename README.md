@@ -1993,6 +1993,241 @@ Figure 5-22 shows a set of use cases for the patient and physician actors. Answe
 ## **3. Develop an SSD for the View history use case. Assume that the system will automatically display the most recent glucose level, which is updated at five-minute intervals by default. Assume further that the user can ask the system to view glucose levels during a user-specified time period and that the levels can be displayed in tabular form or as a graph.**
 
 # Chapter 6 - Foundation for System Design
+# Chapter 6 – Essentials of Design and Design Activities
+
+## Solutions to End-of-Chapter Problems
+
+### Review Questions
+
+## **1. What is the primary objective of systems design?**
+The objective of systems design is to define, organize, and structure the components of the final solution system that will serve as the blueprint for construction.
+
+## **2. What is the difference between systems analysis and systems design?**
+The objective of systems analysis is to understand the needs and requirements, while the objective of design is to figure out the solution to those needs and requirements. Analysis is to understand the problem, design is to solve the problem. (and implementation is to build the solution.)
+
+## **3. List the major elements that must be designed for a new software application.**
+From figure 6-1 the elements that must be designed include:
+
+  * The application software
+  * The database
+  * The user interface
+  * The network and environment
+  * The security and controls
+  * The system interface
+
+## **4. List the models that are used for systems analysis.**
+Analysis models include
+
+  * Class diagrams
+  * Use case diagrams
+  * System sequence diagrams
+  * Use case descriptions
+  * Activity diagrams
+  * State machine diagrams
+
+## **5. List the models that are used for systems design.**
+Design models include
+
+  * Package diagrams
+  * Nodes and locations diagrams
+  * Design class diagrams
+  * Sequence diagrams
+  * Database schema
+  * User-interface layouts
+  * Security and controls documents
+  * Communication diagrams
+
+## **6. What is the difference between user-interface design and system-interface design?**
+User-interface design has to do with designing the screens (and reports) that the users see and interact with. Those require substantial user input and consideration for ease of use. System-interface design has to do with those automated interfaces with other systems and tends to consist of technical specifications.
+
+## **7. On a project that uses iterations to develop the system, in which iteration does systems design begin? Explain why.**
+Adaptive projects that use iteration include analysis, design, and implementation in every iteration. So design will begin within the first iteration. Depending on the desire result of the first iteration, the design activities may be primarily high-level structural design, but may also include low-level detailed program design.
+
+## **8. What is the difference between architectural design and detail design?**
+Architectural design is sometimes called high-level design. It has to do with the overall structure and configuration of the solution system, including network, applications, databases, and how they all work together. Detailed design focuses on the internal methods and logic of the classes or modules.
+
+## **9. Designing the security and controls impacts the design of which other elements?**
+Security and controls affects all other elements of the design and of the system. For example, security is required for the network. Security and controls are required to protect the database. Security and controls are required for the application software to protect from attacks as well as normal input errors.
+
+## **10. Describe what is required for database design.**
+The database consists of identifying those classes that are persistent (must exist between executions). It also includes defining attributes (fields), keys, indexes, and relationships between those classes. Finally storage and throughput requirements also impact the design.
+
+## **11. What is a LAN? When would it be used in deploying a new system?**
+A LAN is a local area network and is used to refer to the network of computers that exists within an organization at a localized site. Depending on the system, a LAN may be used to allow work stations to access data on a central database server within the local site. Also if the employees that work together must communicate together and “see” each others work, then a LAN configuration is required.
+
+## **12. What is three-layer design?**
+Many systems are designed with a view layer, which consists of the user interface, a program logic layer, which contains the business processing, and a data layer, which contains the database and data storage routines.
+
+## **13. Describe the contents of each layer in three-layer design.**
+
+  * View layer – user interface for inputs and outputs – screens and reports.
+  * Logic layer – program logic to process business rules and processes
+  * Data layer – stored data in the database and the routines to retrieve and update it
+
+## **14. List the different types of client devices in a client/server architecture.**
+Client devices range from desktop workstations to laptops and notebooks to small digital mobile devices such as smart phones. Client devices also would be printers that handle system outputs.
+
+## **15. What is the difference between HTTPS and HTTP?**
+HTTP is the Hypertext Transport Protocol to send and receive data over the Internet. HTTPS stands for Hypertext Transport Protocol Secure and adds a layer of security by encrypting the data being sent.
+
+## **16. In the use of software over the Internet, what are the two main security issues that must be considered?**
+One security issue is how to protect the data and the system residing on the server computer. In other words the server itself must be made secure. Another security issue is how to protect the data when it is in transit across the Internet. In other words the transmission of the data must also be done in a secure manner.
+
+## **17. Describe the primary factors that affect throughput for Internet systems.**
+Several factors affect throughput for Internet systems including:
+
+  * Server computer power and capacity
+  * Database capacity – both the computer and the database efficiency
+  * The number of computers (e.g. server farms)
+  * The location of the server computers (e.g. content delivery networks)
+  * Internet connections and Internet capacity
+
+## **18. List five issues that are important when considering an external hosting company.**
+Important issues include:
+
+  * Reliability of the hardware environment
+  * Security of both hardware and software
+  * Physical facilities including buildings, connection points, etc
+  * Staff of the hosting company for expertise and ability to respond to problems
+  * Growth of the hosted site and can the hosting company handle the growth
+
+## **19. What is the difference between cloud computing and virtual servers?**
+A virtual server environment provides the ability to grow and add servers easily for a client. However, the client is still involved in deciding the number and configuration of the virtual servers. Cloud computing, on the other hand, attempts to provide computing power much like a utility that the customer just uses as much computing capability only when he actually needs it.
+
+## **20. Why do companies use colocation facilities?**
+Colocation facilities provide several benefits to a company, which can be summarized by cost savings and increase reliability and security. Colocation companies have specially constructed sites to handle high volumes and which have highly reliable sites with backup equipment. Since the cost of these sites are shared by multiple clients a high level of service and reliability can be provided with less expense than if one company tried to do it all for itself.
+
+## **21. Describe the issues to be considered when designing for multiple clients.**
+When designing for multiple clients is the wide range of client devices that must be supported. This affects both software design and environment design.
+
+## **22. What is a VPN? Why would a company use a VPN?**
+A VPN is a virtual private network which is a private network but which uses the public Internet as the basic transport mechanism. It includes additional security levels to secure the transmission and use of the Internet. A company would use a VPN if it has information that must be very secure, but must be transmitted to remote locations where the company did not have its own private network lines.
+
+-----
+
+### Problems and Exercises
+
+## **1. A financial corporation has desktop applications running in several different offices that are all supported by a centralized application bank of two computers. In addition, there is a centralized database, which requires three servers. Draw a network diagram representing this requirement.**
+Note: The problem definition of “several different offices” implies a WAN requirement or an Internet requirement. We will represent the WAN or Internet by the cloud. Various types of client devices are illustrated to indicate that there are multiple types of devices that must be supported.
+
+## **2. A sales organization has an Internet-based customer support system that needs to support every type of client device. The server configuration should be a normal layered application server and database server. Draw a network diagram representing this requirement.**
+
+## **3. A medium-sized engineering firm has three separate engineering offices. In each office, a local LAN supports all the engineers in that office. Due to the requirement for collaboration among the offices, all the computers should be able to view and update the data from any of the three offices. In other words, the data storage server within each LAN should be accessible to all computers, no matter where they are located. Draw a network diagram that will support this configuration.**
+Note: We show the LANs connected together with a router, or device that supports the LANs. Then the router devices are connected to the Internet to provide peer-to-peer connectivity possibly with a VPN.
+
+## **4. A small start-up company has a Web-based customer sales system that is written by using PHP and JavaScript. The company is deciding whether to host the system on its own servers, contract with a hosting company for a virtual server, or go to Amazon’s cloud. Volumes are expected to be low at the beginning, and it is hard to predict a growth pattern, although there is potential for rapid growth. Decide which alternative the company should choose. Defend your decision by giving advantages and disadvantages of each solution based on the characteristics of the start-up company.**
+Answers will vary. Here is one possible approach.
+
+| Issue | Self hosted (Pros) | Self hosted (Cons) | Virtual Server (Pros) | Virtual Server (Cons) | Cloud (Pros) | Cloud (Cons) |
+| --- | --- | --- | --- | --- | --- | --- |
+| Building Setup and maintenance | | Expensive | Shared | | Included | |
+| Connectivity to Internet | | Expensive | Shared | | Included | |
+| Computer purchase | | Expensive | | Expensive | | |
+| Computer maintenance | | Staffing | Available | | Included | |
+| Network and OS maintenance | | Staffing | Available | Purchase | Included | |
+| Scalability for future growth | | Difficult | Possible | Stepwise | Included | |
+| Unpredictable growth | | Difficult | Possible | | Included | |
+| Backup and recovery options | | Setup | Available | Expensive | | Expensive |
+| Exact configuration | Yes | | Yes | | | Unknown |
+
+Note: It appears that the cloud might be the best option. With the Virtual server second, and hosting it in-house as the least desirable.
+
+## **5. Describe the differences between HTTPS and a VPN. What kinds of computing and networking situations are better suited to HTTPS? What kind of computing and networking situations are better suited to VPN?**
+HTTPS adds secure transmission to Internet traffic. It establishes an encrypted connection between the client and the server. Then it transmits all data in encrypted form. This kind of connection works well for data that must be secure but that is also used by the general public. For example commercial sites where customers purchase items and pay for them with credit cards is a valid use of HTTPS. It is available to everyone and provides a fairly secure method of transmission.
+
+VPN adds another layer of security on top of HTTPS. VPN also requires personalized software and/or hardware to add this additional encryption and protection. Therefore VPN is best used for Private networks where each end of the network is controlled by the same organization. VPN is often used by national security groups such as FBI or military. Corporations also use VPN on internal systems. Computers at both ends of the transmission are owned and controlled by the organization.
+
+## **6. Find four separate hosting providers and compare their offerings, including prices. Put your answer in a table showing the results of your research.**
+Answers will vary and will change over time as offerings change.
+Note: Students will find that hosting websites is a two-tiered market. There is one tier for small sites for individuals. The prices for this type of hosting is usually only a few dollars a month. The hosted website shares a computer usually with dozens of other websites on the same connection and same computer. The second tier is for higher volumes and more robust computing environments. This type of hosting usually begins at the low end of $100 to $200 per month. The difference is the level of service provided and the bandwidth allocated to support higher volumes.
+
+## **7. Compare screen size, resolution, and other important display characteristics of five popular Internet-enabled smart phones. Which would you rate as the best? Defend your answer.**
+Answers will vary. Answers will change over time as technology improves. Answers should have a table of size, resolution, colors – students may also want to consider apps for streaming and viewing video, messages. Also possible voice activation and voice interface. The focus should be on user interface issues as well as computability issues.
+
+## **8. Research the issues related to supporting a very large database that must be distributed across multiple servers. Write a list of the issues that need to be addressed and the alternative solutions for a distributed and partitioned database where (a) all servers are colocated in the same data center and (b) the servers are located in separate data centers.**
+Answers will vary. Issues might include:
+
+  * How to partition the database (horizontally or vertically)
+  * How to synchronize the data
+  * How to backup the data
+  * How to balance workloads
+  * Federated databases (some students might discover this issue)
+
+-----
+
+## Solutions to End-of-Chapter Cases
+
+### Case Study: County Sheriff Mobile System for Communications (CSMSC)
+
+**Your assignment: Recommend a communication and network solution for the county sheriff’s department. It can be any combination of Internet, VPN, Wi-Fi , telephone, and satellite communication. The applications can be custom built, with device-specific or HTML-based user interfaces. Although HTML tends to be more versatile, it has drawbacks regarding security; display can also be an issue on devices that don’t have browser support. As always, the budget is tight, so your solution should be as economical as possible. Develop a network diagram that depicts your proposed solution. Also, explain your solution and justify your design.**
+
+Answers will vary with many valid solutions. The objective of this case is to get the students thinking about solutions rather than developing one particular solution.
+Note: Although this case allows for the use of the public Internet via VPN as well as 3G or 4G cell phone solutions, almost all law enforcement agencies in the US have their own radio and wireless transmission systems including transmission towers. This solution shows a private law enforcement system.
+
+### Running Cases: Community Board of Realtors
+
+**The Community Board of Realtors’ Multiple Listing Service (MLS) will be a Web-based application with extensions to allow wireless smart phone interaction between the agents and their customers. Review the functional and nonfunctional requirements you have developed for previous chapters. Then, for each of the six design activities discussed in this chapter, list some specific tasks to design the environment, application architecture and software, user interfaces, system interfaces, database, and system controls and security. You may want to refer back to the Tradeshow System discussed in Chapter 1 for some design specifics.**
+
+  * **Design the environment:** The environment is basically a client/server architecture. The application software will run under a Web server and the database will be directly supported. Design tasks will consist of defining the server and hosting requirements.
+  * **Design application architecture and software:** As mentioned the application is a three-layer design consisting of the database, the application logic, and the user interface. Design will follow the normal design steps of specifying the code structure and the methods. Since the client will consist of browser based display on many different types of devices, the code will have to discern what to send depending on the type of client device. Tasks will include creating use case descriptions, sequence diagrams, and other application models.
+  * **Design the user interface:** The user interface will be one of the more difficult portions of this system. Listing information can include text, images, and even possible videos. To be able to have meaningful display of all three types on desktops, laptops, and mobile devices some care will need to be given in designing the user interface. Tasks will include design sessions with some users for each type of device. Perhaps even some trial prototypes will need to be built to test the effectiveness of different screen layouts.
+  * **Design system interfaces:** It does not appear that there are extensive system interfaces for this application other than the printed reports. Report design should also involve user input on the best way to print multiple listing books and brochures.
+  * **Design the database:** Design of the database will require defining the various indexes and searching options. Other tasks include defining the attribute characteristics and foreign keys.
+  * **Design system controls and security:** The primary concern with security in this system is to protect the listing data as it resides on the server. The server, the database, the applications must all be protected against hacking and defacing. Output data is created for the general public so it is not private or confidential at that point. Design tasks will be to integrate secure data input, update, and protection.
+
+### Running Cases: The Spring Breaks 'R' Us Travel Service
+
+**Let us say that the SBRU information system includes four subsystems: Resort relations, Student booking, Accounting and finance, and Social networking. The first three are purely Web applications, so access to those will be through an Internet connection to a Web server at the SBRU home office. The Social networking subsystem has built-in chat capabilities. It relies on Internet access for the students, as students compare notes before they book their travel reservations and as they chat while traveling. To function properly, the system obviously requires a wireless network at each resort during the trip. SBRU isn’t responsible for installing or maintaining the resort wireless network; they only plan to provide some design specifications and guidelines to each resort. The resort will be responsible for connecting to the Internet and for providing a secure wireless environment for the students.**
+
+## **1. Design the environment for the SBRU information system by drawing a network diagram. Include what might be necessary to support online chatting capabilities.**
+
+## **2. Considering that everything is designed to operate through the Internet with browsers or smart phones, how simple does this architecture appear to be? Can you see why Web and smart phone applications are so appealing?**
+This is a simple three-layer client/server configuration. The complexity of communicating with client devices only required definition of HTML pages for the user interface. Even the chat capability fits into the same configuration.
+
+## **3. What aspect of design becomes extremely important to protect the integrity of the system?**
+Answers can vary. Integrity can refer to both the security of the system and to the robustness of being available for use at all times. Probably the weakest link will be the access points in the various hotels and resorts.
+
+### Running Cases: On the Spot Courier Services
+
+## **1. Make a list of the equipment that Bill should purchase to support his new system. Include all equipment that will be needed for the home office, the drivers, and at Bill’s residence. Identify and describe actual equipment that can be purchased today. Estimate the cost of the equipment.**
+Answers will vary. Especially as technology changes over time. This is one possible configuration. Also note this is for a beginning configuration as the business grows, Bill may want to go with a hosted server.
+
+| Location | Equipment | Cost |
+| --- | --- | --- |
+| Home office/Warehouse | Application/Database server – $3,000<br>Backup/Mirror Server - $2,000<br>Uninterrupted power supply (2) – $1,000<br>Wireless Router (2) – $500<br>Hand-held scanning devices (4) – $1,000<br>Printers (2) – $1,000<br>Desktop workstation with extra monitor $1,000 | $9,500.00 |
+| Trucks/drivers (per each driver) | Tablet computer with stylus & telephony – $500<br>Portable label printer – $500 | $1,000.00 |
+| Bill home | Wireless router – $100<br>Laptop computer with extra monitor – $700 | $800.00 |
+
+## **2. Describe any special software that may be needed. The software engineer is developing the application software (package scheduling and processing, accounting, etc.), but no special software is required for connecting the devices or communications between them.**
+Additional software includes:
+
+  * Mirroring software (between servers)
+  * Software to capture signatures on the tablet
+
+## **3. Develop a network diagram showing how all the equipment will be connected. Identify Internet connections, VPNs, and telephony links as appropriate.**
+Answers will vary as technology changes.
+There are two possible places that On-The-Spot might want to emply VPN capabilities. Bill can connect his home office with the warehouse server using a VPN. In that way, anything he wanted to do on his office server would be fully securt. The other place where On-the-Spot might want to consider VPN is with the truck drivers and their mobile devices. However, the data being transmitted to and from the trucks is not extremely confidential. It consists primarily of delivery and pickup requests. There most sensitive data is probable payment data for cash customers. However, those kinds of payment transactions from customers are most often sent with purely HTTPS security.
+
+### Running Cases: Sandia Medical Devices
+
+**Answer these questions in light of HIPPA requirements:**
+
+**Does HIPAA apply to the RTGM system? Why or why not?**
+It would appear that HIPAA regulations do apply to the RTGM system. The system maintains personal health related information about the patient, hence it must comply. It also transmits detailed monitoring results over public links and therefore should encrypt the data that is being sent.
+
+**How should the system ensure data security during transmission between a patient’s mobile device(s) and servers?**
+Since the data is being sent over telephone links, it is only as secure as cellular telephone signals. Someone could possibly receive those transmissions by finding the correct frequency. Therefore, the data itself should be encrypted before being sent. Hence Sandia will need to provide, and patients will need to install encrypted SMS to receive their text message alerts. Sending the glucose monitoring results should also be sent securely and encrypted.
+
+**Consider the data storage issues related to a patient’s mobile device and the possible ramifications if the device is lost or stolen. What measures should be taken to protect the data against unauthorized access?**
+This is an interesting problem. Most patients will not want to have to enter a password or a pin every time they need to access their alert messages or to activate the transmission of monitoring data. It is not clear how much responsibility rests on the patient (to keep his/her phone secure), and how much responsibility rests on Sandia (to require a password or pin to activate). The data itself could be encrypted on the smart phone, but of course, the application is able to decrypt it to access it. Perhaps a middle ground might be to require a pin when the smartphone is turned on, or once each day.
+
+**Consider the issues related to health care professionals accessing server data by using workstations and mobile devices within a health care facility. How will the system meet its duty to record and examine access to ePHI? If a health care professional uses a mobile device outside a health care facility, what protections must be applied to the device and/or any data stored within it or transmitted to it?**
+Requirements for health care professionals can be more stringent to access secure ePHI data. Each health care person can be required to enter ID and password to access the data within the facility on workstations or laptop computing devices. Mobile devices can also require a login process in order for the professional to access the data. And the data should be encrypted when it is transmitted. Something as simple as a 4 digit pin for mobile devices is not too burdensome, yet still provides a level of security.
+All access to the data should also be logged so that Sandia knows who has access and who has accessed the data. The system will maintain login information for authorized users. (See Chapter 12 for more details.)
+
+**Consider the issues related to wired and wireless data transmission between servers and workstations within a health care facility. What security duties, if any, apply to transmissions containing ePHI? Does your answer change if the servers are hosted by a third-party provider?**
+Security of wired and wireless data transmission and hosted servers requires first that the servers are hosted in a secure environment and second that all data, stored and transmitted be encrypted. Encryption of local data is easier because the access program maintains the encryption key. (Hence the program itself must be kept physically secure.) Transmitted data is more complex because the encryption must be dynamic due to the remote nature of mobile devices and distributed computers.
+The solution will need to be the same whether the servers are hosted in house or with a third-party provider. The physical facilities and access to the servers themselves must be in a HIPAA secure facility.
 
 # Chapter 7 - Defining the System Architecture
 
