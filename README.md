@@ -4486,6 +4486,454 @@ Some challenges I didn't completely solve though. Certain events could be seen a
 Looking back, my top-down approach worked well. I started with the Business Case to understand why the system exists, then used event decomposition to figure out what it needs to do. This kept everything organized and connected.
 
 URL: [https://landing.athabascau.ca/blog/view/30026189/comp-361-%E2%80%93-reflection-assignment-1-understanding-systems-analysis-step-by-step](https://landing.athabascau.ca/blog/view/30026189/comp-361-%E2%80%93-reflection-assignment-1-understanding-systems-analysis-step-by-step)
+
+
+# COMP361 – Assignment 02
+**Minh Nguyen – 3182386**
+**March 24, 2026**
+
+## Part A: Use Case Diagram
+
+### 1. Membership Management
+**Focus:** The lifecycle of a user from initial recruitment to offboarding.
+* **Apply for Membership:** Prospective member submits personal details and driver’s license for screening.
+* **Screen Application:** Administrator reviews driving records and eligibility (referenced in your "Membership application screening" section).
+* **Update Member Profile:** Member modifies contact info or payment methods.
+* **Terminate Membership:** Closing an account due to member request or administrative penalty (e.g., frequent late returns).
+
+### 2. Accounts and Billing
+**Focus:** Financial integrity and the fee structure outlined in the document ($500 deposit, monthly fees, etc.).
+* **Process Monthly Subscription:** System automatically charges the monthly membership fee.
+* **Generate Trip Invoice:** Calculates costs based on "duration and distance" after a trip is completed.
+* **Process Penalty Fee:** Charged for late returns, dirty vehicles, or low fuel.
+* **Refund Deposit:** Executed upon successful membership termination.
+
+### 3. Reservations
+**Focus:** The "Reservation System" requirements for self-service booking.
+* **Search Vehicle Availability:** Member filters by location, vehicle type (minivan, truck), and time.
+* **Create Reservation:** Blocks a specific vehicle for a specific timeframe.
+* **Modify/Cancel Reservation:** Changing the time or location before the trip starts.
+* **Check Reservation Status:** View upcoming or past bookings.
+
+### 4. Inventory (Vehicles and Locations)
+**Focus:** Operational management of the fleet and designated parking zones.
+* **Add/Remove Vehicle:** Admin updates the fleet list (e.g., adding a new fuel-efficient hybrid).
+* **Update Vehicle Location:** Tracking which pod/station a vehicle is assigned to.
+* **Record Maintenance/Repair:** Logging service history to ensure safety and "Success Factors."
+* **Monitor Fleet Status:** Real-time view of which cars are "In Use," "Available," or "In Shop."
+
+### 5. Vehicle Usage (Completed Trips)
+**Focus:** The data collection phase during and after a member uses a car.
+* **Unlock/Access Vehicle:** Using the automated system to start the trip.
+* **Record Trip Data:** Capturing start/end odometer readings and fuel levels.
+* **Report Incident:** Member logs a breakdown or accident during usage.
+* **Complete Trip:** The system confirms the car is returned to the correct location and locked.
+
+---
+
+## Part B: Problem Domain Classes
+
+**Proposed classes**
+* **Membership:** Member, Application, Penalty.
+* **Accounts/Billing:** Account, Invoice, Payment.
+* **Reservations:** Reservation.
+* **Inventory:** Vehicle, VehicleType, Location, MaintenanceRecord.
+* **Usage:** Trip, IncidentReport.
+
+**Domain Model Class Diagram**
+*(Diagram placeholder)*
+
+**Class Descriptions and Relationships**
+* **Member:** Represents individuals authorized to use the service. Stores identity, eligibility (license), and contact data.
+* **Application:** A "prospective-member" entity used during the recruitment phase to track screening, credit checks, and driving record validation.
+* **Account:** The financial hub for a Member. Tracks the $500 security deposit, current balance, and links to payment methods.
+* **Invoice:** A monthly or per-trip financial statement aggregating usage fees, subscription costs, and penalties.
+* **Payment:** Records specific financial transactions (Credit Card, EFT) applied to an Account or Invoice.
+* **Vehicle:** Represents a physical asset in the fleet. Tracks its real-time state (odometer, fuel, location, and mechanical status).
+* **VehicleType:** A categorization class (e.g., Minivan, Truck, Hybrid). Stores the pricing logic (hourly vs. km rates) applied to all vehicles of that type.
+* **Location:** A designated physical station where cars are picked up and returned. Tracks capacity and current availability.
+* **Reservation:** A temporal "contract" between a Member and a Vehicle for a future window of time.
+* **Trip:** The actual realization of a reservation. It captures the "truth" of the usage (actual duration and distance) used for billing.
+* **Penalty:** Records infractions (late return, smoking in car, low fuel). It is linked to a Trip and eventually appears on an Invoice.
+* **MaintenanceRecord:** Logs the service history of a Vehicle to satisfy the "Success Factors" of safety and reliability mentioned in your project doc.
+* **IncidentReport:** Documents any negative event occurring during a Trip.
+
+---
+
+## Part C: Use Case Descriptions
+
+**Fully developed use case descriptions for the use case for making a reservation over the Web**
+
+| Field | Description |
+| :--- | :--- |
+| **Use Case Name** | Create Vehicle Reservation |
+| **Scenario** | Member makes a reservation for a vehicle via the Web interface |
+| **Triggering Event** | Member needs a vehicle for a specific time and location |
+| **Brief Description** | A member logs into the web portal, searches for vehicle availability based on location and time, selects a vehicle, and confirms the booking. |
+| **Actors** | Member |
+| **Related Use Cases** | Update Member Profile, Identify Vehicle Location |
+| **Stakeholders** | Member (user), Administrator (availability tracking, revenue) |
+| **Preconditions** | Member must have an active, non-suspended account. |
+| **Postconditions** | Reservation record is created; Vehicle is flagged as "Reserved" for that time slot; Confirmation notification sent to Member. |
+
+**Flow of Activities**
+
+| Actor | Information System |
+| :--- | :--- |
+| 1. Member logs into the Web Reservation System. | 2. System validates credentials and displays the reservation dashboard. |
+| 3. Member enters search criteria (Start Date/Time, End Date/Time, and preferred Location/Pod). | 4. System queries the Vehicle and Location classes for availability that matches the criteria. |
+| 5. Member views the list of available vehicles (Type, Location, Rates) and selects a specific vehicle. | 6. System calculates estimated costs and displays a summary of the booking. |
+| 7. Member confirms the reservation. | 8. System creates a Reservation record, links it to the Member and Vehicle, and updates the vehicle availability schedule. |
+
+**Exception Conditions**
+
+| Condition | Action |
+| :--- | :--- |
+| **Vehicle Unavailable** | If no vehicles match the criteria, the system suggests the nearest alternative location or the next available time slot. |
+| **Invalid Member Status** | If the member has an outstanding balance or expired license, the system denies the reservation and directs them to "Accounts." |
+| **Time Conflict** | If the requested time overlaps with an existing reservation for that vehicle, the system prompts for a new time. |
+
+**Brief Use Case Descriptions**
+
+| Use Case Name | Actors | Brief Description |
+| :--- | :--- | :--- |
+| **Apply for Membership** | Prospective Member, Administrator | A prospective member submits a web application including their driver's license and personal info. An Administrator reviews the credit check and driving record to approve or decline the applicant. |
+| **Reserve Vehicle** | Member | A member logs into the web system, searches for a vehicle by location, type (e.g., minivan), and time. The system confirms availability and creates a reservation, blocking the vehicle for that period. |
+| **Record Trip Usage** | Member, System | When a trip is initiated and completed, the system captures the start/end odometer readings and fuel levels. This data is used to calculate the specific distance and duration charges for that session. |
+| **Process Billing & Payments** | Administrator, System, Billing Service | The system aggregates monthly subscription fees, trip charges based on usage, and any penalties (late returns/cleaning). It generates an invoice and processes the payment against the member's account. |
+
+---
+
+## Part D: Essay Question
+
+**Explain the role of models and diagrams in systems analysis, their key benefits, and when to apply different modeling types**
+
+In Systems Analysis and Design [1], modeling is a cornerstone activity used to abstract and represent system requirements. Analysts create models to translate complex realities into manageable components, serving as a universal language for users, designers, and programmers [3].
+
+The primary benefits of modeling [1] include reducing system complexity through abstraction, remembering intricate details, and establishing a baseline to validate requirements. By reviewing these models iteratively, analysts can correct errors early, test design alternatives, and produce reliable documentation for future maintenance.
+
+To achieve this, system development relies on three generic types of models:
+
+**1. Textual Models** [1]
+* **Purpose:** Utilize text-based formats like memos, narratives, and lists (e.g., Use Case Descriptions).
+* **When to Use:** Ideal for initially capturing verbal information from stakeholder interviews or detailing highly specific business rules that are difficult to visualize.
+* **When Not to Use:** Avoid when explaining complex workflows or system architecture, as heavy text can obscure overarching relationships.
+
+**2. Graphical Models** [1]
+* **Purpose:** Employ visual notations, primarily the Unified Modeling Language (UML), to depict abstract system components such as actors, processes, objects, and connections.
+* **When to Use:** Essential when illustrating complex relationships that are hard to follow in narrative form (e.g., a Class Diagram or Activity Diagram). A picture truly is worth a million words here.
+* **When Not to Use:** Unnecessary for strictly mathematical constraints or when documenting qualitative narrative details.
+
+**3. Mathematical Models** [1] [2]
+* **Purpose:** Apply formulas to define technical specifications and operational parameters.
+* **When to Use:** Best for scientific applications, specific business logic (like accounting algorithms), or defining nonfunctional requirements such as database response times and network throughput.
+* **When Not to Use:** Inappropriate for capturing user interactions, structural system boundaries, or qualitative requirements.
+
+**References:**
+[1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+[2] GeeksforGeeks. (2024, April 24). *Real-life applications of mathematical modeling*. [https://www.geeksforgeeks.org/maths/real-life-applications-of-mathematical-modeling/](https://www.geeksforgeeks.org/maths/real-life-applications-of-mathematical-modeling/)
+[3] Microsoft Learn. (2022, May 5). *Create models for your app*. Microsoft. [https://learn.microsoft.com/en-us/visualstudio/modeling/create-models-for-your-app](https://learn.microsoft.com/en-us/visualstudio/modeling/create-models-for-your-app)
+
+---
+
+## Part E: Reflection on the Activities of the Assignment
+
+**Reflecting on the Car Sharing Information System Assignment**
+
+This week, I finished a full systems analysis assignment for my COMP 361 course. The project was about a Car Sharing Information System and had four main parts: a Use Case Diagram, a Domain Model Class Diagram, Use Case Descriptions, and an essay about modeling.
+
+Looking back, I had both easy and challenging moments while working on it.
+
+**What was easy and what was difficult?** I found the essay (Part D) and the short use case descriptions (Part C) the easiest. It was simple to understand the differences between textual, graphical, and mathematical models because I could connect them to what I was already doing. The hardest part was Part B, the Domain Model Class Diagram. Moving from describing what the system does to designing the data structure (classes) required a different way of thinking.
+
+**What caused me problems (and why)?** My biggest issue happened in Part B when working on inventory and vehicle usage. At first, I combined “Reservation” and “Trip” into one class. This created problems because I needed to track estimated costs (from reservations) and actual charges (from real trips). I realized the mistake was not separating a planned action from a completed event.
+
+**Which solutions or approaches helped?** To fix this, I used the “Noun Technique.” I went through the project description and highlighted all the nouns. This helped me decide which items should be separate classes, like “Penalty,” “MaintenanceRecord,” and “Account.” I also learned it’s better to build relationships between classes first before adding details. Starting with a clear structure made everything easier. Also, the Use Case Diagram helped guide the rest of my work.
+
+**Where was I unable to find a solution (and why)?** I had trouble modeling the payment system. It was unclear if payments were handled inside the system or by a third party. Because of this, I couldn’t design it perfectly. I decided to keep it simple by creating general “Account” and “Payment” classes.
+
+**How did I approach the problem?** I used a step-by-step approach. I started with the big picture, then focused on one use case (making a reservation). Writing out the steps helped me understand what data was needed. This made it easier to build the class diagram later without getting confused too early.
+
+**Landing url:** [https://landing.athabascau.ca/blog/view/30063577/reflection-on-the-activities-of-the-assignment-2](https://landing.athabascau.ca/blog/view/30063577/reflection-on-the-activities-of-the-assignment-2)
+
+
+# COMP361 – Assignment 03
+
+**Minh Nguyen – 3182386**
+**March 27, 2026**
+
+## Part A: Integrity Controls, Access Security, Storyboards and database schema
+
+### 1\. Recommend and explain four integrity controls for the Car Sharing IS; focus input/output on “Make Reservation (Web).”
+
+Integrity controls are essential mechanisms built into a system to reject invalid data, prevent unauthorized data outputs, and protect against tampering or data loss [1]. Below are the recommendations and explanations for applying the four main categories of integrity controls to the Car Sharing Information System (IS).
+
+**1. Input Controls**
+Constraint Focus: "Make Reservation through Web Interface" use case.
+Input controls prevent invalid or erroneous data from entering the database during the reservation process.
+
+  * **Completeness Controls:** The web interface must ensure that all required fields are filled out before the reservation can be submitted. The system should verify that the user has selected a pick-up location, vehicle type, start date/time, and end date/time.
+  * **Data Validation Controls:** The system must validate the inputs against existing database records. For example, it must check the underlying database to ensure the requested vehicle is actually available for the selected timeslot and that the user's account is active and in good standing (e.g., no suspended license or unpaid balances).
+  * **Value Limit Controls:** The web form should restrict the reservation parameters to reasonable limits defined by the business rules. For instance, the system should prevent a user from booking a vehicle for a negative duration, restrict the maximum reservation length (e.g., no longer than 14 days), and prevent booking a car more than 6 months in advance.
+  * **Field Combination Controls:** The system must compare the "Start Time" and "End Time" fields to logically ensure that the start time is strictly *before* the end time, and that neither time is in the past.
+
+**2. Output Controls**
+Constraint Focus: "Make Reservation through Web Interface" use case.
+Output controls ensure that the results of the reservation process arrive at the proper destination and are secure, accurate, and complete.
+
+  * **Access Controls to Display Programs:** Once a reservation is made, the output (the confirmation screen and itinerary) must be restricted. Only the authenticated user who initiated the session (and authorized system administrators) should be able to view the reservation details. The web application must enforce session management to prevent URL manipulation from exposing other users' reservations.
+  * **Labeling of Electronic Outputs:** The electronic output displayed on the web interface (and the subsequent confirmation email) must include internal labels to guarantee completeness and authenticity. This includes a unique, system-generated Reservation ID, a date-and-time stamp of exactly when the transaction occurred, and the specific details of the vehicle and pod location.
+  * **Checksums/Digital Tokens:** The electronic output sent to the user's mobile device or web browser should include a secure token or QR code (acting as a checksum) that the user will later use to physically unlock the shared vehicle.
+
+**3. Redundancy, Backup, and Recovery**
+Focus: Overall Car Sharing IS.
+A car sharing system requires high availability; if the system goes offline, users could be stranded, unable to unlock cars or make emergency bookings.
+
+  * **Redundancy:** The Car Sharing IS should utilize redundant, geographically distributed servers (e.g., cloud-based infrastructure). If one server experiences a hardware failure, another server immediately takes over so that users can continuously access the web interface and mobile applications to manage their active trips.
+  * **Backup and Recovery:** The system must implement frequent backup procedures. Transaction logs (capturing every new reservation, payment, and vehicle status change) should be backed up continuously, alongside full daily backups of the relational database. These off-site backups ensure that in the event of a catastrophic failure, no user billing data or reservation schedules are permanently lost, and the database can be recovered to the exact point of failure.
+
+**4. Fraud Prevention**
+Focus: Overall Car Sharing IS.
+Fraud prevention reduces the "Opportunity" factor in the Fraud Triangle (Opportunity, Motivation, Rationalization).
+
+  * **Records and Audit Trails:** The system must log all user and employee activities. If a reservation is modified, a fee is waived, or a vehicle is reported damaged, the system must record who made the change, the exact timestamp, and the previous state of the record. This prevents authorized users (like customer service reps) from secretly extending a friend's reservation or waiving their own late fees.
+  * **Asset Control and Reconciliation:** The system must periodically reconcile the physical assets (the cars) with the digital records. By integrating GPS telematics from the vehicles with the database, the system can flag anomalies—such as a vehicle moving when it is not actively linked to a valid, paid reservation.
+  * **Separation of Duties:** Administrative roles within the IS should be compartmentalized. An employee with the ability to approve new user accounts or validate driver's licenses should not simultaneously hold the system permissions required to alter the financial accounting logs or delete trip history.
+
+**References:**
+[1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+
+### 2\. Access security: Identify intended and unintended users of the Car Sharing IS, and create an access control list.
+
+Based on the principles of designing security controls [1], we must categorize the users of the Car Sharing Information System (IS) to establish strong authentication and authorization boundaries.
+
+**1. User Categories in the Car Sharing IS**
+
+*Users the System IS Designed For:*
+
+  * **Registered Users (General Access):**
+      * **Prospective Members:** Users who have created a basic login to submit their driver's license and credit information for screening.
+      * **Active Members:** Approved users who are authorized to view vehicle availability, make reservations, update their payment profiles, and physically unlock vehicles.
+  * **Administrators / Fleet Managers:** Internal staff authorized to approve or reject applications, add/remove vehicles from the fleet, manage locations, waive penalties, and generate usage reports.
+  * **Privileged Users (High-Level Access):**
+      * **IT System Administrators / Database Administrators (DBAs):** Technical personnel who have access to the underlying server operating systems, source code, and database structures to apply patches, manage backups, and configure firewalls.
+
+*Users the System IS NOT Designed For (Unauthorized Users):*
+
+  * **The General Public:** Individuals who have not initiated an application should only see public-facing marketing pages; they are entirely restricted from viewing live fleet availability or member data.
+  * **Terminated or Suspended Members:** Members who have unpaid balances, expired licenses, or poor driving records must have their authorization instantly revoked, preventing them from accessing the reservation system or physically unlocking cars.
+  * **Hackers and Malicious Bots:** External entities attempting to intercept data in transit or breach the firewall. The system is explicitly designed to reject their access via authentication barriers and encrypted networks.
+
+**2. Access Control List (ACL) for the Car Sharing IS**
+
+An Access Control List maps specific user groups to system resources and defines their permitted level of access (e.g., Read, Create, Update, Delete/Execute).
+
+| System Resource | Active Member | Fleet Administrator | IT System Admin | Unauthorized / Public |
+| :--- | :--- | :--- | :--- | :--- |
+| **Public Marketing Website** | Read | Read | Read / Update | Read |
+| **Membership Application** | Create / Read (Own) | Read / Update (Approve/Deny) | Full Access | Denied |
+| **Member Profile & Billing** | Read / Update (Own only) | Read / Update (All members) | Full Access | Denied |
+| **Reservation System** | Create / Read / Update (Own only) | Read / Update / Cancel (All) | Full Access | Denied |
+| **Vehicle Telematics (Unlock/Lock)** | Execute (Only on reserved car, during reserved time) | Execute (All cars, anytime) | Full Access | Denied |
+| **Inventory (Vehicles & Locations)** | Read (Availability only) | Create / Read / Update / Delete | Full Access | Denied |
+| **System Audit Logs & Database Schema** | Denied | Read (Reports only) | Full Access | Denied |
+
+**Explanation of the Access Control List Logic:**
+
+  * **Principle of Least Privilege:** Active Members are heavily restricted. They can only Create/Read/Update their *own* reservations and profiles. They absolutely cannot Delete records (which would ruin audit trails).
+  * **Contextual Authorization:** The ability to "Unlock" a vehicle (Execute command) for an Active Member is highly contextual—it is only authorized if their username is linked to a valid reservation for that specific vehicle's ID at that exact date and time.
+
+**References:**
+[1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+
+### 3\. Storyboard for the reservation use case.
+
+**(User clicks on " NEW RESERVATION")**
+
+**Screen 1: Member Dashboard (Main Menu)**
+**Purpose:** The entry point after a successful login. It provides clear navigation (Discoverability) for the member's primary tasks.
+
+| | |
+| :--- | :--- |
+| CAR SHARING INFOMRATION SYSTEM | [Welcome, John\!] |
+| [ Dashboard ] [ My Account ] [ Invoices ] [ Logout ] | |
+| Current Status: Account Active | |
+| What would you like to do today? | |
+| [NEW RESERVATION ] | [ VIEW UPCOMING TRIPS] |
+
+**(User enters details and clicks Search)**
+
+**Screen 2: Search for Availability**
+**Purpose:** Captures the required input parameters to query the Vehicle and Location classes.
+
+| | |
+| :--- | :--- |
+| CAR SHARING INFOMRATION SYSTEM | [Welcome, John\!] |
+| \< Back to Dashboard | |
+| FIND A VEHICLE | |
+| Select Location (Pod): [ Downtown Station (Stall 1-5) ▾ ] | |
+| Pick-up Date & Time: [ MM/DD/YYYY ] [ HH:MM AM/PM ▾ ] | |
+| Return Date & Time: [ MM/DD/YYYY ] [ HH:MM AM/PM ▾ ] | |
+| Preferred Vehicle Type: [ Minivan ▾ ] | |
+| [ SEARCH AVAILABLE VEHICLES ] | |
+
+**(User clicks "[ SELECT ]" on the Honda Odyssey)**
+
+**Screen 3: Search Results & Selection**
+**Purpose:** Displays the output of the database query. Gives the user options based on the Car Share Fee Structure.
+
+| | |
+| :--- | :--- |
+| CAR SHARING INFOMRATION SYSTEM | [Welcome, John\!] |
+| AVAILABLE VEHICLES (Downtown Station) | |
+| 1. Honda Odyssey (Minivan),<br>Stall 2 | Fuel: 80%,<br>Rate: $8.00/hr + $0.35/km | [ SELECT ] |
+| 2. Dodge Grand Caravan (Minivan),<br>Stall 4 | Fuel: 100%,<br>Rate: $8.00/hr + $0.35/km | [ SELECT ] |
+| [\< Modify Search Criteria] | |
+
+**(User clicks "[ CONFIRM BOOKING ]")**
+
+**Screen 4: Reservation Confirmation (Closure)**
+**Purpose:** Crucial for *Integrity Controls*. It allows the user to review their inputs, see the estimated costs, and confirm the transaction before it is permanently written to the database.
+
+| | |
+| :--- | :--- |
+| CAR SHARING INFOMRATION SYSTEM | [Welcome, John\!] |
+| REVIEW & CONFIRM RESERVATION | |
+| Vehicle: Honda Odyssey (Minivan) - License: ABC-123 | Location: Downtown Station, Stall 2 |
+| Pick-up: Friday, Oct 12 at 2:00 PM | Return: Friday, Oct 12 at 6:00 PM |
+| Duration: 4 Hours | |
+| Estimated Base Cost: $32.00 (Excludes distance charges) | |
+| [CONFIRM BOOKING ] | [ CANCEL ] |
+
+**Screen 5: Itinerary / Success (Feedback)**
+**Purpose:** Provides immediate system feedback to satisfy the HCI principle of "Closure." The user knows the process was successful.
+
+| | |
+| :--- | :--- |
+| CAR SHARING INFOMRATION SYSTEM | [Welcome, John\!] |
+| SUCCESS\! YOUR VEHICLE IS RESERVED. | |
+| Reservation ID: \#RES-99842 | |
+| Your vehicle will be ready to unlock via the mobile app 15 minutes prior to your start time. | |
+| [Print Itinerary] | [Return to Dashboard] |
+
+### 4\. Design a relational database schema from the Car Sharing Information System
+
+Note: Primary keys are in **bold**, and foreign keys are in *italic*.
+
+| Table | Attributes |
+| :--- | :--- |
+| Application | **ApplicationID**, submissionDate, screeningStatus, creditCheckResult, drivingRecordStatus |
+| Member | **MemberID**, *ApplicationID*, firstName, lastName, homeAddress, emailAddress, phoneNumber, licenseNumber, licenseExpiryDate, membershipStatus |
+| Account | **AccountID**, *MemberID*, depositHeld, currentBalance, paymentMethodDetails |
+| Invoice | **InvoiceID**, *AccountID*, dateGenerated, billingPeriodStart, billingPeriodEnd, usageCharges, monthlyFees |
+| Payment | **PaymentID**, *AccountID*, *InvoiceID*, paymentDate, paymentAmount, paymentMethod, transactionReference |
+| VehicleType | **VehicleTypeID**, categoryName, hourlyRate, kmRate |
+| Location | **LocationID**, stationName, streetAddress, totalStalls |
+| Vehicle | **VehicleVIN**, *LocationID*, *VehicleTypeID*, licensePlateNumber, make, model, year, currentOdometer, fuelLevel, vehicleStatus |
+| Reservation | **ReservationID**, *MemberID*, *VehicleVIN*, requestTimestamp, scheduledStartTime, scheduledEndTime, reservationStatus |
+| Trip | **TripID**, *ReservationID*, actualStartTime, actualEndTime, startOdometer, endOdometer, fuelLevelOnReturn, cleanlinessStatus |
+| Penalty | **PenaltyID**, *TripID*, *InvoiceID*, penaltyType, penaltyAmount, dateIncurred, reasonDescription |
+| MaintenanceRecord | **RecordID**, *VehicleVIN*, serviceType, serviceDate, serviceProvider, serviceCost, odometerAtService |
+| IncidentReport | **IncidentID**, *TripID*, reportTimestamp, incidentType, description, locationDescription, severityLevel, isPoliceNotified, estimatedRepairCost |
+
+-----
+
+## Part B: Essay Question
+
+### Difference between system analysis and system design
+
+**Systems Analysis vs. Systems Design**
+
+Systems analysis [1] [2] is all about understanding a business problem and figuring out *what* a new computer system needs to do to fix it. Analysts achieve this by talking to the people who will use the system to find out exactly what they need. Then, they create basic models to show how the system should work. For example, they might draw "use case diagrams" to map out how a user interacts with the app. At this stage, they focus purely on the business goals and don't worry about the actual technology or coding.
+
+On the other hand, systems design [1] [2] figures out exactly *how* to build the system using technology. Designers take the basic models made during the analysis phase and turn them into detailed technical blueprints. They decide what hardware is needed, how the database will be organized, what the screens will look like, and how the software will be coded. This prepares everything so the programmers can step in and actually build the system.
+
+These two steps are closely connected in the Systems Development Life Cycle (SDLC). The design phase uses the information gathered during the analysis phase as its starting point. In modern projects, teams often jump back and forth between the two. However, their main goals are very different [1] [2]. Systems analysis focuses on the *problem*—figuring out business rules and user needs without worrying about the tech. Systems design focuses on the *solution*—choosing the right technology, security, and software architecture. Simply put, analysis asks "what" the system needs to do, while design answers "how" to actually build it.
+
+**References:**
+[1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+[2] Alter, S., & Browne, G. J. (2005). A broad view of systems analysis and design: Implications for research. *Communications of the Association for Information Systems*, 16. [https://aisel.aisnet.org/cais/vol16/iss1/50/](https://aisel.aisnet.org/cais/vol16/iss1/50/)
+
+-----
+
+## Part C: Reflection on the Activities of the Assignment
+
+**What was easy and what was difficult in this assignment?**
+Categorizing users and making the Access Control List (ACL) was the easiest part for me. Figuring out who gets access to what—like separating regular members from fleet managers—made perfect logical sense. On the other hand, designing the database layout (the schema) was definitely the hardest part of the entire project.
+
+**What caused me problems (and why)?**
+My biggest problem was organizing the database to meet a standard called Third Normal Form (3NF). This rule states that you shouldn't store data if it can easily be calculated from other data. For example, I struggled with whether to save the totalAmount in the Invoice table or just let the system calculate it on the fly. I realized that saving it broke the 3NF rule. Fixing this required me to completely reorganize my tables, which was confusing at first.
+
+**Which solutions or approaches have I found that could be useful for my colleagues?**
+I found a great step-by-step method for building the database that my classmates should try: first, make a table for every class; second, define the primary keys (unique IDs); and finally, connect the tables using foreign keys. Also, when I made the storyboard for booking a car, sketching out the user's steps before worrying about how the screens looked made it much easier to figure out what the system needed.
+
+**How did I approach the current problem?**
+Overall, I tackled the project by drawing a hard line between "systems analysis" and "systems design." Analysis is figuring out what the system needs to do, while design is figuring out how to actually build it. Keeping the "what" separate from the "how" kept me focused and ensured my technical plans actually met the assignment's goals.
+
+**Landing Url:** [https://landing.athabascau.ca/blog/view/30069258/comp-361-reflection-on-the-activities-of-the-assignment-3](https://landing.athabascau.ca/blog/view/30069258/comp-361-reflection-on-the-activities-of-the-assignment-3)
+    
+
+# COMP361 – Assignment 04
+**Minh Nguyen – 3182386**
+**March 28, 2026**
+
+## Part A: Design Class Diagram and Sequence Diagrams
+
+**1. Create a preliminary version of the design class diagram (first-cut design class diagram) for the Car Sharing IS.**
+
+*[Image: First-cut design class diagram for the Car Sharing IS]*
+
+**2. Develop first-cut sequence diagrams to explain object interactions for the Make Reservation through Web Interface use case**
+
+*[Image: First-cut sequence diagram for Make Reservation through Web Interface]*
+
+**3. Develop a multilayer design for the Make Reservation through Web Interface use case.**
+
+*[Image: Multilayer design sequence diagram for Make Reservation through Web Interface]*
+
+**4. Update the design class diagram by adding method signatures**
+
+*[Image: Updated design class diagram with method signatures]*
+
+---
+
+## Part B: Essay Question
+
+The design phase includes many different diagrams because a system is complex and cannot be fully understood from just one view. Each diagram focuses on a specific aspect of the system, helping developers, analysts, and stakeholders clearly understand requirements and implementation details. Using multiple diagrams reduces confusion, improves communication, and ensures that nothing important is missed.
+
+In the analysis phase [1], diagrams focus on *what the system should do*. Use-Case [1] [2] Diagrams show the big picture by identifying users (actors) and how they interact with the system. They help define system boundaries and key functionalities. However, they do not show detailed workflows, which is why Activity Diagrams [1] [2] are needed. Activity diagrams model the step-by-step flow of tasks in a process, making it easier to understand logic and decision points.
+
+To represent the data and key concepts, Domain Model Class Diagrams [1] [2] are used. These diagrams show important objects, their attributes, and relationships, but they do not show how interactions happen over time. That is handled by System Sequence Diagrams (SSD) [1] [2], which focus on the order of messages between external actors and the system. SSDs help identify system inputs and outputs clearly. 
+
+Another important perspective is behavior over time. State Machine Diagrams show how an object changes states based on events. This is different from activity diagrams because it focuses on the lifecycle of a single object rather than a full process.
+
+In the design phase [1], diagrams shift to *how the system will be built*. Design Class Diagrams (DCD) [1] [2] expand on domain models by adding technical details such as methods, data types, and access levels. These are essential for developers to write code.
+
+To show how internal objects collaborate, Sequence Diagrams [1] [2] are used. They detail message exchanges over time, while Communication Diagrams [1] [2] focus on how objects are connected structurally. Both describe interactions, but from different viewpoints.
+
+For data storage, Entity-Relationship Diagrams (ERD) [1] [2] define database structure and ensure data integrity. Finally, Package Diagrams [1] [2] organize the system into logical groups, improving modularity and maintainability.
+
+Together, these diagrams provide a complete, structured understanding of the system from requirements to implementation.
+
+**References:**
+[1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+[2] ConceptViz. (2026). *UML diagram types explained: Class, sequence & use case guide*. [https://conceptviz.app/es/blog/uml-diagram-types-complete-guide](https://conceptviz.app/es/blog/uml-diagram-types-complete-guide)
+
+---
+
+## Part C: Reflection on the Activities of the Assignment
+
+Looking back at the design activities, explaining why we need so many different diagrams was the easiest part. It makes sense that you need one diagram to show how the code is structured and a completely different diagram to show the order in which things happen. A single drawing cannot show both the physical layout and the timing at the same time.
+
+However, building the sequence diagram with multiple layers was extremely difficult. This challenged me because I had to stop assuming that all the data magically exists in the computer's memory already. Figuring out exactly when the system needs to stop, ask the data layer to get information from the database, and then send that information to the user interface was very confusing. Adding these extra technical layers made the diagram crowded and hard to read.
+
+One solution that worked for me—and that my classmates should try—is using sequence diagrams as a guide for your class diagrams. When you need to add methods to your classes, look at your sequence diagram. If the diagram shows a controller sending a message to an object to do something, then that object needs a matching method. They have to match up perfectly.
+
+One problem I couldn't solve was how to show error handling in sequence diagrams. The textbook assumes that technology works perfectly in these early models. So, if a network fails or a database crashes while the process is running, I wasn't sure how to correctly show that broken loop without making the diagram too messy to read.
+
+Overall, I solved this problem by working through it step by step. I built the basic class diagram first, making sure my arrows were correct. Then, I created the basic sequence diagram before finally adding the complicated database and interface layers. Taking it one step at a time kept me from getting stressed out.
+
+**Landing Url:** [https://landing.athabascau.ca/blog/view/30070321/comp-361-reflection-on-the-activities-of-the-assignment-4](https://landing.athabascau.ca/blog/view/30070321/comp-361-reflection-on-the-activities-of-the-assignment-4)
 **Part 2.**
 Based on what you learned in this chapter about databases, controls, and system security, review your answers to the questions for this case in Chapter 6. Assume that the patient's cell phone and the centralized servers are different nodes in a replicated database architecture and are regularly synchronized. What changes, if any, should be made to your answers now that you have a deeper understanding of databases, controls, security, and related design issues?
 
