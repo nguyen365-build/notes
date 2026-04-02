@@ -1068,12 +1068,179 @@ To see how they work together, look at how one use case breaks down into multipl
 When gathering requirements, you define the **Use Case** first, and then write out the various **Scenarios** to ensure developers know exactly how to code the system's responses to different situations.
 
 ## **76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases.
+Both the user goal technique and the event decomposition technique are highly effective methods for identifying use cases during requirements gathering. However, they approach the system from entirely different perspectives: one looks from the **outside in**, while the other looks from the **inside out**.
+
+Here is a breakdown of how each technique works and how they compare.
+
+---
+
+## 1. The User Goal Technique (Outside-In)
+As discussed previously, this technique is fundamentally human-centric. It focuses on identifying the actors who will use the system and determining the specific business objectives they are trying to achieve. 
+
+* **The Core Question:** "What does the user need to get done?"
+* **The Process:** Identify the actors $\rightarrow$ Brainstorm their goals $\rightarrow$ Create a use case for each goal.
+* **Best Used For:** Highly interactive systems with many human touchpoints, such as mobile apps, e-commerce websites, or customer portals.
+
+**The Blind Spot:** Because it relies entirely on human interaction, the user goal technique often misses automated backend processes or time-based functions where no direct user is involved.
+
+---
+
+## 2. The Event Decomposition Technique (Inside-Out)
+Instead of starting with the users, the event decomposition technique starts with the system's environment. It focuses on identifying the specific events that happen in the business environment to which the software must react. Once an event is identified, the system's required response becomes the use case.
+
+
+
+### Types of Events
+This technique categorizes triggers into three specific types of events:
+
+1. **External Events:** An action initiated by an external actor (human or external system). 
+   * *Event:* A customer submits a payment. 
+   * *Use Case:* Process Payment.
+2. **Temporal (Time-Based) Events:** An event triggered simply by the passage of time reaching a specific deadline or schedule.
+   * *Event:* It is midnight on the 15th of the month.
+   * *Use Case:* Generate Payroll Report.
+3. **State Events:** An event triggered when a specific data condition or threshold is met inside the system.
+   * *Event:* The inventory of a specific product drops below 50 units.
+   * *Use Case:* Generate Reorder Request.
+
+* **The Core Question:** "What happens in the business environment that forces the system to react?"
+* **Best Used For:** Complex enterprise systems, backend databases, financial systems, or any software with heavy automation and scheduled tasks.
+
+---
+
+## 3. Direct Comparison
+
+To ensure complete requirements are gathered, experienced business analysts often use both techniques in tandem. They map the user goals to capture the interface requirements, and then run an event decomposition to catch all the automated, "invisible" system requirements.
+
+| Feature | User Goal Technique | Event Decomposition Technique |
+| :--- | :--- | :--- |
+| **Starting Point** | The Actor (Who is using it?) | The Event (What just happened?) |
+| **Primary Focus** | Achieving a specific human objective. | Ensuring the system reacts correctly to stimuli. |
+| **Handling of Automation** | Weak. Often misses scheduled or state-driven backend tasks. | Strong. Excels at identifying temporal and state-based system requirements. |
+| **Example Prompt** | "The manager needs to review the quarterly sales." | "The system clock hits 11:59 PM on the last day of the quarter." |
+
 
 ## **77.** What is an elementary business process (EBP)?
+An **Elementary Business Process (EBP)** is a foundational concept in software engineering and systems analysis used to define the correct size and scope of a use case. 
+
+Formally, an EBP is defined as a task performed by **one person**, in **one place**, at **one time**, in response to a business event, which adds measurable business value and leaves the system and its data in a consistent, stable state.
+
+When using the event decomposition technique to identify use cases, the EBP acts as the "measuring stick." If a system response passes the EBP test, it is the perfect size to become a use case.
+
+---
+
+## The EBP "Test" Criteria
+
+To determine if a process is truly an elementary business process, it must meet all of the following conditions:
+
+* **One Person (Actor):** The task is executed by a single primary actor. If the process requires the user to stop, hand a physical file to another department, and wait for them to finish, it is not a single EBP.
+* **One Place:** The task is completed in a single location or on a single interface. 
+* **One Time:** The task is completed in a single, uninterrupted session. The user sits down, does the work, and finishes it without taking a multi-day break to wait for external information.
+* **Measurable Business Value:** The task must accomplish something meaningful for the business. Simply "logging in" or "clicking a drop-down menu" does not add business value on its own; those are just steps *within* an EBP.
+* **Consistent State:** When the task is over, the system's database must be stable. The transaction is either completely finished and saved, or it is entirely rolled back. It cannot be left halfway done.
+
+
+
+---
+
+## Sizing Examples: Too Small, Too Big, and Just Right
+
+Understanding EBPs is easiest when you see what happens when a process is sized incorrectly. 
+
+| Sizing | Example | Why it fails the EBP Test |
+| :--- | :--- | :--- |
+| **Too Small (A Single Step)** | *Type in a password.* | It provides no measurable business value on its own and does not complete a transaction. |
+| **Too Big (An Entire Workflow)** | *Fulfill a customer's order.* | It fails the "One Person / One Time" rule. The warehouse picks the item, shipping packages it, and the carrier delivers it over several days. |
+| **Just Right (The EBP)** | *Process a customer return.* | One customer service rep, sitting at one computer, in one session, takes the item, refunds the money, and updates the inventory. The system is left in a consistent state. |
+
+---
+
+## Why EBPs Matter
+
+Without the EBP guideline, requirements gathering often falls apart. If you make your use cases too small (like "Click Save"), you will drown developers in thousands of useless requirements. If you make them too big (like "Manage Employee"), developers won't have enough specific detail to actually write the code. The EBP ensures every use case is scoped perfectly for software development.
 
 ## **78.** Define the three types of events (External, Temporal, State) and give an example of each.
+In the event decomposition technique, the system is viewed as a black box that must react to specific triggers in its environment. These triggers, or "events," are categorized into three distinct types based on their origin. 
+
+Defining these events accurately is crucial for identifying all necessary use cases, particularly the automated ones that are easily missed.
+
+---
+
+## 1. External Events
+An external event is an action initiated by an actor outside the system's boundary. The system has no control over when this event occurs; it must simply wait and be ready to respond when it does. The external actor can be a human user, an external piece of hardware, or a completely separate software system.
+
+* **Definition:** A trigger occurring outside the system boundary that requires a system response.
+* **Example:** A customer enters their credit card information and clicks "Submit Order." 
+* **The System's Response (Use Case):** Process Customer Order.
+
+
+
+## 2. Temporal Events
+A temporal event (also known as a time-based event) is triggered purely by the passage of time. There is no external actor pushing a button or initiating a request. Instead, the system's own internal clock or calendar reaches a predefined milestone, forcing the system to execute a process.
+
+* **Definition:** A trigger that occurs when a specific date or time is reached.
+* **Example:** The system calendar detects that it is 11:59 PM on the last day of the fiscal quarter.
+* **The System's Response (Use Case):** Generate Quarterly Financial Report.
+
+
+
+## 3. State Events
+A state event (sometimes called an internal event) occurs when data inside the system reaches a specific condition, threshold, or "state." Like a temporal event, it does not require a human to click a button. However, instead of waiting for the clock, the system continuously monitors its own data to see if a rule has been met.
+
+* **Definition:** A trigger that occurs when internal system data meets a specific pre-defined condition.
+* **Example:** The system's database records that the available inventory for a specific SKU has dropped from 50 to 49 units (crossing the "minimum stock" threshold).
+* **The System's Response (Use Case):** Generate Supplier Reorder Request.
+
+
+
+---
+
+By examining a business process through all three lenses—asking *who* will interact with it (External), *when* things need to happen automatically (Temporal), and *what* data conditions require an automated reaction (State)—you ensure the software requirements are comprehensive.
+
 
 ## **79.** What is the perfect technology assumption?
+The **perfect technology assumption** is a fundamental principle used during the early stages of systems analysis and requirements gathering, particularly when defining use cases and modeling system behavior. 
+
+It states that when analyzing a system, you should assume that the technology running the system is absolutely perfect—meaning it never crashes, has infinite storage, possesses unlimited processing speed, and the network never goes down.
+
+While this sounds counterintuitive to building robust software, it is a deliberate mental model used to keep the team focused on business value rather than technical constraints.
+
+---
+
+## 1. The Core Purpose: Separating "What" from "How"
+The primary goal of the perfect technology assumption is to separate the **logical requirements** (what the business needs the system to do) from the **physical design** (how the technology will actually achieve it).
+
+If you don't use this assumption, analysts and stakeholders will get bogged down trying to solve hardware and network problems during requirements gathering, rather than focusing on the user's business goals.
+
+## 2. What It Eliminates from Use Cases
+By assuming the technology is flawless, you intentionally ignore system-level error handling during the initial use case identification. Under the perfect technology assumption, you do **not** write use cases for:
+
+* **Hardware Failures:** (e.g., "Recover from Server Crash" or "Handle Printer Paper Jam")
+* **Network Issues:** (e.g., "Handle Dropped Wi-Fi Connection" or "Retry Database Timeout")
+* **Storage Limits:** (e.g., "Archive Old Records to Free Up Space")
+* **Basic Security/Login:** (Often, simple authentication is assumed to "just work" under this model, keeping the focus on the actual business tasks, though this varies by methodology).
+
+
+
+---
+
+## 3. The "Exceptions" That Remain
+It is important to note that the perfect technology assumption only applies to the *technology*. It does **not** assume that the *users* or the *environment* are perfect. 
+
+You still must write use cases and scenarios for business logic errors and human mistakes, such as:
+* A user entering the wrong customer ID.
+* A customer trying to buy an item that is out of stock.
+* A credit card being declined due to insufficient funds.
+
+These are business realities, not technology failures.
+
+---
+
+## 4. When is the Assumption Dropped?
+The perfect technology assumption is strictly a tool for the **Systems Analysis** phase. 
+
+Once the team moves into the **Systems Design** phase, the assumption is completely discarded. At that point, architects and developers actively introduce all the real-world constraints—adding non-functional requirements for security, load balancing, error logging, data redundancy, and network timeouts to ensure the software survives the real world.
+
 
 ## **80.** List the parts/compartments of a fully developed use case description.
 
