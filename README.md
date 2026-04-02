@@ -4326,7 +4326,166 @@ The database design is now in 3NF. In this way the amount of data duplication is
 
 *Note: `Postal_code` is a foreign key in table STUDENT. It links the student table data to the address table details.*
 
+# COMP361 – Assignment 01
+Minh Nguyen – 3182386
+March 20, 2026
 
+## Part A: Describe the Business Case for Car Sharing in Futureville
+
+### I. The Business Environment
+
+**Business Need**
+The car-sharing pilot project seeks to provide an alternative to traditional vehicle ownership, which is often characterized by high fixed costs (purchase, insurance, and licensing) regardless of actual usage. Car sharing reverses this by making costs directly proportional to usage. The business need for a dedicated Information System project arises from the complexity of managing a decentralized fleet where vehicles are located throughout neighborhoods rather than at a central site. An automated system is required to handle:
+* Real-time vehicle reservations and availability checks.
+* Management of diverse vehicle types, such as minivans and pick-up trucks, to meet specialized mobility needs.
+* Simplification of operations including insurance, fuel, and maintenance, which are handled by the organization.
+
+**Interfaces to Other Systems**
+The Car Sharing Information System will not operate in isolation and must interface with:
+* **Billing and Payment Systems:** For processing member fees and trip charges.
+* **Geographic Information Systems (GIS):** To help members locate vehicles within two to four blocks of their homes.
+* **On-vehicle Data Collection Hardware:** To track vehicle access, mileage, and usage statistics for reporting.
+
+**Stakeholders and Their Stakes**
+* **Project Sponsor:** Likely a municipal or private organization interested in meeting social, business, and customer service goals through mobility options.
+* **Members (Internal/External Users):** Primary users who need a reliable, easy-to-use interface for reserving and returning vehicles.
+* **Operations Staff (Internal Users):** Responsible for fleet maintenance, repair, and responding to member needs.
+* **Futureville Community (External Stakeholders):** Benefit from reduced society-wide mobility costs and potential reductions in household vehicle counts.
+
+### II. The System Vision
+
+**System Objectives**
+The primary objective is to create a seamless, use-case-driven environment that allows members to access vehicles as if they were their own, but at a lower cost. It aims to support the "part-time" mobility needs of Futureville residents through efficient resource sharing.
+
+**Required System Capabilities**
+* **Automated Reservation:** A 24/7 system for confirming current availability or scheduling future use.
+* **Member Profile Management:** Handling applications, screening, and rights/responsibilities documentation.
+* **Usage Tracking:** Monitoring trip duration, charges, and vehicle availability rates.
+* **Reporting and Evaluation:** Generating reports on membership recruitment, retention, and reservation patterns.
+
+**Business Benefits**
+* **Cost Efficiency:** Provides a significantly less expensive option than car ownership for those driving less than the average yearly mileage.
+* **Increased Reliability:** Access to newer, carefully maintained vehicles.
+* **Social Impact:** Encourages the use of transit, walking, or cycling for primary transportation while maintaining car access for specialized needs.
+
+### III. Risks and Feasibility
+
+**Organizational Feasibility**
+This evaluates whether the system will be accepted by the Car Sharing community.
+* **Stakeholder Readiness:** The system must be simple enough that "reserving, using, and returning vehicles" remain simple operations to ensure high member adoption.
+* **Incentives:** Assigned parking and newer vehicles are strong attractors that improve feasibility.
+
+**Technological Feasibility**
+This assesses if the technology is available and if the team can build it.
+* **Maturity:** Car sharing is well-established in Canada's largest cities. The technology for on-vehicle data collection and reservation systems is mature and presents low risk.
+
+**Resource Feasibility**
+This examines if the organization has the people and funding to proceed.
+* **Management Commitment:** Management requires regular reports to ensure the pilot meets its social and service goals.
+* **Funding:** The IS must justify its cost by accurately tracking trip statistics to ensure a proportional fee structure that covers insurance, fuel, and maintenance.
+
+**Schedule Feasibility**
+This determines if the system can be completed within the required timeframe for the pilot project.
+* **Iterative Delivery:** Following the Unified Process (UP) allows for frequent delivery of working increments. High-risk use cases (like the core reservation flow) should be prioritized early to ensure the system is ready for the pilot launch.
+
+---
+
+## Part B: Use the Event Decomposition Technique to Identify Use Cases for the Car Sharing Information System
+
+To figure out what features the Car Sharing System needs, we use the Event Decomposition Technique. This method helps us identify specific events that happen in the business and decide how the system should respond to them.
+An Event is something that happens at a specific time and place. It's important enough that the system needs to notice it and remember it.
+A Use Case is what the system does in response to an event. It's the set of actions the system performs. By identifying all the events that happen in the business, we can determine all the tasks the system must perform.
+This ensures we don't miss any important features and that the system actually does what the business needs.
+
+**Event Decomposition Table: Car Sharing Information System**
+
+| Event Name | Event Type | Use Case Name |
+| :--- | :--- | :--- |
+| **Membership** | | |
+| 1. Prospective member submits application | External | Process member application |
+| 2. Management approves/screens applicant | External | Create member profile |
+| 3. Member updates personal or contact info | External | Update member profile |
+| 4. Member violates policy (penalty triggered) | State | Record member penalty |
+| 5. Member requests to cancel membership | External | Terminate membership |
+| **Accounts and Billing** | | |
+| 6. Monthly billing cycle reached | Temporal | Generate monthly invoices |
+| 7. Member submits payment | External | Process payment |
+| 8. Account becomes severely overdue | State | Suspend member account |
+| 9. Management requires financial summary | External | Generate billing reports |
+| **Reservations** | | |
+| 10. Member searches for available vehicle | External | Search vehicle availability |
+| 11. Member requests a reservation | External | Create vehicle reservation |
+| 12. Member needs to change reservation time | External | Modify vehicle reservation |
+| 13. Member decides to cancel a trip | External | Cancel vehicle reservation |
+| **Inventory (Vehicles & Locations)** | | |
+| 14. New vehicle is added to the fleet | External | Add new vehicle |
+| 15. Vehicle reaches maintenance mileage | Temporal | Schedule vehicle maintenance |
+| 16. Vehicle is retired or sold | External | Retire vehicle |
+| 17. New parking location is established | External | Create vehicle location |
+| **Vehicle Usage (Completed Trips)** | | |
+| 18. Member picks up vehicle (starts trip) | External | Record trip start |
+| 19. Member returns vehicle (ends trip) | External | Record trip end |
+| 20. On-vehicle hardware sends usage data | State/External | Sync trip statistics |
+| 21. Member reports a vehicle issue/accident | External | Report vehicle condition |
+
+**Analysis of Event Types**
+* **External Events:** These occur outside the system, usually initiated by an Actor (e.g., a Member or Manager). In the table above, the majority of interactions—such as requesting a reservation—are external.
+* **Temporal Events:** These occur as a result of reaching a specific point in time. For example, "Monthly billing cycle reached" is a temporal event because no specific person initiates it; the system's internal clock triggers the "Generate monthly invoices" use case.
+* **State Events:** These occur when something happens inside the system that triggers a need for processing, often based on reaching a threshold. For example, when a member's "Penalty Count" reaches a certain number, the system automatically triggers the "Suspend member account" use case.
+
+**Relationship to Object-Oriented Design**
+Identifying these use cases is the first step in Analysis. Each use case will eventually be detailed with a Use Case Description, modeled with an Activity Diagram, and finally realized through System Sequence Diagrams (SSDs) to show the interaction between the Actor and the System.
+
+**References:**
+* Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+* Modern Analyst. (2015). Modeling system events. Retrieved from Modern Analyst website. [https://www.modernanalyst.com/Resources/Articles/tabid/115/ID/2932/Modeling-System-Events.aspx](https://www.modernanalyst.com/Resources/Articles/tabid/115/ID/2932/Modeling-System-Events.aspx)
+
+---
+
+## Part C: Essay Question
+
+How do the report and table created in Part A and Part B of this assignment help in the system development process of an information system for car sharing in Futureville? What problems can occur if these documents are not created or are inaccurate?
+
+When building a software system, two documents are critical: the Business Case (Part A) and the Event Decomposition Table (Part B). These form the foundation for everything else in the project.
+
+The Business Case is the project's guide. It states what the system should do and what the company wants to achieve [1]. For Futureville's car-sharing service, it might say: "Provide affordable transportation." It also identifies who's involved and what limits exist—budget, time, and resources. This keeps the project focused.
+
+The Event Decomposition Table answers "What exactly needs to happen?" It lists all the events (actions) the system must handle [2]. For example, "Customer Requests a Reservation" is one event. Each event becomes a Use Case—a specific feature the system needs. These Use Cases guide designers and developers. Without them, developers won't know what features to build.
+
+If these documents are not created or are inaccurate, problems can occur as below:
+1. **Too Many Extra Features [1][4]:** Without a clear vision, people request "nice-to-have" features like social networking. These waste time and money needed for important features like billing and vehicle tracking.
+2. **Missing Functions [1] [2]:** If the team forgets "Vehicle Needs Maintenance After X Miles," the system won't auto-schedule repairs. Vehicles could break down, costing money and creating safety risks.
+3. **Wrong Technology Choices [1] [2] [3]:** Poor planning might lead to expensive or impossible-to-maintain equipment. If discovered late, this forces expensive redesigns and wasted work.
+4. **Can't Verify Results [1] [3]:** Without a complete event list, it's impossible to confirm the finished system actually does what the business needs. Some features might be missing or unnecessary.
+
+Part A and Part B are the project's foundation. Without them, we could face confusion, wasted resources, and a system that doesn't work properly.
+
+**References:**
+* [1] Satzinger, J. W., Jackson, R. B., & Burd, S. D. (2016). *Systems analysis and design in a changing world* (7th ed.). Cengage Learning.
+* [2] Modern Analyst. (2015). Modeling system events. Retrieved from Modern Analyst website. [https://www.modernanalyst.com/Resources/Articles/tabid/115/ID/2932/Modeling-System-Events.aspx](https://www.modernanalyst.com/Resources/Articles/tabid/115/ID/2932/Modeling-System-Events.aspx)
+* [4] Al Amri, M. (2020). Modeling events and events of events in software engineering. *International Journal of Computer Science and Information Security*, 18(1), 1-20. [https://www.researchgate.net/publication/338954571_Modeling_Events_and_Events_of_Events_in_Software_Engineering](https://www.researchgate.net/publication/338954571_Modeling_Events_and_Events_of_Events_in_Software_Engineering)
+
+---
+
+## Part D: Reflection on the Activities of the Assignment
+
+**COMP 361 – Reflection Assignment 1 - Understanding Systems Analysis Step by Step**
+
+Moving from general business ideas to Object-Oriented Analysis (OOA) was both interesting and challenging. It helped me see how big ideas turn into detailed system plans. Creating the Business Case and the Event Decomposition Table showed me how important it is to balance high-level thinking with detailed analysis.
+
+Some parts were definitely easier than others. Understanding the system vision and why the business needs it was straightforward. For example, it's pretty obvious why a car-sharing service would be useful to customers.
+
+But things got way more complicated when I started working on event decomposition. I had to stop thinking about simple user actions like clicking buttons. Instead, I had to focus on real-world events that actually trigger the system to do something. The hardest part was telling the difference between external events (things users do) and state events (things the system automatically detects), because they seemed so connected to each other.
+
+One major challenge was defining the project scope. It was tempting to include too many extra features, even if they were not necessary. This made it hard to focus on the most important system functions. Without clear goals, the list of events can grow too large, leading to confusion.
+
+A helpful strategy I used was the “actor-goal” approach. Before adding an event, I asked if it helps an actor achieve a clear goal. This made sure my use cases were meaningful and not too detailed or too general. Another useful method was treating feasibility analysis as a way to find risks. By identifying weak areas, I could focus on the most important parts first.
+
+Some challenges I didn't completely solve though. Certain events could be seen as either external or state-based, especially when dealing with automatic sensor data. This taught me that systems analysis isn't always about finding the perfect answer.
+
+Looking back, my top-down approach worked well. I started with the Business Case to understand why the system exists, then used event decomposition to figure out what it needs to do. This kept everything organized and connected.
+
+URL: [https://landing.athabascau.ca/blog/view/30026189/comp-361-%E2%80%93-reflection-assignment-1-understanding-systems-analysis-step-by-step](https://landing.athabascau.ca/blog/view/30026189/comp-361-%E2%80%93-reflection-assignment-1-understanding-systems-analysis-step-by-step)
 **Part 2.**
 Based on what you learned in this chapter about databases, controls, and system security, review your answers to the questions for this case in Chapter 6. Assume that the patient's cell phone and the centralized servers are different nodes in a replicated database architecture and are regularly synchronized. What changes, if any, should be made to your answers now that you have a deeper understanding of databases, controls, security, and related design issues?
 
