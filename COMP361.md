@@ -2797,46 +2797,896 @@ The main advantage is **efficiency**. By offloading heavy processing and data st
 
 
 ## **122.** Define three-layer architecture and describe what each layer does.
+**Three-layer architecture** (also known as three-tier architecture) is a software design pattern that organizes an application into three logical and physical tiers. This structure is built on the principle of **separation of concerns**, ensuring that the user interface, business rules, and data storage are independent of one another.
+
+---
+
+
+
+## 1. Presentation Layer (The "View")
+The **Presentation Layer** is the topmost level of the application and the only part the user sees and interacts with directly. 
+
+* **Primary Responsibility:** To translate tasks and results into something the user can understand.
+* **Key Functions:** * Displaying information (UI/UX).
+    * Capturing user inputs (keyboard, mouse, touch).
+    * Performing basic "front-end" validation (e.g., checking if a required field is empty).
+* **Examples:** A web page in a browser, a mobile app screen, or a desktop dashboard.
+
+---
+
+## 2. Business Logic Layer (The "Brain")
+The **Business Logic Layer** (or Application Layer) sits in the middle. It pulls data from the bottom layer and applies specific rules to it before sending it to the top layer.
+
+* **Primary Responsibility:** To process commands, make logical decisions, and perform calculations.
+* **Key Functions:**
+    * Enforcing business rules (e.g., "Only users over 18 can register").
+    * Coordinating data flow between the View and the Database.
+    * Handling complex algorithms and data processing.
+* **Examples:** A C# or Java service that calculates interest rates or processes a shopping cart checkout.
+
+---
+
+## 3. Data Access Layer (The "Memory")
+The **Data Access Layer** (or Persistence Layer) is the foundation. It consists of the actual database servers and the code used to "talk" to them.
+
+* **Primary Responsibility:** To store, retrieve, and manage the system's information permanently.
+* **Key Functions:**
+    * Executing database queries (CRUD: Create, Read, Update, Delete).
+    * Ensuring data integrity and security.
+    * Connecting to physical storage like SQL databases, NoSQL stores, or cloud files.
+* **Examples:** SQL Server, PostgreSQL, or an API that handles file storage.
+
+---
+
+## Comparison of Layers
+
+| Layer | Common Name | Who uses it? | Analogy |
+| :--- | :--- | :--- | :--- |
+| **Presentation** | View Layer | The End-User | The **Waiter** who takes your order. |
+| **Business Logic** | Application Layer | The System Logic | The **Chef** who follows the recipe. |
+| **Data Access** | Persistence Layer | The Database | The **Pantry** where ingredients are kept. |
+
+---
+
+> **Why it matters:** By separating these layers, you can upgrade your database (Data Layer) or redesign your website (Presentation Layer) without having to rewrite the core math and rules of your business (Logic Layer).
+
 
 ## **123.** Define top-down vs. bottom-up development.
+In software engineering, the direction you choose to build your system—from the big picture down to the details, or from the small components up to the whole—significantly impacts your testing strategy and how quickly you see a "working" product.
+
+---
+
+## 1. Top-Down Development: The "Big Picture" First
+**Top-Down development** is a strategy where you start by implementing the high-level modules or the "main" logic of the system first. You essentially sketch out the entire skeleton before adding the "meat" to the bones.
+
+* **How it works:** You write the top-level functions first. Since the lower-level details (like database connections or specific calculations) aren't written yet, you use **Stubs**.
+* **Stubs:** These are "dummy" modules or placeholders that stand in for unfinished code. They might simply return a hard-coded value like `true` or "Success" so the high-level logic can keep running.
+* **Best for:** Projects where the user interface or high-level workflow is the highest priority. It allows stakeholders to see a "prototype" of the flow very early on.
+
+
+
+---
+
+## 2. Bottom-Up Development: The "Bricks" First
+**Bottom-Up development** starts at the opposite end. You identify and build the most basic, low-level components first—the "utility" functions, data access classes, or mathematical engines.
+
+* **How it works:** You build the foundational "bricks" and test them rigorously. Once they are solid, you combine them into larger modules. Because the high-level "main" program doesn't exist yet, you use **Drivers**.
+* **Drivers:** These are temporary "test harnesses" or small programs whose only job is to execute the low-level module and check if it works correctly.
+* **Best for:** Systems where technical performance or complex algorithms are the main risk. It ensures the foundation is unbreakable before you build the rest of the house on top of it.
+
+
+
+---
+
+## 3. Comparison at a Glance
+
+| Feature | Top-Down | Bottom-Up |
+| :--- | :--- | :--- |
+| **Starting Point** | High-level (Main Logic/UI). | Low-level (Basic Functions/Data). |
+| **Placeholder Tool** | **Stubs** (Dummy sub-modules). | **Drivers** (Test harnesses). |
+| **Visibility** | Users see a working "flow" early. | Users see nothing until the end. |
+| **Primary Risk** | "Detail" problems discovered late. | "Architectural" problems discovered late. |
+| **Analogy** | Sketching the whole mural before painting. | Sculpting individual bricks before building. |
+
+---
+
+## Which one should you choose?
+Modern development often uses a **"Sandwich" (Hybrid) approach**. You might use **Top-Down** to define the overall user experience and **Bottom-Up** to build out the high-risk technical components simultaneously. This gives you the best of both worlds: a clear vision of the end product and a solid, tested foundation.
+
 
 ---
 
 # Chapter 6 – Database Design
 
 ## **60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
+Database normalization is essentially the "Marie Kondo" of data modeling—it's a multi-step process designed to organize your tables so that data isn't redundant and dependencies actually make sense. The goal is to ensure that every piece of data is stored in exactly one place.
+
+---
+
+## 1. First Normal Form (1NF)
+**The Rule:** Eliminate repeating groups and ensure atomicity.
+
+To be in 1NF, a table must meet these criteria:
+* Each cell must contain a single, **atomic value** (no lists or comma-separated values).
+* There are no repeating groups of columns (e.g., `Tel1`, `Tel2`, `Tel3`).
+* Each record must be uniquely identifiable by a **Primary Key**.
+
+
+
+---
+
+## 2. Second Normal Form (2NF)
+**The Rule:** Eliminate partial functional dependencies.
+
+To reach 2NF, a table must:
+* Already be in **1NF**.
+* Ensure that every non-key attribute is **fully dependent** on the entire primary key.
+
+This specifically applies to tables with **composite primary keys** (keys made of two or more columns). If a piece of information depends on only *part* of that key, it needs to be moved to its own table.
+* *Analogy:* If you have a table for `Part-Warehouse` with a composite key of `PartID` and `WarehouseID`, the `WarehouseAddress` shouldn't be there because it only depends on the `WarehouseID`, not the `PartID`.
+
+
+
+---
+
+## 3. Third Normal Form (3NF)
+**The Rule:** Eliminate transitive dependencies.
+
+To reach 3NF, a table must:
+* Already be in **2NF**.
+* Ensure that no non-key attribute depends on another non-key attribute.
+
+In short: **"The attribute must depend on the key, the whole key, and nothing but the key."** If changing a non-key value (like a Zip Code) would force you to change another non-key value (like a City), then those fields have a transitive dependency and should be separated.
+
+
+
+---
+
+## At-a-Glance Comparison
+
+| Normal Form | Main Objective | Key Requirement |
+| :--- | :--- | :--- |
+| **1NF** | Atomicity | No multi-valued attributes; primary key exists. |
+| **2NF** | No Partial Dependency | Non-key fields must depend on the *entire* PK. |
+| **3NF** | No Transitive Dependency | Non-key fields cannot depend on other non-key fields. |
+
+---
+
+Normalization is a great way to prevent data anomalies, but over-normalizing can sometimes slow down a system with too many joins. Are you working on a specific schema right now where you're worried about finding the right balance between clean data and performance?
+
 
 ## **61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use?
+An **Entity-Relationship Diagram (ERD)** is a visual blueprint used in database design to show how "entities" (like people, objects, or concepts) relate to one another within a system. 
+
+If a database were a house, the ERD would be the architectural drawing showing where the rooms are and how the hallways connect them. It translates complex business rules into a simple, graphical map that developers and stakeholders can all understand.
+
+---
+
+## Core Components and Symbols
+ERD symbols are standardized, though they can vary slightly depending on the "notation" style used (most commonly **Chen's Notation** or **Crow's Foot Notation**).
+
+### 1. Entities (The Nouns)
+Entities are the objects or concepts you want to track data about.
+* **Strong Entity (Rectangle):** A standard object that can exist on its own (e.g., `Customer`, `Product`).
+* **Weak Entity (Double Rectangle):** An object that cannot be uniquely identified without being linked to a parent entity (e.g., `Dependents` of an `Employee`).
+* **Associative Entity (Diamond inside a Rectangle):** Used to link multiple entities in a many-to-many relationship while also storing its own data.
+
+
+
+---
+
+### 2. Attributes (The Adjectives)
+Attributes describe the properties or characteristics of an entity.
+* **Simple Attribute (Oval):** A standard piece of data (e.g., `Color`, `Price`).
+* **Key Attribute (Underlined text in an Oval):** The unique identifier for a record, such as a `StudentID` or `SSN`.
+* **Multivalued Attribute (Double Oval):** An attribute that can have more than one value (e.g., `PhoneNumbers`).
+* **Derived Attribute (Dashed Oval):** Data that is calculated from other fields and not stored permanently (e.g., `Age`, calculated from `DateOfBirth`).
+
+
+
+---
+
+### 3. Relationships (The Verbs)
+Relationships illustrate how entities interact with each other.
+* **Relationship (Diamond):** In Chen's notation, a diamond represents the link between two entities (e.g., "Customer **Places** Order").
+* **Identifying Relationship (Double Diamond):** The link between a strong entity and a weak entity.
+* **Connecting Lines:** Solid lines connect entities to their attributes and relationships.
+
+---
+
+## Cardinality: Defining the Rules
+Cardinality tells you **how many** instances of one entity are associated with another. This is usually shown at the ends of the connecting lines.
+
+| Notation Type | Symbol/Text | Meaning |
+| :--- | :--- | :--- |
+| **One-to-One** | 1:1 | One person has exactly one passport. |
+| **One-to-Many** | 1:N | One department has many employees. |
+| **Many-to-Many** | M:N | Many students are enrolled in many courses. |
+
+### Crow’s Foot Notation (The Modern Standard)
+In modern design, we often use **Crow's Foot** symbols instead of diamonds:
+* **One:** A single perpendicular line.
+* **Many:** A three-pronged symbol (the "crow's foot").
+* **Zero/Optional:** An open circle on the line.
+
+
+
+---
+
+## Why use an ERD?
+ERDs are critical because they force you to think through the **logic** of your data before you write a single line of SQL code. By identifying that a `Customer` can have many `Addresses` early on, you prevent a "data nightmare" where you have to restructure your entire database months into a project.
+
 
 ## **62.** What is a primary key? What is a foreign key? How do they relate tables?
+In the world of relational databases, **keys** are the specialized columns that turn a collection of isolated spreadsheets into a cohesive, intelligent system. Without them, your data would just be a pile of unrelated facts.
+
+---
+
+## 1. Primary Key (PK)
+A **Primary Key** is a unique identifier for a specific record (row) in a database table. Think of it as a person’s Social Security Number or a car’s VIN—it is the one thing that absolutely distinguishes that record from every other record in the same table.
+
+* **The Rules:**
+    * **Uniqueness:** No two rows can have the same Primary Key.
+    * **Non-Null:** It can never be empty or "NULL."
+    * **Immutability:** Once assigned, it generally should not change.
+* **Example:** In a `Students` table, `studentID` is the Primary Key. Even if you have two students named "John Smith," their unique IDs (e.g., `101` and `102`) ensure the system doesn't mix them up.
+
+
+
+---
+
+## 2. Foreign Key (FK)
+A **Foreign Key** is a column (or group of columns) in one table that provides a link to the Primary Key in **another** table. It is essentially a "pointer" that says, "This record belongs to or is related to that record over there."
+
+* **The Purpose:** To enforce **referential integrity**, ensuring that you don't have "orphan" records. For instance, you shouldn't be able to create an `Order` for a `Customer` who doesn't exist.
+* **Example:** In an `Orders` table, you would have a `customerID` column. This is a Foreign Key that "points" back to the `customerID` in the `Customers` table.
+
+---
+
+## 3. How They Relate Tables
+The relationship between Primary and Foreign keys is the "glue" of a relational database. This is typically how we create **One-to-Many** relationships, which are the backbone of most systems.
+
+1.  **The Parent Table:** Holds the **Primary Key** (e.g., `DepartmentID` in the `Departments` table).
+2.  **The Child Table:** Holds the **Foreign Key** (e.g., `DepartmentID` in the `Employees` table).
+3.  **The Link:** By putting the `DepartmentID` in the `Employees` table, the database knows exactly which department an employee belongs to without having to rewrite the department's name, location, and manager in every single employee record.
+
+
+
+---
+
+## Summary Comparison
+
+| Feature | Primary Key (PK) | Foreign Key (FK) |
+| :--- | :--- | :--- |
+| **Location** | Defined in its "home" table. | Resides in a "related" table. |
+| **Uniqueness** | Must be 100% unique. | Can be duplicated (many rows can point to one). |
+| **Null Values** | **Never** allowed. | Usually allowed (if the relationship is optional). |
+| **Quantity** | Only **one** PK per table. | Can have **multiple** FKs in one table. |
+
+---
+
 
 ## **63.** What is referential integrity, and how does a DBMS enforce it?
+**Referential integrity** is a fundamental rule in relational databases that ensures the relationships between tables remain consistent and accurate. It guarantees that every **Foreign Key** value in a "child" table always points to a valid, existing **Primary Key** in a "parent" table.
+
+In simpler terms, it prevents "orphan" records—data that refers to something that doesn't exist.
+
+---
+
+## 1. The Core Logic: Parent vs. Child
+To understand referential integrity, you must look at how two tables are linked.
+
+* **The Parent Table:** Holds the original "source" record (e.g., a `Customer` with `ID: 500`).
+* **The Child Table:** Holds a reference to that record (e.g., an `Order` that belongs to `CustomerID: 500`).
+
+Referential integrity ensures that you can never have an order for `CustomerID: 999` if there is no customer with that ID in the parent table.
+
+
+
+---
+
+## 2. How a DBMS Enforces the Rules
+A Database Management System (DBMS) doesn't just "hope" the data stays consistent; it uses **Foreign Key Constraints** to act as a digital gatekeeper. When these constraints are active, the DBMS monitors three specific actions:
+
+### **Insertions**
+If you try to add a new record to the child table (like a new `Order`), the DBMS checks the parent table first. If the `CustomerID` you entered doesn't exist, the DBMS will **reject** the entry and throw an error.
+
+### **Updates**
+If you try to change a Primary Key in the parent table (changing `CustomerID: 500` to `501`), the DBMS must decide what happens to the existing orders linked to `500`. Depending on the settings, it might block the change or update the child records automatically.
+
+### **Deletions**
+This is the most critical check. If you try to delete a `Customer` who already has 10 `Orders` in the system, the DBMS will stop you to prevent those orders from becoming "orphans" with no owner.
+
+---
+
+## 3. Cascading Actions
+When a change occurs in the parent table, the DBMS can be configured to handle the child records in different ways using "referential actions":
+
+| Action | What happens to the Child Record? |
+| :--- | :--- |
+| **RESTRICT / NO ACTION** | The DBMS **blocks** the change or deletion in the parent table if children exist. (This is the default). |
+| **CASCADE** | The change "ripples" down. If you delete the parent, all related child records are **automatically deleted**. |
+| **SET NULL** | The parent is deleted, and the foreign key in the child record is changed to **NULL** (empty). |
+| **SET DEFAULT** | The foreign key in the child record is reset to a **pre-defined default value**. |
+
+---
+
+## 4. Why It Is Critical
+Without referential integrity, a database quickly becomes unreliable. 
+* **Inaccurate Reporting:** You might see sales totals for customers who don't exist.
+* **System Crashes:** Software often breaks when it tries to load details for a "linked" item that it can't find in the database.
+* **Data Corruption:** Over time, "junk" data accumulates, making the system slower and harder to manage.
+
+---
+
 
 ## **64.** What is a relational database schema? How is it derived from a domain model?
+A **relational database schema** is the formal definition of a database's structure. It serves as the physical "blueprint" that dictates how data is organized into tables, how those tables relate to one another via keys, and what constraints (like data types or uniqueness) are applied to the data.
+
+While a domain model represents the **business concepts**, the database schema represents the **technical implementation** of those concepts.
+
+---
+
+## 1. Defining the Relational Schema
+A schema consists of several critical technical elements:
+* **Tables (Relations):** The structures that hold data about specific entities.
+* **Columns (Attributes):** The individual pieces of data stored for each record (e.g., `FirstName`, `DateOfBirth`).
+* **Data Types:** Specifications for every column (e.g., `INT`, `VARCHAR(50)`, `DATETIME`).
+* **Keys:** **Primary Keys** to uniquely identify rows and **Foreign Keys** to link tables together.
+* **Constraints:** Rules like `NOT NULL` or `UNIQUE` to ensure data quality.
+
+
+
+---
+
+## 2. Deriving the Schema from a Domain Model
+The transition from a **Domain Model** (Analysis) to a **Relational Schema** (Design) follows a standardized set of transformation rules.
+
+### Step 1: Entities become Tables
+Every class or entity identified in your domain model (e.g., *Customer*, *Order*, *Product*) typically becomes a physical table in the database.
+* **Class Name** $\rightarrow$ **Table Name**
+
+### Step 2: Attributes become Columns
+The attributes identified in the domain model are converted into table columns. At this stage, you must assign specific technical **data types**.
+* **Domain Attribute:** `Price` $\rightarrow$ **Schema Column:** `Price DECIMAL(10,2)`
+* **Domain Attribute:** `Name` $\rightarrow$ **Schema Column:** `CustomerName VARCHAR(100)`
+
+### Step 3: Identify Primary Keys
+In the domain model, an identifier might be implied. In the schema, you must explicitly define a **Primary Key** for every table. If no natural key exists (like an SSN), a surrogate key (like an `Auto-Increment ID`) is created.
+
+### Step 4: Map the Associations (The Connections)
+This is where the "logic" of the domain model becomes the "structure" of the database.
+
+| Domain Relationship | Database Implementation |
+| :--- | :--- |
+| **One-to-Many (1:N)** | The "Primary Key" of the **One** side is placed as a **Foreign Key** in the **Many** side table. |
+| **Many-to-Many (M:N)** | You must create a new **Linking Table** (Associative Table) that contains the Primary Keys from both original tables as Foreign Keys. |
+| **Generalization (Inheritance)** | You can either create one large table with all fields (Single Table Inheritance) or separate tables for the parent and children linked by shared IDs. |
+
+
+
+---
+
+## 3. Summary of the Transformation
+
+| Feature | Domain Model (Conceptual) | Database Schema (Physical) |
+| :--- | :--- | :--- |
+| **Focus** | Business objects and rules. | Data storage and integrity. |
+| **Components** | Classes and Associations. | Tables and Foreign Keys. |
+| **Data Types** | Omitted or generic (e.g., "Text"). | Specific (e.g., `NVARCHAR(MAX)`). |
+| **Goal** | Understanding the problem. | Building the data layer. |
+
+---
+
+> **The "Gold Rule" of Transformation:** Every association line in your domain model must be accounted for in your schema. If a line exists between "Professor" and "Course," there must be a Foreign Key or a Linking Table in the database to enable that connection.
+
 
 ## **95.** Describe the steps to transform a domain class diagram into a relational database schema.
+Transforming a **domain class diagram** (conceptual) into a **relational database schema** (physical) is a systematic process of moving from business concepts to technical implementation. Since databases don't natively understand "objects" or "inheritance," we use specific mapping rules to bridge the gap.
+
+---
+
+## 1. Map Classes to Tables
+The most straightforward step: each persistent class in your domain model becomes a physical table in the database.
+* **Class Name:** Becomes the table name (e.g., `Customer` class becomes the `Customers` table).
+* **Instances:** Each row in the table will represent one instance of that class.
+
+
+
+## 2. Identify Primary Keys
+Every table in a relational schema **must** have a primary key to uniquely identify its rows.
+* **Natural Keys:** If the class already has a unique attribute (like `Email` or `SSN`), you can use it.
+* **Surrogate Keys:** It is often better practice to create a new, system-generated column (like `CustomerID` or `OrderID`) that is an auto-incrementing integer or a UUID.
+
+## 3. Map Attributes to Columns
+Each attribute in your class becomes a column in the corresponding table. At this stage, you must specify the **physical data types**.
+* **Domain Attribute:** `Price` (Generic) $\rightarrow$ **Schema Column:** `Decimal(10,2)`.
+* **Domain Attribute:** `Name` (Generic) $\rightarrow$ **Schema Column:** `Varchar(100)`.
+
+## 4. Represent Associations (The Links)
+This is where the structure of the database is formed. We represent the lines on your diagram using **Foreign Keys**.
+
+| Relationship Type | Mapping Strategy |
+| :--- | :--- |
+| **One-to-Many (1:N)** | Place the **Primary Key** of the "One" side into the table on the "Many" side as a **Foreign Key**. |
+| **One-to-One (1:1)** | Place a **Foreign Key** in either table, though it is usually placed in the table that is most dependent on the other. |
+| **Many-to-Many (M:N)** | Create a new **Associative Table** (Junction Table) that contains the Primary Keys from both original tables as Foreign Keys. |
+
+
+
+## 5. Handle Generalization (Inheritance)
+Relational databases are "flat" and do not support inheritance directly. There are three common ways to handle a parent class with child subclasses:
+* **Single-Table Inheritance:** Create one large table containing every attribute from the parent and all subclasses. You add a "Type" or "Discriminator" column to identify which subclass a row belongs to.
+* **Class-Per-Table Inheritance:** Create separate tables for the parent and each subclass. The subclass tables use the same Primary Key as the parent table to "link" the records.
+* **Concrete-Class Inheritance:** Create tables only for the subclasses, with each table containing all the attributes (including those inherited from the parent).
+
+
+
+## 6. Composition and Aggregation
+While these look special on a diagram (the diamonds), they are usually implemented as a **One-to-Many** relationship with a strict **Referential Integrity** constraint. If the parent is deleted, a "Cascade Delete" rule is often applied to ensure the "parts" are deleted along with the "whole."
+
+---
+
+### Summary Table
+
+| Domain Model Element | Relational Schema Element |
+| :--- | :--- |
+| Class | Table |
+| Attribute | Column (with Data Type) |
+| Identifier | Primary Key |
+| Association (1:N) | Foreign Key |
+| Association (M:N) | Associative (Junction) Table |
+| Generalization | Single or Multiple Tables |
+
 
 ## **96.** What is database normalization? Describe 1NF, 2NF, and 3NF.
+**Database normalization** is a systematic process used in relational database design to organize data fields and tables to minimize redundancy and dependency. The primary goal is to isolate data so that additions, deletions, and modifications can be made in just one table and then propagated through the rest of the database via defined relationships.
+
+---
+
+## 1. First Normal Form (1NF)
+A table is in **1NF** if it meets the basic "rules" of a relational database. It ensures that the data is organized into a format where each cell contains a single, indivisible value.
+
+* **Atomicity:** Each column must contain only one value (no lists or comma-separated strings).
+* **No Repeating Groups:** You cannot have multiple columns for the same type of data (e.g., `Phone1`, `Phone2`, `Phone3`).
+* **Primary Key:** Every record must be uniquely identifiable by a primary key.
+
+
+
+## 2. Second Normal Form (2NF)
+To reach **2NF**, a table must first be in **1NF**. The focus of 2NF is the removal of **partial functional dependencies**.
+
+* **Rule:** Every non-key attribute must be functionally dependent on the **entire** primary key.
+* This rule primarily applies to tables with **composite primary keys** (keys made of two or more columns). If a column depends on only part of that composite key, it is a partial dependency and must be moved to its own table.
+* **Formal notation:** If the primary key is $\{A, B\}$, then a dependency $A \to C$ violates 2NF because $C$ depends only on $A$, not the combination of $\{A, B\}$.
+
+
+
+## 3. Third Normal Form (3NF)
+To reach **3NF**, a table must first be in **2NF**. This stage focuses on removing **transitive dependencies**.
+
+* **Rule:** No non-key attribute should depend on another non-key attribute. All fields must depend directly on the primary key.
+* **The "Codd" Mantra:** Every non-key attribute must depend on "the key, the whole key, and nothing but the key."
+* **Formal notation:** If $A$ is the primary key and the dependencies $A \to B$ and $B \to C$ exist, then $C$ has a transitive dependency on $A$ through $B$. To achieve 3NF, $B$ and $C$ must be moved to a separate table where $B$ is the primary key.
+
+
+
+---
+
+## Comparison of Normal Forms
+
+| Normal Form | Requirement | Primary Objective |
+| :--- | :--- | :--- |
+| **1NF** | Atomic values and unique PK. | Eliminate repeating groups and ensure data atomicity. |
+| **2NF** | Must be in 1NF + No partial dependencies. | Ensure all data relates to the *entire* primary key. |
+| **3NF** | Must be in 2NF + No transitive dependencies. | Ensure data depends *only* on the primary key. |
+
+---
+
+### Why Normalize?
+Normalizing to 3NF is standard practice because it prevents **Update Anomalies** (changing data in one place but not another), **Insertion Anomalies** (being unable to add data because part of the key is missing), and **Deletion Anomalies** (accidentally losing data when a related record is deleted).
 
 ## **124.** Define DBMS and explain its role.
+A **Database Management System (DBMS)** is a sophisticated software suite that acts as an interface between end-users, applications, and the database itself. It is the "engine" that allows you to store, retrieve, define, and manage data in a structured way.
+
+Without a DBMS, developers would have to write custom code to handle file storage, security, and data searching for every single application they build.
+
+---
+
+## 1. The Role of a DBMS
+The DBMS serves several critical functions that ensure data is handled efficiently and securely:
+
+### Data Definition (The Architect)
+It allows users to create the structure of the database. Using a Data Definition Language (DDL), the DBMS defines tables, columns, data types, and the relationships between them.
+
+### Data Manipulation (The Librarian)
+It handles the actual processing of data. When an application wants to find a specific record or update a price, the DBMS processes that request (typically via SQL), finds the data on the physical hard drive, and returns it to the user.
+
+
+
+### Data Security and Integrity (The Guard)
+The DBMS ensures that only authorized users can access or change specific data. It also enforces "integrity rules" (like making sure a birth date isn't set in the future) to prevent the data from becoming corrupted or nonsensical.
+
+### Concurrency Control (The Traffic Cop)
+In modern systems, hundreds of people might try to update the same record at the exact same time (like booking the last seat on a flight). The DBMS manages these "collisions" so that the data remains consistent and no two people can "win" the same resource simultaneously.
+
+### Backup and Recovery (The Safety Net)
+If a server fails or the power goes out mid-transaction, the DBMS is responsible for "rolling back" incomplete changes and restoring the database to its last known healthy state.
+
+---
+
+## 2. Common Examples of DBMS
+Depending on the data structure, different types of DBMS are used:
+
+| DBMS Type | Description | Popular Examples |
+| :--- | :--- | :--- |
+| **Relational (RDBMS)** | Data is organized into rows and tables. | SQL Server, MySQL, PostgreSQL, Oracle. |
+| **NoSQL** | Handles unstructured data like documents or graphs. | MongoDB, Cassandra, Redis. |
+| **Cloud-Native** | Managed services built for global scale. | Amazon Aurora, Google Cloud Spanner. |
+
+---
+
+## 3. Why is it Important?
+By using a DBMS, organizations move away from "Flat File" systems (like a bunch of Excel sheets) toward a **centralized source of truth**. This reduces **data redundancy** (storing the same info in five different places) and ensures that when a customer updates their address, that change is reflected across the entire company instantly.
+
+Are you looking to learn more about a specific type of DBMS, such as the SQL-based relational systems used in most business applications?
 
 ## **125.** Define database normalization.
+**Database normalization** is a systematic approach to decomposing tables to eliminate data redundancy (duplication) and undesirable characteristics like insertion, update, and deletion anomalies. It involves multi-step rules—called **Normal Forms**—that ensure data is stored logically and that dependencies between data points make sense.
 
+
+
+---
+
+## 1. Core Objectives
+The primary goals of normalizing a database include:
+* **Minimizing Redundancy:** Ensuring that every piece of data is stored in exactly one place.
+* **Ensuring Data Integrity:** Preventing conflicting data across different tables.
+* **Eliminating Anomalies:**
+    * **Insertion Anomaly:** Being unable to add data because some other data is missing.
+    * **Update Anomaly:** Changing data in one place but leaving "ghost" copies of the old data elsewhere.
+    * **Deletion Anomaly:** Accidentally losing important information when a related record is deleted.
+
+---
+
+## 2. The Three Standard Normal Forms
+While there are higher levels (like BCNF, 4NF, and 5NF), most production databases aim for **Third Normal Form (3NF)**.
+
+| Normal Form | Formal Requirement | Simple Explanation |
+| :--- | :--- | :--- |
+| **1NF** (First) | **Atomicity** | Each cell must contain a single value; no repeating groups or lists. |
+| **2NF** (Second) | **1NF + No Partial Dependency** | Every non-key column must depend on the *entire* primary key (no "half-key" dependencies). |
+| **3NF** (Third) | **2NF + No Transitive Dependency** | Non-key columns cannot depend on other non-key columns (no "middleman" dependencies). |
+
+---
+
+## 3. The "Codd" Rule
+A famous mnemonic in database design, attributed to Bill Kent, summarizes the requirement for a record's attributes to reach 3NF:
+
+> "The data must depend on **the key**, **the whole key**, and **nothing but the key**, so help me Codd."
+
+## 4. Practical Example
+Imagine a "Sales" table that stores the `CustomerName` and `CustomerCity` alongside every `OrderID`. 
+1.  **Redundancy:** If a customer places 50 orders, their name and city are written 50 times.
+2.  **Anomaly:** If the customer moves, you must update 50 rows (Update Anomaly). If you delete all their orders, you lose the record that the customer ever existed (Deletion Anomaly).
+3.  **Normalization Solution:** Split this into two tables: **Orders** (storing IDs and dates) and **Customers** (storing names and cities), linked by a `CustomerID`.
+ 1. 
 ## **126.** Define relational database.
+A **relational database** is a type of database that stores and provides access to data points that are related to one another. Invented by E.F. Codd at IBM in 1970, it is based on the **relational model**, which organizes data into one or more tables (or "relations") of columns and rows.
+
+In a relational database, each row in the table is a record with a unique ID called a **primary key**. The columns of the table hold attributes of the data, and each record usually has a value for each attribute, making it easy to establish relationships between data points.
+
+---
+
+## 1. Core Components
+To understand how a relational database works, you have to look at its four primary building blocks:
+
+* **Tables (Relations):** The main structure where data is stored. Think of it as a specialized spreadsheet.
+* **Rows (Records/Tuples):** A single, horizontal entry representing one item (e.g., one specific customer).
+* **Columns (Fields/Attributes):** Vertical categories that define the data being stored (e.g., `EmailAddress`, `PhoneNumber`).
+* **Keys:** The "glue" of the system. **Primary Keys** uniquely identify a row, while **Foreign Keys** link a row in one table to a row in another.
+
+
+
+---
+
+## 2. Why "Relational"?
+The "Relational" part of the name comes from the fact that the data in one table is logically linked to data in another. Instead of storing a customer's address every single time they place an order (which creates a mess if they move), you store the address once in a `Customers` table and simply "point" to it from the `Orders` table using an ID.
+
+> **The Goal:** Minimize data redundancy (storing the same thing twice) and ensure data integrity (making sure that if you change a piece of info once, it updates everywhere).
+
+---
+
+## 3. The Language: SQL
+Relational databases are almost exclusively managed using **SQL (Structured Query Language)**. SQL is the standard programming language used to "talk" to the database—allowing you to add, update, delete, and query data with high precision.
+
+---
+
+## 4. Relational vs. Non-Relational (NoSQL)
+
+| Feature | Relational (SQL) | Non-Relational (NoSQL) |
+| :--- | :--- | :--- |
+| **Data Model** | Fixed, predefined schema (Tables). | Dynamic, flexible schema (Documents, Graphs). |
+| **Best For** | Complex queries and data integrity. | Large-scale, unstructured data and speed. |
+| **Scaling** | Vertical (bigger servers). | Horizontal (more servers). |
+| **Integrity** | ACID compliant (high reliability). | BASE (prioritizes availability). |
+
+---
+
+## 5. The ACID Standard
+Most relational databases are designed to be **ACID** compliant, which is a fancy way of saying they are extremely reliable for financial and mission-critical transactions:
+
+1.  **Atomicity:** Transactions are "all or nothing."
+2.  **Consistency:** Data must follow all established rules.
+3.  **Isolation:** Multiple transactions don't interfere with each other.
+4.  **Durability:** Once data is saved, it stays saved, even if the power goes out.
+
+Common examples of Relational Database Management Systems (RDBMS) include **MySQL, PostgreSQL, Microsoft SQL Server, and Oracle Database.**
 
 ---
 
 # Chapter 7 – Security & Controls
 
 ## **65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
+The three goals of system security are collectively known as the **CIA Triad**. This foundational model is used to guide policies and security controls within an organization to ensure that information is protected from all angles.
+
+
+
+---
+
+## 1. Confidentiality (The "Secret")
+Confidentiality ensures that sensitive information is accessed only by authorized individuals and is kept hidden from those who do not have a "need to know."
+
+* **Objective:** To prevent unauthorized disclosure of information.
+* **Common Controls:**
+    * **Encryption:** Scrambling data so only those with a key can read it.
+    * **Access Control Lists (ACLs):** Defining who has permission to view specific files.
+    * **Two-Factor Authentication (2FA):** Adding an extra layer of identity verification.
+* **Example:** A bank ensures that only you and authorized bank employees can view your account balance.
+
+## 2. Integrity (The "Truth")
+Integrity ensures that data is accurate, complete, and has not been altered or tampered with by unauthorized parties or by system errors.
+
+* **Objective:** To prevent unauthorized modification of information.
+* **Common Controls:**
+    * **Hashing:** Creating a unique "digital fingerprint" for a file to check if it has changed.
+    * **Digital Signatures:** Verifying the sender's identity and that the message hasn't been altered.
+    * **Version Control:** Tracking changes so that data can be restored if it is corrupted.
+* **Example:** When you send a $100$ transfer, integrity ensures the recipient doesn't receive $1,000$ due to a hack or a system glitch.
+
+## 3. Availability (The "Access")
+Availability ensures that systems, applications, and data are accessible to authorized users exactly when they are needed. Security is useless if the people who need the data can't get to it.
+
+* **Objective:** To prevent disruptions in service.
+* **Common Controls:**
+    * **Redundancy:** Having backup servers or power supplies ready if the main one fails.
+    * **DDoS Protection:** Guarding against attacks that try to crash a website by flooding it with traffic.
+    * **Regular Backups:** Ensuring data can be recovered quickly after a hardware failure.
+* **Example:** Ensuring that a hospital's patient record system is online 24/7 so doctors can access life-saving information during surgery.
+
+---
+
+## Summary Comparison
+
+| Goal | Focus | Common Threat |
+| :--- | :--- | :--- |
+| **Confidentiality** | Privacy | Data breaches, shoulder surfing. |
+| **Integrity** | Accuracy | Man-in-the-middle attacks, data corruption. |
+| **Availability** | Reliability | DDoS attacks, hardware failure, power outages. |
+
+### The Balancing Act
+It is important to note that these goals often conflict. For example, increasing **Confidentiality** by adding complex encryption and multiple layers of authentication might slow down the system, potentially reducing **Availability**. A security professional's job is to find the right balance based on the specific needs of the system.
 
 ## **66.** Describe three types of security controls an analyst might recommend.
+When building a secure system, an analyst doesn't rely on a single "silver bullet." Instead, they recommend a **layered defense** (Defense in Depth) using three distinct categories of security controls. Each layer addresses a different aspect of risk, from the hardware in the server room to the behavior of the employees.
+
+---
+
+## 1. Physical Controls
+Physical controls are the most "tangible" layer of security. They are designed to prevent unauthorized people from physically touching or accessing the systems, hardware, and infrastructure.
+
+* **Objective:** To protect the physical environment and hardware from theft, tampering, or natural disasters.
+* **Examples:**
+    * **Biometric Scanners:** Fingerprint or retina readers at data center entrances.
+    * **Surveillance:** CCTV cameras and motion sensors.
+    * **Environmental Protection:** Fire suppression systems and Uninterruptible Power Supplies (UPS).
+    * **Physical Barriers:** Fences, locked server racks, and security guards.
+
+
+
+---
+
+## 2. Technical (Logical) Controls
+Technical controls (often called **logical controls**) use software and hardware technology to protect data and systems. These are the digital "gates" that control who can access the network and what they can do once they are inside.
+
+* **Objective:** To automate the protection of data integrity and confidentiality through digital means.
+* **Examples:**
+    * **Encryption:** Scrambling data at rest or in transit so it’s unreadable without a key.
+    * **Firewalls and IDSs:** Hardware or software that monitors and filters network traffic.
+    * **Multi-Factor Authentication (MFA):** Requiring more than just a password (e.g., a code sent to a phone).
+    * **Access Control Lists (ACLs):** Permissions that define exactly which files a specific user can open.
+
+
+
+---
+
+## 3. Administrative (Managerial) Controls
+Administrative controls focus on the "human" element of security. These are the policies, procedures, and guidelines that dictate how an organization manages its people and its data.
+
+* **Objective:** To establish a "security culture" and provide a framework for how the other two controls are implemented.
+* **Examples:**
+    * **Security Awareness Training:** Teaching employees how to spot phishing emails.
+    * **Background Checks:** Screening new hires before they are given access to sensitive data.
+    * **Disaster Recovery Plans:** Formalized steps on what to do if the system goes down.
+    * **Acceptable Use Policies:** Legal documents employees sign stating how they are allowed to use company equipment.
+
+---
+
+## Comparison at a Glance
+
+| Control Type | Primary Target | Analogy |
+| :--- | :--- | :--- |
+| **Physical** | Hardware & Facilities | A locked gate and a security guard. |
+| **Technical** | Data & Networks | A digital password and an alarm system. |
+| **Administrative** | People & Policies | The rulebook that says "Keep the gate locked." |
+
+
+
+---
+
+By combining these three types, an analyst ensures that even if one control fails (e.g., a password is stolen), other layers (like MFA or a physical guard) are in place to stop the threat.
+
 
 ## **67.** What is the difference between authentication and authorization?
+While these two terms are often used interchangeably in casual conversation, in the world of system security, they represent two distinct steps in a security process. To keep it simple: **Authentication** is about identity, while **Authorization** is about permissions.
+
+
+
+---
+
+## 1. Authentication (AuthN): "Who are you?"
+Authentication is the process of verifying that a user is who they claim to be. It is the first step in any security flow. Before a system can give you access to anything, it must first confirm your identity.
+
+* **Objective:** To prove identity.
+* **Common Methods:**
+    * **Passwords or PINs** (Something you know).
+    * **Biometrics** like fingerprints or FaceID (Something you are).
+    * **Security tokens or SMS codes** (Something you have).
+* **Example:** When you enter your username and password into a login screen, the system is **authenticating** you.
+
+## 2. Authorization (AuthZ): "What can you do?"
+Once your identity is confirmed through authentication, authorization determines what specific resources you are allowed to access and what actions you are permitted to perform.
+
+* **Objective:** To manage access rights and permissions.
+* **Common Methods:**
+    * **Role-Based Access Control (RBAC):** Giving permissions based on a job title (e.g., "Manager" vs. "Employee").
+    * **Attribute-Based Access Control (ABAC):** Giving permissions based on specific traits (e.g., "Only users in the HR department can see this file").
+* **Example:** After logging into your company's portal, you might be able to view your own paystub but not the CEO's. That is **authorization** at work.
+
+
+
+---
+
+## 3. The "Hotel Analogy"
+Imagine you are checking into a hotel:
+
+1.  **Authentication:** You go to the front desk and show your ID. The receptionist confirms that you are indeed the person who made the reservation. They have **authenticated** you.
+2.  **Authorization:** The receptionist hands you a key card. This card is **authorized** to open your specific room (Room 305), but it will not open the door to the penthouse or the manager's office.
+
+---
+
+## Key Differences at a Glance
+
+| Feature | Authentication | Authorization |
+| :--- | :--- | :--- |
+| **Focus** | Identity (User) | Permissions (Resource) |
+| **Question** | "Who are you?" | "What are you allowed to do?" |
+| **Sequence** | Happens first. | Happens second (after authentication). |
+| **Visible to User?** | Usually yes (Login screens). | Usually invisible (Managed in the background). |
+| **Data used** | Passwords, biometrics, tokens. | Roles, groups, permission lists. |
+
+By separating these two, developers can ensure that even if a user is "in the building," they can only touch the data they are legally allowed to see. 
+
 
 ## **68.** What is a replicated database architecture? What synchronization challenges does it create?
+**Replicated database architecture** is a system design where the same data is stored and maintained across multiple physical or virtual servers (nodes). Unlike a distributed database, where data is partitioned into different pieces across nodes, replication ensures that multiple copies of the **entire dataset** (or specific subsets) exist in different locations.
+
+---
+
+## Common Replication Strategies
+
+There are three primary ways to structure a replicated database:
+
+1.  **Single-Leader (Master-Replica):** All "write" operations go to a single leader. The leader then sends data changes to one or more "followers" (replicas) who handle "read" operations.
+2.  **Multi-Leader:** Multiple nodes can accept "write" operations. These nodes act as leaders to each other and sync their changes. This is often used across different geographical data centers.
+3.  **Leaderless (Quorum-based):** Any node can accept writes and reads. The system relies on a majority (quorum) to determine the "correct" version of the data (e.g., Amazon’s DynamoDB).
+
+
+
+---
+
+## Synchronization Methods
+
+The method used to keep these copies in sync significantly impacts performance and reliability.
+
+| Method | How it Works | Pros | Cons |
+| :--- | :--- | :--- | :--- |
+| **Synchronous** | The leader waits for replicas to confirm they received the data before telling the user the "write" was successful. | Guarantees data consistency across all nodes. | High latency; if one replica is slow or down, the whole system hangs. |
+| **Asynchronous** | The leader writes the data locally and immediately confirms to the user, then sends the update to replicas later. | Very fast; system remains available even if replicas are slow. | Risk of data loss if the leader fails before the update is sent. |
+
+---
+
+## Synchronization Challenges
+
+While replication improves availability and "read" performance, it introduces significant technical hurdles:
+
+### 1. Consistency and the CAP Theorem
+According to the CAP Theorem, a distributed system can only provide two of the following three guarantees: **C**onsistency, **A**vailability, and **P**artition Tolerance. In replication, you often have to choose between keeping all nodes perfectly in sync (Consistency) or keeping the system running during a network failure (Availability).
+
+### 2. Replication Lag
+In asynchronous systems, a "read" might happen on a replica before the "write" from the leader has arrived. This creates a "stale data" problem where a user sees an old version of the information they just updated.
+
+### 3. Write Conflicts
+In **Multi-Leader** or **Leaderless** architectures, two users might update the same piece of data on two different nodes at the exact same time. 
+* **Challenge:** How does the system decide which update is "correct"? 
+* **Solutions:** Last-Write-Wins (LWW), versioning, or custom conflict-resolution logic.
+
+### 4. Split-Brain Scenarios
+If the network between nodes fails (a partition), two different parts of the system might both think they are the "Leader." This leads to "Split-Brain," where both nodes accept writes independently, creating divergent and often irreconcilable datasets.
+
+### 5. Network Overhead
+Maintaining replicas requires constant communication. As the number of replicas grows, the amount of bandwidth consumed by synchronization messages can degrade the performance of the underlying network.
+
+---
+
+> **Key Insight:** Replication is a trade-off. You gain the ability to survive a server crash and handle more traffic, but you pay for it with increased complexity in how you manage "the truth" of your data.
+
 
 ## **97.** Explain the four types of input controls (field combination, value limit, completeness, data validation).
+Input controls are essential for maintaining **data integrity** and preventing errors at the point of entry. They act as a filter to ensure that only accurate, authorized, and complete data enters a system.
+
+### 1. Field Combination Check
+Also known as **Cross-Field Validation**, this control verifies the relationship between two or more data fields to ensure they are logically consistent with one another.
+
+* **How it works:** It checks if the value in Field A is compatible with the value in Field B based on predefined business rules.
+* **Example:** If a user selects "USA" as their country but enters a "London" postal code, a field combination check would flag this as an error because that specific city and country combination is invalid.
+
+### 2. Value Limit Check
+A value limit check ensures that a numerical or date value falls within a predetermined, acceptable range.
+
+* **How it works:** It uses **minimum (floor)** and **maximum (ceiling)** thresholds. 
+    * **Limit Check:** Tests only one end (e.g., "Value must be greater than zero").
+    * **Range Check:** Tests both ends (e.g., "Quantity must be between 1 and 99").
+* **Example:** A payroll system might have a value limit check that prevents an hourly wage from being entered as higher than \$500 to prevent "fat-finger" data entry errors.
+
+### 3. Completeness Check
+This is a "Presence Check" that ensures all critical data fields have been filled in before a record can be processed or saved.
+
+* **How it works:** The system identifies mandatory fields versus optional ones. If a mandatory field is left blank, the system generates an error message and halts the transaction.
+* **Example:** An online registration form that refuses to submit because the user forgot to enter their "Email Address" or "Password."
+
+### 4. Data Validation
+This is a broad category of checks designed to ensure the input matches the **predefined format, type, or length** expected by the system.
+
+* **How it works:** It enforces technical constraints on the data.
+    * **Type Check:** Ensures only numbers are in a "Price" field.
+    * **Format Check:** Ensures a Social Security Number or Date follows the correct pattern (e.g., `MM/DD/YYYY`).
+    * **Length Check:** Ensures a password is at least 8 characters long or a Zip Code is exactly 5 digits.
+* **Example:** A system rejecting a name entry because it contains numbers or special characters that are not allowed in that specific field.
+
+---
+
+### Summary of Input Controls
+
+| Control Type | Focus | Primary Goal |
+| :--- | :--- | :--- |
+| **Field Combination** | Logic between different fields | Internal consistency |
+| **Value Limit** | Numerical or Date boundaries | Reasonableness of data |
+| **Completeness** | Presence of required data | Preventing partial records |
+| **Data Validation** | Technical format and type | Structural accuracy |
+
+
+
 
 ## **98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption.
 
