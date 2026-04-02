@@ -2095,14 +2095,158 @@ This is the technical core of the definition, detailing the "who" and "how" of t
 * **Related Patterns:** A discussion of patterns that are similar to this one or that are often used in conjunction with it.
 
 ## **94.** Compare and contrast coupling and cohesion.
+In software engineering, **coupling** and **cohesion** are the two primary metrics used to evaluate the quality of a system's design. While they are often discussed together, they measure opposite aspects of how a system is structured: one looks at the **internal** strength of a module, while the other looks at **external** relationships between modules.
 
-## **92.** How are domain classes different from design classes?
+The golden rule of software architecture is to strive for **High Cohesion** and **Low Coupling**.
 
 ---
 
-## Chapter 5 – Systems Design & Architecture
+## 1. Cohesion (The "Internal" Measure)
+Cohesion refers to how closely related and focused the responsibilities of a single module (or class) are. It answers the question: "Does everything in this box belong together?"
+
+* **High Cohesion:** A module performs one clearly defined task or a group of very closely related tasks. It follows the **Single Responsibility Principle**.
+* **Low Cohesion:** A module tries to do too many unrelated things (a "God Object"). It is difficult to maintain because changing one part might accidentally break an unrelated part within the same file.
+
+
+
+---
+
+## 2. Coupling (The "External" Measure)
+Coupling refers to the degree of interdependence between different modules. It answers the question: "How much does a change in Module A force a change in Module B?"
+
+* **Low (Loose) Coupling:** Modules are independent. They communicate through simple, well-defined interfaces. You can swap out one module for another without rebuilding the entire system.
+* **High (Tight) Coupling:** Modules are highly dependent on each other's internal workings. If you change a variable name in one class, five other classes might stop compiling.
+
+
+
+---
+
+## 3. Comparison at a Glance
+
+| Feature | Cohesion | Coupling |
+| :--- | :--- | :--- |
+| **Focus** | **Intra-module:** What happens *inside* the box. | **Inter-module:** How boxes connect to each other. |
+| **Goal** | **Maximize it.** (High Cohesion) | **Minimize it.** (Low Coupling) |
+| **Analogy** | A specialized toolkit where every tool is for plumbing. | How many wires connect your DVD player to your TV. |
+| **Impact on Change** | High cohesion makes a module easier to understand and fix. | Low coupling ensures changes don't "ripple" through the system. |
+| **Desirable State** | Each module does "one thing well." | Modules know as little as possible about each other. |
+
+---
+
+## 4. The Relationship Between the Two
+They often have an inverse relationship. If you try to achieve **perfectly low coupling** by spreading logic across hundreds of tiny classes, you might end up with **low cohesion** because the logic for a single business process is now scattered everywhere.
+
+Conversely, if you put everything related to a process into one giant class to get **high cohesion**, you often end up with **high coupling** because that giant class now has its "fingers" in every other part of the system.
+
+### A Practical Example: The Car
+* **Cohesion:** The braking system is highly cohesive. Its only job is to slow the car down. It doesn't try to play music or adjust the air conditioning.
+* **Coupling:** The braking system is loosely coupled to the engine. You can replace the entire engine with a different model, and as long as the brake pedal still connects to the master cylinder, the brakes will still work.
+
+Does this distinction help you see why "spaghetti code" is usually a result of both low cohesion and high coupling?
+
+## **92.** How are domain classes different from design classes?
+While domain classes and design classes may share similar names, they serve entirely different purposes in the software development lifecycle. The simplest way to distinguish them is to think of domain classes as the **"What"** and design classes as the **"How."**
+
+---
+
+## 1. Domain Classes (The Conceptual View)
+Domain classes are identified during the **Systems Analysis** phase. They represent "real-world" objects and concepts that exist within the business environment, regardless of whether a computer system exists or not.
+
+* **Focus:** The problem domain and business requirements.
+* **Level of Detail:** High-level and conceptual. They typically only show **attributes** (data) and the relationships between entities.
+* **Language:** Business-centric (e.g., *Invoice*, *Patient*, *Flight*).
+* **Technicality:** They ignore implementation details like programming languages, databases, or user interfaces.
+
+
+
+---
+
+## 2. Design Classes (The Implementation View)
+Design classes are created during the **Systems Design** phase. These are the actual blueprints that developers use to write code. They refine the domain classes and add the technical infrastructure needed to make the software function.
+
+* **Focus:** The solution domain and software architecture.
+* **Level of Detail:** Highly granular. They include **methods** (behaviors), data types (e.g., `string`, `int`), and visibility markers (`public` or `private`).
+* **Language:** Technical and precise (e.g., `InvoiceController`, `DatabaseConnector`, `UI_MainWindow`).
+* **Technicality:** They account for specific programming constraints, design patterns, and architectural layers (like the Model-View-Controller pattern).
+
+
+
+---
+
+## 3. Comparison at a Glance
+
+| Feature | Domain Class | Design Class |
+| :--- | :--- | :--- |
+| **Phase** | Analysis (Requirements) | Design (Architecture) |
+| **Primary Goal** | To model business "things" and rules. | To provide a blueprint for coding. |
+| **Content** | Attributes and Associations. | Attributes, Methods, Types, and Visibility. |
+| **Visibility (+/-)** | Not specified. | Explicitly defined (Public/Private). |
+| **Methods** | Usually omitted. | Required (Defines behavior). |
+| **Data Types** | Omitted or generic (e.g., "Date"). | Language-specific (e.g., `DateTimeOffset`). |
+
+---
+
+## 4. The Transformation
+As a project moves forward, a single domain class (like `Customer`) often evolves into several design classes. To make a `Customer` work in a real app, you might need:
+1.  **An Entity Class:** To hold the data.
+2.  **A Controller Class:** To handle the business logic of adding or deleting customers.
+3.  **A Boundary Class:** To manage the screen where the user enters customer info.
+
+By separating these two, you ensure that the business rules are clearly understood before the team gets lost in the "weeds" of technical implementation.
+
+
+---
+
+# Chapter 5 – Systems Design & Architecture
 
 ## **88.** What is the primary objective of systems design, and how does it differ from systems analysis?
+The primary objective of **systems design** is to define the specific physical architecture, components, modules, interfaces, and data for a system to satisfy the requirements identified during analysis. It is the phase where the conceptual "what" is transformed into a technical "how."
+
+While they are two sides of the same coin within the Systems Development Life Cycle (SDLC), they focus on different goals and produce different artifacts.
+
+---
+
+### 1. Systems Analysis: The "What"
+The goal of systems analysis is to deeply understand the business problem and define the requirements. It focuses on the user's needs and the functional goals of the system.
+
+* **Primary Question:** What does the system need to do to solve the business problem?
+* **Key Activities:** Fact-finding, interviewing stakeholders, observing workflows, and creating logical models (like Use Case Diagrams and Domain Class Diagrams).
+* **Output:** A **System Requirements Specification** (or Functional Requirements) that describes the "logical" model of the system.
+
+[Image comparing systems analysis (the what) and systems design (the how)]
+
+---
+
+### 2. Systems Design: The "How"
+The goal of systems design is to take those logical requirements and decide how they will be implemented using specific technology. It bridges the gap between a business need and a working software product.
+
+* **Primary Question:** How will the technology be organized and built to meet the requirements?
+* **Key Activities:** Selecting hardware/cloud platforms, designing the database schema, defining software architecture (e.g., Microservices vs. Monolith), and creating technical models (like Design Class Diagrams and Sequence Diagrams).
+* **Output:** A **System Design Specification** (or Technical Design) that provides the blueprint for developers to begin coding.
+
+---
+
+### 3. Key Differences at a Glance
+
+| Feature | Systems Analysis | Systems Design |
+| :--- | :--- | :--- |
+| **Focus** | **Business Needs:** Understanding the problem. | **Technical Solution:** Building the solution. |
+| **Core Question** | "What must the system do?" | "How will the system do it?" |
+| **Perspective** | **User-Centric:** Focuses on business value and goals. | **Developer-Centric:** Focuses on implementation and performance. |
+| **Models Used** | Use Cases, Activity Diagrams, Domain Models. | Design Class Diagrams, Interaction Diagrams, Database Schemas. |
+| **Boundary** | Logical (Technology-independent). | Physical (Technology-specific). |
+
+
+
+---
+
+### 4. The Transition: From Logical to Physical
+Think of it like building a house. **Systems Analysis** is the phase where you talk to the family to find out how many bedrooms they need, their budget, and if they want an open-concept kitchen. **Systems Design** is where the architect takes those needs and creates the structural blueprints, specifying the type of plumbing, the electrical load, and the specific materials required to keep the roof up.
+
+Without a strong analysis, you might build a beautiful house that the family can't afford or doesn't fit into. Without a strong design, the house might look exactly like the family wanted, but it might collapse because the foundation wasn't engineered correctly.
+
+How do you find the balance between spending enough time on analysis versus jumping straight into design when starting a new project?
+
 
 ## **89.** What is three-layer design? Describe the view layer, logic layer, and data layer.
 
