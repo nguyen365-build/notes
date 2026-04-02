@@ -1,4 +1,4 @@
-# COMP 361 - Final Exam
+Ôªø# COMP 361 - Final Exam
 
 ## Section 1: Definition / Concept Questions
 
@@ -49,7 +49,7 @@
 45. What is the **user goal technique**? How is it used to identify use cases?
 46. What is a **user interface**? What makes a UI effective according to HCI principles?
 
-## Chapter 2 ñ Investigating System Requirements
+## Chapter 2 ‚Äì Investigating System Requirements
 
 ## **47.** List and briefly describe the five activities of systems analysis.
 
@@ -71,7 +71,7 @@
 
 ## **106.** How would you ensure complete and comprehensive requirements are gathered during an interview?
 
-## **107.** How would you handle conflicting answers from two interviewees ó one a clerk, one a manager ó about the same procedure?
+## **107.** How would you handle conflicting answers from two interviewees ‚Äî one a clerk, one a manager ‚Äî about the same procedure?
 
 ## **108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
 
@@ -79,7 +79,7 @@
 
 ---
 
-## Chapter 3 ñ Use Cases & Domain Modeling
+## Chapter 3 ‚Äì Use Cases & Domain Modeling
 
 ### Use Cases
 
@@ -129,7 +129,7 @@
 
 ---
 
-## Chapter 4 ñ Object-Oriented Concepts & Design Patterns
+## Chapter 4 ‚Äì Object-Oriented Concepts & Design Patterns
 
 ## **111.** Define abstract class and give an example.
 
@@ -145,7 +145,7 @@
 
 ---
 
-## Chapter 5 ñ Systems Design & Architecture
+## Chapter 5 ‚Äì Systems Design & Architecture
 
 ## **88.** What is the primary objective of systems design, and how does it differ from systems analysis?
 
@@ -179,7 +179,7 @@
 
 ---
 
-## Chapter 6 ñ Database Design
+## Chapter 6 ‚Äì Database Design
 
 ## **60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
 
@@ -203,7 +203,7 @@
 
 ---
 
-## Chapter 7 ñ Security & Controls
+## Chapter 7 ‚Äì Security & Controls
 
 ## **65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
 
@@ -227,7 +227,7 @@
 
 ---
 
-## Chapter 8 ñ Object-Oriented Design (OOD)
+## Chapter 8 ‚Äì Object-Oriented Design (OOD)
 
 ## **69.** What is the difference between analysis and design in the SDLC?
 
@@ -243,7 +243,7 @@
 
 ---
 
-## Chapter 9 ñ Project Management & SDLC Methodologies
+## Chapter 9 ‚Äì Project Management & SDLC Methodologies
 
 ## **100.** Contrast predictive and adaptive approaches to the SDLC.
 
@@ -298,7 +298,7 @@
 ## **147.** Define and distinguish alpha vs. beta versions.
 
 
-## Section 1: Definitions ñ Concepts, Tools, and Processes
+## Section 1: Definitions ‚Äì Concepts, Tools, and Processes
 ### 1.	Abstract class
 
 **Definition:** An abstract class is intended to be a base or "blueprint" for other classes, but cannot be instantiated. It often contains at least one method that is defined but has no implementation, forcing subclasses to provide the specific logic.
@@ -310,11 +310,11 @@
 ### 2.	Activity diagram
 **Definition:** An activity diagram is a behavioral diagram that visualizes the sequential and parallel flow of activities, actions, and decisions within a system process or a specific use case.
 
-**Example:** In a car-sharing reservation system, an activity diagram would map the steps from ìSearch Vehicleî through ìSelect Time Slotî and ìConfirm Bookingî, including loops for invalid inputs and branches for payment success.
+**Example:** In a car-sharing reservation system, an activity diagram would map the steps from ‚ÄúSearch Vehicle‚Äù through ‚ÄúSelect Time Slot‚Äù and ‚ÄúConfirm Booking‚Äù, including loops for invalid inputs and branches for payment success.
 
 **Context:** System analysts use activity diagrams during the Analysis Phase to document complex business workflows. They are essentially "advanced flowcharts" that can handle complex, simultaneous actions.
 
-?
+‚ÄÉ
 ### 3.	Adaptive/predictive approaches
 **Definition:** A Predictive approach assumes the project can be planned in advance, while an Adaptive approach assumes the project must evolve as it progresses.
 
@@ -325,7 +325,7 @@
 ### 4.	Alpha/beta versions
 **Definition:** Alpha versions are early, unstable software builds tested internally by developers. Beta versions are more mature, feature-complete builds released to a limited group of external users to find remaining bugs.
 
-**Example:** A car-sharing app Alpha version might be tested by the internal IT team to ensure the ìBook Carî button works. The Beta version is then released to 100 actual members to test real-world GPS accuracy.
+**Example:** A car-sharing app Alpha version might be tested by the internal IT team to ensure the ‚ÄúBook Car‚Äù button works. The Beta version is then released to 100 actual members to test real-world GPS accuracy.
 
 **Context:** In Implementation and Testing, these stages represent the transition from "it works on the developer's machine" to "it works for the actual customer."
 
@@ -334,7 +334,7 @@
 
 **Example:** In a car-sharing system, a mobile app (the client) requests a list of available vehicles from a central database and business logic controller (the server) via an API call.
 
-**Context:** Architects use this model to improve scalability and maintainability. By separating the user interface (client) from data management (server), developers can update the database schema or business rules without requiring a complete reinstallation of the end-userís software.
+**Context:** Architects use this model to improve scalability and maintainability. By separating the user interface (client) from data management (server), developers can update the database schema or business rules without requiring a complete reinstallation of the end-user‚Äôs software.
 
 ### 6.	Component diagram
 **Definition:** A component diagram is a structural diagram that describes how a system is split into physical components (like DLLs, database schemas, or executables) and the dependencies between them.
@@ -398,11 +398,11 @@
 
 **Context:** In System Security, digital signatures ensure non-repudiation, meaning the sender cannot later deny sending the message, and they guarantee that the data hasn't been altered during transit.
 
-?
+‚ÄÉ
 ### 15.	Encryption/decryption
 **Definition:** The process of scrambling data into an unreadable format (encryption) and converting it back into its original form (decryption).
 
-**Example:** Changing a userís password into a random string of symbols so a hacker cannot read it if stolen.
+**Example:** Changing a user‚Äôs password into a random string of symbols so a hacker cannot read it if stolen.
 
 **Context:** In System Security, these processes protect sensitive information during transmission and storage, ensuring data remains private and secure.
 
@@ -419,7 +419,7 @@
 **Example:** A customer clicks the "Confirm Booking" button, which acts as a trigger for the system to reserve a vehicle.
 
 **Context:** In Systems Analysis, events are used to identify use cases by determining how the system must react to external or temporal changes.
-?
+‚ÄÉ
 ### 18.	Extreme programming
 **Definition:** Extreme programming is an Agile software development framework that focuses on high-quality code through constant feedback, simple designs, and frequent releases.
 
@@ -430,7 +430,7 @@
 ### 19.	HCI
 **Definition:** Human Computer Interaction is a field of study focusing on the design and use of computer technology, specifically the interfaces between people and computers.
 
-**Example:** Researching how a driver interacts with a carís touchscreen to ensure it is not distracting while the vehicle moves.
+**Example:** Researching how a driver interacts with a car‚Äôs touchscreen to ensure it is not distracting while the vehicle moves.
 
 **Context:** HCI principles guide designers to create user interfaces that are efficient, easy to learn, and reduce user errors.
 
@@ -441,7 +441,7 @@
 
 **Context:** In System Design, these controls protect the database from human error or system glitches, maintaining "one version of the truth."
 
-?
+‚ÄÉ
 ### 21.	Model
 **Definition:** Model is a representation of a complex reality, used to understand, design, or document a system's structure and behavior.
 
@@ -452,7 +452,7 @@
 ### 22.	Object
 **Definition:** An object is a specific "thing" or instance in a system that has its own identity, data values, and behaviors.
 
-**Example:** If "Car" is a general category, "Johnís Red Ford" is a specific object with its own license plate.
+**Example:** If "Car" is a general category, "John‚Äôs Red Ford" is a specific object with its own license plate.
 
 **Context:** In object-oriented analysis, objects are the basic building blocks that interact by sending messages to one another to perform tasks.
 
@@ -463,7 +463,7 @@
 
 **Context:** Object oriented design uses principles like GRASP and SOLID to create flexible, reusable code that is easy to maintain and change.
 
-?
+‚ÄÉ
 ### 24.	Pair programming
 **Definition:** Pair programming is an Agile development technique where two programmers work together at one workstation to write and review code simultaneously.
 
@@ -485,7 +485,7 @@
 
 **Context:** In systems development, projects are managed using a SDLC to ensure that business goals are met while managing risks and resources.
 
-?
+‚ÄÉ
 ### 27.	Relational database
 **Definition:** a relational database is a digital collection of data organized into predefined tables with rows and columns that are linked by shared keys.
 
@@ -507,7 +507,7 @@
 
 **Context:** This occurs during the Analysis phase and involves using techniques like interviews, questionnaires, and observation to define system scope.
 
-?
+‚ÄÉ
 ### 30.	Scrum
 **Definition:** Scrum is an Agile framework that uses short, fixed-length cycles called Sprints to deliver small portions of working software.
 
@@ -520,7 +520,7 @@
 
 **Example:** In the car-sharing project, the System Development Life Cycle follows a series of steps to move a project from a basic idea to a finished, working app.
 
-**Context:** Analysts use the System Development Life Cycle to provide a framework of phasesólike planning, analysis, design, and implementationóto ensure software meets business needs and budget.
+**Context:** Analysts use the System Development Life Cycle to provide a framework of phases‚Äîlike planning, analysis, design, and implementation‚Äîto ensure software meets business needs and budget.
 
 ### 32.	Security controls
 **Definition:** Security controls are technical or administrative safeguards put in place to protect a system's data and resources from unauthorized access or damage.
@@ -529,13 +529,13 @@
 
 **Context:** Analysts design these controls to ensure data integrity and privacy by preventing hackers from stealing sensitive information or disrupting services.
 
-?
+‚ÄÉ
 ### 33.	Stakeholders
 **Definition:** Stakeholders are any individual, group, or organization that has an interest in, or can be affected by, the success of a project.
 
 **Example:** In the car-sharing project, stakeholders include the drivers, the software developers, the company owners, and even government regulators.
 
-**Context:** In systems analysis, identifying all stakeholders ensures that everyoneís requirements are heard so the final system provides real business value.
+**Context:** In systems analysis, identifying all stakeholders ensures that everyone‚Äôs requirements are heard so the final system provides real business value.
 
 ### 34.	System
 **Definition:** A system is a collection of interrelated components that function together as a single unit to achieve a specific set of goals.
@@ -584,12 +584,12 @@
 
 **Example:** A team develops a banking app by first building the login security, then adding features like transfers later. 
 
-**Context:** Unified process uses UML diagrams and four phases ñ Inception (define scope), Elaboration (identify requirements), Construction (build product), and Transition (move from system development to testing, training and deployment) ñ to guide teams through complex system development.
+**Context:** Unified process uses UML diagrams and four phases ‚Äì Inception (define scope), Elaboration (identify requirements), Construction (build product), and Transition (move from system development to testing, training and deployment) ‚Äì to guide teams through complex system development.
 
 ### 41.	Unit Testing
 **Definition:** Unit Testing is the process of testing the smallest functional parts of an application, such as individual methods or classes, in isolation.
 
-**Example:** A developer writes a short script to verify that a ìCalculate Taxî function returns the correct decimal value.
+**Example:** A developer writes a short script to verify that a ‚ÄúCalculate Tax‚Äù function returns the correct decimal value.
 
 **Context:** In system development, it ensures code quality early, making it easier to find bugs before integrating different system components.
 
@@ -628,11 +628,11 @@
 
 **Context:** In System Design (HCI), the UI must be intuitive and consistent to ensure users can complete tasks efficiently and without errors.
 
-?
+‚ÄÉ
 # Section 2: Short-Answer Questions and Exercises
 
 
-## Chapter 2 ñ Investigating System Requirements
+## Chapter 2 ‚Äì Investigating System Requirements
 
 ## **47.** List and briefly describe the five activities of systems analysis.
 ### The Five Activities of Systems Analysis
@@ -815,7 +815,7 @@ Organize the information as it is gathered to ensure no category is left blank.
 
 ## 4. Verification and Feedback Loops
 Requirements are rarely "complete" after a single pass. Validation is essential to prevent scope creep later.
-* **Active Summarization:** Periodically repeat what youíve heard back to the stakeholder to confirm your understanding is accurate.
+* **Active Summarization:** Periodically repeat what you‚Äôve heard back to the stakeholder to confirm your understanding is accurate.
 * **Conflict Resolution:** If two stakeholders provide Bohr-model-style conflicting requirements, document the discrepancy and facilitate a decision-making session.
 * **Prototyping:** Use low-fidelity wireframes or mockups during or after the interview to give stakeholders a visual anchor to react to.
 
@@ -828,7 +828,7 @@ A requirement isn't "complete" until it is documented in a way that developers a
 * **Traceability:** Ensure every requirement can be traced back to a specific business goal.
 * **Acceptance Criteria:** Define exactly what "done" looks like for each requirement to ensure it is testable.
 * 
-## **107.** How would you handle conflicting answers from two interviewees ó one a clerk, one a manager ó about the same procedure?
+## **107.** How would you handle conflicting answers from two interviewees ‚Äî one a clerk, one a manager ‚Äî about the same procedure?
 Handling conflicting information between different levels of an organization is common, as managers often focus on the **idealized process** (how it's supposed to work) while clerks focus on the **actual process** (how it works in reality). 
 
 Here is how to navigate that discrepancy:
@@ -858,7 +858,7 @@ Rather than playing "telephone" between them, bring both parties together in a n
 
 ## 4. Document the "As-Is" vs. "To-Be"
 Use the conflict to build a better requirement. 
-* **Requirement:** The system must enforce the managerís compliance rules.
+* **Requirement:** The system must enforce the manager‚Äôs compliance rules.
 * **Requirement:** The system must provide the speed/automation the clerk currently achieves through manual workarounds.
 
 
@@ -872,7 +872,7 @@ If the conflict persists, look at the output of the procedure.
 
 
 ## **108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
-When a stakeholder becomes a bottleneck, itís usually because they are overwhelmed, don't understand the impact of the delay, or lack the authority they were assumed to have. Dealing with this requires shifting from "requesting" to "informing."
+When a stakeholder becomes a bottleneck, it‚Äôs usually because they are overwhelmed, don't understand the impact of the delay, or lack the authority they were assumed to have. Dealing with this requires shifting from "requesting" to "informing."
 
 ---
 
@@ -884,7 +884,7 @@ Vague reminders like "I need this policy" are easily ignored. Instead, attach a 
 ## 2. Use "Assumption-Based" Communication
 Shift the burden of action. Instead of asking for a decision, present the decision you *will* make if they don't respond.
 * **The Framework:** "Based on our previous discovery, I have drafted Policy X. If I don't hear from you by Wednesday at 5:00 PM, I will move forward with this version to keep the project on schedule."
-* **Why it works:** Itís much easier for a busy stakeholder to "passively agree" than to "actively create."
+* **Why it works:** It‚Äôs much easier for a busy stakeholder to "passively agree" than to "actively create."
 
 
 
@@ -911,7 +911,7 @@ If emails are being ignored, the digital "noise" is too high.
 
 
 ## **109.** How do you manage scope creep during requirements gathering? Describe at least two strategies.
-Scope creepówhen a project's requirements expand beyond its original boundariesóis one of the most common risks during the gathering phase. Left unchecked, it derails timelines and inflates budgets.
+Scope creep‚Äîwhen a project's requirements expand beyond its original boundaries‚Äîis one of the most common risks during the gathering phase. Left unchecked, it derails timelines and inflates budgets.
 
 Here are three effective strategies to manage and prevent scope creep:
 
@@ -951,7 +951,7 @@ By forcing stakeholders to categorize their requests into these buckets, you nat
 
 ---
 
-## Chapter 3 ñ Use Cases & Domain Modeling
+## Chapter 3 ‚Äì Use Cases & Domain Modeling
 
 ## **55.** What is a use case diagram? Identify its components (actors, use cases, system boundary).
 A use case diagram is a type of behavioral diagram defined by the Unified Modeling Language (UML). It provides a high-level visual overview of how external entities interact with a software system to achieve specific goals. 
@@ -1195,13 +1195,13 @@ A state event (sometimes called an internal event) occurs when data inside the s
 
 ---
 
-By examining a business process through all three lensesóasking *who* will interact with it (External), *when* things need to happen automatically (Temporal), and *what* data conditions require an automated reaction (State)óyou ensure the software requirements are comprehensive.
+By examining a business process through all three lenses‚Äîasking *who* will interact with it (External), *when* things need to happen automatically (Temporal), and *what* data conditions require an automated reaction (State)‚Äîyou ensure the software requirements are comprehensive.
 
 
 ## **79.** What is the perfect technology assumption?
 The **perfect technology assumption** is a fundamental principle used during the early stages of systems analysis and requirements gathering, particularly when defining use cases and modeling system behavior. 
 
-It states that when analyzing a system, you should assume that the technology running the system is absolutely perfectómeaning it never crashes, has infinite storage, possesses unlimited processing speed, and the network never goes down.
+It states that when analyzing a system, you should assume that the technology running the system is absolutely perfect‚Äîmeaning it never crashes, has infinite storage, possesses unlimited processing speed, and the network never goes down.
 
 While this sounds counterintuitive to building robust software, it is a deliberate mental model used to keep the team focused on business value rather than technical constraints.
 
@@ -1239,50 +1239,860 @@ These are business realities, not technology failures.
 ## 4. When is the Assumption Dropped?
 The perfect technology assumption is strictly a tool for the **Systems Analysis** phase. 
 
-Once the team moves into the **Systems Design** phase, the assumption is completely discarded. At that point, architects and developers actively introduce all the real-world constraintsóadding non-functional requirements for security, load balancing, error logging, data redundancy, and network timeouts to ensure the software survives the real world.
+Once the team moves into the **Systems Design** phase, the assumption is completely discarded. At that point, architects and developers actively introduce all the real-world constraints‚Äîadding non-functional requirements for security, load balancing, error logging, data redundancy, and network timeouts to ensure the software survives the real world.
 
 
 ## **80.** List the parts/compartments of a fully developed use case description.
+While a use case diagram provides a high-level visual, a **fully developed use case description** is a comprehensive, textual document that details the exact internal logic and steps of the process. It is the most formal method of documenting a use case and serves as the blueprint for developers and QA testers.
 
-## **81.** Compare and contrast preconditions, postconditions, and exception conditions.
-
-## **103.** What is a brief use case description? What does it contain?
-
-## **104.** Why are system controls not treated as use cases?
-
-## **105.** Define CRUD and explain the purpose of the CRUD technique.
-
-### Domain Modeling
-
-## **56.** What is a domain model class diagram? What does it show that a use case diagram does not?
-
-## **57.** What is a system sequence diagram (SSD)? How does it relate to a use case?
-
-## **58.** How does a state machine diagram differ from an activity diagram?
-
-## **82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)?
-
-## **83.** What is an attribute, an identifier (key), and a compound attribute?
-
-## **84.** What is an association class?
-
-## **85.** Compare and contrast an abstract class and a concrete class.
-
-## **86.** Compare and contrast aggregation with composition in a whole-part relationship.
-
-## **87.** What is multiplicity, and how is it used on a class diagram?
+Here are the standard compartments (sections) of a fully developed use case description:
 
 ---
 
-## Chapter 4 ñ Object-Oriented Concepts & Design Patterns
+## 1. Header Information
+This section provides the basic metadata and context for the use case.
+
+* **Use Case Name:** A clear, verb-noun phrase (e.g., "Process Customer Return").
+* **Scenario:** If the description focuses on one specific path, it is named here (e.g., "Return with Original Receipt").
+* **Triggering Event:** The specific External, Temporal, or State event that initiates the use case.
+* **Brief Description:** A one-to-two sentence summary of the use case's purpose.
+* **Actors:** The primary actor (who initiates the process) and any secondary actors (like external systems or databases) involved.
+* **Related Use Cases:** Any other use cases that are `<<included>>` (mandatory sub-processes) or `<<extended>>` (optional sub-processes) by this one.
+
+---
+
+## 2. System State Requirements
+These compartments act as the logical "guardrails" for the use case, defining the exact state the system must be in before and after the process.
+
+* **Preconditions:** What must be demonstrably true *before* the use case can begin. If preconditions are not met, the use case cannot execute. (e.g., "User must be authenticated" or "Shopping cart must contain at least one item").
+* **Postconditions:** What must be demonstrably true *after* the use case successfully completes. This defines the Elementary Business Process (EBP) consistent state. (e.g., "Inventory is decremented by the purchased amount," "Customer account is charged," or "Order status is updated to 'Processing'").
+
+---
+
+## 3. Flow of Activities (The "Happy Path")
+This is the core of the document. It details the step-by-step chronological sequence of interactions between the actor and the system when everything goes perfectly. 
+
+This is often documented in a two-column format to clearly separate human actions from system responses:
+
+| Actor Steps | System Responses |
+| :--- | :--- |
+| 1. Actor enters search criteria and clicks 'Search'. | 2. System queries the database for matching records. |
+| | 3. System displays a list of matching records. |
+| 4. Actor selects a specific record to view. | 5. System retrieves the full record details. |
+| | 6. System displays the detailed record view. |
+
+---
+
+## 4. Exception Conditions (Alternative Flows)
+Because the perfect technology assumption only applies to hardware and networks, the business logic must account for user errors and business rule violations. This compartment details what happens when the workflow deviates from the Flow of Activities.
+
+* **Alternative Flows:** Acceptable deviations that still lead to a successful outcome. (e.g., "At Step 4, if the user leaves the search field blank, the system returns all records.")
+* **Exception Flows:** Deviations that prevent the user from achieving the goal and force the system to terminate the use case or roll back. (e.g., "At Step 2, if no matching records are found, the system displays an 'Item Not Found' error message and prompts the user to try again.")
+
+
+## **81.** Compare and contrast preconditions, postconditions, and exception conditions.
+To understand how preconditions, postconditions, and exception conditions interact, it helps to view a use case as a contract between the user and the system. 
+
+These three components define the rules of that contract: what is required to start, what is guaranteed at the end, and what happens if the contract is broken along the way.
+
+Here is how they compare and contrast.
+
+---
+
+## 1. Core Definitions
+
+* **Preconditions (The Gatekeeper):** The state the system must be in *before* the use case can even begin. If the preconditions are false, the use case is blocked from executing. 
+* **Postconditions (The Guarantee):** The state the system is guaranteed to be in *after* the use case successfully completes. This represents the successful update of the system's data (the Elementary Business Process consistent state).
+* **Exception Conditions (The Safety Net):** The business rules or errors that occur *during* the execution of the use case that prevent the system from reaching the postcondition.
+
+
+
+---
+
+## 2. Contrasting the Components
+
+The easiest way to contrast these elements is to look at their timing, their primary purpose, and how they handle the system's state.
+
+| Feature | Preconditions | Postconditions | Exception Conditions |
+| :--- | :--- | :--- | :--- |
+| **Timing** | **Before** the use case starts. | **After** the use case finishes successfully. | **During** the execution of the use case. |
+| **Primary Role** | To validate that the system is ready to begin the task. | To define the measurable business value achieved. | To handle business logic errors and prevent bad data. |
+| **System State Impact** | Reads the current state; makes no changes. | Writes/Updates the state; leaves it in a consistent "success" state. | Aborts the process or rolls back; leaves the state unchanged (or logs the error). |
+| **Relationship to "The Happy Path"** | Must be `True` to enter the Happy Path. | Is the final destination of the Happy Path. | Forces an exit *off* the Happy Path. |
+
+---
+
+## 3. How They Interact (The ATM Example)
+
+To see how they contrast in practice, consider the use case of **"Withdraw Cash from ATM."**
+
+### The Preconditions (Before)
+Before the system even shows you the "Withdraw" button, certain things must be true.
+* *Precondition 1:* The user has successfully authenticated with a valid PIN.
+* *Precondition 2:* The ATM hardware currently contains cash.
+*(If either of these is false, you cannot start the withdrawal process. You are stopped at the gate.)*
+
+### The Exception Conditions (During)
+You start the process and ask for $100. The system attempts the Happy Path but hits a roadblock.
+* *Exception 1:* The user's account balance is only $50. 
+* *Exception 2:* The user's daily withdrawal limit has been reached.
+*(Because an exception occurred, the system abandons the Happy Path. It shows an error message and safely terminates the transaction without dispensing money.)*
+
+### The Postconditions (After)
+If the preconditions were met, and no exceptions were triggered, the contract is fulfilled.
+* *Postcondition 1:* The user's bank account balance is decremented by the requested amount.
+* *Postcondition 2:* The transaction is recorded in the audit log.
+*(The system is now left in a stable, updated state, ready for the next use case to begin.)*
+
+
+## **103.** What is a brief use case description? What does it contain?
+A **brief use case description** is exactly what it sounds like: a short, high-level summary of a single use case. If a fully developed use case description is the complete script of a movie, the brief description is the "elevator pitch."
+
+It is typically written early in the requirements gathering phase to quickly establish the scope of the system without getting bogged down in the granular, step-by-step details or alternative paths.
+
+---
+
+## 1. What Does It Contain?
+
+Because the goal is speed and clarity, a brief use case description strips away the complex compartments (like preconditions, postconditions, and exception flows) and focuses only on the essentials. 
+
+It typically contains just three elements:
+
+* **Use Case Name:** A clear, verb-noun phrase that states the goal (e.g., "Process Customer Return").
+* **Primary Actor:** The specific user role or external system that initiates the use case.
+* **Description (The "Main Success Scenario"):** A one-to-three sentence summary describing the core goal and the standard sequence of events. It focuses entirely on the "Happy Path" and ignores all errors or exceptions.
+
+---
+
+## 2. Example of a Brief Description
+
+Here is how those three elements come together in a real-world format:
+
+| Element | Example Content |
+| :--- | :--- |
+| **Use Case Name** | Deposit Mobile Check |
+| **Primary Actor** | Retail Bank Customer |
+| **Brief Description** | The customer logs into the mobile app, enters the check amount, and takes a photo of the front and back of the physical check. The system verifies the image quality, processes the deposit, and updates the customer's account balance. |
+
+---
+
+## 3. Why Use Them?
+
+Business analysts and developers use brief descriptions to rapidly map out the breadth of a system. 
+
+During an initial brainstorming session, an analyst might identify 50 separate use cases. Writing a fully developed, multi-page document for all 50 immediately would take weeks, and many might be discarded later. By writing 50 brief descriptions instead, the team can quickly agree on the overall system boundary, prioritize which features to build first, and only write the fully developed descriptions for the use cases they are actively working on.
+
+
+## **104.** Why are system controls not treated as use cases?
+System controls‚Äîsuch as user authentication (logging in), audit logging, data encryption, and database backups‚Äîare absolutely critical to building secure and functional software. However, they are intentionally excluded from being modeled as standard use cases. 
+
+Here is why analysts separate system controls from the use case model.
+
+---
+
+## 1. They Fail the EBP "Business Value" Test
+As discussed, an Elementary Business Process (EBP) must provide **measurable business value** on its own. System controls do not pass this test because they are means to an end, not the end itself.
+
+* **The Login Example:** A retail customer does not open a banking app because their goal for the day is to "log in." Their goal is to "Transfer Funds." Logging in is just a security hurdle they are forced to jump over to achieve their actual goal. Because "Log In" provides no standalone business value to the user, it is not a use case.
+
+## 2. They are "Non-Functional" Requirements
+Use cases are designed strictly to capture **functional requirements** (what the system does). System controls almost always fall under **non-functional requirements** (how well, securely, or reliably the system does it). 
+
+Instead of drawing an oval on a diagram for "Encrypt Data," analysts document these controls in a separate Requirements Traceability Matrix or Supplementary Specification document under categories like:
+* **Security Rules:** "All user passwords must be hashed."
+* **Audit Rules:** "Every financial transaction must log the user's IP address."
+* **Reliability Rules:** "The database must back up every 24 hours."
+
+
+
+---
+
+## 3. They are Handled as "Preconditions"
+Instead of making a system control its own independent use case, it is woven into the fully developed use case descriptions as a **precondition**. 
+
+If you are writing the "Process Customer Return" use case, you simply write *"Precondition: User is authenticated and has Manager-level permissions."* This effectively enforces the access control requirement without cluttering the project with a separate "Check User Permissions" use case.
+
+## 4. Preventing Diagram Clutter
+If you treated every system control as a use case, your models would become unreadable. Every single business function (like "View Report" or "Update Profile") would need lines pointing to "Verify Identity," "Check Database Connection," and "Write to Audit Log." 
+
+By keeping system controls off the use case diagram, the diagram remains a clean, high-level map of pure business value that stakeholders can easily read and verify.
+
+---
+
+### The One Exception
+The only time a system control becomes a use case is if you are the one building the security system itself, and the control *is* the business value. For example, if you are building an Identity and Access Management (IAM) portal for an IT administrator, "Create User Account" and "Reset User Password" are the primary business goals of that specific actor, making them valid use cases for that specific system.
+
+## **105.** Define CRUD and explain the purpose of the CRUD technique.
+**CRUD** is an acronym that stands for **Create, Read, Update, and Delete**. These are the four fundamental operations that software systems use to manage persistent data within a database or storage system. 
+
+Whenever a system interacts with a data entity (like a "Customer Record" or an "Inventory Item"), it is performing at least one of these four actions.
+
+---
+
+## 1. Defining the CRUD Operations
+
+Here is how the four operations break down:
+
+* **Create:** Adding new data to the system. (e.g., A user registers a new account, or an employee adds a new product to the catalog).
+* **Read:** Retrieving and viewing existing data without changing it. (e.g., A customer views their past order history, or an administrator generates a monthly sales report).
+* **Update:** Modifying existing data. (e.g., A user changes their shipping address, or an employee corrects a typo in a product description).
+* **Delete:** Removing data from the system. (e.g., A user deletes their account, or an administrator removes an obsolete product from the catalog).
+
+---
+
+## 2. The Purpose of the CRUD Technique in Analysis
+
+In systems analysis and requirements gathering, the "CRUD technique" is used as a powerful **cross-checking and validation tool**. 
+
+After analysts use the user goal or event decomposition techniques to identify use cases, they use the CRUD technique to ensure no requirements slipped through the cracks. It verifies that the system has a complete lifecycle for every piece of data it manages.
+
+Analysts ask specific questions to find missing use cases:
+* **The Create Check:** We have a use case to *Read* a customer profile, but how does the profile get there? (Reveals a missing "Register Customer" use case).
+* **The Read Check:** We have a use case that *Creates* an internal audit log, but no one ever looks at it. Do we really need to build this? (Identifies unnecessary scope).
+* **The Update Check:** A customer's credit card can expire. Do we have a use case to *Update* their payment method? (Reveals a missing maintenance use case).
+* **The Delete Check:** Due to data privacy laws, we must allow users to be forgotten. Do we have a use case to *Delete* an account? (Ensures legal or compliance requirements are met).
+
+
+
+---
+
+## 3. The CRUD Matrix
+
+To apply this technique formally, analysts build a **CRUD Matrix**. 
+
+This is a grid where the columns represent the system's data entities (e.g., Customer, Order, Product) and the rows represent the identified use cases. The analyst fills in the intersecting cells with C, R, U, or D to show what the use case does to that data.
+
+| Use Case | Customer Data | Order Data | Product Data |
+| :--- | :--- | :--- | :--- |
+| **Register Account** | C | | |
+| **View Catalog** | | | R |
+| **Place Order** | R | C | R |
+| **Cancel Order** | | U (Status) | |
+| **Remove Account** | D | D | |
+
+By looking down the columns, the analyst can instantly spot errors. If a column is missing a "C," the system has no way to generate that data. If it is missing an "R," the system is hoarding useless data. The CRUD technique ensures the database and the system requirements are perfectly aligned.
+
+# Domain Modeling
+
+## **56.** What is a domain model class diagram? What does it show that a use case diagram does not?
+A **domain model class diagram** is a type of UML diagram that illustrates the static, structural foundation of a system's problem domain. Instead of looking at actions or processes, it visualizes the real-world "things" (concepts or data entities) that the system needs to know about, along with their specific details and how they relate to one another.
+
+It acts as the visual blueprint for the system's eventual database, though at this conceptual stage, it avoids technical database jargon and uses plain business language.
+
+
+
+---
+
+## Core Components
+
+A domain model class diagram is built using four main elements:
+
+* **Classes (The Nouns):** Represented by rectangles, these are the primary entities or concepts the system must track. In an e-commerce system, classes might include `Customer`, `Order`, and `Product`.
+* **Attributes (The Adjectives):** Listed inside the class rectangle, these are the specific pieces of data that describe the class. A `Customer` class might have attributes like `firstName`, `emailAddress`, and `phoneNumber`.
+* **Associations (The Verbs):** Represented by solid lines connecting the classes, these show the business relationships between entities. For example, a line connecting `Customer` and `Order` might be labeled "places," indicating that a customer places an order.
+* **Multiplicity (The Rules):** Numbers or symbols placed at the ends of the association lines that define the business rules of the relationship (e.g., "1 to many"). It specifies, for instance, that *one* Customer can place *many* Orders (1..*), but an Order can only belong to *one* Customer (1).
+
+---
+
+## What It Shows That a Use Case Diagram Does Not
+
+Use case diagrams and domain model class diagrams are complementary tools that view the system from completely opposite perspectives: **Behavior** vs. **Structure**. 
+
+If the system were a house, the use case diagram shows what people do inside it (cook, sleep, watch TV), while the domain model class diagram shows the physical floor plan (where the kitchen is, and how it connects to the dining room).
+
+Here is a direct comparison of what they reveal:
+
+| Feature | Use Case Diagram | Domain Model Class Diagram |
+| :--- | :--- | :--- |
+| **Primary Focus** | **Behavior:** What the system *does*. | **Structure:** What the system *stores*. |
+| **Perspective** | **External:** How users interact with the system boundary. | **Internal:** The static data architecture within the system. |
+| **Time Factor** | Dynamic. Shows chronological actions (events and responses). | Static. A frozen snapshot of business concepts and their rules. |
+| **Output** | Identifies the functions developers need to program. | Identifies the tables and fields database architects need to build. |
+
+While a use case diagram might tell you that a user can "Process an Order," it doesn't tell you what an "Order" actually consists of. The domain model class diagram steps in to define exactly what data makes up that order and how it ties back to the customer's payment profile and the inventory catalog.
+
+## **57.** What is a system sequence diagram (SSD)? How does it relate to a use case?
+A **System Sequence Diagram (SSD)** is a visual model within the Unified Modeling Language (UML) that illustrates the chronological flow of information between an external actor and the system. 
+
+While a use case diagram shows *who* interacts with the system, and a domain class diagram shows *what* the system stores, the SSD shows exactly *how* and *when* the interactions happen, step-by-step. 
+
+In an SSD, the entire software system is treated as a single "black box." It does not show how the internal code, databases, or servers communicate with each other. It only shows what the user puts into the system and what the system outputs in return.
+
+
+
+---
+
+## 1. Core Components of an SSD
+
+An SSD is built using three primary visual elements:
+
+* **Lifelines:** Vertical dashed lines descending from the actor and the system. These represent the passage of time (top to bottom) during the interaction.
+* **Input Messages:** Solid horizontal arrows pointing from the actor to the system. These represent an action the user takes (e.g., clicking a button or entering data). They are usually labeled with a verb and the specific data being passed (e.g., `enterItem(itemID, quantity)`).
+* **Return Messages:** Dashed horizontal arrows pointing from the system back to the actor. These represent the system's response (e.g., displaying a total price or an error message).
+
+---
+
+## 2. How an SSD Relates to a Use Case
+
+An SSD is the direct, visual translation of a **fully developed use case description**. Specifically, it takes the text from the "Flow of Activities" (the Happy Path) compartment and turns it into a chronological diagram.
+
+If the use case is the written script, the SSD is the storyboard. 
+
+### The 1-to-1 Mapping
+Every line in the use case's text description corresponds directly to an arrow on the SSD:
+
+| Use Case (Flow of Activities) | System Sequence Diagram (Visual) |
+| :--- | :--- |
+| **Actor Step:** "The cashier enters the item ID and quantity." | **Input Message:** A solid arrow from the Actor to the System labeled `enterItem(itemID, quantity)`. |
+| **System Step:** "The system retrieves the item description and calculates the subtotal." | *(Hidden inside the "black box" of the system; not shown on the SSD).* |
+| **System Step:** "The system displays the item description and current total." | **Return Message:** A dashed arrow from the System to the Actor labeled `description, total`. |
+
+### Scenarios and SSDs
+Because a use case contains branching logic and exceptions, you cannot draw an entire use case on a single SSD. Instead, an SSD represents just **one scenario** (usually the main success scenario) of that use case. If a use case has a highly complex exception path, analysts will draw a separate, secondary SSD just for that specific error scenario. 
+
+Ultimately, the SSD acts as the critical bridge between requirements gathering and system design. It takes the plain-English business requirements of the use case and translates them into specific input/output parameters that developers need to begin programming the system's user interface and APIs.
+
+## **58.** How does a state machine diagram differ from an activity diagram?
+While both **Activity Diagrams** and **State Machine Diagrams** (often called Statechart Diagrams) model the behavior of a system over time, they focus on different aspects of that behavior: **Doing** vs. **Being**.
+
+In short: An Activity Diagram tracks the flow of tasks, while a State Machine Diagram tracks the status of a specific object.
+
+---
+
+## 1. Activity Diagrams: The "Flow of Doing"
+An Activity Diagram is essentially a sophisticated flowchart. it focuses on the **process** or the sequence of actions required to complete a specific goal. It is typically used to model a use case or a business workflow.
+
+* **Focus:** The sequence of activities (actions) performed by the system or users.
+* **Transitions:** Triggered by the **completion of a task**. Once "Task A" is finished, the flow moves automatically to "Task B."
+* **Analogy:** A cooking recipe. You wash the vegetables, *then* you chop them, *then* you saut√© them. Each step is an action.
+
+
+
+---
+
+## 2. State Machine Diagrams: The "Flow of Being"
+A State Machine Diagram focuses on the **lifecycle of a single object** (like an Invoice, an Order, or a User Account). It shows the different "states" that an object can exist in and what specific events cause it to change from one state to another.
+
+* **Focus:** The discrete states of an object and the transitions between them.
+* **Transitions:** Triggered by **external events** or stimuli, not just the passage of time or completion of a task.
+* **Analogy:** A traffic light. It is in the "Green" state. It doesn't change to "Yellow" just because it finished being green; it changes because a "Timer Expired" event occurred.
+
+
+
+---
+
+## 3. Key Structural Differences
+
+| Feature | Activity Diagram | State Machine Diagram |
+| :--- | :--- | :--- |
+| **Primary Unit** | **Activity/Action:** A task being performed. | **State:** A condition or status of an object. |
+| **Movement** | Automatic flow (Sequential). | Event-driven (Conditional). |
+| **Scope** | Often covers multiple objects and actors in a workflow. | Usually limited to the lifecycle of **one** specific object. |
+| **Naming Convention** | Verbs (e.g., "Calculate Total," "Send Email"). | Adjectives or Nouns (e.g., "Pending," "Shipped," "Closed"). |
+
+---
+
+## 4. When to Use Which?
+
+* **Use an Activity Diagram** when you need to map out a complex business process involving multiple steps, decisions, and parallel tracks (e.g., "The steps required to onboard a new employee").
+* **Use a State Machine Diagram** when an object has complex logic or rules governing its behavior (e.g., "A 'Bank Account' cannot be in the 'Withdrawn' state if its current state is 'Frozen'").
+
+In systems analysis, you might use an Activity Diagram to show the "Process Order" use case, but use a State Machine Diagram to track the "Order" object as it moves from *Created* to *Paid* to *Shipped* to *Delivered*.
+
+## **82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)?
+Identifying the "things" in a problem domain is the first step toward building a solid data structure. In systems analysis, these "things" eventually become the **Domain Classes** in your class diagram. 
+
+There are two primary ways to find them: one is collaborative and category-based (**Brainstorming**), while the other is analytical and documentation-based (**Noun Technique**).
+
+---
+
+## 1. The Brainstorming Technique
+The brainstorming technique is a collaborative approach where analysts work directly with users and stakeholders to identify categories of objects that the system needs to "remember" or track.
+
+### The Process
+1.  **Identify a User or Stakeholder:** Work with someone who knows the business process inside and out.
+2.  **Use Categories as Triggers:** Instead of asking "What are the classes?", you ask about specific categories of things.
+3.  **Identify the "Things":** List everything that falls into those categories.
+4.  **Refine the List:** Merge duplicates and remove things that are out of scope.
+
+### Common Brainstorming Categories
+* **Tangible Things:** Physical objects like *Airplanes*, *Books*, or *Vehicles*.
+* **Roles of People:** Users or participants like *Customer*, *Employee*, or *Doctor*.
+* **Organizational Units:** Departments or groups like *Division*, *Region*, or *Marketing Team*.
+* **Devices:** Hardware the system interacts with like *Sensor*, *Terminal*, or *Controller*.
+* **Sites/Locations:** Where things happen, such as *Warehouse*, *Branch*, or *Store*.
+* **Incidents/Events:** Things that happen at a specific time, like *Order*, *Flight*, or *Transaction*.
+
+
+
+---
+
+## 2. The Noun Technique
+The noun technique is a more formal, methodical approach. Instead of relying on a meeting, the analyst combs through every piece of documentation‚Äîinterview transcripts, use case descriptions, and existing forms‚Äîto find every noun.
+
+### The Process
+1.  **Identify Nouns:** Read through all your requirements and list every single noun or noun phrase.
+2.  **Refine the List:** This is the "Gatekeeper" step. You look at each noun and ask:
+    * **Is it an attribute of another thing?** (e.g., "Customer Name" is an attribute, not a class).
+    * **Is it outside the system boundary?** (e.g., "The Internet").
+    * **Is it a synonym for something already listed?**
+    * **Is it a system-wide "thing" that doesn't need tracking?** (e.g., "The Database").
+3.  **Create the Final List:** The nouns that survive become your candidate classes.
+
+
+
+---
+
+## Comparison: Which one should you use?
+
+| Feature | Brainstorming Technique | Noun Technique |
+| :--- | :--- | :--- |
+| **Source** | People (Stakeholders/Users). | Documents (Transcripts/Descriptions). |
+| **Strengths** | Fast; builds consensus; captures "unwritten" rules. | Comprehensive; defensive; ensures nothing is missed. |
+| **Weaknesses** | Can miss things if the "right" people aren't in the room. | Very time-consuming; produces a lot of "trash" nouns to filter. |
+| **Best Used...** | Early in the project to get a high-level view. | Later in the project to double-check the model's accuracy. |
+
+---
+
+### Pro-Tip
+A common mistake is confusing an **Attribute** with a **Class**. If a "thing" has its own properties (like a *Customer* having a name, address, and phone number), it‚Äôs a **Class**. If a "thing" is just a single piece of information (like *Color* or *Zip Code*), it‚Äôs almost always an **Attribute**.
+
+Which technique do you think would be more effective for a project with very little existing documentation?
+
+
+## **83.** What is an attribute, an identifier (key), and a compound attribute?
+In the world of data modeling and systems analysis, these terms define how we describe and distinguish the "things" (classes or entities) we care about. Think of a class like a **Customer** or an **Employee** as a folder; these concepts are the labels and contents inside that folder.
+
+---
+
+## 1. Attribute
+An **attribute** is a specific piece of information that describes a characteristic of a class or entity. If the class is the "Noun," the attributes are the "Adjectives." 
+
+* **Purpose:** To store data that the system needs to remember about an object.
+* **Example:** For a `Customer` class, attributes would include `firstName`, `emailAddress`, and `dateOfBirth`.
+
+
+
+---
+
+## 2. Identifier (Key)
+An **identifier** (often called a **Primary Key** in database terms) is a unique attribute, or a set of attributes, that distinguishes one specific instance of a class from every other instance. 
+
+* **The Golden Rule:** No two objects in the same class can have the same identifier value.
+* **Purpose:** To ensure the system can precisely locate a specific record without confusion.
+* **Example:** In a `Student` class, `studentID` is the identifier. While there might be three students named "Alex Smith," only one will have the ID `100234`.
+
+> **Note:** Sometimes, you‚Äôll see an identifier marked with a specific symbol (like a **#** or the word **{PK}**) in a diagram to show it‚Äôs the "key" to the record.
+
+---
+
+## 3. Compound Attribute
+A **compound attribute** (also known as a composite attribute) is an attribute that contains multiple related sub-parts. It is a single logical "concept" that is actually made up of several smaller, simpler attributes.
+
+* **Purpose:** To group related data together for better organization, while still allowing the system to access the individual pieces (like sorting by a Zip Code).
+* **Example:** `Address` is the classic compound attribute. It isn't just one long string; it‚Äôs composed of `streetAddress`, `city`, `state`, and `zipCode`. 
+
+
+
+---
+
+## Summary Comparison
+
+| Concept | What is it? | Real-World Analogy |
+| :--- | :--- | :--- |
+| **Attribute** | A descriptive property. | Your hair color or height. |
+| **Identifier (Key)** | A unique ID. | Your Social Security Number or Fingerprint. |
+| **Compound Attribute** | A group of related data. | Your full name (First, Middle, Last). |
+
+---
+
+When you are defining these for a project, do you usually find it easier to list out all the "nouns" first using the noun technique, or do you prefer to start with a brainstorming session?
+
+
+## **84.** What is an association class?
+An **association class** is a unique modeling element in a UML class diagram that allows you to treat a relationship between two classes as a class itself. 
+
+It is used when you need to store data about the **relationship**, rather than data about the individual objects being connected.
+
+---
+
+## 1. When is it Used?
+The most common trigger for an association class is a **many-to-many (m:n) relationship**. 
+
+In a standard many-to-many relationship, you cannot place certain attributes on either of the participating classes without creating data redundancy or logic errors. The data only exists because the two objects have come together.
+
+
+
+---
+
+## 2. Core Components
+* **The Association:** A line connecting two primary classes (e.g., `Employee` and `Project`).
+* **The Class:** A standard class box containing attributes and methods.
+* **The Connection:** A dashed line that links the association line to the class box. This indicates that the class "belongs" to the relationship.
+
+---
+
+## 3. A Practical Example: Employment
+Imagine a system tracking **Employees** and **Companies**.
+
+1.  An **Employee** can work for many **Companies** (over their career or as a contractor).
+2.  A **Company** has many **Employees**.
+3.  Where do you store the **Salary**?
+    * If you put `Salary` in the `Employee` class, you can't track different salaries for different jobs.
+    * If you put `Salary` in the `Company` class, you can't distinguish between what different employees earn.
+
+**The Solution:** You create an association class called `Employment`. This class holds attributes like `salary`, `startDate`, and `jobTitle`. These pieces of data only exist when an Employee and a Company are linked.
+
+---
+
+## 4. Key Characteristics
+* **Uniqueness:** For any specific pair of objects (e.g., Employee A and Company B), there is typically only one instance of the association class.
+* **Dual Nature:** It has the properties of both an association (it connects two things) and a class (it has attributes, operations, and can even participate in other associations).
+
+Do you find that visualizing these relationships with an association class makes it easier to identify where specific "action-based" data should live in your database?
+
+
+## **85.** Compare and contrast an abstract class and a concrete class.
+In Object-Oriented Programming (OOP) and system modeling, classes are the blueprints for our data. However, not all blueprints are meant to be built exactly as drawn. 
+
+The distinction between **abstract** and **concrete** classes defines whether a class is a "final product" or just a "starting template."
+
+---
+
+## 1. Abstract Class: The "Idea"
+An abstract class is a placeholder. It represents a general concept that is too broad to exist on its own. You cannot create an **object** (an instance) directly from an abstract class.
+
+Think of the word "Vehicle." You can't go to a dealership and buy "a vehicle." You have to buy a specific *type* of vehicle, like a car or a motorcycle. In this case, "Vehicle" is the abstract concept.
+
+* **Purpose:** To provide a common base for other classes to inherit from, ensuring they all share certain attributes and behaviors.
+* **Methods:** Can contain "abstract methods," which are essentially promises that a subclass *must* fulfill (e.g., a "Vehicle" class might have an abstract method called `startEngine()`).
+* **Instantiability:** **No.** Attempting to create a new instance of an abstract class will result in a compiler error.
+
+
+
+---
+
+## 2. Concrete Class: The "Reality"
+A concrete class is a complete, finished blueprint. It provides a specific implementation for every single one of its methods, including any it inherited from an abstract parent.
+
+* **Purpose:** To define specific objects that the system can actually use and manipulate.
+* **Methods:** Every method must have "body" code (implementation). There are no empty promises here.
+* **Instantiability:** **Yes.** You can create as many objects from a concrete class as your system's memory allows.
+
+---
+
+## 3. At-a-Glance Comparison
+
+| Feature | Abstract Class | Concrete Class |
+| :--- | :--- | :--- |
+| **Definition** | A template or partial blueprint. | A complete, usable blueprint. |
+| **Can you create an object?** | **No** (Cannot be instantiated). | **Yes** (Can be instantiated). |
+| **Method Implementation** | Can have both implemented and "empty" (abstract) methods. | Must have implementations for **all** methods. |
+| **Main Usage** | Used for **Generalization** (Inheritance). | Used for **Specification** (Object creation). |
+| **Real-world Analogy** | "Animal" | "Golden Retriever" |
+
+---
+
+## 4. The "Shape" Example
+
+Imagine you are building a graphic design application.
+
+* **Abstract Class: `Shape`**
+    * It has an attribute: `color`.
+    * It has an abstract method: `calculateArea()`. 
+    * *Why?* Because you know every shape has an area, but you don't know the math for "a shape" until you know what shape it is.
+* **Concrete Class: `Circle` (Inherits from Shape)**
+    * It implements `calculateArea()` using $\pi r^2$.
+* **Concrete Class: `Square` (Inherits from Shape)**
+    * It implements `calculateArea()` using $side \times side$.
+
+By using an abstract class for `Shape`, you guarantee that any new shape added to your program in the future *must* know how to calculate its own area, preventing bugs down the road.
+
+Does this distinction help clarify how you might organize different types of data in a large-scale system?
+
+
+## **86.** Compare and contrast aggregation with composition in a whole-part relationship.
+In software modeling and systems analysis, "whole-part" relationships describe how a large object is made up of smaller components. While both aggregation and composition represent a "has-a" relationship, the difference lies in the **strength of the connection** and the **lifetime** of the parts.
+
+---
+
+## 1. Aggregation (The "Weak" Relationship)
+Aggregation represents a relationship where the part can exist independently of the whole. It is often described as a "collection" or "membership" rather than ownership.
+
+* **Lifetime:** The part is not destroyed when the whole is destroyed.
+* **Multiplicity:** A part can belong to multiple "wholes" at the same time.
+* **Symbol:** An **empty (hollow) diamond** at the end of the association line near the "whole" class.
+* **Example:** A **Department** and its **Professors**. If the Department is shut down, the Professors still exist; they can simply move to a different department or work independently.
+
+
+
+---
+
+## 2. Composition (The "Strong" Relationship)
+Composition is a much stricter form of whole-part relationship. In this model, the part is physically or logically a part of the whole and cannot exist without it.
+
+* **Lifetime:** The part's lifetime is managed by the whole. If the whole is destroyed, all its parts are automatically destroyed with it.
+* **Multiplicity:** A part can belong to **exactly one** whole at a time.
+* **Symbol:** A **filled (solid) black diamond** at the end of the association line near the "whole" class.
+* **Example:** A **House** and its **Rooms**. A room cannot exist without the house. If you demolish the house, the rooms cease to exist as distinct entities.
+
+
+
+---
+
+## 3. Key Differences at a Glance
+
+| Feature | Aggregation | Composition |
+| :--- | :--- | :--- |
+| **Relationship Strength** | Weak / Loose | Strong / Tight |
+| **Lifetime Dependency** | Independent (Part survives without Whole) | Dependent (Part dies with Whole) |
+| **UML Symbol** | Hollow Diamond ($\diamond$) | Filled Diamond ($\blacklozenge$) |
+| **Ownership** | Shared (Multiple wholes can share a part) | Exclusive (Only one whole owns the part) |
+| **Logical Phrase** | "Part is a *member* of the whole." | "Part is *part of* the whole." |
+
+---
+
+## 4. How to Choose
+When you are building your domain model, ask yourself this question: **"If I delete the 'container' object, does it make sense for the 'contained' object to still be in my database?"**
+
+* If the answer is **Yes**, use **Aggregation**. (e.g., A Library and its Books‚Äîthe books still exist if the library closes).
+* If the answer is **No**, use **Composition**. (e.g., An Order and its OrderLineItems‚Äîif the order is deleted, the individual line items have no meaning).
+
+
+
+---
+
+## Why It Matters for Implementation
+In coding (such as in C# or Java), these distinctions dictate how you write your constructors and destructors. With **Composition**, the whole class is responsible for creating and deleting the part instances. With **Aggregation**, the parts are usually created elsewhere and simply "passed in" to the whole class.
+
+## **87.** What is multiplicity, and how is it used on a class diagram?
+In the world of class diagrams, **multiplicity** is the numerical constraint placed on an association between two classes. It defines exactly how many instances of one class can be linked to a single instance of another class. 
+
+If a class diagram is a map of your data "neighborhood," multiplicity is the set of zoning laws that dictate the relationships between the houses.
+
+---
+
+## 1. How Multiplicity is Notated
+Multiplicity is written as a range at both ends of the association line connecting two classes. The format is usually `minimum..maximum`. If the minimum and maximum are the same, only one number is shown.
+
+| Notation | Meaning | Business Rule Example |
+| :--- | :--- | :--- |
+| **1** | Exactly one | An Order must be placed by exactly one Customer. |
+| **0..1** | Zero or one (Optional) | An Employee may or may not have a dedicated Office. |
+| **0..*** or **\*** | Zero or many | A Customer may have placed no orders or many orders. |
+| **1..*** | One or many (At least one) | A Team must have at least one Player to exist. |
+| **n..m** | Specific Range | A Car must have 3 to 5 doors. |
+
+
+
+---
+
+## 2. Reading Multiplicity (The "Look Across" Rule)
+A common point of confusion is which end of the line belongs to which class. To read multiplicity correctly, you must **look across** the line.
+
+* Start at **Class A**.
+* Follow the line to the far side.
+* The numbers you see at the end near **Class B** tell you how many instances of B can be associated with one instance of A.
+
+**Example: Professor and Course**
+* If you see a **1** next to Professor and a **0..*** next to Course:
+* **Reading one way:** One Professor can teach zero or many Courses.
+* **Reading the other way:** One Course is taught by exactly one Professor.
+
+---
+
+## 3. Minimum vs. Maximum Multiplicity
+Multiplicity actually tells you two different things at once:
+
+* **Minimum Multiplicity (The "Optionality"):** If the minimum is **0**, the relationship is optional. If the minimum is **1** or more, the relationship is mandatory. This tells you if a record can exist without being linked to another.
+* **Maximum Multiplicity (The "Cardinality"):** This defines the upper limit. It tells you if the relationship is "one-to-one," "one-to-many," or "many-to-many." 
+
+---
+
+## 4. Why It Matters
+Multiplicity isn't just for documentation; it directly dictates how the database is built.
+* **1-to-Many:** Tells the developer to put a Foreign Key in one of the tables.
+* **Many-to-Many:** Tells the developer they need to create a "linking table" (or an **association class**) to sit between the two entities.
+* **Mandatory (1):** Tells the system to throw an error if someone tries to save an Order without a Customer ID.
+
+When you're looking at a new system, do you find it easier to start by identifying the "things" (classes) or the "rules" (multiplicity) that connect them?
+
+
+---
+
+## Chapter 4 ‚Äì Object-Oriented Concepts & Design Patterns
 
 ## **111.** Define abstract class and give an example.
+An **abstract class** is a restricted class that cannot be used to create objects (you cannot instantiate it). It is designed to act as a rigorous "blueprint" or base for other classes. 
+
+In systems modeling and object-oriented programming, it represents a generalized concept that is too broad to exist on its own but provides a shared structure for more specific, "concrete" versions of that concept.
+
+
+
+---
+
+## Key Characteristics
+
+* **Non-Instantiability:** You cannot use the `new` keyword to create an instance of an abstract class. 
+* **Partial Implementation:** It can contain both **abstract methods** (which have no body and *must* be overridden by child classes) and **regular methods** (which have a defined body).
+* **Inheritance:** Its primary purpose is to be inherited by "concrete" subclasses that provide the specific logic missing in the abstract parent.
+* **Consistency:** It ensures that every subclass follows the same structural rules, making the system more predictable and easier to maintain.
+
+---
+
+## Practical Example: The "Shape" Concept
+
+Imagine you are building a graphic design application. You know that every shape in your system will have a **Color** and a way to **Calculate Area**. However, the math for calculating the area of a generic "shape" doesn't exist‚Äîit depends on what the shape actually is.
+
+### 1. The Abstract Class
+You create an abstract class called `Shape`. It defines the common ground:
+* **Attribute:** `Color` (Every shape has one).
+* **Abstract Method:** `CalculateArea()` (Every shape must do this, but we don't know how yet).
+
+### 2. The Concrete Subclasses
+You then create specific classes that "realize" the abstract idea:
+* **Circle:** Inherits from `Shape`. It provides the specific formula: $\pi r^2$.
+* **Square:** Inherits from `Shape`. It provides the specific formula: $side \times side$.
+
+---
+
+## Why Use It?
+
+Using an abstract class forces a level of discipline in the system design. By defining `CalculateArea` as an abstract method in the `Shape` class, you are essentially issuing a contract: **"Any class that wants to be considered a 'Shape' must implement its own version of an area calculation."** This prevents developers from accidentally creating a shape that can't be measured, which would cause errors elsewhere in the software.
 
 ## **112.** Define object, class, and object-oriented design, and distinguish between them.
+In software engineering, understanding the relationship between objects, classes, and the design philosophy that binds them is the foundation of building scalable, maintainable systems.
+
+---
+
+## 1. What is a Class?
+A **class** is a blueprint, template, or set of instructions used to create objects. It defines the structure and behavior that all objects of that type will share. A class itself does not hold "real" data; it defines what *kind* of data will be held and what actions can be performed.
+
+* **Attributes (State):** The data variables (e.g., `color`, `size`, `model`).
+* **Methods (Behavior):** The functions or actions (e.g., `startEngine()`, `drive()`, `stop()`).
+
+
+
+---
+
+## 2. What is an Object?
+An **object** is a specific **instance** of a class. When a class is "instantiated," memory is allocated, and the abstract blueprint becomes a concrete entity with its own unique state.
+
+* **Identity:** Each object is unique, even if its data is identical to another object.
+* **State:** The actual values assigned to the attributes (e.g., the color is "Red").
+* **Behavior:** The object can execute the methods defined in its class.
+
+
+
+---
+
+## 3. What is Object-Oriented Design (OOD)?
+**Object-Oriented Design** is the process of planning a system of interacting objects to solve a specific software problem. It is the "architectural" phase where you decide which classes are needed, what their responsibilities are, and how they will communicate with one another.
+
+OOD is guided by four core pillars:
+* **Encapsulation:** Hiding internal data and requiring all interaction through public methods.
+* **Abstraction:** Showing only essential features while hiding complex background details.
+* **Inheritance:** Creating new classes based on existing ones to reuse code.
+* **Polymorphism:** Allowing different classes to be treated as instances of the same general class through a single interface.
+
+---
+
+## 4. Key Distinctions
+
+To distinguish between them, think of the process as building a neighborhood:
+
+| Term | Role | Real-World Analogy |
+| :--- | :--- | :--- |
+| **Class** | The **Blueprint**. | The architectural drawing of a "Model A" house. |
+| **Object** | The **Instance**. | The actual physical house built at 123 Maple Street. |
+| **OOD** | The **City Planning**. | The layout of how houses, roads, and utilities interact. |
+
+### The Relationship Flow
+1.  You use **Object-Oriented Design** to strategize how the system should work.
+2.  You write a **Class** to define the rules for a specific part of that system.
+3.  The computer creates an **Object** based on that class when the program runs to do the actual work.
+
 
 ## **113.** Define design pattern and give an example (e.g., the Observer pattern).
+In software engineering, a **design pattern** is a general, reusable solution to a commonly occurring problem within a given context in software design. It isn't a finished piece of code that you can copy and paste; rather, it is a formal template or "best practice" description for how to solve a problem that can be applied in many different situations.
+
+Design patterns help speed up the development process by providing tested, proven development paradigms. They also provide a common language for developers, allowing them to communicate complex architectural ideas with just a name.
+
+---
+
+## The Observer Pattern: A Detailed Example
+
+The **Observer pattern** is one of the most common behavioral design patterns. It defines a one-to-many dependency between objects so that when one object (the **subject**) changes state, all its dependents (**observers**) are notified and updated automatically.
+
+### How it Works
+The relationship is built on a "subscription" model:
+1.  **The Subject:** Maintains a list of observers and provides methods to attach or detach them.
+2.  **The Observers:** Register themselves with the subject to stay informed.
+3.  **The Trigger:** When the subject's state changes, it "broadcasts" a notification to every observer on its list.
+
+
+
+---
+
+### Real-World Analogy: The Newspaper
+Think of a newspaper publisher as the **Subject** and the people in town as potential **Observers**.
+* The publisher (Subject) keeps track of who has a subscription.
+* You (the Observer) subscribe to the paper to get updates.
+* Whenever a new edition is printed, the publisher sends it to everyone on the subscription list.
+* If you stop paying, the publisher removes you from the list, and you stop receiving updates.
+
+### Components of the Pattern
+* **Subject:** The object being watched. It knows its observers.
+* **Observer:** An interface used to signal the objects that should be notified of changes.
+* **ConcreteSubject:** Stores the state of interest to ConcreteObserver objects and sends a notification when its state changes.
+* **ConcreteObserver:** Maintains a reference to a ConcreteSubject and implements the Observer updating interface to keep its state consistent with the subject's.
+
+### Common Use Cases
+* **GUI Toolkits:** When you click a button, multiple listeners might need to react (e.g., one to play a sound, one to update a database, and one to refresh the screen).
+* **Social Media:** When a user posts an update, the system notifies all of their followers.
+* **Stock Market Apps:** Multiple display widgets (graphs, ticker tapes, alert systems) all need to update the moment a stock price changes.
+
+
 
 ## **93.** What are the components of a standard design pattern definition (e.g., Gang of Four)?
+The "Gang of Four" (GoF)‚ÄîErich Gamma, Richard Helm, Ralph Johnson, and John Vlissides‚Äîestablished a highly structured template for documenting design patterns. This consistency allows developers to quickly assess whether a pattern fits their specific problem and understand how to implement it.
+
+A standard design pattern definition is typically broken down into the following components:
+
+---
+
+## 1. Pattern Name and Classification
+* **Pattern Name:** A unique, descriptive name that becomes part of the development vocabulary (e.g., *Singleton*, *Factory Method*, or *Adapter*).
+* **Classification:** Categorizes the pattern as **Creational** (how objects are created), **Structural** (how classes/objects are composed), or **Behavioral** (how objects interact).
+
+## 2. Intent and "Also Known As"
+* **Intent:** A short statement that answers: What does the pattern do? What is its rationale? What specific design issue does it address?
+* **Also Known As:** Other common names for the pattern (e.g., the *Observer* pattern is also known as *Publish-Subscribe*).
+
+## 3. Motivation and Applicability
+* **Motivation:** A real-world scenario or "problem story" that illustrates the design challenge and how the pattern‚Äôs structure solves it.
+* **Applicability:** A list of specific situations where the pattern should be used. It helps identify the symptoms that suggest this pattern is the correct remedy.
+
+
+
+---
+
+## 4. Structure, Participants, and Collaborations
+This is the technical core of the definition, detailing the "who" and "how" of the pattern.
+* **Structure:** A graphical representation of the classes in the pattern using UML class diagrams or interaction diagrams.
+* **Participants:** A description of the classes and objects involved in the design and their individual responsibilities.
+* **Collaborations:** An explanation of how the participants interact to carry out their responsibilities.
+
+
+
+## 5. Consequences and Implementation
+* **Consequences:** The trade-offs and results of using the pattern. It includes both the benefits (e.g., increased flexibility) and the liabilities (e.g., increased complexity or memory overhead).
+* **Implementation:** Practical pitfalls, hints, or techniques for implementing the pattern, often including language-specific considerations (like how to handle threading in C# or Java).
+
+## 6. Sample Code, Known Uses, and Related Patterns
+* **Sample Code:** Code fragments illustrating how the pattern might be implemented in a specific programming language.
+* **Known Uses:** Examples of the pattern found in real-world systems or frameworks (e.g., how the *Decorator* pattern is used in Java‚Äôs I/O streams).
+* **Related Patterns:** A discussion of patterns that are similar to this one or that are often used in conjunction with it.
 
 ## **94.** Compare and contrast coupling and cohesion.
 
@@ -1290,7 +2100,7 @@ Once the team moves into the **Systems Design** phase, the assumption is complet
 
 ---
 
-## Chapter 5 ñ Systems Design & Architecture
+## Chapter 5 ‚Äì Systems Design & Architecture
 
 ## **88.** What is the primary objective of systems design, and how does it differ from systems analysis?
 
@@ -1324,7 +2134,7 @@ Once the team moves into the **Systems Design** phase, the assumption is complet
 
 ---
 
-## Chapter 6 ñ Database Design
+## Chapter 6 ‚Äì Database Design
 
 ## **60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
 
@@ -1348,7 +2158,7 @@ Once the team moves into the **Systems Design** phase, the assumption is complet
 
 ---
 
-## Chapter 7 ñ Security & Controls
+## Chapter 7 ‚Äì Security & Controls
 
 ## **65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
 
@@ -1372,7 +2182,7 @@ Once the team moves into the **Systems Design** phase, the assumption is complet
 
 ---
 
-## Chapter 8 ñ Object-Oriented Design (OOD)
+## Chapter 8 ‚Äì Object-Oriented Design (OOD)
 
 ## **69.** What is the difference between analysis and design in the SDLC?
 
@@ -1388,7 +2198,7 @@ Once the team moves into the **Systems Design** phase, the assumption is complet
 
 ---
 
-## Chapter 9 ñ Project Management & SDLC Methodologies
+## Chapter 9 ‚Äì Project Management & SDLC Methodologies
 
 ## **100.** Contrast predictive and adaptive approaches to the SDLC.
 
