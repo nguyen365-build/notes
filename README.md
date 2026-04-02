@@ -4327,7 +4327,7 @@ The database design is now in 3NF. In this way the amount of data duplication is
 *Note: `Postal_code` is a foreign key in table STUDENT. It links the student table data to the address table details.*
 
 # COMP361 – Assignment 01
-Minh Nguyen – 3182386
+ – 
 March 20, 2026
 
 ## Part A: Describe the Business Case for Car Sharing in Futureville
@@ -4489,7 +4489,7 @@ URL: [https://landing.athabascau.ca/blog/view/30026189/comp-361-%E2%80%93-reflec
 
 
 # COMP361 – Assignment 02
-**Minh Nguyen – 3182386**
+** – **
 **March 24, 2026**
 
 ## Part A: Use Case Diagram
@@ -4659,7 +4659,7 @@ Looking back, I had both easy and challenging moments while working on it.
 
 # COMP361 – Assignment 03
 
-**Minh Nguyen – 3182386**
+** – **
 **March 27, 2026**
 
 ## Part A: Integrity Controls, Access Security, Storyboards and database schema
@@ -4874,7 +4874,7 @@ Overall, I tackled the project by drawing a hard line between "systems analysis"
     
 
 # COMP361 – Assignment 04
-**Minh Nguyen – 3182386**
+** – **
 **March 28, 2026**
 
 ## Part A: Design Class Diagram and Sequence Diagrams
