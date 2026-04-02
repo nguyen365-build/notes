@@ -1,4 +1,303 @@
 # COMP 361 - Final Exam
+
+## Section 1: Definition / Concept Questions
+
+1. What is an **abstract class**? How does it differ from a regular class? Give an example from a banking or car-sharing system.
+2. What is an **activity diagram**? What symbols does it use, and when would an analyst use one?
+3. Compare **predictive vs. adaptive** approaches to software development. Give a real-world example of each.
+4. Distinguish between **alpha** and **beta** versions of software. What is the purpose of each stage?
+5. Describe **client/server architecture**. How does it improve scalability?
+6. What is a **component diagram**? How is it different from a class diagram?
+7. What is a **communication diagram**? How does it relate to a sequence diagram?
+8. What is a **data access class**, and why is it used in multilayer architecture?
+9. Define **database normalization**. What problem does it solve? Give a before/after example.
+10. What is a **DBMS**? What functions does it perform?
+11. What is **deployment**, and what are the three deployment strategies an analyst might choose from?
+12. What is a **design pattern**? Describe the Observer pattern with an example.
+13. What is the **dialog metaphor** in HCI? Give an example.
+14. What is a **digital signature**, and what security property does it guarantee?
+15. Differentiate between **encryption** and **decryption**. Why are they important in system security?
+16. Who are **end users**? Why are they important to HCI design?
+17. What is an **event** in systems analysis? How do events relate to use cases?
+18. What is **Extreme Programming (XP)**? What practices does it emphasize?
+19. What does **HCI** stand for, and what is its goal in system design?
+20. What are **integrity controls**? Give two examples of how they protect data.
+21. What is a **model** in systems analysis? Name the three types and give an example of each.
+22. What is an **object** in object-oriented analysis? How does it differ from a class?
+23. What is **object-oriented design (OOD)**? What principles guide it?
+24. What is **pair programming**? What are its advantages and disadvantages?
+25. What is the **perfect technology assumption**? Why do analysts use it?
+26. What is a **project**? What three constraints define it?
+27. What is a **relational database**? How does it use keys to link tables?
+28. What are **requirements**? Distinguish between functional and non-functional requirements.
+29. What is **requirements determination**? What techniques are used?
+30. What is **Scrum**? Describe the roles and events in a Scrum framework.
+31. What is the **SDLC**? Name and briefly describe its major phases.
+32. What are **security controls**? Give two examples used in a web-based system.
+33. Who are **stakeholders**? Give examples from a car-sharing system.
+34. What is a **system**? What components make up an information system?
+35. What is a **System Vision Document**? What does it contain?
+36. What is a **Systems Development Methodology**? Why is it used?
+37. Compare **top-down vs. bottom-up** development. When would you choose each?
+38. Describe the **three-layer architecture**. What does each layer do?
+39. What is **UML**? What is its purpose in systems development?
+40. What is the **Unified Process**? Name its four phases and what happens in each.
+41. What is **unit testing**? How does it differ from integration testing?
+42. What is a **usability test**? How is it conducted?
+43. What is a **use case**? How does it differ from a use case diagram?
+44. What is **use case realization**? What diagrams are used to achieve it?
+45. What is the **user goal technique**? How is it used to identify use cases?
+46. What is a **user interface**? What makes a UI effective according to HCI principles?
+
+## Chapter 2 – Investigating System Requirements
+
+## **47.** List and briefly describe the five activities of systems analysis.
+
+## **48.** What is the difference between functional and non-functional requirements? Give one example of each.
+
+## **49.** Describe the steps for preparing, conducting, and following up on an interview session.
+
+## **50.** What are the six information-gathering techniques? When is each most appropriate?
+
+## **51.** What is the open-items list, and why is it important to a project?
+
+## **52.** What are the benefits of vendor research during information gathering?
+
+## **53.** What types of stakeholders should be included in fact-finding?
+
+## **54.** What is the purpose of an activity diagram? How does it differ from a flowchart?
+
+## **102.** What is the difference between a client and a user?
+
+## **106.** How would you ensure complete and comprehensive requirements are gathered during an interview?
+
+## **107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure?
+
+## **108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
+
+## **109.** How do you manage scope creep during requirements gathering? Describe at least two strategies.
+
+---
+
+## Chapter 3 – Use Cases & Domain Modeling
+
+### Use Cases
+
+## **55.** What is a use case diagram? Identify its components (actors, use cases, system boundary).
+
+## **59.** What is the user goal technique for identifying use cases? Give an example.
+
+## **75.** What is a use case, and what is the difference between a use case and a scenario?
+
+## **76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases.
+
+## **77.** What is an elementary business process (EBP)?
+
+## **78.** Define the three types of events (External, Temporal, State) and give an example of each.
+
+## **79.** What is the perfect technology assumption?
+
+## **80.** List the parts/compartments of a fully developed use case description.
+
+## **81.** Compare and contrast preconditions, postconditions, and exception conditions.
+
+## **103.** What is a brief use case description? What does it contain?
+
+## **104.** Why are system controls not treated as use cases?
+
+## **105.** Define CRUD and explain the purpose of the CRUD technique.
+
+### Domain Modeling
+
+## **56.** What is a domain model class diagram? What does it show that a use case diagram does not?
+
+## **57.** What is a system sequence diagram (SSD)? How does it relate to a use case?
+
+## **58.** How does a state machine diagram differ from an activity diagram?
+
+## **82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)?
+
+## **83.** What is an attribute, an identifier (key), and a compound attribute?
+
+## **84.** What is an association class?
+
+## **85.** Compare and contrast an abstract class and a concrete class.
+
+## **86.** Compare and contrast aggregation with composition in a whole-part relationship.
+
+## **87.** What is multiplicity, and how is it used on a class diagram?
+
+---
+
+## Chapter 4 – Object-Oriented Concepts & Design Patterns
+
+## **111.** Define abstract class and give an example.
+
+## **112.** Define object, class, and object-oriented design, and distinguish between them.
+
+## **113.** Define design pattern and give an example (e.g., the Observer pattern).
+
+## **93.** What are the components of a standard design pattern definition (e.g., Gang of Four)?
+
+## **94.** Compare and contrast coupling and cohesion.
+
+## **92.** How are domain classes different from design classes?
+
+---
+
+## Chapter 5 – Systems Design & Architecture
+
+## **88.** What is the primary objective of systems design, and how does it differ from systems analysis?
+
+## **89.** What is three-layer design? Describe the view layer, logic layer, and data layer.
+
+## **90.** Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration.
+
+## **91.** What is an API, and why is it important in modern systems?
+
+## **110.** Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all?
+
+## **114.** Define data access class and explain its purpose.
+
+## **115.** Define model and list the three types.
+
+## **116.** Define activity diagram and explain its purpose.
+
+## **117.** Define component diagram.
+
+## **118.** Define communication diagram.
+
+## **119.** Define UML and explain why it is used.
+
+## **120.** Define use case realization.
+
+## **121.** Define client/server architecture.
+
+## **122.** Define three-layer architecture and describe what each layer does.
+
+## **123.** Define top-down vs. bottom-up development.
+
+---
+
+## Chapter 6 – Database Design
+
+## **60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
+
+## **61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use?
+
+## **62.** What is a primary key? What is a foreign key? How do they relate tables?
+
+## **63.** What is referential integrity, and how does a DBMS enforce it?
+
+## **64.** What is a relational database schema? How is it derived from a domain model?
+
+## **95.** Describe the steps to transform a domain class diagram into a relational database schema.
+
+## **96.** What is database normalization? Describe 1NF, 2NF, and 3NF.
+
+## **124.** Define DBMS and explain its role.
+
+## **125.** Define database normalization.
+
+## **126.** Define relational database.
+
+---
+
+## Chapter 7 – Security & Controls
+
+## **65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
+
+## **66.** Describe three types of security controls an analyst might recommend.
+
+## **67.** What is the difference between authentication and authorization?
+
+## **68.** What is a replicated database architecture? What synchronization challenges does it create?
+
+## **97.** Explain the four types of input controls (field combination, value limit, completeness, data validation).
+
+## **98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption.
+
+## **99.** What is a digital signature, and what does it verify?
+
+## **127.** Define digital signature and what it verifies.
+
+## **128.** Define encryption and decryption.
+
+## **129.** Define and distinguish security controls vs. integrity controls.
+
+---
+
+## Chapter 8 – Object-Oriented Design (OOD)
+
+## **69.** What is the difference between analysis and design in the SDLC?
+
+## **70.** What is a first-cut design class diagram? How is it derived from a domain model?
+
+## **71.** What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram?
+
+## **72.** Why do we need multiple types of diagrams in the design phase? What does each one show?
+
+## **73.** How do you add method signatures to a design class diagram using sequence diagrams as a guide?
+
+## **74.** What is a package diagram? What problem does it solve in large systems?
+
+---
+
+## Chapter 9 – Project Management & SDLC Methodologies
+
+## **100.** Contrast predictive and adaptive approaches to the SDLC.
+
+## **101.** What are the four values of Agile development?
+
+## **130.** Define SDLC and its major phases.
+
+## **131.** Define deployment and describe deployment strategies.
+
+## **132.** Define project.
+
+## **133.** Define requirements.
+
+## **134.** Define requirements determination.
+
+## **135.** Define Scrum and its key roles and events.
+
+## **136.** Define Extreme Programming (XP).
+
+## **137.** Define pair programming.
+
+## **138.** Define and distinguish adaptive vs. predictive approaches.
+
+---
+
+## Human-Computer Interaction (HCI)
+
+## **142.** Define HCI and its goals.
+
+## **143.** Define the dialog metaphor.
+
+## **144.** Define user interface.
+
+## **145.** Define usability test.
+
+---
+
+## Stakeholders & Users
+
+## **139.** Define stakeholders and give examples.
+
+## **140.** Define end users and explain why they matter.
+
+## **141.** Define event in the context of systems analysis.
+
+---
+
+## Testing
+
+## **146.** Define unit testing.
+
+## **147.** Define and distinguish alpha vs. beta versions.
+
+
 ## Section 1: Definitions – Concepts, Tools, and Processes
 ### 1.	Abstract class
 
@@ -469,26 +768,304 @@ While they look visually similar and both map out processes, activity diagrams a
 
 
 ## **102.** What is the difference between a client and a user?
+While the terms "client" and "user" are sometimes used interchangeably in casual conversation, they represent two very distinct roles in systems analysis:
+
+### The Client (The Sponsor)
+The client is the person, group, or organization that funds the project and defines the high-level business objectives. 
+* **Primary Focus:** Return on investment (ROI), business value, budget, timeline, and overall strategic success.
+* **Interaction with the System:** They may never actually log into or use the final system themselves. They are focused on what the system achieves for the business as a whole.
+
+### The User (The End-User)
+The user is the individual who will interact with the system on a daily basis to perform their specific job functions.
+* **Primary Focus:** Usability, efficiency, intuitive design, and how well the system helps them complete their daily tasks without frustration.
+* **Interaction with the System:** They are hands-on with the software. Their feedback is critical for defining the detailed functional requirements and user-interface dialogs.
+
+### A Real-World Example
+Imagine a hospital upgrading its electronic health records software. 
+* The **client** is the hospital's Board of Directors or Chief Financial Officer who approves the budget to buy the system to improve overall hospital billing and compliance. 
+* The **users** are the doctors and nurses who will actually type patient notes into the system during their busy shifts. 
 
 ## **106.** How would you ensure complete and comprehensive requirements are gathered during an interview?
+Ensuring complete requirements during an interview is a delicate balance of active listening, strategic questioning, and technical validation. It requires moving beyond what a stakeholder says they want to discover what they actually need.
 
+---
+
+## 1. Preparation and Goal Alignment
+Before the meeting, define the specific domain of the interview. Are you looking for high-level business goals or granular functional specifications?
+* **Review Existing Documentation:** Analyze current workflows, legacy system docs, or preliminary project charters.
+* **Identify User Personas:** Determine exactly who you are talking to and what their "pain points" are within the system.
+
+## 2. Elicitation Techniques
+The way you phrase questions determines the depth of the requirements you receive. 
+* **Open-Ended Questions:** Use "How," "What," and "Why" to encourage the stakeholder to describe their process in detail rather than giving "yes/no" answers.
+* **The "Five Whys":** When a user requests a specific feature, ask "why" repeatedly to drill down to the root business objective.
+* **Contextual Inquiry:** If possible, observe the user performing the task in their actual environment to catch "invisible" requirements they might forget to mention.
+
+
+
+---
+
+## 3. Categorization and Scoping
+Organize the information as it is gathered to ensure no category is left blank.
+* **Functional Requirements:** What the system must do (e.g., "The system shall generate a monthly report").
+* **Non-Functional Requirements:** How the system should perform (e.g., security, scalability, and response time).
+* **Constraint Discovery:** Identify technical, budgetary, or time-based limitations early.
+
+---
+
+## 4. Verification and Feedback Loops
+Requirements are rarely "complete" after a single pass. Validation is essential to prevent scope creep later.
+* **Active Summarization:** Periodically repeat what you’ve heard back to the stakeholder to confirm your understanding is accurate.
+* **Conflict Resolution:** If two stakeholders provide Bohr-model-style conflicting requirements, document the discrepancy and facilitate a decision-making session.
+* **Prototyping:** Use low-fidelity wireframes or mockups during or after the interview to give stakeholders a visual anchor to react to.
+
+
+
+---
+
+## 5. Final Documentation and Sign-off
+A requirement isn't "complete" until it is documented in a way that developers and stakeholders can both understand.
+* **Traceability:** Ensure every requirement can be traced back to a specific business goal.
+* **Acceptance Criteria:** Define exactly what "done" looks like for each requirement to ensure it is testable.
+* 
 ## **107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure?
+Handling conflicting information between different levels of an organization is common, as managers often focus on the **idealized process** (how it's supposed to work) while clerks focus on the **actual process** (how it works in reality). 
+
+Here is how to navigate that discrepancy:
+
+---
+
+## 1. Analyze the Nature of the Conflict
+Before choosing a side, identify why the answers differ. Usually, the conflict falls into one of two categories:
+* **The "Shadow" Process:** The clerk has found a shortcut or workaround because the official policy is inefficient or broken.
+* **The "Compliance" Gap:** The manager is aware of legal or security requirements that the clerk is bypassing for speed.
+
+## 2. Conduct a "Walkthrough" or Observation
+The most effective way to resolve the conflict is to see the procedure in action. 
+* Request to shadow the clerk as they perform the task. 
+* Note where the "official" steps provided by the manager are skipped or modified.
+* Ask the clerk *why* they deviate from the official manual. This often reveals hidden requirements like "the system crashes if I do it the other way."
+
+
+
+---
+
+## 3. Facilitate a Joint Reconciliation Meeting
+Rather than playing "telephone" between them, bring both parties together in a non-confrontational way.
+* **Frame it as a system discovery:** "During my interviews, I noticed two different ways this task is handled. I want to make sure the new system supports the most efficient and compliant path."
+* **The Manager's Role:** Confirms the "Rules" (Business Logic).
+* **The Clerk's Role:** Confirms the "Exceptions" (Edge Cases).
+
+## 4. Document the "As-Is" vs. "To-Be"
+Use the conflict to build a better requirement. 
+* **Requirement:** The system must enforce the manager’s compliance rules.
+* **Requirement:** The system must provide the speed/automation the clerk currently achieves through manual workarounds.
+
+
+
+---
+
+## 5. Use Data as the Tie-Breaker
+If the conflict persists, look at the output of the procedure. 
+* Check the logs or database records. 
+* If the manager says "Step A must happen," but the data shows Step A hasn't been completed in six months, you have objective proof that the clerk's version is the current reality of the business.
+
 
 ## **108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
+When a stakeholder becomes a bottleneck, it’s usually because they are overwhelmed, don't understand the impact of the delay, or lack the authority they were assumed to have. Dealing with this requires shifting from "requesting" to "informing."
+
+---
+
+## 1. Quantify the "Cost of Delay"
+Vague reminders like "I need this policy" are easily ignored. Instead, attach a specific consequence to the silence.
+* **The Deadline Link:** Clearly state how the policy decision affects the project timeline. (e.g., "If the data retention policy isn't finalized by Friday, the database schema design will be delayed by one week.")
+* **The Financial Impact:** If applicable, note how delays impact the budget or resource allocation.
+
+## 2. Use "Assumption-Based" Communication
+Shift the burden of action. Instead of asking for a decision, present the decision you *will* make if they don't respond.
+* **The Framework:** "Based on our previous discovery, I have drafted Policy X. If I don't hear from you by Wednesday at 5:00 PM, I will move forward with this version to keep the project on schedule."
+* **Why it works:** It’s much easier for a busy stakeholder to "passively agree" than to "actively create."
+
+
+
+---
+
+## 3. Simplify the Decision Matrix
+Long, wordy policy documents are daunting. Reduce the friction of the decision-making process.
+* **The "Executive Summary" Approach:** Provide a bulleted list of the top three options, the pros/cons of each, and your recommendation.
+* **The "One Question" Rule:** Send an email with the question in the subject line so they can reply with a simple "Yes" or "Option B" from their phone.
+
+## 4. Escalate Through the Proper Channels
+If the "Assumption" method doesn't work, it's time to involve project governance.
+* **The Project Manager/Sponsor:** Raise the issue in status meetings as a **Blocker**. 
+* **The Risk Register:** Formally add the unresponsive stakeholder to the project risk register. This makes the delay a documented project risk rather than a personal conflict.
+
+
+
+---
+
+## 5. Face-to-Face (or Voice-to-Voice)
+If emails are being ignored, the digital "noise" is too high. 
+* **The "Drive-By" or 5-Minute Call:** Sometimes a 120-second phone call or a quick desk visit can resolve a policy decision that has been sitting in an inbox for weeks.
+* **The Working Session:** Instead of an interview, book a 30-minute "Policy Finalization" meeting. Show up with the document open and don't leave until the key points are marked "Final."
+
 
 ## **109.** How do you manage scope creep during requirements gathering? Describe at least two strategies.
+Scope creep—when a project's requirements expand beyond its original boundaries—is one of the most common risks during the gathering phase. Left unchecked, it derails timelines and inflates budgets.
+
+Here are three effective strategies to manage and prevent scope creep:
+
+---
+
+## 1. Define Explicit "Out-of-Scope" Boundaries
+Often, teams spend so much time defining what *is* in the project that they forget to define what *is not*. Establishing clear boundaries early acts as an anchor when stakeholders start brainstorming extraneous features.
+
+* **Create a Project Charter:** Document the core objectives, deliverables, and primary goals before detailed requirement gathering begins.
+* **The "Not Doing" List:** Explicitly list related features or systems that will not be touched during this phase. If a stakeholder brings up a feature on this list, you can quickly reference the agreed-upon boundaries.
+* **Phase Alignment:** When a good idea falls outside the boundary, validate the stakeholder's input by categorizing it as "Phase 2" or "Backlog" rather than just saying no.
+
+
+
+---
+
+## 2. Implement a Formal Change Control Process
+Stakeholders are more likely to request endless additions if the cost of doing so is invisible to them. A formal change control process forces everyone to evaluate the impact of a new requirement.
+
+* **Impact Assessment:** When a new requirement is introduced late in the gathering phase, calculate its impact on the timeline, budget, and system architecture.
+* **The Trade-Off Conversation:** Present the stakeholder with choices rather than roadblocks. (e.g., "We can add this custom reporting dashboard, but it will extend the delivery date by three weeks or require us to cut the automated email feature.")
+* **Approval Gates:** Require a formal sign-off from the project sponsor for any requirement that alters the original baseline budget or timeline.
+
+
+
+---
+
+## 3. Prioritize Requirements with the MoSCoW Method
+Not all requirements are created equal. Using a structured prioritization framework prevents "nice-to-have" features from masquerading as critical necessities.
+
+* **Must-Have:** Non-negotiable requirements necessary for the system to function and meet core business or legal needs.
+* **Should-Have:** Important features that add significant value but are not strictly necessary for launch.
+* **Could-Have:** Desirable features that can be included if time and budget permit.
+* **Won't-Have:** Features agreed to be left out of this specific iteration.
+
+By forcing stakeholders to categorize their requests into these buckets, you naturally filter out scope creep and keep the team focused on the minimum viable product (MVP).
 
 ---
 
 ## Chapter 3 – Use Cases & Domain Modeling
 
-### Use Cases
-
 ## **55.** What is a use case diagram? Identify its components (actors, use cases, system boundary).
+A use case diagram is a type of behavioral diagram defined by the Unified Modeling Language (UML). It provides a high-level visual overview of how external entities interact with a software system to achieve specific goals. 
+
+Instead of showing the technical sequence of events or how the software is coded, a use case diagram focuses strictly on **what** the system is supposed to do from an end-user's perspective. It is an excellent tool for defining system scope and ensuring all stakeholder requirements are captured visually.
+---
+
+### Core Components
+
+To build or read a use case diagram, you need to understand its three primary structural elements:
+
+* **Actors:** Represented by stick figures, actors are anyone or anything that interacts with the system from the outside. Actors are not necessarily specific people; they represent *roles*. An actor can be a human user (like a Customer or Administrator), an external hardware device, or an entirely different software system (like a third-party payment gateway).
+* **Use Cases:** Represented by horizontal ovals, use cases define the specific actions, functions, or goals that the system accomplishes for the actors. Each oval contains a short, verb-noun phrase describing the action (e.g., "Login to Account," "Process Payment," or "Generate Report"). 
+* **System Boundary:** Represented by a large rectangle or box, the system boundary defines the scope of the project. All use cases are placed inside this box to show that they are functions occurring *within* the system you are designing. All actors are placed outside the box to demonstrate that they are external entities interacting with the system.
+
+---
+
+### Connecting the Components
+
+While the prompt highlighted the three main components, the diagram is completed by **relationships** (represented by lines). Solid lines connect an actor to the specific use cases they are involved in, illustrating exactly who can trigger which functions within your system boundary.
+
 
 ## **59.** What is the user goal technique for identifying use cases? Give an example.
+The user goal technique is a highly effective, user-centric method for identifying use cases. Instead of asking what the system should *do* (which often leads to overly technical or feature-bloated lists), this technique asks what the user is trying to *achieve*. 
+
+By focusing on the end-user's underlying objectives, you ensure that every use case directly provides value to someone interacting with the system.
+
+---
+
+## The Methodology
+
+To apply the user goal technique, analysts typically follow these steps:
+
+1. **Identify the Actors:** Determine all the users, systems, or external entities that will interact with the system.
+2. **Define User Roles:** Group these actors into specific roles based on their permissions or relationship to the system (e.g., Guest, Registered Customer, Administrator).
+3. **Brainstorm Goals:** For each role, list the specific tasks they need the system to help them accomplish to be successful in their job or objective. 
+4. **Translate to Use Cases:** Convert each distinct user goal into a specific use case, usually phrased as a verb-noun command.
+
+
+
+---
+
+## Example: An Online Banking System
+
+If you were gathering requirements for a new mobile banking application, you would sit down with (or create personas for) the people using the app. 
+
+### Step 1 & 2: Identify Actors
+* **Actor 1:** Retail Customer
+* **Actor 2:** Bank Teller (using the administrative backend)
+
+### Step 3: Brainstorm Goals
+You ask the Retail Customer, *"Why are you logging into this app? What do you need to get done?"*
+* **Goal:** "I need to know how much money I have."
+* **Goal:** "I need to send my share of the rent to my roommate."
+* **Goal:** "I have a physical check from my grandma and I want the money in my account without going to a branch."
+
+### Step 4: Translate to Use Cases
+Those plain-English goals directly translate into the following use cases for the Retail Customer actor:
+* **Use Case 1:** Check Account Balance
+* **Use Case 2:** Transfer Funds
+* **Use Case 3:** Deposit Mobile Check
+
+By mapping the system this way, developers understand exactly what business value each feature is supposed to deliver, ensuring the final product actually solves the user's real-world problems.
+
 
 ## **75.** What is a use case, and what is the difference between a use case and a scenario?
+
+A **use case** and a **scenario** are closely related concepts in requirements gathering, but they operate at different levels of detail. The easiest way to understand them is that a use case is the "whole story," while a scenario is just "one specific version" of that story.
+
+Here is the breakdown of exactly how they differ.
+
+---
+
+## 1. What is a Use Case?
+A use case is a comprehensive description of how a system interacts with its environment (the actors) to achieve a specific business goal. 
+
+It acts as an umbrella that covers **all possible ways** a user might achieve (or fail to achieve) that goal. It includes the standard way things should work, as well as all the exceptions, errors, and alternative paths that might occur along the way.
+
+* **Focus:** The overall goal the user is trying to accomplish.
+* **Scope:** Broad. It contains multiple possible outcomes and branches of logic.
+
+## 2. What is a Scenario?
+A scenario (often called a "use case instance") is a single, specific path through a use case. It represents one specific chronological sequence of events from start to finish, with no branching logic. 
+
+If a use case is a choose-your-own-adventure book, a scenario is what happens when you read the book one time and make one specific set of choices.
+
+* **Focus:** One specific chronological sequence of steps.
+* **Scope:** Narrow. It tells exactly what happened in one particular instance.
+
+---
+
+## 3. The Core Difference: Collection vs. Instance
+
+| Feature | Use Case | Scenario |
+| :--- | :--- | :--- |
+| **Definition** | A collection of all possible paths to achieve a goal. | A single, specific path taken to achieve (or fail) that goal. |
+| **Branching** | Contains "If/Then" logic, alternative paths, and error handling. | Contains no branching logic; it is a straight line from A to B. |
+| **Purpose** | To define the complete functional requirement for a feature. | To test a system, write an acceptance criteria, or explain a specific user journey. |
+
+---
+
+## 4. An Example: Online Shopping Checkout
+
+To see how they work together, look at how one use case breaks down into multiple scenarios.
+
+**The Use Case:** "Process Online Order"
+*(This use case must account for everything: logging in, guest checkout, credit card processing, out-of-stock errors, and declined payments.)*
+
+**The Scenarios (Instances of that Use Case):**
+* **Scenario A (The "Happy Path"):** A registered user logs in, adds an in-stock item to their cart, pays with a saved and valid credit card, and the system successfully generates an order number.
+* **Scenario B (Alternative Path):** A user tries to check out, but the system detects the item just went out of stock. The system prompts the user to save the item for later, and the checkout process stops.
+* **Scenario C (Exception Path):** A user attempts to pay, but the payment gateway declines their credit card. The system prompts them to enter a new card, which they do, and the order is then successful.
+
+When gathering requirements, you define the **Use Case** first, and then write out the various **Scenarios** to ensure developers know exactly how to code the system's responses to different situations.
 
 ## **76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases.
 
