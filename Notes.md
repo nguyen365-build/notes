@@ -347,17 +347,126 @@
 
 ## **48.** What is the difference between functional and non-functional requirements? Give one example of each.
 
+**Functional Requirements** describe *what* a system must do. They define the specific behaviors, features, and functions of the system, including how it responds to specific inputs and how it should behave in particular situations. 
+* **Example:** The system must allow a user to reset their password by sending a one-time verification link to their registered email address.
+
+**Non-Functional Requirements** describe *how* a system must perform. They define the system's quality attributes, constraints, and performance standards, such as speed, security, reliability, scalability, and usability. 
+* **Example:** The password reset email must be delivered to the user's inbox within 60 seconds of the request being submitted.
+
 ## **49.** Describe the steps for preparing, conducting, and following up on an interview session.
+Interviews are one of the most effective ways to gather detailed information from stakeholders during systems analysis. To ensure the information collected is accurate and useful, the process should be structured into three distinct phases: preparation, conduction, and follow-up. 
+
+
+
+### 1. Preparing for the Interview
+Thorough preparation ensures that you respect the interviewee's time and gather the exact information required for the project.
+* **Establish the Objective:** Clearly define what you need to learn from the interview. Are you trying to understand a specific business process, uncover pain points, or define system requirements?
+* **Select the Right Participants:** Identify the stakeholders, end-users, or subject matter experts who have the specific knowledge you need. 
+* **Develop the Questions:** Draft a logical sequence of questions. Use a mix of **open-ended questions** (to encourage detailed explanations) and **closed-ended questions** (to get specific facts or confirmations).
+* **Schedule and Communicate:** Set a time and location (or virtual meeting link) that works for the interviewee. Send them an agenda or a high-level list of topics in advance so they can prepare.
+
+### 2. Conducting the Interview
+The goal during the interview is to facilitate a productive conversation while capturing accurate data.
+* **Open the Session:** Start by introducing yourself, stating the purpose of the interview, and explaining how the information will be used. Establish rapport to make the interviewee comfortable.
+* **Ask and Listen:** Walk through your prepared questions, but be ready to adapt. Actively listen to the responses and ask follow-up questions to probe deeper into interesting or unclear points. 
+* **Take Accurate Notes:** Document key points, terminology, and concerns. If you wish to record the session for accuracy, always ask for the interviewee's explicit permission first.
+* **Manage the Time:** Keep the conversation on track and within the scheduled timeframe. If a topic requires more time than allotted, politely suggest a separate follow-up discussion.
+* **Close the Session:** Summarize the main takeaways to ensure you understood them correctly, outline the next steps, and thank the participant for their time.
+
+### 3. Following Up on the Interview
+The follow-up phase is critical for validating the information you gathered and integrating it into your analysis.
+* **Review Notes Immediately:** As soon as the interview ends, review and organize your notes while the conversation is still fresh in your mind. Fill in any gaps or shorthand.
+* **Document the Findings:** Translate your raw notes into a formal interview summary or requirements document. 
+* **Validate with the Interviewee:** Send a copy of the summary or meeting minutes back to the interviewee. Ask them to review it to ensure you have accurately captured their processes, needs, and concerns.
+* **Address Unanswered Questions:** If any questions were left unresolved during the interview, or if new questions arise during your review, reach out to the interviewee to clarify them.
 
 ## **50.** What are the six information-gathering techniques? When is each most appropriate?
+Here are the six common information-gathering techniques used in systems analysis, along with when each is most appropriate to use:
+
+### 1. Interviewing Users and Stakeholders
+This involves face-to-face or virtual meetings to ask direct questions, explore processes in depth, and read non-verbal cues.
+* **When it is most appropriate:** When you need detailed, qualitative information about complex processes. It is ideal for uncovering unstated assumptions, understanding user pain points, building rapport, and exploring topics that require dynamic follow-up questions.
+
+### 2. Distributing and Collecting Questionnaires
+Questionnaires (or surveys) are structured forms consisting of mostly closed-ended questions (like multiple-choice or scale ratings) sent to a target audience.
+* **When it is most appropriate:** When you need to gather standardized, quantitative data from a large or geographically dispersed group of people. It is highly efficient for validating assumptions across a broad user base without taking up hours of interview time.
+
+### 3. Reviewing Inputs, Outputs, and Documentation
+This involves examining the existing system's physical and digital artifacts, such as procedure manuals, blank forms, completed reports, and old system diagrams.
+* **When it is most appropriate:** Early in the analysis phase to understand the current "as-is" state. It is the best way to uncover formal business rules, identify exactly what data is currently being captured, and get up to speed without immediately interrupting users' workdays.
+
+### 4. Observing and Documenting Business Processes
+Also known as "shadowing," this technique involves a systems analyst quietly watching users perform their daily tasks in their actual work environment.
+* **When it is most appropriate:** When business processes are highly complex, when users have a hard time articulating exactly what they do step-by-step, or when you suspect there is a difference between the "official" documented procedure and how the work is actually performed in reality.
+
+### 5. Researching Vendor Solutions
+This involves investigating commercial off-the-shelf (COTS) software, exploring industry best practices, and seeing how other organizations solve similar problems.
+* **When it is most appropriate:** When you want to avoid "reinventing the wheel." It is crucial when the organization is deciding whether to build a custom solution or buy an existing one, or when you need inspiration for modern user-interface designs and features.
+
+### 6. Collecting Active User Comments and Suggestions
+This technique involves gathering ongoing, spontaneous feedback from users, often through suggestion boxes, IT help desk tickets, or feedback forms built into the current system.
+* **When it is most appropriate:** When you want to capture everyday frustrations, minor bug reports, and spontaneous ideas that users might forget by the time a formal interview rolls around. It is highly useful for identifying the most common pain points in a legacy system.
 
 ## **51.** What is the open-items list, and why is it important to a project?
 
+An **open-items list** (often called an issue log, action item list, or punch list) is a centralized, living document used to track unresolved issues, unanswered questions, pending decisions, and incomplete tasks that arise during a project's lifecycle. 
+
+Instead of letting a stray question from an interview or a missing piece of documentation halt the entire analysis phase, the analyst logs it on the open-items list so the main work can continue. A typical list includes the item description, the date it was logged, the person responsible for resolving it (the owner), its current status, and the target resolution date.
+
+Here is why the open-items list is so important to a project:
+
+* **Ensures Nothing Falls Through the Cracks:** Projects have many moving parts. The list acts as a safety net, ensuring that every small detail, unanswered question, or deferred task is recorded and remembered.
+* **Assigns Clear Accountability:** By assigning an "owner" to every open item, there is no confusion about whose job it is to find the answer or resolve the issue. 
+* **Prevents Bottlenecks and Delays:** It highlights unresolved issues early. Project managers can review the list regularly to clear blockers before they escalate and impact the project's timeline or budget.
+* **Facilitates Effective Meetings:** It provides a structured agenda for status meetings. Instead of asking, "What is everyone working on?", the team can review the open-items list to see exactly what needs immediate attention.
+* **Maintains Project Momentum:** It allows the team to acknowledge a problem, document it, and set it aside for the moment, allowing the rest of the project work to proceed without losing stride.
+
 ## **52.** What are the benefits of vendor research during information gathering?
+Researching vendor solutions during the information-gathering phase provides several strategic advantages that can shape the entire trajectory of a project. Instead of looking only inward at the organization's current processes, vendor research allows analysts to look outward at how the broader industry is solving similar problems.
+Here are the primary benefits of vendor research:
+
+* **Informs the "Build vs. Buy" Decision:** The most immediate benefit is helping the organization decide whether it is more cost-effective to develop a custom system from scratch or purchase a Commercial Off-The-Shelf (COTS) solution. 
+* **Reveals Industry Best Practices:** Software vendors design their products to meet the needs of many different organizations, which means their systems are often built around optimized, standard industry workflows. Reviewing these solutions can highlight more efficient ways to handle business processes that the organization may not have considered.
+* **Prevents "Reinventing the Wheel":** If an existing software package already solves 90% of the organization's problems, it saves immense amounts of time, money, and development effort to leverage that existing architecture rather than designing the exact same features from the ground up.
+* **Helps Refine and Expand Requirements:** Stakeholders often do not know what is technologically possible until they see it in action. Viewing a vendor demo can act as a catalyst, prompting users to say, "We didn't know a system could do that, but we definitely need that feature."
+* **Provides Realistic Cost and Timeline Baselines:** Investigating what is currently available on the market gives analysts a realistic benchmark for estimating how much the final system might cost to implement and how long it will take to deploy. 
+* **Identifies State-of-the-Art Features:** Vendors continuously invest in research and development to stay competitive. Reviewing their products allows analysts to see the latest user-interface designs, security protocols, and technological integrations (like AI or cloud features) that should be incorporated into the new system's requirements.
 
 ## **53.** What types of stakeholders should be included in fact-finding?
+When gathering facts for a new system, it is crucial to consult a wide variety of stakeholders. If an analyst only talks to management, the system might not work for the everyday users; if they only talk to users, the system might miss strategic business goals. 
+To get a complete picture, fact-finding should include the following types of stakeholders:
+
+### 1. Operational Stakeholders (End-Users)
+These are the people who will interact with the system on a daily basis to do their jobs. 
+* **Why include them:** They know the current workflows intimately, including the workarounds, the bottlenecks, and the specific data entry requirements. They will tell you what the system *actually* needs to do to be useful on the ground floor.
+* **Examples:** Clerks, sales representatives, customer service agents, and warehouse workers.
+
+### 2. Executive and Management Stakeholders
+These are the decision-makers, project sponsors, and budget holders. 
+* **Why include them:** They provide the "big picture." They understand the strategic goals, financial constraints, and reporting needs of the organization. They will dictate the business value the system must deliver.
+* **Examples:** Department managers, financial officers, and C-level executives (CEO, CIO).
+
+### 3. Technical Stakeholders
+These are the internal IT staff who will eventually support, maintain, or integrate the new system.
+* **Why include them:** They understand the organization's current technological infrastructure. They will provide the non-functional requirements regarding security, database structures, network compatibility, and hardware limitations.
+* **Examples:** Network administrators, database administrators, cybersecurity experts, and technical support staff.
+
+### 4. External Stakeholders
+These are people outside the immediate organization who will still interact with or be affected by the system.
+* **Why include them:** If the system is outward-facing, external stakeholders determine its ultimate success. If a system is too difficult for a customer to use, they will go to a competitor. 
+* **Examples:** Customers using an online portal, suppliers interacting with an inventory system, or regulatory bodies requiring specific compliance reports. 
 
 ## **54.** What is the purpose of an activity diagram? How does it differ from a flowchart?
+
+### The Purpose of an Activity Diagram
+An **activity diagram** is a Unified Modeling Language (UML) diagram used to model a system's workflow, business processes, or the step-by-step logic of a specific use case. Its primary purpose is to visualize the dynamic behavior of a system, clearly showing the flow of control from one activity to another, including where decisions are made and what conditions must be met to move forward.
+### How an Activity Diagram Differs from a Flowchart
+While they look visually similar and both map out processes, activity diagrams are more advanced and specifically tailored for modern software engineering. Here are the key differences:
+
+* **Handling Concurrency (Parallelism):** This is the most significant difference. Flowcharts typically model strictly sequential, single-threaded paths (one step follows the next). Activity diagrams are designed to handle concurrent processes using "fork" and "join" nodes. For example, an activity diagram can show a system processing a credit card payment *at the exact same time* it is updating the inventory database.
+* **Standardization and Object-Oriented Focus:** Activity diagrams are a formalized part of UML, making them a standard tool in object-oriented design. They are built to map directly to software objects, classes, and use cases. Flowcharts are older, generalized diagrams used across many non-technical fields.
+* **System Responsibilities (Swimlanes):** Activity diagrams natively use "swimlanes" (or partitions) to clearly designate which actor, system component, or department is responsible for executing a specific action within the workflow, tightly linking the process back to system architecture.
+
 
 ## **102.** What is the difference between a client and a user?
 
