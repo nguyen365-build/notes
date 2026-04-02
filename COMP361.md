@@ -2459,20 +2459,342 @@ By using a suite of diagrams, we ensure **High Cohesion** in our documentation�
 
 
 ## **114.** Define data access class and explain its purpose.
+In the architecture of a modern software system, a **Data Access Class** (often referred to as a **Data Access Object** or **DAO**) is a specialized class responsible for managing the connection and communication between the application and its persistent storage, such as a database or a file system.
+
+It acts as a dedicated "translator" that speaks both the language of the programming code (like C# or Java) and the language of the data store (like SQL).
+
+---
+
+## 1. The Primary Purpose: Separation of Concerns
+The single most important reason for using data access classes is to isolate the **Data Layer** from the **Logic Layer**. 
+
+Without these classes, you would have SQL queries scattered throughout your business logic. If you ever needed to change a table name or switch from an Oracle database to a SQL Server, you would have to hunt through every file in your project to find and fix the code.
+
+By using data access classes, all database-specific code is "bottled up" in one place. The rest of your application simply asks the data access class for "Customer #123," and it doesn't care whether that data comes from a local text file, a massive SQL cluster, or a cloud API.
+
+
+
+---
+
+## 2. What a Data Access Class Does
+A standard data access class typically performs the **CRUD** operations for a specific domain entity. For a class named `CustomerAccess`, its methods might look like this:
+
+* **`insert(customer)`:** Translates an object into a SQL `INSERT` statement.
+* **`find(customerID)`:** Executes a `SELECT` statement and maps the resulting row back into a usable code object.
+* **`update(customer)`:** Synchronizes changes made in the app back to the database.
+* **`delete(customerID)`:** Removes the record from storage.
+
+---
+
+## 3. Key Benefits of This Approach
+
+| Benefit | Why It Matters |
+| :--- | :--- |
+| **Maintainability** | If the database schema changes, you only have to update code in one file (the data access class). |
+| **Testability** | You can "mock" or fake the data access class during testing so you can test your business logic without actually needing a live database connection. |
+| **Security** | It provides a centralized place to handle security measures like **Parameterization**, which prevents SQL injection attacks. |
+| **Reusability** | Multiple parts of the application (the web site, the mobile app, and the reporting tool) can all use the same data access class to ensure they handle data consistently. |
+
+---
+
+## 4. The "Bridge" Role
+In a **Three-Layer Design**, the logic layer never "talks" to the database. Instead, it creates an instance of a data access class and calls its methods. 
+
+> **Example:** When you click "Save" on a profile page, the **View Layer** tells the **Logic Layer** to save the user. The Logic Layer validates the data and then calls `UserAccess.update(user)`. The Data Access Class then opens a connection, executes the SQL, and tells the Logic Layer if it succeeded.
+
 
 ## **115.** Define model and list the three types.
+In the context of systems analysis and design, a **model** is an abstraction or representation of some aspect of the real world. Its primary purpose is to simplify complex systems so that they can be more easily understood, analyzed, and communicated to others.
+
+Models allow stakeholders and developers to focus on specific features of a system while ignoring irrelevant details.
+
+---
+
+## The Three Types of Models
+
+Most analysts categorize models into three distinct formats based on how they represent information:
+
+### 1. Physical Models
+These are tangible, three-dimensional representations of a real-world object. In traditional engineering, this might be a scale model of a bridge or a building. In computer systems, a physical model might be a mock-up of a new hardware device or a prototype of a physical user interface.
+
+
+
+### 2. Graphical Models
+These are the most common models used in software development. They use diagrams, charts, and symbols to represent the structure and behavior of a system. They are highly effective for showing relationships and workflows that are difficult to describe with text alone.
+
+* **Examples:** Use case diagrams, class diagrams, and sequence diagrams.
+
+
+
+### 3. Mathematical Models
+These models use formulas, equations, and mathematical notations to represent the logic or performance of a system. They are often used for scientific simulations, financial projections, or calculating network throughput and system load.
+
+* **Examples:** An algorithm expressed as a complex equation or a spreadsheet used for budget forecasting.
+
+
+
+---
+
+By using a combination of these three types, a team can ensure they have a complete "blueprint" of the system before any actual construction begins. Which of these three do you find yourself using most often in your current coursework or projects?
 
 ## **116.** Define activity diagram and explain its purpose.
+An **activity diagram** is a behavioral diagram in the Unified Modeling Language (UML) that visualizes the step-by-step flow of activities and actions within a system. Think of it as a "flowchart on steroids"—it tracks the movement from one activity to another, but with the added ability to handle complex logic like parallel processing and conditional branches.
+
+
+
+---
+
+## 1. The Core Purpose of Activity Diagrams
+The primary goal of an activity diagram is to describe the **dynamic behavior** of a system. Analysts use them to:
+
+* **Model Business Workflows:** They are the best tool for showing how a business process works from start to finish (e.g., the steps involved in processing an insurance claim).
+* **Detail Use Case Logic:** While a use case diagram shows *who* is involved, the activity diagram shows the specific sequence of events that happens *inside* that use case, including "Happy Paths" and error handling.
+* **Identify Parallelism:** Activity diagrams are unique because they can show multiple tasks happening at the same time (concurrency) using "Forks" and "Joins."
+* **Map Complex Algorithms:** Developers use them to "sketch" the logic of a difficult piece of code before they actually start programming.
+
+---
+
+## 2. Key Components of the Diagram
+To read or create an activity diagram, you need to understand its primary symbols:
+
+* **Action/Activity (Rounded Rectangle):** Represents a single task or step in the process (e.g., "Calculate Tax").
+* **Control Flow (Arrow):** Shows the path from one activity to the next.
+* **Decision Diamond:** A point where the flow branches based on a condition (e.g., "Is payment valid?").
+* **Swimlanes:** Vertical or horizontal columns that group activities by **who** performs them (e.g., "Customer," "Sales Dept," "System").
+* **Fork and Join (Black Bars):** A **Fork** splits one path into multiple parallel tasks; a **Join** brings those parallel tasks back into a single path.
+* **Start/End Nodes:** A solid black circle marks the beginning, and a "bullseye" circle marks the final conclusion of the process.
+
+---
+
+## 3. When to Use an Activity Diagram
+You should reach for an activity diagram when you need to explain **how** a process works to a stakeholder. Because they are easy to read (similar to flowcharts), they are excellent communication tools for bridging the gap between business users and technical developers.
+
+They are particularly useful during the **Systems Analysis** phase to ensure that everyone agrees on the business rules before the first line of code is ever written.
+
 
 ## **117.** Define component diagram.
+A **component diagram** is a structural diagram in the Unified Modeling Language (UML) that describes how a system is divided into physical software components and the dependencies between them. 
+
+While a class diagram shows the logical design (the "code" level), a component diagram shows the **physical implementation** of that code—how those classes are bundled together into executable files, libraries, or database schemas.
+
+
+
+---
+
+## 1. The Primary Purpose
+The main goal of a component diagram is to visualize the high-level architecture of a complex system. It helps architects and developers:
+* **Encapsulate Logic:** Group related classes into a single reusable unit (a component).
+* **Define Interfaces:** Show how one part of the system provides services to another.
+* **Manage Dependencies:** Identify which components rely on others, which is critical for planning updates and preventing "ripple effects" when code changes.
+* **Facilitate Reuse:** By seeing a system as a set of black-box components with clear inputs and outputs, it becomes easier to swap one version of a component for another.
+
+---
+
+## 2. Key Elements of the Diagram
+* **Component (Rectangle with two small tabs):** Represents a modular part of the system (e.g., a `.dll` file, an EJB, a database, or a web service).
+* **Provided Interface (Lollipop symbol):** Represents the services or functions that the component "gives" to the rest of the system.
+* **Required Interface (Socket/C-shape symbol):** Represents the services that the component "needs" from another component to function.
+* **Dependency (Dashed Arrow):** Shows that one component relies on the functionality of another.
+
+---
+
+## 3. When is it Used?
+Component diagrams are used during the **Systems Design** and **Implementation** phases. They are particularly important in modern architectures like **Microservices** or **Component-Based Development**, where different teams might be building different "blocks" of the system simultaneously. 
+
+By agreeing on the component diagram first, the teams can ensure that their individual pieces will fit together perfectly once they are finished.
+
 
 ## **118.** Define communication diagram.
+A **communication diagram** (known as a "collaboration diagram" in older versions of UML) is a type of interaction diagram that focuses on the structural organization of the objects that send and receive messages. 
+
+While a sequence diagram shows you the "script" of an interaction over a timeline, a communication diagram shows you the "map" of which objects are linked together and how they talk to one another.
+
+---
+
+## 1. Core Purpose
+The primary goal of a communication diagram is to visualize the **relationships** between objects. It is less about *when* things happen and more about *who* is connected to *whom* to get a specific task done.
+
+
+
+---
+
+## 2. Key Components
+To read a communication diagram, you look for three main elements:
+
+* **Objects (Rectangles):** Represent the participants in the interaction (e.g., `:Customer`, `:Order`, `:Inventory`).
+* **Links (Solid Lines):** These connect the objects. A link indicates that a path exists for one object to send a message to another.
+* **Messages (Arrows with Numbers):** An arrow pointing from one object to another represents a message or a method call. 
+    * **The Numbers:** Because there is no vertical timeline, messages are numbered (1, 1.1, 2, 2.1) to show the order in which they occur.
+
+---
+
+## 3. Communication vs. Sequence Diagrams
+In UML, these two diagrams are "semantically equivalent," meaning you can often convert one into the other without losing information. However, they emphasize different things:
+
+| Feature | Sequence Diagram | Communication Diagram |
+| :--- | :--- | :--- |
+| **Primary Focus** | **Time:** The chronological order of events. | **Structure:** The organization of object links. |
+| **Visual Flow** | Vertical (top to bottom). | Free-form (like a network map). |
+| **Readability** | Great for seeing "when" things happen. | Great for seeing "who" is over-connected. |
+| **Best Use Case** | Complex logic and timing. | Brainstorming initial object relationships. |
+
+[Image comparing a UML sequence diagram and a communication diagram for the same process]
+
+---
+
+## 4. Why Use It?
+Communication diagrams are particularly useful during the **design phase** when you are trying to decide which classes should have "knowledge" of each other. 
+
+If you see an object in a communication diagram with twenty lines pointing to it, you’ve identified a potential "God Object" or a bottleneck. It’s a great way to spot **tight coupling** early on—if everyone has to talk to one specific class to get anything done, your system might be harder to maintain later.
+
 
 ## **119.** Define UML and explain why it is used.
+**UML**, or the **Unified Modeling Language**, is a standardized, general-purpose modeling language used in the field of software engineering. It is not a programming language; rather, it is a visual language consisting of a set of diagrams used to specify, visualize, construct, and document the artifacts of a software system.
+
+
+
+---
+
+## 1. Why is UML Used?
+
+UML was created to establish a "common language" for the software industry. It serves several critical functions in the development lifecycle:
+
+### Visualization
+It is difficult to understand a complex software architecture by looking only at thousands of lines of code. UML provides a way to see the "big picture," allowing developers and architects to grasp the system's structure and behavior at a glance.
+
+### Communication
+UML acts as a bridge between different stakeholders. It allows business analysts (who understand the problem) to communicate requirements to developers (who build the solution) using a shared set of symbols and rules that reduce the risk of misinterpretation.
+
+### Documentation
+Diagrams serve as a permanent record of the design decisions made during a project. This is invaluable when new team members join a project or when a system needs to be updated years after it was originally built.
+
+### Precision and Standardization
+Because UML is managed by the Object Management Group (OMG), its symbols and rules are the same worldwide. Whether you are in New York or Tokyo, a "filled diamond" on a diagram always represents **composition**, ensuring precision in technical specifications.
+
+---
+
+## 2. The Two Main Categories of UML
+
+UML 2.5 defines 14 different diagram types, which are broadly divided into two categories:
+
+| Category | Focus | Example Diagrams |
+| :--- | :--- | :--- |
+| **Structural Diagrams** | The **static** "skeleton" of the system—what it is made of. | Class, Component, Deployment, Object. |
+| **Behavioral Diagrams** | The **dynamic** "muscle" of the system—how it acts. | Use Case, Activity, Sequence, State Machine. |
+
+
+
+---
+
+## 3. The "Blueprint" Analogy
+Think of UML as the architectural blueprints for a building. The blueprints don't build the house themselves, but they tell the carpenters where the walls go, the plumbers where the pipes run, and the electricians where the wires connect. Without the blueprints, the builders might create a structure that looks like a house but fails to function correctly or collapses under pressure.
+
+---
+
 
 ## **120.** Define use case realization.
+**Use case realization** is the process of identifying and defining the specific classes and objects that collaborate to perform the steps of a particular use case. 
+
+In simpler terms, if a **use case** describes *what* the system does from a user's perspective, **use case realization** describes *how* the system's internal parts work together to make that happen. It is the bridge between the analysis phase (requirements) and the design phase (implementation).
+
+---
+
+## 1. The Bridge Between Analysis and Design
+During the analysis phase, we use **Use Case Diagrams** to show the goals of the system. However, these diagrams don't explain the code logic. Use case realization takes that goal and "realizes" it by mapping it to a set of collaborating objects.
+
+
+
+| Phase | Artifact | Focus |
+| :--- | :--- | :--- |
+| **Analysis** | Use Case | **External View:** What the user sees and needs. |
+| **Design** | Use Case Realization | **Internal View:** How the objects interact to fulfill the need. |
+
+---
+
+## 2. How is it Documented?
+A use case realization isn't a single diagram; it is typically a collection of several UML artifacts that work together to show the internal "machinery":
+
+* **Interaction Diagrams (Sequence or Communication):** These are the primary tools for realization. They show the specific messages sent between objects (like `Controller`, `User`, and `Database`) to complete a task.
+* **Design Class Diagrams:** These show the attributes and methods of the classes involved in the realization.
+* **State Machine Diagrams:** These may be used if the objects involved change states significantly during the process.
+
+---
+
+## 3. A Practical Example: "Withdraw Cash"
+Imagine a use case for an ATM called **Withdraw Cash**.
+
+1.  **The Use Case (Analysis):** "The customer inserts a card, enters a PIN, and receives cash."
+2.  **The Realization (Design):** To make this happen, several internal objects must "talk":
+    * The `ATM_UI` object captures the PIN.
+    * The `TransactionController` validates the PIN with the `BankServer`.
+    * The `Account` object checks for sufficient funds.
+    * The `CashDispenser` object is told to release the bills.
+
+The **Sequence Diagram** that shows these four objects passing messages back and forth is the **realization** of the "Withdraw Cash" use case.
+
+---
+
+## 4. Why is it Important?
+* **Verification:** It ensures that the design you are building actually supports the requirements you gathered.
+* **Discovery:** During realization, you often discover "hidden" classes you missed during analysis, such as controllers, security managers, or data access objects.
+* **Clarity for Developers:** It provides the "script" that a programmer needs to write the actual methods and logic.
+
+When you are moving from a list of user requirements to a technical design, do you find it more helpful to start with a sequence diagram to see the flow of messages, or a class diagram to see the data structure?
 
 ## **121.** Define client/server architecture.
+**Client/server architecture** is a distributed application framework that partitions tasks or workloads between the providers of a resource or service, called **servers**, and service requesters, called **clients**.
+
+In this model, the client and server usually communicate over a computer network on separate hardware, but both the client and the server may reside in the same system.
+
+
+
+[Image of client-server architecture diagram]
+
+
+---
+
+## 1. The Core Participants
+
+### The Client
+The client is the "front-end" of the relationship. It is typically a local device (like a smartphone, laptop, or workstation) that provides the user interface.
+* **Role:** To request specific data or services and display the results to the end-user.
+* **Examples:** A web browser (Chrome), a mobile banking app, or an email client (Outlook).
+
+### The Server
+The server is the "back-end" of the relationship. It is often a powerful machine or a cluster of cloud instances designed to manage resources and process requests.
+* **Role:** To wait for incoming requests, process the necessary logic or data retrieval, and send the result back to the client.
+* **Examples:** A web server (hosting website files), a database server (storing user records), or a mail server (handling sent/received emails).
+
+---
+
+## 2. The Request-Response Cycle
+The defining characteristic of this architecture is the **Request-Response** mechanism. The communication is almost always initiated by the client.
+
+1.  **Request:** The client sends a message to the server asking for a resource (e.g., "Give me the profile page for User #42").
+2.  **Processing:** The server receives the request, verifies the user's identity, retrieves the data from its database, and prepares the package.
+3.  **Response:** The server sends the requested data back to the client.
+4.  **Display:** The client receives the data and renders it for the user to see.
+
+
+
+---
+
+## 3. Key Characteristics
+
+| Feature | Description |
+| :--- | :--- |
+| **Centralization** | Data and business logic are stored on a central server, making it easier to manage and secure. |
+| **Scalability** | You can increase the power of the server (vertical scaling) or add more servers (horizontal scaling) as the number of clients grows. |
+| **Independence** | The client and server are loosely coupled; you can update the UI on the client without changing how the server stores data. |
+| **Shared Resources** | Multiple clients (e.g., 100 different people) can access the same data on one server simultaneously. |
+
+---
+
+## 4. Why Use It?
+The main advantage is **efficiency**. By offloading heavy processing and data storage to a dedicated server, the client device can remain "thin" and lightweight. It also ensures **data integrity**—because there is only one "source of truth" (the server), you don't have to worry about different users having conflicting versions of the same data.
+
+---
+
 
 ## **122.** Define three-layer architecture and describe what each layer does.
 
