@@ -2,7 +2,7 @@
 
 ## Section 1: Definition / Concept Questions
 
-1. What is an **abstract class**? How does it differ from a regular class? Give an example from a banking or car-sharing system.
+1. What is an **abstract class**? How does it differ from a regular class? Give an example from a banking or car-sharing system. [q01](#q01)
 2. What is an **activity diagram**? What symbols does it use, and when would an analyst use one?
 3. Compare **predictive vs. adaptive** approaches to software development. Give a real-world example of each.
 4. Distinguish between **alpha** and **beta** versions of software. What is the purpose of each stage?
@@ -299,6 +299,7 @@
 
 
 ## Section 1: Definitions – Concepts, Tools, and Processes
+### q01
 ### 1.	Abstract class
 
 **Definition:** An abstract class is intended to be a base or "blueprint" for other classes, but cannot be instantiated. It often contains at least one method that is defined but has no implementation, forcing subclasses to provide the specific logic.
@@ -307,6 +308,7 @@
 
 **Context:** In Object-Oriented Design, abstract classes are used to capture common characteristics of a group of objects while preventing developers from accidentally creating "incomplete" objects that don't make sense in the real world.
 
+### q02
 ### 2.	Activity diagram
 **Definition:** An activity diagram is a behavioral diagram that visualizes the sequential and parallel flow of activities, actions, and decisions within a system process or a specific use case.
 
@@ -314,7 +316,7 @@
 
 **Context:** System analysts use activity diagrams during the Analysis Phase to document complex business workflows. They are essentially "advanced flowcharts" that can handle complex, simultaneous actions.
 
- 
+### q03
 ### 3.	Adaptive/predictive approaches
 **Definition:** A Predictive approach assumes the project can be planned in advance, while an Adaptive approach assumes the project must evolve as it progresses.
 
@@ -322,6 +324,7 @@
 
 **Context:** Analysts choose between these based on project risk and requirement clarity. Predictive models suit stable, low-risk systems (e.g., payroll), while adaptive models are preferred for innovative projects where rapid change and constant stakeholder interaction are necessary for success.
 
+### q04
 ### 4.	Alpha/beta versions
 **Definition:** Alpha versions are early, unstable software builds tested internally by developers. Beta versions are more mature, feature-complete builds released to a limited group of external users to find remaining bugs.
 
@@ -329,6 +332,7 @@
 
 **Context:** In Implementation and Testing, these stages represent the transition from "it works on the developer's machine" to "it works for the actual customer."
 
+### q05
 ### 5.	Client/server architecture
 **Definition:** Client/server architecture is a distributed computing model that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.
 
@@ -336,6 +340,7 @@
 
 **Context:** Architects use this model to improve scalability and maintainability. By separating the user interface (client) from data management (server), developers can update the database schema or business rules without requiring a complete reinstallation of the end-user’s software.
 
+### q06
 ### 6.	Component diagram
 **Definition:** A component diagram is a structural diagram that describes how a system is split into physical components (like DLLs, database schemas, or executables) and the dependencies between them.
 
