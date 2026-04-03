@@ -2,80 +2,68 @@
 
 ## Section 1: Definition / Concept Questions
 
-1. What is an **abstract class**? How does it differ from a regular class? Give an example from a banking or car-sharing system. [q01](#q01)
-2. What is an **activity diagram**? What symbols does it use, and when would an analyst use one?
-3. Compare **predictive vs. adaptive** approaches to software development. Give a real-world example of each.
-4. Distinguish between **alpha** and **beta** versions of software. What is the purpose of each stage?
-5. Describe **client/server architecture**. How does it improve scalability?
-6. What is a **component diagram**? How is it different from a class diagram?
-7. What is a **communication diagram**? How does it relate to a sequence diagram?
-8. What is a **data access class**, and why is it used in multilayer architecture?
-9. Define **database normalization**. What problem does it solve? Give a before/after example.
-10. What is a **DBMS**? What functions does it perform?
-11. What is **deployment**, and what are the three deployment strategies an analyst might choose from?
-12. What is a **design pattern**? Describe the Observer pattern with an example.
-13. What is the **dialog metaphor** in HCI? Give an example.
-14. What is a **digital signature**, and what security property does it guarantee?
-15. Differentiate between **encryption** and **decryption**. Why are they important in system security?
-16. Who are **end users**? Why are they important to HCI design?
-17. What is an **event** in systems analysis? How do events relate to use cases?
-18. What is **Extreme Programming (XP)**? What practices does it emphasize?
-19. What does **HCI** stand for, and what is its goal in system design?
-20. What are **integrity controls**? Give two examples of how they protect data.
-21. What is a **model** in systems analysis? Name the three types and give an example of each.
-22. What is an **object** in object-oriented analysis? How does it differ from a class?
-23. What is **object-oriented design (OOD)**? What principles guide it?
-24. What is **pair programming**? What are its advantages and disadvantages?
-25. What is the **perfect technology assumption**? Why do analysts use it?
-26. What is a **project**? What three constraints define it?
-27. What is a **relational database**? How does it use keys to link tables?
-28. What are **requirements**? Distinguish between functional and non-functional requirements.
-29. What is **requirements determination**? What techniques are used?
-30. What is **Scrum**? Describe the roles and events in a Scrum framework.
-31. What is the **SDLC**? Name and briefly describe its major phases.
-32. What are **security controls**? Give two examples used in a web-based system.
-33. Who are **stakeholders**? Give examples from a car-sharing system.
-34. What is a **system**? What components make up an information system?
-35. What is a **System Vision Document**? What does it contain?
-36. What is a **Systems Development Methodology**? Why is it used?
-37. Compare **top-down vs. bottom-up** development. When would you choose each?
-38. Describe the **three-layer architecture**. What does each layer do?
-39. What is **UML**? What is its purpose in systems development?
-40. What is the **Unified Process**? Name its four phases and what happens in each.
-41. What is **unit testing**? How does it differ from integration testing?
-42. What is a **usability test**? How is it conducted?
-43. What is a **use case**? How does it differ from a use case diagram?
-44. What is **use case realization**? What diagrams are used to achieve it?
-45. What is the **user goal technique**? How is it used to identify use cases?
-46. What is a **user interface**? What makes a UI effective according to HCI principles?
+1. What is an **abstract class**? How does it differ from a regular class? Give an example from a banking or car-sharing system. [link](#q001)
+2. What is an **activity diagram**? What symbols does it use, and when would an analyst use one? [link](#q002)
+3. Compare **predictive vs. adaptive** approaches to software development. Give a real-world example of each. [link](#q003)
+4. Distinguish between **alpha** and **beta** versions of software. What is the purpose of each stage? [link](#q004)
+5. Describe **client/server architecture**. How does it improve scalability? [link](#q005)
+6. What is a **component diagram**? How is it different from a class diagram? [link](#q006)
+7. What is a **communication diagram**? How does it relate to a sequence diagram? [link](#q007)
+8. What is a **data access class**, and why is it used in multilayer architecture? [link](#q008)
+9. Define **database normalization**. What problem does it solve? Give a before/after example. [link](#q009)
+10. What is a **DBMS**? What functions does it perform? [link](#q010)
+11. What is **deployment**, and what are the three deployment strategies an analyst might choose from? [link](#q011)
+12. What is a **design pattern**? Describe the Observer pattern with an example. [link](#q012)
+13. What is the **dialog metaphor** in HCI? Give an example. [link](#q013)
+14. What is a **digital signature**, and what security property does it guarantee? [link](#q014)
+15. Differentiate between **encryption** and **decryption**. Why are they important in system security? [link](#q015)
+16. Who are **end users**? Why are they important to HCI design? [link](#q016)
+17. What is an **event** in systems analysis? How do events relate to use cases? [link](#q017)
+18. What is **Extreme Programming (XP)**? What practices does it emphasize? [link](#q018)
+19. What does **HCI** stand for, and what is its goal in system design? [link](#q019)
+20. What are **integrity controls**? Give two examples of how they protect data. [link](#q020)
+21. What is a **model** in systems analysis? Name the three types and give an example of each. [link](#q021)
+22. What is an **object** in object-oriented analysis? How does it differ from a class? [link](#q022)
+23. What is **object-oriented design (OOD)**? What principles guide it? [link](#q023)
+24. What is **pair programming**? What are its advantages and disadvantages? [link](#q024)
+25. What is the **perfect technology assumption**? Why do analysts use it? [link](#q025)
+26. What is a **project**? What three constraints define it? [link](#q026)
+27. What is a **relational database**? How does it use keys to link tables? [link](#q027)
+28. What are **requirements**? Distinguish between functional and non-functional requirements. [link](#q028)
+29. What is **requirements determination**? What techniques are used? [link](#q029)
+30. What is **Scrum**? Describe the roles and events in a Scrum framework. [link](#q030)
+31. What is the **SDLC**? Name and briefly describe its major phases. [link](#q031)
+32. What are **security controls**? Give two examples used in a web-based system. [link](#q032)
+33. Who are **stakeholders**? Give examples from a car-sharing system. [link](#q033)
+34. What is a **system**? What components make up an information system? [link](#q034)
+35. What is a **System Vision Document**? What does it contain? [link](#q035)
+36. What is a **Systems Development Methodology**? Why is it used? [link](#q036)
+37. Compare **top-down vs. bottom-up** development. When would you choose each? [link](#q037)
+38. Describe the **three-layer architecture**. What does each layer do? [link](#q038)
+39. What is **UML**? What is its purpose in systems development? [link](#q039)
+40. What is the **Unified Process**? Name its four phases and what happens in each. [link](#q040)
+41. What is **unit testing**? How does it differ from integration testing? [link](#q041)
+42. What is a **usability test**? How is it conducted? [link](#q042)
+43. What is a **use case**? How does it differ from a use case diagram? [link](#q043)
+44. What is **use case realization**? What diagrams are used to achieve it? [link](#q044)
+45. What is the **user goal technique**? How is it used to identify use cases? [link](#q045)
+46. What is a **user interface**? What makes a UI effective according to HCI principles? [link](#q046)
 
 # Chapter 2 – Investigating System Requirements
 
- **47.** List and briefly describe the five activities of systems analysis.
-
-**48.** What is the difference between functional and non-functional requirements? Give one example of each.
-
-**49.** Describe the steps for preparing, conducting, and following up on an interview session.
-
-**50.** What are the six information-gathering techniques? When is each most appropriate?
-
-**51.** What is the open-items list, and why is it important to a project?
-
-**52.** What are the benefits of vendor research during information gathering?
-
-**53.** What types of stakeholders should be included in fact-finding?
-
-**54.** What is the purpose of an activity diagram? How does it differ from a flowchart?
-
-**102.** What is the difference between a client and a user?
-
-**106.** How would you ensure complete and comprehensive requirements are gathered during an interview?
-
-**107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure?
-
-**108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
-
-**109.** How do you manage scope creep during requirements gathering? Describe at least two strategies.
+**47.** List and briefly describe the five activities of systems analysis. [link](#q047)
+**48.** What is the difference between functional and non-functional requirements? Give one example of each. [link](#q048)
+**49.** Describe the steps for preparing, conducting, and following up on an interview session. [link](#q049)
+**50.** What are the six information-gathering techniques? When is each most appropriate? [link](#q050)
+**51.** What is the open-items list, and why is it important to a project? [link](#q051)
+**52.** What are the benefits of vendor research during information gathering? [link](#q052)
+**53.** What types of stakeholders should be included in fact-finding? [link](#q053)
+**54.** What is the purpose of an activity diagram? How does it differ from a flowchart? [link](#q054)
+**102.** What is the difference between a client and a user? [link](#q102)
+**106.** How would you ensure complete and comprehensive requirements are gathered during an interview? [link](#q106)
+**107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure? [link](#q107)
+**108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions? [link](#q108)
+**109.** How do you manage scope creep during requirements gathering? Describe at least two strategies. [link](#q109)
 
 ---
 
@@ -83,223 +71,158 @@
 
 ### Use Cases
 
-**55.** What is a use case diagram? Identify its components (actors, use cases, system boundary).
-
-**59.** What is the user goal technique for identifying use cases? Give an example.
-
-**75.** What is a use case, and what is the difference between a use case and a scenario?
-
-**76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases.
-
-**77.** What is an elementary business process (EBP)?
-
-**78.** Define the three types of events (External, Temporal, State) and give an example of each.
-
-**79.** What is the perfect technology assumption?
-
-**80.** List the parts/compartments of a fully developed use case description.
-
-**81.** Compare and contrast preconditions, postconditions, and exception conditions.
-
-**103.** What is a brief use case description? What does it contain?
-
-**104.** Why are system controls not treated as use cases?
-
-**105.** Define CRUD and explain the purpose of the CRUD technique.
+**55.** What is a use case diagram? Identify its components (actors, use cases, system boundary). [link](#q055)
+**59.** What is the user goal technique for identifying use cases? Give an example [link](#q059)
+**75.** What is a use case, and what is the difference between a use case and a scenario? [link](#q075)
+**76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases. [link](#q076)
+**77.** What is an elementary business process (EBP [link](#q077)
+**78.** Define the three types of events (External, Temporal, State) and give an example of each. [link](#q078)
+**79.** What is the perfect technology assumption? [link](#q079)
+**80.** List the parts/compartments of a fully developed use case description. [link](#q080)
+**81.** Compare and contrast preconditions, postconditions, and exception conditions. [link](#q081)
+**103.** What is a brief use case description? What does it contain? [link](#q103)
+**104.** Why are system controls not treated as use cases?  [link](#q104)
+**105.** Define CRUD and explain the purpose of the CRUD technique. [link](#q105)
 
 ### Domain Modeling
 
-**56.** What is a domain model class diagram? What does it show that a use case diagram does not?
+**56.** What is a domain model class diagram? What does it show that a use case diagram does not? [link](#q056)
 
-**57.** What is a system sequence diagram (SSD)? How does it relate to a use case?
+**57.** What is a system sequence diagram (SSD)? How does it relate to a use case? [link](#q057)
 
-**58.** How does a state machine diagram differ from an activity diagram?
+**58.** How does a state machine diagram differ from an activity diagram? [link](#q058)
 
-**82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)?
+**82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)? [link](#q082)
 
-**83.** What is an attribute, an identifier (key), and a compound attribute?
+**83.** What is an attribute, an identifier (key), and a compound attribute? [link](#q083)
 
-**84.** What is an association class?
+**84.** What is an association class [link](#q084)
 
-**85.** Compare and contrast an abstract class and a concrete class.
+**85.** Compare and contrast an abstract class and a concrete class. [link](#q085)
 
-**86.** Compare and contrast aggregation with composition in a whole-part relationship.
+**86.** Compare and contrast aggregation with composition in a whole-part relationship. [link](#q086)
 
-**87.** What is multiplicity, and how is it used on a class diagram?
+**87.** What is multiplicity, and how is it used on a class diagram? [link](#q087)
 
 ---
 
 ## Chapter 4 – Object-Oriented Concepts & Design Patterns
 
-**111.** Define abstract class and give an example.
+**111.** Define abstract class and give an example. [link](#q111)
 
-**112.** Define object, class, and object-oriented design, and distinguish between them.
+**112.** Define object, class, and object-oriented design, and distinguish between them. [link](#q112)
 
-**113.** Define design pattern and give an example (e.g., the Observer pattern).
+**113.** Define design pattern and give an example (e.g., the Observer pattern). [link](#q113)
 
-**93.** What are the components of a standard design pattern definition (e.g., Gang of Four)?
+**93.** What are the components of a standard design pattern definition (e.g., Gang of Four [link](#q093)
 
-**94.** Compare and contrast coupling and cohesion.
+**94.** Compare and contrast coupling and cohesion. [link](#q094)
 
-**92.** How are domain classes different from design classes?
+**92.** How are domain classes different from design classes? [link](#q092)
 
 ---
 
 ## Chapter 5 – Systems Design & Architecture
 
-**88.** What is the primary objective of systems design, and how does it differ from systems analysis?
-
-**89.** What is three-layer design? Describe the view layer, logic layer, and data layer.
-
-**90.** Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration.
-
-**91.** What is an API, and why is it important in modern systems?
-
-**110.** Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all?
-
-**114.** Define data access class and explain its purpose.
-
-**115.** Define model and list the three types.
-
-**116.** Define activity diagram and explain its purpose.
-
-**117.** Define component diagram.
-
-**118.** Define communication diagram.
-
-**119.** Define UML and explain why it is used.
-
-**120.** Define use case realization.
-
-**121.** Define client/server architecture.
-
-**122.** Define three-layer architecture and describe what each layer does.
-
-**123.** Define top-down vs. bottom-up development.
+**88.** What is the primary objective of systems design, and how does it differ from systems analysis? [link](#q088)
+**89.** What is three-layer design? Describe the view layer, logic layer, and data layer. [link](#q089)
+**90.** Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration. [link](#q090)
+**91.** What is an API, and why is it important in modern systems? [link](#q091)
+**110.** Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all? [link](#q110)
+**114.** Define data access class and explain its purpose. [link](#q114)
+**115.** Define model and list the three types. [link](#q115)
+**116.** Define activity diagram and explain its purpose. [link](#q116)
+**117.** Define component diagram. [link](#q117)
+**118.** Define communication diagram. [link](#q118)
+**119.** Define UML and explain why it is used. [link](#q119)
+**120.** Define use case realization. [link](#q120)
+**121.** Define client/server architecture. [link](#q121)
+**122.** Define three-layer architecture and describe what each layer does. [link](#q122)
+**123.** Define top-down vs. bottom-up development. [link](#q123)
 
 ---
 
 ## Chapter 6 – Database Design
 
-**60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
-
-**61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use?
-
-**62.** What is a primary key? What is a foreign key? How do they relate tables?
-
-**63.** What is referential integrity, and how does a DBMS enforce it?
-
-**64.** What is a relational database schema? How is it derived from a domain model?
-
-**95.** Describe the steps to transform a domain class diagram into a relational database schema.
-
-**96.** What is database normalization? Describe 1NF, 2NF, and 3NF.
-
-**124.** Define DBMS and explain its role.
-
-**125.** Define database normalization.
-
-**126.** Define relational database.
-
+**60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each. [link](#q060)
+**61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use? [link](#q061)
+**62.** What is a primary key? What is a foreign key? How do they relate tables? [link](#q062)
+**63.** What is referential integrity, and how does a DBMS enforce it? [link](#q063)
+**64.** What is a relational database schema? How is it derived from a domain model? [link](#q064)
+**95.** Describe the steps to transform a domain class diagram into a relational database schema. [link](#q095)
+**96.** What is database normalization? Describe 1NF, 2NF, and 3NF. [link](#q096)
+**124.** Define DBMS and explain its role. [link](#q124)
+**125.** Define database normalization. [link](#q125)
+**126.** Define relational database. [link](#q126)
 ---
 
 ## Chapter 7 – Security & Controls
 
-**65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
-
-**66.** Describe three types of security controls an analyst might recommend.
-
-**67.** What is the difference between authentication and authorization?
-
-**68.** What is a replicated database architecture? What synchronization challenges does it create?
-
-**97.** Explain the four types of input controls (field combination, value limit, completeness, data validation).
-
-**98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption.
-
-**99.** What is a digital signature, and what does it verify?
-
-**127.** Define digital signature and what it verifies.
-
-**128.** Define encryption and decryption.
-
-**129.** Define and distinguish security controls vs. integrity controls.
+**65.** What are the three goals of system security (Confidentiality, Integrity, Availability)? [link](#q065)
+**66.** Describe three types of security controls an analyst might recommend. [link](#q066)
+**67.** What is the difference between authentication and authorization? [link](#q067)
+**68.** What is a replicated database architecture? What synchronization challenges does it create? [link](#q068)
+**97.** Explain the four types of input controls (field combination, value limit, completeness, data validation). [link](#q097)
+**98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption. [link](#q098)
+**99.** What is a digital signature, and what does it verify? [link](#q099)
+**127.** Define digital signature and what it verifies. [link](#q127)
+**128.** Define encryption and decryption. [link](#q128)
+**129.** Define and distinguish security controls vs. integrity controls. [link](#q129)
 
 ---
 
 ## Chapter 8 – Object-Oriented Design (OOD)
 
-**69.** What is the difference between analysis and design in the SDLC?
-
-**70.** What is a first-cut design class diagram? How is it derived from a domain model?
-
-**71.** What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram?
-
-**72.** Why do we need multiple types of diagrams in the design phase? What does each one show?
-
-**73.** How do you add method signatures to a design class diagram using sequence diagrams as a guide?
-
-**74.** What is a package diagram? What problem does it solve in large systems?
+**69.** What is the difference between analysis and design in the SDLC? [link](#q069)
+**70.** What is a first-cut design class diagram? How is it derived from a domain model? [link](#q070)
+**71.** What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram? [link](#q071)
+**72.** Why do we need multiple types of diagrams in the design phase? What does each one show? [link](#q072)
+**73.** How do you add method signatures to a design class diagram using sequence diagrams as a guide? [link](#q073)
+**74.** What is a package diagram? What problem does it solve in large systems? [link](#q074)
 
 ---
 
 ## Chapter 9 – Project Management & SDLC Methodologies
 
-**100.** Contrast predictive and adaptive approaches to the SDLC.
-
-**101.** What are the four values of Agile development?
-
-**130.** Define SDLC and its major phases.
-
-**131.** Define deployment and describe deployment strategies.
-
-**132.** Define project.
-
-**133.** Define requirements.
-
-**134.** Define requirements determination.
-
-**135.** Define Scrum and its key roles and events.
-
-**136.** Define Extreme Programming (XP).
-
-**137.** Define pair programming.
-
-**138.** Define and distinguish adaptive vs. predictive approaches.
+**100.** Contrast predictive and adaptive approaches to the SDLC. [link](#q100)
+**101.** What are the four values of Agile development? [link](#q101)
+**130.** Define SDLC and its major phases. [link](#q130)
+**131.** Define deployment and describe deployment strategies. [link](#q131)
+**132.** Define project. [link](#q132)
+**133.** Define requirements. [link](#q133)
+**134.** Define requirements determination. [link](#q134)
+**135.** Define Scrum and its key roles and events. [link](#q135)
+**136.** Define Extreme Programming (XP). [link](#q136)
+**137.** Define pair programming. [link](#q137)
+**138.** Define and distinguish adaptive vs. predictive approaches. [link](#q138)
 
 ---
 
 ## Human-Computer Interaction (HCI)
 
-**142.** Define HCI and its goals.
-
-**143.** Define the dialog metaphor.
-
-**144.** Define user interface.
-
-**145.** Define usability test.
+**142.** Define HCI and its goals. [link](#q142)
+**143.** Define the dialog metaphor. [link](#q143)
+**144.** Define user interface. [link](#q144)
+**145.** Define usability test. [link](#q145)
 
 ---
 
 ## Stakeholders & Users
 
-**139.** Define stakeholders and give examples.
-
-**140.** Define end users and explain why they matter.
-
-**141.** Define event in the context of systems analysis.
+**139.** Define stakeholders and give examples. [link](#q139)
+**140.** Define end users and explain why they matter. [link](#q140)
+**141.** Define event in the context of systems analysis. [link](#q141)
 
 ---
 
 ## Testing
 
-**146.** Define unit testing.
-
-**147.** Define and distinguish alpha vs. beta versions.
+**146.** Define unit testing. [link](#q146)
+**147.** Define and distinguish alpha vs. beta versions. [link](#q147)
 
 
 ## Section 1: Definitions – Concepts, Tools, and Processes
-### q01
+### q001
 ### 1.	Abstract class
 
 **Definition:** An abstract class is intended to be a base or "blueprint" for other classes, but cannot be instantiated. It often contains at least one method that is defined but has no implementation, forcing subclasses to provide the specific logic.
@@ -308,7 +231,7 @@
 
 **Context:** In Object-Oriented Design, abstract classes are used to capture common characteristics of a group of objects while preventing developers from accidentally creating "incomplete" objects that don't make sense in the real world.
 
-### q02
+### q002
 ### 2.	Activity diagram
 **Definition:** An activity diagram is a behavioral diagram that visualizes the sequential and parallel flow of activities, actions, and decisions within a system process or a specific use case.
 
@@ -316,7 +239,7 @@
 
 **Context:** System analysts use activity diagrams during the Analysis Phase to document complex business workflows. They are essentially "advanced flowcharts" that can handle complex, simultaneous actions.
 
-### q03
+### q003
 ### 3.	Adaptive/predictive approaches
 **Definition:** A Predictive approach assumes the project can be planned in advance, while an Adaptive approach assumes the project must evolve as it progresses.
 
@@ -324,7 +247,7 @@
 
 **Context:** Analysts choose between these based on project risk and requirement clarity. Predictive models suit stable, low-risk systems (e.g., payroll), while adaptive models are preferred for innovative projects where rapid change and constant stakeholder interaction are necessary for success.
 
-### q04
+### q004
 ### 4.	Alpha/beta versions
 **Definition:** Alpha versions are early, unstable software builds tested internally by developers. Beta versions are more mature, feature-complete builds released to a limited group of external users to find remaining bugs.
 
@@ -332,7 +255,7 @@
 
 **Context:** In Implementation and Testing, these stages represent the transition from "it works on the developer's machine" to "it works for the actual customer."
 
-### q05
+### q005
 ### 5.	Client/server architecture
 **Definition:** Client/server architecture is a distributed computing model that partitions tasks or workloads between the providers of a resource or service, called servers, and service requesters, called clients.
 
@@ -340,13 +263,14 @@
 
 **Context:** Architects use this model to improve scalability and maintainability. By separating the user interface (client) from data management (server), developers can update the database schema or business rules without requiring a complete reinstallation of the end-user’s software.
 
-### q06
+### q006
 ### 6.	Component diagram
 **Definition:** A component diagram is a structural diagram that describes how a system is split into physical components (like DLLs, database schemas, or executables) and the dependencies between them.
 
 **Example:** In the car-sharing system, a component diagram might show a "Payment Component," a "User Profile Component," and a "Vehicle Tracking Component" that all plug into a central "API Gateway."
 **Context:** In System Architecture, these diagrams help developers and stakeholders see how the system is organized into modular blocks that can be developed, tested, and replaced independently.
 
+### q007
 ### 7.	Communication diagram
 **Definition:** A communication diagram is a type of interaction diagram that shows how objects associate and collaborate to perform a specific task or use case. Communication Diagram focuses on the organizational structure and relationships between objects.
 
@@ -354,6 +278,7 @@
 
 **Context:** In Object-Oriented Design, these diagrams are used to model the dynamic behavior of a system. They are often used interchangeably with Sequence Diagrams because they contain the same information but present it in a different visual layout.
 
+### q008
 ### 8.	Data access class
 **Definition:** A data access class is a specific class in an object-oriented system that contains the logic required to fetch, insert, update, or delete data from a database. It acts as a "bridge" or intermediary between the business logic and the physical database.
 
@@ -361,6 +286,7 @@
 
 **Context:** In Object-Oriented Design, these classes are part of a Multilayer Architecture. By separating data access into its own class, you can change your database (e.g., moving from MySQL to Oracle) without having to rewrite your entire application's business rules.
 
+### q009
 ### 9.	Database normalization
 **Definition:** Database normalization is a systematic, multi-step process used to organize the fields and tables of a relational database to minimize data redundancy (duplication) and improve data integrity.
 
@@ -368,6 +294,7 @@
 
 **Context:** In Database Design, normalization ensures that if a piece of data changes (like a phone number), it only needs to be updated in one place.
 
+### q010
 ### 10.	DBMS
 **Definition:** A DBMS is a specialized software suite that serves as the interface between users, applications, and the actual data stored in a database. It allows users to create, read, update, and delete (CRUD) data while managing the database's structure.
 
@@ -375,6 +302,7 @@
 
 **Context:** In Database Design, the DBMS is the "engine" that enforces security, handles multi-user access (concurrency), and ensures that the data follows the rules defined in the Relational Database schema.
 
+### q011
 ### 11.	Deployment
 **Definition:** Deployment is the final phase of the systems development process where the completed and tested software is moved into the live production environment for use by the end users.
 
@@ -382,6 +310,7 @@
 
 **Context:** Analysts plan deployment strategies (e.g., direct cutover, parallel, or phased) to minimize business disruption. Successful deployment ensures all software components are correctly integrated and operational for the client.
 
+### q012
 ### 12.	Design pattern
 **Definition:** A design pattern is a repeatable, proven solution to a commonly occurring problem in software design. It is not a finished piece of code, but a template or description of how to solve a problem that can be used in many different situations.
 
@@ -389,6 +318,7 @@
 
 **Context:** In Object-Oriented Design, using established patterns helps developers communicate more effectively and creates systems that are easier to maintain, flexible, and robust.
 
+### q013
 ### 13.	Dialog metaphor
 **Definition:** The dialog metaphor is a design concept where the interaction between a user and a computer is modeled after a human-to-human conversation.
 
@@ -396,6 +326,7 @@
 
 **Context:** In HCI (Human-Computer Interaction), this metaphor helps users understand how to navigate a system by following familiar social patterns of listening, thinking, and responding.
 
+### q014
 ### 14.	Digital signature
 **Definition:** A digital signature is a mathematical technique used to validate the authenticity and integrity of a digital document, message, or software. It is the digital equivalent of a handwritten signature or stamped seal, but far more secure.
 
@@ -404,6 +335,7 @@
 **Context:** In System Security, digital signatures ensure non-repudiation, meaning the sender cannot later deny sending the message, and they guarantee that the data hasn't been altered during transit.
 
  
+### q015
 ### 15.	Encryption/decryption
 **Definition:** The process of scrambling data into an unreadable format (encryption) and converting it back into its original form (decryption).
 
@@ -411,6 +343,7 @@
 
 **Context:** In System Security, these processes protect sensitive information during transmission and storage, ensuring data remains private and secure.
 
+### q016
 ### 16.	End users
 **Definition:** End users are specific people who will actually operate and interact with the software system on a daily basis.
 
@@ -418,6 +351,7 @@
 
 **Context:** Understanding end users is critical for HCI design, as the system must match their skills, needs, and work habits.
 
+### q017
 ### 17.	Event
 **Definition:** Event is a significant or noteworthy occurrence that takes place at a specific time and location, often triggering a system response.
 
@@ -425,6 +359,7 @@
 
 **Context:** In Systems Analysis, events are used to identify use cases by determining how the system must react to external or temporal changes.
  
+### q018
 ### 18.	Extreme programming
 **Definition:** Extreme programming is an Agile software development framework that focuses on high-quality code through constant feedback, simple designs, and frequent releases.
 
@@ -432,6 +367,7 @@
 
 **Context:** In Project Management, Extreme Programing reduces the cost of changes by emphasizing technical excellence and continuous communication with the customer.
 
+### q019
 ### 19.	HCI
 **Definition:** Human Computer Interaction is a field of study focusing on the design and use of computer technology, specifically the interfaces between people and computers.
 
@@ -439,6 +375,7 @@
 
 **Context:** HCI principles guide designers to create user interfaces that are efficient, easy to learn, and reduce user errors.
 
+### q020
 ### 20.	Integrity controls
 **Definition:** Integrity controls are internal mechanisms built into a system to ensure that data is entered correctly and remains accurate and complete. 
 
@@ -446,7 +383,7 @@
 
 **Context:** In System Design, these controls protect the database from human error or system glitches, maintaining "one version of the truth."
 
- 
+### q021 
 ### 21.	Model
 **Definition:** Model is a representation of a complex reality, used to understand, design, or document a system's structure and behavior.
 
@@ -454,6 +391,7 @@
 
 **Context:** Analysts use models (like Class or Sequence diagrams) to communicate ideas clearly between business stakeholders and the technical development team.
 
+### q022
 ### 22.	Object
 **Definition:** An object is a specific "thing" or instance in a system that has its own identity, data values, and behaviors.
 
@@ -461,6 +399,7 @@
 
 **Context:** In object-oriented analysis, objects are the basic building blocks that interact by sending messages to one another to perform tasks.
 
+### q023
 ### 23.	Object-oriented design
 **Definition:** Object-oriented design is a software design approach where a system is modeled as a collection of interacting objects that contain both data and behavior.
 
@@ -469,6 +408,7 @@
 **Context:** Object oriented design uses principles like GRASP and SOLID to create flexible, reusable code that is easy to maintain and change.
 
  
+### q024
 ### 24.	Pair programming
 **Definition:** Pair programming is an Agile development technique where two programmers work together at one workstation to write and review code simultaneously.
 
@@ -476,6 +416,8 @@
 
 **Context:** In Scrum or XP methodologies, it improves code quality and team knowledge sharing, though it initially requires more man-hours.
 
+
+### q025
 ### 25.	Perfect technology assumption
 **Definition:** The perfect technology assumption is a principle used during analysis where you assume that the system's hardware and software will work perfectly without any failures.
 
@@ -483,6 +425,7 @@
 
 **Context:** This allows analysts to focus on the essential business requirements and user goals (the "what") before worrying about technical limitations (the "how").
 
+### q026
 ### 26.	Project
 **Definition:** a project is a temporary endeavor undertaken to create a unique product, service, or result within a specific timeframe and budget.
 
@@ -491,6 +434,7 @@
 **Context:** In systems development, projects are managed using a SDLC to ensure that business goals are met while managing risks and resources.
 
  
+### q027
 ### 27.	Relational database
 **Definition:** a relational database is a digital collection of data organized into predefined tables with rows and columns that are linked by shared keys.
 
@@ -498,6 +442,7 @@
 
 **Context:** Analysts design relational databases using Entity-Relationship Diagrams (ERDs) to plan storage, these ensure data integrity and minimize redundancy.
 
+### q028
 ### 28.	Requirements
 **Definition:** Requirements are the specific descriptions of the services a system must provide and the constraints under which it must operate.
 
@@ -505,6 +450,7 @@
 
 **Context:** Analysts categorize these into functional (what it does) and non-functional (how it performs), often using the FURPS+ framework to ensure quality.
 
+### q029
 ### 29.	Requirements determination
 **Definition:** Requirements determination is the process of seeking, capturing, and consolidating the specific needs and constraints that a new system must satisfy.
 
@@ -513,6 +459,7 @@
 **Context:** This occurs during the Analysis phase and involves using techniques like interviews, questionnaires, and observation to define system scope.
 
  
+### q030
 ### 30.	Scrum
 **Definition:** Scrum is an Agile framework that uses short, fixed-length cycles called Sprints to deliver small portions of working software.
 
@@ -520,6 +467,7 @@
 
 **Context:** Project Managers use Scrum to help teams handle changing requirements through constant feedback and defined roles like the Scrum Master.
 
+### q031
 ### 31.	SDLC
 **Definition:** System Development Life Cycle is a structured process used by teams to plan, create, test, and deploy high-quality information systems effectively.
 
@@ -527,6 +475,7 @@
 
 **Context:** Analysts use the System Development Life Cycle to provide a framework of phases—like planning, analysis, design, and implementation—to ensure software meets business needs and budget.
 
+### q032
 ### 32.	Security controls
 **Definition:** Security controls are technical or administrative safeguards put in place to protect a system's data and resources from unauthorized access or damage.
 
@@ -534,7 +483,7 @@
 
 **Context:** Analysts design these controls to ensure data integrity and privacy by preventing hackers from stealing sensitive information or disrupting services.
 
- 
+### q033
 ### 33.	Stakeholders
 **Definition:** Stakeholders are any individual, group, or organization that has an interest in, or can be affected by, the success of a project.
 
@@ -542,6 +491,7 @@
 
 **Context:** In systems analysis, identifying all stakeholders ensures that everyone’s requirements are heard so the final system provides real business value.
 
+### q034
 ### 34.	System
 **Definition:** A system is a collection of interrelated components that function together as a single unit to achieve a specific set of goals.
 
@@ -549,6 +499,7 @@
 
 **Context:** In Information Systems, this includes hardware, software, data, and people collaborating to process information and solve business problems.
 
+### q035
 ### 35.	System Vision Document / Systems Development Methodology
 **Definition:** System Vision Document is a brief document that defines the business's need, the proposed solution's features, and the expected benefits of the project.
 
@@ -556,6 +507,7 @@
 
 **Context:** In the Inception phase, it serves as a high-level guide to help stakeholders decide if the project is worth the investment.
 
+### q036
 ### 36.	Systems Development Methodology
 **Definition:** System Development Methodology is a standardized process or "road map" that provides specific guidelines and steps for every activity in system development.
 
@@ -563,6 +515,7 @@
 
 **Context:** It ensures consistency and quality by telling the team exactly how to plan, analyze, design, and test the new system.
 
+### q037
 ### 37.	Top-down versus bottom-up development
 **Definition:** Two opposite strategies for building systems: starting with the main structure (Top-Down) or starting with individual components (Bottom-Up).
 
@@ -570,6 +523,7 @@
 
 **Context:** Systems analysts choose between these to manage complexity, ensuring either high-level logic or low-level technical functions work correctly first.
 
+### q038
 ### 38.	Three-layer architecture
 **Definition:** Three-layer architecture is a design pattern that organizes a system into three logical sections: the user interface, business logic, and data storage.
 
@@ -577,6 +531,7 @@
 
 **Context:** In system design, this separation (UI, Domain, and Data layers) makes the software easier to maintain, update, and scale.
 
+### q039
 ### 39.	UML
 **Definition:** Unified Modeling Language is a standardized set of symbols and diagrams used to visualize, specify, and document the design of software systems.
 
@@ -584,6 +539,7 @@
 
 **Context:** It acts as a universal blueprint language, allowing analysts and developers to communicate complex system structures without writing code.
 
+### q040
 ### 40.	Unified Process
 **Definition:** Unified process is a software framework that builds systems in small, repeatable cycles while focusing on high-risk areas first.
 
@@ -591,6 +547,7 @@
 
 **Context:** Unified process uses UML diagrams and four phases – Inception (define scope), Elaboration (identify requirements), Construction (build product), and Transition (move from system development to testing, training and deployment) – to guide teams through complex system development.
 
+### q041
 ### 41.	Unit Testing
 **Definition:** Unit Testing is the process of testing the smallest functional parts of an application, such as individual methods or classes, in isolation.
 
@@ -598,6 +555,7 @@
 
 **Context:** In system development, it ensures code quality early, making it easier to find bugs before integrating different system components.
 
+### q042
 ### 42.	Usability Test
 **Definition:** Usability Test is an evaluation method where real users attempt specific tasks to measure how easy and satisfying a system is to use.
 
@@ -605,6 +563,8 @@
 
 **Context:** In System Design (HCI), it identifies layout flaws and navigation issues, ensuring the final interface meets the needs of the end-user.
 
+
+### q043
 ### 43.	Use case
 **Definition:** Use case is a text-based or visual description of a specific way a user interacts with a system to achieve a goal.
 
@@ -612,6 +572,7 @@
 
 **Context:** In requirements gathering, use cases help analysts identify system boundaries and ensure all functional requirements of the business are met.
 
+### q044
 ### 44.	Use case realization
 **Definition:** Use case realization is the process of describing how a specific use case is implemented within the system using collaborating objects and software classes.
 
@@ -619,6 +580,7 @@
 
 **Context:** It bridges the gap between analysis (what the system does) and design (how it does it) using interaction diagrams.
 
+### q045
 ### 45.	User goal technique
 **Definition:** User goal technique is an approach to identify use cases by asking users what specific tasks they need the system to help them perform.
 
@@ -626,6 +588,7 @@
 
 **Context:** It is a common requirements gathering method that ensures the system design focuses on supporting actual business processes and goals.
 
+### q046
 ### 46.	User interface
 **Definition:** User interface is the specific set of screens, buttons, and menus that allow a human to interact with a computer or software.
 
@@ -639,6 +602,7 @@
 
 ## Chapter 2 – Investigating System Requirements
 
+### q047
 ## **47.** List and briefly describe the five activities of systems analysis.
 ### The Five Activities of Systems Analysis
 
@@ -649,6 +613,7 @@
 5. **Evaluate Requirements with Users:** The defined requirements and prototypes are presented back to the stakeholders for review, validation, and iterative refinement to ensure accuracy before development actually begins.
 
 
+### q048
 ## **48.** What is the difference between functional and non-functional requirements? Give one example of each.
 
 **Functional Requirements** describe *what* a system must do. They define the specific behaviors, features, and functions of the system, including how it responds to specific inputs and how it should behave in particular situations. 
@@ -657,6 +622,7 @@
 **Non-Functional Requirements** describe *how* a system must perform. They define the system's quality attributes, constraints, and performance standards, such as speed, security, reliability, scalability, and usability. 
 * **Example:** The password reset email must be delivered to the user's inbox within 60 seconds of the request being submitted.
 
+### q049
 ## **49.** Describe the steps for preparing, conducting, and following up on an interview session.
 Interviews are one of the most effective ways to gather detailed information from stakeholders during systems analysis. To ensure the information collected is accurate and useful, the process should be structured into three distinct phases: preparation, conduction, and follow-up. 
 
@@ -684,6 +650,7 @@ The follow-up phase is critical for validating the information you gathered and 
 * **Validate with the Interviewee:** Send a copy of the summary or meeting minutes back to the interviewee. Ask them to review it to ensure you have accurately captured their processes, needs, and concerns.
 * **Address Unanswered Questions:** If any questions were left unresolved during the interview, or if new questions arise during your review, reach out to the interviewee to clarify them.
 
+### q050
 ## **50.** What are the six information-gathering techniques? When is each most appropriate?
 Here are the six common information-gathering techniques used in systems analysis, along with when each is most appropriate to use:
 
@@ -711,6 +678,7 @@ This involves investigating commercial off-the-shelf (COTS) software, exploring 
 This technique involves gathering ongoing, spontaneous feedback from users, often through suggestion boxes, IT help desk tickets, or feedback forms built into the current system.
 * **When it is most appropriate:** When you want to capture everyday frustrations, minor bug reports, and spontaneous ideas that users might forget by the time a formal interview rolls around. It is highly useful for identifying the most common pain points in a legacy system.
 
+### q051
 ## **51.** What is the open-items list, and why is it important to a project?
 
 An **open-items list** (often called an issue log, action item list, or punch list) is a centralized, living document used to track unresolved issues, unanswered questions, pending decisions, and incomplete tasks that arise during a project's lifecycle. 
@@ -725,6 +693,7 @@ Here is why the open-items list is so important to a project:
 * **Facilitates Effective Meetings:** It provides a structured agenda for status meetings. Instead of asking, "What is everyone working on?", the team can review the open-items list to see exactly what needs immediate attention.
 * **Maintains Project Momentum:** It allows the team to acknowledge a problem, document it, and set it aside for the moment, allowing the rest of the project work to proceed without losing stride.
 
+### q052
 ## **52.** What are the benefits of vendor research during information gathering?
 Researching vendor solutions during the information-gathering phase provides several strategic advantages that can shape the entire trajectory of a project. Instead of looking only inward at the organization's current processes, vendor research allows analysts to look outward at how the broader industry is solving similar problems.
 Here are the primary benefits of vendor research:
@@ -736,6 +705,7 @@ Here are the primary benefits of vendor research:
 * **Provides Realistic Cost and Timeline Baselines:** Investigating what is currently available on the market gives analysts a realistic benchmark for estimating how much the final system might cost to implement and how long it will take to deploy. 
 * **Identifies State-of-the-Art Features:** Vendors continuously invest in research and development to stay competitive. Reviewing their products allows analysts to see the latest user-interface designs, security protocols, and technological integrations (like AI or cloud features) that should be incorporated into the new system's requirements.
 
+### q053
 ## **53.** What types of stakeholders should be included in fact-finding?
 When gathering facts for a new system, it is crucial to consult a wide variety of stakeholders. If an analyst only talks to management, the system might not work for the everyday users; if they only talk to users, the system might miss strategic business goals. 
 To get a complete picture, fact-finding should include the following types of stakeholders:
@@ -760,6 +730,7 @@ These are people outside the immediate organization who will still interact with
 * **Why include them:** If the system is outward-facing, external stakeholders determine its ultimate success. If a system is too difficult for a customer to use, they will go to a competitor. 
 * **Examples:** Customers using an online portal, suppliers interacting with an inventory system, or regulatory bodies requiring specific compliance reports. 
 
+### q054
 ## **54.** What is the purpose of an activity diagram? How does it differ from a flowchart?
 
 ### The Purpose of an Activity Diagram
@@ -771,7 +742,7 @@ While they look visually similar and both map out processes, activity diagrams a
 * **Standardization and Object-Oriented Focus:** Activity diagrams are a formalized part of UML, making them a standard tool in object-oriented design. They are built to map directly to software objects, classes, and use cases. Flowcharts are older, generalized diagrams used across many non-technical fields.
 * **System Responsibilities (Swimlanes):** Activity diagrams natively use "swimlanes" (or partitions) to clearly designate which actor, system component, or department is responsible for executing a specific action within the workflow, tightly linking the process back to system architecture.
 
-
+### q102
 ## **102.** What is the difference between a client and a user?
 While the terms "client" and "user" are sometimes used interchangeably in casual conversation, they represent two very distinct roles in systems analysis:
 
@@ -790,6 +761,7 @@ Imagine a hospital upgrading its electronic health records software.
 * The **client** is the hospital's Board of Directors or Chief Financial Officer who approves the budget to buy the system to improve overall hospital billing and compliance. 
 * The **users** are the doctors and nurses who will actually type patient notes into the system during their busy shifts. 
 
+### q106
 ## **106.** How would you ensure complete and comprehensive requirements are gathered during an interview?
 Ensuring complete requirements during an interview is a delicate balance of active listening, strategic questioning, and technical validation. It requires moving beyond what a stakeholder says they want to discover what they actually need.
 
@@ -831,8 +803,10 @@ Requirements are rarely "complete" after a single pass. Validation is essential 
 ## 5. Final Documentation and Sign-off
 A requirement isn't "complete" until it is documented in a way that developers and stakeholders can both understand.
 * **Traceability:** Ensure every requirement can be traced back to a specific business goal.
-* **Acceptance Criteria:** Define exactly what "done" looks like for each requirement to ensure it is testable.
-* 
+* **Acceptance Criteria:** Define exactly what "done" looks like for each requirement to ensure it is testable.* 
+
+
+### q107
 ## **107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure?
 Handling conflicting information between different levels of an organization is common, as managers often focus on the **idealized process** (how it's supposed to work) while clerks focus on the **actual process** (how it works in reality). 
 
@@ -875,7 +849,7 @@ If the conflict persists, look at the output of the procedure.
 * Check the logs or database records. 
 * If the manager says "Step A must happen," but the data shows Step A hasn't been completed in six months, you have objective proof that the clerk's version is the current reality of the business.
 
-
+### q108
 ## **108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions?
 When a stakeholder becomes a bottleneck, it’s usually because they are overwhelmed, don't understand the impact of the delay, or lack the authority they were assumed to have. Dealing with this requires shifting from "requesting" to "informing."
 
@@ -914,7 +888,7 @@ If emails are being ignored, the digital "noise" is too high.
 * **The "Drive-By" or 5-Minute Call:** Sometimes a 120-second phone call or a quick desk visit can resolve a policy decision that has been sitting in an inbox for weeks.
 * **The Working Session:** Instead of an interview, book a 30-minute "Policy Finalization" meeting. Show up with the document open and don't leave until the key points are marked "Final."
 
-
+### q109
 ## **109.** How do you manage scope creep during requirements gathering? Describe at least two strategies.
 Scope creep—when a project's requirements expand beyond its original boundaries—is one of the most common risks during the gathering phase. Left unchecked, it derails timelines and inflates budgets.
 
@@ -958,6 +932,7 @@ By forcing stakeholders to categorize their requests into these buckets, you nat
 
 ## Chapter 3 – Use Cases & Domain Modeling
 
+### q055
 ## **55.** What is a use case diagram? Identify its components (actors, use cases, system boundary).
 A use case diagram is a type of behavioral diagram defined by the Unified Modeling Language (UML). It provides a high-level visual overview of how external entities interact with a software system to achieve specific goals. 
 
@@ -978,7 +953,7 @@ To build or read a use case diagram, you need to understand its three primary st
 
 While the prompt highlighted the three main components, the diagram is completed by **relationships** (represented by lines). Solid lines connect an actor to the specific use cases they are involved in, illustrating exactly who can trigger which functions within your system boundary.
 
-
+### q059
 ## **59.** What is the user goal technique for identifying use cases? Give an example.
 The user goal technique is a highly effective, user-centric method for identifying use cases. Instead of asking what the system should *do* (which often leads to overly technical or feature-bloated lists), this technique asks what the user is trying to *achieve*. 
 
@@ -1021,7 +996,7 @@ Those plain-English goals directly translate into the following use cases for th
 
 By mapping the system this way, developers understand exactly what business value each feature is supposed to deliver, ensuring the final product actually solves the user's real-world problems.
 
-
+### q075
 ## **75.** What is a use case, and what is the difference between a use case and a scenario?
 
 A **use case** and a **scenario** are closely related concepts in requirements gathering, but they operate at different levels of detail. The easiest way to understand them is that a use case is the "whole story," while a scenario is just "one specific version" of that story.
@@ -1072,6 +1047,7 @@ To see how they work together, look at how one use case breaks down into multipl
 
 When gathering requirements, you define the **Use Case** first, and then write out the various **Scenarios** to ensure developers know exactly how to code the system's responses to different situations.
 
+### q076
 ## **76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases.
 Both the user goal technique and the event decomposition technique are highly effective methods for identifying use cases during requirements gathering. However, they approach the system from entirely different perspectives: one looks from the **outside in**, while the other looks from the **inside out**.
 
@@ -1125,6 +1101,7 @@ To ensure complete requirements are gathered, experienced business analysts ofte
 | **Example Prompt** | "The manager needs to review the quarterly sales." | "The system clock hits 11:59 PM on the last day of the quarter." |
 
 
+### q077
 ## **77.** What is an elementary business process (EBP)?
 An **Elementary Business Process (EBP)** is a foundational concept in software engineering and systems analysis used to define the correct size and scope of a use case. 
 
@@ -1164,6 +1141,8 @@ Understanding EBPs is easiest when you see what happens when a process is sized 
 
 Without the EBP guideline, requirements gathering often falls apart. If you make your use cases too small (like "Click Save"), you will drown developers in thousands of useless requirements. If you make them too big (like "Manage Employee"), developers won't have enough specific detail to actually write the code. The EBP ensures every use case is scoped perfectly for software development.
 
+
+### q078
 ## **78.** Define the three types of events (External, Temporal, State) and give an example of each.
 In the event decomposition technique, the system is viewed as a black box that must react to specific triggers in its environment. These triggers, or "events," are categorized into three distinct types based on their origin. 
 
@@ -1202,7 +1181,7 @@ A state event (sometimes called an internal event) occurs when data inside the s
 
 By examining a business process through all three lenses—asking *who* will interact with it (External), *when* things need to happen automatically (Temporal), and *what* data conditions require an automated reaction (State)—you ensure the software requirements are comprehensive.
 
-
+### q079
 ## **79.** What is the perfect technology assumption?
 The **perfect technology assumption** is a fundamental principle used during the early stages of systems analysis and requirements gathering, particularly when defining use cases and modeling system behavior. 
 
@@ -1246,7 +1225,7 @@ The perfect technology assumption is strictly a tool for the **Systems Analysis*
 
 Once the team moves into the **Systems Design** phase, the assumption is completely discarded. At that point, architects and developers actively introduce all the real-world constraints—adding non-functional requirements for security, load balancing, error logging, data redundancy, and network timeouts to ensure the software survives the real world.
 
-
+### q080
 ## **80.** List the parts/compartments of a fully developed use case description.
 While a use case diagram provides a high-level visual, a **fully developed use case description** is a comprehensive, textual document that details the exact internal logic and steps of the process. It is the most formal method of documenting a use case and serves as the blueprint for developers and QA testers.
 
@@ -1349,7 +1328,7 @@ If the preconditions were met, and no exceptions were triggered, the contract is
 * *Postcondition 2:* The transaction is recorded in the audit log.
 *(The system is now left in a stable, updated state, ready for the next use case to begin.)*
 
-
+### q103
 ## **103.** What is a brief use case description? What does it contain?
 A **brief use case description** is exactly what it sounds like: a short, high-level summary of a single use case. If a fully developed use case description is the complete script of a movie, the brief description is the "elevator pitch."
 
@@ -1387,7 +1366,7 @@ Business analysts and developers use brief descriptions to rapidly map out the b
 
 During an initial brainstorming session, an analyst might identify 50 separate use cases. Writing a fully developed, multi-page document for all 50 immediately would take weeks, and many might be discarded later. By writing 50 brief descriptions instead, the team can quickly agree on the overall system boundary, prioritize which features to build first, and only write the fully developed descriptions for the use cases they are actively working on.
 
-
+### q104
 ## **104.** Why are system controls not treated as use cases?
 System controls—such as user authentication (logging in), audit logging, data encryption, and database backups—are absolutely critical to building secure and functional software. However, they are intentionally excluded from being modeled as standard use cases. 
 
@@ -1427,6 +1406,7 @@ By keeping system controls off the use case diagram, the diagram remains a clean
 ### The One Exception
 The only time a system control becomes a use case is if you are the one building the security system itself, and the control *is* the business value. For example, if you are building an Identity and Access Management (IAM) portal for an IT administrator, "Create User Account" and "Reset User Password" are the primary business goals of that specific actor, making them valid use cases for that specific system.
 
+### q105
 ## **105.** Define CRUD and explain the purpose of the CRUD technique.
 **CRUD** is an acronym that stands for **Create, Read, Update, and Delete**. These are the four fundamental operations that software systems use to manage persistent data within a database or storage system. 
 
@@ -1479,6 +1459,7 @@ By looking down the columns, the analyst can instantly spot errors. If a column 
 
 # Domain Modeling
 
+### q056
 ## **56.** What is a domain model class diagram? What does it show that a use case diagram does not?
 A **domain model class diagram** is a type of UML diagram that illustrates the static, structural foundation of a system's problem domain. Instead of looking at actions or processes, it visualizes the real-world "things" (concepts or data entities) that the system needs to know about, along with their specific details and how they relate to one another.
 
@@ -1516,6 +1497,7 @@ Here is a direct comparison of what they reveal:
 
 While a use case diagram might tell you that a user can "Process an Order," it doesn't tell you what an "Order" actually consists of. The domain model class diagram steps in to define exactly what data makes up that order and how it ties back to the customer's payment profile and the inventory catalog.
 
+### q057
 ## **57.** What is a system sequence diagram (SSD)? How does it relate to a use case?
 A **System Sequence Diagram (SSD)** is a visual model within the Unified Modeling Language (UML) that illustrates the chronological flow of information between an external actor and the system. 
 
@@ -1557,6 +1539,8 @@ Because a use case contains branching logic and exceptions, you cannot draw an e
 
 Ultimately, the SSD acts as the critical bridge between requirements gathering and system design. It takes the plain-English business requirements of the use case and translates them into specific input/output parameters that developers need to begin programming the system's user interface and APIs.
 
+
+### q058
 ## **58.** How does a state machine diagram differ from an activity diagram?
 While both **Activity Diagrams** and **State Machine Diagrams** (often called Statechart Diagrams) model the behavior of a system over time, they focus on different aspects of that behavior: **Doing** vs. **Being**.
 
@@ -1604,6 +1588,8 @@ A State Machine Diagram focuses on the **lifecycle of a single object** (like an
 
 In systems analysis, you might use an Activity Diagram to show the "Process Order" use case, but use a State Machine Diagram to track the "Order" object as it moves from *Created* to *Paid* to *Shipped* to *Delivered*.
 
+
+### q082
 ## **82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)?
 Identifying the "things" in a problem domain is the first step toward building a solid data structure. In systems analysis, these "things" eventually become the **Domain Classes** in your class diagram. 
 
@@ -1664,7 +1650,7 @@ A common mistake is confusing an **Attribute** with a **Class**. If a "thing" ha
 
 Which technique do you think would be more effective for a project with very little existing documentation?
 
-
+### q083
 ## **83.** What is an attribute, an identifier (key), and a compound attribute?
 In the world of data modeling and systems analysis, these terms define how we describe and distinguish the "things" (classes or entities) we care about. Think of a class like a **Customer** or an **Employee** as a folder; these concepts are the labels and contents inside that folder.
 
@@ -1714,6 +1700,7 @@ A **compound attribute** (also known as a composite attribute) is an attribute t
 When you are defining these for a project, do you usually find it easier to list out all the "nouns" first using the noun technique, or do you prefer to start with a brainstorming session?
 
 
+### q084
 ## **84.** What is an association class?
 An **association class** is a unique modeling element in a UML class diagram that allows you to treat a relationship between two classes as a class itself. 
 
@@ -1756,7 +1743,7 @@ Imagine a system tracking **Employees** and **Companies**.
 
 Do you find that visualizing these relationships with an association class makes it easier to identify where specific "action-based" data should live in your database?
 
-
+### q085
 ## **85.** Compare and contrast an abstract class and a concrete class.
 In Object-Oriented Programming (OOP) and system modeling, classes are the blueprints for our data. However, not all blueprints are meant to be built exactly as drawn. 
 
@@ -1816,6 +1803,7 @@ By using an abstract class for `Shape`, you guarantee that any new shape added t
 Does this distinction help clarify how you might organize different types of data in a large-scale system?
 
 
+### q086
 ## **86.** Compare and contrast aggregation with composition in a whole-part relationship.
 In software modeling and systems analysis, "whole-part" relationships describe how a large object is made up of smaller components. While both aggregation and composition represent a "has-a" relationship, the difference lies in the **strength of the connection** and the **lifetime** of the parts.
 
@@ -1870,6 +1858,8 @@ When you are building your domain model, ask yourself this question: **"If I del
 ## Why It Matters for Implementation
 In coding (such as in C# or Java), these distinctions dictate how you write your constructors and destructors. With **Composition**, the whole class is responsible for creating and deleting the part instances. With **Aggregation**, the parts are usually created elsewhere and simply "passed in" to the whole class.
 
+
+### q087
 ## **87.** What is multiplicity, and how is it used on a class diagram?
 In the world of class diagrams, **multiplicity** is the numerical constraint placed on an association between two classes. It defines exactly how many instances of one class can be linked to a single instance of another class. 
 
@@ -1927,6 +1917,7 @@ When you're looking at a new system, do you find it easier to start by identifyi
 
 ## Chapter 4 – Object-Oriented Concepts & Design Patterns
 
+### q111
 ## **111.** Define abstract class and give an example.
 An **abstract class** is a restricted class that cannot be used to create objects (you cannot instantiate it). It is designed to act as a rigorous "blueprint" or base for other classes. 
 
@@ -1965,6 +1956,7 @@ You then create specific classes that "realize" the abstract idea:
 
 Using an abstract class forces a level of discipline in the system design. By defining `CalculateArea` as an abstract method in the `Shape` class, you are essentially issuing a contract: **"Any class that wants to be considered a 'Shape' must implement its own version of an area calculation."** This prevents developers from accidentally creating a shape that can't be measured, which would cause errors elsewhere in the software.
 
+### q112
 ## **112.** Define object, class, and object-oriented design, and distinguish between them.
 In software engineering, understanding the relationship between objects, classes, and the design philosophy that binds them is the foundation of building scalable, maintainable systems.
 
@@ -2018,6 +2010,7 @@ To distinguish between them, think of the process as building a neighborhood:
 3.  The computer creates an **Object** based on that class when the program runs to do the actual work.
 
 
+### q113
 ## **113.** Define design pattern and give an example (e.g., the Observer pattern).
 In software engineering, a **design pattern** is a general, reusable solution to a commonly occurring problem within a given context in software design. It isn't a finished piece of code that you can copy and paste; rather, it is a formal template or "best practice" description for how to solve a problem that can be applied in many different situations.
 
@@ -2058,7 +2051,7 @@ Think of a newspaper publisher as the **Subject** and the people in town as pote
 * **Stock Market Apps:** Multiple display widgets (graphs, ticker tapes, alert systems) all need to update the moment a stock price changes.
 
 
-
+### q093
 ## **93.** What are the components of a standard design pattern definition (e.g., Gang of Four)?
 The "Gang of Four" (GoF)—Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides—established a highly structured template for documenting design patterns. This consistency allows developers to quickly assess whether a pattern fits their specific problem and understand how to implement it.
 
@@ -2099,6 +2092,7 @@ This is the technical core of the definition, detailing the "who" and "how" of t
 * **Known Uses:** Examples of the pattern found in real-world systems or frameworks (e.g., how the *Decorator* pattern is used in Java’s I/O streams).
 * **Related Patterns:** A discussion of patterns that are similar to this one or that are often used in conjunction with it.
 
+### q094
 ## **94.** Compare and contrast coupling and cohesion.
 In software engineering, **coupling** and **cohesion** are the two primary metrics used to evaluate the quality of a system's design. While they are often discussed together, they measure opposite aspects of how a system is structured: one looks at the **internal** strength of a module, while the other looks at **external** relationships between modules.
 
@@ -2149,6 +2143,7 @@ Conversely, if you put everything related to a process into one giant class to g
 
 Does this distinction help you see why "spaghetti code" is usually a result of both low cohesion and high coupling?
 
+### q092
 ## **92.** How are domain classes different from design classes?
 While domain classes and design classes may share similar names, they serve entirely different purposes in the software development lifecycle. The simplest way to distinguish them is to think of domain classes as the **"What"** and design classes as the **"How."**
 
@@ -2204,6 +2199,7 @@ By separating these two, you ensure that the business rules are clearly understo
 
 # Chapter 5 – Systems Design & Architecture
 
+### q088
 ## **88.** What is the primary objective of systems design, and how does it differ from systems analysis?
 The primary objective of **systems design** is to define the specific physical architecture, components, modules, interfaces, and data for a system to satisfy the requirements identified during analysis. It is the phase where the conceptual "what" is transformed into a technical "how."
 
@@ -2252,7 +2248,7 @@ Without a strong analysis, you might build a beautiful house that the family can
 
 How do you find the balance between spending enough time on analysis versus jumping straight into design when starting a new project?
 
-
+### q089
 ## **89.** What is three-layer design? Describe the view layer, logic layer, and data layer.
 **Three-layer design** (often called three-tier architecture) is a software architecture pattern that organizes an application into three distinct logical and physical tiers. The fundamental principle behind this design is the **separation of concerns**, ensuring that a change in one layer—such as switching a database or updating a user interface—has minimal impact on the others.
 
@@ -2302,7 +2298,7 @@ The **Data Layer** is the foundation of the system. It is where the application'
 | **Security** | The View Layer never talks directly to the Database; it must go through the Logic Layer, which acts as a security checkpoint. |
 
 
-
+### q090
 ## **90.** Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration.
 The evolution from traditional **client-server architecture** (often called "thick-client") to **Internet-based architecture** (web-based or "thin-client") changed the way we manage data flow and deployment.
 
@@ -2354,6 +2350,8 @@ The hardware and software setup required on the backend varies based on the expe
 
 Are you currently designing a system where the choice between a native "thick" client and a web-based "thin" client is being debated for performance or security reasons?
 
+
+### q091
 ## **91.** What is an API, and why is it important in modern systems?
 An **API (Application Programming Interface)** is a set of defined rules and protocols that allow different software applications to communicate with each other. 
 
@@ -2406,7 +2404,7 @@ Modern companies like Netflix or Amazon don't build one giant "monolith" app. In
 Without APIs, every app would have to be built from scratch, and data would be trapped inside individual programs. They turn the internet from a collection of isolated silos into a connected, functional ecosystem.
 
 
-
+### q110
 ## **110.** Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all?
 The idea of a "master diagram" is tempting, but in software engineering, a single diagram trying to describe a whole system would be like trying to put the blueprints for a skyscraper’s plumbing, electrical, structural, and interior design onto a single sheet of paper. It would be an unreadable mess of lines that serves no one.
 
@@ -2462,7 +2460,7 @@ If you tried to put SSD-level detail into a high-level scope diagram, the "fores
 By using a suite of diagrams, we ensure **High Cohesion** in our documentation—each diagram does one job perfectly, making the system easier to build, test, and maintain.
 
 
-
+### q114
 ## **114.** Define data access class and explain its purpose.
 In the architecture of a modern software system, a **Data Access Class** (often referred to as a **Data Access Object** or **DAO**) is a specialized class responsible for managing the connection and communication between the application and its persistent storage, such as a database or a file system.
 
@@ -2508,6 +2506,7 @@ In a **Three-Layer Design**, the logic layer never "talks" to the database. Inst
 > **Example:** When you click "Save" on a profile page, the **View Layer** tells the **Logic Layer** to save the user. The Logic Layer validates the data and then calls `UserAccess.update(user)`. The Data Access Class then opens a connection, executes the SQL, and tells the Logic Layer if it succeeded.
 
 
+### q115
 ## **115.** Define model and list the three types.
 In the context of systems analysis and design, a **model** is an abstraction or representation of some aspect of the real world. Its primary purpose is to simplify complex systems so that they can be more easily understood, analyzed, and communicated to others.
 
@@ -2542,6 +2541,8 @@ These models use formulas, equations, and mathematical notations to represent th
 
 By using a combination of these three types, a team can ensure they have a complete "blueprint" of the system before any actual construction begins. Which of these three do you find yourself using most often in your current coursework or projects?
 
+
+### q116
 ## **116.** Define activity diagram and explain its purpose.
 An **activity diagram** is a behavioral diagram in the Unified Modeling Language (UML) that visualizes the step-by-step flow of activities and actions within a system. Think of it as a "flowchart on steroids"—it tracks the movement from one activity to another, but with the added ability to handle complex logic like parallel processing and conditional branches.
 
@@ -2577,6 +2578,7 @@ You should reach for an activity diagram when you need to explain **how** a proc
 They are particularly useful during the **Systems Analysis** phase to ensure that everyone agrees on the business rules before the first line of code is ever written.
 
 
+### q117
 ## **117.** Define component diagram.
 A **component diagram** is a structural diagram in the Unified Modeling Language (UML) that describes how a system is divided into physical software components and the dependencies between them. 
 
@@ -2609,6 +2611,8 @@ Component diagrams are used during the **Systems Design** and **Implementation**
 By agreeing on the component diagram first, the teams can ensure that their individual pieces will fit together perfectly once they are finished.
 
 
+
+### q118
 ## **118.** Define communication diagram.
 A **communication diagram** (known as a "collaboration diagram" in older versions of UML) is a type of interaction diagram that focuses on the structural organization of the objects that send and receive messages. 
 
@@ -2653,6 +2657,7 @@ Communication diagrams are particularly useful during the **design phase** when 
 If you see an object in a communication diagram with twenty lines pointing to it, you’ve identified a potential "God Object" or a bottleneck. It’s a great way to spot **tight coupling** early on—if everyone has to talk to one specific class to get anything done, your system might be harder to maintain later.
 
 
+### q119
 ## **119.** Define UML and explain why it is used.
 **UML**, or the **Unified Modeling Language**, is a standardized, general-purpose modeling language used in the field of software engineering. It is not a programming language; rather, it is a visual language consisting of a set of diagrams used to specify, visualize, construct, and document the artifacts of a software system.
 
@@ -2696,7 +2701,7 @@ Think of UML as the architectural blueprints for a building. The blueprints don'
 
 ---
 
-
+### q120
 ## **120.** Define use case realization.
 **Use case realization** is the process of identifying and defining the specific classes and objects that collaborate to perform the steps of a particular use case. 
 
@@ -2746,15 +2751,12 @@ The **Sequence Diagram** that shows these four objects passing messages back and
 
 When you are moving from a list of user requirements to a technical design, do you find it more helpful to start with a sequence diagram to see the flow of messages, or a class diagram to see the data structure?
 
+
+### q121
 ## **121.** Define client/server architecture.
 **Client/server architecture** is a distributed application framework that partitions tasks or workloads between the providers of a resource or service, called **servers**, and service requesters, called **clients**.
 
 In this model, the client and server usually communicate over a computer network on separate hardware, but both the client and the server may reside in the same system.
-
-
-
-[Image of client-server architecture diagram]
-
 
 ---
 
@@ -2800,7 +2802,7 @@ The main advantage is **efficiency**. By offloading heavy processing and data st
 
 ---
 
-
+### q122
 ## **122.** Define three-layer architecture and describe what each layer does.
 **Three-layer architecture** (also known as three-tier architecture) is a software design pattern that organizes an application into three logical and physical tiers. This structure is built on the principle of **separation of concerns**, ensuring that the user interface, business rules, and data storage are independent of one another.
 
@@ -2856,6 +2858,7 @@ The **Data Access Layer** (or Persistence Layer) is the foundation. It consists 
 > **Why it matters:** By separating these layers, you can upgrade your database (Data Layer) or redesign your website (Presentation Layer) without having to rewrite the core math and rules of your business (Logic Layer).
 
 
+### q123
 ## **123.** Define top-down vs. bottom-up development.
 In software engineering, the direction you choose to build your system—from the big picture down to the details, or from the small components up to the whole—significantly impacts your testing strategy and how quickly you see a "working" product.
 
@@ -2903,6 +2906,7 @@ Modern development often uses a **"Sandwich" (Hybrid) approach**. You might use 
 
 # Chapter 6 – Database Design
 
+### q060
 ## **60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each.
 Database normalization is essentially the "Marie Kondo" of data modeling—it's a multi-step process designed to organize your tables so that data isn't redundant and dependencies actually make sense. The goal is to ensure that every piece of data is stored in exactly one place.
 
@@ -2959,7 +2963,7 @@ In short: **"The attribute must depend on the key, the whole key, and nothing bu
 
 Normalization is a great way to prevent data anomalies, but over-normalizing can sometimes slow down a system with too many joins. Are you working on a specific schema right now where you're worried about finding the right balance between clean data and performance?
 
-
+### q061
 ## **61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use?
 An **Entity-Relationship Diagram (ERD)** is a visual blueprint used in database design to show how "entities" (like people, objects, or concepts) relate to one another within a system. 
 
@@ -3022,6 +3026,7 @@ In modern design, we often use **Crow's Foot** symbols instead of diamonds:
 ERDs are critical because they force you to think through the **logic** of your data before you write a single line of SQL code. By identifying that a `Customer` can have many `Addresses` early on, you prevent a "data nightmare" where you have to restructure your entire database months into a project.
 
 
+### q062
 ## **62.** What is a primary key? What is a foreign key? How do they relate tables?
 In the world of relational databases, **keys** are the specialized columns that turn a collection of isolated spreadsheets into a cohesive, intelligent system. Without them, your data would just be a pile of unrelated facts.
 
@@ -3071,6 +3076,7 @@ The relationship between Primary and Foreign keys is the "glue" of a relational 
 ---
 
 
+### q063
 ## **63.** What is referential integrity, and how does a DBMS enforce it?
 **Referential integrity** is a fundamental rule in relational databases that ensures the relationships between tables remain consistent and accurate. It guarantees that every **Foreign Key** value in a "child" table always points to a valid, existing **Primary Key** in a "parent" table.
 
@@ -3124,7 +3130,7 @@ Without referential integrity, a database quickly becomes unreliable.
 
 ---
 
-
+### q064
 ## **64.** What is a relational database schema? How is it derived from a domain model?
 A **relational database schema** is the formal definition of a database's structure. It serves as the physical "blueprint" that dictates how data is organized into tables, how those tables relate to one another via keys, and what constraints (like data types or uniqueness) are applied to the data.
 
@@ -3186,6 +3192,7 @@ This is where the "logic" of the domain model becomes the "structure" of the dat
 > **The "Gold Rule" of Transformation:** Every association line in your domain model must be accounted for in your schema. If a line exists between "Professor" and "Course," there must be a Foreign Key or a Linking Table in the database to enable that connection.
 
 
+### q095
 ## **95.** Describe the steps to transform a domain class diagram into a relational database schema.
 Transforming a **domain class diagram** (conceptual) into a **relational database schema** (physical) is a systematic process of moving from business concepts to technical implementation. Since databases don't natively understand "objects" or "inheritance," we use specific mapping rules to bridge the gap.
 
@@ -3244,6 +3251,7 @@ While these look special on a diagram (the diamonds), they are usually implement
 | Generalization | Single or Multiple Tables |
 
 
+### q096
 ## **96.** What is database normalization? Describe 1NF, 2NF, and 3NF.
 **Database normalization** is a systematic process used in relational database design to organize data fields and tables to minimize redundancy and dependency. The primary goal is to isolate data so that additions, deletions, and modifications can be made in just one table and then propagated through the rest of the database via defined relationships.
 
@@ -3291,6 +3299,7 @@ To reach **3NF**, a table must first be in **2NF**. This stage focuses on removi
 ### Why Normalize?
 Normalizing to 3NF is standard practice because it prevents **Update Anomalies** (changing data in one place but not another), **Insertion Anomalies** (being unable to add data because part of the key is missing), and **Deletion Anomalies** (accidentally losing data when a related record is deleted).
 
+### q124
 ## **124.** Define DBMS and explain its role.
 A **Database Management System (DBMS)** is a sophisticated software suite that acts as an interface between end-users, applications, and the database itself. It is the "engine" that allows you to store, retrieve, define, and manage data in a structured way.
 
@@ -3336,6 +3345,7 @@ By using a DBMS, organizations move away from "Flat File" systems (like a bunch 
 
 Are you looking to learn more about a specific type of DBMS, such as the SQL-based relational systems used in most business applications?
 
+### q125
 ## **125.** Define database normalization.
 **Database normalization** is a systematic approach to decomposing tables to eliminate data redundancy (duplication) and undesirable characteristics like insertion, update, and deletion anomalies. It involves multi-step rules—called **Normal Forms**—that ensure data is stored logically and that dependencies between data points make sense.
 
@@ -3375,7 +3385,9 @@ Imagine a "Sales" table that stores the `CustomerName` and `CustomerCity` alongs
 1.  **Redundancy:** If a customer places 50 orders, their name and city are written 50 times.
 2.  **Anomaly:** If the customer moves, you must update 50 rows (Update Anomaly). If you delete all their orders, you lose the record that the customer ever existed (Deletion Anomaly).
 3.  **Normalization Solution:** Split this into two tables: **Orders** (storing IDs and dates) and **Customers** (storing names and cities), linked by a `CustomerID`.
- 1. 
+
+
+### q126
 ## **126.** Define relational database.
 A **relational database** is a type of database that stores and provides access to data points that are related to one another. Invented by E.F. Codd at IBM in 1970, it is based on the **relational model**, which organizes data into one or more tables (or "relations") of columns and rows.
 
@@ -3432,6 +3444,7 @@ Common examples of Relational Database Management Systems (RDBMS) include **MySQ
 
 # Chapter 7 – Security & Controls
 
+### q065
 ## **65.** What are the three goals of system security (Confidentiality, Integrity, Availability)?
 The three goals of system security are collectively known as the **CIA Triad**. This foundational model is used to guide policies and security controls within an organization to ensure that information is protected from all angles.
 
@@ -3482,6 +3495,8 @@ Availability ensures that systems, applications, and data are accessible to auth
 ### The Balancing Act
 It is important to note that these goals often conflict. For example, increasing **Confidentiality** by adding complex encryption and multiple layers of authentication might slow down the system, potentially reducing **Availability**. A security professional's job is to find the right balance based on the specific needs of the system.
 
+
+### q066
 ## **66.** Describe three types of security controls an analyst might recommend.
 When building a secure system, an analyst doesn't rely on a single "silver bullet." Instead, they recommend a **layered defense** (Defense in Depth) using three distinct categories of security controls. Each layer addresses a different aspect of risk, from the hardware in the server room to the behavior of the employees.
 
@@ -3542,6 +3557,7 @@ Administrative controls focus on the "human" element of security. These are the 
 By combining these three types, an analyst ensures that even if one control fails (e.g., a password is stolen), other layers (like MFA or a physical guard) are in place to stop the threat.
 
 
+### q067
 ## **67.** What is the difference between authentication and authorization?
 While these two terms are often used interchangeably in casual conversation, in the world of system security, they represent two distinct steps in a security process. To keep it simple: **Authentication** is about identity, while **Authorization** is about permissions.
 
@@ -3593,6 +3609,7 @@ Imagine you are checking into a hotel:
 By separating these two, developers can ensure that even if a user is "in the building," they can only touch the data they are legally allowed to see. 
 
 
+### q068
 ## **68.** What is a replicated database architecture? What synchronization challenges does it create?
 **Replicated database architecture** is a system design where the same data is stored and maintained across multiple physical or virtual servers (nodes). Unlike a distributed database, where data is partitioned into different pieces across nodes, replication ensures that multiple copies of the **entire dataset** (or specific subsets) exist in different locations.
 
@@ -3647,6 +3664,7 @@ Maintaining replicas requires constant communication. As the number of replicas 
 > **Key Insight:** Replication is a trade-off. You gain the ability to survive a server crash and handle more traffic, but you pay for it with increased complexity in how you manage "the truth" of your data.
 
 
+### q097
 ## **97.** Explain the four types of input controls (field combination, value limit, completeness, data validation).
 Input controls are essential for maintaining **data integrity** and preventing errors at the point of entry. They act as a filter to ensure that only accurate, authorized, and complete data enters a system.
 
@@ -3692,7 +3710,7 @@ This is a broad category of checks designed to ensure the input matches the **pr
 
 
 
-
+### q098
 ## **98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption.
 In the world of cybersecurity, encryption is the process of turning readable information (plaintext) into an unreadable format (ciphertext). The primary difference between the two main types lies in **how many keys are used** and **how they are managed.**
 
@@ -3739,6 +3757,7 @@ Asymmetric encryption solves the "key exchange" problem by using a **pair of rel
 In practice, modern systems usually use **both**. When you visit a secure website (HTTPS), your browser uses **Asymmetric** encryption to safely exchange a temporary "session key." Once that key is exchanged, the two computers switch to **Symmetric** encryption for the rest of the visit to keep things fast.
 
 
+### q099
 ## **99.** What is a digital signature, and what does it verify?
 ## What is a Digital Signature?
 
@@ -3781,8 +3800,10 @@ While people often use these terms interchangeably, they are technically quite d
 | **Verification** | Often relies on simple audit trails or IP logs. | Verified instantly by mathematical algorithms. |
 | **Standard** | Varies widely by platform and provider. | Based on international standards (like PGP or S/MIME). |
 
+### q127
 ## **127.** Define digital signature and what it verifies.
 
+### q128
 ## **128.** Define encryption and decryption.
 At its simplest, encryption and decryption are the two halves of a "secret code" system used to keep information private. Think of it as a digital version of a locked briefcase: one process puts the documents inside and locks it, while the other uses the key to open it back up.
 
@@ -3815,6 +3836,7 @@ Encryption and decryption are useless without each other. Together, they create 
 > **A Quick Analogy:** Imagine you write a letter in English (Plaintext). You then use a secret rule to shift every letter three places down the alphabet (Encryption). The letter now looks like nonsense (Ciphertext). Your friend, who knows the "shift by three" rule, moves the letters back (Decryption) to read your message.
 
 
+### q129
 ## **129.** Define and distinguish security controls vs. integrity controls.
 While these terms are often used in the same breath, they represent different layers of protection within a system. In short, **security controls** are the broad measures used to protect assets, while **integrity controls** are the specific surgical tools used to ensure data remains accurate and untampered with.
 
@@ -3864,6 +3886,7 @@ Integrity controls are a specific subset of security controls. Their sole purpos
 
 # Chapter 8 – Object-Oriented Design (OOD)
 
+### q069
 ## **69.** What is the difference between analysis and design in the SDLC?
 In the Software Development Life Cycle (SDLC), the transition from **Analysis** to **Design** represents the shift from understanding a problem to engineering a solution. While they are closely linked, they serve two distinct purposes.
 
@@ -3912,6 +3935,7 @@ Once the "what" is clearly defined, the Design phase begins. This is where the r
 > **The Blueprint Analogy:**
 > Think of building a house. **Analysis** is the conversation you have with the homeowner to decide how many bedrooms they need, their budget, and whether they want a pool. **Design** is the set of blueprints drawn by the architect that shows the plumbing, the electrical wiring, and the exact materials the builders will use.
 
+### q070
 ## **70.** What is a first-cut design class diagram? How is it derived from a domain model?
 A **first-cut design class diagram** is the initial iteration of a technical blueprint for a software system. It represents the first step in moving from the "what" (requirements) to the "how" (technical implementation) within the Object-Oriented Analysis and Design (OOAD) process.
 
@@ -3971,6 +3995,8 @@ In a Domain Model, associations are just lines showing relationships. In a first
 
 > **The "Mental Model" Shift:** > When you move from a Domain Model to a First-Cut DCD, you stop thinking like a **Business Analyst** trying to describe a process and start thinking like a **Software Architect** trying to build a machine. You are no longer documenting "what is true" about the business; you are documenting "how the objects should behave" in the code.
 
+
+### q071
 ## **71.** What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram?
 In the evolution of a software design, moving from a "first-cut" to a "multilayer" sequence diagram is like moving from a storyboard of a movie scene to a full technical script that includes camera angles, lighting, and stage directions.
 
@@ -4019,7 +4045,7 @@ Think of the **first-cut** as your "logic check." It’s much easier to fix a fl
 Once the logic is solid, you "flesh it out" into a **multilayer** diagram. This ensures that the developers know exactly how the data gets from the screen, through the math, and into the permanent storage. If you skip the multilayer design, you often end up with "Fat Controllers" or "God Objects" because no one decided where the data access code should actually live.
 
 
-
+### q072
 ## **72.** Why do we need multiple types of diagrams in the design phase? What does each one show?
 In the design phase, no single diagram can capture the entire complexity of a software system. Using multiple types of diagrams allows architects and developers to view the system through different "lenses," ensuring that every technical requirement—from how data is stored to how users interact with the screen—is accounted for.
 
@@ -4076,7 +4102,7 @@ These address how the system lives in the real world and how it persists informa
 > **The "Blind Spots" Rule:** If you only use a DCD, you might know *what* your classes are, but you won't know *how* they work together (Sequence) or *how* they are stored (Database). Multiple diagrams eliminate these blind spots.
 
 
-
+### q073
 ## **73.** How do you add method signatures to a design class diagram using sequence diagrams as a guide?
 Adding method signatures to a **Design Class Diagram (DCD)** is the process of turning the "actions" seen in a **Sequence Diagram** into permanent "capabilities" of your classes. 
 
@@ -4146,6 +4172,7 @@ You would locate the `ShoppingCart` class and add the following signature:
 
 Are you currently working with a specific tool like Visual Paradigm or Lucidchart to generate these diagrams?
 
+### q074
 ## **74.** What is a package diagram? What problem does it solve in large systems?
 A **package diagram** is a structural UML (Unified Modeling Language) diagram used to group related elements—such as classes, interfaces, or even other packages—into high-level containers. 
 
@@ -4200,6 +4227,7 @@ In a standard multilayered design, you will often see package diagrams organized
 
 # Chapter 9 – Project Management & SDLC Methodologies
 
+### q100
 ## **100.** Contrast predictive and adaptive approaches to the SDLC.
 The primary difference between **predictive** and **adaptive** approaches lies in how they handle uncertainty and change. While predictive models assume the destination is known from day one, adaptive models assume the path will reveal itself through constant feedback.
 
@@ -4250,7 +4278,7 @@ The adaptive approach, exemplified by **Agile** or **Scrum**, is iterative and i
 > **The "Construction" vs. "Exploration" Analogy:**
 > Building a **Predictive** project is like building a bridge: you need the blueprints perfectly finalized before you pour the concrete. Building an **Adaptive** project is like a scientific expedition: you have a general goal, but you adjust your route based on the terrain you discover each day.
 
-
+### q101
 ## **101.** What are the four values of Agile development?
 The four values of Agile development originate from the **Agile Manifesto**, a document created in 2001 by seventeen software developers. These values prioritize human factors and flexibility over rigid documentation and processes.
 
@@ -4283,6 +4311,7 @@ In a fast-moving market, a rigid plan can quickly become a liability. Agile team
 
 > **The "Agile Balance":** It is important to note that the Manifesto does not say the items on the right have no value; it simply states that the items on the left are **more** valuable for successful software delivery.
 
+### q130
 ## **130.** Define SDLC and its major phases.
 The **Software Development Life Cycle (SDLC)** is a structured process used by the software industry to design, develop, and test high-quality software. Its primary goal is to produce software that meets or exceeds customer expectations, reaches completion within time and cost estimates, and is easy to maintain.
 
@@ -4343,6 +4372,8 @@ The SDLC doesn't end when the software is released. This final phase involves fi
 
 > **The Golden Rule of SDLC:** Every dollar spent on finding a problem in the **Analysis** or **Design** phase saves roughly \$10 to \$100 in the **Development** or **Maintenance** phases. Measures taken early are always cheaper than fixes applied later.
 
+
+### q131
 ## **131.** Define deployment and describe deployment strategies.
 In software engineering, **deployment** is the final stage of the development process where an application or update is moved from a testing environment to a production environment, making it available to end-users. It involves a series of activities including installation, configuration, and starting the software on a live server.
 
@@ -4410,6 +4441,7 @@ The new version is deployed alongside the old version, but it doesn't serve real
 
 Are you looking to implement one of these strategies using a specific tool like Kubernetes, AWS CodeDeploy, or Jenkins?
 
+### q132
 ## **132.** Define project.
 In the world of business and technology, a **project** is a temporary endeavor undertaken to create a unique product, service, or result. It isn't just "work"—it is a specific set of activities designed to achieve a singular goal within a set timeframe and budget.
 
@@ -4455,6 +4487,7 @@ Every project is managed within the framework of the **Triple Constraint** (also
 
 Are you looking for a definition related to a specific framework, like the PMBOK (Project Management Body of Knowledge) or Prince2?
 
+### q133
 ## **133.** Define requirements.
 In software engineering and project management, a **requirement** is a specific statement that describes a condition, capability, or characteristic that a system must provide or possess to be valuable to a stakeholder. 
 
@@ -4508,6 +4541,7 @@ To be useful, a requirement must be more than just a sentence. It should follow 
 
 > **The Cost of Error:** It is a well-known industry fact that a requirement error caught during the **Analysis** phase costs pennies to fix, but that same error caught after the software is **Deployed** can cost thousands of dollars in rework.
 
+### q134
 ## **134.** Define requirements determination.
 **Requirements determination** (often called requirements discovery or elicitation) is the intensive process in the Systems Analysis phase where the project team turns vague business needs into a precise, documented list of what the new system must do. 
 
@@ -4555,6 +4589,8 @@ Conversely, **Scope Creep** occurs when new requirements are added during the de
 
 > **Key Insight:** Requirements determination is not just about listening to what users *say* they want. It is about investigating what they actually *need* to do their jobs effectively. Often, users describe a solution ("I need a button that does X") rather than the underlying requirement ("I need to be able to see the customer's balance instantly").
 
+
+### q135
 ## **135.** Define Scrum and its key roles and events.
 **Scrum** is a lightweight framework within the broader Agile umbrella designed to help teams solve complex problems and deliver high-value products. It isn't a rigid "how-to" manual; rather, it's a set of values, roles, and events that emphasize transparency, inspection, and adaptation. 
 
@@ -4611,7 +4647,7 @@ To maintain transparency, Scrum relies on three specific "artifacts" that repres
 
 > **Insight:** Scrum is deceptively simple to understand but notoriously difficult to master. Its power lies in the "feedback loop"—the constant cycle of checking the work and the process to make sure the team is still heading in the right direction.
 
-
+### q136
 ## **136.** Define Extreme Programming (XP).
 **Extreme Programming (XP)** is an Agile software development framework specifically designed to improve software quality and responsiveness to changing customer requirements. It is a disciplined approach that focuses on high-quality code and frequent releases in short development cycles.
 
@@ -4671,6 +4707,8 @@ While Scrum focuses on **project management** and organizational roles (Scrum Ma
 | **Team Structure** | No fixed roles (except "Customer"). | Rigid roles (Scrum Master, PO, Developers). |
 | **Key Metric** | High-quality, tested code. | Velocity and meeting the Sprint Goal. |
 
+
+### q137
 ## **137.** Define pair programming.
 **Pair programming** is a collaborative software development technique where two programmers work together at a single workstation. It is a hallmark of high-performing Agile teams and serves as a continuous, real-time code review.
 
@@ -4712,6 +4750,8 @@ While it might seem "twice as expensive" to have two people working on one task,
 
 How do you think pair programming would change your approach to complex coding assignments for your degree?
 
+
+### q138
 ## **138.** Define and distinguish adaptive vs. predictive approaches.
 In the world of project management and software engineering, the choice between **predictive** and **adaptive** approaches determines how a team handles planning, change, and the delivery of value.
 
@@ -4768,6 +4808,7 @@ The fundamental difference lies in how much of the project is planned "upfront" 
 
 # Human-Computer Interaction (HCI)
 
+### q142
 ## **142.** Define HCI and its goals.
 **Human-Computer Interaction (HCI)** is a multidisciplinary field of study focusing on the design of computer technology and, specifically, the interaction between humans (the users) and computers. While it began with a focus on desktop computers, it now encompasses almost all forms of information technology design, including mobile devices, wearables, and even smart environments.
 
@@ -4813,8 +4854,9 @@ While usability focuses on task completion, UX goals are more subjective and foc
 
 > **Key Insight:** A system can be perfectly **usable** (efficient and effective) but have a terrible **user experience** (boring or ugly). Conversely, a beautiful and fun app (great UX) is useless if the user can't figure out how to save their work (poor usability). Successful HCI finds the sweet spot between both.
 
-Are you studying HCI in the context of web design, mobile app development, or perhaps human-centered engineering?
 
+
+### q143
 ## **143.** Define the dialog metaphor.
 The **dialog metaphor** is a concept in Human-Computer Interaction (HCI) where the interaction between a user and a computer is modeled as a **conversation** or a "dialog" between two intelligent entities.
 
@@ -4866,6 +4908,7 @@ It is helpful to contrast the dialog metaphor with the **Direct Manipulation** (
 * **Dialog Metaphor:** You tell the system what you want, and it performs the action for you. It feels like you are "asking" someone else to do the work.
 
 
+### q144
 ## **144.** Define user interface.
 In the most basic sense, a **User Interface (UI)** is the point of contact between a human user and a computer system. It consists of the space where interactions between humans and machines occur. 
 
@@ -4910,7 +4953,7 @@ While often used interchangeably, **User Interface (UI)** and **User Experience 
 
 > **The Analogy:** If you were designing a car, the **UI** would be the steering wheel, the pedals, and the dashboard display. The **UX** would be how comfortable the seat is and how smoothly the car handles a sharp turn.
 
-
+### q145
 ## **145.** Define usability test.
 A **usability test** is a research method used to evaluate how easy a product is to use by observing real people as they attempt to complete specific tasks. Unlike a generic "bug hunt," usability testing isn't just about finding code errors; it's about uncovering **design friction**—those moments where a user gets confused, frustrated, or stuck.
 
@@ -4971,6 +5014,7 @@ A system can pass UAT perfectly (it meets every requirement) but fail a usabilit
 
 # Stakeholders & Users
 
+### q139
 ## **139.** Define stakeholders and give examples.
 In the context of project management and systems analysis, a **stakeholder** is any individual, group, or organization that has a "stake" in the outcome of a project. They are people who can either influence the project's direction or are directly affected by its results—for better or worse.
 
@@ -5025,6 +5069,7 @@ Not all stakeholders are created equal. Professionals often use a **Power/Intere
 > **Insight:** One of the biggest causes of **"Scope Creep"** (when a project grows out of control) is failing to identify a "High Power" stakeholder early on, only for them to show up halfway through the project with a list of new requirements.
 
 
+### q140
 ## **140.** Define end users and explain why they matter.
 An **end user** is the person who ultimately uses a product, application, or system to perform a specific task. In the world of software development, they are the "boots on the ground"—the people for whom the code was written and the interfaces were designed.
 
@@ -5068,7 +5113,7 @@ Understanding this distinction is vital for any analyst or programmer.
 > **The Golden Rule of Development:** Treat your end users like experts in their own field—because they are. If you build *for* them without talking *to* them, you’re essentially guessing at the solution.
 
 
-
+### q141
 ## **141.** Define event in the context of systems analysis.
 In the context of systems analysis, an **event** is an occurrence at a specific time and place that can be described and for which the system must provide a response. 
 
@@ -5116,7 +5161,7 @@ This is the primary method analysts use to define the scope of a system. Instead
 ---
 
 # Testing
-
+### q146
 ## **146.** Define unit testing.
 **Unit testing** is a software development process in which the smallest testable parts of an application, called **units**, are individually and independently scrutinized for proper operation. In procedural programming, a unit might be an individual function or procedure; in object-oriented programming, the smallest unit is typically a single method within a class.
 
@@ -5161,7 +5206,7 @@ Most modern programming languages have a standard library or popular third-party
 
 > **The "Red-Green-Refactor" Workflow:** This is a popular unit testing pattern. You first write a test that fails (**Red**), then write the minimum amount of code to make the test pass (**Green**), and finally clean up the code while ensuring the test stays green (**Refactor**).
 
-
+### q147
 ## **147.** Define and distinguish alpha vs. beta versions.
 
 In software engineering, **alpha** and **beta** versions represent two critical milestones in the testing phase of the Software Development Life Cycle (SDLC). They act as "filters" that catch bugs before the software reaches the general public.
