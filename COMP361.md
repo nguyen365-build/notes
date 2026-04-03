@@ -52,19 +52,19 @@
 
 # Chapter 2 – Investigating System Requirements
 
-**47.** List and briefly describe the five activities of systems analysis. [link to answer](#q047)
-**48.** What is the difference between functional and non-functional requirements? Give one example of each. [link to answer](#q048)
-**49.** Describe the steps for preparing, conducting, and following up on an interview session. [link to answer](#q049)
-**50.** What are the six information-gathering techniques? When is each most appropriate? [link to answer](#q050)
-**51.** What is the open-items list, and why is it important to a project? [link to answer](#q051)
-**52.** What are the benefits of vendor research during information gathering? [link to answer](#q052)
-**53.** What types of stakeholders should be included in fact-finding? [link to answer](#q053)
-**54.** What is the purpose of an activity diagram? How does it differ from a flowchart? [link to answer](#q054)
-**102.** What is the difference between a client and a user? [link to answer](#q102)
-**106.** How would you ensure complete and comprehensive requirements are gathered during an interview? [link to answer](#q106)
-**107.** How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure? [link to answer](#q107)
-**108.** How do you deal with an unresponsive stakeholder who won't finalize policy decisions? [link to answer](#q108)
-**109.** How do you manage scope creep during requirements gathering? Describe at least two strategies. [link to answer](#q109)
+47. List and briefly describe the five activities of systems analysis. [link to answer](#q047)
+48. What is the difference between functional and non-functional requirements? Give one example of each. [link to answer](#q048)
+49. Describe the steps for preparing, conducting, and following up on an interview session. [link to answer](#q049)
+50. What are the six information-gathering techniques? When is each most appropriate? [link to answer](#q050)
+51. What is the open-items list, and why is it important to a project? [link to answer](#q051)
+52. What are the benefits of vendor research during information gathering? [link to answer](#q052)
+53. What types of stakeholders should be included in fact-finding? [link to answer](#q053)
+54. What is the purpose of an activity diagram? How does it differ from a flowchart? [link to answer](#q054)
+102. What is the difference between a client and a user? [link to answer](#q102)
+106. How would you ensure complete and comprehensive requirements are gathered during an interview? [link to answer](#q106)
+107. How would you handle conflicting answers from two interviewees — one a clerk, one a manager — about the same procedure? [link to answer](#q107)
+108. How do you deal with an unresponsive stakeholder who won't finalize policy decisions? [link to answer](#q108)
+109. How do you manage scope creep during requirements gathering? Describe at least two strategies. [link to answer](#q109)
 
 ---
 
@@ -72,154 +72,140 @@
 
 ### Use Cases
 
-**55.** What is a use case diagram? Identify its components (actors, use cases, system boundary). [link to answer](#q055)
-**59.** What is the user goal technique for identifying use cases? Give an example [link to answer](#q059)
-**75.** What is a use case, and what is the difference between a use case and a scenario? [link to answer](#q075)
-**76.** Explain the user goal technique vs. the event decomposition technique for identifying use cases. [link to answer](#q076)
-**77.** What is an elementary business process (EBP [link to answer](#q077)
-**78.** Define the three types of events (External, Temporal, State) and give an example of each. [link to answer](#q078)
-**79.** What is the perfect technology assumption? [link to answer](#q079)
-**80.** List the parts/compartments of a fully developed use case description. [link to answer](#q080)
-**81.** Compare and contrast preconditions, postconditions, and exception conditions. [link to answer](#q081)
-**103.** What is a brief use case description? What does it contain? [link to answer](#q103)
-**104.** Why are system controls not treated as use cases?  [link to answer](#q104)
-**105.** Define CRUD and explain the purpose of the CRUD technique. [link to answer](#q105)
+55. What is a use case diagram? Identify its components (actors, use cases, system boundary). [link to answer](#q055)
+59. What is the user goal technique for identifying use cases? Give an example [link to answer](#q059)
+75. What is a use case, and what is the difference between a use case and a scenario? [link to answer](#q075)
+76. Explain the user goal technique vs. the event decomposition technique for identifying use cases. [link to answer](#q076)
+77. What is an elementary business process (EBP [link to answer](#q077)
+78. Define the three types of events (External, Temporal, State) and give an example of each. [link to answer](#q078)
+79. What is the perfect technology assumption? [link to answer](#q079)
+80. List the parts/compartments of a fully developed use case description. [link to answer](#q080)
+81. Compare and contrast preconditions, postconditions, and exception conditions. [link to answer](#q081)
+103. What is a brief use case description? What does it contain? [link to answer](#q103)
+104. Why are system controls not treated as use cases?  [link to answer](#q104)
+105. Define CRUD and explain the purpose of the CRUD technique. [link to answer](#q105)
 
 ### Domain Modeling
 
-**56.** What is a domain model class diagram? What does it show that a use case diagram does not? [link to answer](#q056)
-
-**57.** What is a system sequence diagram (SSD)? How does it relate to a use case? [link to answer](#q057)
-
-**58.** How does a state machine diagram differ from an activity diagram? [link to answer](#q058)
-
-**82.** What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)? [link to answer](#q082)
-
-**83.** What is an attribute, an identifier (key), and a compound attribute? [link to answer](#q083)
-
-**84.** What is an association class [link to answer](#q084)
-
-**85.** Compare and contrast an abstract class and a concrete class. [link to answer](#q085)
-
-**86.** Compare and contrast aggregation with composition in a whole-part relationship. [link to answer](#q086)
-
-**87.** What is multiplicity, and how is it used on a class diagram? [link to answer](#q087)
+56. What is a domain model class diagram? What does it show that a use case diagram does not? [link to answer](#q056)
+57. What is a system sequence diagram (SSD)? How does it relate to a use case? [link to answer](#q057)
+58. How does a state machine diagram differ from an activity diagram? [link to answer](#q058)
+82. What are the two techniques for identifying things in the problem domain (Brainstorming vs. Noun technique)? [link to answer](#q082)
+83. What is an attribute, an identifier (key), and a compound attribute? [link to answer](#q083)
+84. What is an association class [link to answer](#q084)
+85. Compare and contrast an abstract class and a concrete class. [link to answer](#q085)
+86. Compare and contrast aggregation with composition in a whole-part relationship. [link to answer](#q086)
+87. What is multiplicity, and how is it used on a class diagram? [link to answer](#q087)
 
 ---
 
 ## Chapter 4 – Object-Oriented Concepts & Design Patterns
 
-**111.** Define abstract class and give an example. [link to answer](#q111)
-
-**112.** Define object, class, and object-oriented design, and distinguish between them. [link to answer](#q112)
-
-**113.** Define design pattern and give an example (e.g., the Observer pattern). [link to answer](#q113)
-
-**93.** What are the components of a standard design pattern definition (e.g., Gang of Four [link to answer](#q093)
-
-**94.** Compare and contrast coupling and cohesion. [link to answer](#q094)
-
-**92.** How are domain classes different from design classes? [link to answer](#q092)
-
+111. Define abstract class and give an example. [link to answer](#q111)
+112. Define object, class, and object-oriented design, and distinguish between them. [link to answer](#q112)
+113. Define design pattern and give an example (e.g., the Observer pattern). [link to answer](#q113)
+93. What are the components of a standard design pattern definition (e.g., Gang of Four [link to answer](#q093)
+94. Compare and contrast coupling and cohesion. [link to answer](#q094)
+92. How are domain classes different from design classes? [link to answer](#q092)
 ---
 
 ## Chapter 5 – Systems Design & Architecture
 
-**88.** What is the primary objective of systems design, and how does it differ from systems analysis? [link to answer](#q088)
-**89.** What is three-layer design? Describe the view layer, logic layer, and data layer. [link to answer](#q089)
-**90.** Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration. [link to answer](#q090)
-**91.** What is an API, and why is it important in modern systems? [link to answer](#q091)
-**110.** Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all? [link to answer](#q110)
-**114.** Define data access class and explain its purpose. [link to answer](#q114)
-**115.** Define model and list the three types. [link to answer](#q115)
-**116.** Define activity diagram and explain its purpose. [link to answer](#q116)
-**117.** Define component diagram. [link to answer](#q117)
-**118.** Define communication diagram. [link to answer](#q118)
-**119.** Define UML and explain why it is used. [link to answer](#q119)
-**120.** Define use case realization. [link to answer](#q120)
-**121.** Define client/server architecture. [link to answer](#q121)
-**122.** Define three-layer architecture and describe what each layer does. [link to answer](#q122)
-**123.** Define top-down vs. bottom-up development. [link to answer](#q123)
+88. What is the primary objective of systems design, and how does it differ from systems analysis? [link to answer](#q088)
+89. What is three-layer design? Describe the view layer, logic layer, and data layer. [link to answer](#q089)
+90. Describe the differences between a client-server system and an Internet-based system, focusing on state, screens, and server configuration. [link to answer](#q090)
+91. What is an API, and why is it important in modern systems? [link to answer](#q091)
+110. Why are multiple diagrams needed to fully describe a system? Why can't one diagram do it all? [link to answer](#q110)
+114. Define data access class and explain its purpose. [link to answer](#q114)
+115. Define model and list the three types. [link to answer](#q115)
+116. Define activity diagram and explain its purpose. [link to answer](#q116)
+117. Define component diagram. [link to answer](#q117)
+118. Define communication diagram. [link to answer](#q118)
+119. Define UML and explain why it is used. [link to answer](#q119)
+120. Define use case realization. [link to answer](#q120)
+121. Define client/server architecture. [link to answer](#q121)
+122. Define three-layer architecture and describe what each layer does. [link to answer](#q122)
+123. Define top-down vs. bottom-up development. [link to answer](#q123)
 
 ---
 
 ## Chapter 6 – Database Design
 
-**60.** What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each. [link to answer](#q060)
-**61.** What is an Entity-Relationship Diagram (ERD)? What symbols does it use? [link to answer](#q061)
-**62.** What is a primary key? What is a foreign key? How do they relate tables? [link to answer](#q062)
-**63.** What is referential integrity, and how does a DBMS enforce it? [link to answer](#q063)
-**64.** What is a relational database schema? How is it derived from a domain model? [link to answer](#q064)
-**95.** Describe the steps to transform a domain class diagram into a relational database schema. [link to answer](#q095)
-**96.** What is database normalization? Describe 1NF, 2NF, and 3NF. [link to answer](#q096)
-**124.** Define DBMS and explain its role. [link to answer](#q124)
-**125.** Define database normalization. [link to answer](#q125)
-**126.** Define relational database. [link to answer](#q126)
+60. What are the three normal forms (1NF, 2NF, 3NF)? Briefly describe each. [link to answer](#q060)
+61. What is an Entity-Relationship Diagram (ERD)? What symbols does it use? [link to answer](#q061)
+62. What is a primary key? What is a foreign key? How do they relate tables? [link to answer](#q062)
+63. What is referential integrity, and how does a DBMS enforce it? [link to answer](#q063)
+64. What is a relational database schema? How is it derived from a domain model? [link to answer](#q064)
+95. Describe the steps to transform a domain class diagram into a relational database schema. [link to answer](#q095)
+96. What is database normalization? Describe 1NF, 2NF, and 3NF. [link to answer](#q096)
+124. Define DBMS and explain its role. [link to answer](#q124)
+125. Define database normalization. [link to answer](#q125)
+126. Define relational database. [link to answer](#q126)
 ---
 
 ## Chapter 7 – Security & Controls
 
-**65.** What are the three goals of system security (Confidentiality, Integrity, Availability)? [link to answer](#q065)
-**66.** Describe three types of security controls an analyst might recommend. [link to answer](#q066)
-**67.** What is the difference between authentication and authorization? [link to answer](#q067)
-**68.** What is a replicated database architecture? What synchronization challenges does it create? [link to answer](#q068)
-**97.** Explain the four types of input controls (field combination, value limit, completeness, data validation). [link to answer](#q097)
-**98.** Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption. [link to answer](#q098)
-**99.** What is a digital signature, and what does it verify? [link to answer](#q099)
-**127.** Define digital signature and what it verifies. [link to answer](#q127)
-**128.** Define encryption and decryption. [link to answer](#q128)
-**129.** Define and distinguish security controls vs. integrity controls. [link to answer](#q129)
+65. What are the three goals of system security (Confidentiality, Integrity, Availability)? [link to answer](#q065)
+66. Describe three types of security controls an analyst might recommend. [link to answer](#q066)
+67. What is the difference between authentication and authorization? [link to answer](#q067)
+68. What is a replicated database architecture? What synchronization challenges does it create? [link to answer](#q068)
+97. Explain the four types of input controls (field combination, value limit, completeness, data validation). [link to answer](#q097)
+98. Explain the difference between single-key (symmetric) and public-key (asymmetric) encryption. [link to answer](#q098)
+99. What is a digital signature, and what does it verify? [link to answer](#q099)
+127. Define digital signature and what it verifies. [link to answer](#q127)
+128. Define encryption and decryption. [link to answer](#q128)
+129. Define and distinguish security controls vs. integrity controls. [link to answer](#q129)
 
 ---
 
 ## Chapter 8 – Object-Oriented Design (OOD)
 
-**69.** What is the difference between analysis and design in the SDLC? [link to answer](#q069)
-**70.** What is a first-cut design class diagram? How is it derived from a domain model? [link to answer](#q070)
-**71.** What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram? [link to answer](#q071)
-**72.** Why do we need multiple types of diagrams in the design phase? What does each one show? [link to answer](#q072)
-**73.** How do you add method signatures to a design class diagram using sequence diagrams as a guide? [link to answer](#q073)
-**74.** What is a package diagram? What problem does it solve in large systems? [link to answer](#q074)
+69. What is the difference between analysis and design in the SDLC? [link to answer](#q069)
+70. What is a first-cut design class diagram? How is it derived from a domain model? [link to answer](#q070)
+71. What is a multilayer sequence diagram? How does it differ from a first-cut sequence diagram? [link to answer](#q071)
+72. Why do we need multiple types of diagrams in the design phase? What does each one show? [link to answer](#q072)
+73. How do you add method signatures to a design class diagram using sequence diagrams as a guide? [link to answer](#q073)
+74. What is a package diagram? What problem does it solve in large systems? [link to answer](#q074)
 
 ---
 
 ## Chapter 9 – Project Management & SDLC Methodologies
 
-**100.** Contrast predictive and adaptive approaches to the SDLC. [link to answer](#q100)
-**101.** What are the four values of Agile development? [link to answer](#q101)
-**130.** Define SDLC and its major phases. [link to answer](#q130)
-**131.** Define deployment and describe deployment strategies. [link to answer](#q131)
-**132.** Define project. [link to answer](#q132)
-**133.** Define requirements. [link to answer](#q133)
-**134.** Define requirements determination. [link to answer](#q134)
-**135.** Define Scrum and its key roles and events. [link to answer](#q135)
-**136.** Define Extreme Programming (XP). [link to answer](#q136)
-**137.** Define pair programming. [link to answer](#q137)
-**138.** Define and distinguish adaptive vs. predictive approaches. [link to answer](#q138)
+100. Contrast predictive and adaptive approaches to the SDLC. [link to answer](#q100)
+101. What are the four values of Agile development? [link to answer](#q101)
+130. Define SDLC and its major phases. [link to answer](#q130)
+131. Define deployment and describe deployment strategies. [link to answer](#q131)
+132. Define project. [link to answer](#q132)
+133. Define requirements. [link to answer](#q133)
+134. Define requirements determination. [link to answer](#q134)
+135. Define Scrum and its key roles and events. [link to answer](#q135)
+136. Define Extreme Programming (XP). [link to answer](#q136)
+137. Define pair programming. [link to answer](#q137)
+138. Define and distinguish adaptive vs. predictive approaches. [link to answer](#q138)
 
 ---
 
 ## Human-Computer Interaction (HCI)
 
-**142.** Define HCI and its goals. [link to answer](#q142)
-**143.** Define the dialog metaphor. [link to answer](#q143)
-**144.** Define user interface. [link to answer](#q144)
-**145.** Define usability test. [link to answer](#q145)
+142. Define HCI and its goals. [link to answer](#q142)
+143. Define the dialog metaphor. [link to answer](#q143)
+144. Define user interface. [link to answer](#q144)
+145. Define usability test. [link to answer](#q145)
 
 ---
 
 ## Stakeholders & Users
 
-**139.** Define stakeholders and give examples. [link to answer](#q139)
-**140.** Define end users and explain why they matter. [link to answer](#q140)
-**141.** Define event in the context of systems analysis. [link to answer](#q141)
+139. Define stakeholders and give examples. [link to answer](#q139)
+140. Define end users and explain why they matter. [link to answer](#q140)
+141. Define event in the context of systems analysis. [link to answer](#q141)
 
 ---
 
 ## Testing
 
-**146.** Define unit testing. [link to answer](#q146)
-**147.** Define and distinguish alpha vs. beta versions. [link to answer](#q147)
+146. Define unit testing. [link to answer](#q146)
+147. Define and distinguish alpha vs. beta versions. [link to answer](#q147)
 
 
 ## Section 1: Definitions – Concepts, Tools, and Processes
@@ -5394,3 +5380,4 @@ The beta version is the "pre-release" version of the software. It has passed ini
 
 ---
 
+	
