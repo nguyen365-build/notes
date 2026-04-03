@@ -223,7 +223,8 @@
 
 
 ## Section 1: Definitions – Concepts, Tools, and Processes
-### q001 [top](#top)
+### q001 
+[top](#top)
 ### 1.	Abstract class
 
 **Definition:** An abstract class is intended to be a base or "blueprint" for other classes, but cannot be instantiated. It often contains at least one method that is defined but has no implementation, forcing subclasses to provide the specific logic.
