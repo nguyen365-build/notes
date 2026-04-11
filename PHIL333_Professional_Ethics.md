@@ -8,15 +8,15 @@
 ### top
 
 
-Study Question Forum 1.1—Descriptive vs Prescriptive Morality [link to answer](#q011)
+## Study Question Forum 1.1—Descriptive vs Prescriptive Morality [link to answer](#q011)
 
 Explain in your own words the main difference between descriptive morality and prescriptive morality, and provide an example of a descriptive ethical claim and an example of a normative ethical claim.
 
-Study Question Forum 1.2—Amorality [link to answer](#q012)
+## Study Question Forum 1.2—Amorality [link to answer](#q012)
 
 Provide a brief description of a scenario that you would consider to be amoral, and explain why that is so.
 
-Study Question Forum 1.3—Positive and Negative Rights [link to answer](#q013)
+## Study Question Forum 1.3—Positive and Negative Rights [link to answer](#q013)
 
 List two positive rights and two negative rights that are not mentioned in this unit.
 
