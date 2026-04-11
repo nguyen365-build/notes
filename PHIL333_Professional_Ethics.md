@@ -3133,8 +3133,8 @@ According to Wolfram, under what conditions, generally, should lawyers not be pe
 
 According to Charles Wolfram, a lawyer’s right to choose their clients is not absolute. He uses a **"rescue" metaphor** to explain when a lawyer has a moral obligation to represent someone, even if they would rather not[cite: 222, 450]. Wolfram argues that a lawyer should generally not be permitted to reject a prospective client if the following conditions are met:
 
-1.  **Capability:** The lawyer must be competent and capable of serving the client’s specific legal needs[cite: 224, 459].
-2.  **Low Risk to the Lawyer:** The representation must not pose a significant risk of harm or hardship to the lawyer themselves or to other people[cite: 226, 460].
+1.  **Capability:** The lawyer must be competent and capable of serving the client’s specific legal needs.
+2.  **Low Risk to the Lawyer:** The representation must not pose a significant risk of harm or hardship to the lawyer themselves or to other people.
 3.  **Uniqueness and Necessity:** The client must have no viable alternatives for representation (the service is uniquely required), and without it, the client is likely to face substantial danger or harm[cite: 462, 473].
 
 Wolfram’s most important conclusion is that a lawyer cannot ethically reject a client whose goal "uniquely and directly relates to the **satisfaction of a basic human need**," even if the lawyer finds the client or their cause "repugnant" or morally offensive [cite: 866-867, 880]. In these cases, the need for justice and the protection of basic rights outweighs the lawyer's personal feelings.
@@ -3145,7 +3145,7 @@ Restricting a lawyer’s autonomy by imposing a general obligation to represent 
 
 * **Utilitarianism:** A utilitarian might argue that restricting autonomy is **morally right** because it produces the greatest overall good. If lawyers could reject any client they didn't like, many people would be left without justice, leading to a breakdown of the legal system and public trust[cite: 859]. The benefit of a functioning, fair society outweighs the "cost" of a lawyer having to take a case they dislike.
 * **Deontology (Kantianism):** This theory offers a conflict. On one hand, forcing a lawyer to act against their conscience treats the lawyer as a **"means to an end"** rather than an autonomous individual with their own moral values[cite: 684, 1752]. However, Kant’s universal law could also suggest that we have a duty to help those in need. If the rule "reject whoever you want" were universal, no one could ever be sure they would receive a fair trial.
-* **Contractarianism:** In a Rawlsian "original position," rational people would likely agree to a system where representation is a **positive right** [cite: 1807-1811]. Because anyone could end up in a situation where they are "unpopular" but need legal help to protect their liberty (a basic human need), we would choose a social contract that requires professionals to provide services regardless of personal bias to ensure our own safety.
+* **Contractarianism:** In a Rawlsian "original position," rational people would likely agree to a system where representation is a **positive right** . Because anyone could end up in a situation where they are "unpopular" but need legal help to protect their liberty (a basic human need), we would choose a social contract that requires professionals to provide services regardless of personal bias to ensure our own safety.
 
 In conclusion, while it feels "immoral" to force a person to do something they find repugnant, the professional role of a lawyer carries special duties. Restricting autonomy is justified when it is necessary to protect the fundamental rights and needs of other human beings.
 
