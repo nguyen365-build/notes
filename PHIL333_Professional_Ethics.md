@@ -484,18 +484,18 @@ Explain in your own words the main difference between descriptive morality and p
 [top of the page](#top)	
 
 ### Descriptive Morality
-Descriptive morality is like being a social scientist or a reporter. It involves describing the moral values, beliefs, and behaviors that individuals or groups actually have[cite: 1445, 1454]. When we use the term in this sense, we are simply stating facts about what people believe is right or wrong[cite: 1455]. These are "empirical" claims because they describe a part of reality that exists or could exist[cite: 1460, 1462].
+Descriptive morality is like being a social scientist or a reporter. It involves describing the moral values, beliefs, and behaviors that individuals or groups actually have. When we use the term in this sense, we are simply stating facts about what people believe is right or wrong. These are "empirical" claims because they describe a part of reality that exists or could exist.
 
-* **Example of a descriptive ethical claim:** "John believes that employers should respect their employees"[cite: 1457]. This sentence does not say if John is right; it just reports the fact that she has that specific belief[cite: 1457]. Another example would be stating that "Canadians believe that all persons... deserve equal access to quality health-care services"[cite: 1458]. This is just a description of a popular belief held by a group[cite: 1458, 1459].
+* **Example of a descriptive ethical claim:** "John believes that employers should respect their employees". This sentence does not say if John is right; it just reports the fact that she has that specific belief. Another example would be stating that "Canadians believe that all persons... deserve equal access to quality health-care services". This is just a description of a popular belief held by a group.
 
 ### Prescriptive Morality
-Prescriptive morality (also known as normative ethics) is the core of philosophy. It does not just report on beliefs; it "prescribes" how people should act or what rules they must follow[cite: 1465, 1470]. This side of morality is about reaching for a "moral ideal"[cite: 1465]. When we make a prescriptive claim, we are judging an action as right or wrong based on that ideal[cite: 1466]. A key feature here is "universality," which is the idea that if a rule is right, it should be followed by every rational person in a similar situation[cite: 1474, 1475].
+Prescriptive morality (also known as normative ethics) is the core of philosophy. It does not just report on beliefs; it "prescribes" how people should act or what rules they must follow. This side of morality is about reaching for a "moral ideal". When we make a prescriptive claim, we are judging an action as right or wrong based on that ideal. A key feature here is "universality," which is the idea that if a rule is right, it should be followed by every rational person in a similar situation.
 
-* **Example of a normative ethical claim:** "People should receive equal pay for equal work"[cite: 1467]. This claim does not report a poll or a person's opinion; it sets a standard of fairness that "ought" to be required in the workplace[cite: 1468, 1470].
+* **Example of a normative ethical claim:** "People should receive equal pay for equal work". This claim does not report a poll or a person's opinion; it sets a standard of fairness that "ought" to be required in the workplace.
 
 
 ### The Main Difference
-The main difference is that descriptive morality focuses on "what is," often using words like "is" or "was" to describe facts[cite: 1463]. Prescriptive morality focuses on "what ought to be," often using words like "should," "may," or "must" to set requirements[cite: 1471, 1472]. They are independent of each other because what people *actually* do (descriptive) is not always what they *should* do (prescriptive)[cite: 1478, 1479].
+The main difference is that descriptive morality focuses on "what is," often using words like "is" or "was" to describe facts. Prescriptive morality focuses on "what ought to be," often using words like "should," "may," or "must" to set requirements. They are independent of each other because what people *actually* do (descriptive) is not always what they *should* do (prescriptive).
 
 To help you reflect on this, consider a professional you know, like a doctor or an accountant. If you describe their daily habits, are you doing descriptive or prescriptive ethics? How would your approach change if you started evaluating whether those habits were actually "good" for their clients?
 
@@ -530,13 +530,13 @@ List two positive rights and two negative rights that are not mentioned in this 
 
 ### Two Positive Rights (Not in the Unit)
 
-1.  **The Right to a Safe Retirement (Pension):** This is a claim that society or an employer must provide financial support once a person is too old to work. Because this requires a "legitimate claim demanding that someone act" (by paying into a fund and distributing money), it is a positive right[cite: 1545].
+1.  **The Right to a Safe Retirement (Pension):** This is a claim that society or an employer must provide financial support once a person is too old to work. Because this requires a "legitimate claim demanding that someone act" (by paying into a fund and distributing money), it is a positive right.
 2.  **The Right to Clean Drinking Water:** This isn't just about not polluting a stream (which would be a negative right). As a positive right, it is the claim that the government must build infrastructure and provide the service of delivering safe water to your home.
 
 ### Two Negative Rights (Not in the Unit)
 
-1.  **Freedom of Religion:** This is the right to practice your faith without the government stopping you. It requires "only inaction on the part of others"[cite: 1550]. As long as no one interferes with your prayers or services, your right is satisfied.
-2.  **Freedom of Assembly:** This is the right to gather in a group for a protest or a meeting. It is a negative right because it demands that the state "refrain from acting" to break up your peaceful gathering[cite: 1554].
+1.  **Freedom of Religion:** This is the right to practice your faith without the government stopping you. It requires "only inaction on the part of others". As long as no one interferes with your prayers or services, your right is satisfied.
+2.  **Freedom of Assembly:** This is the right to gather in a group for a protest or a meeting. It is a negative right because it demands that the state "refrain from acting" to break up your peaceful gathering.
 
 
 ### q014 
@@ -594,23 +594,23 @@ Provide an example of a morally problematic situation and explain how a proponen
 
 
 ### The Problematic Situation: The Hospital Deception
-Consider a situation described in Unit 2: A nurse is caring for a mother who has just been in a car accident[cite: 2299]. The mother is in great distress and repeatedly asks about her children. One child has actually died, but the doctor orders the nurse to lie and say everyone is fine for the night so the mother can stabilize before hearing the news the next day[cite: 2304].
+Consider a situation described in Unit 2: A nurse is caring for a mother who has just been in a car accident. The mother is in great distress and repeatedly asks about her children. One child has actually died, but the doctor orders the nurse to lie and say everyone is fine for the night so the mother can stabilize before hearing the news the next day.
 
 ### Reasoning with Act Utilitarianism
-A proponent of **Act Utilitarianism** looks at this specific moment as a unique event. They act like a "utility calculator" for this one case[cite: 1978, 2319]. 
+A proponent of **Act Utilitarianism** looks at this specific moment as a unique event. They act like a "utility calculator" for this one case. 
 
-* **Calculation**: They weigh the immediate physical health of the mother against the temporary emotional pain of being lied to[cite: 2321]. 
-* **The Decision**: If the nurse believes that telling the truth right now would cause the mother to have a heart attack or go into shock, the Act Utilitarian might decide that lying is the "right" thing to do[cite: 1979]. They only care about which of the available choices produces the most happiness (or least pain) *right now* in this specific hospital room[cite: 2320].
+* **Calculation**: They weigh the immediate physical health of the mother against the temporary emotional pain of being lied to. 
+* **The Decision**: If the nurse believes that telling the truth right now would cause the mother to have a heart attack or go into shock, the Act Utilitarian might decide that lying is the "right" thing to do. They only care about which of the available choices produces the most happiness (or least pain) *right now* in this specific hospital room.
 
 ### Reasoning with Rule Utilitarianism
-A proponent of **Rule Utilitarianism** does not look at the specific mother or doctor. Instead, they ask: "What if 'Lying to patients to prevent distress' became a general rule for all nurses?" [cite: 1995, 2334]
+A proponent of **Rule Utilitarianism** does not look at the specific mother or doctor. Instead, they ask: "What if 'Lying to patients to prevent distress' became a general rule for all nurses?"
 
-* **The Rule**: They look at the long-term consequences of that rule. If nurses generally lied to patients, the public would lose all trust in the medical profession[cite: 2336, 2431]. People would be afraid to go to hospitals, which would lead to a massive decrease in overall society-wide happiness.
-* **The Decision**: Since a rule of "always tell the truth" creates more utility for society in the long run than a rule of "lie when it seems helpful," the Rule Utilitarian would argue the nurse **must** tell the truth[cite: 2337]. Even if the mother is devastated in this one instance, the professional must follow the rule that produces the most good for everyone over time[cite: 2000].
+* **The Rule**: They look at the long-term consequences of that rule. If nurses generally lied to patients, the public would lose all trust in the medical profession. People would be afraid to go to hospitals, which would lead to a massive decrease in overall society-wide happiness.
+* **The Decision**: Since a rule of "always tell the truth" creates more utility for society in the long run than a rule of "lie when it seems helpful," the Rule Utilitarian would argue the nurse **must** tell the truth. Even if the mother is devastated in this one instance, the professional must follow the rule that produces the most good for everyone over time.
 
 
 ### The Key Difference
-The Act Utilitarian is looking for a "short-term fix" to maximize happiness in one situation, while the Rule Utilitarian is looking to maintain a "standard of behavior" that protects society's happiness in the long term[cite: 1998, 1999].
+The Act Utilitarian is looking for a "short-term fix" to maximize happiness in one situation, while the Rule Utilitarian is looking to maintain a "standard of behavior" that protects society's happiness in the long term.
 
 
 ### q022 
@@ -1013,26 +1013,26 @@ Summarize the features of professions provided by Greenwood and those provided b
 In the study of professional ethics, Ernest Greenwood and R.S. Downie provide two influential frameworks for understanding what distinguishes a profession from a regular job. While they use different conceptual tools, their accounts share a fundamental perspective on the complex nature of professional identity.
 
 ### Greenwood’s Five Features of a Profession
-Ernest Greenwood identifies five specific "attributes" that a profession must possess to a high degree[cite: 2479].
-1.  **A Systematic Body of Theoretical Knowledge:** Professionals do not just have practical skills; their work is based on an extensive, often abstract, body of theory usually acquired through years of formal higher education[cite: 2507, 2510].
-2.  **Professional Authority:** Because of their specialized knowledge, professionals are seen as authorities. Clients are often in a vulnerable position and must subordinate their own judgment to the professional's expertise[cite: 2527, 2543, 2545].
-3.  **Sanction of the Community:** A profession is granted a monopoly over its services by society. This "social bargain" allows the profession to control its own training, accreditation, and licensing in exchange for a commitment to public service[cite: 2554, 2565, 2567].
-4.  **A Regulative Code of Ethics:** Professions have formalized, public codes of conduct that ensure practitioners act in the interest of the public rather than purely out of self-interest[cite: 2572, 2574, 2585].
-5.  **A Professional Culture:** Every profession develops its own unique culture, which includes a shared set of values, behavioral norms, and symbols (like insignias or distinctive dress)[cite: 2601, 2604, 2631].
+Ernest Greenwood identifies five specific "attributes" that a profession must possess to a high degree.
+1.  **A Systematic Body of Theoretical Knowledge:** Professionals do not just have practical skills; their work is based on an extensive, often abstract, body of theory usually acquired through years of formal higher education.
+2.  **Professional Authority:** Because of their specialized knowledge, professionals are seen as authorities. Clients are often in a vulnerable position and must subordinate their own judgment to the professional's expertise.
+3.  **Sanction of the Community:** A profession is granted a monopoly over its services by society. This "social bargain" allows the profession to control its own training, accreditation, and licensing in exchange for a commitment to public service.
+4.  **A Regulative Code of Ethics:** Professions have formalized, public codes of conduct that ensure practitioners act in the interest of the public rather than purely out of self-interest.
+5.  **A Professional Culture:** Every profession develops its own unique culture, which includes a shared set of values, behavioral norms, and symbols (like insignias or distinctive dress).
 
-Greenwood argues that these features exist on a **continuum**. No job is "all or nothing"; rather, professions are those occupations that sit at the far end of the scale by strongly exhibiting these five traits[cite: 2489].
+Greenwood argues that these features exist on a **continuum**. No job is "all or nothing"; rather, professions are those occupations that sit at the far end of the scale by strongly exhibiting these five traits.
 
 ### Downie’s Family Resemblance Model
-R.S. Downie takes a slightly different approach by using the philosopher Ludwig Wittgenstein’s concept of **"family resemblance"**[cite: 2495]. Instead of looking for a strict list of features that every profession *must* have, Downie argues that professions share a set of overlapping traits[cite: 2497].
+R.S. Downie takes a slightly different approach by using the philosopher Ludwig Wittgenstein’s concept of **"family resemblance"**. Instead of looking for a strict list of features that every profession *must* have, Downie argues that professions share a set of overlapping traits.
 
-Just as members of a family might share similar eyes or hair without all looking exactly the same, professions share various characteristics—like expertise or a sense of service—in different combinations[cite: 2501]. For Downie, no single trait is absolutely necessary or sufficient to define a profession on its own[cite: 2498].
+Just as members of a family might share similar eyes or hair without all looking exactly the same, professions share various characteristics—like expertise or a sense of service—in different combinations. For Downie, no single trait is absolutely necessary or sufficient to define a profession on its own.
 
 ### Agreement and Disagreement
-These two accounts **mostly agree** with one another[cite: 1021, 2494]. Both Greenwood and Downie reject the idea that there is a simple, black-and-white definition of a profession. They both acknowledge that the concept is "slippery" and that the boundaries between a profession and a non-profession are often fuzzy[cite: 1021, 1034, 1138].
+These two accounts **mostly agree** with one another. Both Greenwood and Downie reject the idea that there is a simple, black-and-white definition of a profession. They both acknowledge that the concept is "slippery" and that the boundaries between a profession and a non-profession are often fuzzy.
 
 However, there is a significant point of difference in their perspective:
-* **Greenwood’s account is descriptive.** He aims to list the attributes that actually exist in the world to describe how a profession functions as a social entity[cite: 2641].
-* **Downie’s account is evaluative.** While he recognizes the same types of traits, his focus is more on the underlying nature and the values attached to these roles[cite: 2641].
+* **Greenwood’s account is descriptive.** He aims to list the attributes that actually exist in the world to describe how a profession functions as a social entity.
+* **Downie’s account is evaluative.** While he recognizes the same types of traits, his focus is more on the underlying nature and the values attached to these roles.
 
 In summary, while Greenwood provides a more structured list of attributes and Downie offers a more flexible "resemblance" model, both agree that professional status is defined by a combination of specialized knowledge, public trust, and a shared ethical commitment.
 
@@ -1075,30 +1075,30 @@ Consider an occupation that you think is in the process of professionalization a
 
 [top of the page](#top)	
 
-The occupation of **Information Technology (IT) specialist or Software Engineer** is a strong example of a field in the process of professionalization. Using the framework provided by Ernest Greenwood and the PHIL 333 curriculum, we can see that while IT has gained several key traits of a profession, it still lacks others required to reach the "profession" end of the continuum[cite: 1142, 1159].
+The occupation of **Information Technology (IT) specialist or Software Engineer** is a strong example of a field in the process of professionalization. Using the framework provided by Ernest Greenwood and the PHIL 333 curriculum, we can see that while IT has gained several key traits of a profession, it still lacks others required to reach the "profession" end of the continuum.
 
 ### Why It Is Becoming a Profession
 
 IT has successfully developed several features that Greenwood identifies as essential for a profession:
 
-* **A Systematic Body of Theoretical Knowledge:** IT is no longer just a manual skill. It relies on complex theoretical knowledge from computer science, which is typically acquired through years of formal higher education[cite: 1155, 1172, 1205].
-* **A Regulative Code of Ethics:** Organizations like the Association for Computing Machinery (ACM) have created formal, public codes of ethics[cite: 1155, 1239]. These guidelines tell workers how to handle sensitive data and respect user privacy[cite: 1243].
-* **A Professional Culture:** The IT field has its own unique culture, complete with its own language, values (like "open source" or "critical rationality"), and shared symbols[cite: 1155, 1274, 1284].
+* **A Systematic Body of Theoretical Knowledge:** IT is no longer just a manual skill. It relies on complex theoretical knowledge from computer science, which is typically acquired through years of formal higher education.
+* **A Regulative Code of Ethics:** Organizations like the Association for Computing Machinery (ACM) have created formal, public codes of ethics. These guidelines tell workers how to handle sensitive data and respect user privacy.
+* **A Professional Culture:** The IT field has its own unique culture, complete with its own language, values (like "open source" or "critical rationality"), and shared symbols.
 
 ### Why It Has Not Yet Become a Full Profession
 
 Despite these gains, IT lacks two critical features found in traditional professions like law or medicine:
 
-* **Sanction of the Community (Monopoly):** This is the biggest missing piece. Society has not yet granted the IT field a legal monopoly over its services[cite: 1222]. Unlike a doctor who must be licensed by a state-sanctioned board to practice, anyone can technically work as a programmer or IT specialist without a license or mandatory certification[cite: 1228, 1234].
-* **Professional Authority:** While IT workers are experts, they do not always have the same level of "professional authority" over their clients[cite: 1188, 1201]. In medicine, patients "subordinate their judgment" to the doctor because they lack specialized knowledge[cite: 1206]. In IT, clients often feel they can still direct or challenge the expert’s work because there is no official "social bargain" that grants the worker total authority over the field[cite: 1211, 1227].
+* **Sanction of the Community (Monopoly):** This is the biggest missing piece. Society has not yet granted the IT field a legal monopoly over its services. Unlike a doctor who must be licensed by a state-sanctioned board to practice, anyone can technically work as a programmer or IT specialist without a license or mandatory certification.
+* **Professional Authority:** While IT workers are experts, they do not always have the same level of "professional authority" over their clients. In medicine, patients "subordinate their judgment" to the doctor because they lack specialized knowledge. In IT, clients often feel they can still direct or challenge the expert’s work because there is no official "social bargain" that grants the worker total authority over the field.
 
 ### Philosophical Discussion
 
 To understand why professionalizing IT is a debate, we can look at it through different ethical lenses:
 
-1.  **Utilitarianism:** A Utilitarian would support professionalizing IT because it would produce the **greatest good for the greatest number**[cite: 145, 1971]. If software engineers were legally required to be licensed and follow strict ethical rules, the public would be safer from data breaches and dangerous software failures[cite: 1978, 2314].
-2.  **Deontology:** From a Kantian perspective, IT professionals have a **duty** to treat users as "ends in themselves" rather than just sources of data[cite: 2004, 2044]. Professionalization would formalize these role-differentiated duties, such as a strict duty to protect privacy[cite: 2013, 2016].
-3.  **Contractarianism:** Contractarians view a profession as a **"social bargain"**[cite: 2075, 2132]. Society grants a group a monopoly and high pay, and in return, the group agrees to prioritize public service and ethical behavior[cite: 2742]. IT has not yet fully made this "deal" with society, which is why it remains a "becoming" profession rather than a completed one.
+1.  **Utilitarianism:** A Utilitarian would support professionalizing IT because it would produce the **greatest good for the greatest number**. If software engineers were legally required to be licensed and follow strict ethical rules, the public would be safer from data breaches and dangerous software failures.
+2.  **Deontology:** From a Kantian perspective, IT professionals have a **duty** to treat users as "ends in themselves" rather than just sources of data. Professionalization would formalize these role-differentiated duties, such as a strict duty to protect privacy.
+3.  **Contractarianism:** Contractarians view a profession as a **"social bargain"**. Society grants a group a monopoly and high pay, and in return, the group agrees to prioritize public service and ethical behavior. IT has not yet fully made this "deal" with society, which is why it remains a "becoming" profession rather than a completed one.
  1. 
 
 ### q036 
@@ -1107,27 +1107,27 @@ Does Kipnis think that lawyers in our society have a professional responsibility
 
 [top of the page](#top)	
 
-In his article, “Responsibility for the Distribution of Legal Services,” Kenneth Kipnis argues that the legal profession as a whole has a fundamental professional responsibility to ensure that legal representation is available to everyone, including those who cannot afford to pay for it[cite: 2671, 755]. His position is not just based on kindness or charity; instead, he argues it is a logical requirement of being a "profession" in a modern society[cite: 2671, 2672].
+In his article, “Responsibility for the Distribution of Legal Services,” Kenneth Kipnis argues that the legal profession as a whole has a fundamental professional responsibility to ensure that legal representation is available to everyone, including those who cannot afford to pay for it. His position is not just based on kindness or charity; instead, he argues it is a logical requirement of being a "profession" in a modern society.
 
 ### The Core of the Argument: The "Social Bargain"
-The main reason Kipnis supports this position is through a **Contractarian** lens, often described as the "social bargain"[cite: 756]. Society grants lawyers a **monopoly** over legal services[cite: 756, 2672]. This means only licensed lawyers are allowed to provide legal advice and represent people in court[cite: 2672]. In exchange for this exclusive right and the high status and pay that come with it, the profession makes a "deal" with the community to provide a necessary public good: justice[cite: 756, 2672].
+The main reason Kipnis supports this position is through a **Contractarian** lens, often described as the "social bargain". Society grants lawyers a **monopoly** over legal services. This means only licensed lawyers are allowed to provide legal advice and represent people in court. In exchange for this exclusive right and the high status and pay that come with it, the profession makes a "deal" with the community to provide a necessary public good: justice.
 
 Kipnis uses three specific claims to support this:
-1.  **Maximum Competence:** Lawyers claim they are the most competent people to provide legal services[cite: 2672]. 
-2.  **Commitment to Public Good:** They claim their work serves an essential social need (the legal system and justice)[cite: 2672].
-3.  **The Monopoly:** Because of the first two points, society forbids anyone else from providing these services[cite: 2672].
+1.  **Maximum Competence:** Lawyers claim they are the most competent people to provide legal services. 
+2.  **Commitment to Public Good:** They claim their work serves an essential social need (the legal system and justice).
+3.  **The Monopoly:** Because of the first two points, society forbids anyone else from providing these services.
 
 ### Why Distribution Matters
-Kipnis points out that if lawyers have a monopoly, they are the *only* source of legal help[cite: 2672, 756]. If they then refuse to provide services to those who cannot pay, those people are left with no help at all[cite: 756, 757]. In Kipnis's view, if the legal profession allows the poor to be neglected, it has failed to honor its end of the deal with society[cite: 756, 757]. If the profession doesn't ensure fair distribution, it risks losing its special professional status and the community's trust[cite: 2677].
+Kipnis points out that if lawyers have a monopoly, they are the *only* source of legal help. If they then refuse to provide services to those who cannot pay, those people are left with no help at all. In Kipnis's view, if the legal profession allows the poor to be neglected, it has failed to honor its end of the deal with society. If the profession doesn't ensure fair distribution, it risks losing its special professional status and the community's trust.
 
 
 ### Professional vs. Individual Responsibility
-An important distinction in Kipnis’s work is that this responsibility falls primarily on the **legal profession as a collective body**[cite: 755, 757]. While individual lawyers might choose which cases to take based on their own discretion, the profession itself must find a way—such as through legal aid programs or mandatory pro bono work—to ensure that no one is denied justice simply because of their bank account[cite: 757, 758].
+An important distinction in Kipnis’s work is that this responsibility falls primarily on the **legal profession as a collective body**. While individual lawyers might choose which cases to take based on their own discretion, the profession itself must find a way—such as through legal aid programs or mandatory pro bono work—to ensure that no one is denied justice simply because of their bank account.
 
 To think further about this through our normative theories:
 * **Utilitarianism:** Would a society where everyone has a lawyer produce more "utility" (happiness/justice) than one where only the rich have protection?
 * **Deontology:** Do lawyers have a "duty" to the law itself that requires them to make sure the law works fairly for all persons?
-* **Contractarianism:** If you were behind the "Veil of Ignorance" and didn't know if you would be a rich lawyer or a poor defendant, what kind of legal system would you agree to? [cite: 1958-1963]
+* **Contractarianism:** If you were behind the "Veil of Ignorance" and didn't know if you would be a rich lawyer or a poor defendant, what kind of legal system would you agree to? 1958-1963]
 * 
 
 ### q037 
@@ -1332,24 +1332,24 @@ Michael Pritchard’s account of LeMessurier supports his idea that professional
 [top of the page](#top)	
 
 
-The arguments made by Michael Pritchard and Edmund Pellegrino suggest that professional ethics is indeed significantly different from ordinary ethics. Both authors argue that a professional's responsibility cannot be fully met by simply "following the rules" in a code of ethics[cite: 483, 758, 800]. Instead, they believe true professional responsibility requires **virtue ethics**, which focuses on the character and dispositions of the individual[cite: 487, 500, 2376].
+The arguments made by Michael Pritchard and Edmund Pellegrino suggest that professional ethics is indeed significantly different from ordinary ethics. Both authors argue that a professional's responsibility cannot be fully met by simply "following the rules" in a code of ethics. Instead, they believe true professional responsibility requires **virtue ethics**, which focuses on the character and dispositions of the individual.
 
 ### The Role-Differentiated View
-If Pritchard and Pellegrino are correct, professional ethics is distinct because it turns actions that are "optional" in ordinary life into "mandatory" duties for professionals. In ordinary life, we use the term **supererogatory** to describe actions that are morally good but not required, like being a "saint or hero"[cite: 1191, 1359]. However, Pellegrino argues that for a physician, some degree of supererogation is actually built into the profession[cite: 2381]. For example, while an ordinary person might not be required to sacrifice their own interest for a stranger, a virtuous physician is **professionally obliged** to act with altruism and compassion, even if it requires a personal sacrifice [cite: 1192, 2381-2382].
+If Pritchard and Pellegrino are correct, professional ethics is distinct because it turns actions that are "optional" in ordinary life into "mandatory" duties for professionals. In ordinary life, we use the term **supererogatory** to describe actions that are morally good but not required, like being a "saint or hero". However, Pellegrino argues that for a physician, some degree of supererogation is actually built into the profession. For example, while an ordinary person might not be required to sacrifice their own interest for a stranger, a virtuous physician is **professionally obliged** to act with altruism and compassion, even if it requires a personal sacrifice.
 
 
-Similarly, Michael Pritchard uses the story of William LeMessurier to show that a responsible engineer must have "engineering imagination" and settled virtues like honesty and integrity [cite: 501, 653-654]. When LeMessurier discovered a flaw in the Citicorp Center building after it was finished, he wasn't just following a specific rule; he was acting out of a deep disposition to protect public safety [cite: 654-656, 756-757]. This level of commitment goes beyond the "ethical minimum" of a code and creates a unique "moral space" for professionals [cite: 490-491, 503-504].
+Similarly, Michael Pritchard uses the story of William LeMessurier to show that a responsible engineer must have "engineering imagination" and settled virtues like honesty and integrity. When LeMessurier discovered a flaw in the Citicorp Center building after it was finished, he wasn't just following a specific rule; he was acting out of a deep disposition to protect public safety. This level of commitment goes beyond the "ethical minimum" of a code and creates a unique "moral space" for professionals 490-491, 503-504].
 
 ### Philosophical Analysis
 
 To see why this makes professional ethics different, we can look through our three normative lenses:
 
-1.  **Contractarianism:** This view sees the profession as a **social bargain**[cite: 2012, 2017]. Society grants professionals a monopoly and high status in exchange for the promise that they will act as virtuous guardians of the public good[cite: 2643, 2654, 2679]. This "deal" requires a higher standard of ethics than the "buyer beware" rules of a typical market transaction [cite: 2634-2640].
-2.  **Utilitarianism:** From a utilitarian perspective, the **greatest good for the greatest number** is achieved when professionals are held to these higher standards[cite: 1909, 1921]. Because a mistake by an engineer or doctor can harm thousands, society "invests" in their virtuous character to ensure maximum safety and utility[cite: 487, 513].
-3.  **Deontology (Kantianism):** While Kant focused on universal duties, professionals have **role-differentiated duties**[cite: 1941, 1948]. A lawyer or doctor has a specific duty to their client that an ordinary person does not have. Pellegrino’s "three-tiered system" shows that while legal rules are the base, the highest level of responsibility is only reached through the "ethical sensitivity" of virtue [cite: 2386-2389].
+1.  **Contractarianism:** This view sees the profession as a **social bargain**. Society grants professionals a monopoly and high status in exchange for the promise that they will act as virtuous guardians of the public good. This "deal" requires a higher standard of ethics than the "buyer beware" rules of a typical market transaction.
+2.  **Utilitarianism:** From a utilitarian perspective, the **greatest good for the greatest number** is achieved when professionals are held to these higher standards1909, 1921]. Because a mistake by an engineer or doctor can harm thousands, society "invests" in their virtuous character to ensure maximum safety and utility.
+3.  **Deontology (Kantianism):** While Kant focused on universal duties, professionals have **role-differentiated duties**1941, 1948]. A lawyer or doctor has a specific duty to their client that an ordinary person does not have. Pellegrino’s "three-tiered system" shows that while legal rules are the base, the highest level of responsibility is only reached through the "ethical sensitivity" of virtue.
 
 
-In conclusion, if we accept that professionals must be virtuous, we are accepting that their moral landscape is more intense and demanding than that of an ordinary citizen. While an ordinary person might be "good enough" by just staying within the law, a professional is only truly responsible when they aim for the "upper range" of moral performance[cite: 490, 650, 662]. This raises an important question for you to consider: if we hold professionals to a "higher" standard of virtue, should they also receive greater protections or rewards from society for taking on that burden? Or is the high status and pay they already receive the fair price for this extra moral duty? [cite: 2751-2757]
+In conclusion, if we accept that professionals must be virtuous, we are accepting that their moral landscape is more intense and demanding than that of an ordinary citizen. While an ordinary person might be "good enough" by just staying within the law, a professional is only truly responsible when they aim for the "upper range" of moral performance490, 650, 662]. This raises an important question for you to consider: if we hold professionals to a "higher" standard of virtue, should they also receive greater protections or rewards from society for taking on that burden? Or is the high status and pay they already receive the fair price for this extra moral duty?
 
 
 ### q043 
@@ -1512,22 +1512,22 @@ Do you agree with Martin’s criticisms of De George’s conditions for the perm
 In the study of professional ethics, the debate between Richard De George and Mike Martin centers on how we should decide when a professional must speak out against their own company. While De George provides a structured, "step-by-step" list of rules, Mike Martin argues that this approach is too rigid and ignores the personal reality of the whistleblower.
 
 ### Martin’s Criticisms of De George
-Martin offers several key criticisms of De George’s "Standard Theory." First, he argues that De George’s model is too **formulaic**. De George suggests that if you check off three boxes, whistleblowing is "allowed," and if you check off two more, it becomes "mandatory"[cite: 404, 432, 488]. Martin believes that moral life is not a math equation; instead, he argues that these conditions only create a **prima facie obligation**—a duty that exists "on the face of it" but can be outweighed by other factors[cite: 405, 433, 489].
+Martin offers several key criticisms of De George’s "Standard Theory." First, he argues that De George’s model is too **formulaic**. De George suggests that if you check off three boxes, whistleblowing is "allowed," and if you check off two more, it becomes "mandatory"404, 432, 488]. Martin believes that moral life is not a math equation; instead, he argues that these conditions only create a **prima facie obligation**—a duty that exists "on the face of it" but can be outweighed by other factors405, 433, 489].
 
-Second, Martin criticizes De George for ignoring **personal interest**. Under De George's rules, an engineer might satisfy all five conditions and be morally "obligated" to blow the whistle even if doing so would lead to their own financial ruin or harm their family[cite: 598, 611]. Martin argues that professionals are also people with rights to self-preservation. He maintains that final judgments must be made **contextually**, taking into account the personal costs and the level of public support available to the whistleblower[cite: 601, 614, 640].
+Second, Martin criticizes De George for ignoring **personal interest**. Under De George's rules, an engineer might satisfy all five conditions and be morally "obligated" to blow the whistle even if doing so would lead to their own financial ruin or harm their family598, 611]. Martin argues that professionals are also people with rights to self-preservation. He maintains that final judgments must be made **contextually**, taking into account the personal costs and the level of public support available to the whistleblower601, 614, 640].
 
 
 ### Why Martin’s Set of Conditions is More Satisfactory
-Martin’s conditions (Need, Proximity, Capability, and Last Resort) are more satisfactory because they focus on the professional's actual ability to help rather than just a bureaucratic process[cite: 407, 421, 435]. This is known as the **"Rescue" or "Good Samaritan" model**. It recognizes that whistleblowing is an act of rescue, and like any rescue, the "rescuer" must consider if they are actually capable of succeeding without destroying themselves.
+Martin’s conditions (Need, Proximity, Capability, and Last Resort) are more satisfactory because they focus on the professional's actual ability to help rather than just a bureaucratic process407, 421, 435]. This is known as the **"Rescue" or "Good Samaritan" model**. It recognizes that whistleblowing is an act of rescue, and like any rescue, the "rescuer" must consider if they are actually capable of succeeding without destroying themselves.
 
 ### Philosophical Analysis
 To see why Martin's view is stronger, we can apply our core theories:
 
 * **Utilitarianism:** From this view, we calculate the "greatest good." De George focuses almost entirely on the public's utility. Martin's view is more accurate because it includes the **disutility** (suffering) of the whistleblower in the calculation. If a professional's life is destroyed for a report that has little chance of success, the total happiness in society actually goes down.
-* **Deontology (Kantianism):** A Deontologist looks at duty. While we have a duty to truth and safety, Kant also taught that we must treat ourselves as "ends in themselves." Martin’s view respects the professional’s humanity by acknowledging that they are not just tools for public safety but individuals with their own moral worth and limits[cite: 601, 640].
-* **Contractarianism:** This view sees the profession as a **social bargain**. The professional agrees to protect the public in exchange for a monopoly. Martin’s model suggests that the "bargain" has limits. Does society expect a professional to sacrifice their entire family's well-being for a corporate report? Martin argues that for whistleblowing to be a fair expectation, society must provide the whistleblower with legal protection and public support[cite: 409, 437, 602].
+* **Deontology (Kantianism):** A Deontologist looks at duty. While we have a duty to truth and safety, Kant also taught that we must treat ourselves as "ends in themselves." Martin’s view respects the professional’s humanity by acknowledging that they are not just tools for public safety but individuals with their own moral worth and limits601, 640].
+* **Contractarianism:** This view sees the profession as a **social bargain**. The professional agrees to protect the public in exchange for a monopoly. Martin’s model suggests that the "bargain" has limits. Does society expect a professional to sacrifice their entire family's well-being for a corporate report? Martin argues that for whistleblowing to be a fair expectation, society must provide the whistleblower with legal protection and public support409, 437, 602].
 
-In conclusion, Martin's view is more satisfactory because it is more **humane and realistic**. It treats whistleblowing as a serious, high-stakes moral decision that requires "virtue" and "courage" rather than just a checklist of rules[cite: 1000, 1115]. To push your thinking further: If we follow Martin and allow "personal interest" to be a factor, does that provide a "loophole" for professionals to stay silent when they should speak up, or does it simply acknowledge the reality that most people aren't ready to be martyrs? [cite: 780-784]
+In conclusion, Martin's view is more satisfactory because it is more **humane and realistic**. It treats whistleblowing as a serious, high-stakes moral decision that requires "virtue" and "courage" rather than just a checklist of rules1000, 1115]. To push your thinking further: If we follow Martin and allow "personal interest" to be a factor, does that provide a "loophole" for professionals to stay silent when they should speak up, or does it simply acknowledge the reality that most people aren't ready to be martyrs? 780-784]
 
 
 ### q048 
@@ -2904,30 +2904,30 @@ What features characterize an adversarial legal system? Describe the basic diffe
 The features of an adversarial legal system and its differences from other systems, such as inquisitorial and convivial systems, are detailed below.
 
 ### The Adversarial Legal System
-An adversarial system, currently used in Canada and the United States, is defined by a competitive clash between two opposing sides[cite: 2551, 2553]. The system operates on the **presupposition** that the best way to find the truth is to have two proponents of conflicting views present their cases as convincingly as possible before a neutral judge or jury[cite: 452, 453]. 
+An adversarial system, currently used in Canada and the United States, is defined by a competitive clash between two opposing sides2551, 2553]. The system operates on the **presupposition** that the best way to find the truth is to have two proponents of conflicting views present their cases as convincingly as possible before a neutral judge or jury452, 453]. 
 
 Key features include:
-* **Competition:** Two lawyers compete to win by presenting opposing positions[cite: 452].
-* **Neutral Arbiter:** A judge or jury determines which presentation is more convincing to reach a decision[cite: 452].
-* **Truth through Conflict:** It assumes that this competitive process allows the truth to prevail, meaning the guilty are found guilty and the innocent are found not guilty[cite: 453, 454].
-* **Zealous Advocacy:** Lawyers are expected to act as "zealous advocates," prioritizing their client's interests to win the case[cite: 216, 584].
+* **Competition:** Two lawyers compete to win by presenting opposing positions452].
+* **Neutral Arbiter:** A judge or jury determines which presentation is more convincing to reach a decision452].
+* **Truth through Conflict:** It assumes that this competitive process allows the truth to prevail, meaning the guilty are found guilty and the innocent are found not guilty453, 454].
+* **Zealous Advocacy:** Lawyers are expected to act as "zealous advocates," prioritizing their client's interests to win the case216, 584].
 
 ### Basic Differences between Legal Systems
 
-While the adversarial system relies on professional lawyers and a "winner-takes-all" competitive model, other systems offer different approaches to justice[cite: 2551].
+While the adversarial system relies on professional lawyers and a "winner-takes-all" competitive model, other systems offer different approaches to justice2551].
 
 #### Adversarial vs. Inquisitorial Systems
-In an **inquisitorial system**, the focus shifts from a competition between two sides to an active investigation led by the court[cite: 2552]. 
-* **Role of the Judge:** In an inquisitorial system, the judge plays a more active role in investigating the facts and "ferreting out truth"[cite: 738, 2552]. 
-* **Professional Motivation:** Unlike the adversarial system, where the lawyers' primary motivation is to **win** for their clients, alternative systems like the inquisitorial one can functionally separate the search for truth from the individual motivations of the legal representatives[cite: 740, 868].
+In an **inquisitorial system**, the focus shifts from a competition between two sides to an active investigation led by the court2552]. 
+* **Role of the Judge:** In an inquisitorial system, the judge plays a more active role in investigating the facts and "ferreting out truth"738, 2552]. 
+* **Professional Motivation:** Unlike the adversarial system, where the lawyers' primary motivation is to **win** for their clients, alternative systems like the inquisitorial one can functionally separate the search for truth from the individual motivations of the legal representatives740, 868].
 
 #### Adversarial vs. Convivial Systems
-A **convivial system** represents a move away from professionalized legal control[cite: 2552]. 
-* **Professional Monopoly:** The adversarial system is built on a "monopoly" of professional lawyers who claim to be the only ones competent to provide legal services[cite: 2548, 2553].
-* **Accessibility:** A convivial system, by contrast, is more decentralized and less reliant on professional elites, allowing for legal services to be provided in a more straightforward manner[cite: 2552]. It contrasts with the "pure legal advocate" model where lawyers act as rote rule followers whose only goal is to win through technical legal rules[cite: 216, 217].
+A **convivial system** represents a move away from professionalized legal control2552]. 
+* **Professional Monopoly:** The adversarial system is built on a "monopoly" of professional lawyers who claim to be the only ones competent to provide legal services2548, 2553].
+* **Accessibility:** A convivial system, by contrast, is more decentralized and less reliant on professional elites, allowing for legal services to be provided in a more straightforward manner2552]. It contrasts with the "pure legal advocate" model where lawyers act as rote rule followers whose only goal is to win through technical legal rules216, 217].
 
 #### Adversarial vs. Free Market Systems
-A society could also opt for a **free market system** where legal services are provided by non-professionals[cite: 2552]. Kipnis argues that if we do not choose these alternative systems and instead stick with an adversarial one, lawyers assume specific moral responsibilities to the public to justify their professional status and monopoly over the law[cite: 2548, 2553].
+A society could also opt for a **free market system** where legal services are provided by non-professionals2552]. Kipnis argues that if we do not choose these alternative systems and instead stick with an adversarial one, lawyers assume specific moral responsibilities to the public to justify their professional status and monopoly over the law2548, 2553].
 
 
 ### q073 
@@ -2936,25 +2936,25 @@ In your own words, recount why, basically, Freedman thinks that a lawyer should 
 
 [top of the page](#top)	
 
-Monroe H. Freedman argues that a lawyer’s primary professional obligation is to be a **zealous advocate** for their client[cite: 4, 815]. This core duty often requires maintaining strict client confidentiality, even when doing so conflicts with ordinary moral values like truthtelling or honesty [cite: 7, 369-373].
+Monroe H. Freedman argues that a lawyer’s primary professional obligation is to be a **zealous advocate** for their client4, 815]. This core duty often requires maintaining strict client confidentiality, even when doing so conflicts with ordinary moral values like truthtelling or honesty 7, 369-373].
 
 Freedman’s reasoning is based on the following key points:
 
 ### 1. The Adversarial System and Its Goals
-Freedman believes the role of a zealous advocate is essential for the **adversarial legal system** to function properly[cite: 8]. This system’s overarching goals are to achieve **truth and justice**[cite: 8, 482]. In his view, these higher values are best served when lawyers focus exclusively on their clients' interests, leaving the discovery of truth to the competitive process between opposing sides[cite: 5, 9, 212].
+Freedman believes the role of a zealous advocate is essential for the **adversarial legal system** to function properly8]. This system’s overarching goals are to achieve **truth and justice**8, 482]. In his view, these higher values are best served when lawyers focus exclusively on their clients' interests, leaving the discovery of truth to the competitive process between opposing sides5, 9, 212].
 
 ### 2. Interdependence of Legal Policies
 Freedman argues that lawyer-client confidentiality does not stand alone but is part of a cluster of mutually dependent policies within the legal system, including:
-* The **presumption of innocence**[cite: 579, 699].
-* The **right to counsel**[cite: 579, 714].
-* The prosecution’s burden to **prove guilt beyond a reasonable doubt**[cite: 579, 730].
+* The **presumption of innocence**579, 699].
+* The **right to counsel**579, 714].
+* The prosecution’s burden to **prove guilt beyond a reasonable doubt**579, 730].
 
-These policies "stand or fall together"[cite: 583, 718]. If a lawyer’s commitment to confidentiality wavers, it compromises the entire system’s ability to protect the rights of the accused and ensure a fair trial[cite: 582, 584, 704].
+These policies "stand or fall together"583, 718]. If a lawyer’s commitment to confidentiality wavers, it compromises the entire system’s ability to protect the rights of the accused and ensure a fair trial582, 584, 704].
 
 ### 3. Ethical Justification Through Role Responsibilities
-While ordinary morality may require honesty, Freedman contends that a lawyer’s **role responsibilities** within the adversary system provide a special ethical justification for their actions [cite: 10, 586-587]. He acknowledges that this may sometimes result in "inaccurate" legal outcomes (e.g., a guilty person being acquitted), but he maintains that protecting the system's foundational principles is more important than achieving perfect accuracy in every individual case[cite: 466, 473, 501].
+While ordinary morality may require honesty, Freedman contends that a lawyer’s **role responsibilities** within the adversary system provide a special ethical justification for their actions 10, 586-587]. He acknowledges that this may sometimes result in "inaccurate" legal outcomes (e.g., a guilty person being acquitted), but he maintains that protecting the system's foundational principles is more important than achieving perfect accuracy in every individual case466, 473, 501].
 
-In summary, Freedman believes that shielding lawyers from ordinary moral judgments regarding honesty is necessary to preserve the integrity of the legal system and ultimately serve the higher cause of justice[cite: 11, 588, 618].
+In summary, Freedman believes that shielding lawyers from ordinary moral judgments regarding honesty is necessary to preserve the integrity of the legal system and ultimately serve the higher cause of justice11, 588, 618].
 
 
 ### q074 
@@ -2963,25 +2963,25 @@ According to this Study Guide, why does Luban think it is morally appropriate th
 
 [top of the page](#top)	
 
-Monroe H. Freedman argues that a lawyer’s primary professional obligation is to be a **zealous advocate** for their client[cite: 4, 815]. This core duty often requires maintaining strict client confidentiality, even when doing so conflicts with ordinary moral values like truthtelling or honesty [cite: 7, 369-373].
+Monroe H. Freedman argues that a lawyer’s primary professional obligation is to be a **zealous advocate** for their client4, 815]. This core duty often requires maintaining strict client confidentiality, even when doing so conflicts with ordinary moral values like truthtelling or honesty 7, 369-373].
 
 Freedman’s reasoning is based on the following key points:
 
 ### 1. The Adversarial System and Its Goals
-Freedman believes the role of a zealous advocate is essential for the **adversarial legal system** to function properly[cite: 8]. This system’s overarching goals are to achieve **truth and justice**[cite: 8, 482]. In his view, these higher values are best served when lawyers focus exclusively on their clients' interests, leaving the discovery of truth to the competitive process between opposing sides[cite: 5, 9, 212].
+Freedman believes the role of a zealous advocate is essential for the **adversarial legal system** to function properly8]. This system’s overarching goals are to achieve **truth and justice**8, 482]. In his view, these higher values are best served when lawyers focus exclusively on their clients' interests, leaving the discovery of truth to the competitive process between opposing sides5, 9, 212].
 
 ### 2. Interdependence of Legal Policies
 Freedman argues that lawyer-client confidentiality does not stand alone but is part of a cluster of mutually dependent policies within the legal system, including:
-* The **presumption of innocence**[cite: 579, 699].
-* The **right to counsel**[cite: 579, 714].
-* The prosecution’s burden to **prove guilt beyond a reasonable doubt**[cite: 579, 730].
+* The **presumption of innocence**579, 699].
+* The **right to counsel**579, 714].
+* The prosecution’s burden to **prove guilt beyond a reasonable doubt**579, 730].
 
-These policies "stand or fall together"[cite: 583, 718]. If a lawyer’s commitment to confidentiality wavers, it compromises the entire system’s ability to protect the rights of the accused and ensure a fair trial[cite: 582, 584, 704].
+These policies "stand or fall together"583, 718]. If a lawyer’s commitment to confidentiality wavers, it compromises the entire system’s ability to protect the rights of the accused and ensure a fair trial582, 584, 704].
 
 ### 3. Ethical Justification Through Role Responsibilities
-While ordinary morality may require honesty, Freedman contends that a lawyer’s **role responsibilities** within the adversary system provide a special ethical justification for their actions [cite: 10, 586-587]. He acknowledges that this may sometimes result in "inaccurate" legal outcomes (e.g., a guilty person being acquitted), but he maintains that protecting the system's foundational principles is more important than achieving perfect accuracy in every individual case[cite: 466, 473, 501].
+While ordinary morality may require honesty, Freedman contends that a lawyer’s **role responsibilities** within the adversary system provide a special ethical justification for their actions 10, 586-587]. He acknowledges that this may sometimes result in "inaccurate" legal outcomes (e.g., a guilty person being acquitted), but he maintains that protecting the system's foundational principles is more important than achieving perfect accuracy in every individual case466, 473, 501].
 
-In summary, Freedman believes that shielding lawyers from ordinary moral judgments regarding honesty is necessary to preserve the integrity of the legal system and ultimately serve the higher cause of justice[cite: 11, 588, 618].
+In summary, Freedman believes that shielding lawyers from ordinary moral judgments regarding honesty is necessary to preserve the integrity of the legal system and ultimately serve the higher cause of justice11, 588, 618].
 
 
 ### q075 
@@ -2990,19 +2990,19 @@ Luban thinks that the adversary system excuse cannot justify a non-criminal lawy
 
 [top of the page](#top)	
 
-David Luban is a strong critic of what he calls the **"adversary system excuse."** This is the idea that lawyers are not morally responsible for their actions as long as they are following the rules of the legal system[cite: 3, 19]. While Luban admits this excuse might work for criminal defense lawyers, he argues it does not justify immoral behavior by lawyers in non-criminal (civil) cases[cite: 452, 614, 759].
+David Luban is a strong critic of what he calls the **"adversary system excuse."** This is the idea that lawyers are not morally responsible for their actions as long as they are following the rules of the legal system3, 19]. While Luban admits this excuse might work for criminal defense lawyers, he argues it does not justify immoral behavior by lawyers in non-criminal (civil) cases452, 614, 759].
 
 ### 1. The Power Imbalance is Missing
-Luban’s first reason is that non-criminal cases do not involve the same threat to liberty as criminal cases[cite: 448, 556]. In a criminal trial, the powerful state is trying to take away a person's freedom. In that situation, a lawyer must be a "zealous advocate" to protect the individual from state tyranny. However, in civil law—like two companies suing each other over a contract—the parties are usually more evenly matched[cite: 448, 556]. Because the state is not a direct contender, there is no special need to shield the lawyer from ordinary moral duties like honesty[cite: 449, 557].
+Luban’s first reason is that non-criminal cases do not involve the same threat to liberty as criminal cases448, 556]. In a criminal trial, the powerful state is trying to take away a person's freedom. In that situation, a lawyer must be a "zealous advocate" to protect the individual from state tyranny. However, in civil law—like two companies suing each other over a contract—the parties are usually more evenly matched448, 556]. Because the state is not a direct contender, there is no special need to shield the lawyer from ordinary moral duties like honesty449, 557].
 
 ### 2. Failure to Prove the System's Superiority
-Luban argues that the adversary system has not been proven to be the "best" way to find the truth or defend legal rights in civil contexts[cite: 453, 507]. He points out that other systems, like the **inquisitorial system**, might actually be better at "ferreting out the truth" because they don't rely on two lawyers simply trying to win for their clients[cite: 455, 608]. If the adversary system isn't clearly the best way to achieve justice, then "following the system" is a poor excuse for acting immorally[cite: 454].
+Luban argues that the adversary system has not been proven to be the "best" way to find the truth or defend legal rights in civil contexts453, 507]. He points out that other systems, like the **inquisitorial system**, might actually be better at "ferreting out the truth" because they don't rely on two lawyers simply trying to win for their clients455, 608]. If the adversary system isn't clearly the best way to achieve justice, then "following the system" is a poor excuse for acting immorally454].
 
 ### 3. Conflating Rights with "What the Law Can Give"
-Luban observes that lawyers in the adversary system often confuse what a client is **legally entitled to** with what the law **can be made to give**[cite: 456, 609]. He believes it is immoral for a lawyer to use legal tricks to get a client something they do not actually deserve. Since the lawyer is a human being first, they should not use the "system" as a shield to help a client gain an unfair advantage[cite: 2, 615].
+Luban observes that lawyers in the adversary system often confuse what a client is **legally entitled to** with what the law **can be made to give**456, 609]. He believes it is immoral for a lawyer to use legal tricks to get a client something they do not actually deserve. Since the lawyer is a human being first, they should not use the "system" as a shield to help a client gain an unfair advantage2, 615].
 
 ### 4. Weak Pragmatic Justifications
-Finally, Luban argues that we only keep the adversary system for **pragmatic reasons**—basically, it would be too expensive and difficult to change it[cite: 754, 802]. He calls this a "feeble" justification[cite: 758, 806]. Just because a system is a tradition or is hard to replace doesn't mean it gives lawyers a "blanket policy" to ignore ordinary morality[cite: 611, 759, 771]. In Luban's view, except for criminal defense, a lawyer's moral obligations as a person must come before their professional rules[cite: 615, 751].
+Finally, Luban argues that we only keep the adversary system for **pragmatic reasons**—basically, it would be too expensive and difficult to change it754, 802]. He calls this a "feeble" justification758, 806]. Just because a system is a tradition or is hard to replace doesn't mean it gives lawyers a "blanket policy" to ignore ordinary morality611, 759, 771]. In Luban's view, except for criminal defense, a lawyer's moral obligations as a person must come before their professional rules615, 751].
 
 
 ### q076 
@@ -3101,28 +3101,28 @@ Pizzimenti discusses four ways that lawyers could approach informing their clien
 
 [top of the page](#top)	
 
-Lee A. Pizzimenti outlines four primary ways that lawyers can approach the task of informing their clients about the nature and limits of lawyer-client confidentiality[cite: 284, 312, 368, 382]. These methods are:
+Lee A. Pizzimenti outlines four primary ways that lawyers can approach the task of informing their clients about the nature and limits of lawyer-client confidentiality284, 312, 368, 382]. These methods are:
 
-1.  **Saying nothing:** The lawyer remains silent about confidentiality rules during the initial stages of the relationship[cite: 284, 340, 438, 508].
-2.  **Making a general claim:** The lawyer states that, generally, all information shared by the client will be held in confidence, without detailing specific exceptions[cite: 285, 341, 439, 509].
-3.  **Misstating the scope:** The lawyer provides inaccurate information or intentionally misleads the client about how far confidentiality protections actually extend[cite: 286, 342, 440, 510].
-4.  **Providing full disclosure:** The lawyer completely and frankly informs the client about both the importance of confidentiality and the specific legal and ethical limits that may require or permit its breach[cite: 287, 343, 441, 511].
+1.  **Saying nothing:** The lawyer remains silent about confidentiality rules during the initial stages of the relationship284, 340, 438, 508].
+2.  **Making a general claim:** The lawyer states that, generally, all information shared by the client will be held in confidence, without detailing specific exceptions285, 341, 439, 509].
+3.  **Misstating the scope:** The lawyer provides inaccurate information or intentionally misleads the client about how far confidentiality protections actually extend286, 342, 440, 510].
+4.  **Providing full disclosure:** The lawyer completely and frankly informs the client about both the importance of confidentiality and the specific legal and ethical limits that may require or permit its breach287, 343, 441, 511].
 
 ### The Ethically Best Approach: Full Disclosure
 
 In the context of professional ethics, the **fourth option—providing full disclosure—is the most ethically sound approach.** This conclusion is supported by several key philosophical principles and practical considerations within the legal profession.
 
 #### 1. Respect for Autonomy
-From a **Deontological (Kantian)** perspective, the primary moral duty is to respect persons as autonomous ends in themselves[cite: 1766, 1768]. By providing full information, a lawyer respects the client’s right to make informed decisions about their own legal strategy and behavior[cite: 291, 544]. Pizzimenti argues that it should be the client’s decision to choose whether to provide full information to their lawyer, even if they know that certain disclosures might not be protected[cite: 681, 690, 699, 708]. To withhold information or misstate the truth is to treat the client as a tool or a child, rather than an autonomous adult[cite: 549, 1766].
+From a **Deontological (Kantian)** perspective, the primary moral duty is to respect persons as autonomous ends in themselves1766, 1768]. By providing full information, a lawyer respects the client’s right to make informed decisions about their own legal strategy and behavior291, 544]. Pizzimenti argues that it should be the client’s decision to choose whether to provide full information to their lawyer, even if they know that certain disclosures might not be protected681, 690, 699, 708]. To withhold information or misstate the truth is to treat the client as a tool or a child, rather than an autonomous adult549, 1766].
 
 #### 2. The Duty of Veracity
-Lawyers have a professional and moral duty of **veracity** (truthfulness)[cite: 291]. The third option, misstating the scope, is a direct violation of this duty because it involves intentional deception[cite: 286, 849]. Options one and two are also problematic because they rely on omissions that can lead to a "conscious misunderstanding" of the rules[cite: 2586]. Only full disclosure satisfies the moral requirement for honesty between a professional and their client[cite: 291, 865].
+Lawyers have a professional and moral duty of **veracity** (truthfulness)291]. The third option, misstating the scope, is a direct violation of this duty because it involves intentional deception286, 849]. Options one and two are also problematic because they rely on omissions that can lead to a "conscious misunderstanding" of the rules2586]. Only full disclosure satisfies the moral requirement for honesty between a professional and their client291, 865].
 
 #### 3. Building Genuine Trust
-While critics often argue that full disclosure might "chill" communication (causing clients to hide information), Pizzimenti notes that being forthright is actually more likely to foster long-term **lawyer-client trust**[cite: 848, 864, 960]. Trust built on a lie or a misunderstanding is fragile; once a client discovers that their lawyer was not fully honest about the limits of their protection, the professional relationship is likely to collapse[cite: 849, 865]. A relationship based on clear, honest rules is more resilient[cite: 848, 880, 1040].
+While critics often argue that full disclosure might "chill" communication (causing clients to hide information), Pizzimenti notes that being forthright is actually more likely to foster long-term **lawyer-client trust**848, 864, 960]. Trust built on a lie or a misunderstanding is fragile; once a client discovers that their lawyer was not fully honest about the limits of their protection, the professional relationship is likely to collapse849, 865]. A relationship based on clear, honest rules is more resilient848, 880, 1040].
 
 #### 4. Balancing Competing Interests
-Finally, a **Utilitarian** analysis suggests that the overall good is best served by a system where clients understand that confidentiality has limits, such as the duty to prevent death or serious bodily harm[cite: 279, 682, 691]. When a lawyer is fully informed of a client’s harmful intentions, they are in a unique position to dissuade the client from acting[cite: 280, 294, 336]. If the lawyer only learns this information through deception (by not disclosing the limits), the moral foundation of that knowledge is tainted[cite: 685, 774, 1104]. Full disclosure balances the client's need for a defense with society's need for safety and the integrity of the court[cite: 291, 305, 543, 621].
+Finally, a **Utilitarian** analysis suggests that the overall good is best served by a system where clients understand that confidentiality has limits, such as the duty to prevent death or serious bodily harm279, 682, 691]. When a lawyer is fully informed of a client’s harmful intentions, they are in a unique position to dissuade the client from acting280, 294, 336]. If the lawyer only learns this information through deception (by not disclosing the limits), the moral foundation of that knowledge is tainted685, 774, 1104]. Full disclosure balances the client's need for a defense with society's need for safety and the integrity of the court291, 305, 543, 621].
 
 
 ### q710 
@@ -3131,20 +3131,20 @@ According to Wolfram, under what conditions, generally, should lawyers not be pe
 
 [top of the page](#top)	
 
-According to Charles Wolfram, a lawyer’s right to choose their clients is not absolute. He uses a **"rescue" metaphor** to explain when a lawyer has a moral obligation to represent someone, even if they would rather not[cite: 222, 450]. Wolfram argues that a lawyer should generally not be permitted to reject a prospective client if the following conditions are met:
+According to Charles Wolfram, a lawyer’s right to choose their clients is not absolute. He uses a **"rescue" metaphor** to explain when a lawyer has a moral obligation to represent someone, even if they would rather not222, 450]. Wolfram argues that a lawyer should generally not be permitted to reject a prospective client if the following conditions are met:
 
 1.  **Capability:** The lawyer must be competent and capable of serving the client’s specific legal needs.
 2.  **Low Risk to the Lawyer:** The representation must not pose a significant risk of harm or hardship to the lawyer themselves or to other people.
-3.  **Uniqueness and Necessity:** The client must have no viable alternatives for representation (the service is uniquely required), and without it, the client is likely to face substantial danger or harm[cite: 462, 473].
+3.  **Uniqueness and Necessity:** The client must have no viable alternatives for representation (the service is uniquely required), and without it, the client is likely to face substantial danger or harm462, 473].
 
-Wolfram’s most important conclusion is that a lawyer cannot ethically reject a client whose goal "uniquely and directly relates to the **satisfaction of a basic human need**," even if the lawyer finds the client or their cause "repugnant" or morally offensive [cite: 866-867, 880]. In these cases, the need for justice and the protection of basic rights outweighs the lawyer's personal feelings.
+Wolfram’s most important conclusion is that a lawyer cannot ethically reject a client whose goal "uniquely and directly relates to the **satisfaction of a basic human need**," even if the lawyer finds the client or their cause "repugnant" or morally offensive 866-867, 880]. In these cases, the need for justice and the protection of basic rights outweighs the lawyer's personal feelings.
 
 ### Is it Immoral to Restrict a Lawyer’s Autonomy?
 
 Restricting a lawyer’s autonomy by imposing a general obligation to represent is a complex ethical issue that can be analyzed through our three core normative theories:
 
-* **Utilitarianism:** A utilitarian might argue that restricting autonomy is **morally right** because it produces the greatest overall good. If lawyers could reject any client they didn't like, many people would be left without justice, leading to a breakdown of the legal system and public trust[cite: 859]. The benefit of a functioning, fair society outweighs the "cost" of a lawyer having to take a case they dislike.
-* **Deontology (Kantianism):** This theory offers a conflict. On one hand, forcing a lawyer to act against their conscience treats the lawyer as a **"means to an end"** rather than an autonomous individual with their own moral values[cite: 684, 1752]. However, Kant’s universal law could also suggest that we have a duty to help those in need. If the rule "reject whoever you want" were universal, no one could ever be sure they would receive a fair trial.
+* **Utilitarianism:** A utilitarian might argue that restricting autonomy is **morally right** because it produces the greatest overall good. If lawyers could reject any client they didn't like, many people would be left without justice, leading to a breakdown of the legal system and public trust859]. The benefit of a functioning, fair society outweighs the "cost" of a lawyer having to take a case they dislike.
+* **Deontology (Kantianism):** This theory offers a conflict. On one hand, forcing a lawyer to act against their conscience treats the lawyer as a **"means to an end"** rather than an autonomous individual with their own moral values684, 1752]. However, Kant’s universal law could also suggest that we have a duty to help those in need. If the rule "reject whoever you want" were universal, no one could ever be sure they would receive a fair trial.
 * **Contractarianism:** In a Rawlsian "original position," rational people would likely agree to a system where representation is a **positive right** . Because anyone could end up in a situation where they are "unpopular" but need legal help to protect their liberty (a basic human need), we would choose a social contract that requires professionals to provide services regardless of personal bias to ensure our own safety.
 
 In conclusion, while it feels "immoral" to force a person to do something they find repugnant, the professional role of a lawyer carries special duties. Restricting autonomy is justified when it is necessary to protect the fundamental rights and needs of other human beings.
@@ -3404,7 +3404,7 @@ Insofar as whistleblowing is discussed in our readings from this unit (all readi
 [top of the page](#top)	
 
 
-The Sarbanes-Oxley Act (SOX) was passed to fortify corporate accountability and restore public trust following catastrophic financial scandals[cite: 1]. Among its many important provisions, SOX provides extended legal protection for whistleblowers—employees who report illegal or unethical conduct within their companies[cite: 14]. In evaluating these protections through the lens of professional ethics, I strongly support the whistleblower protections offered by Sarbanes-Oxley. To understand why this is a philosophically defensible position, we can examine the issue using our three core normative theories.
+The Sarbanes-Oxley Act (SOX) was passed to fortify corporate accountability and restore public trust following catastrophic financial scandals1]. Among its many important provisions, SOX provides extended legal protection for whistleblowers—employees who report illegal or unethical conduct within their companies14]. In evaluating these protections through the lens of professional ethics, I strongly support the whistleblower protections offered by Sarbanes-Oxley. To understand why this is a philosophically defensible position, we can examine the issue using our three core normative theories.
 
 First, consider the situation from a **Utilitarian** perspective. Utilitarianism asks us to maximize overall happiness and minimize overall harm. Financial fraud creates massive harm, destroying the pensions, investments, and jobs of thousands of innocent people. Whistleblowers act as an early warning system against this devastation. By providing them with legal protection, SOX encourages individuals to step forward, thereby preventing or minimizing the catastrophic consequences of corporate fraud. While some might argue that the threat of whistleblowers creates a suspicious corporate culture, the overall benefit to society—maintaining a stable, trustworthy economic market—far outweighs the discomfort of corporate executives. 
 
@@ -3412,7 +3412,7 @@ Second, from a **Deontological (Kantian)** viewpoint, professionals have a funda
 
 Third, under a **Contractarian** framework, the accounting profession exists within a social contract. Society grants accountants a monopoly on auditing because we rely on them to be independent "public watchdogs." But how can professionals fulfill this watchdog role if they are crushed the moment they bark? Rational people setting up a fair society would only agree to a corporate system that actively protects those who expose corruption, ensuring the public is safeguarded.
 
-However, as you read the Rockness and Rockness article, we must ask: Are legal rules enough to make a company truly ethical? The authors argue that legislation like SOX, at best, can only complement a company's existing strong ethical culture[cite: 15]. They assert that the "tone at the top" of the corporate hierarchy is the true mechanism for sustaining corporate ethics[cite: 16]. I agree with this critique. Whistleblower protection is a necessary safety net, but it is ultimately a retroactive measure. While I support SOX's protections because they are essential for defending moral actors, true professional ethics must be proactive. It requires leaders who foster a culture where whistleblowing isn't necessary because ethical deliberation is built into everyday decision-making. 
+However, as you read the Rockness and Rockness article, we must ask: Are legal rules enough to make a company truly ethical? The authors argue that legislation like SOX, at best, can only complement a company's existing strong ethical culture15]. They assert that the "tone at the top" of the corporate hierarchy is the true mechanism for sustaining corporate ethics16]. I agree with this critique. Whistleblower protection is a necessary safety net, but it is ultimately a retroactive measure. While I support SOX's protections because they are essential for defending moral actors, true professional ethics must be proactive. It requires leaders who foster a culture where whistleblowing isn't necessary because ethical deliberation is built into everyday decision-making. 
 
 Given this limitation of the law, what specific steps do you think corporate leaders must take to ensure their "tone at the top" prevents fraud from happening in the first place?
 
@@ -3425,13 +3425,13 @@ Based on the readings provided, here are the reasons that best support both side
 
 ### Two Reasons Supporting the Permissibility of Insider Trading
 
-1.  **The Executive Incentive and Shareholder Autonomy Argument:** Drawing from Henry Manne’s perspective, legally permitting insider trading could be used as a powerful incentive to attract highly creative, productive, and risk-taking managers[cite: 13183]. These are the types of leaders who are most likely to create significant long-term value for a company. Furthermore, if a corporation's shareholders desire to experiment with permitting insider trading to boost growth, their autonomy to use this strategy with their own money should be respected[cite: 13187].
-2.  **The Information Ownership Argument:** This argument hinges on the concepts of privacy and property rights. When information is created or held privately by a specific individual or group, it essentially belongs to them[cite: 12837]. Proponents of this view argue that those who legitimately own inside information should have the right to control its dissemination and use it to their own advantage[cite: 12841]. 
+1.  **The Executive Incentive and Shareholder Autonomy Argument:** Drawing from Henry Manne’s perspective, legally permitting insider trading could be used as a powerful incentive to attract highly creative, productive, and risk-taking managers13183]. These are the types of leaders who are most likely to create significant long-term value for a company. Furthermore, if a corporation's shareholders desire to experiment with permitting insider trading to boost growth, their autonomy to use this strategy with their own money should be respected13187].
+2.  **The Information Ownership Argument:** This argument hinges on the concepts of privacy and property rights. When information is created or held privately by a specific individual or group, it essentially belongs to them12837]. Proponents of this view argue that those who legitimately own inside information should have the right to control its dissemination and use it to their own advantage12841]. 
 
 ### Two Reasons Supporting the Impermissibility of Insider Trading
 
-1.  **The Market Inefficiency and Inequality Argument:** Patricia Werhane counters the idea that insider trading promotes market efficiency. Relying on Adam Smith’s "Invisible Hand" theory, she points out that true market efficiency requires pure competition among equally matched parties[cite: 12582]. Because insider trading creates an inherent inequality between the insider and the public, it distorts pure competition and ultimately decreases the overall efficiency and fairness of the free market[cite: 12583].
-2.  **The Protection of Broader Stakeholders:** While the incentive argument claims insider trading benefits executives and shareholders, critics point out that it is far too narrow[cite: 13188]. This perspective fails to properly consider the negative impacts the practice has on other vulnerable stakeholders, such as company employees, creditors, and ordinary investors who are forced to trade at an unfair disadvantage[cite: 13188].
+1.  **The Market Inefficiency and Inequality Argument:** Patricia Werhane counters the idea that insider trading promotes market efficiency. Relying on Adam Smith’s "Invisible Hand" theory, she points out that true market efficiency requires pure competition among equally matched parties12582]. Because insider trading creates an inherent inequality between the insider and the public, it distorts pure competition and ultimately decreases the overall efficiency and fairness of the free market12583].
+2.  **The Protection of Broader Stakeholders:** While the incentive argument claims insider trading benefits executives and shareholders, critics point out that it is far too narrow13188]. This perspective fails to properly consider the negative impacts the practice has on other vulnerable stakeholders, such as company employees, creditors, and ordinary investors who are forced to trade at an unfair disadvantage13188].
 
 ### Overall Judgments on Ethics and Legal Permissibility
 
