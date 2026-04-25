@@ -343,6 +343,82 @@ Here's a comprehensive breakdown of all 10 problems:Click any card above to dive
 
 **Variations to expect:** finding sin(7π/12), tan(−5π/12), evaluating using product-to-sum formulas, simplifying expressions like sin(x + π/4).
 
+There are three layers of theory you need to master for this problem. Let's build them up one at a time.
+
+---
+
+## Layer 1 — The unit circle and "friendly" angles
+
+The unit circle gives you exact values for angles whose triangles you know by heart — namely 30°, 45°, and 60° (and their equivalents in radians). These come from two special right triangles:
+
+- The **45-45-90** triangle gives cos(π/4) = sin(π/4) = √2/2
+- The **30-60-90** triangle gives cos(π/6) = √3/2, cos(π/3) = 1/2, sin(π/6) = 1/2, sin(π/3) = √3/2
+
+The problem is that π/12 = 15° is NOT one of these friendly angles on its own. That's the entire reason you need the next layer.
+
+---
+
+## Layer 2 — Two essential identities
+
+**The even-function property of cosine:**
+
+$$\cos(-\theta) = \cos(\theta)$$
+
+Cosine is an even function, meaning it's symmetric about the y-axis on the unit circle. So the first thing you do is drop the negative sign:
+
+$$\cos\!\left(-\frac{\pi}{12}\right) = \cos\!\left(\frac{\pi}{12}\right)$$
+
+**The angle subtraction formula:**
+
+$$\cos(A - B) = \cos A \cos B + \sin A \sin B$$
+
+(Note the + sign — this trips people up. The sum formula has a minus: cos(A+B) = cosA cosB − sinA sinB.)
+
+---
+
+## Layer 3 — Angle decomposition strategy
+
+The key insight: even though π/12 isn't a friendly angle, it can be written as the **difference of two friendly angles**:
+
+$$\frac{\pi}{12} = \frac{\pi}{3} - \frac{\pi}{4} \qquad \left(\text{because } \frac{4\pi}{12} - \frac{3\pi}{12} = \frac{\pi}{12}\right)$$
+
+Now everything unlocks. Here's the full solution path visually:Click any step in the diagram to go deeper on that part. Here's the full written solution:
+
+---
+
+## Full solution written out
+
+**Step 1 — Drop the negative:**
+$$\cos\!\left(-\frac{\pi}{12}\right) = \cos\!\left(\frac{\pi}{12}\right)$$
+
+**Step 2 — Decompose the angle:**
+$$\frac{\pi}{12} = \frac{\pi}{3} - \frac{\pi}{4}$$
+
+**Step 3 — Apply the subtraction formula:**
+$$\cos\!\left(\frac{\pi}{3} - \frac{\pi}{4}\right) = \cos\frac{\pi}{3}\cos\frac{\pi}{4} + \sin\frac{\pi}{3}\sin\frac{\pi}{4}$$
+
+**Step 4 — Substitute unit circle values:**
+$$= \left(\frac{1}{2}\right)\!\left(\frac{\sqrt{2}}{2}\right) + \left(\frac{\sqrt{3}}{2}\right)\!\left(\frac{\sqrt{2}}{2}\right)$$
+
+**Step 5 — Multiply and combine over common denominator 4:**
+$$= \frac{\sqrt{2}}{4} + \frac{\sqrt{6}}{4} = \boxed{\dfrac{\sqrt{2}+\sqrt{6}}{4}}$$
+
+---
+
+## What to memorize vs. what to derive
+
+| Must memorize | Can derive on the fly |
+|---|---|
+| cos(π/6) = √3/2, sin(π/6) = 1/2 | The − sign drops because cosine is even |
+| cos(π/4) = sin(π/4) = √2/2 | π/12 = π/3 − π/4 (just find two friendly angles that subtract to it) |
+| cos(π/3) = 1/2, sin(π/3) = √3/2 | The subtraction formula itself (if allowed a formula sheet) |
+| cos(A−B) = cosA cosB + sinA sinB | The final arithmetic |
+
+## Common traps on this type of problem
+
+The subtraction formula has a **plus** between the two terms — cos(A−B) = cosA cosB **+** sinA sinB. Many students mistakenly write a minus. The sum formula is what has the minus: cos(A+B) = cosA cosB − sinA sinB. A good memory aid: the signs are always opposite — subtraction formula gets a plus, sum formula gets a minus.
+
+Also, other valid decompositions exist. You could write π/12 = π/4 − π/6 and get the same answer via a slightly different route. Either works.
 ---
 
 ## Problem 2 — Composite functions and domains
