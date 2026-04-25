@@ -1,4 +1,4 @@
-# Midterm Exam 1 - MATH 265
+﻿# Midterm Exam 1 - MATH 265
 
 1. Give the exact value of $\cos \left(-\frac{\pi}{12}\right)$. **(5 points)**
 
@@ -322,3 +322,176 @@
 12. Find a positive number $k$ such that the average value of the function $f(x) = \frac{5}{x^2}$ over the interval between $1$ and $k$ is $32$.
 
 **(10 points)**
+
+
+
+
+# Midterm Exam 1 Walkthrough - MATH 265
+Here's a comprehensive breakdown of all 10 problems:Click any card above to dive deeper. Here's the full breakdown:
+
+---
+
+## Problem 1 — Exact trigonometric values
+
+**Category:** Precalculus / Trigonometry
+
+**Key knowledge:**
+- The **angle addition/subtraction formulas**: cos(A − B) = cos A cos B + sin A sin B. Since −π/12 = π/4 − π/3 (or equivalently π/3 − π/4 with the even symmetry of cosine), you rewrite the angle as a combination of "friendly" angles (π/6, π/4, π/3, π/2).
+- **Even function property** of cosine: cos(−θ) = cos(θ), so cos(−π/12) = cos(π/12).
+- Exact values of sin and cos for π/6, π/4, π/3 (memorized or derived from 30-60-90 and 45-45-90 triangles).
+- **Half-angle formulas** are an alternative route if the problem permits them.
+
+**Variations to expect:** finding sin(7π/12), tan(−5π/12), evaluating using product-to-sum formulas, simplifying expressions like sin(x + π/4).
+
+---
+
+## Problem 2 — Composite functions and domains
+
+**Category:** Precalculus / Functions
+
+**Key knowledge:**
+- **Composition notation**: (f∘g)(x) = f(g(x)) — substitute the entire g(x) expression in place of x in f.
+- **Domain of a composition**: the domain of f(g(x)) is the set of x values that (1) are in the domain of g, AND (2) produce outputs g(x) that lie in the domain of f. For rational functions you exclude values making denominators zero; for even roots you require the radicand ≥ 0.
+- Order matters: f∘g ≠ g∘f in general.
+
+**Variations:** compositions with square root functions, absolute values, piecewise functions; finding the range of a composition.
+
+---
+
+## Problem 3 — Graphing by transformations
+
+**Category:** Precalculus / Graphing
+
+**Key knowledge:**
+- Start from the **parent function** y = x² (upward parabola, vertex at origin).
+- **Horizontal shift**: replacing x with (x + 4) shifts the graph **left** by 4 units.
+- **Vertical stretch**: the coefficient 3 outside multiplies all y-values by 3 (narrows the parabola).
+- Apply transformations in correct order: horizontal shift first, then vertical stretch (inside-to-outside for shifts, outside for scaling).
+- Label the vertex and at least two symmetric points at each stage.
+
+**Variations:** reflections (negatives), vertical shifts (adding a constant outside), horizontal compressions/stretches (coefficient inside the squared term), combinations of all four.
+
+---
+
+## Problem 4 — Evaluating limits
+
+**Category:** Calculus / Limits
+
+This problem tests five distinct techniques:
+
+**4a — Direct substitution:** For polynomials and other continuous functions, simply plug in x = 2. The limit equals the function value.
+
+**4b — Indeterminate form after factoring reveals DNE:** Factor the numerator; if the denominator is (x+2)² and the numerator doesn't cancel the full squared factor, the left and right limits both go to +∞ or diverge, so the limit does not exist (DNE). Check the sign of the numerator at x = −2 to confirm.
+
+**4c — One-sided limits disagree → DNE:** Near x = 3, the numerator approaches a nonzero value while the denominator approaches 0. Check the sign from each side: from the left (x − 3) < 0, from the right (x − 3) > 0 → limits are −∞ and +∞ → DNE.
+
+**4d — Rationalization (conjugate multiplication):** When you have a difference of square roots, multiply numerator and denominator by the conjugate of one of them to eliminate the indeterminate 0/0 form.
+
+**4e — Special trigonometric limit:** The fundamental identity lim_{x→0} sin(x)/x = 1. Rewrite sin(3x)/(x² − x) by factoring the denominator as x(x − 1) and manipulating to get sin(3x)/(3x) · 3/(x−1), then substitute.
+
+**Key theory:** Limit laws, the squeeze theorem (used to prove the sin limit), left/right one-sided limits, and recognizing when a limit is infinite vs. truly DNE.
+
+---
+
+## Problem 5 — Computing derivatives
+
+**Category:** Calculus / Differentiation
+
+**5a — Power rule:** d/dx[xⁿ] = nxⁿ⁻¹, applied term by term to polynomials. The derivative of a constant is 0.
+
+**5b — Quotient rule:** d/dx[u/v] = (v·u' − u·v') / v². Here u = 2x − 16, v = (x+3)².
+
+**5c — Chain rule + trig derivative:** d/dx[sin(u)] = cos(u)·u'. The inner function u = 2x² − x + 1, so u' = 4x − 1.
+
+**5d — Chain rule with power:** d/dx[uⁿ] = n·uⁿ⁻¹·u'. The inner function is the cubic polynomial, n = 4.
+
+**Key theory:** Memorize basic derivatives (xⁿ, sin x, cos x, eˣ, ln x) and the four rules: sum/difference, constant multiple, product, quotient, and chain rule. Chain rule is the most commonly tested.
+
+---
+
+## Problem 6 — Tangent line perpendicularity
+
+**Category:** Calculus / Applications of derivatives
+
+**Key knowledge:**
+- The **slope of the tangent line** to f(x) at any point equals f'(x) at that point.
+- Two lines are **perpendicular** if and only if their slopes satisfy m₁ · m₂ = −1, i.e., the slopes are negative reciprocals.
+- The given line y = 6x + 2 has slope 6, so the perpendicular tangent slope must be −1/6.
+- Set f'(x) = −1/6 and solve for x.
+
+**Variations:** parallel tangent lines (slopes equal), horizontal tangents (f'(x) = 0), finding the full equation of the tangent line.
+
+---
+
+## Problem 7 — Related rates
+
+**Category:** Calculus / Applications of derivatives (related rates)
+
+**Key knowledge:**
+- **Volume of a cone**: V = (1/3)πr²h. The constraint "base diameter equals height" means d = h, so r = h/2. Substitute to get V as a function of h only: V = (1/3)π(h/2)²h = πh³/12.
+- **Implicit differentiation with respect to time**: differentiate both sides with respect to t: dV/dt = (π/4)h² · dh/dt.
+- Plug in the known rate dV/dt = 0.5 m³/min and h = 4 m, then solve for dh/dt.
+
+**Variations:** expanding spheres (V = 4/3 πr³), sliding ladder (Pythagorean theorem), water draining from a tank, shadow length problems.
+
+---
+
+## Problem 8 — Implicit differentiation
+
+**Category:** Calculus / Differentiation
+
+**Key knowledge:**
+- Differentiate both sides of the equation with respect to x, treating y as an implicit function of x.
+- Whenever you differentiate a term involving y, apply the **chain rule**: d/dx[y] = y' (= dy/dx), d/dx[y²] = 2y·y'.
+- For products like x³y, apply the **product rule**: d/dx[x³y] = 3x²y + x³y'.
+- After differentiating, collect all terms with y' on one side and factor it out to solve.
+
+**Variations:** finding the slope at a specific point, second implicit derivatives, equations involving trig or exponential functions.
+
+---
+
+## Problem 9 — Linear approximation (differentials)
+
+**Category:** Calculus / Differentials
+
+**Key knowledge:**
+- The **differential approximation**: f(x + Δx) ≈ f(x) + f'(x)·Δx, or equivalently Δy ≈ dy = f'(x)dx.
+- Choose a nearby "anchor" value where f is easy to compute exactly: f(x) = √x, anchor at x = 9 (since √9 = 3).
+- f'(x) = 1/(2√x), so f'(9) = 1/6.
+- Then √9.2 ≈ 3 + (1/6)(0.2) = 3 + 1/30 ≈ 3.0333.
+
+**Variations:** approximating cube roots, approximating sin(0.1), error estimation in measurements, percent error.
+
+---
+
+## Problem 10 — Sketching a function from conditions
+
+**Category:** Calculus / Limits and continuity (conceptual)
+
+**Key knowledge:** This problem tests whether you understand the definitions, not the algebra.
+- **Limit DNE at x = 0**: the most common ways are a jump discontinuity (left and right limits differ), an oscillation, or a vertical asymptote. Since f(0) = 0 is defined, a vertical asymptote is ruled out; a jump where the left limit ≠ right limit is the cleanest approach.
+- **f(0) = 0**: the function value exists, but the limit doesn't — this is a removable or jump discontinuity scenario.
+- **lim_{x→∞} f(x) = −1**: the graph must have a horizontal asymptote y = −1 as x → +∞.
+- **Non-differentiable at x = −2**: this can be achieved with a corner (absolute value-type kink), a cusp, or a vertical tangent — the simplest is a corner.
+
+**One valid sketch**: piecewise with a jump at x = 0, a corner at x = −2, and the right branch tailing off toward y = −1.
+
+---
+
+**Summary by exam section:**
+
+| Problems | Topic | Core technique |
+|---|---|---|
+| 1 | Trig exact values | Angle addition identity |
+| 2 | Composite functions | Substitution + domain analysis |
+| 3 | Graphing | Sequential transformations on parent function |
+| 4a–4e | Limits | 5 distinct methods (see above) |
+| 5a–5d | Derivatives | Power, quotient, chain, trig rules |
+| 6 | Tangent lines | Derivative = slope, perpendicular condition |
+| 7 | Related rates | Differentiate geometric formula w.r.t. time |
+| 8 | Implicit diff. | Chain + product rules, solve for y' |
+| 9 | Differentials | Linear approximation near anchor point |
+| 10 | Conceptual sketch | Definitions of limit, continuity, differentiability |
+
+
+
