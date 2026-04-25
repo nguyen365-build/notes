@@ -7,7 +7,9 @@
    Find the composite functions and their corresponding domains.
    
    a. $f(g(x))$
+   
    b. $g(f(x))$
+   
 
 3. Give a labeled graph of the function $g(x)=3(x+4)^2$ by starting with the graph of a basic function, and then applying the appropriate transformations. **(5 points)**
 
@@ -18,17 +20,25 @@
 4. Evaluate each of the limits below. If a limit does not exist explain why. **(16 points)**
 
    a. $\lim_{x \to 2} (3x^2 - 2x + 1)$
+    
    b. $\lim_{x \to -2} \frac{3x^2 - 2x - 16}{(x + 2)^2}$
+    
    c. $\lim_{x \to 3} \frac{2x^2 - x + 1}{x - 3}$
+    
    d. $\lim_{x \to 2} \frac{\sqrt{6 - x} - 2}{\sqrt{3 - x} - 1}$
+    
    e. $\lim_{x \to 0} \frac{\sin (3x)}{x^2 - x}$
 
 5. Compute the derivatives of each of the functions below. You may not need to simplify your answers. **(8 points)**
 
    a. $y = 4x^5 + 3x^4 - 6x^3 + 6$
+    
    b. $y = \frac{2x - 16}{(x + 3)^2}$
+    
    c. $y = \sin \left(2x^2 - x + 1\right)$
+    
    d. $y = \left(-4x^3 - x^2 + 3x + 7\right)^4$
+    
 
 6. Find the values of $x$ such that tangent line to the curve $f(x) = 3x^2 + 4x - 3$ is perpendicular to the line $y = 6x + 2$. **(4 points)**
 
@@ -40,9 +50,13 @@
 9. Use differentials to find the approximate value of $\sqrt{9.2}$. **(5 points)**
 
 10. Sketch the graph of a single function $f(x)$ that satisfies all of the conditions listed below. **(5 points)**
+    
     * the limit $\lim_{x \to 0} f(x)$ does not exist.
+    
     * $f(0) = 0$.
+    
     * $\lim_{x \to \infty} f(x) = -1$.
+    
     * the function $f$ is not differentiable at $x = -2$.
 
 
@@ -51,14 +65,19 @@
 **(4 points)**
 
 1. Determine which of the following equations are well defined functions with an independent variable $x$. Explain.
+   
    a. $\frac{2y}{x^2 - 3|x|} = 1$
+   
    b. $y^2 + x^2 = 10$
 
 **(4 points)**
 
 2. Consider a cone whose height is double the size of its radius.
+   
    a. Express the volume $V$ of the cone as a function of radius $r$.
+   
    b. Find the domain of the function in *a*.
+   
    c. Use the function in *a* to compute the volume of the cone for $r = 3$.
 
    *Hint: The volume of a cone is $V = \frac{\pi r^2 h}{3}$.*
@@ -66,7 +85,9 @@
 **(4 points)**
 
 3. The population $P$ of a city in the year $y$ is $P(y)$. Write a sentence (in layman's terms) that explains the meaning of the expressions
+   
    a. $\frac{P(15) - P(2)}{13} = 1,431$
+   
    b. $P'(10) = 14,000$.
 
 **(6 points)**
@@ -76,10 +97,15 @@
 **(10 points)**
 
 5. Interpret in terms of the graph of the function $f$ the conditions listed below. Sketch the graph of a single function $f(x)$ which satisfies all of the conditions listed below.
+   
    a. $\lim_{x \to \infty} f(x) = 3$
+   
    b. $f(0) = 0$
+   
    c. $\lim_{x \to -1} f(x) = 2$
+   
    d. $\lim_{x \to 1} f(x) = \infty$
+   
    e. The function is continuous but not differentiable at $x = 0$
 
 **(10 points)**
@@ -94,11 +120,17 @@
 
    **Note:** No credit will be given for unjustified answers.
 
+   
    a. $\lim_{x \to 1} \frac{x^2 - 1}{x^3 - 1}$
+   
    b. $\lim_{x \to 0} \frac{x^2}{1 - \cos(2x)}$
+   
    c. $\lim_{x \to 0} \frac{6x - 9}{x^3 - 12x + 3}$
+   
    d. $\lim_{x \to \infty} \frac{5 - 2x^3}{x^2 + 2}$
+   
    e. $\lim_{x \to -\pi/3} \frac{\tan(2x)}{3x + \pi}$
+   
    f. $\lim_{x \to 2} \frac{\cos(\pi x)}{(x - 2)^2}$
 
 **(6 points)**
@@ -111,9 +143,13 @@
 
    **Note:** You may not need to simplify your answer.
 
+   
    a. $\frac{d^2}{dx^2} \cot(2x)$
+   
    b. $\frac{d}{dx} \sec(x^2 - 3x)$
+   
    c. $\frac{d}{dx} \frac{x^2 - \cos(3x)}{x \sin(2x)}$
+   
    d. $\frac{d}{dx} \left. \frac{f(x)}{g(x)} \right|_{x=1}$ where $f(1) = 3, g(1) = 6, f'(x) = \sqrt{x}$ and $g'(x) = 3 \sin(\pi x / 3)$.
 
 **(4 points)**
@@ -127,24 +163,35 @@
 
 # Final Exam 1 - MATH 265
 1. Compute the derivatives of each of the functions given below. You may not need to simplify your answers. **(20 points)**
+   
    a. $y = \sin x \cdot \cos(\sin x^2)$
+   
    b. $y = \left(\frac{1 + x^3}{1 - x^2}\right)^{\frac{1}{3}}$
+   
    c. $y = \sqrt{1 + \sqrt{1 + x}}$
+   
    d. $y = \frac{\sqrt{x^2 - 1}}{x^2 - 2x - 8}$
+   
    e. $y = \sec^2\left(\frac{x + 1}{x - 2}\right)$
 
 2. Use the method of differentials to estimate each of the values below to four decimal places (show the process). **(8 points)**
+   
    a. $\cos 62^\circ$
+   
    b. $\sqrt{16.4}$
 
 3. Use the definition of the derivative as a limit to compute the derivative of $\cot x$. **(6 points)**
 
 4. Sketch the graph of each of the functions below. State all critical points, cusps, vertical asymptotes and points of inflection. **(20 points)**
+   
    a. $f(x) = \frac{x^2}{x^2 - 1}$
+   
    b. $f(x) = x + \sin x$
 
 5. Find all maxima and minima of the functions listed below on the indicated intervals. **(11 points)**
+   
    a. $f(x) = 2x^{\frac{5}{3}} - 5x^{\frac{4}{3}}$ on $[-1, 20]$.
+   
    b. $f(x) = x + \cos x$ on $[-\pi, 2\pi]$.
 
 6. Find the dimensions of the rectangle of area $220\text{ cm}^2$ that has the smallest perimeter. What is the perimeter? **(6 points)**
@@ -152,10 +199,15 @@
 7. Use Newton's method to approximate the solution of the equation $x^4 + 2x - 5 = 0$ in the interval $[1, 2]$. **(5 points)**
 
 8. Compute the value of each of the integrals listed below. **(20 points)**
+   
    a. $\int (x^2 - x) \sqrt{3x} \, dx$
+   
    b. $\int \sin(2x) \cos x \, dx$
+   
    c. $\int_a^b (x + \cos(2x)) \, dx$
+   
    d. $\int (x^2 - 4)^2 \, dx$
+   
    e. $\int_2^4 x\sqrt{x - 1} \, dx$
 
 9. Use the properties of the integral to find an interval where the value of the integral
@@ -176,19 +228,25 @@
 
 # Final Exam 2 - MATH 265
 1. Evaluate the following limits, no credit will be given for unjustified answers. If a limit does not exist explain why.
+   
    a. $\lim_{x \to \infty} \left( \frac{3x^2 - 4}{4 + 2x + 2x^4} \right) \sin(x)$
+   
    b. $\lim_{x \to 5\pi/2} \tan x$
 
 **(8 points)**
 
 2. Give the indicated derivatives listed below. State which rule(s) you are applying. You may not need to simplify your answer.
+   
    a. $\frac{d}{dx} \frac{\tan(2x)}{\sqrt{x}}$
+   
    b. $\left. \frac{d}{dx} \cos^3(x^2) \right|_{x=\sqrt{\pi}/2}$
 
 **(4 points)**
 
-3. a. Use the Extreme Value Theorem to find the absolute extreme values of the function
+3. 
+   a. Use the Extreme Value Theorem to find the absolute extreme values of the function
       $$f(x) = \frac{1}{x^2 + 1} \quad \text{on the interval } [-1, 1].$$
+   
    b. Use the properties of the definite integral to estimate the value of the integral
       $$\int_{-1}^{1} \frac{1}{x^2 + 1} \, dx.$$
 
@@ -229,7 +287,9 @@
 
 **(6 points)**
 
-7. a. Find the absolute extreme values of the function $f(x) = (x^2 + 2x)^{2/3}$ on the interval $[-2, 3]$.
+7. 
+   a. Find the absolute extreme values of the function $f(x) = (x^2 + 2x)^{2/3}$ on the interval $[-2, 3]$.
+   
    b. Use the properties of definite integrals to bound the value of the integral
       $$\int_{-2}^{3} (x^2 + 2x)^{2/3} \, dx$$
 
@@ -240,13 +300,17 @@
 **(4 points)**
 
 9. Assume that $20 \text{ ft-lb}$ of work is required to stretch a spring $1 \text{ ft}$ beyond its natural length.
+   
    a. What is the spring constant?
+   
    b. How much work is required to stretch the spring $2 \text{ ft}$ beyond its natural length?
 
 **(6 points)**
 
 10. A particle moves along a line so that its velocity at time $t$ is $v(t) = t^2 - 3t + 2 \text{ (meter/sec)}$.
+    
     a. Find the displacement of the particle during the time period $[0, 3]$.
+    
     b. Find the distance traveled during this same time period.
 
 **(5 points)**
