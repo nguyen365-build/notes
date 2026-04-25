@@ -196,10 +196,15 @@
 
 4. Give the interpretation in terms of the graph of the function $f(x)$ if
    a. $f(0) = -3$
+    
    b. $\lim_{x \to \infty} f(x) = -2$
+    
    c. $\lim_{x \to 3^-} f(x) = \infty$
+    
    d. $f'(x) < 0$ on the interval $[3, \infty)$
+    
    e. $f'(x) < 0$ on the interval $(-\infty, -2)$
+    
    f. $f''(x) > 0$ on the interval $[4, \infty)$
 
    Give a sketch of the graph of $f(x)$.
@@ -213,8 +218,11 @@
 6. Integrate each one of the integrals listed below. Indicate the technique you are using.
 
    a. $\int \frac{\cos(\sqrt{2x})}{\sqrt{x}} \, dx$
+   
    b. $\int_{0}^{\pi/3} \tan x \sec^2 x \, dx$
+   
    c. $\int \frac{x^3 + \sqrt{5x} - 4}{x^2} \, dx$
+
    d. $\int \sec^3 x \tan x \, dx$
 
    **Hint:** $\sec^3 x \tan x = \sec^2 x \sec x \tan x$.
