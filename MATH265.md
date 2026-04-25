@@ -125,3 +125,128 @@
 11. A rocket, rising vertically, is tracked by a radar station that is on the ground $5 \text{ mi}$ from the launch pad. How fast is the rocket rising when it is $4 \text{ mi}$ high and its distance from the radar station is increasing at a rate of $2000 \text{ mi/h}$?
 
 
+# Final Exam 1 - MATH 265
+1. Compute the derivatives of each of the functions given below. You may not need to simplify your answers. **(20 points)**
+   a. $y = \sin x \cdot \cos(\sin x^2)$
+   b. $y = \left(\frac{1 + x^3}{1 - x^2}\right)^{\frac{1}{3}}$
+   c. $y = \sqrt{1 + \sqrt{1 + x}}$
+   d. $y = \frac{\sqrt{x^2 - 1}}{x^2 - 2x - 8}$
+   e. $y = \sec^2\left(\frac{x + 1}{x - 2}\right)$
+
+2. Use the method of differentials to estimate each of the values below to four decimal places (show the process). **(8 points)**
+   a. $\cos 62^\circ$
+   b. $\sqrt{16.4}$
+
+3. Use the definition of the derivative as a limit to compute the derivative of $\cot x$. **(6 points)**
+
+4. Sketch the graph of each of the functions below. State all critical points, cusps, vertical asymptotes and points of inflection. **(20 points)**
+   a. $f(x) = \frac{x^2}{x^2 - 1}$
+   b. $f(x) = x + \sin x$
+
+5. Find all maxima and minima of the functions listed below on the indicated intervals. **(11 points)**
+   a. $f(x) = 2x^{\frac{5}{3}} - 5x^{\frac{4}{3}}$ on $[-1, 20]$.
+   b. $f(x) = x + \cos x$ on $[-\pi, 2\pi]$.
+
+6. Find the dimensions of the rectangle of area $220\text{ cm}^2$ that has the smallest perimeter. What is the perimeter? **(6 points)**
+
+7. Use Newton's method to approximate the solution of the equation $x^4 + 2x - 5 = 0$ in the interval $[1, 2]$. **(5 points)**
+
+8. Compute the value of each of the integrals listed below. **(20 points)**
+   a. $\int (x^2 - x) \sqrt{3x} \, dx$
+   b. $\int \sin(2x) \cos x \, dx$
+   c. $\int_a^b (x + \cos(2x)) \, dx$
+   d. $\int (x^2 - 4)^2 \, dx$
+   e. $\int_2^4 x\sqrt{x - 1} \, dx$
+
+9. Use the properties of the integral to find an interval where the value of the integral
+   $$\int_0^{\pi/3} \sec x \, dx$$
+   is located. **(5 points)**
+
+10. Find the area between the curves $y = x$ and $y = 2 - x^2$. **(8 points)**
+
+11. Use the Fundamental Theorem of Calculus to evaluate **(4 points)**
+    $$\frac{d}{dx} \int_{2x}^{x} \sin(t^2) \, dt$$
+
+12. Water flows from the bottom of a storage tank at a rate of $r(t) = 180 - 6t$ liters per minute, where $0 \leq t \leq 50$. Find the amount of water that flows from the tank during the first 15 minutes. **(3 points)**
+
+13. A chain lying on the ground is $10\text{ m}$ long and its mass is $80\text{ kg}$. How much work is required to raise one end of the chain to a height of $6\text{ m}$? **(5 points)**
+
+14. The temperature of a metal rod, $6\text{ m}$ long, is $3x$ (in degrees centigrade) at a distance $x$ meters from one end of the rod. What is the average temperature of the rod? **(3 points)**
+
+
+# Final Exam 2 - MATH 265
+1. Evaluate the following limits, no credit will be given for unjustified answers. If a limit does not exist explain why.
+   a. $\lim_{x \to \infty} \left( \frac{3x^2 - 4}{4 + 2x + 2x^4} \right) \sin(x)$
+   b. $\lim_{x \to 5\pi/2} \tan x$
+
+**(8 points)**
+
+2. Give the indicated derivatives listed below. State which rule(s) you are applying. You may not need to simplify your answer.
+   a. $\frac{d}{dx} \frac{\tan(2x)}{\sqrt{x}}$
+   b. $\left. \frac{d}{dx} \cos^3(x^2) \right|_{x=\sqrt{\pi}/2}$
+
+**(4 points)**
+
+3. a. Use the Extreme Value Theorem to find the absolute extreme values of the function
+      $$f(x) = \frac{1}{x^2 + 1} \quad \text{on the interval } [-1, 1].$$
+   b. Use the properties of the definite integral to estimate the value of the integral
+      $$\int_{-1}^{1} \frac{1}{x^2 + 1} \, dx.$$
+
+**(8 points)**
+
+4. Give the interpretation in terms of the graph of the function $f(x)$ if
+   a. $f(0) = -3$
+   b. $\lim_{x \to \infty} f(x) = -2$
+   c. $\lim_{x \to 3^-} f(x) = \infty$
+   d. $f'(x) < 0$ on the interval $[3, \infty)$
+   e. $f'(x) < 0$ on the interval $(-\infty, -2)$
+   f. $f''(x) > 0$ on the interval $[4, \infty)$
+
+   Give a sketch of the graph of $f(x)$.
+
+**(10 points)**
+
+5. What are the dimensions of the cheapest rectangular box that can be constructed if the material for the box is $\$1.20$ per square cm and the cost for the lid is $\$1.50$ per square cm. The length of the base is twice as long as it is wide and the volume must be $120 \text{ cm}^3$? What is the minimum cost?
+
+**(10 points)**
+
+6. Integrate each one of the integrals listed below. Indicate the technique you are using.
+
+   a. $\int \frac{\cos(\sqrt{2x})}{\sqrt{x}} \, dx$
+   b. $\int_{0}^{\pi/3} \tan x \sec^2 x \, dx$
+   c. $\int \frac{x^3 + \sqrt{5x} - 4}{x^2} \, dx$
+   d. $\int \sec^3 x \tan x \, dx$
+
+   **Hint:** $\sec^3 x \tan x = \sec^2 x \sec x \tan x$.
+
+**(6 points)**
+
+7. a. Find the absolute extreme values of the function $f(x) = (x^2 + 2x)^{2/3}$ on the interval $[-2, 3]$.
+   b. Use the properties of definite integrals to bound the value of the integral
+      $$\int_{-2}^{3} (x^2 + 2x)^{2/3} \, dx$$
+
+**(6 points)**
+
+8. Find the area between the curves $\cos x$ and the horizontal line $y = \frac{1}{\sqrt{2}}$ in the interval $[-\frac{\pi}{2}, \frac{\pi}{2}]$.
+
+**(4 points)**
+
+9. Assume that $20 \text{ ft-lb}$ of work is required to stretch a spring $1 \text{ ft}$ beyond its natural length.
+   a. What is the spring constant?
+   b. How much work is required to stretch the spring $2 \text{ ft}$ beyond its natural length?
+
+**(6 points)**
+
+10. A particle moves along a line so that its velocity at time $t$ is $v(t) = t^2 - 3t + 2 \text{ (meter/sec)}$.
+    a. Find the displacement of the particle during the time period $[0, 3]$.
+    b. Find the distance traveled during this same time period.
+
+**(5 points)**
+
+11. A sprinter in a $100 \text{ m}$ race explodes out of the starting block with an acceleration of $4 \text{ m/s}^2$, which she sustains for $2$ seconds. Her acceleration then drops to zero for the rest of the race. What is her time for the race?
+
+**(4 points)**
+
+12. Find a positive number $k$ such that the average value of the function $f(x) = \frac{5}{x^2}$ over the interval between $1$ and $k$ is $32$.
+
+**(10 points)**
