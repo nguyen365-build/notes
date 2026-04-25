@@ -419,6 +419,8 @@ $$= \frac{\sqrt{2}}{4} + \frac{\sqrt{6}}{4} = \boxed{\dfrac{\sqrt{2}+\sqrt{6}}{4
 The subtraction formula has a **plus** between the two terms — cos(A−B) = cosA cosB **+** sinA sinB. Many students mistakenly write a minus. The sum formula is what has the minus: cos(A+B) = cosA cosB − sinA sinB. A good memory aid: the signs are always opposite — subtraction formula gets a plus, sum formula gets a minus.
 
 Also, other valid decompositions exist. You could write π/12 = π/4 − π/6 and get the same answer via a slightly different route. Either works.
+
+
 ---
 
 ## Problem 2 — Composite functions and domains
@@ -431,6 +433,81 @@ Also, other valid decompositions exist. You could write π/12 = π/4 − π/6 an
 - Order matters: f∘g ≠ g∘f in general.
 
 **Variations:** compositions with square root functions, absolute values, piecewise functions; finding the range of a composition.
+
+## Composite functions — the core idea
+
+A composite function feeds the *output* of one function as the *input* of another. Written f(g(x)), you first apply g to x, then apply f to whatever g produced. The two compositions f(g(x)) and g(f(x)) are generally different functions entirely.
+
+The notation f∘g means "f after g" — g runs first, f runs second.
+
+---
+
+## The domain rule — the most important concept
+
+The domain of f(g(x)) has **two simultaneous constraints** that both must hold:
+
+1. x must be in the domain of g (so g(x) is defined)
+2. g(x) must be in the domain of f (so f can actually receive what g outputs)
+
+You find the domain by working inside-out: first restrict to where g is defined, then further restrict to where f can accept g's output. The intersection of both conditions is your domain.
+
+Let's build full intuition for this with your specific problem, then show the general pattern.Toggle between the two compositions and try entering x = 4.5 (which is 9/2) to see an excluded value in action.
+
+---
+
+## Full worked solutions
+
+### Part a — f(g(x))
+
+Start by substituting g(x) = (x+5)/(2x−9) into f. Since f(x) = 2x² − 5, replace every x in f with the entire expression g(x):
+
+$$f(g(x)) = 2\left(\frac{x+5}{2x-9}\right)^2 - 5 = \frac{2(x+5)^2}{(2x-9)^2} - 5$$
+
+**Domain:** f(anything) = 2(anything)² − 5 accepts all real inputs — there's no square root or denominator in f to worry about. The only restriction comes from g itself: its denominator 2x − 9 cannot be zero, so x ≠ 9/2.
+
+$$\text{Domain of } f(g(x)): \quad x \in \mathbb{R},\ x \neq \frac{9}{2}$$
+
+---
+
+### Part b — g(f(x))
+
+Now substitute f(x) = 2x² − 5 into g. Since g(x) = (x+5)/(2x−9), replace every x in g with f(x):
+
+$$g(f(x)) = \frac{(2x^2-5)+5}{2(2x^2-5)-9} = \frac{2x^2}{4x^2 - 19}$$
+
+**Domain:** f(x) = 2x² − 5 is a polynomial — it's defined for all real x, so f imposes no restriction. But now g is being fed f(x), and g has a denominator. That denominator must not be zero:
+
+$$4x^2 - 19 \neq 0 \implies x^2 \neq \frac{19}{4} \implies x \neq \pm\frac{\sqrt{19}}{2}$$
+
+$$\text{Domain of } g(f(x)): \quad x \in \mathbb{R},\ x \neq \pm\frac{\sqrt{19}}{2} \approx \pm 2.179$$
+
+---
+
+## The general domain procedure
+
+There's a clean two-step checklist that works for any composite function:
+
+**For the domain of f(g(x)):**
+
+Step 1 — Find the domain of g. Call it Dg. Remove any x where g is undefined.
+
+Step 2 — Find which x-values make g(x) land outside the domain of f. Remove those too.
+
+The domain is what remains after both removals. Crucially, the restriction in step 2 comes from solving an inequality or equation involving the *formula for g(x)*, not just x directly — that's exactly what happened in part (b) where you had to solve 4x² − 19 ≠ 0.
+
+**Triggers for restrictions** — these are the things to watch for in either f or g:
+
+- Denominators → set ≠ 0
+- Even roots (√, ⁴√, etc.) → set the radicand ≥ 0
+- Logarithms → set argument > 0
+- Piecewise definitions → check which piece applies
+
+
+
+
+
+
+
 
 ---
 
