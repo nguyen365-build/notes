@@ -524,6 +524,67 @@ The domain is what remains after both removals. Crucially, the restriction in st
 
 **Variations:** reflections (negatives), vertical shifts (adding a constant outside), horizontal compressions/stretches (coefficient inside the squared term), combinations of all four.
 
+
+## Graph transformations — the core idea
+
+Every transformation is an instruction that modifies either the **input** (x) or the **output** (y) of a parent function before or after it runs. Understanding *where* the modification happens tells you exactly what it does geometrically.
+
+The parent function here is y = x², the standard upward parabola with vertex at the origin. Your target is g(x) = 3(x+4)² — three transformations encoded in one expression.Step through each button — "all together" overlays all three curves so you can see exactly how far each transformation moved the graph.
+
+---
+
+## The transformation rules, unified
+
+Every transformation fits into the template y = a·f(b(x − h)) + k. Each parameter does exactly one thing:
+
+| Parameter | Location | Effect | Example |
+|---|---|---|---|
+| h | inside, subtracted from x | horizontal shift right h (left if negative) | (x+4) means h = −4, shift left 4 |
+| k | outside, added to f | vertical shift up k | f(x)+3 shifts up 3 |
+| a | outside, multiplies f | vertical stretch (a>1) or compression (0<a<1); reflection over x-axis if a<0 | 3·f(x) stretches by 3 |
+| b | inside, multiplies x | horizontal compression (b>1) or stretch (0<b<1); reflection over y-axis if b<0 | f(2x) compresses horizontally by ½ |
+
+The inside/outside distinction is everything. Changes inside f(  ) affect x — they move the graph horizontally and behave counterintuitively (adding moves left, multiplying compresses). Changes outside f(  ) affect y — they move or scale the graph vertically and behave intuitively (adding moves up, multiplying stretches up).
+
+---
+
+## Why the horizontal shift feels backwards
+
+This trips up almost everyone. When you write y = (x+4)², you might expect a rightward shift — you're adding 4. But the shift is left.
+
+The clearest way to see it: ask "what x-value makes the expression inside equal zero?" For y = x², that's x = 0 — the vertex. For y = (x+4)², that's x = −4. The vertex moved to x = −4, which is left. Equivalently, to get the same output the original got at x = 0, you now need x = −4 as your input. The whole graph slid left to compensate.
+
+General rule: y = f(x − h) shifts right by h. Your function has (x + 4) = (x − (−4)), so h = −4, shifting left 4.
+
+---
+
+## Applying this to your problem
+
+g(x) = 3(x+4)² starts from y = x² and applies exactly two transformations. Here's the exam procedure the problem requires:
+
+**Step 1 — Name the parent function:**
+Start with y = x². Draw it: vertex (0, 0), passes through (±1, 1), (±2, 4).
+
+**Step 2 — Apply the horizontal shift:**
+Replace x with (x+4) → y = (x+4)². Every point shifts left 4 units. Vertex moves to (−4, 0). Label the new vertex and two symmetric points: (−3, 1) and (−5, 1).
+
+**Step 3 — Apply the vertical stretch:**
+Multiply by 3 → y = 3(x+4)². Every y-value triples. Vertex stays at (−4, 0). The points (−3, 1) and (−5, 1) become (−3, 3) and (−5, 3). Label these.
+
+The problem specifically says to start from the basic function and apply transformations sequentially — not to just plot points directly. That means your graph must show the progression, with labels at each stage or at least on the final graph with the transformation described in writing.
+
+---
+
+## All the transformation types you need to know
+
+**Reflections** are just stretches with a negative factor. y = −f(x) reflects over the x-axis (every y flips sign). y = f(−x) reflects over the y-axis (every x flips sign).
+
+**Horizontal stretch/compression** from b in f(bx): if b = 2, the graph compresses horizontally by ½ (points move twice as close to the y-axis). If b = ½, the graph stretches horizontally by 2. Again counterintuitive — larger b means more compression, not more stretch.
+
+**Combined example** — y = −2f(3(x−1)) + 5 means: shift right 1, horizontal compression by ⅓, vertical stretch by 2, reflect over x-axis, shift up 5. Apply inside-to-outside: horizontal changes first, vertical changes after.
+
+
+
 ---
 
 ## Problem 4 — Evaluating limits
