@@ -605,6 +605,82 @@ This problem tests five distinct techniques:
 
 **Key theory:** Limit laws, the squeeze theorem (used to prove the sin limit), left/right one-sided limits, and recognizing when a limit is infinite vs. truly DNE.
 
+
+Click each tab to walk through the solution and see the function's graph. Here's the full theory behind each technique.
+
+---
+
+## Technique 1 — Direct substitution (4a)
+
+This is always your first attempt on any limit. If a function is continuous at the target point, the limit is simply the function's value there. Polynomials, trig functions, exponentials, and rational functions (where the denominator is nonzero) are all continuous everywhere they're defined.
+
+For 4a: f(x) = 3x² − 2x + 1 is a polynomial, so substitute x = 2 directly and get 9.
+
+**The rule:** If f is continuous at x = a, then lim_{x→a} f(x) = f(a).
+
+The moment substitution gives 0/0 or ∞/∞, you've hit an indeterminate form and must use one of the techniques below. If it gives nonzero/0, the limit is ±∞ (or DNE if sides disagree — see 4c).
+
+---
+
+## Technique 2 — Factoring + sign analysis for ±∞ (4b)
+
+When substitution gives 0/0, try factoring. The goal is to cancel the factor causing the zero in the denominator. In 4b, the numerator 3x² − 2x − 16 factors as (3x − 8)(x + 2). One (x + 2) cancels with the denominator's (x + 2)², leaving (3x − 8)/(x + 2).
+
+Now substituting x = −2 gives −14/0 — nonzero over zero. The denominator is (x+2)² which is always non-negative, so the expression → −∞ from both sides. The limit is −∞, which means it does not exist as a finite number.
+
+**Key point:** DNE because of infinity is different from DNE because of a jump. When the limit is ±∞ you say "the limit does not exist (it equals −∞)" — you still name the behavior.
+
+---
+
+## Technique 3 — One-sided limit analysis (4c)
+
+When substitution gives nonzero/0 (not 0/0), you immediately know the function blows up. The two-sided limit exists only if both one-sided limits agree.
+
+For 4c: the numerator at x = 3 is 16 (positive), the denominator is (x − 3). From the right, (x − 3) > 0, so the ratio → +∞. From the left, (x − 3) < 0, so the ratio → −∞. The sides disagree, so the limit does not exist.
+
+**The definition:** lim_{x→a} f(x) = L if and only if lim_{x→a⁺} f(x) = L AND lim_{x→a⁻} f(x) = L. If the one-sided limits differ, the two-sided limit does not exist, full stop.
+
+---
+
+## Technique 4 — Rationalization (4d)
+
+When you have a difference of square roots creating a 0/0 form, multiply by a conjugate to eliminate the radical. The conjugate of (√A − B) is (√A + B), and their product is A − B² — no radical.
+
+For 4d you need two rounds of conjugate multiplication (one for the denominator's radical, one for the numerator's), which cancels the (2 − x) factor causing the indeterminate form. After full cancellation and substitution: the answer is 1/2.
+
+**Spotting this technique:** any limit with (√something − number) in numerator or denominator where direct substitution fails.
+
+---
+
+## Technique 5 — Special trig limit (4e)
+
+The fundamental result you must have memorized:
+
+$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$
+
+This does not follow from substitution (which gives 0/0). It is proved via the squeeze theorem and is treated as a known result in calculus.
+
+For 4e, rewrite sin(3x)/(x² − x) by factoring the denominator as x(x−1), then multiply and divide by 3 to engineer the form sin(3x)/(3x):
+
+$$\frac{\sin(3x)}{x(x-1)} = \frac{\sin(3x)}{3x} \cdot \frac{3}{x-1}$$
+
+As x → 0: the first factor → 1, and 3/(x−1) → 3/(−1) = −3. The limit is **−3**.
+
+**Variants to recognize:** lim_{x→0} sin(ax)/x = a, lim_{x→0} tan(x)/x = 1, lim_{x→0} (1−cos x)/x = 0.
+
+---
+
+## The decision flowchart
+
+When you face any limit, ask these questions in order:
+
+1. Try direct substitution. Does it give a clean number? → Done.
+2. Does substitution give 0/0? → Try factoring and canceling. If that fails, try rationalization (if radicals present) or trig identity (if trig present).
+3. Does substitution give nonzero/0? → Check one-sided limits. If both → +∞ or both → −∞, state which. If they disagree, state DNE.
+4. Does the problem involve sin(something)/something as that something → 0? → Use the special trig limit.
+
+
+
 ---
 
 ## Problem 5 — Computing derivatives
@@ -620,6 +696,86 @@ This problem tests five distinct techniques:
 **5d — Chain rule with power:** d/dx[uⁿ] = n·uⁿ⁻¹·u'. The inner function is the cubic polynomial, n = 4.
 
 **Key theory:** Memorize basic derivatives (xⁿ, sin x, cos x, eˣ, ln x) and the four rules: sum/difference, constant multiple, product, quotient, and chain rule. Chain rule is the most commonly tested.
+
+
+
+Click each tab to see the rules and full solution for each problem. Here's the complete theory behind every rule used.
+
+---
+
+## The power rule — foundation of everything
+
+$$\frac{d}{dx}\left[x^n\right] = n \cdot x^{n-1}$$
+
+Bring the exponent down as a multiplier, then reduce the exponent by 1. This works for any real number n — positive, negative, fractional, anything.
+
+The sum/difference rule lets you apply this term by term: d/dx[f ± g] = f′ ± g′. And the constant multiple rule says d/dx[c·f] = c·f′. So for a polynomial like 4x⁵ + 3x⁴ − 6x³ + 6, you just process each term independently and the constant 6 vanishes (d/dx[constant] = 0).
+
+---
+
+## The quotient rule — for a fraction of two functions
+
+$$\frac{d}{dx}\left[\frac{u}{v}\right] = \frac{v \cdot u' - u \cdot v'}{v^2}$$
+
+A reliable mnemonic: "low d-high minus high d-low, over low squared" — where "high" is the numerator and "low" is the denominator. The order in the numerator matters: it's v·u′ minus u·v′, not the other way around.
+
+For 5b, the denominator is (x+3)², not just a plain power of x. So computing v′ itself requires the chain rule (see below): v′ = 2(x+3)·1 = 2(x+3). This is a very common exam trap — the chain rule hides inside the quotient rule whenever the denominator is a composite expression.
+
+After applying the quotient rule, always look to factor and simplify the numerator before writing your final answer.
+
+---
+
+## The chain rule — the most important rule in differential calculus
+
+$$\frac{d}{dx}\left[f(g(x))\right] = f'(g(x)) \cdot g'(x)$$
+
+In words: differentiate the outer function (leaving the inner function untouched inside it), then multiply by the derivative of the inner function. It's a two-part multiplication.
+
+The mental process every time:
+
+1. Identify what's "outside" and what's "inside"
+2. Differentiate the outside (keeping the inside frozen)
+3. Differentiate the inside
+4. Multiply the two results together
+
+**For 5c** — y = sin(2x² − x + 1): the outside is sin(□) and the inside is the polynomial. Derivative of sin(□) is cos(□) — still with the same □ inside. Then multiply by the derivative of the polynomial, which is 4x − 1. Result: cos(2x² − x + 1)·(4x − 1).
+
+**For 5d** — y = (polynomial)⁴: the outside is (□)⁴ and the inside is the cubic. Derivative of (□)⁴ is 4(□)³ — same polynomial still inside. Then multiply by the derivative of the polynomial, which is −12x² − 2x + 3.
+
+---
+
+## Trig derivatives you must memorize
+
+| Function | Derivative |
+|---|---|
+| sin(x) | cos(x) |
+| cos(x) | −sin(x) |
+| tan(x) | sec²(x) |
+| sec(x) | sec(x)tan(x) |
+| csc(x) | −csc(x)cot(x) |
+| cot(x) | −csc²(x) |
+
+These are the raw derivatives with respect to x. When the argument is a function of x (like sin(2x² − x + 1)), the chain rule kicks in immediately — you always multiply by the derivative of the argument.
+
+---
+
+## How the rules layer together
+
+Problems 5b, 5c, and 5d all involve the chain rule combined with something else. The key skill is recognizing the layers:
+
+For 5b: quotient rule as the outer structure, with chain rule needed quietly inside to differentiate (x+3)².
+
+For 5c: chain rule as the outer structure, with the trig derivative as the "outer function" rule and the power rule handling the inner polynomial.
+
+For 5d: chain rule as the outer structure, with the power rule for (□)⁴ as the "outer function" rule and the power rule again for the inner polynomial.
+
+The chain rule can always nest — if the inner function were itself a composition, you'd apply chain rule again inside. But for these four problems, one or two layers is sufficient.
+
+
+
+
+
+
 
 ---
 
