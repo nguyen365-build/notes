@@ -857,6 +857,1270 @@ CONTINUITY:            defined + limit exists + they match
 SPECIAL LIMIT:         lim sin(x)/x = 1  as x→0
 ```
 
+
+
+
+This comprehensive cheatsheet is designed to cover every mathematical concept, formula, and strategy required to solve the problems presented in your MATH 265 Sample Midterm and Final Exams.
+
 ---
 
-*MATH 265 Exam 2 | Athabasca University | Good luck!*
+## 1. Fundamentals & Algebra
+* **Composite Functions:** $(f \circ g)(x) = f(g(x))$. To find the domain, $x$ must be in the domain of $g$, and $g(x)$ must be in the domain of $f$.
+* **Trigonometric Identities:**
+    * **Pythagorean:** $\sin^2 x + \cos^2 x = 1$.
+    * **Double Angle:** $\sin(2x) = 2\sin x \cos x$; $\cos(2x) = \cos^2 x - \sin^2 x = 2\cos^2 x - 1 = 1 - 2\sin^2 x$.
+    * **Sum/Difference:** $\cos(A \pm B) = \cos A \cos B \mp \sin A \sin B$.
+* **Transformations:**
+    * $f(x) + c$: Vertical shift.
+    * $f(x - c)$: Horizontal shift.
+    * $af(x)$: Vertical stretch/compression.
+
+---
+
+## 2. Limits and Continuity
+* **Evaluation Strategies:**
+    1.  **Direct Substitution:** Try this first.
+    2.  **Factoring/Cancelation:** For $0/0$ indeterminate forms.
+    3.  **Rationalization:** Multiply by the conjugate for square root limits.
+    4.  **Infinite Limits:** Divide every term by the highest power of $x$ in the denominator.
+* **Special Trig Limit:** $\lim_{x \to 0} \frac{\sin x}{x} = 1$.
+* **Continuity:** A function is continuous at $a$ if $\lim_{x \to a} f(x) = f(a)$.
+
+---
+
+## 3. Derivatives: Rules & Methods
+* **Definition of Derivative:** $f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$.
+* **Power Rule:** $\frac{d}{dx}[x^n] = nx^{n-1}$.
+* **Product Rule:** $(uv)' = u'v + uv'$.
+* **Quotient Rule:** $(\frac{u}{v})' = \frac{u'v - uv'}{v^2}$.
+* **Chain Rule:** $\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)$.
+* **Implicit Differentiation:** Differentiate both sides with respect to $x$, treating $y$ as a function of $x$ (multiply by $\frac{dy}{dx}$ whenever differentiating $y$).
+* **Trig Derivatives:**
+    * $(\sin x)' = \cos x$
+    * $(\cos x)' = -\sin x$
+    * $(\tan x)' = \sec^2 x$
+    * $(\sec x)' = \sec x \tan x$
+    * $(\cot x)' = -\csc^2 x$
+
+---
+
+## 4. Applications of Differentiation
+* **Linearization/Differentials:** $L(x) = f(a) + f'(a)(x-a)$. Used to estimate values like $\sqrt{16.4}$ or $\cos(62^\circ)$.
+* **Related Rates:** 1.  Identify given rates and the rate to find.
+    2.  Write an equation relating the variables (e.g., $V = \frac{1}{3}\pi r^2 h$).
+    3.  Differentiate with respect to time $t$.
+* **Curve Sketching:**
+    * $f'(x) = 0$: Critical points (Maxima/Minima).
+    * $f''(x) > 0$: Concave up; $f''(x) < 0$: Concave down.
+    * $f''(x) = 0$: Potential Inflection Points.
+* **Optimization:** Find the objective function, differentiate, and find the absolute extremum on the given interval (Extreme Value Theorem).
+* **Newton's Method:** $x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$.
+
+---
+
+## 5. Integrals: Rules & Techniques
+* **Power Rule for Integration:** $\int x^n dx = \frac{x^{n+1}}{n+1} + C$ (for $n \neq -1$).
+* **Substitution Rule (u-sub):** Used for "reverse chain rule." Let $u = g(x)$, then $du = g'(x)dx$.
+* **Fundamental Theorem of Calculus (Part 1):** $\frac{d}{dx} \int_a^x f(t) dt = f(x)$.
+    * *Extended:* $\frac{d}{dx} \int_{g(x)}^{h(x)} f(t) dt = f(h(x))h'(x) - f(g(x))g'(x)$.
+* **Fundamental Theorem of Calculus (Part 2):** $\int_a^b f(x) dx = F(b) - F(a)$.
+* **Average Value:** $f_{ave} = \frac{1}{b-a} \int_a^b f(x) dx$.
+
+---
+
+## 6. Physics & Geometry Applications
+* **Area Between Curves:** $A = \int_a^b [f_{upper}(x) - g_{lower}(x)] dx$.
+* **Work:** $W = \int_a^b F(x) dx$.
+    * **Springs (Hooke's Law):** $F = kx$.
+    * **Lifting Chains:** Integrate the weight of the segment being moved over the distance moved.
+* **Kinematics:**
+    * Position $s(t) \to$ Velocity $v(t) = s'(t) \to$ Acceleration $a(t) = v'(t)$.
+    * **Displacement:** $\int_{t_1}^{t_2} v(t) dt$.
+    * **Distance Traveled:** $\int_{t_1}^{t_2} |v(t)| dt$.
+
+
+
+# MATH 265 — Calculus I · Final Exam 1 Cheat Sheet
+**Time:** 3.5 hrs | **Passing:** 55% | **Total:** 124 pts
+
+---
+
+## 1. DERIVATIVES — COMPLEX COMBINATIONS (Q1 — 20 pts)
+
+The biggest question. Every part stacks multiple rules. Identify layers first.
+
+### All Rules at a Glance
+```
+Constant:        d/dx [c]        = 0
+Power:           d/dx [x^n]      = n·x^(n−1)
+Constant mult:   d/dx [c·f]      = c·f'
+Sum/Diff:        d/dx [f ± g]    = f' ± g'
+Product:         d/dx [f·g]      = f'g + fg'
+Quotient:        d/dx [f/g]      = (f'g − fg') / g²
+Chain:           d/dx [f(g(x))]  = f'(g(x)) · g'(x)
+```
+
+### Trig Derivatives
+```
+d/dx [sin x]  =  cos x          d/dx [cos x]  = −sin x
+d/dx [tan x]  =  sec² x         d/dx [cot x]  = −csc² x
+d/dx [sec x]  =  sec x · tan x  d/dx [csc x]  = −csc x · cot x
+```
+
+### Chain Rule — Nested Layers (work outside → in)
+```
+d/dx [f(g(h(x)))] = f'(g(h(x))) · g'(h(x)) · h'(x)
+```
+
+---
+
+### Q1 Part-by-Part Strategy
+
+**a. y = sin x · cos(sin x²)**
+- Outer structure: **Product Rule** → (sin x)' · cos(sin x²) + sin x · [cos(sin x²)]'
+- Right term needs **Chain Rule twice**: outer=cos, inner=sin(x²), innermost=x²
+- d/dx[cos(sin x²)] = −sin(sin x²) · cos(x²) · 2x
+
+**b. y = [(1+x³)/(1−x²)]^(1/3)**
+- **Chain Rule**: outer = u^(1/3), inner = (1+x³)/(1−x²)
+- d/dx[u^(1/3)] = (1/3)u^(−2/3) · u'
+- u' needs **Quotient Rule**: [(3x²)(1−x²) − (1+x³)(−2x)] / (1−x²)²
+
+**c. y = √(1 + √(1+x))**
+- Rewrite: [1 + (1+x)^(1/2)]^(1/2)
+- **Chain Rule twice**: outer=√u, u = 1+(1+x)^(1/2); then inner=√(1+x)
+- dy/dx = (1/2)[1+√(1+x)]^(−1/2) · (1/2)(1+x)^(−1/2)
+
+**d. y = √(x²−1) / (x²−2x−8)**
+- **Quotient Rule**: top = (x²−1)^(1/2), bottom = x²−2x−8
+- Numerator derivative: (1/2)(x²−1)^(−1/2) · 2x = x/√(x²−1)
+- Factor denominator: (x−4)(x+2) — useful for simplification
+
+**e. y = sec²((x+1)/(x−2))**
+- **Chain Rule twice**: outer = u², u = sec(v), v = (x+1)/(x−2)
+- d/dx[sec²(v)] = 2sec(v) · sec(v)tan(v) · v'
+- v' needs **Quotient Rule**: [(x−2)−(x+1)] / (x−2)² = −3/(x−2)²
+
+---
+
+## 2. METHOD OF DIFFERENTIALS / LINEAR APPROXIMATION (Q2 — 8 pts)
+
+### Formula
+```
+f(x + Δx) ≈ f(x) + f'(x) · Δx
+```
+Or equivalently using differential dy = f'(x) dx:
+```
+Approximate value ≈ known nearby value + f'(nearby) · (small change)
+```
+
+### Strategy
+1. Pick a nearby "nice" value where you know the exact answer
+2. Compute f'(x) at that nice value
+3. Apply the formula
+
+**a. cos 62°**
+- Convert: 62° = π/3 + π/90 · 2 ... easier: use 60° = π/3 as base, Δx = 2° = π/90
+- f(x) = cos x, f'(x) = −sin x
+- cos(π/3) = 1/2, sin(π/3) = √3/2
+- cos 62° ≈ cos(π/3) + (−sin(π/3))(π/90) = 1/2 − (√3/2)(π/90)
+- ≈ 0.5 − 0.0302 ≈ **0.4698**
+
+**b. √16.4**
+- Base: x = 16 (know √16 = 4), Δx = 0.4
+- f(x) = √x, f'(x) = 1/(2√x)
+- √16.4 ≈ 4 + (1/8)(0.4) = 4 + 0.05 = **4.0500**
+
+**Key:** Always work in radians for trig approximations.
+
+---
+
+## 3. DERIVATIVE FROM DEFINITION — cot x (Q3 — 6 pts)
+
+### Limit Definition
+```
+f'(x) = lim(h→0) [f(x+h) − f(x)] / h
+```
+
+### Strategy for cot x
+```
+cot x = cos x / sin x
+```
+1. Write [cot(x+h) − cot x] / h
+2. Expand cot(x+h) = cos(x+h)/sin(x+h)
+3. Combine fractions over common denominator sin(x+h)·sin x
+4. Numerator becomes: cos(x+h)sin x − cos x · sin(x+h)
+5. Use **sine subtraction identity**: sin(A−B) = sin A cos B − cos A sin B
+   → cos(x+h)sin x − cos x sin(x+h) = −sin((x+h)−x) = −sin(h)
+6. Result: [−sin h] / [h · sin(x+h) · sin x]
+7. Take limit: lim sin(h)/h = 1, and sin(x+h) → sin x
+8. → **−1/sin²x = −csc²x** ✓
+
+### Key Identities Needed
+```
+sin(A − B) = sin A cos B − cos A sin B
+lim(h→0) sin(h)/h = 1
+lim(h→0) [cos(h)−1]/h = 0
+```
+
+---
+
+## 4. CURVE SKETCHING (Q4 — 20 pts)
+
+### Full Checklist (in order)
+```
+1. Domain           — where is f(x) defined?
+2. Intercepts       — set x=0 (y-int), set f(x)=0 (x-int)
+3. Asymptotes       — vertical (denom=0), horizontal (lim x→±∞)
+4. f'(x)            — find, set = 0 → critical points
+5. Inc/Dec          — sign chart of f'(x)
+6. Local max/min    — first or second derivative test
+7. f''(x)           — find, set = 0 → inflection point candidates
+8. Concavity        — sign chart of f''(x)
+9. Cusps            — where f' is undefined but f is continuous
+10. Sketch
+```
+
+### First Derivative Test
+- f' changes + → − at c: **local max**
+- f' changes − → + at c: **local min**
+- f' doesn't change sign: **neither**
+
+### Second Derivative Test
+```
+f'(c) = 0 and f''(c) < 0  →  local MAX
+f'(c) = 0 and f''(c) > 0  →  local MIN
+f''(c) = 0                 →  inconclusive, use first derivative test
+```
+
+### Concavity
+```
+f''(x) > 0  →  concave UP  (∪)
+f''(x) < 0  →  concave DOWN (∩)
+Inflection point: f'' changes sign (even if f''=0 or undefined)
+```
+
+### Asymptotes
+```
+Vertical:     x = a where denominator = 0 (and num ≠ 0)
+Horizontal:   lim(x→±∞) f(x) = L  →  y = L
+Oblique:      do polynomial long division when deg(num) = deg(den)+1
+```
+
+**a. f(x) = x²/(x²−1)**
+- Domain: x ≠ ±1
+- Vertical asymptotes: x = 1, x = −1
+- Horizontal asymptote: y = 1 (leading coefficients both 1)
+- f'(x) = [2x(x²−1) − x²(2x)] / (x²−1)² = −2x/(x²−1)²
+- Critical point: x = 0 (local max since f''(0) < 0)
+- Even function (symmetric about y-axis)
+
+**b. f(x) = x + sin x**
+- Domain: all reals; no asymptotes
+- f'(x) = 1 + cos x ≥ 0 always → **always increasing** (no local extrema)
+- f'(x) = 0 when cos x = −1 → x = (2k+1)π (flat points, not extrema)
+- f''(x) = −sin x → inflection points where sin x = 0 → x = nπ
+
+---
+
+## 5. ABSOLUTE EXTREMA ON CLOSED INTERVAL (Q5 — 11 pts)
+
+### Closed Interval Method (always use for closed [a,b])
+```
+1. Find f'(x)
+2. Solve f'(x) = 0 AND find where f'(x) is undefined → critical points
+3. Evaluate f at all critical points in [a,b] AND at endpoints a, b
+4. Largest value = absolute max; Smallest value = absolute min
+```
+
+**a. f(x) = 2x^(5/3) − 5x^(4/3) on [−1, 20]**
+- f'(x) = (10/3)x^(2/3) − (20/3)x^(1/3)
+- Factor: (10/3)x^(1/3)[x^(1/3) − 2] = 0
+- Critical points: x = 0 (f' undefined) and x = 8 (f'=0)
+- Evaluate at x = −1, 0, 8, 20
+
+**b. f(x) = x + cos x on [−π, 2π]**
+- f'(x) = 1 − sin x = 0 → sin x = 1 → x = π/2
+- Evaluate at x = −π, π/2, 2π
+
+**Fractional exponents tip:**
+```
+x^(5/3) = (x^(1/3))^5 = (∛x)^5
+x^(4/3) = (∛x)^4
+Negative x: ∛(−1) = −1, so (−1)^(5/3) = −1, (−1)^(4/3) = 1
+```
+
+---
+
+## 6. OPTIMIZATION (Q6 — 6 pts)
+
+### Strategy for Optimization Problems
+```
+1. Draw & label diagram
+2. Write the OBJECTIVE function (what to minimize/maximize)
+3. Write the CONSTRAINT equation
+4. Substitute constraint → reduce objective to one variable
+5. Take derivative, set = 0 → critical points
+6. Verify it's a min/max (second derivative test or check endpoints)
+7. Answer the question asked
+```
+
+**Rectangle with fixed area 220 cm², minimize perimeter:**
+- Variables: length l, width w
+- Constraint: l · w = 220  →  l = 220/w
+- Objective: P = 2l + 2w = 2(220/w) + 2w = 440/w + 2w
+- P'(w) = −440/w² + 2 = 0  →  w² = 220  →  w = √220
+- l = 220/√220 = √220 → **l = w = √220** (it's a square!)
+- P_min = 4√220 = 4√(4·55) = **8√55 cm**
+
+**General rule:** For fixed area rectangles → **minimum perimeter = square**.
+
+---
+
+## 7. NEWTON'S METHOD (Q7 — 5 pts)
+
+### Formula
+```
+x_(n+1) = x_n − f(x_n) / f'(x_n)
+```
+
+### Strategy
+1. Rewrite equation as f(x) = 0
+2. Pick starting guess x₀ (use graph or given interval)
+3. Compute x₁ = x₀ − f(x₀)/f'(x₀)
+4. Repeat until desired precision (usually 2–3 iterations for 4 decimal places)
+
+**Example: solve x⁴ − 2 = 0 on [1, 2]**
+- f(x) = x⁴ − 2, f'(x) = 4x³
+- x₀ = 1: x₁ = 1 − (−1)/4 = 1.25
+- x₁ = 1.25: x₂ = 1.25 − (1.25⁴−2)/(4·1.25³) ≈ 1.1935 ...
+
+**Tip:** Converges fast (doubles correct digits each step) unless f'(xₙ) ≈ 0.
+
+---
+
+## 8. MEAN VALUE THEOREM & ROLLE'S THEOREM (Q8 — likely)
+
+### Rolle's Theorem
+**If** f is continuous on [a,b], differentiable on (a,b), and f(a) = f(b)
+**Then** ∃ c ∈ (a,b) such that **f'(c) = 0**
+
+### Mean Value Theorem (MVT)
+**If** f is continuous on [a,b] and differentiable on (a,b)
+**Then** ∃ c ∈ (a,b) such that:
+```
+f'(c) = [f(b) − f(a)] / (b − a)
+```
+In words: the instantaneous rate equals the average rate at some point.
+
+### Using MVT
+1. Verify continuity & differentiability (state this!)
+2. Compute [f(b)−f(a)]/(b−a)
+3. Set f'(c) = that value, solve for c
+4. Confirm c ∈ (a,b)
+
+---
+
+## 9. KEY IDENTITIES & FORMULAS MASTER LIST
+
+### Trig Identities
+```
+sin²x + cos²x = 1
+1 + tan²x = sec²x
+1 + cot²x = csc²x
+
+sin(A ± B) = sinA cosB ± cosA sinB
+cos(A ± B) = cosA cosB ∓ sinA sinB
+
+sin(2x) = 2 sin x cos x
+cos(2x) = cos²x − sin²x = 1 − 2sin²x = 2cos²x − 1
+
+sin²x = (1 − cos 2x)/2
+cos²x = (1 + cos 2x)/2
+```
+
+### Special Limits
+```
+lim(x→0) sin(x)/x     = 1
+lim(x→0) [1−cos(x)]/x = 0
+lim(x→0) (1+x)^(1/x)  = e
+lim(x→∞) (1+1/n)^n    = e
+```
+
+### Unit Circle (exact values)
+| θ | sin | cos | tan |
+|---|-----|-----|-----|
+| 0 | 0 | 1 | 0 |
+| π/6 | 1/2 | √3/2 | √3/3 |
+| π/4 | √2/2 | √2/2 | 1 |
+| π/3 | √3/2 | 1/2 | √3 |
+| π/2 | 1 | 0 | undef |
+| π | 0 | −1 | 0 |
+| 3π/2 | −1 | 0 | undef |
+
+---
+
+## 10. QUICK DECISION TREE
+
+```
+Derivative of a product?         → Product Rule
+Derivative of a fraction?        → Quotient Rule
+Derivative of "something inside"?→ Chain Rule (+ rule for outer function)
+Function has multiple layers?    → Chain Rule repeatedly, outside → in
+Limit gives 0/0?                 → Factor/cancel or L'Hôpital
+Approximating a value?           → Linear approximation: f(a) + f'(a)Δx
+Max/min on closed interval?      → Closed interval method (crits + endpoints)
+Max/min word problem?            → Optimize: set up obj + constraint, substitute
+Approximate root of equation?    → Newton's Method
+Sketch a curve?                  → Domain, intercepts, asymptotes, f', f''
+```
+
+
+
+Here is your **complete, exam-focused Markdown cheat sheet** for the **MATH 265 Sample Final Exam 1** .
+It is structured to cover **every question type, rule, formula, identity, and strategy** needed.
+
+---
+
+# 🧠 MATH 265 – FINAL EXAM CHEAT SHEET (FULL COVERAGE)
+
+---
+
+# ⚡ 1. DERIVATIVES (CORE SKILLS)
+
+## Power Rule
+
+\frac{d}{dx}(x^n)=nx^{n-1}
+
+---
+
+## Trigonometric Derivatives
+
+[
+\frac{d}{dx}(\sin x) = \cos x
+]
+[
+\frac{d}{dx}(\cos x) = -\sin x
+]
+[
+\frac{d}{dx}(\tan x) = \sec^2 x
+]
+[
+\frac{d}{dx}(\cot x) = -\csc^2 x
+]
+[
+\frac{d}{dx}(\sec x) = \sec x \tan x
+]
+
+---
+
+## Chain Rule (VERY IMPORTANT)
+
+[
+\frac{d}{dx}f(g(x)) = f'(g(x)) \cdot g'(x)
+]
+
+---
+
+## Product Rule
+
+[
+(fg)' = f'g + fg'
+]
+
+---
+
+## Quotient Rule
+
+[
+\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}
+]
+
+---
+
+## Strategy
+
+* Identify structure first:
+
+  * Inside function → Chain rule
+  * Product → Product rule
+  * Fraction → Quotient rule
+
+---
+
+# 📏 2. DIFFERENTIALS (LINEAR APPROXIMATION)
+
+## Formula
+
+[
+f(x + dx) \approx f(x) + f'(x),dx
+]
+
+## Steps
+
+1. Choose nearby easy value
+2. Compute derivative
+3. Plug into formula
+
+⚠️ Convert degrees → radians for trig
+
+---
+
+# 📉 3. DEFINITION OF DERIVATIVE
+
+[
+f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}
+]
+
+### Strategy
+
+* Expand numerator
+* Simplify
+* Cancel h
+* Evaluate limit
+
+---
+
+# 📊 4. GRAPHING & ANALYSIS
+
+## Critical Points
+
+[
+f'(x) = 0 \quad \text{or undefined}
+]
+
+---
+
+## Increasing / Decreasing
+
+* (f'(x) > 0) → increasing
+* (f'(x) < 0) → decreasing
+
+---
+
+## Concavity
+
+* (f''(x) > 0) → concave up
+* (f''(x) < 0) → concave down
+
+---
+
+## Inflection Point
+
+[
+f''(x) = 0 \quad \text{and changes sign}
+]
+
+---
+
+## Cusps / Non-differentiable
+
+* Sharp corners
+* Vertical tangent
+
+---
+
+## Asymptotes
+
+### Vertical:
+
+* Denominator = 0
+
+### Horizontal:
+
+* Compare degrees:
+
+  * top < bottom → 0
+  * equal → ratio
+  * top > bottom → none
+
+---
+
+# 📈 5. OPTIMIZATION (MAX / MIN)
+
+## Steps
+
+1. Find derivative
+2. Solve (f'(x) = 0)
+3. Check endpoints
+4. Plug into original
+
+---
+
+## Rectangle Optimization
+
+* Area fixed → express one variable in terms of another
+* Minimize perimeter
+
+---
+
+# 🔁 6. NEWTON’S METHOD
+
+## Formula
+
+[
+x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}
+]
+
+### Strategy
+
+* Choose good initial guess
+* Iterate 1–2 times
+
+---
+
+# 🧮 7. INTEGRALS (CORE SECTION)
+
+## Basic Rules
+
+### Power Rule (Reverse derivative)
+
+[
+\int x^n dx = \frac{x^{n+1}}{n+1} + C
+]
+
+---
+
+## Trig Integrals
+
+[
+\int \sin x,dx = -\cos x + C
+]
+[
+\int \cos x,dx = \sin x + C
+]
+
+---
+
+## Substitution (u-sub)
+
+### Steps
+
+1. Let (u = g(x))
+2. Compute (du)
+3. Replace integral
+
+---
+
+## Strategy
+
+* Inside function present → use substitution
+* Polynomial → expand first
+
+---
+
+# 📐 8. DEFINITE INTEGRALS
+
+## Fundamental Theorem of Calculus
+
+[
+\int_a^b f(x),dx = F(b) - F(a)
+]
+
+---
+
+## Properties
+
+* Reverse limits → negative
+* Split intervals
+
+---
+
+# 📊 9. AREA BETWEEN CURVES
+
+## Formula
+
+[
+\text{Area} = \int_a^b (\text{top} - \text{bottom}),dx
+]
+
+---
+
+## Steps
+
+1. Find intersection points
+2. Identify top function
+3. Integrate
+
+---
+
+# 🚰 10. ACCUMULATION / FLOW
+
+## Total amount
+
+[
+\text{Total} = \int r(t),dt
+]
+
+---
+
+# ⚙️ 11. WORK PROBLEMS
+
+## Formula
+
+[
+W = \int F(x),dx
+]
+
+### Chain lifting shortcut
+
+* Weight per length × distance lifted
+
+---
+
+# 🌡️ 12. AVERAGE VALUE OF FUNCTION
+
+## Formula
+
+[
+f_{\text{avg}} = \frac{1}{b-a} \int_a^b f(x),dx
+]
+
+---
+
+# 📐 13. TRIG VALUES (MUST MEMORIZE)
+
+| Angle | sin  | cos  | tan       |
+| ----- | ---- | ---- | --------- |
+| 0     | 0    | 1    | 0         |
+| π/6   | 1/2  | √3/2 | √3/3      |
+| π/4   | √2/2 | √2/2 | 1         |
+| π/3   | √3/2 | 1/2  | √3        |
+| π/2   | 1    | 0    | undefined |
+
+---
+
+## Memory Trick
+
+[
+\sin = \frac{\sqrt{0,1,2,3,4}}{2}, \quad \cos = \text{reverse}
+]
+
+---
+
+# ⚠️ COMMON EXAM TRAPS
+
+* Forgetting chain rule
+* Mixing degrees/radians
+* Missing +C in integrals
+* Wrong limits order
+* Not checking endpoints in optimization
+* Forgetting absolute value in area
+
+---
+
+# 🎯 FINAL EXAM STRATEGY
+
+### Order:
+
+1. Derivatives (fast points)
+2. Integrals
+3. Graphing
+4. Optimization
+5. Applications
+
+---
+
+### Time Management
+
+* Skip hard problems early
+* Show steps (partial credit!)
+* Double-check signs
+
+Here is a cheat sheet tailored to the topics and problems in your sample exam, formatted in Markdown.
+
+---
+
+### MATH 265 - Exam Cheat Sheet
+
+#### 1. Limits & Continuity
+
+- **Squeeze Theorem:** If \(g(x) \le f(x) \le h(x)\) near \(a\) (except possibly at \(a\)) and \(\lim_{x\to a} g(x) = \lim_{x\to a} h(x) = L\), then \(\lim_{x\to a} f(x) = L\).
+    - *Use for \(\lim_{x\to \infty} (\text{bounded}) \cdot (\text{function} \to 0)\) or similar.*
+- **Infinite Limits & Vertical Asymptotes:** \(\lim_{x \to a} f(x) = \infty\) means \(f(x)\) grows without bound. Check left/right limits to confirm sign.
+- **Limits at Infinity of Rational Functions:** Divide numerator and denominator by the highest power of \(x\) in the denominator.
+- **Common Trig Limits:** Know where \(\tan x\) has vertical asymptotes: \(x = \frac{\pi}{2} + k\pi\).
+
+#### 2. Derivatives - Rules
+
+- **Product Rule:** \((uv)' = u'v + uv'\)
+- **Quotient Rule:** \(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\)
+- **Chain Rule:** \(\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)\)
+- **Derivatives of Trig Functions:**
+    - \(\frac{d}{dx} \tan x = \sec^2 x\)
+    - \(\frac{d}{dx} \sec x = \sec x \tan x\)
+    - \(\frac{d}{dx} \cos x = -\sin x\)
+
+#### 3. Extreme Value Theorem (EVT) & Optimization
+
+- **EVT:** A continuous function on a closed interval \([a,b]\) has an absolute max and min.
+- **Finding Absolute Extrema on \([a,b]\):**
+    1. Find \(f'(x)\).
+    2. Find all critical points in \((a,b)\) where \(f'(x)=0\) or DNE.
+    3. Evaluate \(f\) at all critical points and endpoints \(a, b\).
+    4. Largest value = absolute max, smallest = absolute min.
+
+#### 4. Graph Interpretation
+
+- \(f(a)=b\): Point \((a,b)\) is on the graph.
+- \(\lim_{x\to\infty} f(x) = L\): Horizontal asymptote at \(y=L\).
+- \(\lim_{x\to a} f(x) = \infty\): Vertical asymptote at \(x=a\).
+- \(f'(x) < 0\): Function is decreasing.
+- \(f''(x) > 0\): Function is concave up.
+
+#### 5. Optimization (Box Problem)
+
+- **Strategy:**
+    1. Draw picture, assign variables (e.g., width \(w\), length \(l=2w\), height \(h\)).
+    2. Write constraint (e.g., Volume \(V=lwh = 120\)).
+    3. Write objective function (Cost). Differentiate cost for sides vs. lid/base.
+    4. Use constraint to reduce objective to one variable.
+    5. Find critical points of objective, verify minimum.
+
+#### 6. Integration Techniques & Formulas
+
+- **Basic Substitution:** \(\int f(g(x))g'(x) dx = \int f(u) du\).
+    - *Look for a function and its derivative.*
+- **Power Rule:** \(\int x^n dx = \frac{x^{n+1}}{n+1} + C\) (\(n \neq -1\)).
+- **Trig Integrals:**
+    - \(\int \tan x \, dx = \ln|\sec x| + C\) (or \(-\ln|\cos x|\))
+    - \(\int \sec^2 x \, dx = \tan x + C\)
+    - \(\int \sec x \tan x \, dx = \sec x + C\)
+- **Hint from Problem 6d:** \(\sec^3x \tan x = \sec^2x (\sec x \tan x)\). Let \(u = \sec x\), \(du = \sec x \tan x dx\). Integral becomes \(\int u^2 du\).
+- **Simplifying Fractions:** \(\frac{a+b}{c} = \frac{a}{c} + \frac{b}{c}\). Write \(\sqrt{5x} = \sqrt{5} x^{1/2}\).
+- **Properties of Definite Integrals:**
+    - \(\int_a^b f(x) dx = -\int_b^a f(x)dx\)
+    - If \(m \le f(x) \le M\) on \([a,b]\), then \(m(b-a) \le \int_a^b f(x) dx \le M(b-a)\). *(Bounding an integral)*
+
+#### 7. Absolute Extrema & Bounding Integrals
+
+- **Absolute Extrema** (non-linear, over closed interval): Same as EVT method above.
+- **Bounding an Integral:** Find max and min of the function on the interval. Use the inequality above.
+
+#### 8. Area Between Curves
+
+- **Formula:** Area \(= \int_a^b (\text{top function} - \text{bottom function}) dx\).
+- Always integrate over the given interval, noting where curves intersect if interval is not given.
+- For Problem 8: Top function is max of \(\cos x\) and \(1/\sqrt{2}\), bottom is the min. Solve intersection: \(\cos x = 1/\sqrt{2} \implies x = \pm \pi/4\).
+
+#### 9. Work & Hooke's Law
+
+- **Hooke's Law:** Force \(F(x) = kx\), where \(k\) is spring constant, \(x\) is distance stretched/compressed from natural length.
+- **Work:** \(W = \int_a^b F(x) dx\).
+- If given work to stretch *beyond* natural length, use \(a=0\) (natural length), \(b=\) stretch distance.
+
+#### 10. Particle Motion
+
+- Let \(v(t)\) be velocity, \(s(t)\) position.
+- **Displacement** on \([t_1, t_2]\): \(\int_{t_1}^{t_2} v(t) dt\). (Net change in position)
+- **Total Distance** on \([t_1, t_2]\): \(\int_{t_1}^{t_2} |v(t)| dt\).
+    - *Strategy:* Find where \(v(t)=0\). Split the interval into subintervals where \(v\) is positive or negative. Integrate \(v\) on positive parts, \(-v\) on negative parts.
+
+#### 11. Kinematics (Constant Acceleration)
+
+- **Given:** \(a(t) = a\) (constant).
+- \(v(t) = v_0 + at\)
+- \(s(t) = s_0 + v_0 t + \frac{1}{2}at^2\)
+- Problem 11: Two phases. Phase 1: constant acceleration. Phase 2: zero acceleration (constant velocity). Use Phase 1 to find distance covered and final velocity. Use Phase 2 with remaining distance and Phase 1's final velocity to find time for Phase 2.
+
+#### 12. Average Value of a Function
+
+- **Formula:** \(f_{\text{avg}} = \frac{1}{b-a} \int_a^b f(x) dx\).
+- Set this equal to the given average, solve for missing boundary \(k\).
+
+
+
+Here is a cheat sheet in Markdown covering the essential rules, formulas, and strategies needed to solve the problems in your sample exam.
+
+---
+
+### Derivatives Cheat Sheet
+
+#### Basic Rules
+- **Power Rule:** \(\frac{d}{dx}[x^n] = nx^{n-1}\)
+- **Constant Multiple:** \(\frac{d}{dx}[c \cdot f(x)] = c \cdot f'(x)\)
+- **Sum/Difference:** \(\frac{d}{dx}[f(x) \pm g(x)] = f'(x) \pm g'(x)\)
+
+#### Advanced Rules
+- **Product Rule:** \(\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)\)
+- **Quotient Rule:** \(\frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}\)
+- **Chain Rule:** \(\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)\)
+
+#### Trigonometric Derivatives
+- \(\frac{d}{dx} \sin x = \cos x\) 
+- \(\frac{d}{dx} \cos x = -\sin x\)
+- \(\frac{d}{dx} \tan x = \sec^2 x\) 
+- \(\frac{d}{dx} \cot x = -\csc^2 x\)
+- \(\frac{d}{dx} \sec x = \sec x \tan x\) 
+- \(\frac{d}{dx} \csc x = -\csc x \cot x\)
+- **Chain Rule Example:** \(\frac{d}{dx}[\sec^2(g(x))] = 2\sec(g(x)) \cdot [\sec(g(x))\tan(g(x))] \cdot g'(x)\)
+
+#### Implicit/Logarithmic Differentiation
+- \(y = f(x)^{g(x)} \implies \ln y = g(x) \ln[f(x)] \implies \frac{y'}{y} = g'(x) \ln[f(x)] + g(x) \frac{f'(x)}{f(x)}\)
+
+---
+
+### Differentials & Approximation
+- **Formula:** \(f(x + \Delta x) \approx f(x) + f'(x) \cdot \Delta x\)
+- **Method:**
+  1.  Choose a value \(a\) close to the target where \(f(a)\) and \(f'(a)\) are easy to compute. \(\Delta x = \text{target} - a\).
+  2.  Calculate \(f'(x)\).
+  3.  Apply formula.
+- **Radian Conversion:** For trig functions (like \(\cos 62^\circ\)), \(x\) must be in radians. \(62^\circ = \frac{62\pi}{180}\) rad. Choose \(a = 60^\circ = \frac{\pi}{3}\) rad.
+
+---
+
+### Definition of the Derivative
+- **Limit Definition:** \(f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}\)
+- **Trig Limit:** \(\lim_{\theta \to 0} \frac{\sin \theta}{\theta} = 1\)
+- For \(f(x) = \cot x = \frac{\cos x}{\sin x}\), use the limit definition, trigonometric identities for \(\cos(x+h)\) and \(\sin(x+h)\), and the limit above.
+
+---
+
+### Curve Sketching & Analysis
+- **Critical Points:** Where \(f'(x) = 0\) or \(f'(x)\) is undefined (DNE).
+- **Cusps:** Points where \(f\) is continuous, but \(\lim_{x \to c^-} f'(x) = \infty\) and \(\lim_{x \to c^+} f'(x) = -\infty\) (or vice-versa).
+- **Inflection Points:** Where \(f''(x)\) changes sign. Find where \(f''(x)=0\) or DNE.
+- **Vertical Asymptotes:** Where denominator is 0 but numerator is not (for rational functions). Check limits on both sides.
+- **Horizontal Asymptotes:** Calculate \(\lim_{x \to \pm\infty} f(x)\).
+- **First Derivative Test:**
+    - \(f' > 0 \implies f\) increasing.
+    - \(f' < 0 \implies f\) decreasing.
+- **Second Derivative Test:**
+    - \(f'' > 0 \implies\) concave up.
+    - \(f'' < 0 \implies\) concave down.
+
+---
+
+### Optimization
+- **Steps:**
+  1.  **Constraint:** Given equation (e.g., area \(A = xy = 220\)).
+  2.  **Objective:** Function to minimize/maximize (e.g., perimeter \(P = 2x + 2y\)).
+  3.  **Reduce to one variable:** Solve constraint for \(y = 220/x\). Substitute into objective: \(P(x) = 2x + \frac{440}{x}\).
+  4.  **Find Critical Points:** Solve \(P'(x) = 0\). Ignore negative solutions if dimension.
+  5.  **Verify min/max:** Use first or second derivative test.
+
+---
+
+### Newton's Method
+- **Formula:** \(x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}\)
+- **Purpose:** Approximate roots of \(f(x)=0\).
+- **Process:** Make initial guess \(x_1\); iterate until convergence.
+
+---
+
+### Integration Cheat Sheet
+
+#### Basic Rules
+- **Power Rule:** \(\int x^n dx = \frac{x^{n+1}}{n+1} + C\) \((n \neq -1)\).
+- **Polynomial Expansion:** Expand terms like \((x^2-4)^2\) before integrating.
+- **u-Substitution:** \(\int f(g(x))g'(x) dx = \int f(u) du\), where \(u = g(x)\).
+
+#### Common u-Substitutions (from exam)
+- For \(\int x\sqrt{x-1} dx\): let \(u = x-1 \implies du = dx\) and \(x = u+1\).
+- For \(\int \sin(2x)\cos x dx\): use identity \(\sin(2x) = 2\sin x \cos x\). Then integral becomes \(\int 2\sin x \cos^2 x dx\). Let \(u = \cos x\).
+
+#### Integral Properties & Average Value
+- **Bounding:** If \(m \le f(x) \le M\) on \([a,b]\), then \(m(b-a) \le \int_a^b f(x) dx \le M(b-a)\).
+- **Average Value:** \(f_{avg} = \frac{1}{b-a} \int_a^b f(x) dx\)
+
+---
+
+### Fundamental Theorem of Calculus (FTC)
+- **FTC Part 2:** \(\frac{d}{dx} \int_{a(x)}^{b(x)} f(t) dt = f(b(x)) \cdot b'(x) - f(a(x)) \cdot a'(x)\)
+
+---
+
+### Applications of Integration
+- **Area Between Curves:** \(A = \int_a^b |f(x) - g(x)| dx\). Find bounds \(a, b\) by solving intersection points \(f(x)=g(x)\).
+- **Work (Lifting Chain):**
+    - Linear weight density: \(\lambda = \frac{\text{mass}}{\text{length}}\).
+    - Work to lift a segment \((dy)\) at height \(y\): \(dW = \lambda \cdot g \cdot y \cdot dy\) (if mass in kg, use \(g=9.8 \text{ m/s}^2\) for Newtons, but physics context can sometimes assume weight in kg-force, check problem wording. Standard physics: force = mass \(\times\) g. If "work in Joules", multiply kg by 9.8).
+    - Integrate over the length being lifted.
+- **Net Change:** Amount flowed = \(\int_{t_1}^{t_2} r(t) dt\).
+
+---
+
+### Trigonometric Identities
+- \(\sin(2x) = 2\sin x \cos x\)
+- \(\cos(2x) = \cos^2 x - \sin^2 x = 2\cos^2 x - 1 = 1 - 2\sin^2 x\)
+- \(\sec x = \frac{1}{\cos x}\)
+
+### Differentiation of Key Functions from Exam
+- **1(a):** \(y = \sin(x) \cdot \cos(\sin(x^2))\). Needs **product rule** and **double chain rule**.
+- **1(b):** \(y = \left(\frac{1+x^3}{1-x^2}\right)^{1/3}\). Needs **chain rule** and **quotient rule**.
+- **1(c):** \(y = \sqrt{1+\sqrt{1+x}}\). Needs **double chain rule**.
+- **1(d):** \(y = \frac{\sqrt{x^2-1}}{x^2-2x-8}\). Needs **quotient rule** and **chain rule**.
+- **1(e):** \(y = \sec^2\left(\frac{x+1}{x-2}\right)\). Needs **chain rule** (\(\sec^2 u\)) and **quotient rule** for \(u'\).
+
+### Substitutions & Setup for Specific Problems
+- **Problem 8a:** \(\int (x^2 - x)\sqrt{3x} dx \implies\) write \(\sqrt{3x} = \sqrt{3}\sqrt{x}\), multiply through, integrate with power rule.
+- **Problem 8e:** \(\int_2^4 x\sqrt{x-1} dx\). Use \(u = x-1\). Limits change: \(x=2 \to u=1\), \(x=4 \to u=3\). Integral \(\int_1^3 (u+1)\sqrt{u} du\).
+- **Problem 13 (Work):** Chain linear density \(\lambda = 80/10 = 8\) kg/m. Lift one end to 6m. Length of chain hanging in air: if lifted to 6m, the top is at 6m, bottom is on ground. Segments lifted vary. Use \(dW = \lambda g y dy\) for segments \(dy\) at height \(y\) that are lifted. Integrate from 0 to 6. Work = \(\int_0^6 8 \cdot 9.8 \cdot y \, dy\) (Joules).
+
+
+
+Here’s a **cheatsheet** in Markdown covering all the **rules, methods, formulas, identities, and strategies** you need to solve every problem in the attached MATH 265 Sample Midterm Exam 1.
+
+---
+
+# MATH 265 Exam Cheatsheet
+
+## 1. Exact Trigonometric Values
+
+| Angle (degrees) | Angle (radians) | sin | cos | tan |
+|----------------|----------------|-----|-----|-----|
+| 0° | 0 | 0 | 1 | 0 |
+| 30° | π/6 | 1/2 | √3/2 | 1/√3 |
+| 45° | π/4 | √2/2 | √2/2 | 1 |
+| 60° | π/3 | √3/2 | 1/2 | √3 |
+| 90° | π/2 | 1 | 0 | undefined |
+
+**Even/Odd identities**:  
+- cos(−θ) = cos θ  
+- sin(−θ) = − sin θ  
+
+---
+
+## 2. Composite Functions & Domain
+
+Given \( f(x) \) and \( g(x) \):
+
+- \( (f \circ g)(x) = f(g(x)) \)  
+- Domain of \( f \circ g \):  
+  All \( x \) in domain of \( g \) such that \( g(x) \) is in domain of \( f \).
+
+**Domain restrictions**:  
+- Denominator ≠ 0  
+- Radicand (even root) ≥ 0  
+
+---
+
+## 3. Graph Transformations
+
+Start with \( y = x^2 \) (basic parabola).
+
+- \( y = a(x - h)^2 + k \)  
+  - \( a \): vertical stretch/compression + reflection if negative  
+  - \( h \): horizontal shift (opposite sign)  
+  - \( k \): vertical shift  
+
+Example: \( g(x) = 3(x+4)^2 \)  
+- Start with \( y = x^2 \)  
+- Shift left 4  
+- Vertical stretch by factor 3  
+
+---
+
+## 4. Limit Evaluation Strategies
+
+### Direct substitution
+If no division by zero, substitute directly.
+
+### Factoring
+Factor numerator/denominator, cancel common factors.
+
+### Rationalizing
+For \( \frac{\sqrt{a} - \sqrt{b}}{c} \), multiply numerator & denominator by conjugate \( \sqrt{a} + \sqrt{b} \).
+
+### Special trig limit
+\[
+\lim_{x \to 0} \frac{\sin(kx)}{x} = k
+\]
+
+### One-sided limits
+Check left/right separately if denominator → 0 but numerator ≠ 0.
+
+If limit → ±∞, say “limit does not exist” (infinite).
+
+---
+
+## 5. Derivative Rules
+
+- Power rule: \( \frac{d}{dx} x^n = n x^{n-1} \)  
+- Sum/difference: \( (f \pm g)' = f' \pm g' \)  
+- Constant multiple: \( (cf)' = c f' \)  
+- Product rule: \( (fg)' = f'g + fg' \)  
+- Quotient rule: \( \left( \frac{f}{g} \right)' = \frac{f'g - fg'}{g^2} \)  
+- Chain rule: \( \frac{d}{dx} f(g(x)) = f'(g(x)) \cdot g'(x) \)  
+
+### Common derivatives:
+- \( \frac{d}{dx} \sin u = \cos u \cdot u' \)  
+- \( \frac{d}{dx} \cos u = -\sin u \cdot u' \)  
+- \( \frac{d}{dx} x^n = n x^{n-1} \)  
+- \( \frac{d}{dx} c = 0 \)
+
+---
+
+## 6. Implicit Differentiation
+
+Steps:  
+1. Differentiate both sides w.r.t \( x \), treating \( y \) as \( y(x) \).  
+2. Every time you differentiate \( y \), multiply by \( y' \).  
+3. Collect all \( y' \) terms on one side.  
+4. Solve for \( y' \).
+
+---
+
+## 7. Tangent Line Perpendicular Condition
+
+Given line \( y = m_1 x + b \), slope \( m_1 \).  
+Perpendicular slope \( m_2 = -\frac{1}{m_1} \).  
+
+For curve \( f(x) \), set \( f'(x) = m_2 \) and solve for \( x \).
+
+---
+
+## 8. Related Rates (Cone)
+
+Cone volume: \( V = \frac{1}{3} \pi r^2 h \)  
+
+Given: diameter = height → \( 2r = h \) → \( r = h/2 \).  
+Substitute: \( V = \frac{1}{3} \pi \left( \frac{h}{2} \right)^2 h = \frac{\pi}{12} h^3 \).  
+
+Differentiate: \( \frac{dV}{dt} = \frac{\pi}{4} h^2 \frac{dh}{dt} \).  
+
+Given \( \frac{dV}{dt} \) and \( h \), solve for \( \frac{dh}{dt} \).
+
+---
+
+## 9. Differentials (Linear Approximation)
+
+Formula: \( f(x + dx) \approx f(x) + f'(x) \, dx \)  
+
+Choose \( x \) near target, \( dx = \text{target} - x \).
+
+Example: \( \sqrt{9.2} \)  
+Let \( f(x) = \sqrt{x} \), \( x = 9 \), \( f'(x) = \frac{1}{2\sqrt{x}} \)  
+\( f'(9) = \frac{1}{6} \), \( dx = 0.2 \)  
+Approx: \( \sqrt{9.2} \approx 3 + \frac{1}{6}(0.2) = 3 + 0.0333 = 3.0333 \)
+
+---
+
+## 10. Sketching from Limit Conditions
+
+- \( \lim_{x \to 0} f(x) \) DNE → jump or infinite discontinuity at \( x=0 \)  
+- \( f(0) = 0 \) → point (0,0) exists but limit ≠ value or DNE.  
+- \( \lim_{x \to \infty} f(x) = -1 \) → horizontal asymptote \( y = -1 \) as \( x \to \infty \)  
+- Not differentiable at \( x = -2 \) → corner, cusp, vertical tangent, or discontinuity.
+
+**Strategy**: Draw axes, plot given point, asymptote, discontinuity at 0, nondifferentiable point at -2, and ensure limit at 0 doesn’t exist (different left/right limits).
+
+---
+
+## 11. General Exam Strategies
+
+- **Check domains first** for composites.  
+- **Graph transformations**: identify basic function, then shifts/scale.  
+- **Limits**: if 0/0, try factor, expand, or conjugate.  
+- **Derivatives**: use power/quotient/chain rule.  
+- **Implicit diff**: differentiate term by term, group \( y' \).  
+- **Related rates**: draw diagram, find equation, differentiate, plug known values.  
+- **Differentials**: choose nearby perfect square/cube to linearize.  
+- **Sketching**: combine limits and continuity/differentiability info systematically.
+
+
+
+Here is a comprehensive exam cheat sheet covering all rules, methods, strategies, formulas, and identities needed to solve the problems in the provided sample exam.
+
+---
+
+### 1. Functions: Definition & Vertical Line Test
+- **Function Definition:** A relation where each input \(x\) has **exactly one** output \(y\).
+- **Vertical Line Test:** If a vertical line intersects the graph at more than one point, \(y\) is not a function of \(x\).
+- **Solving for \(y\):** If solving yields \(y = \pm \sqrt{...}\), it fails the test (not a function).
+
+### 2. Volume of a Cone
+\[
+V(r) = \frac{1}{3}\pi r^2 h
+\]
+- **Domain:** The set of all possible inputs (\(r > 0\) for physical radius).
+- **Evaluation:** Substitute the given value for the variable.
+
+### 3. Interpreting Derivatives & Average Rate of Change
+- **Average Rate of Change:** \(\frac{P(b)-P(a)}{b-a}\) is the average change in population per year over the interval \([a, b]\).
+- **Instantaneous Rate of Change:** \(P'(a)\) is the rate at which the population is changing in the year \(a\).
+
+### 4. Graph Transformations (Order of Operations)
+For \(y = a f(b(x - h)) + k\):
+1.  **Horizontal Shift:** \(x \to x - h\) (Right if \(h>0\), Left if \(h<0\)). *Apply to \(x\) inside the function.*
+2.  **Horizontal Scaling (if any):** Multiply \(x\) by \(b\).
+3.  **Reflection/Scaling in \(y\):** Multiply the function by \(a\).
+    - \(a > 1\): Vertical stretch.
+    - \(0 < a < 1\): Vertical compression.
+    - \(a < 0\): Reflection over the \(x\)-axis.
+4.  **Vertical Shift:** Add \(k\) (Up if \(k>0\), Down if \(k<0\)).
+
+### 5. Interpreting Limits & Continuity from a Graph
+- **Horizontal Asymptote:** \(\lim_{x \to \infty} f(x) = L\) means \(y = L\) is a horizontal asymptote.
+- **Vertical Asymptote:** \(\lim_{x \to a} f(x) = \infty\) means \(x = a\) is a vertical asymptote.
+- **Continuity at \(x=a\):** \(\lim_{x \to a} f(x) = f(a)\).
+- **Not Differentiable at \(x=a\) (Corners/Cusps):** The function has a sharp point, vertical tangent, or discontinuity at \(x=a\).
+
+### 6. Vertical & Horizontal Asymptotes
+- **Vertical Asymptotes (VA):** Set the **denominator equal to zero**, but simplify the fraction first. If a factor cancels, it's a **hole**, not a VA.
+- **Horizontal Asymptotes (HA):** Evaluate \(\lim_{x \to \pm \infty} f(x)\).
+    - If degree(Numerator) < degree(Denominator): HA is \(y=0\).
+    - If degree(Num) = degree(Den): HA is \(y = \frac{\text{leading coefficient of Num}}{\text{leading coefficient of Den}}\).
+    - If degree(Num) > degree(Den): No HA (goes to \(\pm\infty\)).
+
+### 7. Limit Evaluation Methods
+- **Direct Substitution:** Try first. If you get \(\frac{0}{0}\), follow strategies below.
+- **Factor & Cancel:** Factor numerator/denominator, cancel common factor.
+- **Conjugate Multiplication:** For square roots, multiply numerator & denominator by the conjugate.
+- **Known Limit \(\frac{1 - \cos x}{x}\) Related:**
+    \[
+    \lim_{x \to 0} \frac{1 - \cos x}{x} = 0 \quad \text{and} \quad \lim_{x \to 0} \frac{1 - \cos x}{x^2} = \frac{1}{2}
+    \]
+    - **Identity to use:** \(\cos 2\theta = 1 - 2\sin^2\theta \implies 1 - \cos 2\theta = 2\sin^2\theta\).
+    - Combined with \(\lim_{\theta \to 0} \frac{\sin\theta}{\theta} = 1\).
+- **Limits at Infinity:** Divide every term by the highest power of \(x\) in the denominator.
+- **Squeeze Theorem (Not heavily tested here, but useful background):** If function is bounded, e.g., \(-1 \le \cos \theta \le 1\).
+- **One-Sided Limits for Asymptotes:** If denominator \(\to 0\) but numerator \(\not\to 0\), check sign (\(\pm\infty\)) from left and right.
+
+### 8. Linear Approximation (Linearization)
+- **Formula:**
+    \[
+    f(x) \approx f(a) + f'(a)(x - a)
+    \]
+- **Strategy for \(\sin 62^\circ\):**
+    1.  **Choose \(a\):** The nearest value where sin/cos are known exactly. Use **radians**. \(\sin(60^\circ) = \sin(\pi/3)\), so \(a = \pi/3\).
+    2.  **Convert to Radians:** \(62^\circ = 62 \times \frac{\pi}{180}\).
+    3.  \(f(x) = \sin x, f'(x) = \cos x\).
+    4.  Plug into formula.
+
+### 9. Derivative Rules
+- **Chain Rule:** \(\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)\).
+- **Derivatives of Trig Functions:**
+    - \(\frac{d}{dx} \cot x = -\csc^2 x\)
+    - \(\frac{d}{dx} \sec x = \sec x \tan x\)
+- **Product Rule:** \((uv)' = u'v + uv'\)
+- **Quotient Rule:** \(\left(\frac{f}{g}\right)' = \frac{f'g - fg'}{g^2}\)
+- **Higher-Order Derivatives:** Differentiate the first derivative to get the second derivative.
+
+### 10. Implicit Differentiation & Tangent Lines
+- **Implicit Differentiation:** Differentiate both sides w.r.t. \(x\), treating \(y\) as a function of \(x\) (multiply by \(y'\)).
+- **Finding Slope at \((x_1, y_1)\):** After differentiating, solve for \(y'\) algebraically. Then substitute \(x_1\) and \(y_1\).
+- **Equation of Tangent Line:** \(y - y_1 = m(x - x_1)\), where \(m = y'\) at the point.
+
+### 11. Related Rates
+1.  **Draw & Label Picture.**
+2.  **Identify Knowns/Unknowns.** \(\frac{dD}{dt}\) (rate of change of distance from radar) = 2000. Find \(\frac{dh}{dt}\) (vertical speed).
+3.  **Relate Variables:** Pythagorean Theorem: \(D^2 = h^2 + x^2\), where \(x\) is the constant horizontal distance (5 miles).
+    \[
+    D^2 = h^2 + 5^2
+    \]
+4.  **Implicit Differentiation w.r.t. \(t\):**
+    \[
+    2D \frac{dD}{dt} = 2h \frac{dh}{dt} \implies D \cdot \frac{dD}{dt} = h \cdot \frac{dh}{dt}
+    \]
+5.  **Solve for Unknown Rate:** At the instant \(h = 4\), calculate \(D = \sqrt{4^2+5^2} = \sqrt{41}\). Plug in \(h, D,\) and \(\frac{dD}{dt}\).
+6.  **Solve:** \(\frac{dh}{dt} = \frac{D}{h} \cdot \frac{dD}{dt} = \frac{\sqrt{41}}{4} \cdot 2000\) mi/h.
+
+### Common Algebraic Pitfalls to Avoid
+- \(\frac{x^3-1}{x^2-1}\) is **not** \(\frac{x^3}{x^2}\). Factor sum/difference of cubes/squares.
+- \(\cot(2x)\) is \(\frac{\cos 2x}{\sin 2x}\), not \(\tan^{-1}(2x)\).
+- Always convert degrees to radians for calculus involving trig functions.
+
+
+
