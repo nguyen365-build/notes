@@ -2506,8 +2506,7 @@ $$\int f(g(x))g'(x) dx = \int f(u) du$$
 
 **Area Between Curves:**
 
-
-[Image of Area between two curves calculus]
+<img width="3999" height="3999" alt="Area" src="https://github.com/user-attachments/assets/e8710229-ff82-4c8a-9d5f-d0d8b135a5a8" />
 
 $$A = \int_a^b [\text{Top Function} - \text{Bottom Function}] dx$$
 Or, if integrating with respect to $y$:
