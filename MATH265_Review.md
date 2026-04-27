@@ -2124,3 +2124,407 @@ For \(y = a f(b(x - h)) + k\):
 
 
 
+# MATH 265 — Introduction to Calculus I
+## Exam Cheatsheet
+
+---
+
+## 1. Limits
+
+### Core Limit Laws
+- Sum/Difference: `lim[f ± g] = lim f ± lim g`
+- Product: `lim[f · g] = lim f · lim g`
+- Quotient: `lim[f/g] = lim f / lim g` (if lim g ≠ 0)
+- Constant: `lim[c · f] = c · lim f`
+
+### Limits at Infinity — Rational × Bounded Functions
+For `lim[x→∞] (polynomial/polynomial) · bounded_function`:
+- **Divide numerator & denominator by highest power of x**
+- Since `-1 ≤ sin(x) ≤ 1`, the `sin(x)` factor is **bounded**
+- If the rational part → L (finite), multiply by sin behavior → **use Squeeze Theorem**
+- If rational part → 0, then whole product → 0 (Squeeze Theorem)
+- **Key:** degree of denominator > numerator ⟹ rational part → 0
+
+> **Q1a:** `lim[x→∞] (3x²-4)/(4+2x+2x⁴) · sin(x)` → rational part → 0, bounded sin → **limit = 0**
+
+### Limits of Trig Functions
+- `tan x = sin x / cos x` is **undefined** where `cos x = 0`
+- `cos(5π/2) = 0` ⟹ `tan x` has a **vertical asymptote** at `x = 5π/2`
+- Left/right limits are `+∞` and `-∞` → **limit does not exist**
+
+### Squeeze Theorem
+If `g(x) ≤ f(x) ≤ h(x)` near `a` and `lim g = lim h = L`, then `lim f = L`
+
+---
+
+## 2. Differentiation Rules
+
+### Basic Rules
+| Rule | Formula |
+|------|---------|
+| Power | `d/dx [xⁿ] = nxⁿ⁻¹` |
+| Constant | `d/dx [c] = 0` |
+| Sum/Diff | `(f ± g)' = f' ± g'` |
+| Constant multiple | `(cf)' = cf'` |
+
+### Product Rule
+`d/dx [f · g] = f'g + fg'`
+
+### Quotient Rule
+`d/dx [f/g] = (f'g - fg') / g²`
+
+### Chain Rule
+`d/dx [f(g(x))] = f'(g(x)) · g'(x)`
+- **Always identify outer and inner functions**
+
+### Trig Derivatives
+| Function | Derivative |
+|----------|-----------|
+| `sin x` | `cos x` |
+| `cos x` | `-sin x` |
+| `tan x` | `sec²x` |
+| `sec x` | `sec x tan x` |
+| `csc x` | `-csc x cot x` |
+| `cot x` | `-csc²x` |
+
+### Key Derivatives for Q2
+**Q2a:** `d/dx [tan(2x)/√x]` — use **Quotient Rule** + **Chain Rule**
+- `d/dx[tan(2x)] = sec²(2x) · 2`  (chain rule)
+- `d/dx[√x] = d/dx[x^(1/2)] = (1/2)x^(-1/2)`
+
+**Q2b:** `d/dx [cos³(x²)]` — **Chain Rule twice** (triple composition)
+- Outer: `[·]³` → `3[·]²`
+- Middle: `cos(·)` → `-sin(·)`
+- Inner: `x²` → `2x`
+- Result: `3cos²(x²) · (-sin(x²)) · 2x = -6x cos²(x²) sin(x²)`
+
+---
+
+## 3. Extreme Value Theorem (EVT) & Absolute Extrema
+
+### Extreme Value Theorem
+If `f` is **continuous** on a **closed interval** `[a, b]`, then `f` attains both an **absolute maximum** and **absolute minimum** on `[a, b]`.
+
+### Procedure: Absolute Extrema on [a, b]
+1. Find all **critical points**: solve `f'(x) = 0` or where `f'` DNE, keep those in `[a, b]`
+2. **Evaluate** `f` at all critical points AND at endpoints `a`, `b`
+3. **Largest value = absolute max; smallest = absolute min**
+
+---
+
+## 4. Definite Integral Properties (Estimation)
+
+### Comparison/Bounding Property
+If `m ≤ f(x) ≤ M` on `[a, b]`, then:
+$$m(b-a) \leq \int_a^b f(x)\,dx \leq M(b-a)$$
+
+### Key Properties
+- `∫[a,b] f dx = -∫[b,a] f dx`
+- `∫[a,b] (f+g) dx = ∫[a,b] f dx + ∫[a,b] g dx`
+- `∫[a,a] f dx = 0`
+- `∫[a,b] c dx = c(b-a)`
+
+---
+
+## 5. Graph Interpretation
+
+| Condition | Graph Meaning |
+|-----------|--------------|
+| `f(0) = -3` | y-intercept at `(0, -3)` |
+| `lim[x→∞] f(x) = -2` | Horizontal asymptote `y = -2` (right) |
+| `lim[x→3] f(x) = ∞` | Vertical asymptote `x = 3` |
+| `f'(x) < 0` on `[3, ∞)` | f is **decreasing** on `[3, ∞)` |
+| `f'(x) < 0` on `(-∞, -2)` | f is **decreasing** on `(-∞, -2)` |
+| `f''(x) > 0` on `[4, ∞)` | f is **concave up** on `[4, ∞)` |
+
+---
+
+## 6. Optimization (Applied Min/Max)
+
+### Strategy
+1. **Draw a diagram** and label variables
+2. Write the **objective function** (what to minimize/maximize)
+3. Write the **constraint equation** and use it to eliminate a variable
+4. Take the **derivative**, set = 0, solve
+5. Verify it's a min/max (Second Derivative Test or closed interval)
+
+### Second Derivative Test
+- `f''(c) > 0` → local **minimum**
+- `f''(c) < 0` → local **maximum**
+
+> **Q5 Setup:** Box with base `l = 2w`, volume `lwh = 120`. Cost = (sides area × $1.20) + (lid area × $1.50). Substitute `l = 2w` and `h = 120/(2w²)` to get cost as function of `w` alone.
+
+---
+
+## 7. Integration Techniques
+
+### Basic Antiderivatives
+| Function | Antiderivative |
+|----------|---------------|
+| `xⁿ` | `xⁿ⁺¹/(n+1) + C`, n ≠ -1 |
+| `1/x` | `ln|x| + C` |
+| `sin x` | `-cos x + C` |
+| `cos x` | `sin x + C` |
+| `sec²x` | `tan x + C` |
+| `sec x tan x` | `sec x + C` |
+| `eˣ` | `eˣ + C` |
+
+### u-Substitution
+Use when you see `f(g(x)) · g'(x)`:
+1. Let `u = g(x)`, then `du = g'(x) dx`
+2. Rewrite integral entirely in `u`
+3. Integrate, then back-substitute
+
+> **Q6a:** `∫ cos(√x)/√x dx` — let `u = √x`, then `du = 1/(2√x) dx`
+>
+> **Q6b:** `∫₀^{π/3} tan x sec²x dx` — let `u = tan x`, then `du = sec²x dx`
+>
+> **Q6d:** `∫ sec³x tan x dx` — rewrite as `∫ sec²x · (sec x tan x) dx`, let `u = sec x`
+
+### Splitting Integrals
+Break up fractions term by term:
+> **Q6c:** `∫ (x³ + √(5x) - 4)/x² dx = ∫ (x + 5^{1/2} x^{-3/2} - 4x⁻²) dx`
+
+---
+
+## 8. Area Between Curves
+
+### Formula
+$$A = \int_a^b |f(x) - g(x)|\,dx$$
+
+If `f(x) ≥ g(x)` on `[a,b]`: `A = ∫[a,b] [f(x) - g(x)] dx`
+
+### Strategy
+1. **Find intersection points** (set `f(x) = g(x)`, solve for x) — these become limits
+2. Determine which function is **on top** on each subinterval
+3. Split integral if curves cross
+
+> **Q8:** Find where `cos x = 1/√2` → `x = ±π/4`. On `[-π/2, -π/4]` and `[π/4, π/2]`, `1/√2 ≥ cos x`. On `[-π/4, π/4]`, `cos x ≥ 1/√2`. Split accordingly.
+
+---
+
+## 9. Hooke's Law (Springs)
+
+$$F = kx$$
+
+- `F` = force applied, `k` = spring constant, `x` = displacement from natural length
+
+### Work to Stretch a Spring
+$$W = \int_0^d kx\,dx = \frac{1}{2}kd^2$$
+
+### Finding k
+Given `W` for stretching from 0 to `d`: solve `W = (1/2)kd²` for `k`
+
+> **Q9:** `20 = (1/2)k(1)²` → `k = 40` ft-lb/ft. Then `W = ∫₀² 40x dx`
+
+---
+
+## 10. Displacement vs. Distance (Kinematics)
+
+Given velocity `v(t)`:
+
+| Quantity | Formula |
+|---------|---------|
+| **Displacement** | `∫[a,b] v(t) dt` (net, signed) |
+| **Distance traveled** | `∫[a,b] |v(t)| dt` (always positive) |
+
+### For Distance: Split at zeros of v(t)
+1. Solve `v(t) = 0` on `[a, b]`
+2. Integrate `v(t)` on each subinterval, take absolute values, sum
+
+> **Q10:** `v(t) = t² - 3t + 2 = (t-1)(t-2)`. Zeros at `t=1, t=2`. Split `[0,3]` into `[0,1], [1,2], [2,3]`.
+
+---
+
+## 11. Kinematics from Acceleration
+
+### Integration Chain
+`a(t)` → integrate → `v(t)` (+ constant from initial condition) → integrate → `s(t)`
+
+- If starts from rest: `v(0) = 0`
+- If starts at position 0: `s(0) = 0`
+
+> **Q11:** Phase 1 (`0 ≤ t ≤ 2`): `a = 4`, so `v = 4t`, `s = 2t²`. At `t=2`: `v = 8 m/s`, `s = 8 m`.
+> Phase 2 (`t > 2`): `a = 0`, so `v = 8` (constant). Remaining distance = `100 - 8 = 92 m`.
+> Time for phase 2 = `92/8 = 11.5 s`. Total time = `2 + 11.5 = 13.5 s`.
+
+---
+
+## 12. Average Value of a Function
+
+$$f_{\text{avg}} = \frac{1}{b-a}\int_a^b f(x)\,dx$$
+
+### Mean Value Theorem for Integrals
+There exists `c ∈ [a,b]` such that `f(c) = f_avg`
+
+> **Q12:** Set `(1/(k-1)) ∫₁ᵏ (5/x²) dx = 32`. Compute `∫₁ᵏ 5x⁻² dx = 5[-x⁻¹]₁ᵏ = 5(1 - 1/k)`. Solve `5(1-1/k)/(k-1) = 32`.
+
+---
+
+## Quick Reference: Key Identities
+
+### Trig Identities
+- `sin²x + cos²x = 1`
+- `1 + tan²x = sec²x`
+- `1 + cot²x = csc²x`
+- `sin(2x) = 2 sin x cos x`
+- `cos(2x) = cos²x - sin²x = 1 - 2sin²x = 2cos²x - 1`
+
+### Special Trig Values
+| θ | 0 | π/6 | π/4 | π/3 | π/2 |
+|---|---|-----|-----|-----|-----|
+| sin | 0 | 1/2 | 1/√2 | √3/2 | 1 |
+| cos | 1 | √3/2 | 1/√2 | 1/2 | 0 |
+| tan | 0 | 1/√3 | 1 | √3 | undef |
+
+### Useful Algebra
+- `√x = x^(1/2)`, `1/√x = x^(-1/2)`
+- `∛x = x^(1/3)`
+- `(x^a)^b = x^(ab)`
+- `x^a · x^b = x^(a+b)`
+
+
+Welcome to your comprehensive exam preparation guide for MATH 265: Introduction to Calculus I. As your professor, I have synthesized the core theorems, rules, and strategies you need to master the fundamental concepts of limits, differential calculus, and integral calculus. 
+
+Calculus is the mathematical study of continuous change. Whether we are analyzing the instantaneous velocity of a sprinter or the total work required to stretch a spring, the principles below will serve as your analytical toolkit.
+
+Here is your master cheatsheet. Study it closely, understand the *why* behind each formula, and you will be well-equipped to excel.
+
+---
+
+# MATH 265: Calculus I Master Cheatsheet
+
+## 1. Prerequisites: Trigonometry & Algebra
+Before calculating rates of change, you must command the foundational functions. 
+
+**Pythagorean Identities:**
+* $\sin^2 x + \cos^2 x = 1$
+* $1 + \tan^2 x = \sec^2 x$
+
+**Double Angle Formulas:**
+* $\sin(2x) = 2 \sin x \cos x$
+* $\cos(2x) = \cos^2 x - \sin^2 x = 2\cos^2 x - 1 = 1 - 2\sin^2 x$
+
+*Conceptual Why:* Trigonometric identities allow us to simplify complex integrands and limit expressions into manageable forms.
+
+---
+
+## 2. Limits and Continuity
+Limits are the foundational bedrock of calculus, allowing us to mathematically rigorously handle the concepts of "approaching" a value and infinity.
+
+**Special Trigonometric Limits:**
+* $\lim_{x \to 0} \frac{\sin x}{x} = 1$
+* $\lim_{x \to 0} \frac{1 - \cos x}{x} = 0$
+
+**Limits at Infinity (Rational Functions):**
+For $\lim_{x \to \pm\infty} \frac{P(x)}{Q(x)}$:
+1. Divide every term by the highest power of $x$ in the denominator.
+2. Remember that $\lim_{x \to \infty} \frac{1}{x^n} = 0$ for $n > 0$.
+
+**The Squeeze Theorem:**
+If $f(x) \le g(x) \le h(x)$ for all $x$ near $a$, and $\lim_{x \to a} f(x) = \lim_{x \to a} h(x) = L$, then $\lim_{x \to a} g(x) = L$.
+*Use this for bounding oscillating functions like $x^2 \sin(\frac{1}{x})$.*
+
+---
+
+## 3. Differential Calculus: The Rules of the Game
+The derivative represents the instantaneous rate of change or the slope of the tangent line to a curve at a given point. 
+
+**Limit Definition of the Derivative:**
+$$f'(x) = \lim_{h \to 0} \frac{f(x+h) - f(x)}{h}$$
+
+**Differentiation Rules:**
+* **Power Rule:** $\frac{d}{dx}[x^n] = n x^{n-1}$
+* **Product Rule:** $\frac{d}{dx}[f(x)g(x)] = f'(x)g(x) + f(x)g'(x)$
+* **Quotient Rule:** $\frac{d}{dx}\left[\frac{f(x)}{g(x)}\right] = \frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}$
+* **Chain Rule:** $\frac{d}{dx}[f(g(x))] = f'(g(x)) \cdot g'(x)$ *(Work from the "outside in")*
+
+**Derivatives of Trigonometric Functions:**
+* $\frac{d}{dx}(\sin x) = \cos x$
+* $\frac{d}{dx}(\cos x) = -\sin x$
+* $\frac{d}{dx}(\tan x) = \sec^2 x$
+* $\frac{d}{dx}(\sec x) = \sec x \tan x$
+* $\frac{d}{dx}(\cot x) = -\csc^2 x$
+* $\frac{d}{dx}(\csc x) = -\csc x \cot x$
+
+---
+
+## 4. Applications of Differentiation
+
+**Linearization and Differentials:**
+Used to approximate values (e.g., $\sqrt{16.4}$ or $\cos(62^\circ)$).
+$$L(x) = f(a) + f'(a)(x - a)$$
+*Conceptual Why:* Zoom in close enough to a differentiable curve, and it looks like a straight line. 
+
+**Extreme Value Theorem (Absolute Extrema):**
+To find the absolute max/min of a continuous function on a closed interval $[a, b]$:
+1. Find all critical numbers $c$ in $(a, b)$ where $f'(c) = 0$ or $f'(c)$ is undefined.
+2. Evaluate $f(x)$ at the critical numbers: $f(c)$.
+3. Evaluate $f(x)$ at the endpoints: $f(a)$ and $f(b)$.
+4. The largest value is the absolute maximum; the smallest is the absolute minimum.
+
+**First and Second Derivative Tests (Curve Sketching):**
+* $f'(x) > 0 \implies f$ is increasing.
+* $f'(x) < 0 \implies f$ is decreasing.
+* $f''(x) > 0 \implies f$ is concave up ($\cup$).
+* $f''(x) < 0 \implies f$ is concave down ($\cap$).
+* *Inflection Point:* Where concavity changes (usually $f''(x) = 0$).
+
+**Kinematics:**
+* **Position:** $s(t)$
+* **Velocity:** $v(t) = s'(t)$ *(Instantaneous rate of change of position)*
+* **Acceleration:** $a(t) = v'(t) = s''(t)$
+* *Note:* Speed is $|v(t)|$.
+
+**Newton’s Method:**
+To find roots of $f(x) = 0$:
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+---
+
+## 5. Integral Calculus
+Integration allows us to accumulate quantities, geometrically representing the area under a curve. 
+
+**Fundamental Theorem of Calculus (FTC):**
+* **Part 1:** $\frac{d}{dx} \int_a^{g(x)} f(t) dt = f(g(x)) \cdot g'(x)$ *(Requires Chain Rule if the upper limit is a function of $x$!)*
+* **Part 2:** $\int_a^b f(x) dx = F(b) - F(a)$, where $F'(x) = f(x)$.
+
+**Basic Antiderivatives:**
+* $\int x^n dx = \frac{x^{n+1}}{n+1} + C$ (for $n \neq -1$)
+* $\int \sin x dx = -\cos x + C$
+* $\int \cos x dx = \sin x + C$
+* $\int \sec^2 x dx = \tan x + C$
+
+**The Substitution Rule (U-Sub):**
+Used to reverse the Chain Rule. 
+$$\int f(g(x))g'(x) dx = \int f(u) du$$
+*Strategy:* Let $u$ be the "inner" function whose derivative is floating elsewhere in the integrand. *Crucial Check:* If evaluating a definite integral, do not forget to change your limits of integration: $u_1 = g(a)$ and $u_2 = g(b)$.
+
+---
+
+## 6. Applications of Integration
+
+**Area Between Curves:**
+
+
+[Image of Area between two curves calculus]
+
+$$A = \int_a^b [\text{Top Function} - \text{Bottom Function}] dx$$
+Or, if integrating with respect to $y$:
+$$A = \int_c^d [\text{Right Function} - \text{Left Function}] dy$$
+
+**Work and Springs (Hooke's Law):**
+The force required to maintain a spring stretched $x$ units beyond its natural length is $F(x) = kx$, where $k$ is the spring constant.
+The total work $W$ done to stretch it from $a$ to $b$ is:
+$$W = \int_a^b F(x) dx = \int_a^b kx dx$$
+*Conceptual Why:* Work is the accumulation of force applied over a distance. Since the force increases as the spring stretches, we must integrate.
+
+**Displacement vs. Total Distance:**
+If a particle moves with velocity $v(t)$:
+* **Displacement:** $\int_{t_1}^{t_2} v(t) dt$ (Net change in position).
+* **Total Distance Traveled:** $\int_{t_1}^{t_2} |v(t)| dt$ (Area under the absolute value curve).
+
+---
+**Professor's Final Note:** Calculus rewards systematic thinking. Identify the type of problem, recall the pertinent rule from this sheet, explicitly state it, and execute your algebra flawlessly. You have the tools; now apply them with confidence.
+
+
