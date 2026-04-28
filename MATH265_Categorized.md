@@ -1,5 +1,72 @@
 # Find exact values
-Give the exact value of $\cos \left(-\frac{\pi}{12}\right)$.
+Give the exact value of:
+1. $\cos \left(-\frac{\pi}{12}\right)$
+Here’s an image of a math question asking for the exact value of a trigonometric expression. I will provide 10 similar questions below.
+
+To find the "exact value" in trigonometry, you are essentially looking for angles that can be expressed as combinations of the **Standard Angles** ($30^\circ$, $45^\circ$, $60^\circ$) using specific algebraic identities.
+
+While there are technically infinite angles, the "complete list" of problems you will encounter in a high-level trigonometry or calculus course falls into four distinct mathematical categories.
+
+---
+
+## 1. The Unit Circle Basics (Standard Multiples)
+These are the foundational values found directly on the unit circle. They are multiples of $\frac{\pi}{6}$ ($30^\circ$), $\frac{\pi}{4}$ ($45^\circ$), and $\frac{\pi}{3}$ ($60^\circ$).
+
+* **The Family of $\frac{\pi}{4}$:** Multiples include $\frac{3\pi}{4}$, $\frac{5\pi}{4}$, $\frac{7\pi}{4}$.
+* **The Family of $\frac{\pi}{6}$:** Multiples include $\frac{5\pi}{6}$, $\frac{7\pi}{6}$, $\frac{11\pi}{6}$.
+* **The Family of $\frac{\pi}{3}$:** Multiples include $\frac{2\pi}{3}$, $\frac{4\pi}{3}$, $\frac{5\pi}{3}$.
+* **Quadrantal Angles:** $0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}, 2\pi$.
+
+
+
+---
+
+## 2. The $\frac{\pi}{12}$ ($15^\circ$) Family
+These problems require the **Sum and Difference Identities**. Because $15^\circ$ is the difference between $45^\circ$ and $30^\circ$, any angle ending in $15^\circ$ or $75^\circ$ (or their radian equivalents) belongs here.
+
+**Possible Problems:**
+* **$15^\circ$ or $\frac{\pi}{12}$:** $(\frac{\pi}{4} - \frac{\pi}{6})$
+* **$75^\circ$ or $\frac{5\pi}{12}$:** $(\frac{\pi}{4} + \frac{\pi}{6})$
+* **$105^\circ$ or $\frac{7\pi}{12}$:** $(\frac{\pi}{3} + \frac{\pi}{4})$
+* **$165^\circ$ or $\frac{11\pi}{12}$:** $(\frac{3\pi}{4} + \frac{\pi}{6})$
+* **$195^\circ$, $255^\circ$, $285^\circ$, $345^\circ$:** (and their negative counterparts).
+
+---
+
+## 3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
+These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exactly half of $45^\circ$, you use the value of $\cos(45^\circ)$ inside a square root formula.
+
+**Possible Problems:**
+* **$22.5^\circ$ or $\frac{\pi}{8}$:** $\text{Half of } \frac{\pi}{4}$
+* **$67.5^\circ$ or $\frac{3\pi}{8}$:** $\text{Complement of } \frac{\pi}{8}$
+* **$112.5^\circ$ or $\frac{5\pi}{8}$:** $\frac{\pi}{2} + \frac{\pi}{8}$
+* **$157.5^\circ$ or $\frac{7\pi}{8}$:** $\pi - \frac{\pi}{8}$
+
+
+
+---
+
+## 4. Inverse Trigonometric Composition
+This is the final "boss" of exact value problems. These ask you to find the value of a trig function given the *inverse* of another. These are solved by drawing a **Reference Triangle** rather than using a formula.
+
+**Example Problem Types:**
+* **Pure Numeric:** $\sin(\arccos(\frac{3}{5}))$
+* **Algebraic:** $\tan(\arcsin(x))$
+* **Double Angle Composition:** $\cos(2 \arcsin(\frac{1}{3}))$
+
+---
+
+## Summary of Strategies
+To master this entire list, you only need to know which "tool" to pull from your belt:
+
+| Angle Ends In... | Likely Strategy |
+| :--- | :--- |
+| **$0, 30, 45, 60, 90$** | **Unit Circle Memoria** |
+| **$15, 75$** | **Sum/Difference Formulas** |
+| **$22.5, 67.5$** | **Half-Angle Formulas** |
+| **Inverse Functions** | **Reference Triangles ($a^2 + b^2 = c^2$)** |
+
+
 
 # Sketch the graph
 
