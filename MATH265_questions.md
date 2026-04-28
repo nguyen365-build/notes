@@ -1,6 +1,6 @@
 ﻿# Midterm Exam 1 - MATH 265
 
-1.  **(5 points)**
+
 
 2. Let $f(x)=2x^2-5$ and $g(x)=\frac{x+5}{2x-9}$. **(6 points)**
 

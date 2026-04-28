@@ -1,13 +1,9 @@
 # Find exact values
+To find the "exact value" in trigonometry, you are essentially looking for angles that can be expressed as combinations of the **Standard Angles** ($30^\circ$, $45^\circ$, $60^\circ$) using specific algebraic identities.
+
 Give the exact value of:
 1. $\cos \left(-\frac{\pi}{12}\right)$
 Here’s an image of a math question asking for the exact value of a trigonometric expression. I will provide 10 similar questions below.
-
-To find the "exact value" in trigonometry, you are essentially looking for angles that can be expressed as combinations of the **Standard Angles** ($30^\circ$, $45^\circ$, $60^\circ$) using specific algebraic identities.
-
-While there are technically infinite angles, the "complete list" of problems you will encounter in a high-level trigonometry or calculus course falls into four distinct mathematical categories.
-
----
 
 ## 1. The Unit Circle Basics (Standard Multiples)
 These are the foundational values found directly on the unit circle. They are multiples of $\frac{\pi}{6}$ ($30^\circ$), $\frac{\pi}{4}$ ($45^\circ$), and $\frac{\pi}{3}$ ($60^\circ$).
@@ -16,8 +12,6 @@ These are the foundational values found directly on the unit circle. They are mu
 * **The Family of $\frac{\pi}{6}$:** Multiples include $\frac{5\pi}{6}$, $\frac{7\pi}{6}$, $\frac{11\pi}{6}$.
 * **The Family of $\frac{\pi}{3}$:** Multiples include $\frac{2\pi}{3}$, $\frac{4\pi}{3}$, $\frac{5\pi}{3}$.
 * **Quadrantal Angles:** $0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}, 2\pi$.
-
-
 
 ---
 
