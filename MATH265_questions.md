@@ -1,0 +1,867 @@
+﻿# Midterm Exam 1 - MATH 265
+
+1.  **(5 points)**
+
+2. Let $f(x)=2x^2-5$ and $g(x)=\frac{x+5}{2x-9}$. **(6 points)**
+
+   Find the composite functions and their corresponding domains.
+   
+   a. $f(g(x))$
+   
+   b. $g(f(x))$
+   
+
+3. Give a labeled graph of the function $g(x)=3(x+4)^2$ by starting with the graph of a basic function, and then applying the appropriate transformations. **(5 points)**
+
+   Explain the procedure you are using.
+
+   **Note:** No credit will be given if any other method is used.
+
+4. Evaluate each of the limits below. If a limit does not exist explain why. **(16 points)**
+
+   a. $\lim_{x \to 2} (3x^2 - 2x + 1)$
+    
+   b. $\lim_{x \to -2} \frac{3x^2 - 2x - 16}{(x + 2)^2}$
+    
+   c. $\lim_{x \to 3} \frac{2x^2 - x + 1}{x - 3}$
+    
+   d. $\lim_{x \to 2} \frac{\sqrt{6 - x} - 2}{\sqrt{3 - x} - 1}$
+    
+   e. $\lim_{x \to 0} \frac{\sin (3x)}{x^2 - x}$
+
+5. Compute the derivatives of each of the functions below. You may not need to simplify your answers. **(8 points)**
+
+   a. $y = 4x^5 + 3x^4 - 6x^3 + 6$
+    
+   b. $y = \frac{2x - 16}{(x + 3)^2}$
+    
+   c. $y = \sin \left(2x^2 - x + 1\right)$
+    
+   d. $y = \left(-4x^3 - x^2 + 3x + 7\right)^4$
+    
+
+6. Find the values of $x$ such that tangent line to the curve $f(x) = 3x^2 + 4x - 3$ is perpendicular to the line $y = 6x + 2$. **(4 points)**
+
+7. Gravel is being dumped from a conveyor belt at a rate of $0.5\text{ m}^3/\text{min}$. It forms a pile in shape of a cone whose base diameter and height are always equal. How fast is the height of the pile increasing when the pile is $4\text{ m}$ high? **(5 points)**
+
+8. Find $y'$ using implicit differentiation: **(5 points)**
+   $$x^3y + xy^2 = 4xy + 7$$
+
+9. Use differentials to find the approximate value of $\sqrt{9.2}$. **(5 points)**
+
+10. Sketch the graph of a single function $f(x)$ that satisfies all of the conditions listed below. **(5 points)**
+    
+    * the limit $\lim_{x \to 0} f(x)$ does not exist.
+    
+    * $f(0) = 0$.
+    
+    * $\lim_{x \to \infty} f(x) = -1$.
+    
+    * the function $f$ is not differentiable at $x = -2$.
+
+
+
+# Midterm Exam 2 - MATH 265
+**(4 points)**
+
+1. Determine which of the following equations are well defined functions with an independent variable $x$. Explain.
+   
+   a. $\frac{2y}{x^2 - 3|x|} = 1$
+   
+   b. $y^2 + x^2 = 10$
+
+**(4 points)**
+
+2. Consider a cone whose height is double the size of its radius.
+   
+   a. Express the volume $V$ of the cone as a function of radius $r$.
+   
+   b. Find the domain of the function in *a*.
+   
+   c. Use the function in *a* to compute the volume of the cone for $r = 3$.
+
+   *Hint: The volume of a cone is $V = \frac{\pi r^2 h}{3}$.*
+
+**(4 points)**
+
+3. The population $P$ of a city in the year $y$ is $P(y)$. Write a sentence (in layman's terms) that explains the meaning of the expressions
+   
+   a. $\frac{P(15) - P(2)}{13} = 1,431$
+   
+   b. $P'(10) = 14,000$.
+
+**(6 points)**
+
+4. Indicate the transformations in the order they are applied to the basic graph of $|x|$ in the interval in order to obtain the graph of the function $f(x) = -3|x - 2|$. Apply the transformations to sketch the graph of $f$, no credit will be given if other method is used.
+
+**(10 points)**
+
+5. Interpret in terms of the graph of the function $f$ the conditions listed below. Sketch the graph of a single function $f(x)$ which satisfies all of the conditions listed below.
+   
+   a. $\lim_{x \to \infty} f(x) = 3$
+   
+   b. $f(0) = 0$
+   
+   c. $\lim_{x \to -1} f(x) = 2$
+   
+   d. $\lim_{x \to 1} f(x) = \infty$
+   
+   e. The function is continuous but not differentiable at $x = 0$
+
+**(10 points)**
+
+6. Find the vertical and horizontal asymptotes of the function
+
+   $$f(x) = \frac{x^2 - 3x - 4}{x^2 - 16}.$$
+
+**(24 points)**
+
+7. Evaluate each of the limits given below. If a limit does not exist, explain why.
+
+   **Note:** No credit will be given for unjustified answers.
+
+   
+   a. $\lim_{x \to 1} \frac{x^2 - 1}{x^3 - 1}$
+   
+   b. $\lim_{x \to 0} \frac{x^2}{1 - \cos(2x)}$
+   
+   c. $\lim_{x \to 0} \frac{6x - 9}{x^3 - 12x + 3}$
+   
+   d. $\lim_{x \to \infty} \frac{5 - 2x^3}{x^2 + 2}$
+   
+   e. $\lim_{x \to -\pi/3} \frac{\tan(2x)}{3x + \pi}$
+   
+   f. $\lim_{x \to 2} \frac{\cos(\pi x)}{(x - 2)^2}$
+
+**(6 points)**
+
+8. Use linearization to estimate the value of $\sin(62^{\circ})$.
+
+**(16 points)**
+
+9. Find each of the derivatives listed below. Show your work.
+
+   **Note:** You may not need to simplify your answer.
+
+   
+   a. $\frac{d^2}{dx^2} \cot(2x)$
+   
+   b. $\frac{d}{dx} \sec(x^2 - 3x)$
+   
+   c. $\frac{d}{dx} \frac{x^2 - \cos(3x)}{x \sin(2x)}$
+   
+   d. $\frac{d}{dx} \left. \frac{f(x)}{g(x)} \right|_{x=1}$ where $f(1) = 3, g(1) = 6, f'(x) = \sqrt{x}$ and $g'(x) = 3 \sin(\pi x / 3)$.
+
+**(4 points)**
+
+10. Find the equation of the tangent line to the curve $y^3 + yx^2 + x^2 = 3y^2$ at the point $(1,1)$.
+
+**(6 points)**
+
+11. A rocket, rising vertically, is tracked by a radar station that is on the ground $5 \text{ mi}$ from the launch pad. How fast is the rocket rising when it is $4 \text{ mi}$ high and its distance from the radar station is increasing at a rate of $2000 \text{ mi/h}$?
+
+
+# Final Exam 1 - MATH 265
+1. Compute the derivatives of each of the functions given below. You may not need to simplify your answers. **(20 points)**
+   
+   a. $y = \sin x \cdot \cos(\sin x^2)$
+   
+   b. $y = \left(\frac{1 + x^3}{1 - x^2}\right)^{\frac{1}{3}}$
+   
+   c. $y = \sqrt{1 + \sqrt{1 + x}}$
+   
+   d. $y = \frac{\sqrt{x^2 - 1}}{x^2 - 2x - 8}$
+   
+   e. $y = \sec^2\left(\frac{x + 1}{x - 2}\right)$
+
+2. Use the method of differentials to estimate each of the values below to four decimal places (show the process). **(8 points)**
+   
+   a. $\cos 62^\circ$
+   
+   b. $\sqrt{16.4}$
+
+3. Use the definition of the derivative as a limit to compute the derivative of $\cot x$. **(6 points)**
+
+4. Sketch the graph of each of the functions below. State all critical points, cusps, vertical asymptotes and points of inflection. **(20 points)**
+   
+   a. $f(x) = \frac{x^2}{x^2 - 1}$
+   
+   b. $f(x) = x + \sin x$
+
+5. Find all maxima and minima of the functions listed below on the indicated intervals. **(11 points)**
+   
+   a. $f(x) = 2x^{\frac{5}{3}} - 5x^{\frac{4}{3}}$ on $[-1, 20]$.
+   
+   b. $f(x) = x + \cos x$ on $[-\pi, 2\pi]$.
+
+6. Find the dimensions of the rectangle of area $220\text{ cm}^2$ that has the smallest perimeter. What is the perimeter? **(6 points)**
+
+7. Use Newton's method to approximate the solution of the equation $x^4 + 2x - 5 = 0$ in the interval $[1, 2]$. **(5 points)**
+
+8. Compute the value of each of the integrals listed below. **(20 points)**
+   
+   a. $\int (x^2 - x) \sqrt{3x} \, dx$
+   
+   b. $\int \sin(2x) \cos x \, dx$
+   
+   c. $\int_a^b (x + \cos(2x)) \, dx$
+   
+   d. $\int (x^2 - 4)^2 \, dx$
+   
+   e. $\int_2^4 x\sqrt{x - 1} \, dx$
+
+9. Use the properties of the integral to find an interval where the value of the integral
+   $$\int_0^{\pi/3} \sec x \, dx$$
+   is located. **(5 points)**
+
+10. Find the area between the curves $y = x$ and $y = 2 - x^2$. **(8 points)**
+
+11. Use the Fundamental Theorem of Calculus to evaluate **(4 points)**
+    $$\frac{d}{dx} \int_{2x}^{x} \sin(t^2) \, dt$$
+
+12. Water flows from the bottom of a storage tank at a rate of $r(t) = 180 - 6t$ liters per minute, where $0 \leq t \leq 50$. Find the amount of water that flows from the tank during the first 15 minutes. **(3 points)**
+
+13. A chain lying on the ground is $10\text{ m}$ long and its mass is $80\text{ kg}$. How much work is required to raise one end of the chain to a height of $6\text{ m}$? **(5 points)**
+
+14. The temperature of a metal rod, $6\text{ m}$ long, is $3x$ (in degrees centigrade) at a distance $x$ meters from one end of the rod. What is the average temperature of the rod? **(3 points)**
+
+
+# Final Exam 2 - MATH 265
+1. Evaluate the following limits, no credit will be given for unjustified answers. If a limit does not exist explain why.
+   
+   a. $\lim_{x \to \infty} \left( \frac{3x^2 - 4}{4 + 2x + 2x^4} \right) \sin(x)$
+   
+   b. $\lim_{x \to 5\pi/2} \tan x$
+
+**(8 points)**
+
+2. Give the indicated derivatives listed below. State which rule(s) you are applying. You may not need to simplify your answer.
+   
+   a. $\frac{d}{dx} \frac{\tan(2x)}{\sqrt{x}}$
+   
+   b. $\left. \frac{d}{dx} \cos^3(x^2) \right|_{x=\sqrt{\pi}/2}$
+
+**(4 points)**
+
+3. 
+   a. Use the Extreme Value Theorem to find the absolute extreme values of the function
+      $$f(x) = \frac{1}{x^2 + 1} \quad \text{on the interval } [-1, 1].$$
+   
+   b. Use the properties of the definite integral to estimate the value of the integral
+      $$\int_{-1}^{1} \frac{1}{x^2 + 1} \, dx.$$
+
+**(8 points)**
+
+4. Give the interpretation in terms of the graph of the function $f(x)$ if
+   a. $f(0) = -3$
+    
+   b. $\lim_{x \to \infty} f(x) = -2$
+    
+   c. $\lim_{x \to 3^-} f(x) = \infty$
+    
+   d. $f'(x) < 0$ on the interval $[3, \infty)$
+    
+   e. $f'(x) < 0$ on the interval $(-\infty, -2)$
+    
+   f. $f''(x) > 0$ on the interval $[4, \infty)$
+
+   Give a sketch of the graph of $f(x)$.
+
+**(10 points)**
+
+5. What are the dimensions of the cheapest rectangular box that can be constructed if the material for the box is $\$1.20$ per square cm and the cost for the lid is $\$1.50$ per square cm. The length of the base is twice as long as it is wide and the volume must be $120 \text{ cm}^3$? What is the minimum cost?
+
+**(10 points)**
+
+6. Integrate each one of the integrals listed below. Indicate the technique you are using.
+
+   a. $\int \frac{\cos(\sqrt{2x})}{\sqrt{x}} \, dx$
+   
+   b. $\int_{0}^{\pi/3} \tan x \sec^2 x \, dx$
+   
+   c. $\int \frac{x^3 + \sqrt{5x} - 4}{x^2} \, dx$
+
+   d. $\int \sec^3 x \tan x \, dx$
+
+   **Hint:** $\sec^3 x \tan x = \sec^2 x \sec x \tan x$.
+
+**(6 points)**
+
+7. 
+   a. Find the absolute extreme values of the function $f(x) = (x^2 + 2x)^{2/3}$ on the interval $[-2, 3]$.
+   
+   b. Use the properties of definite integrals to bound the value of the integral
+      $$\int_{-2}^{3} (x^2 + 2x)^{2/3} \, dx$$
+
+**(6 points)**
+
+8. Find the area between the curves $\cos x$ and the horizontal line $y = \frac{1}{\sqrt{2}}$ in the interval $[-\frac{\pi}{2}, \frac{\pi}{2}]$.
+
+**(4 points)**
+
+9. Assume that $20 \text{ ft-lb}$ of work is required to stretch a spring $1 \text{ ft}$ beyond its natural length.
+   
+   a. What is the spring constant?
+   
+   b. How much work is required to stretch the spring $2 \text{ ft}$ beyond its natural length?
+
+**(6 points)**
+
+10. A particle moves along a line so that its velocity at time $t$ is $v(t) = t^2 - 3t + 2 \text{ (meter/sec)}$.
+    
+    a. Find the displacement of the particle during the time period $[0, 3]$.
+    
+    b. Find the distance traveled during this same time period.
+
+**(5 points)**
+
+11. A sprinter in a $100 \text{ m}$ race explodes out of the starting block with an acceleration of $4 \text{ m/s}^2$, which she sustains for $2$ seconds. Her acceleration then drops to zero for the rest of the race. What is her time for the race?
+
+**(4 points)**
+
+12. Find a positive number $k$ such that the average value of the function $f(x) = \frac{5}{x^2}$ over the interval between $1$ and $k$ is $32$.
+
+**(10 points)**
+
+
+
+
+# Midterm Exam 1 Walkthrough - MATH 265
+Here's a comprehensive breakdown of all 10 problems:Click any card above to dive deeper. Here's the full breakdown:
+
+---
+
+## Problem 1 — Exact trigonometric values
+
+**Category:** Precalculus / Trigonometry
+
+**Key knowledge:**
+- The **angle addition/subtraction formulas**: cos(A − B) = cos A cos B + sin A sin B. Since −π/12 = π/4 − π/3 (or equivalently π/3 − π/4 with the even symmetry of cosine), you rewrite the angle as a combination of "friendly" angles (π/6, π/4, π/3, π/2).
+- **Even function property** of cosine: cos(−θ) = cos(θ), so cos(−π/12) = cos(π/12).
+- Exact values of sin and cos for π/6, π/4, π/3 (memorized or derived from 30-60-90 and 45-45-90 triangles).
+- **Half-angle formulas** are an alternative route if the problem permits them.
+
+**Variations to expect:** finding sin(7π/12), tan(−5π/12), evaluating using product-to-sum formulas, simplifying expressions like sin(x + π/4).
+
+There are three layers of theory you need to master for this problem. Let's build them up one at a time.
+
+---
+
+## Layer 1 — The unit circle and "friendly" angles
+
+The unit circle gives you exact values for angles whose triangles you know by heart — namely 30°, 45°, and 60° (and their equivalents in radians). These come from two special right triangles:
+
+- The **45-45-90** triangle gives cos(π/4) = sin(π/4) = √2/2
+- The **30-60-90** triangle gives cos(π/6) = √3/2, cos(π/3) = 1/2, sin(π/6) = 1/2, sin(π/3) = √3/2
+
+The problem is that π/12 = 15° is NOT one of these friendly angles on its own. That's the entire reason you need the next layer.
+
+---
+
+## Layer 2 — Two essential identities
+
+**The even-function property of cosine:**
+
+$$\cos(-\theta) = \cos(\theta)$$
+
+Cosine is an even function, meaning it's symmetric about the y-axis on the unit circle. So the first thing you do is drop the negative sign:
+
+$$\cos\!\left(-\frac{\pi}{12}\right) = \cos\!\left(\frac{\pi}{12}\right)$$
+
+**The angle subtraction formula:**
+
+$$\cos(A - B) = \cos A \cos B + \sin A \sin B$$
+
+(Note the + sign — this trips people up. The sum formula has a minus: cos(A+B) = cosA cosB − sinA sinB.)
+
+---
+
+## Layer 3 — Angle decomposition strategy
+
+The key insight: even though π/12 isn't a friendly angle, it can be written as the **difference of two friendly angles**:
+
+$$\frac{\pi}{12} = \frac{\pi}{3} - \frac{\pi}{4} \qquad \left(\text{because } \frac{4\pi}{12} - \frac{3\pi}{12} = \frac{\pi}{12}\right)$$
+
+Now everything unlocks. Here's the full solution path visually:Click any step in the diagram to go deeper on that part. Here's the full written solution:
+
+---
+
+## Full solution written out
+
+**Step 1 — Drop the negative:**
+$$\cos\!\left(-\frac{\pi}{12}\right) = \cos\!\left(\frac{\pi}{12}\right)$$
+
+**Step 2 — Decompose the angle:**
+$$\frac{\pi}{12} = \frac{\pi}{3} - \frac{\pi}{4}$$
+
+**Step 3 — Apply the subtraction formula:**
+$$\cos\!\left(\frac{\pi}{3} - \frac{\pi}{4}\right) = \cos\frac{\pi}{3}\cos\frac{\pi}{4} + \sin\frac{\pi}{3}\sin\frac{\pi}{4}$$
+
+**Step 4 — Substitute unit circle values:**
+$$= \left(\frac{1}{2}\right)\!\left(\frac{\sqrt{2}}{2}\right) + \left(\frac{\sqrt{3}}{2}\right)\!\left(\frac{\sqrt{2}}{2}\right)$$
+
+**Step 5 — Multiply and combine over common denominator 4:**
+$$= \frac{\sqrt{2}}{4} + \frac{\sqrt{6}}{4} = \boxed{\dfrac{\sqrt{2}+\sqrt{6}}{4}}$$
+
+---
+
+## What to memorize vs. what to derive
+
+| Must memorize | Can derive on the fly |
+|---|---|
+| cos(π/6) = √3/2, sin(π/6) = 1/2 | The − sign drops because cosine is even |
+| cos(π/4) = sin(π/4) = √2/2 | π/12 = π/3 − π/4 (just find two friendly angles that subtract to it) |
+| cos(π/3) = 1/2, sin(π/3) = √3/2 | The subtraction formula itself (if allowed a formula sheet) |
+| cos(A−B) = cosA cosB + sinA sinB | The final arithmetic |
+
+## Common traps on this type of problem
+
+The subtraction formula has a **plus** between the two terms — cos(A−B) = cosA cosB **+** sinA sinB. Many students mistakenly write a minus. The sum formula is what has the minus: cos(A+B) = cosA cosB − sinA sinB. A good memory aid: the signs are always opposite — subtraction formula gets a plus, sum formula gets a minus.
+
+Also, other valid decompositions exist. You could write π/12 = π/4 − π/6 and get the same answer via a slightly different route. Either works.
+
+
+---
+
+## Problem 2 — Composite functions and domains
+
+**Category:** Precalculus / Functions
+
+**Key knowledge:**
+- **Composition notation**: (f∘g)(x) = f(g(x)) — substitute the entire g(x) expression in place of x in f.
+- **Domain of a composition**: the domain of f(g(x)) is the set of x values that (1) are in the domain of g, AND (2) produce outputs g(x) that lie in the domain of f. For rational functions you exclude values making denominators zero; for even roots you require the radicand ≥ 0.
+- Order matters: f∘g ≠ g∘f in general.
+
+**Variations:** compositions with square root functions, absolute values, piecewise functions; finding the range of a composition.
+
+## Composite functions — the core idea
+
+A composite function feeds the *output* of one function as the *input* of another. Written f(g(x)), you first apply g to x, then apply f to whatever g produced. The two compositions f(g(x)) and g(f(x)) are generally different functions entirely.
+
+The notation f∘g means "f after g" — g runs first, f runs second.
+
+---
+
+## The domain rule — the most important concept
+
+The domain of f(g(x)) has **two simultaneous constraints** that both must hold:
+
+1. x must be in the domain of g (so g(x) is defined)
+2. g(x) must be in the domain of f (so f can actually receive what g outputs)
+
+You find the domain by working inside-out: first restrict to where g is defined, then further restrict to where f can accept g's output. The intersection of both conditions is your domain.
+
+Let's build full intuition for this with your specific problem, then show the general pattern.Toggle between the two compositions and try entering x = 4.5 (which is 9/2) to see an excluded value in action.
+
+---
+
+## Full worked solutions
+
+### Part a — f(g(x))
+
+Start by substituting g(x) = (x+5)/(2x−9) into f. Since f(x) = 2x² − 5, replace every x in f with the entire expression g(x):
+
+$$f(g(x)) = 2\left(\frac{x+5}{2x-9}\right)^2 - 5 = \frac{2(x+5)^2}{(2x-9)^2} - 5$$
+
+**Domain:** f(anything) = 2(anything)² − 5 accepts all real inputs — there's no square root or denominator in f to worry about. The only restriction comes from g itself: its denominator 2x − 9 cannot be zero, so x ≠ 9/2.
+
+$$\text{Domain of } f(g(x)): \quad x \in \mathbb{R},\ x \neq \frac{9}{2}$$
+
+---
+
+### Part b — g(f(x))
+
+Now substitute f(x) = 2x² − 5 into g. Since g(x) = (x+5)/(2x−9), replace every x in g with f(x):
+
+$$g(f(x)) = \frac{(2x^2-5)+5}{2(2x^2-5)-9} = \frac{2x^2}{4x^2 - 19}$$
+
+**Domain:** f(x) = 2x² − 5 is a polynomial — it's defined for all real x, so f imposes no restriction. But now g is being fed f(x), and g has a denominator. That denominator must not be zero:
+
+$$4x^2 - 19 \neq 0 \implies x^2 \neq \frac{19}{4} \implies x \neq \pm\frac{\sqrt{19}}{2}$$
+
+$$\text{Domain of } g(f(x)): \quad x \in \mathbb{R},\ x \neq \pm\frac{\sqrt{19}}{2} \approx \pm 2.179$$
+
+---
+
+## The general domain procedure
+
+There's a clean two-step checklist that works for any composite function:
+
+**For the domain of f(g(x)):**
+
+Step 1 — Find the domain of g. Call it Dg. Remove any x where g is undefined.
+
+Step 2 — Find which x-values make g(x) land outside the domain of f. Remove those too.
+
+The domain is what remains after both removals. Crucially, the restriction in step 2 comes from solving an inequality or equation involving the *formula for g(x)*, not just x directly — that's exactly what happened in part (b) where you had to solve 4x² − 19 ≠ 0.
+
+**Triggers for restrictions** — these are the things to watch for in either f or g:
+
+- Denominators → set ≠ 0
+- Even roots (√, ⁴√, etc.) → set the radicand ≥ 0
+- Logarithms → set argument > 0
+- Piecewise definitions → check which piece applies
+
+
+
+
+
+
+
+
+---
+
+## Problem 3 — Graphing by transformations
+
+**Category:** Precalculus / Graphing
+
+**Key knowledge:**
+- Start from the **parent function** y = x² (upward parabola, vertex at origin).
+- **Horizontal shift**: replacing x with (x + 4) shifts the graph **left** by 4 units.
+- **Vertical stretch**: the coefficient 3 outside multiplies all y-values by 3 (narrows the parabola).
+- Apply transformations in correct order: horizontal shift first, then vertical stretch (inside-to-outside for shifts, outside for scaling).
+- Label the vertex and at least two symmetric points at each stage.
+
+**Variations:** reflections (negatives), vertical shifts (adding a constant outside), horizontal compressions/stretches (coefficient inside the squared term), combinations of all four.
+
+
+## Graph transformations — the core idea
+
+Every transformation is an instruction that modifies either the **input** (x) or the **output** (y) of a parent function before or after it runs. Understanding *where* the modification happens tells you exactly what it does geometrically.
+
+The parent function here is y = x², the standard upward parabola with vertex at the origin. Your target is g(x) = 3(x+4)² — three transformations encoded in one expression.Step through each button — "all together" overlays all three curves so you can see exactly how far each transformation moved the graph.
+
+---
+
+## The transformation rules, unified
+
+Every transformation fits into the template y = a·f(b(x − h)) + k. Each parameter does exactly one thing:
+
+| Parameter | Location | Effect | Example |
+|---|---|---|---|
+| h | inside, subtracted from x | horizontal shift right h (left if negative) | (x+4) means h = −4, shift left 4 |
+| k | outside, added to f | vertical shift up k | f(x)+3 shifts up 3 |
+| a | outside, multiplies f | vertical stretch (a>1) or compression (0<a<1); reflection over x-axis if a<0 | 3·f(x) stretches by 3 |
+| b | inside, multiplies x | horizontal compression (b>1) or stretch (0<b<1); reflection over y-axis if b<0 | f(2x) compresses horizontally by ½ |
+
+The inside/outside distinction is everything. Changes inside f(  ) affect x — they move the graph horizontally and behave counterintuitively (adding moves left, multiplying compresses). Changes outside f(  ) affect y — they move or scale the graph vertically and behave intuitively (adding moves up, multiplying stretches up).
+
+---
+
+## Why the horizontal shift feels backwards
+
+This trips up almost everyone. When you write y = (x+4)², you might expect a rightward shift — you're adding 4. But the shift is left.
+
+The clearest way to see it: ask "what x-value makes the expression inside equal zero?" For y = x², that's x = 0 — the vertex. For y = (x+4)², that's x = −4. The vertex moved to x = −4, which is left. Equivalently, to get the same output the original got at x = 0, you now need x = −4 as your input. The whole graph slid left to compensate.
+
+General rule: y = f(x − h) shifts right by h. Your function has (x + 4) = (x − (−4)), so h = −4, shifting left 4.
+
+---
+
+## Applying this to your problem
+
+g(x) = 3(x+4)² starts from y = x² and applies exactly two transformations. Here's the exam procedure the problem requires:
+
+**Step 1 — Name the parent function:**
+Start with y = x². Draw it: vertex (0, 0), passes through (±1, 1), (±2, 4).
+
+**Step 2 — Apply the horizontal shift:**
+Replace x with (x+4) → y = (x+4)². Every point shifts left 4 units. Vertex moves to (−4, 0). Label the new vertex and two symmetric points: (−3, 1) and (−5, 1).
+
+**Step 3 — Apply the vertical stretch:**
+Multiply by 3 → y = 3(x+4)². Every y-value triples. Vertex stays at (−4, 0). The points (−3, 1) and (−5, 1) become (−3, 3) and (−5, 3). Label these.
+
+The problem specifically says to start from the basic function and apply transformations sequentially — not to just plot points directly. That means your graph must show the progression, with labels at each stage or at least on the final graph with the transformation described in writing.
+
+---
+
+## All the transformation types you need to know
+
+**Reflections** are just stretches with a negative factor. y = −f(x) reflects over the x-axis (every y flips sign). y = f(−x) reflects over the y-axis (every x flips sign).
+
+**Horizontal stretch/compression** from b in f(bx): if b = 2, the graph compresses horizontally by ½ (points move twice as close to the y-axis). If b = ½, the graph stretches horizontally by 2. Again counterintuitive — larger b means more compression, not more stretch.
+
+**Combined example** — y = −2f(3(x−1)) + 5 means: shift right 1, horizontal compression by ⅓, vertical stretch by 2, reflect over x-axis, shift up 5. Apply inside-to-outside: horizontal changes first, vertical changes after.
+
+
+
+---
+
+## Problem 4 — Evaluating limits
+
+**Category:** Calculus / Limits
+
+This problem tests five distinct techniques:
+
+**4a — Direct substitution:** For polynomials and other continuous functions, simply plug in x = 2. The limit equals the function value.
+
+**4b — Indeterminate form after factoring reveals DNE:** Factor the numerator; if the denominator is (x+2)² and the numerator doesn't cancel the full squared factor, the left and right limits both go to +∞ or diverge, so the limit does not exist (DNE). Check the sign of the numerator at x = −2 to confirm.
+
+**4c — One-sided limits disagree → DNE:** Near x = 3, the numerator approaches a nonzero value while the denominator approaches 0. Check the sign from each side: from the left (x − 3) < 0, from the right (x − 3) > 0 → limits are −∞ and +∞ → DNE.
+
+**4d — Rationalization (conjugate multiplication):** When you have a difference of square roots, multiply numerator and denominator by the conjugate of one of them to eliminate the indeterminate 0/0 form.
+
+**4e — Special trigonometric limit:** The fundamental identity lim_{x→0} sin(x)/x = 1. Rewrite sin(3x)/(x² − x) by factoring the denominator as x(x − 1) and manipulating to get sin(3x)/(3x) · 3/(x−1), then substitute.
+
+**Key theory:** Limit laws, the squeeze theorem (used to prove the sin limit), left/right one-sided limits, and recognizing when a limit is infinite vs. truly DNE.
+
+
+Click each tab to walk through the solution and see the function's graph. Here's the full theory behind each technique.
+
+---
+
+## Technique 1 — Direct substitution (4a)
+
+This is always your first attempt on any limit. If a function is continuous at the target point, the limit is simply the function's value there. Polynomials, trig functions, exponentials, and rational functions (where the denominator is nonzero) are all continuous everywhere they're defined.
+
+For 4a: f(x) = 3x² − 2x + 1 is a polynomial, so substitute x = 2 directly and get 9.
+
+**The rule:** If f is continuous at x = a, then lim_{x→a} f(x) = f(a).
+
+The moment substitution gives 0/0 or ∞/∞, you've hit an indeterminate form and must use one of the techniques below. If it gives nonzero/0, the limit is ±∞ (or DNE if sides disagree — see 4c).
+
+---
+
+## Technique 2 — Factoring + sign analysis for ±∞ (4b)
+
+When substitution gives 0/0, try factoring. The goal is to cancel the factor causing the zero in the denominator. In 4b, the numerator 3x² − 2x − 16 factors as (3x − 8)(x + 2). One (x + 2) cancels with the denominator's (x + 2)², leaving (3x − 8)/(x + 2).
+
+Now substituting x = −2 gives −14/0 — nonzero over zero. The denominator is (x+2)² which is always non-negative, so the expression → −∞ from both sides. The limit is −∞, which means it does not exist as a finite number.
+
+**Key point:** DNE because of infinity is different from DNE because of a jump. When the limit is ±∞ you say "the limit does not exist (it equals −∞)" — you still name the behavior.
+
+---
+
+## Technique 3 — One-sided limit analysis (4c)
+
+When substitution gives nonzero/0 (not 0/0), you immediately know the function blows up. The two-sided limit exists only if both one-sided limits agree.
+
+For 4c: the numerator at x = 3 is 16 (positive), the denominator is (x − 3). From the right, (x − 3) > 0, so the ratio → +∞. From the left, (x − 3) < 0, so the ratio → −∞. The sides disagree, so the limit does not exist.
+
+**The definition:** lim_{x→a} f(x) = L if and only if lim_{x→a⁺} f(x) = L AND lim_{x→a⁻} f(x) = L. If the one-sided limits differ, the two-sided limit does not exist, full stop.
+
+---
+
+## Technique 4 — Rationalization (4d)
+
+When you have a difference of square roots creating a 0/0 form, multiply by a conjugate to eliminate the radical. The conjugate of (√A − B) is (√A + B), and their product is A − B² — no radical.
+
+For 4d you need two rounds of conjugate multiplication (one for the denominator's radical, one for the numerator's), which cancels the (2 − x) factor causing the indeterminate form. After full cancellation and substitution: the answer is 1/2.
+
+**Spotting this technique:** any limit with (√something − number) in numerator or denominator where direct substitution fails.
+
+---
+
+## Technique 5 — Special trig limit (4e)
+
+The fundamental result you must have memorized:
+
+$$\lim_{x \to 0} \frac{\sin x}{x} = 1$$
+
+This does not follow from substitution (which gives 0/0). It is proved via the squeeze theorem and is treated as a known result in calculus.
+
+For 4e, rewrite sin(3x)/(x² − x) by factoring the denominator as x(x−1), then multiply and divide by 3 to engineer the form sin(3x)/(3x):
+
+$$\frac{\sin(3x)}{x(x-1)} = \frac{\sin(3x)}{3x} \cdot \frac{3}{x-1}$$
+
+As x → 0: the first factor → 1, and 3/(x−1) → 3/(−1) = −3. The limit is **−3**.
+
+**Variants to recognize:** lim_{x→0} sin(ax)/x = a, lim_{x→0} tan(x)/x = 1, lim_{x→0} (1−cos x)/x = 0.
+
+---
+
+## The decision flowchart
+
+When you face any limit, ask these questions in order:
+
+1. Try direct substitution. Does it give a clean number? → Done.
+2. Does substitution give 0/0? → Try factoring and canceling. If that fails, try rationalization (if radicals present) or trig identity (if trig present).
+3. Does substitution give nonzero/0? → Check one-sided limits. If both → +∞ or both → −∞, state which. If they disagree, state DNE.
+4. Does the problem involve sin(something)/something as that something → 0? → Use the special trig limit.
+
+
+
+---
+
+## Problem 5 — Computing derivatives
+
+**Category:** Calculus / Differentiation
+
+**5a — Power rule:** d/dx[xⁿ] = nxⁿ⁻¹, applied term by term to polynomials. The derivative of a constant is 0.
+
+**5b — Quotient rule:** d/dx[u/v] = (v·u' − u·v') / v². Here u = 2x − 16, v = (x+3)².
+
+**5c — Chain rule + trig derivative:** d/dx[sin(u)] = cos(u)·u'. The inner function u = 2x² − x + 1, so u' = 4x − 1.
+
+**5d — Chain rule with power:** d/dx[uⁿ] = n·uⁿ⁻¹·u'. The inner function is the cubic polynomial, n = 4.
+
+**Key theory:** Memorize basic derivatives (xⁿ, sin x, cos x, eˣ, ln x) and the four rules: sum/difference, constant multiple, product, quotient, and chain rule. Chain rule is the most commonly tested.
+
+
+
+Click each tab to see the rules and full solution for each problem. Here's the complete theory behind every rule used.
+
+---
+
+## The power rule — foundation of everything
+
+$$\frac{d}{dx}\left[x^n\right] = n \cdot x^{n-1}$$
+
+Bring the exponent down as a multiplier, then reduce the exponent by 1. This works for any real number n — positive, negative, fractional, anything.
+
+The sum/difference rule lets you apply this term by term: d/dx[f ± g] = f′ ± g′. And the constant multiple rule says d/dx[c·f] = c·f′. So for a polynomial like 4x⁵ + 3x⁴ − 6x³ + 6, you just process each term independently and the constant 6 vanishes (d/dx[constant] = 0).
+
+---
+
+## The quotient rule — for a fraction of two functions
+
+$$\frac{d}{dx}\left[\frac{u}{v}\right] = \frac{v \cdot u' - u \cdot v'}{v^2}$$
+
+A reliable mnemonic: "low d-high minus high d-low, over low squared" — where "high" is the numerator and "low" is the denominator. The order in the numerator matters: it's v·u′ minus u·v′, not the other way around.
+
+For 5b, the denominator is (x+3)², not just a plain power of x. So computing v′ itself requires the chain rule (see below): v′ = 2(x+3)·1 = 2(x+3). This is a very common exam trap — the chain rule hides inside the quotient rule whenever the denominator is a composite expression.
+
+After applying the quotient rule, always look to factor and simplify the numerator before writing your final answer.
+
+---
+
+## The chain rule — the most important rule in differential calculus
+
+$$\frac{d}{dx}\left[f(g(x))\right] = f'(g(x)) \cdot g'(x)$$
+
+In words: differentiate the outer function (leaving the inner function untouched inside it), then multiply by the derivative of the inner function. It's a two-part multiplication.
+
+The mental process every time:
+
+1. Identify what's "outside" and what's "inside"
+2. Differentiate the outside (keeping the inside frozen)
+3. Differentiate the inside
+4. Multiply the two results together
+
+**For 5c** — y = sin(2x² − x + 1): the outside is sin(□) and the inside is the polynomial. Derivative of sin(□) is cos(□) — still with the same □ inside. Then multiply by the derivative of the polynomial, which is 4x − 1. Result: cos(2x² − x + 1)·(4x − 1).
+
+**For 5d** — y = (polynomial)⁴: the outside is (□)⁴ and the inside is the cubic. Derivative of (□)⁴ is 4(□)³ — same polynomial still inside. Then multiply by the derivative of the polynomial, which is −12x² − 2x + 3.
+
+---
+
+## Trig derivatives you must memorize
+
+| Function | Derivative |
+|---|---|
+| sin(x) | cos(x) |
+| cos(x) | −sin(x) |
+| tan(x) | sec²(x) |
+| sec(x) | sec(x)tan(x) |
+| csc(x) | −csc(x)cot(x) |
+| cot(x) | −csc²(x) |
+
+These are the raw derivatives with respect to x. When the argument is a function of x (like sin(2x² − x + 1)), the chain rule kicks in immediately — you always multiply by the derivative of the argument.
+
+---
+
+## How the rules layer together
+
+Problems 5b, 5c, and 5d all involve the chain rule combined with something else. The key skill is recognizing the layers:
+
+For 5b: quotient rule as the outer structure, with chain rule needed quietly inside to differentiate (x+3)².
+
+For 5c: chain rule as the outer structure, with the trig derivative as the "outer function" rule and the power rule handling the inner polynomial.
+
+For 5d: chain rule as the outer structure, with the power rule for (□)⁴ as the "outer function" rule and the power rule again for the inner polynomial.
+
+The chain rule can always nest — if the inner function were itself a composition, you'd apply chain rule again inside. But for these four problems, one or two layers is sufficient.
+
+
+
+
+
+
+
+---
+
+## Problem 6 — Tangent line perpendicularity
+
+**Category:** Calculus / Applications of derivatives
+
+**Key knowledge:**
+- The **slope of the tangent line** to f(x) at any point equals f'(x) at that point.
+- Two lines are **perpendicular** if and only if their slopes satisfy m₁ · m₂ = −1, i.e., the slopes are negative reciprocals.
+- The given line y = 6x + 2 has slope 6, so the perpendicular tangent slope must be −1/6.
+- Set f'(x) = −1/6 and solve for x.
+
+**Variations:** parallel tangent lines (slopes equal), horizontal tangents (f'(x) = 0), finding the full equation of the tangent line.
+
+---
+
+## Problem 7 — Related rates
+
+**Category:** Calculus / Applications of derivatives (related rates)
+
+**Key knowledge:**
+- **Volume of a cone**: V = (1/3)πr²h. The constraint "base diameter equals height" means d = h, so r = h/2. Substitute to get V as a function of h only: V = (1/3)π(h/2)²h = πh³/12.
+- **Implicit differentiation with respect to time**: differentiate both sides with respect to t: dV/dt = (π/4)h² · dh/dt.
+- Plug in the known rate dV/dt = 0.5 m³/min and h = 4 m, then solve for dh/dt.
+
+**Variations:** expanding spheres (V = 4/3 πr³), sliding ladder (Pythagorean theorem), water draining from a tank, shadow length problems.
+
+---
+
+## Problem 8 — Implicit differentiation
+
+**Category:** Calculus / Differentiation
+
+**Key knowledge:**
+- Differentiate both sides of the equation with respect to x, treating y as an implicit function of x.
+- Whenever you differentiate a term involving y, apply the **chain rule**: d/dx[y] = y' (= dy/dx), d/dx[y²] = 2y·y'.
+- For products like x³y, apply the **product rule**: d/dx[x³y] = 3x²y + x³y'.
+- After differentiating, collect all terms with y' on one side and factor it out to solve.
+
+**Variations:** finding the slope at a specific point, second implicit derivatives, equations involving trig or exponential functions.
+
+---
+
+## Problem 9 — Linear approximation (differentials)
+
+**Category:** Calculus / Differentials
+
+**Key knowledge:**
+- The **differential approximation**: f(x + Δx) ≈ f(x) + f'(x)·Δx, or equivalently Δy ≈ dy = f'(x)dx.
+- Choose a nearby "anchor" value where f is easy to compute exactly: f(x) = √x, anchor at x = 9 (since √9 = 3).
+- f'(x) = 1/(2√x), so f'(9) = 1/6.
+- Then √9.2 ≈ 3 + (1/6)(0.2) = 3 + 1/30 ≈ 3.0333.
+
+**Variations:** approximating cube roots, approximating sin(0.1), error estimation in measurements, percent error.
+
+---
+
+## Problem 10 — Sketching a function from conditions
+
+**Category:** Calculus / Limits and continuity (conceptual)
+
+**Key knowledge:** This problem tests whether you understand the definitions, not the algebra.
+- **Limit DNE at x = 0**: the most common ways are a jump discontinuity (left and right limits differ), an oscillation, or a vertical asymptote. Since f(0) = 0 is defined, a vertical asymptote is ruled out; a jump where the left limit ≠ right limit is the cleanest approach.
+- **f(0) = 0**: the function value exists, but the limit doesn't — this is a removable or jump discontinuity scenario.
+- **lim_{x→∞} f(x) = −1**: the graph must have a horizontal asymptote y = −1 as x → +∞.
+- **Non-differentiable at x = −2**: this can be achieved with a corner (absolute value-type kink), a cusp, or a vertical tangent — the simplest is a corner.
+
+**One valid sketch**: piecewise with a jump at x = 0, a corner at x = −2, and the right branch tailing off toward y = −1.
+
+---
+
+**Summary by exam section:**
+
+| Problems | Topic | Core technique |
+|---|---|---|
+| 1 | Trig exact values | Angle addition identity |
+| 2 | Composite functions | Substitution + domain analysis |
+| 3 | Graphing | Sequential transformations on parent function |
+| 4a–4e | Limits | 5 distinct methods (see above) |
+| 5a–5d | Derivatives | Power, quotient, chain, trig rules |
+| 6 | Tangent lines | Derivative = slope, perpendicular condition |
+| 7 | Related rates | Differentiate geometric formula w.r.t. time |
+| 8 | Implicit diff. | Chain + product rules, solve for y' |
+| 9 | Differentials | Linear approximation near anchor point |
+| 10 | Conceptual sketch | Definitions of limit, continuity, differentiability |
+
+
+
