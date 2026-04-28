@@ -15,10 +15,20 @@ $$
 # Derivative of a function
 
 In each of the cases below, give the indicated derivative, you may not need to simplify your answer.
-1. $$\frac{d}{dx} x \cos \sqrt{x - 3}$$
-2. $$\frac{d^2}{dx^2} x^2 \tan x \bigg|_{x=\pi}$$
-3. $$\frac{d}{dx} \frac{\sin x - \cos x}{x^3}$$
-4. If $f(0) = 1$, $f'(0) = 2$, $g(0) = 0$ and $g'(0) = -1$, find
+1. 
+
+$$\frac{d}{dx} x \cos \sqrt{x - 3}$$
+
+2. 
+
+$$\frac{d^2}{dx^2} x^2 \tan x \bigg|_{x=\pi}$$
+
+3. 
+ 
+$$\frac{d}{dx} \frac{\sin x - \cos x}{x^3}$$
+
+4. 
+If $f(0) = 1$, $f'(0) = 2$, $g(0) = 0$ and $g'(0) = -1$, find
 
 $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
