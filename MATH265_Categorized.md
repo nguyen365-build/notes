@@ -15,4 +15,4 @@ $$
 # Derivative of a function
 
 In each of the cases below, give the indicated derivative, you may not need to simplify your answer.
-1. $\frac{d}{dx} x \cos \sqrt{x - 3}$
+1. $$\frac{d}{dx} x \cos \sqrt{x - 3}$$
