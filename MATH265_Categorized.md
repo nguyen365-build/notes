@@ -7,9 +7,7 @@
 * ( f(x) = \dfrac{2}{x - 3} ) for ( x > 3 )
 
 
-$$f(x) = \begin{cases} 4 & \text{if } x \le -2 
-
-\\ x^2 & \text{if } -2 \le x \le 3 \\ \dfrac{2}{x - 3} & \text{if } x > 3 \end{cases}$$
+$$f(x) = \begin{cases} 4 & \text{if } x \le -2 \\ x^2 & \text{if } -2 \le x \le 3 \\ \dfrac{2}{x - 3} & \text{if } x > 3 \end{cases}$$
 
 
 # Derivative of a function
