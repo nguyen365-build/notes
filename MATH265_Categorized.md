@@ -25,11 +25,20 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 # Tangent line of a function
 1. Let $f(x) = \frac{x - 1}{\sqrt{x}}$.
 	a. Find the equation of the tangent line of the function $f$ at the point $(4, f(4))$.
+		
 	b. Use differentials to estimate the value of $f(4.02)$.
 	
 # Implicit differentiation
 1. Use implicit differentiation to prove that the curve $x^2 + y^2 = (2x^2 + 2y^2 - x)^2$ has a vertical tangent line at the point $(1,0)$.
 1. 
+
+# Differentials and error estimation
+1. One side of a right triangle is known to be 25 cm exactly. The angle opposite to this side is measured to be $60^\circ$, with a possible error of $\pm 0.5^\circ$.
+
+	a. Use differentials to estimate the errors in the adjacent side and the hypotenuse.
+
+	b. Estimate the percentage errors in the adjacent side and the hypotenuse.
+
 
 # Application of the derivative
 1. A softball diamond is a square whose sides are 18 m long. Suppose that a player running from first to second base has a speed of 7.5 m/s at the instant she is 3 m from second base. At what rate is the player’s distance from home plate changing at that instant?
