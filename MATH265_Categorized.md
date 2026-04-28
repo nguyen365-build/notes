@@ -42,3 +42,7 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
 # Application of the derivative
 1. A softball diamond is a square whose sides are 18 m long. Suppose that a player running from first to second base has a speed of 7.5 m/s at the instant she is 3 m from second base. At what rate is the player’s distance from home plate changing at that instant?
+
+
+# Related rates
+1. An Earth-observing satellite can see only a portion of the Earth's surface. The satellite has horizon sensors that can detect the angle $\theta$ shown in the accompanying figure. Let $r$ be the radius of the Earth (assumed spherical) and $h$ the distance of the satellite from the Earth's surface.
