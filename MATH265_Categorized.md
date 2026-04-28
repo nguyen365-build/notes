@@ -13,7 +13,5 @@ $$
 
 # Derivative of a function
 
-Find the derivative of the function:
-[
-\frac{d}{dx}\left( x \cos(\sqrt{x - 3}) \right)
-]
+In each of the cases below, give the indicated derivative, you may not need to simplify your answer.
+1. $\frac{d}{dx} x \cos \sqrt{x - 3}$
