@@ -15,5 +15,5 @@ $$
 # Derivative of a function
 
 In each of the cases below, give the indicated derivative, you may not need to simplify your answer.
-$$\frac{d}{dx} x \cos \sqrt{x - 3}$$
-$$\frac{d^2}{dx^2} x^2 \tan x \bigg|_{x=\pi}$$
+1. $$\frac{d}{dx} x \cos \sqrt{x - 3}$$
+2. $$\frac{d^2}{dx^2} x^2 \tan x \bigg|_{x=\pi}$$
