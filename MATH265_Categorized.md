@@ -20,3 +20,9 @@ In each of the cases below, give the indicated derivative, you may not need to s
 3. $$\frac{d}{dx} \frac{\sin x - \cos x}{x^3}$$
 4. If $f(0) = 1$, $f'(0) = 2$, $g(0) = 0$ and $g'(0) = -1$, find
 $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
+
+
+
+
+# Application of the derivative
+1. A softball diamond is a square whose sides are 18 m long. Suppose that a player running from first to second base has a speed of 7.5 m/s at the instant she is 3 m from second base. At what rate is the player’s distance from home plate changing at that instant?
