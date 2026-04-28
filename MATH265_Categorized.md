@@ -46,3 +46,8 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
 # Related rates
 1. An Earth-observing satellite can see only a portion of the Earth's surface. The satellite has horizon sensors that can detect the angle $\theta$ shown in the accompanying figure. Let $r$ be the radius of the Earth (assumed spherical) and $h$ the distance of the satellite from the Earth's surface.
+	a. Show that $h = r(\csc \theta - 1)$.
+		
+	b. Using $r = 6378$ km, find the average rate of change of the distance from the satellite to the surface of the Earth, when $\theta$ changes from $\pi/4$ to $\pi/3$. What are the units?
+	 
+	c. At what rate is the distance $h$ changing when $\theta = \pi/6$?a 
