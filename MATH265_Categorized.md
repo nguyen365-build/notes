@@ -5,7 +5,7 @@ Give the exact value of:
 1. $\cos \left(-\frac{\pi}{12}\right)$
 Here’s an image of a math question asking for the exact value of a trigonometric expression. I will provide 10 similar questions below.
 
-## 1.1 The Unit Circle Basics (Standard Multiples)
+### 1.1 The Unit Circle Basics (Standard Multiples)
 These are the foundational values found directly on the unit circle. They are multiples of $\frac{\pi}{6}$ ($30^\circ$), $\frac{\pi}{4}$ ($45^\circ$), and $\frac{\pi}{3}$ ($60^\circ$).
 
 * **The Family of $\frac{\pi}{4}$:** Multiples include $\frac{3\pi}{4}$, $\frac{5\pi}{4}$, $\frac{7\pi}{4}$.
@@ -15,7 +15,7 @@ These are the foundational values found directly on the unit circle. They are mu
 
 ---
 
-## 1.2 The $\frac{\pi}{12}$ ($15^\circ$) Family
+### 1.2 The $\frac{\pi}{12}$ ($15^\circ$) Family
 These problems require the **Sum and Difference Identities**. Because $15^\circ$ is the difference between $45^\circ$ and $30^\circ$, any angle ending in $15^\circ$ or $75^\circ$ (or their radian equivalents) belongs here.
 
 **Possible Problems:**
@@ -27,7 +27,7 @@ These problems require the **Sum and Difference Identities**. Because $15^\circ$
 
 ---
 
-## 1.3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
+### 1.3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
 These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exactly half of $45^\circ$, you use the value of $\cos(45^\circ)$ inside a square root formula.
 
 **Possible Problems:**
@@ -40,7 +40,7 @@ These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exac
 
 ---
 
-## 1.4. Inverse Trigonometric Composition
+### 1.4. Inverse Trigonometric Composition
 This is the final "boss" of exact value problems. These ask you to find the value of a trig function given the *inverse* of another. These are solved by drawing a **Reference Triangle** rather than using a formula.
 
 **Example Problem Types:**
@@ -50,7 +50,7 @@ This is the final "boss" of exact value problems. These ask you to find the valu
 
 ---
 
-## 1.5 Summary of Strategies
+### 1.5 Summary of Strategies
 To master this entire list, you only need to know which "tool" to pull from your belt:
 
 | Angle Ends In... | Likely Strategy |
@@ -62,7 +62,43 @@ To master this entire list, you only need to know which "tool" to pull from your
 
 
 
-# Sketch the graph
+
+# Functions and Domains
+
+1. Let $f(x)=2x^2-5$ and $g(x)=\frac{x+5}{2x-9}$. **(6 points)**
+
+   Find the composite functions and their corresponding domains.
+   
+   a. $f(g(x))$
+   
+   b. $g(f(x))$
+
+
+# Graphing and transformation
+
+1. Give a labeled graph of the function $g(x)=3(x+4)^2$ by starting with the graph of a basic function, and then applying the appropriate transformations. **(5 points)**
+
+   Explain the procedure you are using.
+
+   **Note:** No credit will be given if any other method is used.
+
+
+# Evaluation of limits
+
+1. Evaluate each of the limits below. If a limit does not exist explain why. **(16 points)**
+
+   a. $\lim_{x \to 2} (3x^2 - 2x + 1)$
+    
+   b. $\lim_{x \to -2} \frac{3x^2 - 2x - 16}{(x + 2)^2}$
+    
+   c. $\lim_{x \to 3} \frac{2x^2 - x + 1}{x - 3}$
+    
+   d. $\lim_{x \to 2} \frac{\sqrt{6 - x} - 2}{\sqrt{3 - x} - 1}$
+    
+   e. $\lim_{x \to 0} \frac{\sin (3x)}{x^2 - x}$
+
+
+# 2. Sketch the graph
 
 Sketch the graph of a piecewise function ( f(x) ) and its derivative ( f'(x) ), where
 
@@ -76,7 +112,7 @@ x^2 & \text{if } -2 \le x \le 3 \\
 $$
 
 
-# Derivative of a function
+# 3. Derivative of a function
 
 In each of the cases below, give the indicated derivative, you may not need to simplify your answer.
 
@@ -96,19 +132,29 @@ $$\frac{d}{dx} \frac{\sin x - \cos x}{x^3}$$
 
 $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
+5. $y = 4x^5 + 3x^4 - 6x^3 + 6$
+    
+6. $y = \frac{2x - 16}{(x + 3)^2}$
+    
+7. $y = \sin \left(2x^2 - x + 1\right)$
+    
+8. $y = \left(-4x^3 - x^2 + 3x + 7\right)^4$
 
-# Tangent line of a function
+
+
+
+# 4. Tangent line of a function
 1. Let $f(x) = \frac{x - 1}{\sqrt{x}}$.
 
 	a. Find the equation of the tangent line of the function $f$ at the point $(4, f(4))$.
 		
 	b. Use differentials to estimate the value of $f(4.02)$.
 	
-# Implicit differentiation
+# 5. Implicit differentiation
 1. Use implicit differentiation to prove that the curve $x^2 + y^2 = (2x^2 + 2y^2 - x)^2$ has a vertical tangent line at the point $(1,0)$.
 1. 
 
-# Differentials and error estimation
+# 6. Differentials and error estimation
 1. One side of a right triangle is known to be 25 cm exactly. The angle opposite to this side is measured to be $60^\circ$, with a possible error of $\pm 0.5^\circ$.
 
 	a. Use differentials to estimate the errors in the adjacent side and the hypotenuse.
@@ -116,11 +162,11 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 	b. Estimate the percentage errors in the adjacent side and the hypotenuse.
 
 
-# Application of the derivative
+# 7. Application of the derivative
 1. A softball diamond is a square whose sides are 18 m long. Suppose that a player running from first to second base has a speed of 7.5 m/s at the instant she is 3 m from second base. At what rate is the player’s distance from home plate changing at that instant?
 
 
-# Related rates
+
 1. An Earth-observing satellite can see only a portion of the Earth's surface. The satellite has horizon sensors that can detect the angle $\theta$ shown in the accompanying figure. Let $r$ be the radius of the Earth (assumed spherical) and $h$ the distance of the satellite from the Earth's surface.
 
 	a. Show that $h = r(\csc \theta - 1)$.
