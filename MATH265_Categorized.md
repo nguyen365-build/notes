@@ -142,11 +142,7 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
 1. Find the values of $x$ such that tangent line to the curve $f(x) = 3x^2 + 4x - 3$ is perpendicular to the line $y = 6x + 2$.
 
-2. Find the values of $x$ such that the tangent line to the curve:
-
-$$f(x) = 2x^2 - 5x + 1$$
-
-is **perpendicular** to the line $y = 4x - 7$.
+2. Find the values of $x$ such that the tangent line to the curve: $f(x) = 2x^2 - 5x + 1$ is **perpendicular** to the line $y = 4x - 7$.
 
 3. Find the point(s) on the curve:
 
