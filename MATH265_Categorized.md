@@ -13,8 +13,7 @@ These are the foundational values found directly on the unit circle. They are mu
 * **The Family of $\frac{\pi}{3}$:** Multiples include $\frac{2\pi}{3}$, $\frac{4\pi}{3}$, $\frac{5\pi}{3}$.
 * **Quadrantal Angles:** $0, \frac{\pi}{2}, \pi, \frac{3\pi}{2}, 2\pi$.
 
----
-
+* 
 ### 1.2 The $\frac{\pi}{12}$ ($15^\circ$) Family
 These problems require the **Sum and Difference Identities**. Because $15^\circ$ is the difference between $45^\circ$ and $30^\circ$, any angle ending in $15^\circ$ or $75^\circ$ (or their radian equivalents) belongs here.
 
@@ -25,7 +24,6 @@ These problems require the **Sum and Difference Identities**. Because $15^\circ$
 * **$165^\circ$ or $\frac{11\pi}{12}$:** $(\frac{3\pi}{4} + \frac{\pi}{6})$
 * **$195^\circ$, $255^\circ$, $285^\circ$, $345^\circ$:** (and their negative counterparts).
 
----
 
 ### 1.3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
 These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exactly half of $45^\circ$, you use the value of $\cos(45^\circ)$ inside a square root formula.
@@ -38,7 +36,6 @@ These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exac
 
 
 
----
 
 ### 1.4. Inverse Trigonometric Composition
 This is the final "boss" of exact value problems. These ask you to find the value of a trig function given the *inverse* of another. These are solved by drawing a **Reference Triangle** rather than using a formula.
@@ -48,7 +45,7 @@ This is the final "boss" of exact value problems. These ask you to find the valu
 * **Algebraic:** $\tan(\arcsin(x))$
 * **Double Angle Composition:** $\cos(2 \arcsin(\frac{1}{3}))$
 
----
+
 
 ### 1.5 Summary of Strategies
 To master this entire list, you only need to know which "tool" to pull from your belt:
@@ -62,7 +59,7 @@ To master this entire list, you only need to know which "tool" to pull from your
 
 
 
-
+---
 # Functions and Domains
 
 1. Let $f(x)=2x^2-5$ and $g(x)=\frac{x+5}{2x-9}$. **(6 points)**
