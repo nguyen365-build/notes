@@ -1,11 +1,11 @@
-# Find exact values
+# 1. Find exact values
 To find the "exact value" in trigonometry, you are essentially looking for angles that can be expressed as combinations of the **Standard Angles** ($30^\circ$, $45^\circ$, $60^\circ$) using specific algebraic identities.
 
 Give the exact value of:
 1. $\cos \left(-\frac{\pi}{12}\right)$
 Here’s an image of a math question asking for the exact value of a trigonometric expression. I will provide 10 similar questions below.
 
-## 1. The Unit Circle Basics (Standard Multiples)
+## 1.1 The Unit Circle Basics (Standard Multiples)
 These are the foundational values found directly on the unit circle. They are multiples of $\frac{\pi}{6}$ ($30^\circ$), $\frac{\pi}{4}$ ($45^\circ$), and $\frac{\pi}{3}$ ($60^\circ$).
 
 * **The Family of $\frac{\pi}{4}$:** Multiples include $\frac{3\pi}{4}$, $\frac{5\pi}{4}$, $\frac{7\pi}{4}$.
@@ -15,7 +15,7 @@ These are the foundational values found directly on the unit circle. They are mu
 
 ---
 
-## 2. The $\frac{\pi}{12}$ ($15^\circ$) Family
+## 1.2 The $\frac{\pi}{12}$ ($15^\circ$) Family
 These problems require the **Sum and Difference Identities**. Because $15^\circ$ is the difference between $45^\circ$ and $30^\circ$, any angle ending in $15^\circ$ or $75^\circ$ (or their radian equivalents) belongs here.
 
 **Possible Problems:**
@@ -27,7 +27,7 @@ These problems require the **Sum and Difference Identities**. Because $15^\circ$
 
 ---
 
-## 3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
+## 1.3. The $\frac{\pi}{8}$ ($22.5^\circ$) Family
 These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exactly half of $45^\circ$, you use the value of $\cos(45^\circ)$ inside a square root formula.
 
 **Possible Problems:**
@@ -40,7 +40,7 @@ These problems require the **Half-Angle Identities**. Since $22.5^\circ$ is exac
 
 ---
 
-## 4. Inverse Trigonometric Composition
+## 1.4. Inverse Trigonometric Composition
 This is the final "boss" of exact value problems. These ask you to find the value of a trig function given the *inverse* of another. These are solved by drawing a **Reference Triangle** rather than using a formula.
 
 **Example Problem Types:**
@@ -50,7 +50,7 @@ This is the final "boss" of exact value problems. These ask you to find the valu
 
 ---
 
-## Summary of Strategies
+## 1.5 Summary of Strategies
 To master this entire list, you only need to know which "tool" to pull from your belt:
 
 | Angle Ends In... | Likely Strategy |
