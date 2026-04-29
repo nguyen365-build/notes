@@ -140,33 +140,17 @@ $$\left. \frac{d}{dx} \frac{f(x) - x^2 g(x)}{f(x) + g(x)} \right|_{x=0}$$
 
 # Geometric interpretation of the derivative
 
-1. Find the values of $x$ such that tangent line to the curve $f(x) = 3x^2 + 4x - 3$ is perpendicular to the line $y = 6x + 2$.
+1. Find the values of $x$ such that tangent line to the curve $f(x) = 3x^2 + 4x - 3$ is **perpendicular** to the line $y = 6x + 2$.
 
-2. Find the values of $x$ such that the tangent line to the curve: $f(x) = 2x^2 - 5x + 1$ is **perpendicular** to the line $y = 4x - 7$.
+2. Find the values of $x$ such that the tangent line to the curve $f(x) = 2x^2 - 5x + 1$ is **perpendicular** to the line $y = 4x - 7$.
 
-3. Find the point(s) on the curve:
+3. Find the point(s) on the curve $f(x) = x^3 - 3x + 2$ where the tangent line is **parallel** to the line $y = 9x + 1$.
 
-$$f(x) = x^3 - 3x + 2$$
+4. Find the equation of the tangent line to $f(x) = x^2 - 6x + 4$ that is **perpendicular** to the line $y = \dfrac{1}{2}x + 3$.
 
-where the tangent line is **parallel** to the line $y = 9x + 1$.
+5. At what point(s) on the curve $f(x) = x^3 - 2x^2 + x$ is the tangent line **perpendicular** to the line $y = -\dfrac{1}{3}x + 5$?
 
-4. Find the equation of the tangent line to:
-
-$$f(x) = x^2 - 6x + 4$$
-
-that is **perpendicular** to the line $y = \dfrac{1}{2}x + 3$.
-
-5. At what point(s) on the curve:
-
-$$f(x) = x^3 - 2x^2 + x$$
-
-is the tangent line **perpendicular** to the line $y = -\dfrac{1}{3}x + 5$?
-
-6. Find all values of $x$ for which the tangent line to:
-
-$$f(x) = 4x^2 - 8x + 1$$
-
-is **parallel** to the line passing through the points $(1,\ 3)$ and $(4,\ 9)$.
+6. Find all values of $x$ for which the tangent line to $f(x) = 4x^2 - 8x + 1$ is **parallel** to the line passing through the points $(1,\ 3)$ and $(4,\ 9)$.
 
 ---
 
