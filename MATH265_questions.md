@@ -1,65 +1,10 @@
-﻿# Midterm Exam 1 - MATH 265
+﻿# Exam - MATH 265
 
 
 
 
 
 
-
-9. Find each of the derivatives listed below. Show your work.
-
-   **Note:** You may not need to simplify your answer.
-
-   
-   a. $\frac{d^2}{dx^2} \cot(2x)$
-   
-   b. $\frac{d}{dx} \sec(x^2 - 3x)$
-   
-   c. $\frac{d}{dx} \frac{x^2 - \cos(3x)}{x \sin(2x)}$
-   
-   d. $\frac{d}{dx} \left. \frac{f(x)}{g(x)} \right|_{x=1}$ where $f(1) = 3, g(1) = 6, f'(x) = \sqrt{x}$ and $g'(x) = 3 \sin(\pi x / 3)$.
-
-**(4 points)**
-
-10. Find the equation of the tangent line to the curve $y^3 + yx^2 + x^2 = 3y^2$ at the point $(1,1)$.
-
-**(6 points)**
-
-11. A rocket, rising vertically, is tracked by a radar station that is on the ground $5 \text{ mi}$ from the launch pad. How fast is the rocket rising when it is $4 \text{ mi}$ high and its distance from the radar station is increasing at a rate of $2000 \text{ mi/h}$?
-
-
-# Final Exam 1 - MATH 265
-1. Compute the derivatives of each of the functions given below. You may not need to simplify your answers. **(20 points)**
-   
-   a. $y = \sin x \cdot \cos(\sin x^2)$
-   
-   b. $y = \left(\frac{1 + x^3}{1 - x^2}\right)^{\frac{1}{3}}$
-   
-   c. $y = \sqrt{1 + \sqrt{1 + x}}$
-   
-   d. $y = \frac{\sqrt{x^2 - 1}}{x^2 - 2x - 8}$
-   
-   e. $y = \sec^2\left(\frac{x + 1}{x - 2}\right)$
-
-2. Use the method of differentials to estimate each of the values below to four decimal places (show the process). **(8 points)**
-   
-   a. $\cos 62^\circ$
-   
-   b. $\sqrt{16.4}$
-
-3. Use the definition of the derivative as a limit to compute the derivative of $\cot x$. **(6 points)**
-
-4. Sketch the graph of each of the functions below. State all critical points, cusps, vertical asymptotes and points of inflection. **(20 points)**
-   
-   a. $f(x) = \frac{x^2}{x^2 - 1}$
-   
-   b. $f(x) = x + \sin x$
-
-5. Find all maxima and minima of the functions listed below on the indicated intervals. **(11 points)**
-   
-   a. $f(x) = 2x^{\frac{5}{3}} - 5x^{\frac{4}{3}}$ on $[-1, 20]$.
-   
-   b. $f(x) = x + \cos x$ on $[-\pi, 2\pi]$.
 
 6. Find the dimensions of the rectangle of area $220\text{ cm}^2$ that has the smallest perimeter. What is the perimeter? **(6 points)**
 

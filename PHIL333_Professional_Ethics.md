@@ -497,7 +497,6 @@ Prescriptive morality (also known as normative ethics) is the core of philosophy
 ### The Main Difference
 The main difference is that descriptive morality focuses on "what is," often using words like "is" or "was" to describe facts. Prescriptive morality focuses on "what ought to be," often using words like "should," "may," or "must" to set requirements. They are independent of each other because what people *actually* do (descriptive) is not always what they *should* do (prescriptive).
 
-To help you reflect on this, consider a professional you know, like a doctor or an accountant. If you describe their daily habits, are you doing descriptive or prescriptive ethics? How would your approach change if you started evaluating whether those habits were actually "good" for their clients?
 
 ### q012 
 ## 1.2—Amorality
