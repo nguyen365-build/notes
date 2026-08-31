@@ -1,0 +1,129 @@
+# Sample GitHub Actions workflow.
+#
+# A workflow is a YAML file under .github/workflows/ that GitHub runs on a
+# hosted machine ("runner") whenever one of its triggers fires. This one is
+# written as a tour of the building blocks you will use in almost every
+# workflow: triggers, permissions, jobs, steps, a matrix, and step outputs.
+#
+# Docs: https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions
+
+name: Sample
+
+# ---------------------------------------------------------------------------
+# 1. Triggers: when does this run?
+# ---------------------------------------------------------------------------
+on:
+  push:
+    branches: ["main", "modify"]
+  pull_request:
+    branches: ["main"]
+  # Lets you start the run by hand from the Actions tab.
+  workflow_dispatch:
+    inputs:
+      greeting:
+        description: "Text to print in the greet job"
+        required: false
+        default: "hello from workflow_dispatch"
+  # Uncomment to also run on a schedule (UTC, 5-field cron).
+  # schedule:
+  #   - cron: "0 13 * * 1"   # every Monday 13:00 UTC
+
+# ---------------------------------------------------------------------------
+# 2. Least-privilege token. Default to read-only and widen per job as needed.
+# ---------------------------------------------------------------------------
+permissions:
+  contents: read
+
+# Cancel an in-flight run when a newer commit lands on the same ref.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Environment variables visible to every job and step below.
+env:
+  NOTES_DIR: .
+
+jobs:
+  # -------------------------------------------------------------------------
+  # Job 1: the smallest useful job. Checks out the repo and prints context.
+  # -------------------------------------------------------------------------
+  greet:
+    runs-on: ubuntu-latest
+    steps:
+      # `uses` runs a prebuilt action. Pin to a major version tag.
+      - name: Check out the repository
+        uses: actions/checkout@v4
+
+      # `run` executes shell commands on the runner.
+      - name: Say hello
+        run: |
+          echo "${{ inputs.greeting || 'hello from a push or pull request' }}"
+          echo "event:      ${{ github.event_name }}"
+          echo "ref:        ${{ github.ref }}"
+          echo "sha:        ${{ github.sha }}"
+          echo "actor:      ${{ github.actor }}"
+          echo "runner os:  ${{ runner.os }}"
+
+      # Steps can publish outputs for later steps to read.
+      - name: Count markdown files
+        id: count
+        run: |
+          count=$(find "$NOTES_DIR" -type f -name '*.md' -not -path './.git/*' | wc -l)
+          echo "Found $count markdown file(s)."
+          echo "md_count=$count" >> "$GITHUB_OUTPUT"
+
+      # $GITHUB_STEP_SUMMARY renders markdown on the run's summary page.
+      - name: Write the run summary
+        run: |
+          {
+            echo "### Sample workflow"
+            echo
+            echo "| item | value |"
+            echo "| --- | --- |"
+            echo "| markdown files | ${{ steps.count.outputs.md_count }} |"
+            echo "| commit | \`${{ github.sha }}\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+  # -------------------------------------------------------------------------
+  # Job 2: a matrix. One copy of this job runs per combination below, in
+  # parallel. `needs` makes it wait for `greet` to succeed first.
+  # -------------------------------------------------------------------------
+  check:
+    needs: greet
+    runs-on: ${{ matrix.os }}
+    strategy:
+      # Let every leg finish even if one fails, so you see all the failures.
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Report which leg this is
+        run: echo "Running the check job on ${{ matrix.os }}."
+
+      # `shell: bash` gives you the same shell on Windows runners too.
+      - name: Fail if any markdown file is empty
+        shell: bash
+        run: |
+          empty=$(find . -type f -name '*.md' -not -path './.git/*' -empty)
+          if [ -n "$empty" ]; then
+            echo "::error::These markdown files are empty:"
+            echo "$empty"
+            exit 1
+          fi
+          echo "No empty markdown files."
+
+  # -------------------------------------------------------------------------
+  # Job 3: conditional execution. `if` skips the job unless it evaluates true.
+  # -------------------------------------------------------------------------
+  report:
+    needs: check
+    # `always()` means this still runs when `check` failed, so you get a result
+    # either way. Without it, a failed dependency skips this job.
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Report the outcome of the check job
+        run: |
+          echo "check finished with result: ${{ needs.check.result }}"
