@@ -1,0 +1,1038 @@
+<title>Cone Volume Function</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$','$']], displayMath: [['$$','$$']] },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+:root{
+  --ground:#F5F6F9;
+  --surface:#FFFFFF;
+  --surface-2:#ECEFF4;
+  --line:#D7DCE5;
+  --line-soft:#E6EAF0;
+  --ink:#151A22;
+  --ink-mid:#3C4553;
+  --ink-muted:#66707F;
+  --accent:#9A6510;
+  --accent-bright:#F2A53C;
+  --accent-wash:rgba(242,165,60,.13);
+  --ok:#2C7355;
+  --ok-wash:rgba(44,115,85,.11);
+  --warn:#A93B33;
+  --warn-wash:rgba(169,59,51,.10);
+  --code-bg:#EDF0F5;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F;
+    --surface:#1A1F29;
+    --surface-2:#212836;
+    --line:#2E3745;
+    --line-soft:#252D3A;
+    --ink:#E7EAF0;
+    --ink-mid:#C0C8D4;
+    --ink-muted:#8B96A6;
+    --accent:#F2A53C;
+    --accent-bright:#F2A53C;
+    --accent-wash:rgba(242,165,60,.12);
+    --ok:#63C295;
+    --ok-wash:rgba(99,194,149,.12);
+    --warn:#E9776D;
+    --warn-wash:rgba(233,119,109,.12);
+    --code-bg:#111620;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F;
+  --surface:#1A1F29;
+  --surface-2:#212836;
+  --line:#2E3745;
+  --line-soft:#252D3A;
+  --ink:#E7EAF0;
+  --ink-mid:#C0C8D4;
+  --ink-muted:#8B96A6;
+  --accent:#F2A53C;
+  --accent-bright:#F2A53C;
+  --accent-wash:rgba(242,165,60,.12);
+  --ok:#63C295;
+  --ok-wash:rgba(99,194,149,.12);
+  --warn:#E9776D;
+  --warn-wash:rgba(233,119,109,.12);
+  --code-bg:#111620;
+}
+
+*{box-sizing:border-box}
+body{
+  background:var(--ground);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  font-size:16px;
+  line-height:1.62;
+  margin:0;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px 96px}
+
+.mast{border-bottom:1px solid var(--line);padding:44px 0 32px;margin-bottom:40px}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  align-items:center;
+  margin-bottom:18px;
+}
+.eyebrow .pts{
+  color:var(--accent);
+  border:1px solid var(--accent);
+  border-radius:2px;
+  padding:1px 7px;
+  letter-spacing:.1em;
+}
+h1{
+  font-size:clamp(30px,4.4vw,44px);
+  line-height:1.12;
+  font-weight:600;
+  letter-spacing:-.022em;
+  margin:0 0 20px;
+  text-wrap:balance;
+  max-width:20ch;
+}
+.stem{font-size:17px;color:var(--ink-mid);max-width:66ch;margin:0 0 8px}
+.parts{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:7px;max-width:66ch}
+.parts li{display:flex;gap:12px;color:var(--ink-mid);font-size:15.5px}
+.parts .k{font-family:"IBM Plex Mono",monospace;color:var(--accent);font-weight:500;flex:0 0 auto}
+.hint{margin-top:16px;font-size:14.5px;color:var(--ink-muted);border-left:2px solid var(--line);padding-left:14px;max-width:66ch}
+
+.answers{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+  border-radius:4px;
+  overflow:hidden;
+  margin:32px 0 26px;
+}
+.ans{background:var(--surface);padding:20px 22px}
+.ans .lab{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  margin-bottom:10px;
+}
+.ans .val{font-size:20px;color:var(--ink)}
+.ans .sub{font-family:"IBM Plex Mono",monospace;font-size:12.5px;color:var(--ink-muted);margin-top:8px}
+
+.entry{
+  background:var(--accent-wash);
+  border:1px solid var(--accent);
+  border-radius:4px;
+  padding:16px 20px;
+  margin:0 0 26px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px 16px;
+}
+.entry .lab{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+}
+.entry code{background:var(--surface);border-color:var(--line)}
+
+.prov{font-size:13.5px;color:var(--ink-muted);max-width:74ch;display:flex;flex-direction:column;gap:6px}
+.verified{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  letter-spacing:.06em;
+  color:var(--ok);
+  background:var(--ok-wash);
+  border:1px solid var(--ok);
+  border-radius:2px;
+  padding:3px 9px;
+  align-self:flex-start;
+  margin-top:4px;
+}
+
+section{padding-top:52px;scroll-margin-top:20px}
+h2{
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:-.015em;
+  margin:0 0 6px;
+  display:flex;
+  gap:14px;
+  align-items:baseline;
+  text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:13px;
+  font-weight:500;
+  color:var(--accent);
+  flex:0 0 auto;
+  letter-spacing:.06em;
+  transform:translateY(-1px);
+}
+h3{font-size:17px;font-weight:600;margin:34px 0 4px;letter-spacing:-.005em;color:var(--ink)}
+h4{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  font-weight:500;
+  margin:26px 0 2px;
+}
+p{margin:14px 0;max-width:74ch}
+.lede{color:var(--ink-mid);font-size:16.5px;max-width:74ch;margin:10px 0 0}
+strong{font-weight:600;color:var(--ink)}
+a{color:var(--accent);text-decoration-thickness:1px;text-underline-offset:2px}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:2px}
+
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:.88em;
+  background:var(--code-bg);
+  border:1px solid var(--line-soft);
+  border-radius:3px;
+  padding:1px 5px;
+  overflow-wrap:anywhere;
+}
+pre code{overflow-wrap:normal}
+pre{
+  background:var(--code-bg);
+  border:1px solid var(--line);
+  border-radius:4px;
+  padding:18px 20px;
+  overflow-x:auto;
+  margin:18px 0;
+  line-height:1.6;
+}
+pre code{background:none;border:0;padding:0;font-size:13px;color:var(--ink-mid)}
+
+.tw{overflow-x:auto;max-width:100%;margin:18px 0;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.tw > table{border-collapse:collapse;width:max-content;min-width:100%;font-size:14.5px}
+caption{
+  caption-side:top;
+  text-align:left;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  padding:13px 16px 0;
+}
+th{
+  text-align:left;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  font-weight:500;
+  padding:13px 16px;
+  border-bottom:1px solid var(--line);
+  vertical-align:bottom;
+}
+td{
+  padding:11px 16px;
+  border-bottom:1px solid var(--line-soft);
+  vertical-align:top;
+  color:var(--ink-mid);
+  font-variant-numeric:tabular-nums;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:var(--surface-2)}
+td:first-child{color:var(--ink)}
+.num-col{text-align:right;font-variant-numeric:tabular-nums}
+
+.note{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-left:3px solid var(--accent);
+  border-radius:0 4px 4px 0;
+  padding:16px 20px;
+  margin:20px 0;
+  max-width:74ch;
+}
+.note.warn{border-left-color:var(--warn)}
+.note.ok{border-left-color:var(--ok)}
+.note p{margin:8px 0}
+.note p:first-child{margin-top:0}
+.note p:last-child{margin-bottom:0}
+.note .tag{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-weight:600;
+  display:block;
+  margin-bottom:6px;
+}
+.note.warn .tag{color:var(--warn)}
+.note.ok .tag{color:var(--ok)}
+
+blockquote{
+  margin:20px 0;
+  padding:18px 24px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:4px;
+  max-width:74ch;
+}
+blockquote ol{margin:0;padding-left:20px}
+blockquote li{margin:8px 0;color:var(--ink-mid)}
+blockquote p{margin:8px 0;color:var(--ink-mid)}
+blockquote p:first-child{margin-top:0}
+blockquote p:last-child{margin-bottom:0}
+
+ol.rank{counter-reset:t;list-style:none;padding:0;margin:18px 0;max-width:74ch}
+ol.rank li{
+  counter-increment:t;
+  display:flex;
+  gap:16px;
+  padding:11px 0;
+  border-bottom:1px solid var(--line-soft);
+  color:var(--ink-mid);
+}
+ol.rank li:last-child{border-bottom:0}
+ol.rank li::before{
+  content:counter(t);
+  font-family:"IBM Plex Mono",monospace;
+  font-size:12px;
+  color:var(--warn);
+  background:var(--warn-wash);
+  border-radius:2px;
+  min-width:24px;
+  height:22px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex:0 0 auto;
+  margin-top:3px;
+}
+ol.drill{max-width:74ch;padding-left:22px}
+ol.drill li{margin:9px 0;color:var(--ink-mid)}
+
+.fam{
+  display:grid;
+  grid-template-columns:auto minmax(0,1fr);
+  gap:6px 14px;
+  margin:14px 0 4px;
+  padding:14px 18px;
+  background:var(--surface-2);
+  border-radius:4px;
+  max-width:74ch;
+  font-size:14.5px;
+}
+.fam dt{
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink-muted);
+  padding-top:4px;
+}
+.fam dd{margin:0;color:var(--ink-mid)}
+
+.tocnav{position:sticky;top:0;background:var(--ground);border-bottom:1px solid var(--line);z-index:20}
+.tocnav ol{
+  list-style:none;
+  margin:0 auto;
+  padding:11px 24px;
+  max-width:1180px;
+  display:flex;
+  gap:6px 20px;
+  overflow-x:auto;
+  font-family:"IBM Plex Mono",monospace;
+  font-size:11.5px;
+  letter-spacing:.06em;
+}
+.tocnav a{color:var(--ink-muted);text-decoration:none;white-space:nowrap;padding:2px 0;border-bottom:1px solid transparent}
+.tocnav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+
+footer{margin-top:20px;font-size:13.5px;color:var(--ink-muted);max-width:82ch}
+footer ul{padding-left:18px;margin:12px 0}
+footer li{margin:9px 0}
+mjx-container{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-container[display="true"]{margin:20px 0!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:640px){
+  .wrap{padding:0 16px 72px}
+  body{font-size:15.5px}
+  .tocnav ol{padding:10px 16px}
+}
+</style>
+
+<nav class="tocnav" aria-label="Sections">
+  <ol>
+    <li><a href="#s0">00 30-second</a></li>
+    <li><a href="#s1">01 What it tests</a></li>
+    <li><a href="#s2">02 Have cold</a></li>
+    <li><a href="#s3">03 Procedure</a></li>
+    <li><a href="#s4">04 Three routes</a></li>
+    <li><a href="#s5">05 Write-up</a></li>
+    <li><a href="#s6">06 Verify</a></li>
+    <li><a href="#s7">07 Answer entry</a></li>
+    <li><a href="#s8">08 Variations</a></li>
+    <li><a href="#s9">09 Traps</a></li>
+    <li><a href="#s10">10 Drills</a></li>
+    <li><a href="#s11">11 Decision tree</a></li>
+    <li><a href="#s12">12 Provenance</a></li>
+  </ol>
+</nav>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">
+    <span>MATH 265</span><span>Midterm 2 &middot; Q2</span><span class="pts">4 points</span><span>Q1.4</span>
+  </div>
+  <h1>Volume of a cone as a function of its radius</h1>
+  <p class="stem">Consider a cone whose height is double the size of its radius.</p>
+  <ul class="parts">
+    <li><span class="k">a.</span><span>Express the volume $V$ of the cone as a function of radius $r$.</span></li>
+    <li><span class="k">b.</span><span>Find the domain of the function in <em>a.</em></span></li>
+    <li><span class="k">c.</span><span>Use the function in <em>a.</em> to compute the volume of the cone for $r = 3$.</span></li>
+  </ul>
+  <p class="hint"><em>Hint:</em> the volume of a cone is $V = \dfrac{\pi r^2 h}{3}$.</p>
+
+  <div class="answers">
+    <div class="ans">
+      <div class="lab">a &middot; the function</div>
+      <div class="val">$V(r)=\dfrac{2\pi r^{3}}{3}$</div>
+      <div class="sub">degree 3, always</div>
+    </div>
+    <div class="ans">
+      <div class="lab">b &middot; the domain</div>
+      <div class="val">$(0,\infty)$</div>
+      <div class="sub">contextual, not algebraic</div>
+    </div>
+    <div class="ans">
+      <div class="lab">c &middot; at r = 3</div>
+      <div class="val">$18\pi$</div>
+      <div class="sub">&asymp; 56.5486677646</div>
+    </div>
+  </div>
+
+  <div class="entry">
+    <span class="lab">Type into M&ouml;bius</span>
+    <code>2/3*Pi*r^3</code>
+    <code>(0,infinity)</code>
+    <code>18*Pi</code>
+  </div>
+
+  <div class="prov">
+    <span>Question text quoted from <code>MATH265.md</code> Q1.4 and <code>MATH265/MATH265.md</code> Midterm Exam 2, item 2. Nothing here is copied from a solution key.</span>
+    <span class="verified">&#10003; 3750 numeric checks &middot; 0 failures &middot; tol 1e-11</span>
+  </div>
+</header>
+
+<main>
+
+<section id="s0">
+  <h2><span class="num">00</span>The 30-second version</h2>
+  <p class="lede">If you only remember one thing, remember this chain.</p>
+<pre><code>"height is double the radius"
+  -&gt; write the SENTENCE as an equation             h = 2r
+  -&gt; put it into the hint formula                  V = pi*r^2*(2r)/3
+  -&gt; collect                                       V = 2*pi*r^3/3
+  -&gt; domain is PHYSICAL, not algebraic             r &gt; 0,  so (0, infinity)
+  -&gt; evaluate                                      V(3) = 2*pi*27/3 = 18*pi</code></pre>
+  <p>Five lines, about thirty seconds, no calculator. The whole question is one substitution.</p>
+  <p><strong>What makes people lose the marks is line 1, not line 3.</strong></p>
+</section>
+
+<section id="s1">
+  <h2><span class="num">01</span>What this question is really testing</h2>
+  <p class="lede">It looks like arithmetic. It is a reading test with an arithmetic tail.</p>
+  <div class="tw">
+    <table>
+      <caption>Four reflexes, and where each one comes back</caption>
+      <thead><tr><th>Reflex</th><th>Where it comes back</th></tr></thead>
+      <tbody>
+        <tr><td>Turning an English constraint into an equation</td><td>related rates, optimization, every applied word problem</td></tr>
+        <tr><td>Eliminating a variable so the formula has exactly one input</td><td>optimization (you cannot differentiate a two-variable expression), related rates</td></tr>
+        <tr><td>Separating the <em>algebraic</em> domain from the <em>contextual</em> domain</td><td>Q1.2 composite domains, Q4.1 asymptotes, all curve sketching</td></tr>
+        <tr><td>Keeping the answer exact ($18\pi$, not $56.55$)</td><td>every "compute" instruction on a Maple-graded paper</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The reason to study this one properly</span>
+    <p>Midterm 1 question 7 is the <strong>same cone</strong>. It says "a pile in shape of a cone whose base diameter and height are always equal", which is $d = h$, and since $d = 2r$ that is $h = 2r$ - character for character the constraint in this question. MT1 Q7 then asks for $dh/dt$ instead of $V$.</p>
+    <p>So the setup you are learning here is reused later with calculus bolted onto it. That is why Family 8 exists.</p>
+  </div>
+
+  <p><strong>Where the 4 points sit.</strong> Part a is the substitution and carries most of the credit. Part b is one interval and is the part most often thrown away. Part c is arithmetic you cannot afford to fumble.</p>
+</section>
+
+<section id="s2">
+  <h2><span class="num">02</span>The three things you must have cold</h2>
+
+  <h3>2.1 &nbsp;The solid formulas</h3>
+  <p>The paper hands you the cone formula, so this question does not test recall. A reworded version will not always hand it to you.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Solid</th><th>Volume</th><th>Surface area</th></tr></thead>
+      <tbody>
+        <tr><td>Cone (radius $r$, height $h$)</td><td>$\dfrac{\pi r^2 h}{3}$</td><td>base $\pi r^2$, lateral $\pi r \sqrt{r^2+h^2}$</td></tr>
+        <tr><td>Cylinder</td><td>$\pi r^2 h$</td><td>$2\pi r^2 + 2\pi r h$</td></tr>
+        <tr><td>Sphere</td><td>$\dfrac{4\pi r^3}{3}$</td><td>$4\pi r^2$</td></tr>
+        <tr><td>Box, square base $x$, height $h$</td><td>$x^2 h$</td><td>$2x^2 + 4xh$</td></tr>
+        <tr><td>Square pyramid, base $s$</td><td>$\dfrac{s^2 h}{3}$</td><td>&mdash;</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note ok">
+    <span class="tag">The one relationship worth internalising</span>
+    <p>A cone is exactly one third of the cylinder that wraps it. That is where the $/3$ comes from, and Section 06 turns it into a free check.</p>
+  </div>
+
+  <h3>2.2 &nbsp;The English-to-algebra dictionary</h3>
+  <p>This is the actual content of the question. Read the sentence, put the <em>subject</em> on the left of the equals sign, and translate.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>English</th><th>Equation</th></tr></thead>
+      <tbody>
+        <tr><td>"the height is double the radius"</td><td>$h = 2r$</td></tr>
+        <tr><td>"the height is half the radius"</td><td>$h = \tfrac{r}{2}$</td></tr>
+        <tr><td>"the height is triple the radius"</td><td>$h = 3r$</td></tr>
+        <tr><td>"the radius is double the height"</td><td>$r = 2h$, so $h = \tfrac{r}{2}$</td></tr>
+        <tr><td>"the radius is one third the height"</td><td>$r = \tfrac{h}{3}$, so $h = 3r$</td></tr>
+        <tr><td>"the diameter equals the height"</td><td>$2r = h$</td></tr>
+        <tr><td>"the height is double the diameter"</td><td>$h = 2(2r) = 4r$</td></tr>
+        <tr><td>"the diameter is double the height"</td><td>$2r = 2h$, so $h = r$</td></tr>
+        <tr><td>"the height exceeds the radius by 3"</td><td>$h = r + 3$</td></tr>
+        <tr><td>"the height is 2 less than the radius"</td><td>$h = r - 2$</td></tr>
+        <tr><td>"the radius and height sum to 10"</td><td>$r + h = 10$, so $h = 10 - r$</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <span class="tag">The direction test &middot; two seconds</span>
+    <p>Put in a number. If "the height is double the radius" and $r = 1$, is $h = 2$ or $h = 0.5$? A cone twice as tall as its radius is tall and narrow, so $h = 2$.</p>
+    <p>Written the wrong way round you would get $h = r/2$ and the answer $\pi r^3/6$, which is <strong>four times too small</strong>.</p>
+  </div>
+
+  <p><strong>Diameter is the second-most-expensive word in these questions.</strong> Any sentence containing "diameter" gets a $d = 2r$ substitution <em>before</em> you translate anything else.</p>
+
+  <h3>2.3 &nbsp;The two domains, which are different things</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th></th><th>What it is</th><th>How you find it</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Algebraic domain</strong></td><td>every input the <em>formula</em> can accept</td><td>denominators nonzero, even roots non-negative, logs positive</td></tr>
+        <tr><td><strong>Contextual domain</strong></td><td>every input the <em>situation</em> can accept</td><td>every physical length strictly positive, plus any bound the geometry forces</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The answer to a modelling question is the <strong>intersection</strong> of the two.</p>
+  <p>For this question the algebraic domain of $\frac{2\pi r^3}{3}$ is all of $\mathbb{R}$, because a polynomial accepts anything. The algebra contributes nothing at all, and the context does one hundred percent of the work. That is exactly why part b is worth asking, and exactly why people answer $\mathbb{R}$ and lose it.</p>
+</section>
+
+<section id="s3">
+  <h2><span class="num">03</span>The universal procedure</h2>
+  <p class="lede">Every "express $Q$ as a function of $x$" question on this course is this procedure.</p>
+  <blockquote>
+    <ol>
+      <li><strong>Write the formula</strong> that contains the quantity you are asked for. If the paper gives a hint formula, use its letters exactly, so your work lines up with the marker's.</li>
+      <li><strong>Count the variables.</strong> The target is one. The formula here has two, $r$ and $h$.</li>
+      <li><strong>Write every constraint sentence as an equation.</strong> One constraint kills one variable.</li>
+      <li><strong>Solve each constraint for the variable you want to remove</strong>, not for the one you are keeping.</li>
+      <li><strong>Substitute and simplify</strong> to one clean expression in the requested variable.</li>
+      <li><strong>Domain:</strong> start from the algebraic domain, then intersect every physical requirement. Each length must be strictly greater than zero, and that includes lengths that are not the variable you kept.</li>
+      <li><strong>Evaluate</strong> if asked, and keep it exact.</li>
+      <li><strong>Check</strong> with Section 06 before you commit.</li>
+    </ol>
+  </blockquote>
+
+  <h3>Classify before you start</h3>
+  <p>Step 2 versus step 3 tells you which kind of problem you are holding.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Variables in the formula</th><th>Constraints given</th><th>What that means</th></tr></thead>
+      <tbody>
+        <tr><td class="num-col">2</td><td>1, of the form $h = cr$</td><td>one substitution, answer is a monomial. <strong>This question.</strong></td></tr>
+        <tr><td class="num-col">2</td><td>1, of the form $h = ar+b$</td><td>one substitution, answer is a polynomial, and the domain gains a second edge</td></tr>
+        <tr><td class="num-col">2</td><td>1, but it is a fixed <em>total</em></td><td>solve the constraint by <strong>division</strong>; expect a $1/r$ term in the answer</td></tr>
+        <tr><td class="num-col">2</td><td>1, but it is Pythagorean</td><td>the answer contains a square root and the domain becomes a bounded interval</td></tr>
+        <tr><td class="num-col">3</td><td>2</td><td>substitute twice; do the substitution that cancels most first</td></tr>
+        <tr><td class="num-col">2</td><td>0</td><td>you have missed a sentence. Re-read for "always", "fixed", "constant", "remains"</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section id="s4">
+  <h2><span class="num">04</span>Q1.4 worked three ways</h2>
+
+  <h3>Route A &nbsp;&middot;&nbsp; substitute the constraint straight into the hint</h3>
+  <p>The constraint sentence is "height is double the radius", so $h = 2r$. Put that into the given formula, changing nothing else.</p>
+  <p>$$V = \frac{\pi r^2 h}{3} = \frac{\pi r^2 (2r)}{3} = \frac{2\pi r^3}{3}$$</p>
+  <p>Domain: $r$ is a length, so $r > 0$; and $h = 2r$ is then automatically positive, so it adds no new restriction. The domain is $(0,\infty)$.</p>
+  <p>Evaluate at $r = 3$, where $h = 6$:</p>
+  <p>$$V(3) = \frac{2\pi (3)^3}{3} = \frac{2\pi \cdot 27}{3} = 18\pi \approx 56.549$$</p>
+  <p>Three lines of algebra and no opportunity to go wrong after line one.</p>
+
+  <h3>Route B &nbsp;&middot;&nbsp; go through the height first, then convert back</h3>
+  <p>Solve the constraint the other way, $r = \dfrac{h}{2}$, and eliminate $r$ instead:</p>
+  <p>$$V = \frac{\pi}{3}\left(\frac{h}{2}\right)^2 h = \frac{\pi h^3}{12}$$</p>
+  <p>That is a function of $h$, not of $r$, so it does not answer part a as written. Put $h = 2r$ back in to finish:</p>
+  <p>$$V = \frac{\pi (2r)^3}{12} = \frac{8\pi r^3}{12} = \frac{2\pi r^3}{3} \quad\checkmark$$</p>
+  <p>Longer, and it squares a fraction, which is one extra place to drop a factor. <strong>Learn it anyway</strong>, because $V = \dfrac{\pi h^3}{12}$ is the exact form Midterm 1 question 7 needs, and it is the form you want whenever the <em>height</em> is the thing changing.</p>
+
+  <h3>Route C &nbsp;&middot;&nbsp; use the fact that the shape is fixed</h3>
+  <p>"Height is double the radius" pins the <em>shape</em> completely; only the size varies. Every length therefore scales together, so the volume must scale as the cube of any one length: $V = k\,r^3$.</p>
+  <p>Find $k$ from a single easy instance. At $r = 1$ the height is $2$, so $V = \pi(1)^2(2)/3 = 2\pi/3$, giving $k = \dfrac{2\pi}{3}$ and $V(r) = \dfrac{2\pi r^3}{3}$.</p>
+  <p>Fastest if you already trust the scaling argument. A poor route to <em>write down</em> where method is marked, because "the shape is fixed" needs a sentence of justification that the substitution does not.</p>
+
+  <h3>Which route, and why</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Route</th><th class="num-col">Lines</th><th>Where it can go wrong</th><th>Use it when</th></tr></thead>
+      <tbody>
+        <tr><td><strong>A &middot; substitute $h = 2r$</strong></td><td class="num-col">3</td><td>only the translation of the sentence</td><td><strong>always, on this question</strong></td></tr>
+        <tr><td>B &middot; via $V = \pi h^3/12$</td><td class="num-col">5</td><td>squaring $h/2$, then cubing $2r$</td><td>the question asks in terms of $h$, or anything changes with time</td></tr>
+        <tr><td>C &middot; scaling constant</td><td class="num-col">2</td><td>needs the shape genuinely fixed; fails the moment a constraint is affine like $h = r+3$</td><td>checking Route A, or a pure ratio constraint</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note ok">
+    <span class="tag">Under pressure</span>
+    <p><strong>Use Route A.</strong> Fewest steps, uses the letters the paper gave you, and its only failure mode is the one you have already checked with the direction test.</p>
+    <p>Route C is worth thirty seconds afterwards as independent confirmation, because it reaches the same answer without repeating Route A's algebra - and a check that repeats the work it is checking is not a check.</p>
+  </div>
+</section>
+
+<section id="s5">
+  <h2><span class="num">05</span>The exam-ready write-up</h2>
+  <p class="lede">If the paper wants method, these are the sentences that earn it. If it is M&ouml;bius, you still want them in your head, because they are the order of operations.</p>
+  <blockquote>
+    <p><strong>a.</strong> The height is double the radius, so $h = 2r$. Substituting into $V = \dfrac{\pi r^2 h}{3}$ gives $V = \dfrac{\pi r^2(2r)}{3} = \dfrac{2\pi r^3}{3}$.</p>
+    <p><strong>b.</strong> $r$ is the radius of a physical cone, so $r > 0$; the expression itself is a polynomial and places no further restriction, and $h = 2r > 0$ follows automatically. The domain is $(0, \infty)$.</p>
+    <p><strong>c.</strong> $V(3) = \dfrac{2\pi (3)^3}{3} = 18\pi$ cubic units.</p>
+  </blockquote>
+  <p><strong>Three things that pick up marks in part b specifically.</strong> Say <em>why</em> $r>0$ (it is a length), say that the polynomial adds nothing, and say that $h$ needed checking too even though it turned out free. That last clause is the one that shows you would have caught the $h = r - 2$ version.</p>
+</section>
+
+<section id="s6">
+  <h2><span class="num">06</span>Verify before you commit</h2>
+  <p class="lede">Eight seconds, and it catches every error this question can produce.</p>
+
+  <div class="note ok">
+    <span class="tag">The cylinder check &middot; the good one</span>
+    <p>A cone is one third of the cylinder around it. At $r = 3$ the height is $6$, so the cylinder has volume $\pi r^2 h = \pi \cdot 9 \cdot 6 = 54\pi$. A third of $54\pi$ is $18\pi$. $\checkmark$</p>
+    <p>This reaches the answer <em>without touching your formula at all</em>, which is what makes it a real check.</p>
+  </div>
+
+  <h4>The degree check</h4>
+  <p>$V$ must come out as degree <strong>3</strong> in $r$, always, whenever the constraint is $h = cr$. Two powers come from $r^2$ and one from the $h$. If you have written $r^2$, you substituted a constant for $h$ instead of something proportional to $r$; if you have $r^4$, you squared something you should not have.</p>
+
+  <h4>The coefficient check</h4>
+  <p>$h = 2r$ doubles the height, so the answer must be exactly <strong>twice</strong> $\dfrac{\pi r^3}{3}$, the $h = r$ cone. $\dfrac{2\pi r^3}{3}$ is. $\dfrac{\pi r^3}{6}$ is not - that is the constraint read backwards.</p>
+
+  <h4>The scaling check</h4>
+  <p>Volume goes as $r^3$, so doubling the radius multiplies the volume by $8$ and tripling it by $27$. $V(3)/V(1) = 18\pi \div \frac{2\pi}{3} = 27$. $\checkmark$</p>
+
+  <h4>The numbers worth memorising outright</h4>
+  <div class="tw">
+    <table>
+      <thead><tr><th>$r$</th><th>exact</th><th class="num-col">decimal</th></tr></thead>
+      <tbody>
+        <tr><td class="num-col">1</td><td>$\dfrac{2\pi}{3}$</td><td class="num-col">2.094</td></tr>
+        <tr><td class="num-col">2</td><td>$\dfrac{16\pi}{3}$</td><td class="num-col">16.755</td></tr>
+        <tr><td class="num-col">3</td><td>$18\pi$</td><td class="num-col">56.549</td></tr>
+        <tr><td class="num-col">6</td><td>$144\pi$</td><td class="num-col">452.389</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>If your part c is not $18\pi$, you have not found a new cone. You have made an arithmetic error.</p>
+</section>
+
+<section id="s7">
+  <h2><span class="num">07</span>Answer-entry rules</h2>
+  <p class="lede">M&ouml;bius grades by mathematical equivalence, so a correct answer is never rejected for its <em>form</em>. It is rejected for being <em>parsed</em> differently from how you meant it - silently, with no error message.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>Multiplication</td><td><code>2/3*Pi*r^3</code></td><td><code>2/3 Pi r^3</code></td></tr>
+        <tr><td>The constant $\pi$</td><td><code>Pi</code></td><td><code>pi</code> (see the flag below)</td></tr>
+        <tr><td>Powers</td><td><code>r^3</code></td><td><code>r**3</code>, <code>r3</code></td></tr>
+        <tr><td>Fractions</td><td><code>2/3*Pi*r^3</code> or <code>2*Pi*r^3/3</code></td><td><code>2*Pi*r^(3/3)</code></td></tr>
+        <tr><td>Exact value</td><td><code>18*Pi</code></td><td><code>56.55</code></td></tr>
+        <tr><td>Interval</td><td><code>(0,infinity)</code></td><td>a pasted &infin; glyph</td></tr>
+        <tr><td>Inequality box</td><td><code>r&gt;0</code></td><td><code>r&gt;=0</code></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>The recommended form is <code>2/3*Pi*r^3</code>.</strong> Putting the fraction at the front means there is no <code>/3</code> left dangling at the end for the parser to attach to the wrong thing, and no exponent adjacent to a slash.</p>
+
+  <div class="note warn">
+    <span class="tag">The single most expensive typo</span>
+    <p><code>2*Pi*r^(3/3)</code> is $2\pi r$, and is not close to anything. The runner-up is answering part b with <code>R</code> or <code>(-infinity,infinity)</code> because the polynomial accepts it.</p>
+  </div>
+
+  <div class="note warn">
+    <span class="tag">A flag &middot; the one trap preview does not catch</span>
+    <p>M&ouml;bius sits on top of Maple, and Maple treats <code>Pi</code> as the constant $3.14159\ldots$ while plain <code>pi</code> is just an unassigned Greek letter - a <em>variable</em>. Standard M&ouml;bius questions accept <code>pi</code>; Maple-graded ones do not, and nothing in the interface tells you which engine you are in.</p>
+    <p>Worse, the preview renders both as the same $\pi$ glyph, so <strong>previewing does not distinguish them</strong>. Type <code>Pi</code>, which is the constant under Maple and is accepted by M&ouml;bius, and confirm the behaviour on a practice question rather than during the exam.</p>
+  </div>
+
+  <p><strong>Always click the preview icon anyway.</strong> An empty preview modal means broken syntax, not wrong mathematics. It catches every bracket error in the table above, which is most of them.</p>
+</section>
+
+<section id="s8">
+  <h2><span class="num">08</span>The variation catalog</h2>
+  <p class="lede">This is the part that makes the question repeatable. Read each table as <em>structure</em>, not as a list of facts.</p>
+  <div class="note">
+    <span class="tag">How to read Family 0</span>
+    <p>There are only <strong>four distinct coefficients</strong> in play - $\tfrac{\pi}{6}, \tfrac{\pi}{3}, \tfrac{2\pi}{3}, \pi$ and their multiples - and every one of them is just $\tfrac{\pi}{3}$ multiplied by whatever number the sentence attaches to $r$.</p>
+    <p>You are not memorising ten answers. You are memorising one substitution and reading ten sentences correctly.</p>
+  </div>
+
+  <h3>Family 0 &nbsp;&middot;&nbsp; a proportional constraint $h = c\,r$ &nbsp;<em>(this question)</em></h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>the constraint is a pure multiple, with no added or subtracted constant</dd>
+    <dt>Tool</dt><dd>one substitution; the answer is always $\dfrac{c\,\pi r^3}{3}$</dd>
+    <dt>Domain</dt><dd>always $(0,\infty)$, because a positive multiple of a positive $r$ is positive</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>The sentence</th><th>Constraint</th><th>$V(r)$</th><th class="num-col">$V(3)$</th></tr></thead>
+      <tbody>
+        <tr><td>height is <strong>double</strong> the radius</td><td>$h = 2r$</td><td>$\dfrac{2\pi r^3}{3}$</td><td class="num-col">$18\pi$</td></tr>
+        <tr><td>height <strong>equals</strong> the radius</td><td>$h = r$</td><td>$\dfrac{\pi r^3}{3}$</td><td class="num-col">$9\pi$</td></tr>
+        <tr><td>height is <strong>triple</strong> the radius</td><td>$h = 3r$</td><td>$\pi r^3$</td><td class="num-col">$27\pi$</td></tr>
+        <tr><td>height is <strong>half</strong> the radius</td><td>$h = \tfrac{r}{2}$</td><td>$\dfrac{\pi r^3}{6}$</td><td class="num-col">$4.5\pi$</td></tr>
+        <tr><td>height is double the <strong>diameter</strong></td><td>$h = 4r$</td><td>$\dfrac{4\pi r^3}{3}$</td><td class="num-col">$36\pi$</td></tr>
+        <tr><td><strong>diameter equals</strong> the height</td><td>$h = 2r$</td><td>$\dfrac{2\pi r^3}{3}$</td><td class="num-col">$18\pi$</td></tr>
+        <tr><td><strong>diameter is double</strong> the height</td><td>$h = r$</td><td>$\dfrac{\pi r^3}{3}$</td><td class="num-col">$9\pi$</td></tr>
+        <tr><td><strong>radius is double</strong> the height</td><td>$h = \tfrac{r}{2}$</td><td>$\dfrac{\pi r^3}{6}$</td><td class="num-col">$4.5\pi$</td></tr>
+        <tr><td>height is three times the <strong>diameter</strong></td><td>$h = 6r$</td><td>$2\pi r^3$</td><td class="num-col">$54\pi$</td></tr>
+        <tr><td>radius is <strong>one third</strong> the height</td><td>$h = 3r$</td><td>$\pi r^3$</td><td class="num-col">$27\pi$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Rows 1, 6 and 8 are the ones to stare at. "Height is double the radius", "diameter equals the height" and "radius is double the height" are three different English sentences; the first two describe the <em>same</em> cone, and the third describes a different one - four times smaller.</p>
+
+  <h3>Family 0b &nbsp;&middot;&nbsp; the same cone, asked in terms of $h$</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>"as a function of the height", or anything changing with time</dd>
+    <dt>Tool</dt><dd>solve the constraint for $r$ rather than $h$, then substitute</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Constraint</th><th>$V$ as a function of $r$</th><th>$V$ as a function of $h$</th></tr></thead>
+      <tbody>
+        <tr><td>$h = 2r$</td><td>$\dfrac{2\pi r^3}{3}$</td><td>$\dfrac{\pi h^3}{12}$</td></tr>
+        <tr><td>$h = 3r$</td><td>$\pi r^3$</td><td>$\dfrac{\pi h^3}{27}$</td></tr>
+        <tr><td>$r = 2h$</td><td>$\dfrac{\pi r^3}{6}$</td><td>$\dfrac{4\pi h^3}{3}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Check the first row against itself: $V(r=3) = 18\pi$ and $V(h=6) = \pi \cdot 216/12 = 18\pi$. Same cone, two spellings.</p>
+
+  <h3>Family 1 &nbsp;&middot;&nbsp; an affine constraint $h = ar + b$</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>a "+", a "-", "exceeds by", "less than", or a fixed sum</dd>
+    <dt>Tool</dt><dd>same substitution, but the answer is a polynomial and <strong>the domain gains a second edge from $h &gt; 0$</strong></dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Constraint</th><th>$V(r)$</th><th>Domain</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>$h = r + 3$</td><td>$\dfrac{\pi r^2 (r+3)}{3}$</td><td>$(0,\infty)$</td><td>$h>0$ is free once $r>0$</td></tr>
+        <tr><td>$h = 2r - 1$</td><td>$\dfrac{\pi r^2 (2r-1)}{3}$</td><td>$\left(\tfrac12,\infty\right)$</td><td>$h>0$ needs $r>\tfrac12$</td></tr>
+        <tr><td>$h = r - 2$</td><td>$\dfrac{\pi r^2 (r-2)}{3}$</td><td>$(2,\infty)$</td><td>$h>0$ needs $r>2$</td></tr>
+        <tr><td>$r + h = 10$</td><td>$\dfrac{\pi r^2 (10-r)}{3}$</td><td>$(0,10)$</td><td>$h>0$ caps $r$ from above</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The last row is the one examiners like, because it is the first time the domain is <strong>bounded on both sides</strong> and neither bound comes from the algebra.</p>
+
+  <h3>Family 2 &nbsp;&middot;&nbsp; a Pythagorean constraint</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>a slant height, a ladder, a diagonal, a sphere the cone sits inside, "the distance from"</dd>
+    <dt>Tool</dt><dd>$r^2 + h^2 = L^2$, so $h = \sqrt{L^2 - r^2}$; now the algebra <em>does</em> restrict</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Setup</th><th>$V(r)$</th><th>Domain</th></tr></thead>
+      <tbody>
+        <tr><td>slant height $L$ fixed</td><td>$\dfrac{\pi r^2 \sqrt{L^2-r^2}}{3}$</td><td>$(0,L)$</td></tr>
+        <tr><td>slant $L = 10$, in terms of $h$</td><td>$\dfrac{\pi h (100-h^2)}{3}$</td><td>$(0,10)$</td></tr>
+        <tr><td>cone inscribed in a sphere of radius $R$</td><td>$\dfrac{\pi r^2\left(R+\sqrt{R^2-r^2}\right)}{3}$</td><td>$(0,R]$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The friendly instance to know: slant $10$, radius $6$, height $8$ - the 6-8-10 triangle - gives $V = 96\pi$.</p>
+  <div class="note warn">
+    <span class="tag">What only this family teaches</span>
+    <p>The square root <em>looks</em> like it is protecting you, and it is not. $\sqrt{100 - r^2}$ is perfectly happy at $r = -0.5$, because $r$ is squared before the root sees it.</p>
+    <p>The algebra supplies only the <strong>upper</strong> edge $r &lt; 10$. The lower edge $r &gt; 0$ is still pure context.</p>
+  </div>
+
+  <h3>Family 3 &nbsp;&middot;&nbsp; a fixed total, so you divide instead of multiply</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>"has volume 500", "with 200 metres of fencing", "on a budget of", "of fixed area"</dd>
+    <dt>Tool</dt><dd>solving the constraint requires a <strong>division</strong>, so the result carries a $1/r$ or $1/r^2$ term - the signature of this family</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Setup</th><th>Eliminate with</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>cone of fixed volume $100$, lateral area as a function of $r$</td><td>$h = \dfrac{300}{\pi r^2}$</td><td>$S(r)=\pi r\sqrt{r^2+\dfrac{90000}{\pi^2 r^4}}$</td></tr>
+        <tr><td>cylindrical can of volume $355$, total area</td><td>$h = \dfrac{355}{\pi r^2}$</td><td>$S(r)=2\pi r^2 + \dfrac{710}{r}$</td></tr>
+        <tr><td>box, square base, volume $32$, surface area</td><td>$h = \dfrac{32}{x^2}$</td><td>$S(x)=x^2 + \dfrac{128}{x}$</td></tr>
+        <tr><td>rectangle of perimeter $40$, area</td><td>$y = 20 - x$</td><td>$A(x)=x(20-x)$, domain $(0,20)$</td></tr>
+        <tr><td>can of volume $500$, ends cost 4 cents, side 2 cents</td><td>$h = \dfrac{500}{\pi r^2}$</td><td>$C(r)=0.08\pi r^2 + \dfrac{20}{r}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Note what the division does to the domain: $r = 0$ becomes an <strong>algebraic</strong> exclusion for the first time in this catalog, not merely a physical one.</p>
+
+  <h3>Family 4 &nbsp;&middot;&nbsp; a different solid, the identical script</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>the word "cone" is replaced</dd>
+    <dt>Tool</dt><dd>unchanged; only the formula in step 1 changes</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ask</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>sphere volume as a function of diameter</td><td>$V = \dfrac{\pi d^3}{6}$</td></tr>
+        <tr><td>sphere volume as a function of surface area $A$</td><td>$V = \dfrac{A^{3/2}}{6\sqrt{\pi}}$</td></tr>
+        <tr><td>cylinder with $h = 2r$, volume</td><td>$V = 2\pi r^3$</td></tr>
+        <tr><td>cylinder with $h = 2r$, total surface area</td><td>$S = 6\pi r^2$</td></tr>
+        <tr><td>cube volume as a function of surface area $S$</td><td>$V = \left(\dfrac{S}{6}\right)^{3/2}$</td></tr>
+        <tr><td>square pyramid with $h = 2s$, volume</td><td>$V = \dfrac{2s^3}{3}$</td></tr>
+        <tr><td>equilateral triangle area as a function of side</td><td>$A = \dfrac{\sqrt3\,s^2}{4}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Rows 2 and 5 are worth practising, because they run the procedure <em>backwards</em>: the constraint is solved with a square root, and the answer carries a fractional exponent.</p>
+
+  <h3>Family 5 &nbsp;&middot;&nbsp; the model is not geometric at all</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>money, numbers, distance, population, a rate</dd>
+    <dt>Tool</dt><dd>identical; one relationship eliminates one unknown</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ask</th><th>Answer</th><th>Domain</th></tr></thead>
+      <tbody>
+        <tr><td>two positive numbers sum to $20$; their product</td><td>$P(x)=x(20-x)$</td><td>$(0,20)$</td></tr>
+        <tr><td>$200$ m of fence, three sides against a river</td><td>$A(x)=x(200-2x)$</td><td>$(0,100)$</td></tr>
+        <tr><td>distance from the origin to a point on $y=x^2+1$</td><td>$d(x)=\sqrt{x^4+3x^2+1}$</td><td>$\mathbb{R}$</td></tr>
+        <tr><td>cost of the can in Family 3</td><td>$C(r)=0.08\pi r^2+\dfrac{20}{r}$</td><td>$(0,\infty)$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Row 3 is the exception that proves the rule: $x$ is a <em>coordinate</em>, not a length, so it is allowed to be negative and the contextual domain is everything. Do not apply "lengths are positive" to a variable that is not a length.</p>
+
+  <h3>Family 6 &nbsp;&middot;&nbsp; the question is only about the domain</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>"state the domain", "for what values of $r$ is this model valid"</dd>
+    <dt>Tool</dt><dd>the two-column split from 2.3; write both, then intersect</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Model</th><th>Algebraic domain</th><th>Contextual domain</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>$\dfrac{2\pi r^3}{3}$</td><td>$\mathbb{R}$</td><td>$r>0$</td><td>$(0,\infty)$</td></tr>
+        <tr><td>$\dfrac{\pi r^2(12-r)}{3}$</td><td>$\mathbb{R}$</td><td>$0&lt;r&lt;12$</td><td>$(0,12)$</td></tr>
+        <tr><td>$\dfrac{\pi r^2\sqrt{100-r^2}}{3}$</td><td>$[-10,10]$</td><td>$r>0$</td><td>$(0,10)$</td></tr>
+        <tr><td>$\dfrac{300}{\pi r^2}$</td><td>$r \ne 0$</td><td>$r>0$</td><td>$(0,\infty)$</td></tr>
+        <tr><td>$2\pi r^2+\dfrac{710}{r}$</td><td>$r \ne 0$</td><td>$r>0$</td><td>$(0,\infty)$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Read the middle column down. In rows 1 and 2 the algebra contributes <strong>nothing</strong> and every restriction is physical. In row 3 the algebra supplies one edge and the context supplies the other. In rows 4 and 5 they overlap. <strong>A question is testing you precisely when those two columns disagree.</strong></p>
+
+  <h3>Family 7 &nbsp;&middot;&nbsp; evaluate, invert, or scale</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>a number is supplied instead of asked for</dd>
+    <dt>Tool</dt><dd>for inversion, a cube root; for scaling, the exponent</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ask</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>$V(1),V(2),V(3),V(4),V(5),V(6)$</td><td>$\dfrac{2\pi}{3},\ \dfrac{16\pi}{3},\ 18\pi,\ \dfrac{128\pi}{3},\ \dfrac{250\pi}{3},\ 144\pi$</td></tr>
+        <tr><td>for which $r$ is $V = 486\pi$</td><td>$r = 9$</td></tr>
+        <tr><td>for which $r$ is $V = 48\pi$</td><td>$r = \sqrt[3]{72} \approx 4.1602$</td></tr>
+        <tr><td>for which $r$ is $V = 100$</td><td>$r = \sqrt[3]{150/\pi} \approx 3.6278$</td></tr>
+        <tr><td>the radius doubles; the volume is multiplied by</td><td>$8$</td></tr>
+        <tr><td>the radius triples; the volume is multiplied by</td><td>$27$</td></tr>
+        <tr><td>which $r$ doubles $V(3)$</td><td>$3\sqrt[3]{2} \approx 3.7798$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Inverting is one rearrangement: $r = \sqrt[3]{\dfrac{3V}{2\pi}}$. The last row is the one people get wrong, because doubling the volume needs a factor of $\sqrt[3]{2} \approx 1.26$ on the radius, not $2$.</p>
+
+  <h3>Family 8 &nbsp;&middot;&nbsp; the same cone with calculus bolted on</h3>
+  <dl class="fam">
+    <dt>Trigger</dt><dd>"how fast", "at what rate", "the largest", "approximate"</dd>
+    <dt>Tool</dt><dd>the model from part a is now the <em>input</em> to a derivative</dd>
+  </dl>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Ask</th><th>Working</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>$\dfrac{dV}{dr}$</td><td>differentiate $\tfrac{2\pi r^3}{3}$</td><td>$2\pi r^2$</td></tr>
+        <tr><td>$\dfrac{dV}{dr}$ at $r=3$</td><td>$2\pi(9)$</td><td>$18\pi \approx 56.549$</td></tr>
+        <tr><td>$\dfrac{dV}{dr}$ at $r=2$</td><td>$2\pi(4)$</td><td>$8\pi \approx 25.133$</td></tr>
+        <tr><td>$\dfrac{dV}{dt}$ if $\dfrac{dr}{dt}=0.2$ at $r=3$</td><td>$2\pi r^2 \dfrac{dr}{dt}$</td><td>$3.6\pi \approx 11.310$</td></tr>
+        <tr><td><strong>MT1 Q7:</strong> $\dfrac{dV}{dt}=0.5$, find $\dfrac{dh}{dt}$ at $h=4$</td><td>$V=\tfrac{\pi h^3}{12}$, so $\tfrac{dV}{dt}=\tfrac{\pi h^2}{4}\tfrac{dh}{dt}$</td><td>$\dfrac{1}{8\pi}\approx 0.0398$ m/min</td></tr>
+        <tr><td>approximate $V(3.1)$ linearly</td><td>$18\pi + 18\pi(0.1)$</td><td>$19.8\pi \approx 62.204$ (true $62.394$)</td></tr>
+        <tr><td>largest cone inscribed in a sphere of radius $R$</td><td>$h=\tfrac{4R}{3}$, $r^2=\tfrac{8R^2}{9}$</td><td>$V_{\max}=\dfrac{32\pi R^3}{81}$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note warn">
+    <span class="tag">A coincidence, so it does not fool you</span>
+    <p>At $r = 3$ it happens that $V = 18\pi$ <em>and</em> $V' = 18\pi$. That is an accident of $r=3$ - it holds because $V/V' = r/3$ - and it is false everywhere else. At $r = 4$, $V = \tfrac{128\pi}{3} \approx 134.0$ while $V' = 32\pi \approx 100.5$.</p>
+    <p>If you are checking part c against a derivative you computed, you are checking nothing at $r=3$.</p>
+  </div>
+</section>
+
+<section id="s9">
+  <h2><span class="num">09</span>The trap list</h2>
+  <p class="lede">Ranked by how often they actually cost marks.</p>
+  <ol class="rank">
+    <li><span><strong>Reading the constraint backwards.</strong> $r = 2h$ instead of $h = 2r$ gives $\frac{\pi r^3}{6}$, four times too small, and it destroys all three parts at once. Use the direction test in 2.2.</span></li>
+    <li><span><strong>Answering part b with $\mathbb{R}$.</strong> The polynomial genuinely accepts every real number. The cone does not. This is the most commonly dropped single mark on the question.</span></li>
+    <li><span><strong>Including the endpoint, writing $[0,\infty)$.</strong> A cone of radius zero is a point, not a cone with volume zero. The interval is open.</span></li>
+    <li><span><strong>Leaving $h$ in the answer.</strong> "As a function of $r$" means no $h$ may appear. $\frac{\pi r^2 h}{3}$ with a note that $h=2r$ is not an answer to part a.</span></li>
+    <li><span><strong>Missing the second domain edge</strong> in the Family 1 and Family 2 variations. Every length must be positive, not just the one you kept.</span></li>
+    <li><span><strong>Diameter read as radius.</strong> Any sentence containing "diameter" needs $d=2r$ applied before anything else.</span></li>
+    <li><span><strong>Giving a decimal for part c.</strong> $18\pi$ is the answer; $56.55$ is a rounding of it.</span></li>
+    <li><span><strong>Typing <code>pi</code> where the engine wants <code>Pi</code></strong>, which the preview cannot show you.</span></li>
+    <li><span><strong>Using the cylinder formula</strong> - that is, forgetting the $/3$. The cylinder check in 06 catches this instantly.</span></li>
+    <li><span><strong>Squaring only $r$ and not the whole of $h/2$</strong> on Route B, giving $\frac{\pi h^3}{6}$ instead of $\frac{\pi h^3}{12}$.</span></li>
+  </ol>
+</section>
+
+<section id="s10">
+  <h2><span class="num">10</span>Drill set</h2>
+  <p class="lede">No answers beside the questions. Do all twelve on paper in under fifteen minutes, then check.</p>
+  <ol class="drill">
+    <li>A cone's height is three times its radius. Express $V$ as a function of $r$.</li>
+    <li>A cone's base diameter equals its height. Express $V$ as a function of $h$.</li>
+    <li>A cone's height is 2 less than its radius. Express $V$ as a function of $r$, and give the domain.</li>
+    <li>A cone has slant height 6. Express $V$ as a function of $r$, and give the domain.</li>
+    <li>A cylinder has volume 500. Express its total surface area as a function of $r$.</li>
+    <li>Express the volume of a sphere as a function of its surface area $A$.</li>
+    <li>Two positive numbers sum to 30. Express their product as a function of one of them.</li>
+    <li>State the domain of the cone model $V(r)=\dfrac{\pi r^2 (12-r)}{3}$.</li>
+    <li>For the Q1.4 cone, find $r$ when $V = 486\pi$.</li>
+    <li>For the Q1.4 cone, the radius triples. By what factor does the volume change?</li>
+    <li>For the Q1.4 cone, find $\dfrac{dV}{dr}$ at $r = 2$.</li>
+    <li>Gravel forms a cone whose base diameter always equals its height, at $0.5\ \text{m}^3/\text{min}$. Find $\dfrac{dh}{dt}$ when $h = 4$ m.</li>
+  </ol>
+
+  <h3>Answer key</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>#</th><th>exact</th><th class="num-col">decimal</th><th>family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="num-col">1</td><td>$\pi r^3$</td><td class="num-col">&mdash;</td><td>0, $h=3r$</td></tr>
+        <tr><td class="num-col">2</td><td>$\dfrac{\pi h^3}{12}$</td><td class="num-col">&mdash;</td><td>0b, $d=h$ so $r=h/2$</td></tr>
+        <tr><td class="num-col">3</td><td>$\dfrac{\pi r^2(r-2)}{3}$, domain $(2,\infty)$</td><td class="num-col">&mdash;</td><td>1, second edge from $h>0$</td></tr>
+        <tr><td class="num-col">4</td><td>$\dfrac{\pi r^2\sqrt{36-r^2}}{3}$, domain $(0,6)$</td><td class="num-col">&mdash;</td><td>2, Pythagoras; upper edge algebraic, lower edge contextual</td></tr>
+        <tr><td class="num-col">5</td><td>$2\pi r^2+\dfrac{1000}{r}$</td><td class="num-col">&mdash;</td><td>3, fixed total, so divide</td></tr>
+        <tr><td class="num-col">6</td><td>$\dfrac{A^{3/2}}{6\sqrt{\pi}}$</td><td class="num-col">&mdash;</td><td>4, procedure run backwards</td></tr>
+        <tr><td class="num-col">7</td><td>$P(x)=x(30-x)$, domain $(0,30)$</td><td class="num-col">&mdash;</td><td>5, non-geometric</td></tr>
+        <tr><td class="num-col">8</td><td>$(0,12)$</td><td class="num-col">&mdash;</td><td>6, both edges contextual</td></tr>
+        <tr><td class="num-col">9</td><td>$r=9$</td><td class="num-col">9</td><td>7, invert with a cube root</td></tr>
+        <tr><td class="num-col">10</td><td>$\times 27$</td><td class="num-col">27</td><td>7, the exponent is the answer</td></tr>
+        <tr><td class="num-col">11</td><td>$8\pi$</td><td class="num-col">25.1327</td><td>8, $dV/dr = 2\pi r^2$</td></tr>
+        <tr><td class="num-col">12</td><td>$\dfrac{1}{8\pi}$ m/min</td><td class="num-col">0.0398</td><td>8, MT1 Q7, use $V=\pi h^3/12$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <span class="tag">How to mark yourself</span>
+    <p>Score <strong>translation</strong> separately from <strong>algebra</strong>. If the substitutions are clean but the constraints keep coming out reversed or off by a factor of two, the problem is 2.2, and drilling more algebra will not fix it.</p>
+    <p>If the constraints are right but the domains keep coming out as $\mathbb{R}$, the problem is 2.3 - and that is worth more marks per minute than anything else on this list.</p>
+  </div>
+</section>
+
+<section id="s11">
+  <h2><span class="num">11</span>The one-page decision tree</h2>
+<pre><code>"Express Q as a function of x"
+|
++-- 1. Write the formula for Q.  Use the hint's letters if one is given.
+|
++-- 2. How many variables does it contain?
+|       ONE already -&gt; you are done with step 3, go to the domain.
+|       TWO or more -&gt; you need one constraint per extra variable.
+|
++-- 3. Translate each constraint sentence.  Subject on the LEFT.
+|       Contains "diameter"?                     substitute d = 2r FIRST.
+|       Contains "double / half / triple"?       Family 0, answer is c*pi*r^3/3.
+|       Contains "+ / - / exceeds / sum"?        Family 1, expect a second domain edge.
+|       Contains "slant / diagonal / inscribed"? Family 2, expect a square root.
+|       Contains "has volume / perimeter"?       Family 3, expect a 1/x term.
+|       DIRECTION TEST: put x = 1 into the sentence.  Is the other one 2, or 0.5?
+|
++-- 4. Solve the constraint for the variable you want to REMOVE, then substitute.
+|
++-- 5. Simplify.  Check the DEGREE: h = c*r always gives degree 3.
+|
++-- 6. Domain = ALGEBRAIC and CONTEXTUAL, intersected.
+|       Algebraic:  denominator != 0,  even root &gt;= 0,  log &gt; 0.
+|       Contextual: EVERY length &gt; 0 - including the one you eliminated.
+|       Endpoints are OPEN unless a zero length is genuinely allowed.  It is not.
+|
++-- 7. Evaluate if asked.  Keep pi symbolic.
+|
++-- 8. CHECK: a cone is 1/3 of its cylinder.  Degree 3.  Doubling r gives x8.
+|
++-- 9. Type it: 2/3*Pi*r^3 , (0,infinity) , 18*Pi .  Then PREVIEW.</code></pre>
+</section>
+
+<section id="s12">
+  <h2><span class="num">12</span>Sources and provenance</h2>
+  <footer>
+    <ul>
+      <li><strong>Question text:</strong> <code>C:\Users\mnguyen\notes\MATH265.md</code> (Q1.4), and <code>C:\Users\mnguyen\notes\MATH265\MATH265.md</code> (Midterm Exam 2, item 2, <strong>4 points</strong>). Wording and hint formula quoted verbatim.</li>
+      <li><strong>The calculus cross-reference:</strong> <code>MATH265\MATH265.md</code> Midterm Exam 1, item 7, 5 points ("base diameter and height are always equal").</li>
+      <li><strong>Variation families:</strong> derived here. <code>MATH265_Categorized.md</code> lists this question under "Functions and Domains" but sketches no families for it, unlike its topic-1 entry.</li>
+      <li><strong>Answer-entry rules:</strong> <code>Work\knowledge\topics\mobius-exam-platform.md</code>, in particular the two-engine trap and the preview habit. The <code>pi</code> versus <code>Pi</code> point follows from documented Maple naming and is flagged as something to confirm on a practice question, not as something observed on this course's exam.</li>
+      <li><strong>Numerical verification, run 2026-08-31.</strong> Every claimed closed form was checked against the <em>hint formula</em> $\pi r^2 h/3$ evaluated directly with the constraint substituted, over an 81-point sweep of the stated domain, at tolerance 1e-11. <strong>3750 individual numeric checks, 0 failures</strong>, reported as 150 assertion lines: 45 sweeps covering 3645 sampled points, plus 105 single assertions and domain-boundary checks. Coverage: the three parts, the three routes, all six checks in 06, all nine families in 08, the twelve drill answers, and every decimal quoted anywhere.</li>
+      <li><strong>Re-runnable:</strong> those assertions live in <code>Work\knowledge\topics\math265-answer-verification.py</code>, which re-checks Q1.1, Q1.2 and this question on every run. Expect exactly 2 unrelated pre-existing failures (<code>sin62</code>, <code>cos62</code>), a tolerance artifact of a linear-approximation check and not a wrong answer.</li>
+      <li><strong>What the gate caught.</strong> Three decimals in an early draft were wrong and were caught by the verification pass rather than by review: $(150/\pi)^{1/3}$, $V(3.1)$, and $32\pi R^3/81$ at $R=5$. The values above are the corrected ones. This is the reason the numeric gate exists.</li>
+      <li><strong>Markdown source:</strong> <code>C:\Users\mnguyen\notes\Q1.4 - Volume of a cone as a function of its radius.md</code></li>
+    </ul>
+  </footer>
+</section>
+
+</main>
+</div>
