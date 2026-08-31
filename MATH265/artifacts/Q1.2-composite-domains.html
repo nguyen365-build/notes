@@ -1,0 +1,1253 @@
+<title>Composite Function Domains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false },
+  startup: { pageReady: function () {
+    return MathJax.startup.defaultPageReady().then(function () {
+      document.documentElement.setAttribute('data-mj','done');
+    });
+  } }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+/* ===== dark-first ops console: bare :root is dark, light is the override ===== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --trap:#D2765C; --trap-soft:rgba(210,118,92,.12);
+  --good:#6FA8A0; --good-soft:rgba(111,168,160,.12);
+  --slate:#7E9BC4;
+  --grid:rgba(230,234,241,.026); --ha-wash:rgba(126,155,196,.10);
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+    --good:#33726A; --good-soft:rgba(51,114,106,.10);
+    --slate:#3F6493;
+    --grid:rgba(23,27,34,.042); --ha-wash:rgba(63,100,147,.09);
+    --mj:#171B22;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+  --good:#33726A; --good-soft:rgba(51,114,106,.10);
+  --slate:#3F6493;
+  --grid:rgba(23,27,34,.042); --ha-wash:rgba(63,100,147,.09);
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+/* ---- masthead ---- */
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:62ch;margin:0}
+
+/* ---- the answer slab ---- */
+.slab{
+  margin:30px 0 8px;border:1px solid var(--accent-line);background:var(--surface);
+  border-radius:3px;overflow:hidden;
+}
+.slab-head{
+  padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--accent-soft);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.slab-body{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:760px){.slab-body{grid-template-columns:1fr 1fr}}
+.slab-cell{padding:22px 20px;min-width:0}
+.slab-cell + .slab-cell{border-top:1px solid var(--line-soft)}
+@media (min-width:760px){
+  .slab-cell + .slab-cell{border-top:0;border-left:1px solid var(--line-soft)}
+}
+.lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);
+  display:block;margin-bottom:9px;
+}
+.entry{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;font-weight:500;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;color:var(--accent);display:block;
+  overflow-x:auto;white-space:nowrap;
+}
+.decimal{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink2);
+  margin-top:11px;font-variant-numeric:tabular-nums;
+}
+
+/* ---- sections ---- */
+section{margin-top:52px;scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--accent);display:block;margin-bottom:7px;
+}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;
+  margin:26px 0 8px;color:var(--ink);
+}
+.sub{color:var(--ink2);margin:0 0 18px;max-width:66ch}
+p{max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink)}
+
+/* ---- chain / tree code blocks ---- */
+pre.chain{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.75;
+  background:var(--sunk);border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:0;overflow-x:auto;color:var(--ink);
+}
+pre.chain b{color:var(--accent);font-weight:600}
+pre.chain i{color:var(--trap);font-style:normal}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  background:var(--surface2);white-space:nowrap;font-weight:500;
+}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hl{background:var(--accent-soft)}
+.hl td{font-weight:500}
+
+/* ---- callouts ---- */
+.note{
+  border:1px solid var(--line);border-left:2px solid var(--slate);background:var(--surface);
+  border-radius:3px;padding:15px 18px;margin:18px 0;
+}
+.note.trap{border-left-color:var(--trap);background:var(--trap-soft)}
+.note.good{border-left-color:var(--good);background:var(--good-soft)}
+.note .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--slate);
+}
+.note.trap .tag{color:var(--trap)}
+.note.good .tag{color:var(--good)}
+.note p{margin:0;max-width:64ch}
+.note p + p{margin-top:9px}
+
+/* ---- route cards ---- */
+.routes{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:820px){.routes{grid-template-columns:repeat(4,1fr)}}
+.route{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:17px 18px}
+.route.pick{border-color:var(--accent-line);background:var(--accent-soft)}
+.route.bad{border-left:2px solid var(--trap)}
+.route h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin:0 0 11px;color:var(--ink3);font-weight:500;
+}
+.route.pick h4{color:var(--accent)}
+.route p{font-size:13.5px;margin:0;color:var(--ink2)}
+
+/* ---- family panels ---- */
+.fam{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;overflow:hidden}
+.fam.key{border-color:var(--accent-line)}
+.fam-head{
+  padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:11px;
+}
+.fam.key .fam-head{background:var(--accent-soft)}
+.fam-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;white-space:nowrap;
+}
+.fam-t{font-weight:600;font-size:15px}
+.fam-tool{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);margin-left:auto;
+}
+.fam-body{padding:16px 18px}
+.fam-body > :first-child{margin-top:0}
+.fam-body .tw{margin-left:0;margin-right:0}
+.trigger{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--ink2);background:var(--sunk);border:1px solid var(--line);
+  border-radius:2px;padding:8px 11px;margin:0 0 13px;max-width:none;
+}
+.trigger b{color:var(--accent);font-weight:500}
+
+/* ---- the real line ---- */
+.nl{margin:14px 0;overflow-x:auto}
+.nl svg{display:block;min-width:520px;width:100%;height:auto}
+.nl-cap{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:6px;
+}
+.nl .ax{stroke:var(--ink3);stroke-width:1.2}
+.nl .tick{stroke:var(--ink3);stroke-width:1}
+.nl .band{fill:var(--good-soft);stroke:var(--good);stroke-width:1}
+.nl .lbl-t{fill:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:11px}
+.nl .lbl-x{fill:var(--trap);font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600}
+.nl .lbl-k{fill:var(--good);font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600}
+.nl .open{fill:var(--ground);stroke:var(--trap);stroke-width:2.2}
+.nl .closed{fill:var(--good);stroke:var(--good);stroke-width:2.2}
+.nl .ghost{fill:var(--ground);stroke:var(--accent);stroke-width:2.2;stroke-dasharray:3 2.5}
+.nl .lbl-g{fill:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:11.5px;font-weight:600}
+
+/* ---- sign chart ---- */
+.sign td.mono{text-align:center;font-size:15px;font-weight:600}
+.sign .pos{color:var(--good)}
+.sign .neg{color:var(--trap)}
+.sign .keep{color:var(--good);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+.sign .drop{color:var(--trap);font-family:"IBM Plex Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
+
+/* ---- ordered trap list ---- */
+ol.traps{counter-reset:t;list-style:none;padding:0;margin:16px 0}
+ol.traps li{
+  counter-increment:t;position:relative;padding:11px 0 11px 46px;
+  border-bottom:1px solid var(--line-soft);max-width:70ch;
+}
+ol.traps li:last-child{border-bottom:0}
+ol.traps li::before{
+  content:counter(t,decimal-leading-zero);position:absolute;left:0;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);letter-spacing:.08em;
+}
+
+/* ---- drills ---- */
+ol.drills{
+  list-style:none;counter-reset:d;padding:0;margin:16px 0;
+  display:grid;gap:9px;grid-template-columns:1fr;
+}
+@media (min-width:660px){ol.drills{grid-template-columns:1fr 1fr}}
+ol.drills li{
+  counter-increment:d;border:1px solid var(--line);background:var(--surface);
+  border-radius:3px;padding:11px 14px 11px 42px;position:relative;min-width:0;
+}
+ol.drills li::before{
+  content:counter(d);position:absolute;left:14px;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink3);
+}
+details.key{
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin:18px 0;overflow:hidden;
+}
+details.key > summary{
+  padding:13px 18px;cursor:pointer;background:var(--surface2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  list-style:none;
+}
+details.key > summary::-webkit-details-marker{display:none}
+details.key > summary::before{content:"[ + ]  ";color:var(--ink3)}
+details.key[open] > summary::before{content:"[ - ]  "}
+details.key > summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+details.key .tw{margin:0;border:0;border-radius:0}
+
+/* ---- write-up block ---- */
+ol.writeup{margin:16px 0;padding-left:0;list-style:none;counter-reset:w}
+ol.writeup li{
+  counter-increment:w;position:relative;padding:12px 16px 12px 48px;
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin-bottom:9px;max-width:74ch;
+}
+ol.writeup li::before{
+  content:"S" counter(w);position:absolute;left:15px;top:12px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--accent);
+}
+
+/* ---- numbers strip ---- */
+.nums{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:16px 0}
+.num{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:14px 16px;text-align:center}
+.num .v{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;color:var(--accent);font-variant-numeric:tabular-nums}
+.num .n{font-size:12px;color:var(--ink3);margin-top:6px}
+
+/* ---- footer ---- */
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+footer p{max-width:76ch;margin:0 0 8px}
+footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2);font-size:11.5px}
+.verified{
+  display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);
+  border:1px solid var(--good);border-radius:2px;padding:5px 10px;margin-bottom:14px;
+}
+.legend{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.legend .key{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;padding:6px 10px;
+  color:var(--ink2);
+}
+.legend .k-out{border-color:var(--trap);background:var(--trap-soft);color:var(--trap)}
+.legend .k-in{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.legend .k-gh{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Athabasca MATH 265 &middot; Midterm 1 &middot; Q2 &middot; 6 points</div>
+  <h1>Composite functions and their domains</h1>
+  <p class="deck">Almost everyone gets the algebra on this question. The domain is what separates a 6
+  from a 4, and there is exactly one habit that protects it: write the domain down <em>before</em> you
+  simplify. Simplification is the step that destroys the evidence. This is the method, all thirteen
+  variations of it, and the fifteen-second check.</p>
+</header>
+
+<div class="slab">
+  <div class="slab-head">The question and the answer</div>
+  <div class="slab-body">
+    <div class="slab-cell">
+      <span class="lbl">Asked</span>
+      <p style="margin:0 0 14px">Let \(f(x)=2x^2-5\) and \(g(x)=\dfrac{x+5}{2x-9}\). Find the composite
+      functions and their corresponding domains.</p>
+      <span class="lbl">a. \(f(g(x))\)</span>
+      $$2\left(\frac{x+5}{2x-9}\right)^{2}-5,\qquad x\neq\tfrac92$$
+      <span class="lbl" style="margin-top:16px">b. \(g(f(x))\)</span>
+      $$\frac{2x^{2}}{4x^{2}-19},\qquad x\neq\pm\tfrac{\sqrt{19}}{2}$$
+    </div>
+    <div class="slab-cell">
+      <span class="lbl">What to type into M&ouml;bius</span>
+      <code class="entry">2*((x+5)/(2*x-9))^2-5</code>
+      <code class="entry" style="margin-top:9px">2*x^2/(4*x^2-19)</code>
+      <div class="decimal">Excluded: 4.5 &nbsp;and&nbsp; &plusmn;2.1794494717&hellip;</div>
+      <div class="decimal" style="color:var(--ink3)">Write the second one as
+      <span style="color:var(--ink2)">sqrt(19)/2</span>, never as a decimal.</div>
+      <div class="decimal" style="color:var(--ink3)">Also accepted for (a):
+      <span style="color:var(--ink2)">2*(x+5)^2/(2*x-9)^2-5</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <span class="snum">00</span>
+  <h2>The whole method in four lines</h2>
+  <p class="sub">Runnable from memory, no calculator, about thirty seconds.</p>
+<pre class="chain">f(x) = 2x^2 - 5            domain of f: <b>ALL reals</b>   (no denominator, no root)
+g(x) = (x+5)/(2x-9)        domain of g: <b>x != 9/2</b>    (denominator dies at 9/2)
+
+a) f(g(x))   substitute g into f    2*[(x+5)/(2x-9)]^2 - 5
+   domain    only g can fail        <b>x != 9/2</b>
+
+b) g(f(x))   substitute f into g    (2x^2-5+5) / (2(2x^2-5)-9) = 2x^2/(4x^2-19)
+   domain    g must survive f(x)    4x^2-19 != 0  -&gt;  <b>x != +- sqrt(19)/2</b></pre>
+
+  <div class="note good">
+    <span class="tag">The one habit</span>
+    <p>Write the domain down <strong>before</strong> you simplify. Cancellation removes a factor from
+    the formula, but it does not remove the point from the domain. Once the factor is gone there is
+    nothing left in the formula to remind you.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">01</span>
+  <h2>What this question is really testing</h2>
+  <p class="sub">6 of 64 points, and the largest of the four function questions. It looks like
+  bookkeeping. It is the rehearsal for the chain rule.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Reflex being checked</th><th>Where it comes back</th></tr></thead>
+    <tbody>
+      <tr><td>Substituting an entire expression in place of \(x\)</td><td>the chain rule, which is literally the derivative of \(f(g(x))\)</td></tr>
+      <tr><td>Recognising \(f\circ g\) structure inside a formula</td><td>\(u\)-substitution in the integral question, implicit differentiation</td></tr>
+      <tr><td>Solving &ldquo;denominator \(=0\)&rdquo;</td><td>vertical asymptotes (Q4.1), where a limit fails to exist (Q3.x)</td></tr>
+      <tr><td>Knowing a restriction survives simplification</td><td>holes versus poles, removable versus infinite discontinuity</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>You cannot differentiate \(f(g(x))\) until you can <em>see</em> that a formula is \(f(g(x))\), and
+  that is exactly the skill being graded here. Treat Q2 as preparation for the derivative questions,
+  not as a precalculus leftover.</p>
+
+  <div class="note">
+    <span class="tag">Format</span>
+    <p>The sample paper prints &ldquo;(6 points)&rdquo; and neighbouring questions say &ldquo;Explain the
+    procedure you are using&rdquo;, which reads like a hand-marked written exam. The live delivery is
+    M&ouml;bius: answer-only and machine-marked, no work shown. Unlike item 3 on the same paper, this
+    question carries <strong>no &ldquo;no credit will be given&rdquo; clause</strong>, so no particular
+    method is mandated. Prepare for both.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">02</span>
+  <h2>The four things you must have cold</h2>
+
+  <h3>2.1 &nbsp;The three restriction triggers</h3>
+  <p>There are only three things in a first-year formula that can refuse an input. Scan for these
+  three and nothing else.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Trigger</th><th>What you write</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>A denominator</td><td class="mono">set it \(\neq 0\)</td><td>division by zero is undefined</td></tr>
+      <tr><td>An <strong>even</strong> root \(\sqrt{\;}\), \(\sqrt[4]{\;}\)</td><td class="mono">radicand \(\geq 0\)</td><td>no real even root of a negative</td></tr>
+      <tr><td>A logarithm</td><td class="mono">argument \(\gt 0\)</td><td>\(\ln\) of zero or a negative is undefined</td></tr>
+    </tbody>
+  </table></div>
+  <p>Two things that are <strong>not</strong> triggers, and cost people time every year:
+  <strong>odd</strong> roots accept everything, so \(\sqrt[3]{x-7}\) has domain \(\mathbb{R}\); and
+  polynomials accept everything, which is what makes part (a) short.</p>
+  <p>Note the strictness difference. A square root allows the boundary \((\geq)\), a logarithm does not
+  \((\gt)\). That single character is worth a mark on its own, and Family 8 makes the contrast explicit.</p>
+
+  <h3>2.2 &nbsp;The composition, and the order convention</h3>
+  $$(f\circ g)(x) = f(g(x))$$
+  <p>Read it right to left: \(g\) runs <strong>first</strong>, \(f\) runs <strong>second</strong>. The
+  notation \(f\circ g\) is pronounced &ldquo;\(f\) after \(g\)&rdquo;, which is the mnemonic that keeps
+  the order straight. Mechanically: take the formula for \(f\) and replace <strong>every</strong> \(x\)
+  in it by the whole expression \(g(x)\), brackets and all.</p>
+
+  <h3>2.3 &nbsp;The domain rule, in one line</h3>
+  $$\text{Domain of } f(g(x)) \;=\; \{\,x \;:\; x\in D_g \;\textbf{ and }\; g(x)\in D_f \,\}$$
+
+  <div class="note trap">
+    <span class="tag">The half everyone gets wrong</span>
+    <p>\(f\)'s restriction does <strong>not</strong> apply to \(x\). It applies to \(g(x)\), the thing
+    \(f\) is actually being handed.</p>
+    <p>In part (b), \(g\) refuses the input \(9/2\), and \(g\) is being handed \(f(x)\). So the thing to
+    exclude is not &ldquo;\(x=9/2\)&rdquo; but &ldquo;\(f(x)=9/2\)&rdquo;, which is a different equation
+    with different answers.</p>
+  </div>
+
+  <h3>2.4 &nbsp;The domains of the two given functions</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Formula</th><th>Triggers</th><th>Domain</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">f</td><td>\(2x^2-5\)</td><td>none, it is a polynomial</td><td>\(\mathbb{R}\)</td></tr>
+      <tr><td class="mono">g</td><td>\(\dfrac{x+5}{2x-9}\)</td><td>one denominator</td><td>\(\mathbb{R}\setminus\{9/2\}\)</td></tr>
+    </tbody>
+  </table></div>
+  <p>\(D_f=\mathbb{R}\) is the single most useful fact in the whole question. It makes condition 2
+  vacuous in part (a) and condition 1 vacuous in part (b). Each part is therefore only half a domain
+  problem, which is why 6 points covers both.</p>
+</section>
+
+<section>
+  <span class="snum">03</span>
+  <h2>The universal procedure</h2>
+  <ol class="writeup">
+    <li>Write \(D_f\) and \(D_g\) from the <strong>raw</strong> formulas, before composing. Scan for the three triggers.</li>
+    <li>Write the two conditions for the composite you were asked for, in words, before doing any algebra.</li>
+    <li>Solve condition 1: the inner function's own restriction.</li>
+    <li>Solve condition 2: put the <strong>inner formula</strong> into the outer's trigger and solve.</li>
+    <li>Now, and only now, substitute and simplify.</li>
+    <li>State the domain from steps 3 and 4. Never re-derive it from the simplified formula.</li>
+  </ol>
+  <p>Step 6 is the whole discipline. Steps 1 to 4 cost about fifteen seconds and they are insurance
+  against the one error worth the most marks.</p>
+
+  <h3>Classify before you compute</h3>
+  <p>One glance at the two functions tells you how much work each part is.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Inner</th><th>Outer</th><th>Work required</th></tr></thead>
+    <tbody>
+      <tr><td>polynomial</td><td>polynomial</td><td>none, domain is \(\mathbb{R}\)</td></tr>
+      <tr class="hl"><td>restricted</td><td>polynomial</td><td>inner's restriction only, this is part <strong>a</strong></td></tr>
+      <tr class="hl"><td>polynomial</td><td>restricted</td><td>solve the outer's trigger on the inner, this is part <strong>b</strong></td></tr>
+      <tr><td>restricted</td><td>restricted</td><td><strong>both</strong>, and the inner one may vanish when you simplify</td></tr>
+    </tbody>
+  </table></div>
+  <p>Part (a) and part (b) are deliberately one row apart. The examiner is checking that you know which
+  half of the rule is doing the work in each.</p>
+</section>
+
+<section>
+  <span class="snum">04</span>
+  <h2>Q2 worked four ways</h2>
+
+  <h3>Route A &nbsp;&middot;&nbsp; domain first, then algebra</h3>
+  <p><strong>Part a.</strong> \(D_f=\mathbb{R}\) and \(D_g=\mathbb{R}\setminus\{9/2\}\). Condition 1 gives
+  \(2x-9\neq0\), so \(x\neq\frac92\). Condition 2 is automatic, because \(D_f=\mathbb{R}\) accepts every
+  output \(g\) can produce. Only then substitute:</p>
+  $$f(g(x)) = 2\left(\frac{x+5}{2x-9}\right)^{2}-5 = \frac{2(x+5)^{2}}{(2x-9)^{2}}-5$$
+
+  <div class="nl">
+    <div class="nl-cap">Domain of f(g(x)) &nbsp;&middot;&nbsp; one puncture</div>
+    <svg viewBox="0 0 720 76" role="img" aria-label="Real line from -2 to 11 with an open circle excluding 4.5; everything else is in the domain.">
+      <rect class="band" x="40" y="36" width="315" height="8" rx="1"></rect>
+      <rect class="band" x="365" y="36" width="315" height="8" rx="1"></rect>
+      <line class="ax" x1="34" y1="40" x2="686" y2="40"></line>
+      <line class="tick" x1="138.5" y1="34" x2="138.5" y2="46"></line>
+      <line class="tick" x1="236.9" y1="34" x2="236.9" y2="46"></line>
+      <line class="tick" x1="335.4" y1="34" x2="335.4" y2="46"></line>
+      <line class="tick" x1="433.8" y1="34" x2="433.8" y2="46"></line>
+      <line class="tick" x1="532.3" y1="34" x2="532.3" y2="46"></line>
+      <line class="tick" x1="630.8" y1="34" x2="630.8" y2="46"></line>
+      <text class="lbl-t" x="138.5" y="62" text-anchor="middle">0</text>
+      <text class="lbl-t" x="236.9" y="62" text-anchor="middle">2</text>
+      <text class="lbl-t" x="335.4" y="62" text-anchor="middle">4</text>
+      <text class="lbl-t" x="433.8" y="62" text-anchor="middle">6</text>
+      <text class="lbl-t" x="532.3" y="62" text-anchor="middle">8</text>
+      <text class="lbl-t" x="630.8" y="62" text-anchor="middle">10</text>
+      <circle class="open" cx="360" cy="40" r="5.5"></circle>
+      <text class="lbl-x" x="360" y="22" text-anchor="middle">9/2</text>
+    </svg>
+  </div>
+
+  <p><strong>Part b.</strong> Condition 1 is automatic since \(D_f=\mathbb{R}\). Condition 2 says
+  \(f(x)\neq\frac92\), so solve the equality and exclude its solutions:</p>
+  $$2x^2-5=\frac92 \;\Longrightarrow\; 2x^2=\frac{19}{2} \;\Longrightarrow\; x^2=\frac{19}{4}
+  \;\Longrightarrow\; x=\pm\frac{\sqrt{19}}{2}$$
+  <p>Then substitute, replacing every \(x\) in \(g\) by \(2x^2-5\):</p>
+  $$g(f(x)) = \frac{(2x^{2}-5)+5}{2(2x^{2}-5)-9} = \frac{2x^{2}}{4x^{2}-10-9} = \frac{2x^{2}}{4x^{2}-19}$$
+
+  <div class="nl">
+    <div class="nl-cap">Domain of g(f(x)) &nbsp;&middot;&nbsp; two punctures, and they are irrational</div>
+    <svg viewBox="0 0 720 76" role="img" aria-label="Real line from -5 to 5 with open circles excluding plus and minus root nineteen over two, about 2.18.">
+      <rect class="band" x="40" y="36" width="175" height="8" rx="1"></rect>
+      <rect class="band" x="226" y="36" width="268" height="8" rx="1"></rect>
+      <rect class="band" x="505" y="36" width="175" height="8" rx="1"></rect>
+      <line class="ax" x1="34" y1="40" x2="686" y2="40"></line>
+      <line class="tick" x1="104" y1="34" x2="104" y2="46"></line>
+      <line class="tick" x1="232" y1="34" x2="232" y2="46"></line>
+      <line class="tick" x1="360" y1="34" x2="360" y2="46"></line>
+      <line class="tick" x1="488" y1="34" x2="488" y2="46"></line>
+      <line class="tick" x1="616" y1="34" x2="616" y2="46"></line>
+      <text class="lbl-t" x="104" y="62" text-anchor="middle">-4</text>
+      <text class="lbl-t" x="232" y="62" text-anchor="middle">-2</text>
+      <text class="lbl-t" x="360" y="62" text-anchor="middle">0</text>
+      <text class="lbl-t" x="488" y="62" text-anchor="middle">2</text>
+      <text class="lbl-t" x="616" y="62" text-anchor="middle">4</text>
+      <circle class="open" cx="220.3" cy="40" r="5.5"></circle>
+      <circle class="open" cx="499.5" cy="40" r="5.5"></circle>
+      <text class="lbl-x" x="205" y="22" text-anchor="middle">-sqrt(19)/2</text>
+      <text class="lbl-x" x="515" y="22" text-anchor="middle">+sqrt(19)/2</text>
+    </svg>
+  </div>
+
+  <div class="note good">
+    <span class="tag">Watch the numerator collapse</span>
+    <p>\((2x^2-5)+5 = 2x^2\) exactly. That is not a coincidence, it is the examiner rewarding you for
+    substituting carefully instead of expanding blindly.</p>
+  </div>
+
+  <h3>Route B &nbsp;&middot;&nbsp; simplify first, read the domain off the result</h3>
+  <p>Combining part (a) over a common denominator gives a single fraction:</p>
+  $$f(g(x)) = \frac{2(x+5)^{2}-5(2x-9)^{2}}{(2x-9)^{2}} = \frac{-18x^{2}+200x-355}{(2x-9)^{2}}$$
+  <p>The denominator is visible, so you read off \(x\neq9/2\) and you are right. Part (b) works the
+  same way.</p>
+  <div class="note trap">
+    <span class="tag">Right answer, bad habit</span>
+    <p>This route is correct here <em>only because nothing cancelled</em>. Apply it to \(g(g(x))\),
+    built from this question's own \(g\), and it silently loses an excluded value. See Family 3. A
+    method that is correct by luck is not a method.</p>
+    <p>Also: combining into a single fraction is <strong>not required</strong>. The question says
+    &ldquo;find the composite functions&rdquo;, not &ldquo;simplify&rdquo;. It costs about forty seconds
+    and adds a sign-error opportunity in \(-5(2x-9)^2\), and it buys nothing.</p>
+  </div>
+
+  <h3>Route C &nbsp;&middot;&nbsp; the formal set-builder</h3>
+  $$D_{f\circ g}=\{x\in D_g : g(x)\in D_f\}=\mathbb{R}\setminus\{\tfrac92\}$$
+  $$D_{g\circ f}=\{x\in D_f : f(x)\in D_g\}=\left\{x : 2x^2-5\neq\tfrac92\right\}=\mathbb{R}\setminus\{\pm\tfrac{\sqrt{19}}{2}\}$$
+  <p>This is the definition written out, and it is what earns method marks on a hand-graded paper. Use
+  Route A to think and Route C to write.</p>
+
+  <h3>Route D &nbsp;&middot;&nbsp; the ten-second cross-check</h3>
+  <p>For part (b) there are two independent ways to the excluded values, and they must agree.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Route</th><th>Reasoning</th><th>Gives</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">D1 conceptual</td><td>\(g\) dies at input \(9/2\), so exclude \(x\) where \(f(x)=9/2\)</td><td class="mono">\(x^2=19/4\)</td></tr>
+      <tr><td class="mono">D2 mechanical</td><td>set the simplified denominator to zero: \(4x^2-19=0\)</td><td class="mono">\(x^2=19/4\)</td></tr>
+    </tbody>
+  </table></div>
+  <p>Two genuinely different derivations landing on the same number is a check. Re-reading your own
+  algebra is not.</p>
+
+  <h3>Which route, and why</h3>
+  <div class="routes">
+    <div class="route pick">
+      <h4>A &middot; domain first</h4>
+      <p>Fast, and immune to the cancellation failure. You need \(D_f\) and \(D_g\) anyway to substitute,
+      so it costs nothing extra. <strong>Use this one under pressure.</strong></p>
+    </div>
+    <div class="route bad">
+      <h4>B &middot; simplify first</h4>
+      <p>Fastest, and silently wrong whenever a factor cancels. Never adopt it as a habit.</p>
+    </div>
+    <div class="route">
+      <h4>C &middot; set-builder</h4>
+      <p>Always right, slower to write. Reach for it only if the paper asks you to justify.</p>
+    </div>
+    <div class="route">
+      <h4>D &middot; cross-check</h4>
+      <p>Ten seconds. Always run it on the part with the harder exclusion.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="snum">05</span>
+  <h2>The exam-ready write-up</h2>
+  <p class="sub">If the paper asks for justification, these are the sentences that earn the method marks.</p>
+
+  <div class="note">
+    <span class="tag">Part a</span>
+    <p>\(f\) is a polynomial, so \(D_f=\mathbb{R}\); \(g\) is rational with \(D_g=\mathbb{R}\setminus\{9/2\}\).
+    Substituting, \(f(g(x)) = 2\left(\frac{x+5}{2x-9}\right)^2-5\). Since \(D_f=\mathbb{R}\), every output
+    of \(g\) is acceptable to \(f\), so the only restriction is \(g\)'s own: \(2x-9\neq0\). Hence the
+    domain is \(\left(-\infty,\frac92\right)\cup\left(\frac92,\infty\right)\).</p>
+  </div>
+  <div class="note">
+    <span class="tag">Part b</span>
+    <p>Substituting, \(g(f(x)) = \frac{(2x^2-5)+5}{2(2x^2-5)-9} = \frac{2x^2}{4x^2-19}\). Since
+    \(D_f=\mathbb{R}\), \(x\) is unrestricted by \(f\); but \(g\) requires its input \(f(x)\neq\frac92\),
+    and \(2x^2-5=\frac92\) gives \(x=\pm\frac{\sqrt{19}}{2}\). Hence the domain is
+    \(\mathbb{R}\setminus\left\{\pm\frac{\sqrt{19}}{2}\right\}\).</p>
+  </div>
+
+  <p>The two phrases actually being marked are &ldquo;<strong>since \(D_f=\mathbb{R}\)</strong>&rdquo; and
+  &ldquo;<strong>\(g\) requires its input \(f(x)\neq9/2\)</strong>&rdquo;. The first shows you knew which
+  condition was vacuous and why. The second shows you applied the restriction to \(g\)'s input rather
+  than to \(x\).</p>
+</section>
+
+<section>
+  <span class="snum">06</span>
+  <h2>Verify before you commit</h2>
+  <p class="sub">About fifteen seconds for both parts, and it catches nearly everything.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Check</th><th>How</th><th>On this question</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>1. Spot-evaluate</strong></td>
+        <td>pick an easy \(x\), run it through the raw composition and your formula</td>
+        <td>\(x=0\): raw \(g(f(0))=g(-5)=\frac{0}{-19}=0\), formula gives \(0\). Match.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Break it</strong></td>
+        <td>substitute the excluded \(x\) into the <em>original</em> composition, confirm a division by zero</td>
+        <td>\(f(\frac{\sqrt{19}}{2})=\frac{19}{2}-5=\frac92\), and \(g\) is undefined there. Confirmed.</td>
+      </tr>
+      <tr>
+        <td><strong>3. The \(\pm\)</strong></td>
+        <td>any exclusion from an \(x^2\) or \(|x|\) has <em>two</em> solutions</td>
+        <td>\(x^2=\frac{19}{4}\) gives \(\pm\frac{\sqrt{19}}{2}\), not just the positive one.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Count</strong></td>
+        <td>match your restriction count against the classify table</td>
+        <td>(a) should give exactly one, (b) as many as the trigger equation has roots, so two.</td>
+      </tr>
+    </tbody>
+  </table></div>
+
+  <div class="nums">
+    <div class="num"><div class="v">9/2</div><div class="n">= 4.5, part (a)'s exclusion</div></div>
+    <div class="num"><div class="v">2.1794</div><div class="n">\(\sqrt{19}/2\), part (b)'s</div></div>
+    <div class="num"><div class="v">91/16</div><div class="n">= 5.6875, where \(g\circ g\) dies</div></div>
+    <div class="num"><div class="v">-4.3827</div><div class="n">\((f\circ g)(0)=-355/81\)</div></div>
+  </div>
+  <p>The first two are the answers. The third is the most likely follow-up. The fourth is the cheapest
+  spot-check available.</p>
+</section>
+
+<section>
+  <span class="snum">07</span>
+  <h2>Answer-entry rules</h2>
+  <p class="sub">M&ouml;bius hides two grading engines behind one answer box and does not tell you which
+  one you are in. Grading is by mathematical equivalence, so a correct answer is never rejected for its
+  <em>form</em>, only for being <em>parsed</em> differently than you intended.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Multiplication</td><td class="mono">2*x</td><td class="mono">2x</td></tr>
+      <tr><td>Powers</td><td class="mono">x^2</td><td class="mono">x2, x**2</td></tr>
+      <tr><td>Whole denominators</td><td class="mono">2*x^2/(4*x^2-19)</td><td class="mono">2*x^2/4*x^2-19</td></tr>
+      <tr class="hl"><td>Bracket before squaring</td><td class="mono">((x+5)/(2*x-9))^2</td><td class="mono">(x+5)/(2*x-9)^2</td></tr>
+      <tr><td>Natural log</td><td class="mono">ln(x)</td><td class="mono">log(x), base 10 in one engine</td></tr>
+      <tr><td>Exact form</td><td class="mono">sqrt(19)/2</td><td class="mono">2.179</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note trap">
+    <span class="tag">The most expensive typo on this question</span>
+    <p><code class="entry" style="display:inline-block;padding:3px 7px;font-size:13px">(x+5)/(2*x-9)^2</code>
+    squares only the denominator, giving \(\frac{x+5}{(2x-9)^2}\) instead of
+    \(\left(\frac{x+5}{2x-9}\right)^2\). Bracket the entire fraction before raising it to a power.</p>
+    <p>Runner-up: <code class="entry" style="display:inline-block;padding:3px 7px;font-size:13px">2*x^2/4*x^2-19</code>,
+    which parses as \(\frac{2x^2}{4}\cdot x^2-19\).</p>
+  </div>
+
+  <h3>Entering the domain</h3>
+  <div class="note">
+    <span class="tag">Unverified &middot; settle this on the sample exam</span>
+    <p>My platform notes cover expression entry thoroughly but do <strong>not</strong> document
+    M&ouml;bius interval-notation syntax. Treat the following as strategy, not as a guaranteed string.</p>
+    <p>A domain is asked in one of three shapes, depending on how the question was authored: a dropdown
+    or multiple choice (read carefully for \(\leq\) versus \(\lt\)); an inequality box; or an interval
+    box with a union. For an interval box, write exact values and spell out infinity. Never a decimal.</p>
+  </div>
+  <p><strong>Always click the preview icon.</strong> An empty preview modal means broken syntax, not
+  wrong mathematics. Preview is the only proof that the parser agrees with you; reading your own answer
+  back is not. On a domain answer this matters more than usual, because a mis-parsed union still looks
+  fine in the input box.</p>
+</section>
+
+<section>
+  <span class="snum">08</span>
+  <h2>The variation catalog</h2>
+  <p class="sub">Organised by <strong>the tool the variation forces</strong>, not by how the question
+  looks. Two questions that look different but force the same tool are the same question.</p>
+
+  <div class="note good">
+    <span class="tag">Read this as one idea, not thirteen</span>
+    <p>There are only <strong>three</strong> restriction triggers in existence, and only <strong>two</strong>
+    places they can sit, inner or outer. Every family below is a choice of trigger and a choice of
+    position. That is the whole catalog.</p>
+  </div>
+
+  <div class="legend">
+    <span class="key k-out">open circle = excluded</span>
+    <span class="key k-in">solid dot = included boundary</span>
+    <span class="key k-gh">dashed = the exclusion cancellation hides</span>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 0</span><span class="fam-t">Polynomial inside polynomial</span><span class="fam-tool">tool: none</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> neither function has a denominator, an even root, or a log.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Composite</th><th>Simplified</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr><td>\(f(3x+1)\)</td><td>\(18x^2+12x-3\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\((3x+1)\circ f\)</td><td>\(6x^2-14\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(f(f(x))\)</td><td>\(8x^4-40x^2+45\)</td><td>\(\mathbb{R}\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The only way to lose a mark here is to invent a restriction. A quartic has no denominator.</p>
+    </div>
+  </div>
+
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 1</span><span class="fam-t">Restricted inner, polynomial outer &nbsp;&middot;&nbsp; this is part (a)</span><span class="fam-tool">tool: \(D_{f\circ g}=D_g\)</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> the outer is a polynomial, so \(D_\text{outer}=\mathbb{R}\) and condition 2 is vacuous.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Outer \(f\)</th><th>Inner \(g\)</th><th>\(f(g(x))\)</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(2x^2-5\)</td><td>\(\dfrac{x+5}{2x-9}\)</td><td>\(2\left(\frac{x+5}{2x-9}\right)^2-5\)</td><td>\(x\neq\frac92\)</td></tr>
+          <tr><td>\(x^2+1\)</td><td>\(\dfrac{1}{x-3}\)</td><td>\(\dfrac{1}{(x-3)^2}+1\)</td><td>\(x\neq3\)</td></tr>
+          <tr><td>\(3x-2\)</td><td>\(\dfrac{2x+1}{x+4}\)</td><td>\(\dfrac{4x-5}{x+4}\)</td><td>\(x\neq-4\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row 3 is worth staring at. The composite simplified into a <em>different</em> rational function,
+      and \(x=-4\) happens to still be visible in it. That is luck, not law. Family 3 is where the luck
+      runs out.</p>
+    </div>
+  </div>
+
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 2</span><span class="fam-t">Polynomial inner, restricted outer &nbsp;&middot;&nbsp; this is part (b)</span><span class="fam-tool">tool: solve the trigger on the inner</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> the inner is a polynomial, the outer has a denominator or a root.
+      <b>Do</b> take the outer's bad value \(c\) and solve \(\text{inner}(x)=c\).</p>
+      <div class="tw"><table>
+        <thead><tr><th>Inner \(f\)</th><th>Outer \(g\)</th><th>\(g(f(x))\)</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(2x^2-5\)</td><td>\(\dfrac{x+5}{2x-9}\)</td><td>\(\dfrac{2x^2}{4x^2-19}\)</td><td>\(x\neq\pm\frac{\sqrt{19}}{2}\)</td></tr>
+          <tr><td>\(x^2-4\)</td><td>\(\dfrac1x\)</td><td>\(\dfrac{1}{x^2-4}\)</td><td>\(x\neq\pm2\)</td></tr>
+          <tr><td>\(x^2+1\)</td><td>\(\dfrac1x\)</td><td>\(\dfrac{1}{x^2+1}\)</td><td>\(\mathbb{R}\)</td></tr>
+          <tr><td>\(3x-7\)</td><td>\(\dfrac{x+5}{2x-9}\)</td><td>\(\dfrac{3x-2}{6x-23}\)</td><td>\(x\neq\frac{23}{6}\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap" style="margin:14px 0 0">
+        <span class="tag">Row 3 is the trap in this family</span>
+        <p>\(x^2+1=0\) has no real solution, so the domain is all of \(\mathbb{R}\) even though the outer
+        function has a denominator. A denominator does not guarantee an exclusion. It guarantees an
+        <em>equation</em>, and that equation may have no real roots.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 3</span><span class="fam-t">Both restricted, and the inner restriction vanishes</span><span class="fam-tool">tool: record \(D_\text{inner}\) first</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> both functions have a restriction and the algebra cancels.
+      <b>This is the highest-value family in the catalog, and the one Route B fails.</b></p>
+      <div class="tw"><table>
+        <thead><tr><th>Outer</th><th>Inner</th><th>Simplified</th><th>True domain</th><th>Invisible</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\dfrac{x+5}{2x-9}\)</td><td>\(\dfrac{x+5}{2x-9}\)</td><td>\(\dfrac{11x-40}{91-16x}\)</td><td>\(x\neq\frac92,\ \frac{91}{16}\)</td><td class="mono">9/2</td></tr>
+          <tr><td>\(\dfrac{1}{x-2}\)</td><td>\(\dfrac1x\)</td><td>\(\dfrac{x}{1-2x}\)</td><td>\(x\neq0,\ \frac12\)</td><td class="mono">0</td></tr>
+          <tr><td>\(\dfrac1x\)</td><td>\(\dfrac1x\)</td><td>\(x\)</td><td>\(x\neq0\)</td><td class="mono">0</td></tr>
+          <tr><td>\(\dfrac{x}{x+1}\)</td><td>\(\dfrac1x\)</td><td>\(\dfrac{1}{1+x}\)</td><td>\(x\neq0,\ -1\)</td><td class="mono">0</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Row 1 is built from <strong>this question's own \(g\)</strong>, composed with itself, which makes
+      it the single most likely follow-up the examiner can ask. Work it once:</p>
+      $$g(g(x))=\frac{\frac{x+5}{2x-9}+5}{2\cdot\frac{x+5}{2x-9}-9}
+      =\frac{\frac{(x+5)+5(2x-9)}{2x-9}}{\frac{2(x+5)-9(2x-9)}{2x-9}}
+      =\frac{11x-40}{91-16x}$$
+      <p>The \((2x-9)\) cancels top and bottom, and with it goes every trace of \(x=9/2\).</p>
+
+      <div class="nl">
+        <div class="nl-cap">What the simplified formula shows you</div>
+        <svg viewBox="0 0 720 62" role="img" aria-label="Real line showing only one exclusion at 91 over 16, which is what the simplified formula reveals.">
+          <rect class="band" x="40" y="30" width="404" height="8" rx="1"></rect>
+          <rect class="band" x="456" y="30" width="224" height="8" rx="1"></rect>
+          <line class="ax" x1="34" y1="34" x2="686" y2="34"></line>
+          <line class="tick" x1="146.7" y1="28" x2="146.7" y2="40"></line>
+          <line class="tick" x1="253.3" y1="28" x2="253.3" y2="40"></line>
+          <line class="tick" x1="360" y1="28" x2="360" y2="40"></line>
+          <line class="tick" x1="466.7" y1="28" x2="466.7" y2="40"></line>
+          <line class="tick" x1="573.3" y1="28" x2="573.3" y2="40"></line>
+          <text class="lbl-t" x="146.7" y="56" text-anchor="middle">0</text>
+          <text class="lbl-t" x="253.3" y="56" text-anchor="middle">2</text>
+          <text class="lbl-t" x="360" y="56" text-anchor="middle">4</text>
+          <text class="lbl-t" x="466.7" y="56" text-anchor="middle">6</text>
+          <text class="lbl-t" x="573.3" y="56" text-anchor="middle">8</text>
+          <circle class="open" cx="450" cy="34" r="5.5"></circle>
+          <text class="lbl-x" x="450" y="18" text-anchor="middle">91/16</text>
+        </svg>
+      </div>
+      <div class="nl">
+        <div class="nl-cap">The truth</div>
+        <svg viewBox="0 0 720 62" role="img" aria-label="The same line with a second exclusion at 9 over 2, the one the cancellation erased.">
+          <rect class="band" x="40" y="30" width="341" height="8" rx="1"></rect>
+          <rect class="band" x="393" y="30" width="51" height="8" rx="1"></rect>
+          <rect class="band" x="456" y="30" width="224" height="8" rx="1"></rect>
+          <line class="ax" x1="34" y1="34" x2="686" y2="34"></line>
+          <line class="tick" x1="146.7" y1="28" x2="146.7" y2="40"></line>
+          <line class="tick" x1="253.3" y1="28" x2="253.3" y2="40"></line>
+          <line class="tick" x1="360" y1="28" x2="360" y2="40"></line>
+          <line class="tick" x1="466.7" y1="28" x2="466.7" y2="40"></line>
+          <line class="tick" x1="573.3" y1="28" x2="573.3" y2="40"></line>
+          <text class="lbl-t" x="146.7" y="56" text-anchor="middle">0</text>
+          <text class="lbl-t" x="253.3" y="56" text-anchor="middle">2</text>
+          <text class="lbl-t" x="360" y="56" text-anchor="middle">4</text>
+          <text class="lbl-t" x="466.7" y="56" text-anchor="middle">6</text>
+          <text class="lbl-t" x="573.3" y="56" text-anchor="middle">8</text>
+          <circle class="ghost" cx="386.7" cy="34" r="5.5"></circle>
+          <circle class="open" cx="450" cy="34" r="5.5"></circle>
+          <text class="lbl-g" x="386.7" y="18" text-anchor="middle">9/2</text>
+          <text class="lbl-x" x="450" y="18" text-anchor="middle">91/16</text>
+        </svg>
+      </div>
+
+      <div class="note trap">
+        <span class="tag">The phantom value</span>
+        <p>Substituting \(x=9/2\) into \(\frac{11x-40}{91-16x}\) gives a perfectly innocent
+        \(\frac{9.5}{19}=\frac12\). That \(\frac12\) is a lie. It is exactly \(g\)'s horizontal asymptote,
+        the one value \(g\) can never output, appearing as a phantom because the cancellation erased the
+        fact that \(g(9/2)\) does not exist.</p>
+        <p>Row 3 is the purest demonstration: \(\frac{1}{1/x}\) simplifies to \(x\), the identity function,
+        whose formula suggests domain \(\mathbb{R}\). The true domain is \(\mathbb{R}\setminus\{0\}\).</p>
+      </div>
+      <p><strong>The rule this family teaches:</strong> cancellation removes a factor from the formula but
+      it does not remove the point from the domain, so the domain must be recorded before the
+      cancellation happens.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 4</span><span class="fam-t">Even root on the inside</span><span class="fam-tool">tool: radicand \(\geq 0\)</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> the <b>inner</b> function contains a square root. The outer often
+      squares the root away, leaving a formula with no root in it at all.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Outer</th><th>Inner</th><th>\(f(g(x))\)</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(x^2-1\)</td><td>\(\sqrt{x-3}\)</td><td>\(x-4\)</td><td>\([3,\infty)\)</td></tr>
+          <tr><td>\(2x^2-5\)</td><td>\(\sqrt{x}\)</td><td>\(2x-5\)</td><td>\([0,\infty)\)</td></tr>
+          <tr><td>\(\dfrac{1}{x-2}\)</td><td>\(\sqrt{x+4}\)</td><td>\(\dfrac{1}{\sqrt{x+4}-2}\)</td><td>\([-4,0)\cup(0,\infty)\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap" style="margin:14px 0 0">
+        <span class="tag">Row 1 is the cleanest trap available</span>
+        <p>The answer is the straight line \(x-4\), and a line obviously has domain \(\mathbb{R}\), except
+        that this one does not, because you can only reach it from \(x\geq3\). <strong>Squaring is just as
+        domain-destroying as cancelling.</strong></p>
+      </div>
+      <p>Row 3 stacks two triggers: the root needs \(x\geq-4\), and the outer's denominator needs
+      \(\sqrt{x+4}\neq2\), which is \(x\neq0\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 5</span><span class="fam-t">Even root on the outside</span><span class="fam-tool">tool: solve \(g(x)\geq0\)</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> the <b>outer</b> function is a square root. This is the family that
+      forces an inequality rather than an equation.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Composite</th><th>Domain</th><th>Shape</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{x^2-9}\)</td><td>\((-\infty,-3]\cup[3,\infty)\)</td><td>two rays</td></tr>
+          <tr><td>\(\sqrt{2x^2-5}\)</td><td>\(\left(-\infty,-\frac{\sqrt{10}}{2}\right]\cup\left[\frac{\sqrt{10}}{2},\infty\right)\)</td><td>two rays</td></tr>
+          <tr><td>\(\sqrt{9-x^2}\)</td><td>\([-3,3]\)</td><td>one interval</td></tr>
+          <tr><td>\(\sqrt{x^2+1}\)</td><td>\(\mathbb{R}\)</td><td>everything</td></tr>
+        </tbody>
+      </table></div>
+      <p>The shape flips with the sign of the leading coefficient, and that is the only thing to get
+      right. An <strong>upward</strong> parabola is non-negative <strong>outside</strong> its roots, so you
+      get two rays. A <strong>downward</strong> parabola is non-negative <strong>between</strong> its roots,
+      so you get one closed interval. Row 4 has no real roots and stays positive everywhere.</p>
+      <p>Note the brackets are square. \(\sqrt0=0\) is perfectly legal, so the boundary points are
+      <strong>included</strong>.</p>
+    </div>
+  </div>
+
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 6</span><span class="fam-t">Root outside a rational inner</span><span class="fam-tool">tool: sign chart on a quotient</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> a square root outside, a fraction inside. Both the numerator's zero
+      and the denominator's zero are critical points, but they get <b>different bracket types</b>.</p>
+      <p>Take this question's own \(g\) under a square root. It is the hardest thing the examiner can
+      build from these two functions without leaving the topic. Solve \(\frac{x+5}{2x-9}\geq0\):</p>
+      <div class="tw"><table class="sign">
+        <thead><tr><th>Interval</th><th class="mono">x+5</th><th class="mono">2x-9</th><th class="mono">quotient</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td>\(x\lt-5\)</td><td class="mono neg">&minus;</td><td class="mono neg">&minus;</td><td class="mono pos">+</td><td class="keep">keep</td></tr>
+          <tr><td>\(-5\lt x\lt\frac92\)</td><td class="mono pos">+</td><td class="mono neg">&minus;</td><td class="mono neg">&minus;</td><td class="drop">drop</td></tr>
+          <tr><td>\(x\gt\frac92\)</td><td class="mono pos">+</td><td class="mono pos">+</td><td class="mono pos">+</td><td class="keep">keep</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="nl">
+        <div class="nl-cap">Domain of sqrt((x+5)/(2x-9)) &nbsp;&middot;&nbsp; one closed end, one open end</div>
+        <svg viewBox="0 0 720 76" role="img" aria-label="Real line with a solid dot at -5 included and an open circle at 4.5 excluded; the kept regions are the two outer rays.">
+          <rect class="band" x="40" y="36" width="142" height="8" rx="1"></rect>
+          <rect class="band" x="520" y="36" width="160" height="8" rx="1"></rect>
+          <line class="ax" x1="34" y1="40" x2="686" y2="40"></line>
+          <line class="tick" x1="146.7" y1="34" x2="146.7" y2="46"></line>
+          <line class="tick" x1="253.3" y1="34" x2="253.3" y2="46"></line>
+          <line class="tick" x1="360" y1="34" x2="360" y2="46"></line>
+          <line class="tick" x1="466.7" y1="34" x2="466.7" y2="46"></line>
+          <line class="tick" x1="573.3" y1="34" x2="573.3" y2="46"></line>
+          <text class="lbl-t" x="146.7" y="62" text-anchor="middle">-6</text>
+          <text class="lbl-t" x="253.3" y="62" text-anchor="middle">-3</text>
+          <text class="lbl-t" x="360" y="62" text-anchor="middle">0</text>
+          <text class="lbl-t" x="466.7" y="62" text-anchor="middle">3</text>
+          <text class="lbl-t" x="573.3" y="62" text-anchor="middle">6</text>
+          <circle class="closed" cx="182.2" cy="40" r="5.5"></circle>
+          <circle class="open" cx="520" cy="40" r="5.5"></circle>
+          <text class="lbl-k" x="182.2" y="22" text-anchor="middle">-5</text>
+          <text class="lbl-x" x="520" y="22" text-anchor="middle">9/2</text>
+        </svg>
+      </div>
+
+      <div class="note good">
+        <span class="tag">The bracket rule, which is the whole point of this family</span>
+        <p>A zero of the <strong>numerator</strong> makes the quotient \(0\), and \(\sqrt0\) is fine, so
+        \(x=-5\) is <strong>included</strong> with a square bracket. A zero of the
+        <strong>denominator</strong> makes the quotient undefined, so \(x=\frac92\) is
+        <strong>excluded</strong> with a round bracket, even though the inequality is
+        &ldquo;\(\geq\)&rdquo;.</p>
+        <p>Answer: \((-\infty,-5]\cup\left(\frac92,\infty\right)\). Getting one of these two brackets wrong
+        is the standard way to lose the mark after doing all the real work.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 7</span><span class="fam-t">Nested even roots</span><span class="fam-tool">tool: two inequalities, outside in</span></div>
+    <div class="fam-body">
+      <div class="tw"><table>
+        <thead><tr><th>Composite</th><th>Conditions</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{\sqrt{x}-1}\)</td><td>\(x\geq0\) <strong>and</strong> \(\sqrt{x}\geq1\)</td><td>\([1,\infty)\)</td></tr>
+          <tr><td>\(\sqrt{\sqrt{x-1}}=(x-1)^{1/4}\)</td><td>\(x-1\geq0\)</td><td>\([1,\infty)\)</td></tr>
+          <tr class="hl"><td>\(\sqrt{\sqrt{x}-5}\)</td><td>\(x\geq0\) <strong>and</strong> \(\sqrt{x}\geq5\)</td><td>\([25,\infty)\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The inner condition \(x\geq0\) is swallowed by the outer condition, so the answer is set entirely
+      by \(\sqrt{x}\geq k\), which squares to \(x\geq k^2\). <strong>The number in the answer is the
+      square of the number in the formula</strong>, and that is the step people skip.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 8</span><span class="fam-t">Logs and absolute values</span><span class="fam-tool">tool: strict inequality</span></div>
+    <div class="fam-body">
+      <div class="tw"><table>
+        <thead><tr><th>Composite</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr><td>\(\ln(x-3)\)</td><td>\((3,\infty)\)</td></tr>
+          <tr><td>\(\ln(x^2-4)\)</td><td>\((-\infty,-2)\cup(2,\infty)\)</td></tr>
+          <tr><td>\(\dfrac{1}{\lvert x\rvert-3}\)</td><td>\(x\neq\pm3\)</td></tr>
+          <tr class="hl"><td>\(\ln\left(\dfrac{x+5}{2x-9}\right)\)</td><td>\((-\infty,-5)\cup\left(\frac92,\infty\right)\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good" style="margin:14px 0 0">
+        <span class="tag">One character of difference</span>
+        <p>Compare the last row against Family 6, the same inner function under a square root instead of a
+        log. The root gives \((-\infty,-5]\) with a <strong>closed</strong> bracket, because \(\sqrt0=0\)
+        exists. The log gives \((-\infty,-5)\) with an <strong>open</strong> bracket, because \(\ln0\) does
+        not. One word of difference in the question produces one character of difference in the answer.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 9</span><span class="fam-t">Self-composition</span><span class="fam-tool">tool: whichever family applies</span></div>
+    <div class="fam-body">
+      <div class="tw"><table>
+        <thead><tr><th>Composite</th><th>Simplified</th><th>Domain</th><th>Spot value</th></tr></thead>
+        <tbody>
+          <tr><td>\(f(f(x))\)</td><td>\(8x^4-40x^2+45\)</td><td>\(\mathbb{R}\)</td><td class="mono">f(f(1)) = 13</td></tr>
+          <tr class="hl"><td>\(g(g(x))\)</td><td>\(\dfrac{11x-40}{91-16x}\)</td><td>\(x\neq\frac92,\ \frac{91}{16}\)</td><td class="mono">g(g(0)) = -40/91</td></tr>
+        </tbody>
+      </table></div>
+      <p>\(g\circ g\) is the most likely part (c) this question could grow, and it is a Family 3 case, so it
+      is exactly where Route B would cost you the mark.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 10</span><span class="fam-t">The reverse question: decompose</span><span class="fam-tool">tool: what would you do last?</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &ldquo;write \(h\) as a composition&rdquo;. <b>Ask</b> what would I do
+      last if I were evaluating this by hand? That last operation is \(f\); everything under it is \(g\).</p>
+      <div class="tw"><table>
+        <thead><tr><th>\(h(x)\)</th><th>Inner \(g\)</th><th>Outer \(f\)</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{3x^2+1}\)</td><td>\(3x^2+1\)</td><td>\(\sqrt{u}\)</td></tr>
+          <tr><td>\((2x-7)^5\)</td><td>\(2x-7\)</td><td>\(u^5\)</td></tr>
+          <tr><td>\(\dfrac{1}{x^2+4}\)</td><td>\(x^2+4\)</td><td>\(\dfrac1u\)</td></tr>
+          <tr><td>\(\sin^2 x\)</td><td>\(\sin x\)</td><td>\(u^2\)</td></tr>
+          <tr class="hl"><td>\(2\left(\frac{x+5}{2x-9}\right)^2-5\)</td><td>\(\frac{x+5}{2x-9}\)</td><td>\(2u^2-5\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The last row is part (a) read backwards, worth doing once so you recognise your own answer as a
+      composition. Decompositions are not unique and any correct pair is accepted. This family is the
+      direct bridge to the chain rule: once you can name \(f\) and \(g\),
+      \(\frac{d}{dx}f(g(x))=f'(g(x))\cdot g'(x)\) writes itself.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 11</span><span class="fam-t">The range of the composite</span><span class="fam-tool">tool: push the inner's output set through</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> the question says <b>range</b>, not domain. The hardest form this
+      question can take, and listed as a variation in the course notes.</p>
+
+      <h3 style="margin-top:4px">\(f(g(x))\) has range \([-5,\infty)\)</h3>
+      <p>\(g\) is a M&ouml;bius transformation with horizontal asymptote \(y=\frac12\), so it produces every
+      real value except \(\frac12\). Squaring that set gives \([0,\infty)\) <strong>entirely</strong>,
+      because although \(g\) never outputs \(+\frac12\), it does output \(-\frac12\) at \(x=-\frac14\), and
+      \(\left(-\frac12\right)^2=\frac14\) is recovered. So \(2g^2-5\) ranges over \([-5,\infty)\), with the
+      minimum \(-5\) attained at \(x=-5\) where \(g=0\).</p>
+      <div class="note good" style="margin:12px 0">
+        <span class="tag">An even power heals a one-sided gap</span>
+        <p>Verified explicitly: \(g(-\frac14)=-\frac12\) and \(f(g(-\frac14))=-4.5\), so there is
+        <strong>no</strong> hole at \(-4.5\) in the range. The naive answer excludes it. The naive answer is
+        wrong.</p>
+      </div>
+
+      <h3>\(g(f(x))\) has range \((-\infty,0]\cup\left(\frac12,\infty\right)\)</h3>
+      <p>Write \(t=x^2\geq0\), so the composite is \(h(t)=\frac{2t}{4t-19}\) with
+      \(h'(t)=\frac{-38}{(4t-19)^2}\lt0\), decreasing on each branch. On \(t\in[0,\frac{19}{4})\) it runs
+      from \(h(0)=0\) down to \(-\infty\). On \(t\in(\frac{19}{4},\infty)\) it runs from \(+\infty\) down
+      towards \(\frac12\) without reaching it. The value \(\frac12\) is unattainable because
+      \(\frac{2x^2}{4x^2-19}=\frac12\) reduces to \(0=-19\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 12</span><span class="fam-t">Evaluate at a point, or test membership</span><span class="fam-tool">tool: inside out, domain first</span></div>
+    <div class="fam-body">
+      <div class="tw"><table>
+        <thead><tr><th>Ask</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td>\((f\circ g)(0)\)</td><td class="mono">-355/81 = -4.3827</td></tr>
+          <tr><td>\((f\circ g)(2)\)</td><td class="mono">-27/25 = -1.08</td></tr>
+          <tr><td>\((g\circ f)(0)\)</td><td class="mono">0</td></tr>
+          <tr><td>\((g\circ f)(3)\)</td><td class="mono">18/17</td></tr>
+          <tr><td>\((g\circ g)(0)\)</td><td class="mono">-40/91</td></tr>
+          <tr><td>\((f\circ f)(1)\)</td><td class="mono">13</td></tr>
+          <tr class="hl"><td>\((f\circ g)\left(\frac92\right)\)</td><td class="mono" style="color:var(--trap)">does not exist</td></tr>
+          <tr class="hl"><td>\((g\circ f)\left(\frac{\sqrt{19}}{2}\right)\)</td><td class="mono" style="color:var(--trap)">does not exist</td></tr>
+        </tbody>
+      </table></div>
+      <p>The last two rows are the ones being tested. <strong>&ldquo;Does not exist&rdquo; is a correct
+      answer</strong>, and the question is checking whether you evaluate blindly or check the domain first.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="snum">09</span>
+  <h2>The trap list</h2>
+  <p class="sub">Ranked by how often each one actually costs marks, worst first.</p>
+  <ol class="traps">
+    <li><strong>Reading the domain off the simplified formula.</strong> The cancellation destroyed the evidence. This is the only error in the list that can cost the whole domain mark on a part you otherwise did perfectly.</li>
+    <li><strong>Applying the outer's restriction to \(x\) instead of to the inner formula.</strong> In part (b), writing &ldquo;\(2x-9\neq0\) so \(x\neq\frac92\)&rdquo; is the classic. \(g\)'s denominator is \(2\cdot(\text{its input})-9\), and its input is \(f(x)\).</li>
+    <li><strong>Dropping the \(\pm\).</strong> Part (b)'s exclusion came from \(x^2=\frac{19}{4}\), which has two roots.</li>
+    <li><strong>Composing in the wrong order.</strong> If your part (a) answer has \(x^2\) in the numerator, you did part (b).</li>
+    <li><strong>Giving a decimal where the answer is irrational.</strong> \(\pm\frac{\sqrt{19}}{2}\), not \(\pm2.179\).</li>
+    <li><strong>Bracket errors when squaring a fraction.</strong> Typing <code>(x+5)/(2*x-9)^2</code> squares only the bottom.</li>
+    <li><strong>Wrong bracket type on an interval boundary.</strong> A numerator zero under a root is included; a denominator zero is excluded, even under &ldquo;\(\geq\)&rdquo;. A log boundary is always excluded.</li>
+    <li><strong>Arithmetic in the substitution.</strong> \(2(2x^2-5)-9 = 4x^2-19\), not \(4x^2-1\) and not \(4x^2-14\).</li>
+    <li><strong>Inventing a restriction that is not there.</strong> \(\frac{1}{x^2+1}\) has domain \(\mathbb{R}\).</li>
+    <li><strong>Forgetting that the answer can be &ldquo;no&rdquo;.</strong> &ldquo;Does not exist&rdquo; is a valid final answer.</li>
+  </ol>
+</section>
+
+<section>
+  <span class="snum">10</span>
+  <h2>Drill set</h2>
+  <p class="sub">Twelve problems, one per family. Score <strong>domain separately from formula</strong>:
+  a wrong formula means slow down on the substitution, a wrong domain means you skipped step 1.</p>
+  <ol class="drills">
+    <li>\(f(x)=x^2+3\), \(g(x)=\dfrac{1}{x-1}\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(f(x)=\dfrac{1}{x-4}\), \(g(x)=x^2+1\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(f(x)=\dfrac1x\), \(g(x)=\dfrac{1}{x+2}\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(f(x)=\sqrt{x}\), \(g(x)=x^2-16\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(f(x)=x^2-2\), \(g(x)=\sqrt{x+7}\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(f(x)=\sqrt{x}\), \(g(x)=\dfrac{x-3}{x+1}\). Find \(f(g(x))\) and its domain.</li>
+    <li>\(g(x)=\dfrac{x+5}{2x-9}\). Find \(g(g(x))\) and its domain.</li>
+    <li>\(f(x)=2x^2-5\). Find \(f(f(x))\) and its domain.</li>
+    <li>\(f(x)=\ln x\), \(g(x)=9-x^2\). Find \(f(g(x))\) and its domain.</li>
+    <li>Write \(h(x)=\dfrac{1}{\sqrt{4x+1}}\) as \(f(g(x))\), and give its domain.</li>
+    <li>With the exam's own \(f\) and \(g\), compute \((f\circ g)(-5)\) and \((g\circ f)(2)\).</li>
+    <li>\(f(x)=\sqrt{x}\), \(g(x)=\sqrt{x-5}\). Find \(g(f(x))\) and its domain.</li>
+  </ol>
+
+  <details class="key">
+    <summary>Answer key</summary>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Composite</th><th>Domain</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>\(\dfrac{1}{(x-1)^2}+3\)</td><td>\(x\neq1\)</td><td><strong>F1</strong> polynomial outer, inner's restriction only</td></tr>
+        <tr><td class="mono">2</td><td>\(\dfrac{1}{x^2-3}\)</td><td>\(x\neq\pm\sqrt3\)</td><td><strong>F2</strong> solve \(g(x)=4\), the outer's bad input</td></tr>
+        <tr class="hl"><td class="mono">3</td><td>\(x+2\)</td><td>\(x\neq-2\)</td><td><strong>F3</strong> the \(\frac{1}{x+2}\) cancels; exclusion invisible</td></tr>
+        <tr><td class="mono">4</td><td>\(\sqrt{x^2-16}\)</td><td>\((-\infty,-4]\cup[4,\infty)\)</td><td><strong>F5</strong> upward parabola, non-negative outside its roots</td></tr>
+        <tr><td class="mono">5</td><td>\(x+5\)</td><td>\([-7,\infty)\)</td><td><strong>F4</strong> squaring kills the root, not the domain</td></tr>
+        <tr><td class="mono">6</td><td>\(\sqrt{\dfrac{x-3}{x+1}}\)</td><td>\((-\infty,-1)\cup[3,\infty)\)</td><td><strong>F6</strong> sign chart; numerator zero closed, denominator zero open</td></tr>
+        <tr class="hl"><td class="mono">7</td><td>\(\dfrac{11x-40}{91-16x}\)</td><td>\(x\neq\frac92,\ \frac{91}{16}\)</td><td><strong>F3/F9</strong> self-composition, \(x=\frac92\) vanishes</td></tr>
+        <tr><td class="mono">8</td><td>\(8x^4-40x^2+45\)</td><td>\(\mathbb{R}\)</td><td><strong>F0/F9</strong> polynomial, nothing to exclude</td></tr>
+        <tr><td class="mono">9</td><td>\(\ln(9-x^2)\)</td><td>\((-3,3)\)</td><td><strong>F8</strong> log is strict, so the brackets are open</td></tr>
+        <tr class="hl"><td class="mono">10</td><td>\(g=4x+1,\ f(u)=\dfrac{1}{\sqrt u}\)</td><td>\(x\gt-\frac14\)</td><td><strong>F10</strong> root <em>and</em> denominator makes it strict</td></tr>
+        <tr><td class="mono">11</td><td>\((f\circ g)(-5)=-5\), \((g\circ f)(2)=-\frac83\)</td><td>n/a</td><td><strong>F12</strong> evaluate inside-out</td></tr>
+        <tr><td class="mono">12</td><td>\(\sqrt{\sqrt{x}-5}\)</td><td>\([25,\infty)\)</td><td><strong>F7</strong> nested; the boundary is \(5^2\), not \(5\)</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <div class="note trap">
+    <span class="tag">Three of these are deliberately nasty</span>
+    <p>Numbers 3 and 7 are Family 3, where the simplified formula lies about the domain. Number 10 stacks
+    two triggers, so the boundary is strict rather than closed: the radicand needs \(4x+1\geq0\) but the
+    denominator needs \(\sqrt{4x+1}\neq0\), and together those give \(4x+1\gt0\).</p>
+    <p>If you got the formula right and the domain wrong on more than two, the fix is not more algebra
+    practice. It is mechanical: write \(D_f\) and \(D_g\) as the first line of every answer.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">11</span>
+  <h2>The one-page decision tree</h2>
+<pre class="chain">COMPOSITE + DOMAIN QUESTION
+|
++-- STEP 1  Write D_inner and D_outer from the <b>RAW</b> formulas.
+|           Scan each for exactly three triggers:
+|               denominator  -&gt; != 0
+|               even root    -&gt; &gt;= 0
+|               logarithm    -&gt;  &gt; 0
+|           (odd roots and polynomials restrict nothing)
+|
++-- STEP 2  Which one is restricted?
+|
+|   +-- <b>NEITHER</b> ............... domain = R.  Substitute, done.        [F0]
+|   |
+|   +-- <b>ONLY THE INNER</b> ........ domain = D_inner.  Nothing else.      [F1]
+|   |                           (outer is a polynomial: condition 2
+|   |                            is vacuous - say so, it is a mark)
+|   |
+|   +-- <b>ONLY THE OUTER</b> ........ take the outer's trigger and put the  [F2]
+|   |                           INNER FORMULA into it, then solve.
+|   |                             rational outer -&gt; equation, count roots
+|   |                             root outer     -&gt; inequality, sign chart
+|   |                             (an equation may have NO real roots)
+|   |
+|   +-- <b>BOTH</b> .................. D_inner FIRST, written down,          [F3]
+|                               then the outer condition on top.
+|                               <i>Expect a cancellation to hide the
+|                               inner exclusion. It will not be in
+|                               the simplified formula.</i>
+|
++-- STEP 3  NOW substitute and simplify.
+|           Replace every x in the outer by the WHOLE inner expression.
+|           Do not combine into a single fraction unless asked.
+|
++-- STEP 4  State the domain from STEP 2, <b>never</b> from the STEP 3 formula.
+|
++-- CHECK   (a) spot-evaluate at an easy x: raw composition == your formula?
+|           (b) does each excluded x actually break the ORIGINAL composition?
+|           (c) did an x^2 or an |x| appear? then the exclusion has a +-
+|           (d) brackets: numerator zero under a root is CLOSED,
+|                         denominator zero is OPEN, log boundary is OPEN
+|
++-- TYPE    explicit *, bracket the whole numerator, bracket the whole
+|           denominator, bracket the whole fraction before a power,
+|           exact surds not decimals
+|
++-- PREVIEW  empty modal = broken syntax, not wrong maths</pre>
+</section>
+
+<footer>
+  <div class="verified">Verified &middot; 302 checks &middot; 0 failures</div>
+  <p>Question text from <code>notes\MATH265.md</code> Q1.2 and <code>notes\MATH265\MATH265.md</code>
+  &ldquo;Midterm Exam 1&rdquo; item 2, which supplies the <strong>(6 points)</strong> value and confirms
+  there is no method restriction on this item. Variation directions cross-checked against
+  <code>MATH265_Categorized.md</code> and the two-condition domain rule in <code>MATH265_Review.md</code>.
+  The composite question does <strong>not</strong> appear on the final exam paper; its descendant there is
+  the chain rule.</p>
+  <p>Answer-entry rules from <code>Work\knowledge\topics\mobius-exam-platform.md</code>. The interval
+  syntax for a domain answer is <strong>not</strong> documented there and is flagged unverified in
+  section 07.</p>
+  <p>Verification harness: <code>Work\knowledge\topics\math265-answer-verification.py</code>, section
+  <code>== Q1.2 ... ==</code>, run 2026-08-31. Whole file: 676 PASS, 2 FAIL, where the 2 are pre-existing
+  linear-approximation tolerance rows in an unrelated section. The Q1.2 sections alone are 302 checks with
+  zero failures: every simplified composite checked against a literal inside-out composition at 80 or 81
+  sample points, every claimed exclusion confirmed to break the true composite, every exclusion set swept
+  over [-60,60] at 240,001 points for unclaimed roots, all four hidden-hole claims confirmed by showing the
+  simplified form returns a finite number exactly where the true composite is undefined, and both range
+  claims sampled at 400,000 points for gap violations.</p>
+  <p>Full markdown version: <code>notes\Q1.2 - Composite functions and their domains.md</code>.
+  No solution key was consulted, and no value here was copied from one.</p>
+</footer>
+
+</div>
