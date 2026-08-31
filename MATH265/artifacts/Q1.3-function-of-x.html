@@ -1,0 +1,1501 @@
+<title>Well Defined Functions of x</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false },
+  startup: { pageReady: function () {
+    return MathJax.startup.defaultPageReady().then(function () {
+      document.documentElement.setAttribute('data-mj','done');
+    });
+  } }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+/* ===== dark-first ops console: bare :root is dark, light is the override ===== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --trap:#D2765C; --trap-soft:rgba(210,118,92,.12);
+  --good:#6FA8A0; --good-soft:rgba(111,168,160,.12);
+  --slate:#7E9BC4;
+  --grid:rgba(230,234,241,.026);
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+    --good:#33726A; --good-soft:rgba(51,114,106,.10);
+    --slate:#3F6493;
+    --grid:rgba(23,27,34,.042);
+    --mj:#171B22;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+  --good:#33726A; --good-soft:rgba(51,114,106,.10);
+  --slate:#3F6493;
+  --grid:rgba(23,27,34,.042);
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+/* ---- masthead ---- */
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:62ch;margin:0}
+
+/* ---- the answer slab ---- */
+.slab{
+  margin:30px 0 8px;border:1px solid var(--accent-line);background:var(--surface);
+  border-radius:3px;overflow:hidden;
+}
+.slab-head{
+  padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--accent-soft);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.slab-body{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:760px){.slab-body{grid-template-columns:1fr 1fr}}
+.slab-cell{padding:22px 20px;min-width:0}
+.slab-cell + .slab-cell{border-top:1px solid var(--line-soft)}
+@media (min-width:760px){
+  .slab-cell + .slab-cell{border-top:0;border-left:1px solid var(--line-soft)}
+}
+.lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);
+  display:block;margin-bottom:9px;
+}
+.entry{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;font-weight:500;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;color:var(--accent);display:block;
+  overflow-x:auto;white-space:nowrap;
+}
+
+/* ---- verdict pills: every row in this question has a binary verdict ---- */
+.vd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;padding:2px 7px;border-radius:2px;white-space:nowrap;
+  display:inline-block;font-weight:500;
+}
+.vd.yes{color:var(--good);border:1px solid var(--good);background:var(--good-soft)}
+.vd.no{color:var(--trap);border:1px solid var(--trap);background:var(--trap-soft)}
+
+/* ---- the count strip: this page's thesis, 0 is harmless and 2 is fatal ---- */
+.count{display:grid;gap:12px;grid-template-columns:1fr;margin:22px 0}
+@media (min-width:760px){.count{grid-template-columns:repeat(3,1fr)}}
+.cnt{
+  border:1px solid var(--line);border-left:3px solid var(--ink3);border-radius:3px;
+  background:var(--surface);padding:16px 18px;
+}
+.cnt.ok{border-left-color:var(--good)}
+.cnt.fatal{border-left-color:var(--trap)}
+.cnt .k{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:22px;color:var(--ink2);
+  font-variant-numeric:tabular-nums;display:block;line-height:1.2;
+}
+.cnt.ok .k{color:var(--good)}
+.cnt.fatal .k{color:var(--trap)}
+.cnt .t{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin:7px 0 9px;
+}
+.cnt p{margin:0;font-size:13.5px;color:var(--ink2);max-width:none}
+
+/* ---- sections ---- */
+section{margin-top:52px;scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--accent);display:block;margin-bottom:7px;
+}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;
+  margin:26px 0 8px;color:var(--ink);
+}
+.sub{color:var(--ink2);margin:0 0 18px;max-width:66ch}
+p{max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink)}
+
+/* ---- chain / tree code blocks ---- */
+pre.chain{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.75;
+  background:var(--sunk);border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:0;overflow-x:auto;color:var(--ink);
+}
+pre.chain b{color:var(--accent);font-weight:600}
+pre.chain i{color:var(--trap);font-style:normal}
+pre.chain u{color:var(--good);text-decoration:none}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  background:var(--surface2);white-space:nowrap;font-weight:500;
+}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hl{background:var(--accent-soft)}
+.hl td{font-weight:500}
+
+/* ---- callouts ---- */
+.note{
+  border:1px solid var(--line);border-left:2px solid var(--slate);background:var(--surface);
+  border-radius:3px;padding:15px 18px;margin:18px 0;
+}
+.note.trap{border-left-color:var(--trap);background:var(--trap-soft)}
+.note.good{border-left-color:var(--good);background:var(--good-soft)}
+.note .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--slate);
+}
+.note.trap .tag{color:var(--trap)}
+.note.good .tag{color:var(--good)}
+.note p{margin:0;max-width:64ch}
+.note p + p{margin-top:9px}
+
+/* ---- route cards ---- */
+.routes{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:820px){.routes{grid-template-columns:repeat(4,1fr)}}
+.route{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:17px 18px}
+.route.pick{border-color:var(--accent-line);background:var(--accent-soft)}
+.route h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin:0 0 11px;color:var(--ink3);font-weight:500;
+}
+.route.pick h4{color:var(--accent)}
+.route p{font-size:13.5px;margin:0;color:var(--ink2);max-width:none}
+
+/* ---- family panels ---- */
+.fam{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;overflow:hidden}
+.fam.key{border-color:var(--accent-line)}
+.fam-head{
+  padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:11px;
+}
+.fam.key .fam-head{background:var(--accent-soft)}
+.fam-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;white-space:nowrap;
+}
+.fam-t{font-weight:600;font-size:15px}
+.fam-tool{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);margin-left:auto;
+}
+.fam-body{padding:16px 18px}
+.fam-body > :first-child{margin-top:0}
+.fam-body .tw{margin-left:0;margin-right:0}
+.fam-body p{max-width:68ch}
+.trigger{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--ink2);background:var(--sunk);border:1px solid var(--line);
+  border-radius:2px;padding:8px 11px;margin:0 0 13px;max-width:none;
+}
+.trigger b{color:var(--accent);font-weight:500}
+.struct{
+  font-size:13.5px;color:var(--ink2);border-top:1px solid var(--line-soft);
+  padding-top:12px;margin:13px 0 0;max-width:68ch;
+}
+.struct b{color:var(--ink)}
+
+/* ---- the vertical line test figure ---- */
+.fig{margin:20px 0;overflow-x:auto}
+.fig svg{display:block;min-width:520px;width:100%;height:auto}
+.fig-cap{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:8px;
+}
+.fig .ax{stroke:var(--ink3);stroke-width:1.1}
+.fig .curve-no{stroke:var(--trap);stroke-width:2;fill:none}
+.fig .curve-yes{stroke:var(--good);stroke-width:2;fill:none}
+.fig .vline{stroke:var(--accent);stroke-width:1.4;stroke-dasharray:4 3}
+.fig .hit{fill:var(--accent)}
+.fig .hole{fill:var(--ground);stroke:var(--trap);stroke-width:2}
+.fig .t{fill:var(--ink3);font-family:"IBM Plex Mono",monospace;font-size:10.5px}
+.fig .t-no{fill:var(--trap);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600}
+.fig .t-yes{fill:var(--good);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600}
+.fig .t-acc{fill:var(--accent);font-family:"IBM Plex Mono",monospace;font-size:11px;font-weight:600}
+
+/* ---- ordered trap list ---- */
+ol.traps{counter-reset:t;list-style:none;padding:0;margin:16px 0}
+ol.traps li{
+  counter-increment:t;position:relative;padding:11px 0 11px 46px;
+  border-bottom:1px solid var(--line-soft);max-width:70ch;
+}
+ol.traps li:last-child{border-bottom:0}
+ol.traps li::before{
+  content:counter(t,decimal-leading-zero);position:absolute;left:0;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);letter-spacing:.08em;
+}
+
+/* ---- drills ---- */
+ol.drills{
+  list-style:none;counter-reset:d;padding:0;margin:16px 0;
+  display:grid;gap:9px;grid-template-columns:1fr;
+}
+@media (min-width:660px){ol.drills{grid-template-columns:1fr 1fr}}
+ol.drills li{
+  counter-increment:d;border:1px solid var(--line);background:var(--surface);
+  border-radius:3px;padding:11px 14px 11px 42px;position:relative;min-width:0;
+}
+ol.drills li::before{
+  content:"D" counter(d);position:absolute;left:12px;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink3);
+}
+details.key{
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin:18px 0;overflow:hidden;
+}
+details.key > summary{
+  padding:13px 18px;cursor:pointer;background:var(--surface2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  list-style:none;
+}
+details.key > summary::-webkit-details-marker{display:none}
+details.key > summary::before{content:"[ + ]  ";color:var(--ink3)}
+details.key[open] > summary::before{content:"[ - ]  "}
+details.key > summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+details.key .tw{margin:0;border:0;border-radius:0}
+
+/* ---- write-up block ---- */
+.writeup{margin:16px 0;padding:0;list-style:none;counter-reset:w}
+.writeup li{
+  counter-increment:w;position:relative;padding:14px 18px 14px 20px;
+  border:1px solid var(--line);border-left:2px solid var(--accent);border-radius:3px;
+  background:var(--surface);margin-bottom:11px;max-width:76ch;
+}
+.writeup .part{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);display:block;margin-bottom:9px;
+}
+.writeup p{margin:0 0 8px;max-width:70ch}
+.writeup p:last-child{margin-bottom:0}
+
+/* ---- numbers strip ---- */
+.nums{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:16px 0}
+.num{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:14px 16px;text-align:center}
+.num .v{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;color:var(--accent);font-variant-numeric:tabular-nums}
+.num .n{font-size:12px;color:var(--ink3);margin-top:6px}
+
+/* ---- footer ---- */
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+footer p{max-width:76ch;margin:0 0 8px}
+footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2);font-size:11.5px}
+.verified{
+  display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);
+  border:1px solid var(--good);border-radius:2px;padding:5px 10px;margin-bottom:14px;
+}
+.legend{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.legend .key{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;padding:6px 10px;
+  color:var(--ink2);
+}
+.legend .k-yes{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.legend .k-no{border-color:var(--trap);background:var(--trap-soft);color:var(--trap)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Athabasca MATH 265 &middot; Midterm 2 &middot; Q1 &middot; 4 points</div>
+  <h1>Which equations define a function of x</h1>
+  <p class="deck">This looks like a definition recital, and it is really a <em>counting</em> question.
+  Fix an \(x\), count the \(y\) values that solve the equation, and everything follows. The one
+  asymmetry that decides the marks: <strong>zero outputs is harmless, two outputs is fatal.</strong>
+  Part (a) is on the paper to see whether you know the difference.</p>
+</header>
+
+<div class="slab">
+  <div class="slab-head">The answers</div>
+  <div class="slab-body">
+    <div class="slab-cell">
+      <span class="lbl">a &nbsp;/&nbsp; \(\dfrac{2y}{x^2-3\lvert x\rvert}=1\)</span>
+      <p style="margin:0 0 12px"><span class="vd yes">Yes &mdash; a function</span></p>
+      $$y=\frac{x^{2}-3\lvert x\rvert}{2}$$
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink2)">Domain
+      \(\mathbb{R}\setminus\{-3,0,3\}\), because the denominator
+      \(\lvert x\rvert(\lvert x\rvert-3)\) vanishes there and those \(x\) get no \(y\) at all.</p>
+    </div>
+    <div class="slab-cell">
+      <span class="lbl">b &nbsp;/&nbsp; \(y^2+x^2=10\)</span>
+      <p style="margin:0 0 12px"><span class="vd no">No &mdash; not a function</span></p>
+      $$y=\pm\sqrt{10-x^{2}}$$
+      <p style="margin:10px 0 0;font-size:13.5px;color:var(--ink2)">Witness: \(x=1\) gives \(y^2=9\),
+      so both \(y=3\) and \(y=-3\) satisfy the equation. One input, two outputs.</p>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <span class="tag">The instruction that carries the marks</span>
+  <p>The paper prints <strong>(4 points)</strong> and the single word <strong>"Explain."</strong>
+  There is no method restriction, so nothing is off limits, but a bare "a is, b is not" is an
+  incomplete answer. A "no" needs one named witness pair. A "yes" needs a uniqueness argument
+  <em>and</em> the domain.</p>
+</div>
+
+<div class="note trap">
+  <span class="tag">One correction to your own review sheet</span>
+  <p><code>MATH265_Review.md</code> line 641 answers part (a) with "Solve, one \(y\) per \(x\),
+  function." The verdict and the reason are both right, and it silently drops the domain: the equation
+  as written is <strong>undefined at \(x=0,3,-3\)</strong>. That omission is worth a mark, and it is
+  <em>not</em> a reason to change the verdict. Section 4 explains why.</p>
+</div>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">00</span>
+  <h2>The 30-second version</h2>
+  <p class="sub">The whole question, as a counting rule you can run from memory.</p>
+
+  <div class="count">
+    <div class="cnt ok">
+      <span class="k">0</span>
+      <div class="t">zero y at this x</div>
+      <p>Fine. \(x\) is simply <strong>not in the domain</strong>. The verdict is unaffected.</p>
+    </div>
+    <div class="cnt ok">
+      <span class="k">1</span>
+      <div class="t">exactly one y</div>
+      <p>Fine. \(x\) is in the domain. This is what a function does.</p>
+    </div>
+    <div class="cnt fatal">
+      <span class="k">&ge;2</span>
+      <div class="t">two or more y</div>
+      <p><strong>Fatal.</strong> Not a function of \(x\). One such \(x\) is enough to kill it.</p>
+    </div>
+  </div>
+
+<pre class="chain">Fix an x.  Ask: how many real y satisfy the equation?
+
+a) 2y/(x^2-3|x|) = 1     solve for y   -&gt;   y = (x^2-3|x|)/2
+   y appears to power <b>1</b>, so at most ONE y wherever it is defined
+   denominator |x|(|x|-3) = 0 at x = <i>0, 3, -3</i>   -&gt;  those x give <b>ZERO</b> y
+   VERDICT: <u>function</u>, domain R minus {0, 3, -3}
+
+b) y^2 + x^2 = 10        solve for y   -&gt;   y = +- sqrt(10 - x^2)
+   x = 1  -&gt;  y^2 = 9  -&gt;  y = <i>3 AND -3</i>          -&gt;  <b>TWO</b> y
+   VERDICT: <i>not a function</i>.  One witness is the whole proof.</pre>
+
+  <div class="note good">
+    <span class="tag">The habit</span>
+    <p>Do not confuse "no output" with "two outputs". Only the second one breaks a function.</p>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">01</span>
+  <h2>What this question is really testing</h2>
+  <p class="sub">4 of the 94 points on midterm 2, and the cheapest question on the paper in minutes
+  per mark. Five reflexes, all of which reappear later.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Reflex</th><th>Where it comes back</th></tr></thead>
+      <tbody>
+        <tr><td>Solve an implicit equation for \(y\)</td><td>Implicit differentiation, MT2 Q8, \(x^3y+xy^2=4xy+7\), which only makes sense because \(y\) is <em>assumed</em> to be a function of \(x\) locally</td></tr>
+        <tr><td>A vanishing denominator removes an \(x\)</td><td>Q1.2 composite domains, and the vertical asymptote of \(\frac{x^2-3x-4}{x^2-16}\) in MT2 Q6</td></tr>
+        <tr><td>\(\lvert x\rvert\) splits into cases at a corner</td><td>Q2.2, graphing \(-3\lvert x-2\rvert\), and "not differentiable at \(x=-2\)" in MT2 Q10</td></tr>
+        <tr><td>The \(\pm\) from undoing an even power</td><td>Every related-rates square root, and MT2 Q9's \(\sqrt{9.2}\)</td></tr>
+        <tr><td>Vertical line test as a picture of the definition</td><td>MT2 Q10, sketch a <em>single</em> function meeting four conditions</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The deeper point is the one the rest of calculus rests on. Limits, continuity and derivatives are
+  all statements about a <em>function</em>, so before any of them apply you need to know that "\(y\)" is
+  a single determined number once \(x\) is fixed. Implicit differentiation is the sharpest example: it
+  differentiates \(y\) as though it were a function of \(x\), and that step is only legitimate on a
+  piece of the curve where the answer to this question is yes.</p>
+
+  <p>The circle in part (b) is the standard illustration. You cannot call \(y\) a function of \(x\) on
+  the whole circle, but you can on the top half, and that is why implicit differentiation of a circle
+  still produces a meaningful \(\frac{dy}{dx}\).</p>
+
+  <div class="fig">
+    <div class="fig-cap">The two parts, as pictures &mdash; the vertical line is the whole test</div>
+    <svg viewBox="0 0 720 260" role="img" aria-label="Left: the circle x squared plus y squared equals ten, with the vertical line at x equals one meeting it at y equals three and y equals minus three. Right: the even curve y equals x squared minus three times absolute x, all over two, with holes at x equals minus three, zero and three, where every vertical line meets it at most once.">
+      <!-- ---------- left: the circle, fails ---------- -->
+      <text class="t-no" x="14" y="18">b)  y&#178; + x&#178; = 10   NOT a function</text>
+      <line class="ax" x1="20" y1="140" x2="330" y2="140"/>
+      <line class="ax" x1="175" y1="35" x2="175" y2="245"/>
+      <circle class="curve-no" cx="175" cy="140" r="85"/>
+      <line class="vline" x1="202" y1="35" x2="202" y2="245"/>
+      <circle class="hit" cx="202" cy="59" r="4.5"/>
+      <circle class="hit" cx="202" cy="221" r="4.5"/>
+      <text class="t-acc" x="210" y="52">y = 3</text>
+      <text class="t-acc" x="210" y="238">y = -3</text>
+      <text class="t-acc" x="188" y="30">x = 1</text>
+      <text class="t" x="256" y="134">&#8730;10</text>
+      <circle class="hit" cx="260" cy="140" r="2.5"/>
+      <text class="t-no" x="20" y="258">one x, two y</text>
+
+      <!-- ---------- right: the even rational, passes ---------- -->
+      <text class="t-yes" x="394" y="18">a)  2y/(x&#178;-3|x|) = 1   IS a function</text>
+      <line class="ax" x1="380" y1="180" x2="700" y2="180"/>
+      <line class="ax" x1="540" y1="45" x2="540" y2="245"/>
+      <!-- y=(x^2-3|x|)/2 scaled: x in [-4.6,4.6] -> 380..700, y scaled 12px per unit, y=0 at 180 -->
+      <path class="curve-yes" d="M 380 118 L 391 128 L 403 138 L 414 147 L 426 155 L 437 162 L 449 168 L 460 174 L 472 178 L 483 182 L 495 185 L 506 187 L 518 188 L 529 189 L 540 189"/>
+      <path class="curve-yes" d="M 540 189 L 551 189 L 563 188 L 574 187 L 586 185 L 597 182 L 609 178 L 620 174 L 632 168 L 643 162 L 655 155 L 666 147 L 678 138 L 689 128 L 700 118"/>
+      <!-- holes at x=-3, 0, 3 : x=-3 -> 540-3*34.8=436, x=3 -> 644, x=0 -> 540 -->
+      <circle class="hole" cx="436" cy="180" r="4.5"/>
+      <circle class="hole" cx="540" cy="180" r="4.5"/>
+      <circle class="hole" cx="644" cy="180" r="4.5"/>
+      <text class="t-no" x="418" y="200">-3</text>
+      <text class="t-no" x="534" y="200">0</text>
+      <text class="t-no" x="640" y="200">3</text>
+      <line class="vline" x1="678" y1="45" x2="678" y2="245"/>
+      <circle class="hit" cx="678" cy="138" r="4.5"/>
+      <text class="t-acc" x="620" y="40">every x: one y</text>
+      <text class="t-yes" x="380" y="258">three holes, but never two y</text>
+    </svg>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">02</span>
+  <h2>The things you must have cold</h2>
+
+  <h3>2.1 &nbsp; The definition, stated so it can be tested</h3>
+  <div class="note">
+    <p>\(y\) is a <strong>function of \(x\)</strong> if, for every \(x\) in the domain, the equation
+    determines <strong>exactly one</strong> value of \(y\).</p>
+  </div>
+  <p>"Well defined" in the question wording is not an extra condition. It is the same condition said
+  with emphasis: the rule must <em>define</em> one output, with no ambiguity about which one.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>The definition does NOT require</th><th>Why part (a) is still a function</th></tr></thead>
+      <tbody>
+        <tr><td>That every real \(x\) works</td><td>\(x=0,\pm3\) produce no \(y\) at all, so they leave the domain and the question of uniqueness never arises for them</td></tr>
+        <tr><td>That the formula be one algebraic expression</td><td>\(y=(x^2-3\lvert x\rvert)/2\) is really two formulas glued at \(x=0\), and a piecewise rule is a perfectly good function</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.2 &nbsp; Read the count table as one asymmetry</h3>
+  <p>Students lose this mark in both directions, and the two mistakes are mirror images.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>The mistake</th><th>What it confuses</th></tr></thead>
+      <tbody>
+        <tr><td>Saying (a) is <em>not</em> a function because it blows up at \(x=0\)</td><td>The domain with well-definedness</td></tr>
+        <tr><td>Saying (b) <em>is</em> a function because you can write \(y=\sqrt{10-x^2}\)</td><td>Choosing a root with being given one</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>2.3 &nbsp; The degree of \(y\) is a cue, not a proof</h3>
+  <p>Look at the highest power of \(y\). Fastest read available, right most of the time, and you must
+  still confirm it.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">power of y</th><th>Usual verdict</th><th>The exception that makes it a cue</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td><span class="vd yes">function</span></td><td>Where the coefficient of \(y\) is zero you get either no \(y\) or every \(y\)</td></tr>
+        <tr><td class="mono">even</td><td><span class="vd no">not</span></td><td>\(y^2+x^2=0\) has the single solution \(y=0\), a function on the one-point domain \(\{0\}\)</td></tr>
+        <tr><td class="mono">odd</td><td><span class="vd yes">function</span></td><td>\(y^3-3y=x\) is odd degree and <strong>not</strong> a function, because \(y^3-3y\) is not monotone</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note good">
+    <span class="tag">The honest version of the rule</span>
+    <p>It is about <strong>monotonicity in \(y\)</strong>, not degree. If the \(y\)-side is strictly
+    increasing or strictly decreasing, it crosses any level exactly once, so there is exactly one
+    \(y\). Odd powers happen to be monotone; \(y^3-3y\) is not, which is why the cue fails there.</p>
+  </div>
+
+  <h3>2.4 &nbsp; The three ways uniqueness actually dies</h3>
+  <p>Every "not a function" instance in this course is one of three shapes. Learn the shape and you
+  stop needing to think.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Shape</th><th>The mechanism</th><th>Canonical instance</th></tr></thead>
+      <tbody>
+        <tr><td>Even power of \(y\)</td><td>Undoing \(y^{2n}\) introduces \(\pm\)</td><td class="mono">y&#178;+x&#178;=10 (part b)</td></tr>
+        <tr><td>\(\lvert y\rvert\)</td><td>\(\lvert y\rvert=c\) with \(c>0\) has two solutions</td><td class="mono">|y| = x</td></tr>
+        <tr><td>Periodic in \(y\)</td><td>\(\sin y=c\) repeats forever</td><td class="mono">sin y = x</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>There is a fourth, rarer shape: the <strong>coefficient of \(y\) collapses</strong>. In \(xy=0\),
+  the value \(x=0\) leaves \(0\cdot y=0\), which every \(y\) satisfies. That is infinitely many
+  outputs, and it is the exact opposite failure from part (a), where the collapsing coefficient left
+  <em>no</em> \(y\). Family 10 is built around that pair.</p>
+
+  <h3>2.5 &nbsp; Where the \(\lvert x\rvert\) in part (a) fits</h3>
+  <p>It does nothing to the verdict. A decoration <strong>on the \(x\) side</strong> cannot threaten
+  uniqueness, because uniqueness is a question about \(y\) only. Its only job is the domain, and here
+  it does that in a way worth noticing:</p>
+  $$x^2-3\lvert x\rvert=\lvert x\rvert^{2}-3\lvert x\rvert=\lvert x\rvert\left(\lvert x\rvert-3\right)$$
+  <p>using \(x^2=\lvert x\rvert^2\). That factorisation beats splitting into cases: the product is zero
+  exactly when \(\lvert x\rvert=0\) or \(\lvert x\rvert=3\), which is \(x\in\{0,3,-3\}\). The
+  \(\lvert x\rvert\) is a decoy, and spotting a decoy quickly is worth as much as any technique.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">03</span>
+  <h2>The universal procedure</h2>
+
+  <div class="note">
+    <p><strong>1.</strong> <strong>Isolate \(y\) as far as the algebra allows.</strong> Multiply out
+    denominators, but write down what you multiplied by, because that is where the domain lives.</p>
+    <p><strong>2.</strong> <strong>Count the \(y\)-values for a general \(x\).</strong> Highest power of
+    \(y\) is the cue; monotonicity in \(y\) is the proof.</p>
+    <p><strong>3.</strong> <strong>If the count is ever 2 or more, stop.</strong> Produce one specific
+    \(x\) with two specific \(y\)-values. That single witness is a complete proof.</p>
+    <p><strong>4.</strong> <strong>If the count is always 1, say so, then find where it is 0.</strong>
+    Set every denominator to zero, every even radicand negative, every log argument non-positive.</p>
+    <p><strong>5.</strong> <strong>State the verdict, the reason, and the domain.</strong> The word
+    <em>Explain</em> is in the question.</p>
+  </div>
+
+  <h3>Classify before you compute</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>What you see</th><th class="mono">family</th><th>First move</th></tr></thead>
+      <tbody>
+        <tr><td>\(y\) alone on one side already</td><td class="mono">F0</td><td>Verdict is yes. Go straight to the domain.</td></tr>
+        <tr class="hl"><td>\(y\) times something, or \(y\) over something</td><td class="mono">F1</td><td>Divide, then set the coefficient to zero</td></tr>
+        <tr class="hl"><td>\(y^2\), \(y^4\), or a hidden quadratic in \(y\)</td><td class="mono">F2</td><td>Find one \(x\) with two \(y\). Done.</td></tr>
+        <tr><td>\(y^3\), \(y^5\), alone</td><td class="mono">F3</td><td>Verdict is yes, unique real odd root</td></tr>
+        <tr><td>\(y\) in two terms of different degree</td><td class="mono">F4 / F5</td><td>Differentiate the \(y\)-side in \(y\), check the sign</td></tr>
+        <tr><td>\(\lvert y\rvert\)</td><td class="mono">F6</td><td>Verdict is no, unless the right side is forced to \(0\)</td></tr>
+        <tr><td>\(\sqrt{y}\) or \(\sqrt[4]{y}\)</td><td class="mono">F7</td><td>Verdict is yes. Domain needs the other side \(\geq0\).</td></tr>
+        <tr><td>\(e^y\), \(\ln y\), \(\sin y\), \(\tan y\)</td><td class="mono">F8</td><td>Exp and log are yes. Trig is no.</td></tr>
+        <tr><td>\(\lvert x\rvert\), \(x^2\) on the \(x\) side only</td><td class="mono">F9</td><td>Ignore for the verdict, use for the domain</td></tr>
+        <tr><td>No \(y\) at all, or a sum of squares \(=0\)</td><td class="mono">F10</td><td>Count solutions at the special \(x\) by hand</td></tr>
+        <tr><td>A graph or a table</td><td class="mono">F11</td><td>Vertical line test, or a repeated \(x\)</td></tr>
+        <tr><td>A piecewise rule</td><td class="mono">F12</td><td>Check the seam values agree</td></tr>
+        <tr><td>"Is \(x\) a function of \(y\)?"</td><td class="mono">F13</td><td>Swap the letters and rerun</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">04</span>
+  <h2>Q1.3 worked four ways</h2>
+
+  <h3>Route A &nbsp;/&nbsp; solve for \(y\), then hunt the domain <span class="vd yes">use this one</span></h3>
+
+  <p><strong>Part (a).</strong> The equation only says anything at all when the denominator is nonzero,
+  so record that condition <em>first</em>, before touching the algebra:</p>
+  $$x^2-3\lvert x\rvert\neq0
+  \iff \lvert x\rvert\left(\lvert x\rvert-3\right)\neq0
+  \iff x\neq0,\ x\neq3,\ x\neq-3.$$
+  <p>Now multiply by that nonzero denominator and divide by \(2\):</p>
+  $$2y=x^2-3\lvert x\rvert \qquad\Longrightarrow\qquad y=\frac{x^2-3\lvert x\rvert}{2}.$$
+  <p>The right side is a single number for each admissible \(x\), so there is exactly one \(y\).
+  <strong>Yes, a well defined function of \(x\)</strong>, with domain
+  \((-\infty,-3)\cup(-3,0)\cup(0,3)\cup(3,\infty)\).</p>
+
+  <div class="note trap">
+    <span class="tag">Why the domain remark is not optional</span>
+    <p>At \(x=0\) the original equation reads \(\frac{2y}{0}=1\), which no \(y\) satisfies. So \(x=0\)
+    contributes <em>zero</em> outputs, not two, and by the count test the verdict stands.</p>
+    <p>Here is the subtlety that makes this a 4-point question. The <em>cleared</em> equation
+    \(2y=x^2-3\lvert x\rvert\) is <strong>not the same relation</strong> as the original. At \(x=0\) the
+    cleared version says \(2y=0\), which has the perfectly good unique solution \(y=0\), whereas the
+    original says nothing at all. Multiplying through by a denominator added three points to the graph
+    that were not there before. Both relations are functions, but with different domains, and the one
+    the question asked about is the one with the three holes. Writing the domain down is how you show
+    the marker you noticed.</p>
+  </div>
+
+  <p><strong>Sanity checks.</strong> \(y\) is even, since \(x^2\) and \(\lvert x\rvert\) both are, so
+  \(y(-x)=y(x)\). Spot values \(y(1)=-1\), \(y(2)=-1\), \(y(4)=2\), \(y(5)=5\). Substituting \(x=4\),
+  \(y=2\) into the original gives \(\frac{4}{16-12}=1\), so the solved form really does satisfy the
+  equation it came from.</p>
+
+  <p>The piecewise form, if you want it, is two upward parabola pieces that mirror each other across
+  the \(y\)-axis, each with a hole punched at its own zero:</p>
+  $$y=\begin{cases}\dfrac{x^2-3x}{2}, & x>0,\ x\neq3,\\[6pt]\dfrac{x^2+3x}{2}, & x<0,\ x\neq-3.\end{cases}$$
+
+  <p><strong>Part (b).</strong> \(y^2=10-x^2\), so \(y=\pm\sqrt{10-x^2}\). The \(\pm\) is the answer:
+  for any \(x\) with \(x^2<10\) both roots are real and different. Do not stop there, because
+  <em>Explain</em> wants the witness:</p>
+  $$x=1:\quad y^2=10-1=9\quad\Longrightarrow\quad y=3\ \text{ and }\ y=-3,$$
+  <p>and both \((1,3)\) and \((1,-3)\) satisfy \(y^2+x^2=10\). One input, two outputs.
+  \(x=3\) works just as nicely and gives \(y=\pm1\).</p>
+  <p>Two remarks that show you understand the boundary, worth including if you have room. At
+  \(x=\pm\sqrt{10}\) there is exactly one \(y\), namely \(0\), and for \(\lvert x\rvert>\sqrt{10}\)
+  there is no real \(y\) at all. Neither rescues the relation, because a single bad \(x\) is already
+  fatal.</p>
+
+  <h3>Route B &nbsp;/&nbsp; the degree-in-\(y\) reflex, in eight seconds</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Part</th><th class="mono">power of y</th><th>Read</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>(a)</td><td class="mono">1</td><td>Linear in \(y\), so at most one \(y\)</td><td><span class="vd yes">function</span></td></tr>
+        <tr><td>(b)</td><td class="mono">2</td><td>Even power, so \(\pm\)</td><td><span class="vd no">not</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>This gets the verdict right on both parts and nothing else: no domain for (a), no witness for (b).
+  On a question that says <em>Explain</em> it is a starting point, not an answer.</p>
+
+  <h3>Route C &nbsp;/&nbsp; witness and uniqueness &mdash; this is what earns the marks</h3>
+  <p>Strip the question to what a proof requires and it is <strong>asymmetric</strong>, which is the
+  most useful thing in this section because it tells you how much to write.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>To prove</th><th>What suffices</th><th>Length</th></tr></thead>
+      <tbody>
+        <tr><td><span class="vd no">not a function</span></td><td>One \(x\) and two \(y\). For (b): \((1,3)\) and \((1,-3)\). No need to discuss the domain, the boundary, or the shape of the curve.</td><td>One line and a pair of points</td></tr>
+        <tr><td><span class="vd yes">is a function</span></td><td>An argument for <em>every</em> \(x\). A witness cannot help, since no finite list of good \(x\) rules out a bad one. Say: "linear in \(y\) with nonzero coefficient, so exactly one solution."</td><td>A chain of equivalences plus the domain</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Route D &nbsp;/&nbsp; geometric recognition</h3>
+  <p>For (b), \(y^2+x^2=10\) is a <strong>circle</strong> of radius \(\sqrt{10}\approx3.162\) centred at
+  the origin, and the vertical line \(x=1\) cuts it twice. Fastest route if you recognise the conic, and
+  the most persuasive single sentence available. For (a), \(y=\frac{\lvert x\rvert^2-3\lvert x\rvert}{2}\)
+  is the parabola \(\frac{t^2-3t}{2}\) in \(t=\lvert x\rvert\geq0\), made even in \(x\), with holes at
+  its roots. Its limitation: it only works on curves you recognise, and \(y^3-3y=x\) has no name you
+  know.</p>
+
+  <h3>Which route, and why</h3>
+  <div class="routes">
+    <div class="route"><h4>A &middot; solve for y</h4><p>90 s. Verdict, domain and explanation. Fails when \(y\) cannot be isolated, e.g. \(y^3+y=x\).</p></div>
+    <div class="route"><h4>B &middot; degree in y</h4><p>8 s. Verdict only. Fails on non-monotone odd degree, e.g. \(y^3-3y=x\).</p></div>
+    <div class="route pick"><h4>C &middot; witness</h4><p>40 s. This <em>is</em> the explanation. Needs Route B first, to know which side to argue.</p></div>
+    <div class="route"><h4>D &middot; geometric</h4><p>15 s. One good sentence on (b). Fails on unfamiliar curves.</p></div>
+  </div>
+  <div class="note good">
+    <span class="tag">Under pressure</span>
+    <p>Use <strong>Route B</strong> to pick the side within seconds, then write it up as
+    <strong>Route A</strong> for (a) and <strong>Route C</strong> for (b). That is the combination that
+    gets all four marks. Route D is a free extra sentence on (b), and naming the curve reads as
+    understanding rather than manipulation.</p>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">05</span>
+  <h2>The exam-ready write-up</h2>
+  <p class="sub">What you actually put on the page. Short on purpose: four points, two minutes.</p>
+
+  <ul class="writeup">
+    <li>
+      <span class="part">a &nbsp;&mdash;&nbsp; yes, a well defined function of x</span>
+      <p>The equation requires \(x^2-3\lvert x\rvert\neq0\). Since \(x^2=\lvert x\rvert^2\), we have
+      \(x^2-3\lvert x\rvert=\lvert x\rvert(\lvert x\rvert-3)\), which is zero exactly when \(x=0\),
+      \(x=3\) or \(x=-3\). For every other \(x\) we may multiply by the denominator to get
+      \(2y=x^2-3\lvert x\rvert\), so \(y=\frac{x^2-3\lvert x\rvert}{2}\).</p>
+      <p>The equation is linear in \(y\) with nonzero coefficient, so each admissible \(x\) determines
+      exactly one \(y\). Hence \(y\) is a function of \(x\) with domain
+      \((-\infty,-3)\cup(-3,0)\cup(0,3)\cup(3,\infty)\). The three excluded values give no \(y\) at
+      all, which removes them from the domain but does not affect well-definedness.</p>
+    </li>
+    <li>
+      <span class="part">b &nbsp;&mdash;&nbsp; no, not a well defined function of x</span>
+      <p>Solving gives \(y^2=10-x^2\), so \(y=\pm\sqrt{10-x^2}\), and the two signs give different
+      values whenever \(x^2<10\). For example \(x=1\) gives \(y^2=9\), so both \(y=3\) and \(y=-3\)
+      satisfy the equation. The single input \(x=1\) produces two different outputs, so \(y\) is not a
+      function of \(x\).</p>
+      <p>Geometrically the graph is the circle of radius \(\sqrt{10}\) centred at the origin, and the
+      vertical line \(x=1\) meets it twice, so it fails the vertical line test.</p>
+    </li>
+  </ul>
+
+  <h3>The three sentences carrying the marks</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Sentence</th><th>Why it scores</th></tr></thead>
+      <tbody>
+        <tr><td>"linear in \(y\) with nonzero coefficient, so exactly one \(y\)"</td><td>This is the <em>reason</em> for (a), not the computation. Without it you have shown a formula, not argued uniqueness.</td></tr>
+        <tr><td>"both \(y=3\) and \(y=-3\) satisfy the equation"</td><td>This is the <em>whole proof</em> for (b). A named witness beats any amount of talk about \(\pm\).</td></tr>
+        <tr><td>"the excluded values give no \(y\), which does not affect well-definedness"</td><td>Shows you know zero and two are different failures. The difference between a complete and a partial answer on (a).</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">06</span>
+  <h2>Verify before you commit</h2>
+  <p class="sub">Cheap checks, in the order they catch mistakes.</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">#</th><th>Check</th><th>What it catches</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>Substitute the witness back: \(9+1=10\) for both \((1,3)\) and \((1,-3)\)</td><td>A bad witness collapses the whole "not a function" answer. Five seconds.</td></tr>
+        <tr><td class="mono">2</td><td>Substitute the solved formula back: \(x=4,y=2\) gives \(\frac{4}{16-12}=1\). Try \(x=-4\) too.</td><td>A dropped factor of \(2\), and sign errors, which live in the \(\lvert x\rvert\)</td></tr>
+        <tr><td class="mono">3</td><td>Count the exclusions: \(\lvert x\rvert(\lvert x\rvert-3)=0\) gives <strong>three</strong> values</td><td>Forgetting \(x=-3\), the standard error</td></tr>
+        <tr><td class="mono">4</td><td>Check the parity: anything built from \(x^2\) and \(\lvert x\rvert\) is even</td><td>A non-symmetric excluded set is wrong by inspection</td></tr>
+        <tr><td class="mono">5</td><td>Magnitude on the circle: \(\sqrt{10}\) is between \(3\) and \(3.5\)</td><td>A witness at \(x=4\) would have no real roots and prove nothing</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>Numbers worth memorising</h3>
+  <div class="nums">
+    <div class="num"><div class="v">0, 3, -3</div><div class="n">excluded \(x\) in part (a)</div></div>
+    <div class="num"><div class="v">-1, -1, 2, 5</div><div class="n">\(y\) at \(x=1,2,4,5\) in (a)</div></div>
+    <div class="num"><div class="v">3.1623</div><div class="n">\(\sqrt{10}\), the circle radius</div></div>
+    <div class="num"><div class="v">&plusmn;3 &nbsp;/&nbsp; &plusmn;1</div><div class="n">witnesses at \(x=1\) and \(x=3\)</div></div>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">07</span>
+  <h2>Answer-entry rules</h2>
+
+  <div class="note trap">
+    <span class="tag">The expensive failure mode here is not the parser</span>
+    <p>The paper says <em>Explain</em>, and 4 points split across two parts, so a machine-marked version
+    almost certainly pairs a verdict widget with a free-text or upload explanation, or is a "select all
+    that are functions" item. The way to lose marks is <strong>answering the verdict and leaving the
+    explanation blank</strong>.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>The verdict</td><td>Answer both parts explicitly</td><td>Answer only the interesting one</td></tr>
+        <tr><td>"Select all that apply"</td><td>Tick (a), leave (b) unticked</td><td>Tick neither because you are unsure</td></tr>
+        <tr><td>A free-text explanation</td><td>Witness for (b), uniqueness reason for (a)</td><td>"Vertical line test" with nothing else</td></tr>
+        <tr class="hl"><td>If a box asks for the solved form</td><td class="mono">(x^2-3*abs(x))/2</td><td class="mono">x^2-3*abs(x)/2</td></tr>
+        <tr><td>If a box asks for a \(y\)-value</td><td class="mono">-1 at x=1</td><td class="mono">1, a sign slip</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>The single most expensive typo on this question</strong> is
+  <code style="font-family:'IBM Plex Mono',monospace;color:var(--trap)">x^2-3*abs(x)/2</code>, which
+  parses as \(x^2-\frac{3\lvert x\rvert}{2}\) rather than \(\frac{x^2-3\lvert x\rvert}{2}\). Bracket the
+  whole numerator before dividing.</p>
+  <p>Absolute value in M&ouml;bius is <code style="font-family:'IBM Plex Mono',monospace">abs(x)</code>.
+  The vertical-bar notation is not a reliable input in either grading engine, so do not use it in an
+  answer box even though it is standard on paper.</p>
+
+  <h3>The domain, if it is asked for</h3>
+  <div class="note">
+    <span class="tag">Not fully verified &mdash; settle it on the sample exam</span>
+    <p>My platform notes cover expression entry thoroughly but do not document M&ouml;bius
+    interval-notation syntax. Treat this as a strategy rather than a guaranteed string.</p>
+  </div>
+  <p>Three exclusions means the interval answer has <strong>four</strong> pieces:</p>
+  <span class="entry">(-infinity,-3)U(-3,0)U(0,3)U(3,infinity)</span>
+  <p style="margin-top:14px">If the box takes an inequality instead, the three conditions are
+  <code style="font-family:'IBM Plex Mono',monospace">x &lt;&gt; 0</code>,
+  <code style="font-family:'IBM Plex Mono',monospace">x &lt;&gt; 3</code>,
+  <code style="font-family:'IBM Plex Mono',monospace">x &lt;&gt; -3</code>, where some engines want
+  <code style="font-family:'IBM Plex Mono',monospace">!=</code> instead. Write exact values, never
+  decimals.</p>
+  <div class="note good">
+    <span class="tag">Always click preview</span>
+    <p>An empty preview modal means broken syntax, not wrong mathematics. Preview is the only proof that
+    the parser agrees with you; reading your own answer back is not. On a four-piece union this matters
+    more than usual, because a mis-parsed union still looks tidy in the input box.</p>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">08</span>
+  <h2>The variation catalog</h2>
+  <p class="sub">Organised by <strong>the tool the variation forces</strong>, not by how the question
+  looks. Two equations that look nothing alike but force the same tool are the same question.</p>
+
+  <div class="note">
+    <span class="tag">Read these as structure, not as facts</span>
+    <p>Across all fourteen families there are only <strong>three</strong> reasons a relation fails: an
+    even power of \(y\), an \(\lvert y\rvert\), or a periodic function of \(y\). Everything else on the
+    "not a function" side is one of those three wearing a costume, plus the one structural failure where
+    the coefficient of \(y\) collapses to zero. On the "is a function" side there is only
+    <strong>one</strong> reason: the equation pins \(y\) down uniquely, by being linear in \(y\) or
+    monotone in \(y\).</p>
+  </div>
+
+  <div class="legend">
+    <span class="key k-yes">green = is a function</span>
+    <span class="key k-no">terracotta = not a function</span>
+    <span class="key">amber panel = one of the two exam parts</span>
+  </div>
+
+  <!-- F0 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 0</span><span class="fam-t">Already solved for \(y\)</span><span class="fam-tool">tool &middot; domain triggers</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; the equation reads \(y=\) something in \(x\), with no \(y\) anywhere else.</p>
+      <p>The verdict is free: it is automatically a function, because the right side is one number. All
+      the work is the domain, and it is the same three restriction triggers as Q1.2.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Verdict</th><th>Domain</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y = (x&#178;-3|x|)/2</td><td><span class="vd yes">function</span></td><td class="mono">R</td></tr>
+          <tr><td class="mono">y = sqrt(x-1)</td><td><span class="vd yes">function</span></td><td class="mono">[1, inf)</td></tr>
+          <tr><td class="mono">y = 1/(x&#178;-4)</td><td><span class="vd yes">function</span></td><td class="mono">x != &plusmn;2</td></tr>
+          <tr><td class="mono">y = ln x</td><td><span class="vd yes">function</span></td><td class="mono">(0, inf)</td></tr>
+          <tr><td class="mono">y = x/(x&#178;+1)</td><td><span class="vd yes">function</span></td><td class="mono">R</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">Note rows 3 and 5: \(x^2-4\) vanishes, \(x^2+1\) never does. <b>A denominator
+      only costs you a domain if it actually reaches zero.</b></p>
+    </div>
+  </div>
+
+  <!-- F1 -->
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 1 &middot; part (a)</span><span class="fam-t">Linear in \(y\): \(A(x)\,y=B(x)\)</span><span class="fam-tool">tool &middot; divide, then zero the coefficient</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(y\) appears to the first power only, possibly multiplied or divided by stuff in \(x\).</p>
+      <p>Divide by the coefficient, then ask where the coefficient is zero. That last step is the whole
+      family, and it splits into two cases you must distinguish:</p>
+      $$A(x)=0,\ B(x)\neq0 \implies \textbf{no } y \ \text{(x leaves the domain, verdict survives)}$$
+      $$A(x)=0,\ B(x)=0 \implies \textbf{every } y \ \text{(verdict dies)}$$
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Solved</th><th>Verdict</th><th>Excluded \(x\)</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td class="mono">2y/(x&#178;-3|x|) = 1</td><td class="mono">(x&#178;-3|x|)/2</td><td><span class="vd yes">function</span></td><td class="mono">0, &plusmn;3 &nbsp;(no y)</td></tr>
+          <tr><td class="mono">x y = 1</td><td class="mono">1/x</td><td><span class="vd yes">function</span></td><td class="mono">0</td></tr>
+          <tr><td class="mono">(x-2) y = x+1</td><td class="mono">(x+1)/(x-2)</td><td><span class="vd yes">function</span></td><td class="mono">2</td></tr>
+          <tr><td class="mono">3y/(x&#178;-4) = 1</td><td class="mono">(x&#178;-4)/3</td><td><span class="vd yes">function</span></td><td class="mono">&plusmn;2</td></tr>
+          <tr><td class="mono">y sin x = 1</td><td class="mono">csc x</td><td><span class="vd yes">function</span></td><td class="mono">x = k&pi;</td></tr>
+          <tr><td class="mono">x&#178;y + y = x</td><td class="mono">x/(x&#178;+1)</td><td><span class="vd yes">function</span></td><td class="mono">none</td></tr>
+          <tr><td class="mono">5y/(x&#178;-2x) = 1</td><td class="mono">(x&#178;-2x)/5</td><td><span class="vd yes">function</span></td><td class="mono">0, 2</td></tr>
+          <tr><td class="mono">|x| y = 4</td><td class="mono">4/|x|</td><td><span class="vd yes">function</span></td><td class="mono">0</td></tr>
+          <tr><td class="mono">2y/(x&#179;-4x) = 1</td><td class="mono">(x&#179;-4x)/2</td><td><span class="vd yes">function</span></td><td class="mono">0, &plusmn;2</td></tr>
+          <tr><td class="mono">y/(x&#178;+1) = 3</td><td class="mono">3x&#178;+3</td><td><span class="vd yes">function</span></td><td class="mono">none</td></tr>
+          <tr class="hl"><td class="mono">2y/(x&#178;-5|x|) = 1</td><td class="mono">(x&#178;-5|x|)/2</td><td><span class="vd yes">function</span></td><td class="mono">0, &plusmn;5</td></tr>
+          <tr><td class="mono">3y/(|x|-2) = 1</td><td class="mono">(|x|-2)/3</td><td><span class="vd yes">function</span></td><td class="mono">&plusmn;2</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is a function.</b> That is the structural fact, and it is why part
+      (a) is the easy half of Q1.3 once you see the shape. All the variation lives in the last column.
+      The highlighted row 11 is the most likely reword of the real exam question: same structure,
+      exclusions at \(0,\pm5\).</p>
+    </div>
+  </div>
+
+  <!-- F2 -->
+  <div class="fam key">
+    <div class="fam-head"><span class="fam-n">Family 2 &middot; part (b)</span><span class="fam-t">An even power of \(y\)</span><span class="fam-tool">tool &middot; the &plusmn; witness</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(y^2\), \(y^4\), or any quadratic in \(y\), including a disguised one.</p>
+      <p>Find one \(x\) making the right side a positive number, then take both roots and give them
+      explicitly. Choose an \(x\) that makes the right side a perfect square.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th class="mono">witness x</th><th class="mono">the two y</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td class="mono">y&#178; + x&#178; = 10</td><td class="mono">1</td><td class="mono">&plusmn;3</td><td><span class="vd no">not</span></td></tr>
+          <tr class="hl"><td class="mono">y&#178; + x&#178; = 10</td><td class="mono">3</td><td class="mono">&plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#178; = x</td><td class="mono">4</td><td class="mono">&plusmn;2</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#178; = x&#179;</td><td class="mono">4</td><td class="mono">&plusmn;8</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">x&#178;/9 + y&#178;/4 = 1</td><td class="mono">0</td><td class="mono">&plusmn;2</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#8308; = x&#178;</td><td class="mono">4</td><td class="mono">&plusmn;2</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">x&#178; - y&#178; = 9</td><td class="mono">5</td><td class="mono">&plusmn;4</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#178; = (x-1)&#178;</td><td class="mono">4</td><td class="mono">&plusmn;3</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#178; + 4x&#178; = 16</td><td class="mono">1</td><td class="mono">&plusmn;2&#8730;3</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">3y&#178; = x</td><td class="mono">3</td><td class="mono">&plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr class="hl"><td class="mono">y&#178; + y = x</td><td class="mono">6</td><td class="mono">2 and -3</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#8308; = x+1</td><td class="mono">15</td><td class="mono">&plusmn;2</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">x y&#178; = 1</td><td class="mono">4</td><td class="mono">&plusmn;1/2</td><td><span class="vd no">not</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is not a function</b>, and twelve of the thirteen have witnesses of
+      the symmetric form \(\pm c\). Row 11 is the one to study, because the \(\pm\) is <b>hidden</b>:
+      \(y^2+y=x\) is a quadratic in \(y\), so \(y=\frac{-1\pm\sqrt{1+4x}}{2}\) and the two roots are
+      <em>not</em> negatives of each other. At \(x=6\) they are \(2\) and \(-3\). The reliable trigger is
+      "the highest power of \(y\) is even", not "\(y^2\) sits alone".</p>
+      <p class="struct">Row 8 is worth a line too: \(y^2=(x-1)^2\) gives \(y=\pm(x-1)\), two lines
+      crossing at \(x=1\). At the crossing there is only one \(y\), and everywhere else two. One good
+      \(x\) does not save a relation, just as one bad \(x\) condemns it.</p>
+    </div>
+  </div>
+
+  <!-- F3 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 3</span><span class="fam-t">An odd power of \(y\)</span><span class="fam-tool">tool &middot; unique real odd root</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(y^3\), \(y^5\), \(y^7\) appearing alone.</p>
+      <p>Every real number has exactly one real odd root. \(y^3=c\) has the single solution
+      \(y=\sqrt[3]{c}\), for negative \(c\) too. No \(\pm\), and no domain restriction either, because
+      odd roots accept negatives.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Solved</th><th>Verdict</th><th>Spot check</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y&#179; = x</td><td class="mono">x^(1/3)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=-8 -&gt; y=-2</td></tr>
+          <tr><td class="mono">y&#179; + x = 1</td><td class="mono">(1-x)^(1/3)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=-7 -&gt; y=2</td></tr>
+          <tr><td class="mono">y&#179; = x&#178;</td><td class="mono">x^(2/3)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=8 -&gt; y=4</td></tr>
+          <tr><td class="mono">y&#8309; = x-2</td><td class="mono">(x-2)^(1/5)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=34 -&gt; y=2</td></tr>
+          <tr><td class="mono">y&#179; = |x|</td><td class="mono">|x|^(1/3)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=-27 -&gt; y=3</td></tr>
+          <tr><td class="mono">2y&#179; = x</td><td class="mono">(x/2)^(1/3)</td><td><span class="vd yes">function, R</span></td><td class="mono">x=16 -&gt; y=2</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is a function with domain all of \(\mathbb{R}\).</b> This family
+      exists to be contrasted with Family 2, and the pair is why the degree cue works: even means
+      \(\pm\), odd means unique. The examiner tests the contrast by putting a \(y^2\) question and a
+      \(y^3\) question side by side.</p>
+    </div>
+  </div>
+
+  <!-- F4 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 4</span><span class="fam-t">Monotone in \(y\), no closed form</span><span class="fam-tool">tool &middot; differentiate in y, check the sign</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(y\) appears in two or more terms of different kinds, and no algebra isolates it.</p>
+      <p>Treat the \(y\)-side as a function of \(y\) and differentiate <strong>with respect to
+      \(y\)</strong>. If the derivative is always positive, the \(y\)-side is strictly increasing, so it
+      hits each level exactly once. This proves the verdict without producing any formula at all.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th class="mono">d/dy of the y-side</th><th>Verdict</th><th>Spot check</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y&#179; + y = x</td><td class="mono">3y&#178;+1 &gt; 0</td><td><span class="vd yes">function, R</span></td><td class="mono">x=2,10,30 -&gt; y=1,2,3</td></tr>
+          <tr><td class="mono">y + e^y = x</td><td class="mono">1+e^y &gt; 0</td><td><span class="vd yes">function, R</span></td><td class="mono">x=1 -&gt; y=0</td></tr>
+          <tr><td class="mono">y&#8309; + 3y = x</td><td class="mono">5y&#8308;+3 &gt; 0</td><td><span class="vd yes">function, R</span></td><td class="mono">x=4 -&gt; y=1</td></tr>
+          <tr class="hl"><td class="mono">2y + sin y = x</td><td class="mono">2+cos y &ge; 1 &gt; 0</td><td><span class="vd yes">function, R</span></td><td class="mono">x=0 -&gt; y=0</td></tr>
+          <tr><td class="mono">y&#179; + 2y - 5 = x</td><td class="mono">3y&#178;+2 &gt; 0</td><td><span class="vd yes">function, R</span></td><td class="mono">x=-2 -&gt; y=1</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is a function, and none can be solved for \(y\) by hand.</b> That is
+      the entire point: <b>"I cannot solve for \(y\)" is not evidence that it is not a function.</b> The
+      highlighted row is the prettiest, because \(\sin y\) looks like it should cause Family 8's
+      periodicity problem, and the \(2y\) term defeats it: \(2+\cos y\) can drop to \(1\) but never to
+      \(0\), so monotonicity survives.</p>
+      <p class="struct">This family also connects to the rest of the course. Implicit differentiation
+      works because the curve is locally of this type, and \(\frac{dy}{dx}\) exists even where no
+      formula for \(y\) does.</p>
+    </div>
+  </div>
+
+  <!-- F5 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 5</span><span class="fam-t">Odd degree but non-monotone</span><span class="fam-tool">tool &middot; find x between the local max and min</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; an odd power of \(y\) <b>plus</b> a lower \(y\) term of opposite sign, like \(y^3-3y\).</p>
+      <p>Differentiate in \(y\) and find that the derivative changes sign. Then the \(y\)-side has a
+      local max and a local min, and every level strictly between them is hit three times.</p>
+      <p><strong>Worked shape.</strong> \(\frac{d}{dy}(y^3-3y)=3y^2-3=0\) at \(y=\pm1\), giving a local
+      max of \(2\) at \(y=-1\) and a local min of \(-2\) at \(y=1\). So for \(-2<x<2\) there are three
+      real \(y\). At \(x=0\): \(y(y^2-3)=0\), so \(y=0,\pm\sqrt3\).</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th class="mono">witness x</th><th class="mono">the y values</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y&#179; - 3y = x</td><td class="mono">0</td><td class="mono">0, &plusmn;&#8730;3</td><td><span class="vd no">not</span></td></tr>
+          <tr class="hl"><td class="mono">y&#179; - 3y = x</td><td class="mono">2</td><td class="mono">2, and -1 twice</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#179; - y = x</td><td class="mono">0</td><td class="mono">0, &plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#8308; - y&#178; = x</td><td class="mono">0</td><td class="mono">0, &plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">y&#179; - 12y = x</td><td class="mono">0</td><td class="mono">0, &plusmn;2&#8730;3</td><td><span class="vd no">not</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is not a function, and every row has \(x=0\) as its witness.</b> Not
+      a coincidence: these left sides all factor with \(y\) as a factor when the constant term is
+      absent, so \(x=0\) is always the cheapest witness. <b>Reach for \(x=0\) first in this family.</b></p>
+      <p class="struct">The highlighted row rewards understanding rather than memorising. At \(x=2\) the
+      equation is \(y^3-3y-2=0\), which factors as \((y-2)(y+1)^2=0\). So \(y=2\) and \(y=-1\), where
+      \(-1\) is repeated: only <b>two distinct</b> outputs, because \(x=2\) is exactly the local maximum
+      value where two of the three roots have merged. Two is still fatal, so the verdict is unchanged,
+      but the count varies with \(x\) and the boundary values of \(x\) are where it changes.</p>
+      <p class="struct">Families 3 and 5 together are why the degree is a cue and not a proof:
+      \(y^3=x\) and \(y^3-3y=x\) have the same degree in \(y\) and opposite verdicts.</p>
+    </div>
+  </div>
+
+  <!-- F6 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 6</span><span class="fam-t">\(\lvert y\rvert\) in the equation</span><span class="fam-tool">tool &middot; |y| = c &gt; 0 has two solutions</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; an absolute value around \(y\), or around an expression containing \(y\).</p>
+      <p>\(\lvert u\rvert=c\) has two solutions when \(c>0\), one when \(c=0\), none when \(c<0\). Find
+      an \(x\) making the other side strictly positive and read off the two.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th class="mono">witness x</th><th class="mono">the y</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">|y| = x</td><td class="mono">5</td><td class="mono">&plusmn;5</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">|y| + x = 3</td><td class="mono">2</td><td class="mono">&plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">|y| = x&#178;+1</td><td class="mono">0</td><td class="mono">&plusmn;1</td><td><span class="vd no">not</span></td></tr>
+          <tr><td class="mono">|y| = |x|</td><td class="mono">7</td><td class="mono">&plusmn;7</td><td><span class="vd no">not</span></td></tr>
+          <tr class="hl"><td class="mono">|y - 1| = x</td><td class="mono">4</td><td class="mono">5 and -3</td><td><span class="vd no">not</span></td></tr>
+          <tr class="hl"><td class="mono">y |y| = x</td><td class="mono">any</td><td class="mono">one y</td><td><span class="vd yes">function, R</span></td></tr>
+          <tr class="hl"><td class="mono">|y| = 0</td><td class="mono">any</td><td class="mono">y = 0 only</td><td><span class="vd yes">function, R</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">The last two rows make this a family rather than a rule. \(y\lvert y\rvert\)
+      equals \(y^2\) for \(y\geq0\) and \(-y^2\) for \(y<0\), so it is strictly increasing across
+      \(\mathbb{R}\) and Family 4's argument applies: \(x=9\) gives \(y=3\), \(x=-9\) gives \(y=-3\),
+      uniquely. And \(\lvert y\rvert=0\) forces \(y=0\), the one-solution case. <b>So \(\lvert y\rvert\)
+      is a strong signal, not a certainty.</b></p>
+      <p class="struct">Row 5 also earns a look, because the two solutions are not \(\pm c\).
+      \(\lvert y-1\rvert=4\) means \(y-1=\pm4\), so \(y=5\) or \(y=-3\), symmetric about \(y=1\) rather
+      than \(0\). <b>Solve for the bracket, not for \(y\).</b></p>
+    </div>
+  </div>
+
+  <!-- F7 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 7</span><span class="fam-t">An even root of \(y\)</span><span class="fam-tool">tool &middot; square it, then sign the other side</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(\sqrt{y}\), \(\sqrt[4]{y}\), or \(y^{1/2}\) somewhere in the equation.</p>
+      <p>Squaring is safe <em>in this direction</em>. \(\sqrt{y}=E\) forces \(y=E^2\), one value, no
+      \(\pm\), because \(\sqrt{\ }\) denotes the non-negative root. The catch is the domain: \(\sqrt{y}\)
+      is never negative, so any \(x\) making \(E<0\) gives no solution at all.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Solved</th><th>Verdict</th><th>Domain, and why</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">sqrt(y) = x</td><td class="mono">x&#178;</td><td><span class="vd yes">function</span></td><td class="mono">[0,inf): need x &ge; 0</td></tr>
+          <tr><td class="mono">sqrt(y) = x-1</td><td class="mono">(x-1)&#178;</td><td><span class="vd yes">function</span></td><td class="mono">[1,inf)</td></tr>
+          <tr><td class="mono">sqrt(y) = x&#178;+1</td><td class="mono">(x&#178;+1)&#178;</td><td><span class="vd yes">function</span></td><td class="mono">R: right side always &gt; 0</td></tr>
+          <tr><td class="mono">y^(1/4) = x</td><td class="mono">x&#8308;</td><td><span class="vd yes">function</span></td><td class="mono">[0,inf)</td></tr>
+          <tr class="hl"><td class="mono">sqrt(y) + sqrt(x) = 3</td><td class="mono">(3-sqrt x)&#178;</td><td><span class="vd yes">function</span></td><td class="mono">[0,9]: x &ge; 0 and sqrt x &le; 3</td></tr>
+          <tr><td class="mono">sqrt(y+1) = x</td><td class="mono">x&#178;-1</td><td><span class="vd yes">function</span></td><td class="mono">[0,inf)</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct"><b>Every row is a function</b>, which is the surprise: a square root <em>of
+      \(y\)</em> is safe, while a square <em>of \(y\)</em> is fatal. This is the most confusable pair on
+      the topic, so state it as one line:</p>
+      $$y^2=E \implies y=\pm\sqrt E \quad\textbf{two } y
+      \qquad\text{versus}\qquad \sqrt y=E \implies y=E^2 \quad\textbf{one } y$$
+      <p class="struct">The highlighted row is the one to practise, because the domain is a genuine
+      two-sided interval. Spot values \(x=1\Rightarrow y=4\), \(x=4\Rightarrow y=1\),
+      \(x=9\Rightarrow y=0\).</p>
+    </div>
+  </div>
+
+  <!-- F8 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 8</span><span class="fam-t">Transcendental in \(y\)</span><span class="fam-tool">tool &middot; is the y-function one-to-one?</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(e^y\), \(\ln y\), \(2^y\), \(\sin y\), \(\tan y\), \(\cos y\).</p>
+      <p>\(e^y\) and \(\ln y\) are strictly increasing, so they are one-to-one. \(\sin\), \(\cos\) and
+      \(\tan\) are periodic, so they are emphatically not, and the failure is infinite rather than
+      merely double.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Verdict</th><th>Detail</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">e^y = x</td><td><span class="vd yes">function</span></td><td class="mono">y = ln x, domain (0,inf)</td></tr>
+          <tr><td class="mono">ln y = x</td><td><span class="vd yes">function</span></td><td class="mono">y = e^x, domain R</td></tr>
+          <tr><td class="mono">2^y = x</td><td><span class="vd yes">function</span></td><td class="mono">y = log2 x; x=64 -&gt; y=6</td></tr>
+          <tr class="hl"><td class="mono">e^y = x&#178;</td><td><span class="vd yes">function</span></td><td class="mono">y = 2 ln|x|, domain x != 0</td></tr>
+          <tr><td class="mono">sin y = x</td><td><span class="vd no">not</span></td><td class="mono">x=1/2 -&gt; &pi;/6, 5&pi;/6, &pi;/6+2&pi;, ...</td></tr>
+          <tr><td class="mono">sin y = x</td><td><span class="vd no">not</span></td><td class="mono">x=0 -&gt; 0, &pi;, -&pi;, 2&pi;, ...</td></tr>
+          <tr><td class="mono">tan y = x</td><td><span class="vd no">not</span></td><td class="mono">x=0 -&gt; 0, &pi;, -&pi;, ...</td></tr>
+          <tr><td class="mono">cos y = x</td><td><span class="vd no">not</span></td><td class="mono">x=0 -&gt; &plusmn;&pi;/2, 3&pi;/2, ...</td></tr>
+          <tr><td class="mono">y + e^y = x</td><td><span class="vd yes">function</span></td><td class="mono">Family 4, monotone, no formula</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">The split is clean: <b>exponential and logarithmic in \(y\) are functions,
+      trigonometric in \(y\) are not.</b> The highlighted row rewards care: \(e^y=x^2\) solves to
+      \(y=\ln(x^2)=2\ln\lvert x\rvert\), and the absolute value is <b>compulsory</b>, because \(x^2\) is
+      positive for negative \(x\) too. Writing \(2\ln x\) would wrongly shrink the domain to \(x>0\).
+      The domain is everything except \(x=0\), where \(x^2=0\) and \(e^y=0\) has no solution.</p>
+      <p class="struct">For the trig rows, one line beats a list:
+      <em>"\(\sin y=\sin(\pi-y)\), so any solution \(y\) comes with a second solution
+      \(\pi-y\)."</em></p>
+    </div>
+  </div>
+
+  <!-- F9 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 9 &middot; part (a)'s decoy</span><span class="fam-t">Decorations on the \(x\) side</span><span class="fam-tool">tool &middot; ignore for the verdict</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; \(\lvert x\rvert\), \(x^2\), \(\sqrt x\), \(\sin x\) in the equation, but only ever attached to \(x\).</p>
+      <p>Ignore them entirely when deciding the verdict, because the verdict counts \(y\). Use them only
+      to build the domain, where an \(\lvert x\rvert\) or an \(x^2\) produces exclusions <strong>in
+      symmetric pairs</strong>.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Verdict</th><th>Domain</th><th>Symmetry</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y = |x|</td><td><span class="vd yes">function</span></td><td class="mono">R</td><td>even</td></tr>
+          <tr class="hl"><td class="mono">2y/(x&#178;-3|x|) = 1</td><td><span class="vd yes">function</span></td><td class="mono">x != 0, &plusmn;3</td><td>even, paired</td></tr>
+          <tr><td class="mono">y(|x|-2) = 1</td><td><span class="vd yes">function</span></td><td class="mono">x != &plusmn;2</td><td>even, paired</td></tr>
+          <tr><td class="mono">y = |x|/x</td><td><span class="vd yes">function</span></td><td class="mono">x != 0</td><td>odd, the sign function</td></tr>
+          <tr><td class="mono">2y/(|x|-4) = 1</td><td><span class="vd yes">function</span></td><td class="mono">x != &plusmn;4</td><td>even, paired</td></tr>
+          <tr><td class="mono">y = sqrt(|x|)</td><td><span class="vd yes">function</span></td><td class="mono">R</td><td>even</td></tr>
+          <tr><td class="mono">y|x| = x</td><td><span class="vd no">not, see F10</span></td><td class="mono">x != 0</td><td>at x=0 every y works</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good">
+        <span class="tag">A three-second checking rule</span>
+        <p><strong>If the equation is even in \(x\), the excluded set must be symmetric about
+        \(0\).</strong> Part (a) excludes \(0,3,-3\), which is symmetric. An answer of "\(x\neq0,3\)" is
+        visibly wrong by this test alone, and that is the most common error on the real question.</p>
+      </div>
+      <p class="struct">Row 7 is the exception that proves this is a rule about the <em>verdict</em> and
+      not the domain. \(y\lvert x\rvert=x\) at \(x=0\) reads \(0=0\), satisfied by every \(y\), so
+      strictly it is not a function either. Its coefficient collapsed with a zero right side, which is
+      Family 10.</p>
+    </div>
+  </div>
+
+  <!-- F10 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 10</span><span class="fam-t">Degenerate: no \(y\), every \(y\), or a one-point domain</span><span class="fam-tool">tool &middot; count by hand</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; a sum of squares equal to zero, no \(y\) in the equation at all, or a coefficient of \(y\) that collapses where the right side also vanishes.</p>
+      <p>Stop pattern matching and count solutions by hand at the suspicious \(x\). This family is where
+      every general rule breaks, so the count test is the only reliable instrument.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Equation</th><th>Verdict</th><th>What happens</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td class="mono">x&#178; + y&#178; = 0</td><td><span class="vd yes">function, domain {0}</span></td><td>Only \((0,0)\) works. One \(x\), one \(y\), so the definition is satisfied on a one-point domain.</td></tr>
+          <tr><td class="mono">x&#178; + y&#178; = -1</td><td><span class="vd no">not</span></td><td>No real solutions at all, an empty relation.</td></tr>
+          <tr><td class="mono">y = 3</td><td><span class="vd yes">function, R</span></td><td>A constant is a function.</td></tr>
+          <tr><td class="mono">x = 3</td><td><span class="vd no">not</span></td><td>At \(x=3\) every \(y\) works, elsewhere none. The vertical line.</td></tr>
+          <tr><td class="mono">x y = 0</td><td><span class="vd no">not</span></td><td>At \(x=0\) every \(y\) works.</td></tr>
+          <tr class="hl"><td class="mono">x&#178; y = x</td><td><span class="vd no">not</span></td><td>Cancelling gives \(y=\frac1x\), but at \(x=0\) the equation reads \(0=0\) and every \(y\) works.</td></tr>
+          <tr><td class="mono">(x-1)&#178; + (y-2)&#178; = 0</td><td><span class="vd yes">function, domain {1}</span></td><td>Only \((1,2)\) works.</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap">
+        <span class="tag">The mirror of part (a) &mdash; the most instructive row in the catalog</span>
+        <p><strong>\(x^2y=x\)</strong> and part (a) both come from a coefficient of \(y\) that collapses.
+        In part (a) the collapse left an <em>impossible</em> equation, so those \(x\) had <strong>no</strong>
+        \(y\) and dropped out of the domain, verdict intact. Here the collapse leaves \(0=0\), so \(x=0\)
+        has <strong>every</strong> \(y\), and the verdict dies.</p>
+        <p>The difference is entirely whether the right side vanishes at the same time as the
+        coefficient. If a variation of Q1.3 ever looks like part (a) but with the numerator also
+        vanishing, this is the row that catches it.</p>
+      </div>
+      <p class="struct"><b>\(x^2+y^2=0\) is a function.</b> This is the counterexample to "even power of
+      \(y\) means not a function", and it works because the right side is forced to zero, the one case
+      where \(y^2=c\) has a single solution. A one-point domain is unusual but entirely legal.</p>
+    </div>
+  </div>
+
+  <!-- F11 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 11</span><span class="fam-t">A graph or a table instead of an equation</span><span class="fam-tool">tool &middot; vertical line test</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; the question shows a curve, or a table of \(x\) and \(y\) values.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Given</th><th>Verdict</th><th>Reason</th></tr></thead>
+        <tbody>
+          <tr><td>Circle, ellipse</td><td><span class="vd no">not</span></td><td>A vertical line through the interior meets it twice</td></tr>
+          <tr><td>Sideways parabola \(x=y^2\)</td><td><span class="vd no">not</span></td><td>Same</td></tr>
+          <tr><td>Hyperbola \(x^2-y^2=1\)</td><td><span class="vd no">not</span></td><td>Same</td></tr>
+          <tr><td>An \(\lvert x\rvert\)-shaped corner graph</td><td><span class="vd yes">function</span></td><td>Every vertical line meets it once; a corner is not a problem</td></tr>
+          <tr><td>Graph with a hole at \(x=2\)</td><td><span class="vd yes">function</span></td><td>A hole means \(x=2\) is not in the domain, which is allowed</td></tr>
+          <tr><td>A filled and an open dot stacked at \(x=2\)</td><td><span class="vd yes">function</span></td><td>Only the filled dot counts as a value</td></tr>
+          <tr><td><strong>Two filled dots</strong> at \(x=2\)</td><td><span class="vd no">not</span></td><td>Two outputs at one input</td></tr>
+          <tr class="hl"><td>Table with \(x=2\) twice, giving \(5\) and \(7\)</td><td><span class="vd no">not</span></td><td>Two outputs</td></tr>
+          <tr class="hl"><td>Table with \(x=2\) twice, both giving \(5\)</td><td><span class="vd yes">function</span></td><td>Repeated input, same output, no ambiguity</td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">The last two rows are the whole point of the table version. <b>A repeated \(x\) is
+      only a problem if the \(y\)-values disagree.</b> The same trap appears in Family 12 at a piecewise
+      seam.</p>
+    </div>
+  </div>
+
+  <!-- F12 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 12</span><span class="fam-t">A piecewise rule</span><span class="fam-tool">tool &middot; check the seam</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; a function defined by cases, especially with \(\leq\) on one side and \(\geq\) on the other at a shared endpoint.</p>
+      <p>Find every \(x\) claimed by two branches and evaluate both. Agreement means well defined;
+      disagreement means not. This is the family where "well defined" does work that "is a function"
+      does not obviously do, and it is exactly why the exam uses that phrase.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Piecewise rule</th><th class="mono">at the seam</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">x+1 (x&le;2); 3x (x&ge;2)</td><td class="mono">3 vs 6</td><td><span class="vd no">not well defined</span></td></tr>
+          <tr><td class="mono">x+1 (x&le;2); 2x-1 (x&ge;2)</td><td class="mono">3 vs 3</td><td><span class="vd yes">well defined</span></td></tr>
+          <tr><td class="mono">x (x&le;3); 5 (x&ge;3)</td><td class="mono">3 vs 5</td><td><span class="vd no">not well defined</span></td></tr>
+          <tr><td class="mono">x&#178; (x&le;1); 2x-1 (x&ge;1)</td><td class="mono">1 vs 1</td><td><span class="vd yes">well defined</span></td></tr>
+          <tr><td class="mono">2x (x&le;1); x&#178;+2 (x&ge;1)</td><td class="mono">2 vs 3</td><td><span class="vd no">not well defined</span></td></tr>
+          <tr><td class="mono">sqrt(x) (x&ge;0); -x (x&le;0)</td><td class="mono">0 vs 0</td><td><span class="vd yes">well defined</span></td></tr>
+          <tr class="hl"><td class="mono">x&#178; (x&lt;1); 2x+7 (x&ge;1)</td><td class="mono">no shared x</td><td><span class="vd yes">well defined</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">The highlighted last row separates two ideas that are easy to merge. Strict
+      inequality on one side means no \(x\) is claimed twice, so the rule is well defined <b>even though
+      the graph jumps</b>. Continuity is a different question from well-definedness, and MT2 tests both
+      in different items. <b>A well defined function can jump. A badly defined rule is not a function at
+      all, jump or no jump.</b></p>
+    </div>
+  </div>
+
+  <!-- F13 -->
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 13</span><span class="fam-t">The reverse question: is \(x\) a function of \(y\)?</span><span class="fam-tool">tool &middot; swap the letters, rerun</span></div>
+    <div class="fam-body">
+      <p class="trigger"><b>Trigger</b> &nbsp; the question names \(y\) as the independent variable, asks whether the relation is one-to-one, or asks for an inverse.</p>
+      <p>Swap the roles of the letters and rerun the whole procedure. For a graph, this becomes the
+      <strong>horizontal</strong> line test.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Relation</th><th>\(y\) a function of \(x\)?</th><th>\(x\) a function of \(y\)?</th></tr></thead>
+        <tbody>
+          <tr><td class="mono">y = x&#179;</td><td><span class="vd yes">yes</span></td><td><span class="vd yes">yes, x = y^(1/3)</span></td></tr>
+          <tr><td class="mono">y = x&#178;</td><td><span class="vd yes">yes</span></td><td><span class="vd no">no: y=9 gives x=&plusmn;3</span></td></tr>
+          <tr><td class="mono">y&#178; + x&#178; = 10</td><td><span class="vd no">no</span></td><td><span class="vd no">no, by symmetry</span></td></tr>
+          <tr class="hl"><td class="mono">2y/(x&#178;-3|x|) = 1</td><td><span class="vd yes">yes</span></td><td><span class="vd no">no: y=2 from x=&plusmn;4</span></td></tr>
+          <tr><td class="mono">y = e^x</td><td><span class="vd yes">yes</span></td><td><span class="vd yes">yes, x = ln y</span></td></tr>
+          <tr><td class="mono">y = sin x</td><td><span class="vd yes">yes</span></td><td><span class="vd no">no, periodic</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="struct">The highlighted row is the reverse-question version of the actual exam problem
+      and a genuinely good check on whether you understood part (a). The relation is a function in one
+      direction and not in the other, and the asymmetry comes from the same \(\lvert x\rvert\) that
+      Family 9 told you to ignore. <b>Ignoring it was correct for the forward question and would be wrong
+      here.</b></p>
+      <p class="struct">Rows 1 and 2 are the pair to remember: <b>odd powers are invertible, even powers
+      are not.</b> Same fact as Families 2 and 3 seen from the other side, and it is the fact that
+      decides whether a function has an inverse later in the course.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">09</span>
+  <h2>The trap list</h2>
+  <p class="sub">Ranked by how often each one actually costs marks on this question.</p>
+  <ol class="traps">
+    <li><strong>Forgetting the domain on part (a).</strong> The verdict "function" is correct without it,
+    but the question says <em>Explain</em>, and the three excluded values are the only non-trivial
+    content in part (a). The most likely place to drop a mark while writing the right verdict.</li>
+    <li><strong>Excluding only \(x=0\) and \(x=3\), forgetting \(x=-3\).</strong> \(\lvert x\rvert=3\)
+    has two solutions. The parity check catches this in three seconds.</li>
+    <li><strong>Deciding (a) is not a function because it is undefined somewhere.</strong> Zero outputs
+    removes an \(x\) from the domain. Two outputs kills the function. The whole design of part (a) is to
+    see whether you know the difference.</li>
+    <li><strong>Deciding (b) is a function by taking only the positive root.</strong> Writing
+    \(y=\sqrt{10-x^2}\) is choosing an answer the equation did not authorise.</li>
+    <li><strong>Answering (b) with "\(\pm\), therefore not a function" and no witness.</strong> Right
+    reason, but <em>Explain</em> wants the specific pair. Four extra words convert a partial mark into a
+    full one.</li>
+    <li><strong>Multiplying through by the denominator and forgetting what you multiplied by.</strong>
+    \(2y=x^2-3\lvert x\rvert\) is a <em>different relation</em>: it is defined at \(0,\pm3\) and the
+    original is not. Write the exclusion down before you clear the fraction.</li>
+    <li><strong>Trusting the degree-in-\(y\) cue as a proof.</strong> Correct on both parts of the real
+    question, but \(y^3-3y=x\) is odd-degree and not a function, and \(x^2+y^2=0\) is even-degree and
+    is one.</li>
+    <li><strong>Bracket error entering \(\frac{x^2-3\lvert x\rvert}{2}\).</strong>
+    <code style="font-family:'IBM Plex Mono',monospace">x^2-3*abs(x)/2</code> divides only the last
+    term.</li>
+    <li><strong>Confusing "cannot solve for \(y\)" with "not a function".</strong> \(y^3+y=x\) has no
+    elementary solution and is a perfectly good function.</li>
+    <li><strong>Confusing well-definedness with continuity on a piecewise variation.</strong> A rule
+    with a jump can be well defined. A rule whose branches disagree at a shared endpoint cannot.</li>
+  </ol>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">10</span>
+  <h2>Drill set</h2>
+  <p class="sub">Give the verdict, then the reason in the form the question demands: a witness pair if
+  the answer is no, a uniqueness argument plus domain if the answer is yes.</p>
+
+  <div class="note">
+    <span class="tag">Score two axes separately, because they need different fixes</span>
+    <p><strong>Verdict.</strong> A wrong verdict means you are misreading the structure. Reread section
+    2.3 and the trigger line of the family named in the key.</p>
+    <p><strong>Justification.</strong> A right verdict with no witness, or no domain, is losing the marks
+    the word <em>Explain</em> protects. Reread Route C and section 5.</p>
+    <p>A verdict score of 12 out of 12 with a justification score of 4 out of 12 is the common outcome,
+    and it is worth about half the marks.</p>
+  </div>
+
+  <ol class="drills">
+    <li>\(\dfrac{4y}{x^2-2\lvert x\rvert}=1\)</li>
+    <li>\(y^2=4-x^2\)</li>
+    <li>\(y^3+2y=x\)</li>
+    <li>\(\lvert y\rvert=x-1\)</li>
+    <li>\(\sqrt y=2x\)</li>
+    <li>\(x^2y=1\)</li>
+    <li>\(y^3-4y=x\)</li>
+    <li>\(\cos y=\dfrac x2\)</li>
+    <li>\(x^2+y^2=0\)</li>
+    <li>\(xy^2=1\)</li>
+    <li>\(e^y=x-3\)</li>
+    <li>\(f(x)=3x\) for \(x\leq1\), and \(f(x)=x+3\) for \(x\geq1\)</li>
+  </ol>
+
+  <details class="key">
+    <summary>Answer key &mdash; verdict, the reason that scores, and the family to reread</summary>
+    <div class="tw"><table>
+      <thead><tr><th class="mono">#</th><th>Verdict</th><th>The reason that scores</th><th class="mono">family</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">D1</td><td><span class="vd yes">function</span></td><td>\(y=\frac{x^2-2\lvert x\rvert}{4}\), linear in \(y\); \(\lvert x\rvert(\lvert x\rvert-2)=0\) excludes \(x=0,\pm2\). Domain \(\mathbb{R}\setminus\{-2,0,2\}\)</td><td class="mono">F1, F9</td></tr>
+        <tr><td class="mono">D2</td><td><span class="vd no">not</span></td><td>\(x=0\) gives \(y^2=4\), so \(y=2\) and \(y=-2\)</td><td class="mono">F2</td></tr>
+        <tr><td class="mono">D3</td><td><span class="vd yes">function, R</span></td><td>\(\frac{d}{dy}(y^3+2y)=3y^2+2>0\), strictly increasing, so exactly one \(y\). No closed form needed. \(x=3\Rightarrow y=1\), \(x=12\Rightarrow y=2\)</td><td class="mono">F4</td></tr>
+        <tr><td class="mono">D4</td><td><span class="vd no">not</span></td><td>\(x=5\) gives \(\lvert y\rvert=4\), so \(y=4\) and \(y=-4\)</td><td class="mono">F6</td></tr>
+        <tr><td class="mono">D5</td><td><span class="vd yes">function, [0,inf)</span></td><td>\(y=4x^2\), one value; but \(\sqrt y\geq0\) forces \(2x\geq0\). \(x=3\Rightarrow y=36\)</td><td class="mono">F7</td></tr>
+        <tr><td class="mono">D6</td><td><span class="vd yes">function, x != 0</span></td><td>\(y=\frac1{x^2}\), linear in \(y\) with coefficient \(x^2\); at \(x=0\) the equation reads \(0=1\), so no \(y\)</td><td class="mono">F1</td></tr>
+        <tr><td class="mono">D7</td><td><span class="vd no">not</span></td><td>\(x=0\) gives \(y(y^2-4)=0\), so \(y=0,2,-2\)</td><td class="mono">F5</td></tr>
+        <tr><td class="mono">D8</td><td><span class="vd no">not</span></td><td>\(x=1\) gives \(\cos y=\frac12\), so \(y=\frac\pi3\) and \(y=-\frac\pi3\), and infinitely many more</td><td class="mono">F8</td></tr>
+        <tr><td class="mono">D9</td><td><span class="vd yes">function, domain {0}</span></td><td>Only \((0,0)\) satisfies it, so the single admissible \(x\) has exactly one \(y\). Even power of \(y\), but the right side is forced to zero</td><td class="mono">F10</td></tr>
+        <tr><td class="mono">D10</td><td><span class="vd no">not</span></td><td>\(x=4\) gives \(y^2=\frac14\), so \(y=\frac12\) and \(y=-\frac12\)</td><td class="mono">F2</td></tr>
+        <tr><td class="mono">D11</td><td><span class="vd yes">function, x &gt; 3</span></td><td>\(y=\ln(x-3)\), one value; \(e^y>0\) forces \(x-3>0\). \(x=4\Rightarrow y=0\)</td><td class="mono">F8</td></tr>
+        <tr><td class="mono">D12</td><td><span class="vd no">not well defined</span></td><td>Both branches claim \(x=1\), giving \(3\) and \(4\)</td><td class="mono">F12</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <p>Verdict distribution: <strong>six functions, six not.</strong> If your verdicts came out lopsided,
+  you are pattern matching on surface features rather than counting \(y\)-values.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+  <span class="snum">11</span>
+  <h2>The one-page decision tree</h2>
+<pre class="chain">                        "<b>Is y a function of x?</b>"
+                                 |
+                   Is y ALONE on one side already?
+                     |                        |
+                    YES                       NO
+                     |                        |
+              <u>F0: it IS a function</u>            |
+              only find the domain            |
+              (denominator, even root, log)   |
+                                              |
+                          What is the highest power of y?
+                                              |
+        +-------------------+-----------------+------------------+
+        |                   |                 |                  |
+    power 1            EVEN power        ODD power        |y|, sqrt(y),
+   (linear in y)      (2, 4, ...)       (3, 5, ...)       e^y, ln y, trig
+        |                   |                 |                  |
+   F1: divide by       F2: find x with   is the y-side       F6  |y|      -&gt; <i>NOT</i>
+   the coefficient     RHS &gt; 0, take     MONOTONE in y?      F7  sqrt(y)  -&gt; <u>IS</u>
+        |              both roots           |        |       F8  e^y/ln y -&gt; <u>IS</u>
+   where A(x) = 0:     -&gt; <i>NOT a function</i>  YES      NO       F8  sin/cos/tan -&gt; <i>NOT</i>
+        |                                   |        |
+   is B(x) also 0?                      <u>F3/F4:</u>    F5: find x
+     |         |                        <u>IS a</u>      between the
+    YES        NO                       <u>function</u>   local max and
+     |         |                        (d/dy &gt; 0)  local min
+  <i>F10: NOT</i>   x leaves the DOMAIN                -&gt; <i>NOT</i>
+  <i>a function</i> verdict SURVIVES
+                |
+        state the domain
+
+  ---------------------------------------------------------------
+  Given a GRAPH?   -&gt; vertical line test                          (F11)
+  Given a TABLE?   -&gt; repeated x with DIFFERENT y                  (F11)
+  PIECEWISE?       -&gt; both branches at a shared x, do they agree?  (F12)
+  Asked about x as a function of y?  -&gt; swap letters, rerun        (F13)
+  ---------------------------------------------------------------
+
+  <b>BEFORE YOU COMMIT</b>
+    "not a function"  -&gt;  did you name ONE x and TWO y?
+    "is a function"   -&gt;  did you state the DOMAIN?
+    even in x?        -&gt;  is the excluded set SYMMETRIC about 0?
+    cleared a fraction?  -&gt;  did you record what you multiplied by?
+    then <b>PREVIEW</b> the answer box</pre>
+</section>
+
+<!-- ===================================================================== -->
+<footer>
+  <span class="verified">538 checks &middot; 0 failures</span>
+  <p><strong>Question text.</strong> <code>MATH265.md</code> Q1.3, and
+  <code>MATH265\MATH265.md</code> "Midterm Exam 2" item 1, which supplies the <strong>(4 points)</strong>
+  value and the instruction "Explain." There is no method restriction on this item, unlike the
+  graph-transformation questions on the same paper. <code>MATH265_Categorized.md</code> groups this
+  question with Q1.2 and Q1.4 but lists no variation families for it, so the fourteen families above
+  were derived from the mathematics rather than taken from the file.</p>
+
+  <p><code>MATH265_Review.md</code> lines 635 to 646 give the existing one-line answer and the vertical
+  line test. As noted at the top of this page, that answer omits the domain of part (a).</p>
+
+  <p>The question does <strong>not</strong> appear on the final exam paper
+  (<code>MATH265_questions.md</code>). It is a midterm-2 question, and its descendants on the final are
+  implicit differentiation, which assumes the answer is yes locally, and the "sketch a single function"
+  item, which is the vertical line test in reverse.</p>
+
+  <p><strong>Answer-entry rules.</strong>
+  <code>Work\knowledge\topics\mobius-exam-platform.md</code>, the two-grading-engine section and the
+  parser-gotcha section, for <code>abs(x)</code> and the bracketing rules. M&ouml;bius interval-notation
+  syntax for a domain answer is <strong>not</strong> documented there and is flagged as unverified in
+  section 7.</p>
+
+  <p><strong>Verification.</strong>
+  <code>Work\knowledge\topics\math265-answer-verification.py</code>, appended section
+  <code>== Q1.3 ... ==</code>, run 2026-08-31. For a conceptual question it is not obvious that there is
+  anything to verify, so the method matters: rather than checking arithmetic, the harness independently
+  <strong>counts how many real \(y\) satisfy each equation at a given \(x\)</strong>, sweeping \(y\) over
+  \([-200,200]\) on a grid of 400001 points, bisecting every sign change 80 times, and filtering by
+  residual so a pole is not mistaken for a root. That count is compared against the claimed verdict:
+  exactly \(1\) for every row claimed to be a function, at least \(2\) for every row claimed not to be,
+  with each witness \(y\) also substituted back and required to give a residual under \(10^{-11}\).</p>
+
+  <p>Three guards were needed, each added after a false failure: a <strong>plateau collector</strong>,
+  because a flat root such as \(y^5=0\) keeps \(\lvert F\rvert\) under the zero threshold across many
+  grid points and was counted 13 times; a <strong>residual filter</strong>, because a pole makes \(F\)
+  change sign without crossing zero; and an <strong>analytic branch</strong> for \(e^y=c\) with
+  \(c\leq0\), because \(e^y\) underflows to \(0.0\) below \(y\approx-745\), so a genuine "no solution"
+  looked like a plateau of 25166 roots. The first run reported 14 failures and every one was a harness
+  artifact rather than a wrong answer.</p>
+
+  <p>Whole-file result: <strong>1519 PASS, 2 FAIL</strong>. The 2 failures are the pre-existing
+  <code>sin62</code> and <code>cos62</code> linear-approximation rows, which compare a linearization
+  against a true value at a tolerance tighter than the approximation error. They are a tolerance
+  artifact in an unrelated section and were present before this question was added.
+  Q1.3 sections alone: <strong>538 checks, 0 failures.</strong></p>
+
+  <p style="margin-top:14px;color:var(--ink3)">Markdown version kept at
+  <code>notes\Q1.3 - Which equations define a function of x.md</code>.
+  Source HTML at <code>notes\MATH265\artifacts\Q1.3-function-of-x.html</code>.</p>
+</footer>
+
+</div>
