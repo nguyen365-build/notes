@@ -557,11 +557,11 @@ mjx-container[display="true"]{margin:14px 0!important}
       <tr><td>\(\dfrac{\infty}{\infty}\), or a rational as \(x\to\pm\infty\)</td><td>end behaviour</td>
           <td>compare degrees</td></tr>
       <tr class="hl"><td>(bounded) \(\times\) (something \(\to 0\))</td>
-          <td>a squeeze &mdash; <strong>part (a)</strong></td><td>the answer is \(0\)</td></tr>
+          <td>a squeeze - <strong>part (a)</strong></td><td>the answer is \(0\)</td></tr>
       <tr><td>(bounded) \(\times\) (something \(\to L\ne0\))</td><td>oscillation that never settles</td>
           <td><span class="chip c-dne">DNE</span>, and say it oscillates</td></tr>
       <tr class="hl"><td>a trig function at its own asymptote</td>
-          <td>a pole again &mdash; <strong>part (b)</strong></td>
+          <td>a pole again - <strong>part (b)</strong></td>
           <td>rewrite as \(\sin/\cos\), test both sides</td></tr>
     </tbody>
   </table></div>
@@ -580,7 +580,7 @@ mjx-container[display="true"]{margin:14px 0!important}
   <div class="snum">Section 04</div>
   <h2>Q3.3 worked several ways</h2>
 
-  <h3>Part (a), Route A &mdash; squeeze, the intended route</h3>
+  <h3>Part (a), Route A - squeeze, the intended route</h3>
   <p>Name the fraction so you can talk about it:</p>
   $$R(x) = \frac{3x^2-4}{4+2x+2x^4}, \qquad \text{so the question is } \lim_{x\to\infty} R(x)\sin x.$$
   <ol>
@@ -599,7 +599,7 @@ mjx-container[display="true"]{margin:14px 0!important}
        \(1.5/x^2\); and the same conclusion holds as \(x \to -\infty\).</p>
   </div>
 
-  <h3>Part (a), Route B &mdash; the product law, which is illegal here</h3>
+  <h3>Part (a), Route B - the product law, which is illegal here</h3>
   <p>Worth writing out once, because it is the route most students take and it is not an arithmetic
      slip, it is an invalid step.</p>
   $$\lim (R(x)\sin x) \overset{?}{=} \left(\lim R(x)\right)\cdot\left(\lim \sin x\right)
@@ -615,13 +615,13 @@ mjx-container[display="true"]{margin:14px 0!important}
        You may not write &ldquo;\(0 \times \lim \sin x\)&rdquo;.</p>
   </div>
 
-  <h3>Part (a), Route C &mdash; L&rsquo;H&ocirc;pital, which does not apply</h3>
+  <h3>Part (a), Route C - L&rsquo;H&ocirc;pital, which does not apply</h3>
   <p>Substituting gives \(0 \cdot (\text{no limit})\), which is neither \(\tfrac00\) nor
      \(\tfrac\infty\infty\), so there is no indeterminate quotient to work on. Forcing it into
      \(\dfrac{\sin x}{1/R(x)}\) does not help: the top still has no limit, and differentiating gives
      \(\dfrac{\cos x}{(1/R)'}\), which oscillates forever.</p>
 
-  <h3>Part (a), Route D &mdash; bound first, then compare</h3>
+  <h3>Part (a), Route D - bound first, then compare</h3>
   <p>Since \(\lvert\sin x\rvert \le 1\),</p>
   $$0 \le \left\lvert R(x)\sin x \right\rvert \le \lvert R(x)\rvert = R(x) \longrightarrow 0,$$
   <p>so \(\lvert R\sin\rvert \to 0\), and a quantity whose absolute value tends to zero tends to zero.
@@ -635,7 +635,7 @@ mjx-container[display="true"]{margin:14px 0!important}
           <td>none, but you must state \(R>0\) to keep the inequality direction</td></tr>
       <tr><td>B &middot; product law</td><td><strong>no</strong></td><td class="num">1</td>
           <td>right answer, zero marks, and it fails outright on Family 3</td></tr>
-      <tr><td>C &middot; L&rsquo;H&ocirc;pital</td><td><strong>no</strong></td><td class="num">&mdash;</td>
+      <tr><td>C &middot; L&rsquo;H&ocirc;pital</td><td><strong>no</strong></td><td class="num">-</td>
           <td>hypotheses not met; leads nowhere</td></tr>
       <tr class="hl"><td>D &middot; squeeze on the modulus</td><td>yes</td><td class="num">3</td>
           <td>none; avoids the sign-of-\(R\) discussion entirely</td></tr>
@@ -648,7 +648,7 @@ mjx-container[display="true"]{margin:14px 0!important}
        construction.</p>
   </div>
 
-  <h3>Part (b), Route A &mdash; rewrite as \(\sin/\cos\) and test the sides</h3>
+  <h3>Part (b), Route A - rewrite as \(\sin/\cos\) and test the sides</h3>
   <ol>
     <li><strong>Is \(5\pi/2\) actually an asymptote?</strong> \(\tan\) blows up where \(\cos = 0\),
         at \(x = \tfrac\pi2 + k\pi\). Setting \(\tfrac\pi2+k\pi = \tfrac{5\pi}{2}\) gives \(k=2\).
@@ -671,14 +671,14 @@ mjx-container[display="true"]{margin:14px 0!important}
        \(\tan(5\pi/2 - h) \approx +1/h\) and \(\tan(5\pi/2+h)\approx -1/h\).</p>
   </div>
 
-  <h3>Part (b), Route B &mdash; reduce to a coterminal angle first</h3>
+  <h3>Part (b), Route B - reduce to a coterminal angle first</h3>
   $$\frac{5\pi}{2} = 450^\circ = 360^\circ + 90^\circ, \quad\text{so } \frac{5\pi}{2}
     \text{ is coterminal with } \frac{\pi}{2}.$$
   <p>\(\tan\) has period \(\pi\), so the behaviour near \(5\pi/2\) is an exact copy of the behaviour
      near \(\pi/2\), and you already know that picture: it climbs to \(+\infty\) on the left and comes
      up from \(-\infty\) on the right. Done, in two lines.</p>
 
-  <h3>Part (b), Route C &mdash; the monotonicity argument</h3>
+  <h3>Part (b), Route C - the monotonicity argument</h3>
   <p>\(\tan' = \sec^2 x > 0\) wherever it is defined, so \(\tan\) increases on each branch. An
      increasing unbounded function on \(\left(\tfrac{3\pi}{2}, \tfrac{5\pi}{2}\right)\) must run to
      \(+\infty\) at the right end of that interval. Correct, but slower, and easy to fumble which
@@ -804,7 +804,7 @@ mjx-container[display="true"]{margin:14px 0!important}
       <tr><td>Two boxes, one per one-sided limit</td>
           <td><code>infinity</code> in the left box, <code>-infinity</code> in the right</td></tr>
       <tr><td>A single numeric box with no DNE option</td>
-          <td>the question is then almost certainly one-sided &mdash; <strong>re-read it</strong> for a
+          <td>the question is then almost certainly one-sided - <strong>re-read it</strong> for a
               \(^-\) or \(^+\) superscript before typing</td></tr>
     </tbody>
   </table></div>
@@ -859,7 +859,7 @@ mjx-container[display="true"]{margin:14px 0!important}
        integers.</p>
   </div></details>
 
-  <details open><summary>Family 1 &middot; bounded &times; vanishing, at infinity &mdash; this is part (a)</summary>
+  <details open><summary>Family 1 &middot; bounded &times; vanishing, at infinity - this is part (a)</summary>
   <div class="body">
     <p><strong>Trigger.</strong> A factor that oscillates and never settles, multiplied by a factor
        that tends to \(0\). <strong>Tool.</strong> Squeeze. The answer is always \(0\).</p>
@@ -903,7 +903,7 @@ mjx-container[display="true"]{margin:14px 0!important}
        does not move, because wildness is irrelevant once the amplitude is capped at 1.</p>
   </div></details>
 
-  <details open><summary>Family 3 &middot; bounded &times; NON-vanishing &mdash; the trap twin of Family 1</summary>
+  <details open><summary>Family 3 &middot; bounded &times; NON-vanishing - the trap twin of Family 1</summary>
   <div class="body">
     <p><strong>Trigger.</strong> Looks exactly like Family 1, but the other factor tends to something
        <strong>non-zero</strong>. <strong>Tool.</strong> No squeeze is available. The answer is DNE.</p>
@@ -931,7 +931,7 @@ mjx-container[display="true"]{margin:14px 0!important}
     </div>
   </div></details>
 
-  <details open><summary>Family 4 &middot; a trig function at its own asymptote &mdash; this is part (b)</summary>
+  <details open><summary>Family 4 &middot; a trig function at its own asymptote - this is part (b)</summary>
   <div class="body">
     <p><strong>Trigger.</strong> \(\tan\), \(\cot\), \(\sec\) or \(\csc\) at a point where its
        denominator vanishes. <strong>Tool.</strong> Rewrite as \(\sin/\cos\), confirm the numerator is
@@ -990,7 +990,7 @@ mjx-container[display="true"]{margin:14px 0!important}
       </tbody>
     </table></div>
     <div class="trap">
-      <span class="tag">The trap pair &mdash; the sharpest variation available</span>
+      <span class="tag">The trap pair - the sharpest variation available</span>
       <div class="tw"><table>
         <thead><tr><th>Limit</th><th>Answer</th><th>Why it catches people</th></tr></thead>
         <tbody>
@@ -1028,13 +1028,13 @@ mjx-container[display="true"]{margin:14px 0!important}
             <td><span class="chip c-dne">DNE</span> \(-\infty\) left, \(+\infty\) right</td></tr>
         <tr><td>\(\lim_{x\to2}\dfrac{\cos \pi x}{(x-2)^2}\) <strong>[Q3.2f]</strong></td>
             <td>top \(=\cos2\pi=1>0\)</td><td>even</td><td><span class="chip c-pos">= +&infin;</span></td></tr>
-        <tr><td>\(\lim_{x\to0}\dfrac{1}{x^2}\)</td><td>&mdash;</td><td>even</td>
+        <tr><td>\(\lim_{x\to0}\dfrac{1}{x^2}\)</td><td>-</td><td>even</td>
             <td><span class="chip c-pos">= +&infin;</span></td></tr>
-        <tr><td>\(\lim_{x\to0}-\dfrac{1}{x^2}\)</td><td>&mdash;</td><td>even</td>
+        <tr><td>\(\lim_{x\to0}-\dfrac{1}{x^2}\)</td><td>-</td><td>even</td>
             <td><span class="chip c-neg">= &minus;&infin;</span></td></tr>
-        <tr><td>\(\lim_{x\to0}\dfrac{1}{x}\)</td><td>&mdash;</td><td>odd</td>
+        <tr><td>\(\lim_{x\to0}\dfrac{1}{x}\)</td><td>-</td><td>odd</td>
             <td><span class="chip c-dne">DNE</span></td></tr>
-        <tr><td>\(\lim_{x\to-2}\dfrac{1}{(x+2)^3}\)</td><td>&mdash;</td><td>odd</td>
+        <tr><td>\(\lim_{x\to-2}\dfrac{1}{(x+2)^3}\)</td><td>-</td><td>odd</td>
             <td><span class="chip c-dne">DNE</span></td></tr>
         <tr><td>\(\lim_{x\to1}\dfrac{x+1}{(x-1)^2}\)</td><td>top \(\to2>0\)</td><td>even</td>
             <td><span class="chip c-pos">= +&infin;</span></td></tr>
@@ -1175,7 +1175,7 @@ mjx-container[display="true"]{margin:14px 0!important}
     </table></div>
     <p><em>Read as structure.</em> The last row is Q3.3 in a single line: part (a) is the
        horizontal column and part (b) is the vertical column. And note why \(\tan\) has no horizontal
-       asymptote &mdash; precisely because of Family 3, it oscillates forever.</p>
+       asymptote - precisely because of Family 3, it oscillates forever.</p>
   </div></details>
 </section>
 
@@ -1238,7 +1238,7 @@ mjx-container[display="true"]{margin:14px 0!important}
     </tbody>
   </table></div>
 
-  <details><summary>Answer key &mdash; every answer below was verified numerically</summary>
+  <details><summary>Answer key - every answer below was verified numerically</summary>
   <div class="body">
     <div class="tw"><table>
       <thead><tr><th>#</th><th>Answer</th><th>Family and method</th></tr></thead>
@@ -1359,7 +1359,7 @@ FINALLY, before you commit:
   <div class="snum">Section 12</div>
   <h2>Sources and provenance</h2>
   <div class="stat">
-    <div><b>384</b><span>checks run</span></div>
+    <div><b>186</b><span>checks run</span></div>
     <div><b>0</b><span>failures</span></div>
     <div><b>12/12</b><span>false claims rejected</span></div>
     <div><b>10</b><span>variation families</span></div>
@@ -1384,10 +1384,10 @@ FINALLY, before you commit:
       &ldquo;rational \(\to0\), sin bounded, squeeze \(\to 0\)&rdquo; for part (a) and
       &ldquo;\(5\pi/2 \equiv \pi/2\); \(+\infty\) left, \(-\infty\) right \(\to\) DNE&rdquo; for part
       (b), derived on a separate occasion from the work here.</li>
-    <li><strong>Numerical verification</strong>, run 2026-08-31: <strong>384 checks, 0 failures</strong>,
+    <li><strong>Numerical verification</strong>, run 2026-08-31: <strong>186 checks, 0 failures</strong>,
       appended as a permanent section to
       <code>Work\knowledge\topics\math265-answer-verification.py</code>. Re-run that file to re-check
-      every number here; the whole file reports 1589 PASS. Expect exactly 2 unrelated pre-existing
+      every number here; the whole file reports 2284 PASS (it is shared, and sibling jobs append their own questions). Expect exactly 2 unrelated pre-existing
       failures elsewhere in it (<code>sin62</code>, <code>cos62</code>), a tolerance artifact of a
       linear-approximation check and not a wrong answer.</li>
     <li><strong>The verification helpers were themselves tested.</strong> Because a limit is a
