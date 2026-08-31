@@ -25,7 +25,7 @@ window.MathJax = {
   --trap:#D2765C; --trap-soft:rgba(210,118,92,.12);
   --good:#6FA8A0; --good-soft:rgba(111,168,160,.12);
   --slate:#7E9BC4;
-  --grid:rgba(230,234,241,.026);
+  --grid:rgba(230,234,241,.026); --ha-wash:rgba(126,155,196,.10);
   --mj:#E6EAF1;
 }
 @media (prefers-color-scheme: light){
@@ -37,7 +37,7 @@ window.MathJax = {
     --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
     --good:#33726A; --good-soft:rgba(51,114,106,.10);
     --slate:#3F6493;
-    --grid:rgba(23,27,34,.042);
+    --grid:rgba(23,27,34,.042); --ha-wash:rgba(63,100,147,.09);
     --mj:#171B22;
   }
 }
@@ -49,7 +49,7 @@ window.MathJax = {
   --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
   --good:#33726A; --good-soft:rgba(51,114,106,.10);
   --slate:#3F6493;
-  --grid:rgba(23,27,34,.042);
+  --grid:rgba(23,27,34,.042); --ha-wash:rgba(63,100,147,.09);
   --mj:#171B22;
 }
 
@@ -276,6 +276,23 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
   font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);
   border:1px solid var(--good);border-radius:2px;padding:5px 10px;margin-bottom:14px;
 }
+
+/* ---- angle table: tall scroller, exact vs approximate rows ---- */
+.tw.tall{max-height:60vh;overflow-y:auto}
+.tw.tall thead th{position:sticky;top:0;z-index:2}
+#angtab tbody tr.f-sd{background:var(--accent-soft)}
+#angtab tbody tr.f-ha{background:var(--ha-wash)}
+#angtab tbody tr.f-sd td.deg{color:var(--accent);font-weight:600}
+#angtab tbody tr.f-ha td.deg{color:var(--slate);font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0}
+.legend .key{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;padding:6px 10px;
+  color:var(--ink2);
+}
+.legend .k-sd{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent)}
+.legend .k-ha{border-color:var(--slate);background:var(--ha-wash);color:var(--slate)}
+#angtab .und{color:var(--ink3);font-style:italic}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -360,22 +377,86 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
   <h2>What has to be recall, not derivation</h2>
   <p class="sub">You cannot do this question "fast" by rebuilding these on the spot.</p>
 
-  <h3>The standard angles</h3>
-  <div class="tw">
-    <table>
-      <thead><tr><th class="mono">deg</th><th class="mono">rad</th><th>sin</th><th>cos</th><th>tan</th></tr></thead>
-      <tbody>
-        <tr><td class="deg">0</td><td class="mono">\(0\)</td><td>\(0\)</td><td>\(1\)</td><td>\(0\)</td></tr>
-        <tr><td class="deg">30</td><td class="mono">\(\pi/6\)</td><td>\(\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{1}{\sqrt3}\)</td></tr>
-        <tr class="hl"><td class="deg">45</td><td class="mono">\(\pi/4\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td></tr>
-        <tr><td class="deg">60</td><td class="mono">\(\pi/3\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\sqrt3\)</td></tr>
-        <tr><td class="deg">90</td><td class="mono">\(\pi/2\)</td><td>\(1\)</td><td>\(0\)</td><td>undefined</td></tr>
-      </tbody>
-    </table>
+  <h3>The angle table: every angle that has an exact value</h3>
+  <p>Every multiple of \(15^\circ\) from 0 to 360, plus every odd multiple of \(22.5^\circ\). That is
+  33 rows, and <strong>every one of them has an exact value.</strong> That is the point of this row set:
+  these 33 angles are, near enough, the complete list of angles an "exact value" question can use.</p>
+  <p>An angle that is <em>not</em> here, such as \(5^\circ\), \(10^\circ\) or \(20^\circ\), has no
+  expression in square roots at all. It needs cube roots, because a regular 72-sided polygon is not
+  constructible. So when a question hands you an angle, the first check is whether it is in this table.
+  If it is not, either you have misread it or it needs reducing first.</p>
+
+  <div class="note good">
+    <span class="tag">The table also picks your tool</span>
+    <p>Which family a row belongs to tells you which of the three tools to reach for, before you write
+    anything down.</p>
   </div>
-  <p>Hook for the sine column: it climbs \(\tfrac12,\ \tfrac{\sqrt2}{2},\ \tfrac{\sqrt3}{2}\) as the
-  angle grows, and cosine is that same list read backwards. The two highlighted rows are the ones
-  this question uses.</p>
+  <div class="legend">
+    <span class="key k-recall">17 rows &middot; multiples of 30 or 45 &middot; straight recall</span>
+    <span class="key k-sd">8 rows &middot; ends in 15 or 75 &middot; sum or difference, 03A</span>
+    <span class="key k-ha">8 rows &middot; odd multiples of 22.5 &middot; half angle, 03B</span>
+  </div>
+
+  <div class="note">
+    <span class="tag">Why the cos(&minus;x) column is here</span>
+    <p>It is <strong>identical to the cos x column on every row</strong>. That is not a printing
+    mistake, it is the parity fact made visual: cosine is even, so a minus sign inside the bracket
+    simply evaporates. It is here so your eye learns it, because that is the first move of Q1.1.</p>
+    <p>\(\cot x = 1/\tan x = \cos x/\sin x\), so tan and cot are reciprocals and each is undefined
+    exactly where the other is zero: tan at \(90^\circ\) and \(270^\circ\), cot at \(0^\circ\),
+    \(180^\circ\) and \(360^\circ\).</p>
+  </div>
+<div class="tw tall"><table id="angtab">
+<thead><tr><th class="mono">deg</th><th class="mono">rad</th><th>sin x</th><th>cos x</th><th>cos(&minus;x)</th><th>tan x</th><th>cot x</th></tr></thead>
+<tbody>
+<tr class="f-recall"><td class="deg">0</td><td class="mono">\(0\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
+<tr class="f-sd"><td class="deg">15</td><td class="mono">\(\tfrac{\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(2+\sqrt3\)</td></tr>
+<tr class="f-ha"><td class="deg">22.5</td><td class="mono">\(\tfrac{\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(\sqrt2+1\)</td></tr>
+<tr class="f-recall"><td class="deg">30</td><td class="mono">\(\tfrac{\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">45</td><td class="mono">\(\tfrac{\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(1\)</td></tr>
+<tr class="f-recall"><td class="deg">60</td><td class="mono">\(\tfrac{\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-ha"><td class="deg">67.5</td><td class="mono">\(\tfrac{3\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(\sqrt2-1\)</td></tr>
+<tr class="f-sd"><td class="deg">75</td><td class="mono">\(\tfrac{5\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(2-\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">90</td><td class="mono">\(\tfrac{\pi}{2}\)</td><td>\(1\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
+<tr class="f-sd"><td class="deg">105</td><td class="mono">\(\tfrac{7\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(-(2-\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">112.5</td><td class="mono">\(\tfrac{5\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(-(\sqrt2-1)\)</td></tr>
+<tr class="f-recall"><td class="deg">120</td><td class="mono">\(\tfrac{2\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-recall"><td class="deg">135</td><td class="mono">\(\tfrac{3\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td></tr>
+<tr class="f-recall"><td class="deg">150</td><td class="mono">\(\tfrac{5\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">157.5</td><td class="mono">\(\tfrac{7\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(-(\sqrt2+1)\)</td></tr>
+<tr class="f-sd"><td class="deg">165</td><td class="mono">\(\tfrac{11\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+<tr class="f-recall"><td class="deg">180</td><td class="mono">\(\pi\)</td><td>\(0\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
+<tr class="f-sd"><td class="deg">195</td><td class="mono">\(\tfrac{13\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(2+\sqrt3\)</td></tr>
+<tr class="f-ha"><td class="deg">202.5</td><td class="mono">\(\tfrac{9\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(\sqrt2+1\)</td></tr>
+<tr class="f-recall"><td class="deg">210</td><td class="mono">\(\tfrac{7\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">225</td><td class="mono">\(\tfrac{5\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(1\)</td></tr>
+<tr class="f-recall"><td class="deg">240</td><td class="mono">\(\tfrac{4\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-ha"><td class="deg">247.5</td><td class="mono">\(\tfrac{11\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(\sqrt2-1\)</td></tr>
+<tr class="f-sd"><td class="deg">255</td><td class="mono">\(\tfrac{17\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(2-\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">270</td><td class="mono">\(\tfrac{3\pi}{2}\)</td><td>\(-(1)\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
+<tr class="f-sd"><td class="deg">285</td><td class="mono">\(\tfrac{19\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(-(2-\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">292.5</td><td class="mono">\(\tfrac{13\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(-(\sqrt2-1)\)</td></tr>
+<tr class="f-recall"><td class="deg">300</td><td class="mono">\(\tfrac{5\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-recall"><td class="deg">315</td><td class="mono">\(\tfrac{7\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td></tr>
+<tr class="f-recall"><td class="deg">330</td><td class="mono">\(\tfrac{11\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">337.5</td><td class="mono">\(\tfrac{15\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(-(\sqrt2+1)\)</td></tr>
+<tr class="f-sd"><td class="deg">345</td><td class="mono">\(\tfrac{23\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+<tr class="f-recall"><td class="deg">360</td><td class="mono">\(2\pi\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
+</tbody></table></div>
+  <p>Notice how few distinct numbers there actually are. The whole 15-degree family uses only
+  \(\frac{\sqrt6+\sqrt2}{4}\) and \(\frac{\sqrt6-\sqrt2}{4}\) for its sines and cosines, and only
+  \(2+\sqrt3\) and \(2-\sqrt3\) for its tangents. The whole 22.5-degree family uses only
+  \(\frac{\sqrt{2+\sqrt2}}{2}\) and \(\frac{\sqrt{2-\sqrt2}}{2}\), and only \(\sqrt2+1\) and
+  \(\sqrt2-1\). Everything else across those 16 rows is a sign.</p>
+  <p>Never memorise 33 rows. Reduce your angle to a reference angle in \([0,90]\), read the magnitude
+  off the top of the table, then attach the sign from ASTC. Two symmetries make good checks: sine
+  mirrors about \(90^\circ\) so rows 15 and 165 share a sine, and the whole table repeats with both
+  signs flipped after \(180^\circ\) so row 195 carries row 15's surds negated. Tangent and cotangent,
+  by contrast, repeat every \(180^\circ\) with <em>no</em> sign change, which is why rows 15 and 195
+  have the identical tangent \(2-\sqrt3\).</p>
+  <p>For an angle outside \([0,360]\), subtract full turns until it lands in the table:
+  \(\frac{25\pi}{12}=375^\circ\) is coterminal with \(15^\circ\). For a negative angle, use parity
+  first.</p>
 
   <h3>Parity, and quadrant signs</h3>
   <div class="tw">
@@ -438,6 +519,389 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
   </div>
   <p>For this question: step 1 gives \(\cos(\pi/12)\), quadrant I so positive. Step 2 sees a
   denominator of 12 and picks the difference formula. Done deciding, in under ten seconds.</p>
+</section>
+
+<section>
+  <span class="snum">03A</span>
+  <h2>Tool 1 &middot; the sum and difference formulas</h2>
+  <p class="sub"><strong>Use it when</strong> the angle is an odd multiple of \(\pi/12\), which in
+  degrees means it ends in 15 or 75: 15, 75, 105, 165, 195, 255, 285, 345.</p>
+
+  <h3>What the tool is for</h3>
+  <p>The unit circle only hands you a small set of angles for free: multiples of 30, 45, 60 and 90.
+  A sum or difference formula is the bridge from that set to an angle just outside it. The whole idea
+  is one question: <em>if I cannot reach this angle directly, can I reach it as a sum or a difference
+  of two angles I already know?</em> For \(15^\circ\) the answer is yes, because \(15=45-30\) and both
+  of those are free.</p>
+
+  <h3>The formulas</h3>
+  $$\cos(A+B)=\cos A\cos B-\sin A\sin B \qquad \cos(A-B)=\cos A\cos B+\sin A\sin B$$
+  $$\sin(A+B)=\sin A\cos B+\cos A\sin B \qquad \sin(A-B)=\sin A\cos B-\cos A\sin B$$
+  $$\tan(A\pm B)=\frac{\tan A\pm\tan B}{1\mp\tan A\tan B}$$
+
+  <div class="note good">
+    <span class="tag">The sign discipline, said as a slogan</span>
+    <p><strong>Cosine flips. Sine follows. Tangent flips downstairs.</strong></p>
+    <p>Cosine's middle sign is the <em>opposite</em> of the bracket's, so \(\cos(A-B)\) has a plus.
+    Sine's middle sign matches the bracket. For tangent the numerator matches and the denominator is
+    the opposite.</p>
+  </div>
+
+  <p>There is also a structural tell that catches a misremembered formula instantly. In the cosine
+  expansion the two terms are <strong>like with like</strong>, \(\cos\cos\) and \(\sin\sin\). In the
+  sine expansion they are <strong>mixed</strong>, \(\sin\cos\) and \(\cos\sin\). If you have written
+  \(\cos(A-B)=\cos A\sin B+\ldots\) you are already wrong, whatever the sign says.</p>
+
+  <h3>Where the formulas come from</h3>
+  <p>You are not asked to prove these, but knowing the shape means you can rebuild one if you blank.
+  Think of \(\cos(A-B)\) as the cosine of the angle <em>between</em> two unit vectors, one at angle
+  \(A\) and one at angle \(B\). Those vectors are \((\cos A,\sin A)\) and \((\cos B,\sin B)\), and the
+  cosine of the angle between two unit vectors is just their dot product:</p>
+  $$\cos(A-B)=\cos A\cos B+\sin A\sin B$$
+  <p>That is the difference formula in one line, and it explains why the cosine version pairs like with
+  like: a dot product multiplies first components together and second components together. Every other
+  formula in the family follows by replacing \(B\) with \(-B\) and using parity.</p>
+
+  <h3>How to find the decomposition</h3>
+  <p>Do not hunt. Work backwards from the target: convert to degrees, write the free list (every
+  multiple of 30 and every multiple of 45, so 30, 45, 60, 90, 120, 135, 150, 180, 210, 225, 240, 270,
+  300, 315, 330), find a pair whose sum or difference is your target, then <strong>verify the split in
+  fractions before using it</strong>. That last line prevents the worst error available here, which is
+  a correct formula applied to a wrong split.</p>
+
+  <div class="note good">
+    <span class="tag">There are only eight targets in the whole course</span>
+    <p>This tool applies to angles ending in 15 or 75, and between 0 and 360 there are exactly eight of
+    them. Every one is below, with every usable split.</p>
+  </div>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">target</th><th class="mono">deg</th><th>quad</th><th>split to use</th><th>other valid splits</th><th>faster route</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td class="mono">\(\tfrac{\pi}{12}\)</td><td class="deg">15</td><td>I</td><td class="mono">45 &minus; 30</td><td class="mono">60 &minus; 45</td><td>already a reference angle</td></tr>
+        <tr><td class="mono">\(\tfrac{5\pi}{12}\)</td><td class="deg">75</td><td>I</td><td class="mono">45 + 30</td><td class="mono">120 &minus; 45</td><td>already a reference angle</td></tr>
+        <tr><td class="mono">\(\tfrac{7\pi}{12}\)</td><td class="deg">105</td><td>II</td><td class="mono">60 + 45</td><td class="mono">150 &minus; 45</td><td>ref 75, QII</td></tr>
+        <tr><td class="mono">\(\tfrac{11\pi}{12}\)</td><td class="deg">165</td><td>II</td><td class="mono">120 + 45</td><td class="mono">135 + 30, 180 &minus; 15</td><td>ref 15, QII</td></tr>
+        <tr><td class="mono">\(\tfrac{13\pi}{12}\)</td><td class="deg">195</td><td>III</td><td class="mono">150 + 45</td><td class="mono">225 &minus; 30, 240 &minus; 45</td><td>ref 15, QIII</td></tr>
+        <tr><td class="mono">\(\tfrac{17\pi}{12}\)</td><td class="deg">255</td><td>III</td><td class="mono">210 + 45</td><td class="mono">225 + 30, 300 &minus; 45</td><td>ref 75, QIII</td></tr>
+        <tr><td class="mono">\(\tfrac{19\pi}{12}\)</td><td class="deg">285</td><td>IV</td><td class="mono">225 + 60</td><td class="mono">240 + 45, 315 &minus; 30</td><td>ref 75, QIV</td></tr>
+        <tr><td class="mono">\(\tfrac{23\pi}{12}\)</td><td class="deg">345</td><td>IV</td><td class="mono">300 + 45</td><td class="mono">315 + 30</td><td>ref 15, QIV</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Every split there was checked two ways: the degree arithmetic, and the full formula expansion
+  against a direct evaluation of the target. All 20 splits and all 8 reference-angle routes agree.</p>
+
+  <h3>Read the last column, then do the least work</h3>
+  <p><strong>Only two of the eight targets ever need this formula.</strong> For \(15^\circ\) and
+  \(75^\circ\) you have no choice, because they are their own reference angles and there is nothing to
+  reduce. For the other six, reducing to a reference angle of \(15^\circ\) or \(75^\circ\) and taking
+  the sign from ASTC is strictly less work than expanding a sum formula: two moves instead of a
+  four-term expansion with a sign trap in the middle.</p>
+  <div class="note good">
+    <span class="tag">The real procedure for this family</span>
+    <p>Reduce to a reference angle first. If it comes out as 15 or 75, get the magnitude and attach the
+    sign from ASTC. Only expand a sum or difference formula when you are actually sitting on
+    \(15^\circ\) or \(75^\circ\).</p>
+  </div>
+  <p>Worked both ways on \(\cos 165^\circ\), so the difference is visible. <em>Via a split:</em>
+  \(165=120+45\), so</p>
+  $$\cos120\cos45-\sin120\sin45=\left(-\tfrac12\right)\tfrac{\sqrt2}{2}-\tfrac{\sqrt3}{2}\cdot\tfrac{\sqrt2}{2}
+  =-\frac{\sqrt2+\sqrt6}{4}$$
+  <p>Four terms, two of them signed, one sign trap. <em>Via a reference angle:</em> \(165=180-15\), so
+  the magnitude is \(\cos15^\circ=\frac{\sqrt6+\sqrt2}{4}\) and quadrant II makes it negative, giving
+  \(-\frac{\sqrt6+\sqrt2}{4}\). Two moves. Same answer, verified numerically as \(-0.9659\).</p>
+
+  <h3>What this tool cannot reach, and why</h3>
+  <div class="note trap">
+    <span class="tag">The arithmetic is closed against you</span>
+    <p>No sum or difference of free angles will ever give \(22.5^\circ\), \(67.5^\circ\) or any of that
+    family. Every angle on the free list is a multiple of 15, and adding or subtracting multiples of 15
+    can only ever produce another multiple of 15. \(22.5\) is not one.</p>
+    <p>That is not a gap in your memory, it is a fact about the tool, and it is exactly why section 03B
+    exists.</p>
+  </div>
+  <p>Two more boundaries. For a target outside \([0,360]\), reduce by full turns first: \(375^\circ\)
+  is coterminal with \(15^\circ\). For a negative target, apply parity first, which is precisely the
+  first move of Q1.1.</p>
+
+  <h3>Worked example 1 &middot; \(\sin\dfrac{5\pi}{12}\)</h3>
+  <p>Denominator 12, so this family. \(\dfrac{5\pi}{12}\) is \(75^\circ=45+30\), and the split checks
+  out: \(\dfrac{\pi}{4}+\dfrac{\pi}{6}=\dfrac{3\pi+2\pi}{12}=\dfrac{5\pi}{12}\). Sine follows, so a
+  plus stays a plus, and the terms are mixed:</p>
+  $$\sin\left(\frac{\pi}{4}+\frac{\pi}{6}\right)=\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}+\frac{\sqrt2}{2}\cdot\frac12
+  =\frac{\sqrt6+\sqrt2}{4}\approx0.9659$$
+  <p>Check: \(75^\circ\) is near \(90^\circ\) where sine is 1, so a value just under 1 is right.</p>
+
+  <h3>Worked example 2 &middot; \(\cos\dfrac{7\pi}{12}\), where the answer is negative</h3>
+  <p>\(105^\circ\) is past \(90^\circ\), so no difference of two free angles under 90 reaches it. Use
+  \(105=60+45\). Cosine flips, so a <strong>plus</strong> bracket gives a <strong>minus</strong> in the
+  middle, like with like:</p>
+  $$\cos\left(\frac{\pi}{3}+\frac{\pi}{4}\right)=\frac12\cdot\frac{\sqrt2}{2}-\frac{\sqrt3}{2}\cdot\frac{\sqrt2}{2}
+  =\frac{\sqrt2-\sqrt6}{4}\approx-0.2588$$
+  <p>It <em>must</em> be negative, because \(105^\circ\) is in quadrant II. The sign fell out of the
+  algebra and it agrees with ASTC, which is the check actually working rather than just restating
+  itself.</p>
+
+  <h3>Worked example 3 &middot; \(\tan\dfrac{\pi}{12}\), and why you might skip the formula</h3>
+  <p>Tangent flips downstairs, so a minus bracket puts a plus in the denominator:</p>
+  $$\tan\left(\frac{\pi}{4}-\frac{\pi}{6}\right)=\frac{1-\frac{1}{\sqrt3}}{1+\frac{1}{\sqrt3}}
+  =\frac{\sqrt3-1}{\sqrt3+1}=\frac{(\sqrt3-1)^2}{2}=\frac{4-2\sqrt3}{2}=2-\sqrt3$$
+  <p>The middle form is exact but unsimplified; a surd left in a denominator is not finished. Faster
+  alternative if you already have the sine and cosine: divide them,
+  \(\dfrac{\sqrt6-\sqrt2}{\sqrt6+\sqrt2}\), and rationalise to the same \(2-\sqrt3\approx0.2679\).
+  Dividing reuses work you have done and needs one formula fewer.</p>
+
+  <h3>The four errors that actually happen</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Error</th><th>What it looks like</th><th>Guard</th></tr></thead>
+      <tbody>
+        <tr><td>Wrong middle sign</td><td>\(\cos(A-B)\) written with a minus</td><td>say "cosine flips" as you write it</td></tr>
+        <tr><td>Wrong pairing</td><td>\(\cos(A-B)=\cos A\sin B+\ldots\)</td><td>cosine is like-with-like, sine is mixed</td></tr>
+        <tr><td>Unverified split</td><td>using \(45-30\) for \(105^\circ\)</td><td>check the fraction arithmetic in one line</td></tr>
+        <tr><td>Stopping too early</td><td>leaving \(\frac{\sqrt3-1}{\sqrt3+1}\)</td><td>a surd in a denominator is not an answer</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <span class="snum">03B</span>
+  <h2>Tool 2 &middot; the half-angle formula</h2>
+  <p class="sub"><strong>Use it when</strong> the angle is an odd multiple of \(\pi/8\): 22.5, 67.5,
+  112.5, 157.5 degrees.</p>
+
+  <h3>What the tool is for, and why Tool 1 cannot do this</h3>
+  <p>Tool 1 fails here for a concrete reason. <strong>Every standard angle is a multiple of
+  \(15^\circ\), and adding or subtracting multiples of 15 can only ever give another multiple of
+  15.</strong> \(22.5\) is not one. So you need a tool that <em>halves</em> rather than adds, and
+  \(22.5\) is exactly half of \(45\).</p>
+  <div class="note good">
+    <span class="tag">The classification rule, in one line</span>
+    <p>Denominator 12 means add or subtract. Denominator 8 means halve.</p>
+  </div>
+
+  <h3>Where the formula comes from</h3>
+  <p>Derive it rather than memorise it, because the derivation is three lines and the formula carries a
+  \(\pm\) that memory tends to drop. Start from the two double-angle forms that each contain only one
+  function:</p>
+  $$\cos 2\theta = 2\cos^2\theta-1 \qquad\text{and}\qquad \cos 2\theta = 1-2\sin^2\theta$$
+  <p>Solve each for the squared term:</p>
+  $$\cos^2\theta=\frac{1+\cos 2\theta}{2} \qquad\qquad \sin^2\theta=\frac{1-\cos 2\theta}{2}$$
+  <p>Now rename, letting \(\theta=\dfrac{\varphi}{2}\) so that \(2\theta=\varphi\), and take the root:</p>
+  $$\cos\frac{\varphi}{2}=\pm\sqrt{\frac{1+\cos\varphi}{2}} \qquad\qquad
+    \sin\frac{\varphi}{2}=\pm\sqrt{\frac{1-\cos\varphi}{2}}$$
+  <p>Two examinable facts fall out of that. The <strong>\(\pm\) is the price of the square root</strong>:
+  squaring destroyed the sign, so taking the root cannot recover it and you must supply it from outside
+  the algebra. And <strong>cosine gets the plus, sine gets the minus</strong> inside the fraction. If
+  you mix those up, substitute \(\varphi=0\): cosine gives \(\sqrt{(1+1)/2}=1\) and sine gives
+  \(\sqrt{0}=0\), both correct, which settles it in five seconds.</p>
+
+  <h3>Choosing the sign, which is the whole difficulty</h3>
+  <div class="note trap">
+    <span class="tag">The number one half-angle error</span>
+    <p>The sign comes from the quadrant of the <strong>half angle \(\varphi/2\)</strong>, the angle you
+    are computing. It does <em>not</em> come from \(\varphi\).</p>
+    <p>Make it a separate written step: "the half angle is \(X^\circ\), quadrant \(Q\), so the sign is
+    \(\pm\)". Then do the algebra.</p>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>computing</th><th>half angle lands in</th><th>cos</th><th>sin</th></tr></thead>
+      <tbody>
+        <tr><td>\(\cos 22.5^\circ\)</td><td>QI</td><td>\(+\)</td><td>\(+\)</td></tr>
+        <tr><td>\(\cos 67.5^\circ\)</td><td>QI</td><td>\(+\)</td><td>\(+\)</td></tr>
+        <tr class="hl"><td>\(\cos 112.5^\circ\)</td><td>QII</td><td>\(-\)</td><td>\(+\)</td></tr>
+        <tr><td>\(\cos 157.5^\circ\)</td><td>QII</td><td>\(-\)</td><td>\(+\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>The answer form: leave the nested radical alone</h3>
+  <p>A half-angle answer is a <strong>nested radical</strong>, a root inside a root, like
+  \(\dfrac{\sqrt{2+\sqrt2}}{2}\). That is the correct and expected final form for this family. Do not
+  try to flatten it; it usually cannot be flattened, and the attempt is where time disappears. Hold the
+  contrast: the \(\pi/12\) family produces <em>clean</em> surds, the \(\pi/8\) family produces
+  <em>nested</em> ones. Staring at a nested radical for a \(\pi/12\) angle means you picked the wrong
+  tool.</p>
+
+  <h3>Worked example 1 &middot; \(\cos\dfrac{\pi}{8}\)</h3>
+  <p>\(\dfrac{\pi}{8}=22.5^\circ\) is half of \(45^\circ\), so \(\varphi=\dfrac{\pi}{4}\). Sign first:
+  the half angle \(22.5^\circ\) is in quadrant I, cosine positive, take the plus.</p>
+  $$\cos\frac{\pi}{8}=+\sqrt{\frac{1+\frac{\sqrt2}{2}}{2}}=\sqrt{\frac{2+\sqrt2}{4}}
+  =\frac{\sqrt{2+\sqrt2}}{2}\approx0.9239$$
+  <p>Name that last step, because it is the one people skip: \(\sqrt{a/4}=\dfrac{\sqrt a}{2}\), because
+  \(\sqrt4=2\). Pulling the 4 out of the root is what puts the answer in standard form.</p>
+
+  <h3>Worked example 2 &middot; \(\sin\dfrac{3\pi}{8}\), and a double negative</h3>
+  <p>\(67.5^\circ\) is half of \(135^\circ\), so \(\varphi=\dfrac{3\pi}{4}\) and
+  \(\cos\varphi=-\dfrac{\sqrt2}{2}\). The half angle is in quadrant I, so sine is positive.</p>
+  $$\sin\frac{3\pi}{8}=+\sqrt{\frac{1-\left(-\frac{\sqrt2}{2}\right)}{2}}=\sqrt{\frac{2+\sqrt2}{4}}
+  =\frac{\sqrt{2+\sqrt2}}{2}\approx0.9239$$
+  <p>Watch the first step: the formula subtracts \(\cos\varphi\), and \(\cos\varphi\) is itself
+  negative, so the two minuses make a plus. That is the second most common error in this tool. Sanity
+  check on the result: \(\sin 67.5^\circ\) must equal \(\cos 22.5^\circ\) because the angles are
+  complements, and it does.</p>
+
+  <h3>Worked example 3 &middot; \(\cos\dfrac{5\pi}{8}\), the case where the sign matters</h3>
+  <p>\(112.5^\circ\) is half of \(225^\circ\), so \(\varphi=\dfrac{5\pi}{4}\) and
+  \(\cos\varphi=-\dfrac{\sqrt2}{2}\). Sign first, and this is the point of the example: the half angle
+  \(112.5^\circ\) is in quadrant <strong>II</strong>, where cosine is <strong>negative</strong>.</p>
+  $$\cos\frac{5\pi}{8}=-\sqrt{\frac{1-\frac{\sqrt2}{2}}{2}}=-\frac{\sqrt{2-\sqrt2}}{2}\approx-0.3827$$
+  <p>Had you instead reasoned from \(\varphi=225^\circ\) being in quadrant III, you would have got the
+  right sign here <em>by luck</em>. Reason from the half angle every time and it is never luck.</p>
+
+  <h3>The tangent half-angle, which comes out clean</h3>
+  <p>There is a neater route for tangent that avoids nested radicals entirely, and it carries its own
+  sign so there is no \(\pm\) to choose:</p>
+  $$\tan\frac{\varphi}{2}=\frac{\sin\varphi}{1+\cos\varphi}
+  \qquad\Longrightarrow\qquad
+  \tan\frac{\pi}{8}=\frac{\frac{\sqrt2}{2}}{1+\frac{\sqrt2}{2}}=\frac{\sqrt2}{2+\sqrt2}=\sqrt2-1\approx0.4142$$
+  <p>This is the exception to "the \(\pi/8\) family gives nested radicals": the tangents are clean.</p>
+
+  <h3>The four errors that actually happen</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Error</th><th>What it looks like</th><th>Guard</th></tr></thead>
+      <tbody>
+        <tr><td>Sign from the wrong angle</td><td>using \(\varphi\)'s quadrant</td><td>write "half angle is \(X\), quadrant \(Q\)" on its own line</td></tr>
+        <tr><td>Lost double negative</td><td>\(1-(-\frac{\sqrt2}{2})\) read as \(1-\frac{\sqrt2}{2}\)</td><td>bracket \(\cos\varphi\) before subtracting</td></tr>
+        <tr><td>Never pulling out the 4</td><td>leaving \(\sqrt{\frac{2+\sqrt2}{4}}\)</td><td>\(\sqrt{a/4}=\frac{\sqrt a}{2}\), finish it</td></tr>
+        <tr><td>Trying to denest</td><td>grinding at \(\sqrt{2+\sqrt2}\)</td><td>nested <em>is</em> the answer for this family</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <span class="snum">03C</span>
+  <h2>Tool 3 &middot; the reference triangle</h2>
+  <p class="sub"><strong>Use it when</strong> an inverse trig function appears inside, such as
+  \(\sin\!\left(\arccos\frac35\right)\) or \(\tan(\arcsin x)\).</p>
+
+  <h3>What the tool is for</h3>
+  <p>There is no identity for these, and looking for one is the trap. The tool is a picture.</p>
+  <p>The unlock is realising what an inverse trig function <em>is</em>.
+  <strong>\(\arccos\frac35\) is not an operation waiting to happen. It is a number: an angle.</strong>
+  Read it aloud as "the angle whose cosine is \(\frac35\)". So the expression
+  \(\sin\!\left(\arccos\frac35\right)\) is really asking:</p>
+  <div class="note">
+    <span class="tag">What the question actually says</span>
+    <p>There is some angle. I am telling you its cosine is \(\frac35\). What is its sine?</p>
+  </div>
+  <p>Written that way it stops being an inverse-function problem and becomes a right-triangle problem,
+  which you have been able to do for years. The inverse function hands you <strong>one</strong> of the
+  three ratios; the triangle plus Pythagoras gives you the other two.</p>
+
+  <h3>The procedure</h3>
+  <ol class="writeup">
+    <li><strong>Name it.</strong> Let \(\theta\) be the inner angle and write the defining equation.
+    \(\theta=\arccos\frac35\) means \(\cos\theta=\frac35\).</li>
+    <li><strong>Draw a right triangle</strong> and label the two sides the ratio gives you, using
+    SOH CAH TOA. Cosine is adjacent over hypotenuse, so adj = 3 and hyp = 5.</li>
+    <li><strong>Pythagoras</strong> for the missing side.</li>
+    <li><strong>Read off</strong> the ratio the outer function asks for.</li>
+    <li><strong>Fix the sign from the RANGE of the inverse function</strong>, not from the drawing.
+    Side lengths in a picture are always positive; the answer may not be.</li>
+  </ol>
+  <p>Step 5 is the only step that is not mechanical, and it is where the marks are.</p>
+
+  <h3>Step 5 in detail: the range decides the sign</h3>
+  <p>An inverse function must return exactly one angle, so its output is restricted to one band. Those
+  bands differ per function, and that is what fixes your sign.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>function</th><th class="mono">range</th><th>quadrants</th><th>consequence</th></tr></thead>
+      <tbody>
+        <tr><td>\(\arcsin\)</td><td>\(\left[-\frac{\pi}{2},\frac{\pi}{2}\right]\)</td><td>IV and I</td><td>output cosine is always \(\ge 0\)</td></tr>
+        <tr><td>\(\arctan\)</td><td>\(\left(-\frac{\pi}{2},\frac{\pi}{2}\right)\)</td><td>IV and I</td><td>output cosine is always \(> 0\)</td></tr>
+        <tr class="hl"><td>\(\arccos\)</td><td>\(\left[0,\pi\right]\)</td><td>I and II</td><td>output sine is always \(\ge 0\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The consequence column does most of the work. Inside an \(\arcsin\) or \(\arctan\), cosine and
+  secant come out positive whatever the input's sign. Inside an \(\arccos\), sine and cosecant come out
+  positive. And a negative input pushes \(\arcsin\) and \(\arctan\) into quadrant IV, but pushes
+  \(\arccos\) into quadrant II. Get the <strong>magnitude</strong> from the triangle and the
+  <strong>sign</strong> from the range: two separate steps, never mixed.</p>
+
+  <h3>Worked example 1 &middot; \(\sin\!\left(\arccos\dfrac35\right)\)</h3>
+  <p>Let \(\theta=\arccos\dfrac35\), so \(\cos\theta=\dfrac35\). The input is positive and \(\arccos\)
+  lands in \([0,\pi]\), so \(\theta\) is in quadrant I and everything is positive. Cosine is adjacent
+  over hypotenuse:</p>
+<pre class="chain">                      /|
+                     / |
+              5     /  |
+        (hyp)      /   |   opp = ?
+                  /    |
+                 / <b>&theta;</b>   |
+                --------
+                 adj = 3</pre>
+  <p>Pythagoras gives opp \(=\sqrt{25-9}=4\). This is the <strong>3-4-5</strong> triangle, which turns
+  up constantly; recognising it saves the square root. The outer function is sine, opposite over
+  hypotenuse:</p>
+  $$\sin\left(\arccos\frac35\right)=\frac{4}{5}=0.8$$
+  <p>Free check worth keeping: any \((\sin,\cos)\) pair you produce must satisfy
+  \(\sin^2+\cos^2=1\), and \(\left(\frac35\right)^2+\left(\frac45\right)^2=1\). It catches a botched
+  Pythagoras immediately.</p>
+
+  <h3>Worked example 2 &middot; \(\tan\!\left(\arccos\!\left(-\dfrac23\right)\right)\), the sign case</h3>
+  <p><strong>Range first.</strong> \(\arccos\) lands in \([0,\pi]\) and the input is negative, so
+  \(\theta\) is in quadrant <strong>II</strong>, where tangent is negative. Expect a negative answer
+  before doing any algebra. Now the magnitudes: adj \(=2\), hyp \(=3\), so
+  opp \(=\sqrt{9-4}=\sqrt5\).</p>
+  $$\tan\left(\arccos\left(-\frac23\right)\right)=-\frac{\sqrt5}{2}\approx-1.1180$$
+  <p>Note what did <em>not</em> flip: \(\sin\theta=+\dfrac{\sqrt5}{3}\) stays positive, because the
+  range of \(\arccos\) guarantees a non-negative sine. Keep drawn lengths positive and handle the sign
+  separately; carrying \(-2\) into the picture happens to work here but breaks as soon as you need a
+  sine or a squared quantity.</p>
+
+  <h3>Worked example 3 &middot; \(\sec(\arctan 2)\)</h3>
+  <p>\(\tan\theta=2=\dfrac21\), so opp \(=2\) and adj \(=1\), and \(\arctan\) of a positive number sits
+  in quadrant I. Then hyp \(=\sqrt{4+1}=\sqrt5\), and secant is hypotenuse over adjacent:</p>
+  $$\sec(\arctan 2)=\sqrt5\approx2.2361$$
+  <div class="note trap">
+    <span class="tag">Pythagoras runs the other way here</span>
+    <p>With tangent you are given the two <strong>legs</strong>, so Pythagoras <strong>adds</strong>.
+    With sine or cosine you are given one leg and the hypotenuse, so it <strong>subtracts</strong>.
+    Getting that backwards gives \(\sqrt{4-1}\) and a wrong answer that still looks plausible.</p>
+  </div>
+
+  <h3>Worked example 4 &middot; the algebraic version, \(\tan(\arcsin x)\)</h3>
+  <p>Identical method with a letter instead of a number. Let \(\theta=\arcsin x\), so
+  \(\sin\theta=\dfrac{x}{1}\): put opp \(=x\) and hyp \(=1\), giving adj \(=\sqrt{1-x^2}\).</p>
+  $$\tan(\arcsin x)=\frac{x}{\sqrt{1-x^2}}$$
+  <p>Two conditions come with it, and stating them is part of a full-credit answer. The expression needs
+  \(1-x^2>0\), so \(-1<x<1\), which is exactly where \(\arcsin\) is defined and its tangent finite. And
+  the denominator is \(+\sqrt{1-x^2}\) with no \(\pm\), because the range of \(\arcsin\) forces a
+  non-negative cosine. Spot check at \(x=0.6\): the formula gives \(0.6/0.8=0.75\), and
+  \(\tan(\arcsin 0.6)=0.75\).</p>
+
+  <h3>Worked example 5 &middot; when the outer function is doubled</h3>
+  <p>\(\cos\!\left(2\arcsin\dfrac13\right)\) combines this tool with a double-angle identity, and the
+  shortcut is to pick the identity form whose input you <em>already</em> have. Let
+  \(\theta=\arcsin\dfrac13\), so \(\sin\theta=\dfrac13\) by definition. You know the sine, so choose
+  the form written in sine only:</p>
+  $$\cos2\theta=1-2\sin^2\theta=1-\frac29=\frac79\approx0.7778$$
+  <p>You never drew a triangle and never computed \(\cos\theta\) at all. Choosing the right form is the
+  entire saving. The companion case does need the triangle:
+  \(\sin\!\left(2\arccos\frac35\right)\) uses \(\sin2\theta=2\sin\theta\cos\theta\), and the 3-4-5
+  triangle gives \(2\cdot\frac45\cdot\frac35=\dfrac{24}{25}\).</p>
+
+  <h3>The four errors that actually happen</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Error</th><th>What it looks like</th><th>Guard</th></tr></thead>
+      <tbody>
+        <tr><td>Hunting for an identity</td><td>trying to expand \(\sin(\arccos u)\) with a formula</td><td>there is none; draw the triangle</td></tr>
+        <tr><td>Sign from the triangle</td><td>reporting \(+\frac{\sqrt5}{2}\) in example 2</td><td>the range decides the sign, not the drawing</td></tr>
+        <tr><td>Pythagoras backwards</td><td>\(\sqrt{4-1}\) in example 3</td><td>two legs means add, leg and hypotenuse means subtract</td></tr>
+        <tr><td>Dropping the domain</td><td>\(\frac{x}{\sqrt{1-x^2}}\) with no condition</td><td>state \(-1&lt;x&lt;1\) as part of the answer</td></tr>
+      </tbody>
+    </table>
+  </div>
 </section>
 
 <section>
@@ -816,16 +1280,27 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
 </section>
 
 <footer>
-  <div class="verified">&#10003; 102 exact forms verified, 0 mismatches</div>
+  <div class="verified">&#10003; 345 checks verified, 0 mismatches</div>
   <p>Question text from <code>notes\MATH265.md</code> (Q1.1) and <code>notes\MATH265\MATH265.md</code>
   (Midterm Exam 1, item 1, 5 points). Variation families extended from
   <code>notes\MATH265\MATH265_Categorized.md</code> section 1. Answer-entry rules from the M&ouml;bius
   platform notes and the A1 block of the MATH 265 exam note sheets.</p>
   <p>Every exact form on this page was recomputed independently in Python and compared against a direct
-  trigonometric evaluation at tolerance 1e-11, on 2026-08-31. 102 values checked, 0 mismatches. Nothing
-  here was copied from a solution key.</p>
+  trigonometric evaluation at tolerance 1e-11, on 2026-08-31. <strong>345 checks, 0 mismatches:</strong>
+  102 for the original sections, 160 for the 33 rows of the angle table, 27 for the worked examples in
+  sections 03A, 03B and 03C, and 56 for the decomposition table, where every split was checked twice,
+  once for its degree arithmetic and once by expanding the formula against a direct evaluation of the
+  target. Deduplicated, 323 are kept as permanent assertions in
+  <code>Work\knowledge	opics\math265-answer-verification.py</code>, reporting 323 PASS and 0 FAIL.
+  Nothing here was copied from a solution key.</p>
+  <p>Every one of the 33 rows in the angle table has an exact value, which is the point of that row set:
+  it is near enough the complete list of angles an exact-value question can use. An angle outside it,
+  such as 5 or 10 degrees, has no expression in square roots at all, because a regular 72-sided polygon
+  is not constructible.</p>
   <p>Full write-up, including the longer worked routes:
   <code>C:\Users\mnguyen\notes\Q1.1 - Exact value of a cosine.md</code></p>
 </footer>
+
+
 
 </div>
