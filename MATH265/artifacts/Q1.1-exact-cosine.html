@@ -1,0 +1,831 @@
+<title>Exact Cosine Values</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false },
+  startup: { pageReady: function () {
+    return MathJax.startup.defaultPageReady().then(function () {
+      document.documentElement.setAttribute('data-mj','done');
+    });
+  } }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+/* ===== dark-first ops console: bare :root is dark, light is the override ===== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --trap:#D2765C; --trap-soft:rgba(210,118,92,.12);
+  --good:#6FA8A0; --good-soft:rgba(111,168,160,.12);
+  --slate:#7E9BC4;
+  --grid:rgba(230,234,241,.026);
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+    --good:#33726A; --good-soft:rgba(51,114,106,.10);
+    --slate:#3F6493;
+    --grid:rgba(23,27,34,.042);
+    --mj:#171B22;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --trap:#A8492F; --trap-soft:rgba(168,73,47,.09);
+  --good:#33726A; --good-soft:rgba(51,114,106,.10);
+  --slate:#3F6493;
+  --grid:rgba(23,27,34,.042);
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+/* ---- masthead ---- */
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:62ch;margin:0}
+
+/* ---- the answer slab ---- */
+.slab{
+  margin:30px 0 8px;border:1px solid var(--accent-line);background:var(--surface);
+  border-radius:3px;overflow:hidden;
+}
+.slab-head{
+  padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--accent-soft);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.slab-body{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:760px){.slab-body{grid-template-columns:1.15fr 1fr}}
+.slab-cell{padding:22px 20px}
+.slab-cell + .slab-cell{border-top:1px solid var(--line-soft)}
+@media (min-width:760px){
+  .slab-cell + .slab-cell{border-top:0;border-left:1px solid var(--line-soft)}
+}
+.lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);
+  display:block;margin-bottom:9px;
+}
+.entry{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15px;font-weight:500;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;color:var(--accent);display:block;
+  overflow-x:auto;white-space:nowrap;
+}
+.decimal{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;color:var(--ink2);
+  margin-top:11px;font-variant-numeric:tabular-nums;
+}
+
+/* ---- sections ---- */
+section{margin-top:52px;scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--accent);display:block;margin-bottom:7px;
+}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;
+  margin:26px 0 8px;color:var(--ink);
+}
+.sub{color:var(--ink2);margin:0 0 18px;max-width:66ch}
+p{max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink)}
+
+/* ---- chain / tree code blocks ---- */
+pre.chain{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.75;
+  background:var(--sunk);border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:0;overflow-x:auto;color:var(--ink);
+}
+pre.chain b{color:var(--accent);font-weight:600}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  background:var(--surface2);white-space:nowrap;font-weight:500;
+}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+td.deg{color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.hl{background:var(--accent-soft)}
+.hl td{font-weight:500}
+
+/* ---- callouts ---- */
+.note{
+  border:1px solid var(--line);border-left:2px solid var(--slate);background:var(--surface);
+  border-radius:3px;padding:15px 18px;margin:18px 0;
+}
+.note.trap{border-left-color:var(--trap);background:var(--trap-soft)}
+.note.good{border-left-color:var(--good);background:var(--good-soft)}
+.note .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--slate);
+}
+.note.trap .tag{color:var(--trap)}
+.note.good .tag{color:var(--good)}
+.note p{margin:0;max-width:64ch}
+.note p + p{margin-top:9px}
+
+/* ---- route cards ---- */
+.routes{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:820px){.routes{grid-template-columns:repeat(3,1fr)}}
+.route{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:17px 18px}
+.route.pick{border-color:var(--accent-line);background:var(--accent-soft)}
+.route h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin:0 0 11px;color:var(--ink3);font-weight:500;
+}
+.route.pick h4{color:var(--accent)}
+.route p{font-size:13.5px;margin:0;color:var(--ink2)}
+
+/* ---- family panels ---- */
+.fam{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;overflow:hidden}
+.fam-head{
+  padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:11px;
+}
+.fam-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-t{font-weight:600;font-size:15px}
+.fam-tool{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink3);margin-left:auto;
+}
+.fam-body{padding:16px 18px}
+.fam-body > :first-child{margin-top:0}
+.fam-body .tw{margin-left:0;margin-right:0}
+
+/* ---- ordered trap list ---- */
+ol.traps{counter-reset:t;list-style:none;padding:0;margin:16px 0}
+ol.traps li{
+  counter-increment:t;position:relative;padding:11px 0 11px 46px;
+  border-bottom:1px solid var(--line-soft);max-width:70ch;
+}
+ol.traps li:last-child{border-bottom:0}
+ol.traps li::before{
+  content:counter(t,decimal-leading-zero);position:absolute;left:0;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);letter-spacing:.08em;
+}
+
+/* ---- drills ---- */
+ol.drills{
+  list-style:none;counter-reset:d;padding:0;margin:16px 0;
+  display:grid;gap:9px;grid-template-columns:1fr;
+}
+@media (min-width:660px){ol.drills{grid-template-columns:1fr 1fr}}
+ol.drills li{
+  counter-increment:d;border:1px solid var(--line);background:var(--surface);
+  border-radius:3px;padding:11px 14px 11px 42px;position:relative;
+}
+ol.drills li::before{
+  content:counter(d);position:absolute;left:14px;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink3);
+}
+details.key{
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin:18px 0;overflow:hidden;
+}
+details.key > summary{
+  padding:13px 18px;cursor:pointer;background:var(--surface2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  list-style:none;
+}
+details.key > summary::-webkit-details-marker{display:none}
+details.key > summary::before{content:"[ + ]  ";color:var(--ink3)}
+details.key[open] > summary::before{content:"[ - ]  "}
+details.key > summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+details.key .inner{padding:0}
+details.key .tw{margin:0;border:0;border-radius:0}
+
+/* ---- write-up block ---- */
+ol.writeup{margin:16px 0;padding-left:0;list-style:none;counter-reset:w}
+ol.writeup li{
+  counter-increment:w;position:relative;padding:12px 16px 12px 48px;
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin-bottom:9px;max-width:74ch;
+}
+ol.writeup li::before{
+  content:"S" counter(w);position:absolute;left:15px;top:12px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--accent);
+}
+
+/* ---- numbers strip ---- */
+.nums{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));margin:16px 0}
+.num{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:14px 16px;text-align:center}
+.num .v{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;color:var(--accent);font-variant-numeric:tabular-nums}
+.num .n{font-size:12px;color:var(--ink3);margin-top:6px}
+
+/* ---- footer ---- */
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+footer p{max-width:76ch;margin:0 0 8px}
+footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2);font-size:11.5px}
+.verified{
+  display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--good);
+  border:1px solid var(--good);border-radius:2px;padding:5px 10px;margin-bottom:14px;
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">Athabasca MATH 265 &middot; Midterm 1 &middot; Q1 &middot; 5 points</div>
+  <h1>Exact value of a cosine</h1>
+  <p class="deck">Question 1 of the midterm looks like a warm-up and is actually a gate. It checks
+  three reflexes that reappear all over the paper: parity, decomposing an awkward angle into standard
+  ones, and giving an answer in radicals instead of decimals. This is the method, every variation of
+  it, and the eight-second check.</p>
+</header>
+
+<div class="slab">
+  <div class="slab-head">The question and the answer</div>
+  <div class="slab-body">
+    <div class="slab-cell">
+      <span class="lbl">Asked</span>
+      <p style="margin:0 0 16px">Give the exact value of \(\cos\!\left(-\dfrac{\pi}{12}\right)\).</p>
+      <span class="lbl">Exact value</span>
+      $$\cos\left(-\frac{\pi}{12}\right)=\frac{\sqrt6+\sqrt2}{4}$$
+    </div>
+    <div class="slab-cell">
+      <span class="lbl">What to type into M&ouml;bius</span>
+      <code class="entry">(sqrt(6)+sqrt(2))/4</code>
+      <div class="decimal">= 0.9659258263&hellip; &nbsp;(for checking only, never as the answer)</div>
+      <div class="decimal" style="color:var(--ink3)">Also accepted: <span style="color:var(--ink2)">sqrt(6)/4+sqrt(2)/4</span>,
+      <span style="color:var(--ink2)">cos(pi/12)</span>, <span style="color:var(--ink2)">sqrt(2+sqrt(3))/2</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <span class="snum">00</span>
+  <h2>The whole method in four lines</h2>
+  <p class="sub">If you remember one thing, remember this chain. It runs in about twenty seconds with
+  no calculator.</p>
+<pre class="chain">cos(-pi/12)
+  <b>-&gt;</b> cos is EVEN, so drop the minus sign      <b>cos(pi/12)</b>
+  <b>-&gt;</b> pi/12 is 15 deg, and 15 = 45 - 30        <b>cos(pi/4 - pi/6)</b>
+  <b>-&gt;</b> cos(A-B) = cosA cosB + sinA sinB        (r2/2)(r3/2) + (r2/2)(1/2)
+  <b>-&gt;</b> combine over 4                          <b>(r6 + r2)/4</b></pre>
+  <div class="note trap">
+    <span class="tag">The one sign that ruins it</span>
+    <p>The cosine sum-and-difference formula has the <em>opposite</em> sign to the bracket. So
+    \(\cos(A-B)\) has a <strong>plus</strong> in the middle. Say "cosine flips" out loud every time
+    you write it. This single sign is the most common way to lose this question.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">01</span>
+  <h2>What it is really testing</h2>
+  <p class="sub">Three reflexes at once, and every one of them is charged again later in the paper.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Reflex</th><th>Where it comes back</th></tr></thead>
+      <tbody>
+        <tr><td>Parity: cosine is even, sine is odd</td><td>limits at negative arguments, symmetry in curve sketching</td></tr>
+        <tr><td>Decomposing a non-standard angle</td><td>trig limits, the derivative-from-definition question</td></tr>
+        <tr><td>Producing an <em>exact</em> surd</td><td>every "exact value" instruction on the paper</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>"Exact value" is the whole instruction.</strong> It means no decimals and no calculator
+  output. An answer of <code class="entry" style="display:inline;padding:2px 6px;white-space:normal">0.9659</code>
+  is wrong even though it is numerically close, because the question asked for a number written in
+  radicals.</p>
+  <div class="note">
+    <span class="tag">Format warning</span>
+    <p>The sample paper prints "(5 points)" and elsewhere says things like "Explain the procedure you
+    are using", which reads like a hand-marked written exam. The live delivery is M&ouml;bius,
+    answer-only and machine-marked, with no work shown.</p>
+    <p>Prepare for both. Get the surd fast, which is all M&ouml;bius wants, and be able to write the
+    four justification sentences in section 05 in case the paper you actually sit asks for method.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">02</span>
+  <h2>What has to be recall, not derivation</h2>
+  <p class="sub">You cannot do this question "fast" by rebuilding these on the spot.</p>
+
+  <h3>The standard angles</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">deg</th><th class="mono">rad</th><th>sin</th><th>cos</th><th>tan</th></tr></thead>
+      <tbody>
+        <tr><td class="deg">0</td><td class="mono">\(0\)</td><td>\(0\)</td><td>\(1\)</td><td>\(0\)</td></tr>
+        <tr><td class="deg">30</td><td class="mono">\(\pi/6\)</td><td>\(\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{1}{\sqrt3}\)</td></tr>
+        <tr class="hl"><td class="deg">45</td><td class="mono">\(\pi/4\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td></tr>
+        <tr><td class="deg">60</td><td class="mono">\(\pi/3\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\sqrt3\)</td></tr>
+        <tr><td class="deg">90</td><td class="mono">\(\pi/2\)</td><td>\(1\)</td><td>\(0\)</td><td>undefined</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Hook for the sine column: it climbs \(\tfrac12,\ \tfrac{\sqrt2}{2},\ \tfrac{\sqrt3}{2}\) as the
+  angle grows, and cosine is that same list read backwards. The two highlighted rows are the ones
+  this question uses.</p>
+
+  <h3>Parity, and quadrant signs</h3>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Even: drop the minus</th><th>Odd: pull the minus out front</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>\(\cos(-x)=\cos x\) &nbsp;&middot;&nbsp; \(\sec(-x)=\sec x\)</td>
+          <td>\(\sin(-x)=-\sin x\) &nbsp;&middot;&nbsp; \(\tan(-x)=-\tan x\) &nbsp;&middot;&nbsp; \(\csc,\cot\) too</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Two even, four odd. Cosine and its reciprocal are the even pair; everything else is odd.
+  For signs, <strong>ASTC</strong>: quadrant I <strong>A</strong>ll positive, II <strong>S</strong>ine
+  only, III <strong>T</strong>angent only, IV <strong>C</strong>osine only. Reduce to the reference
+  angle first, take the magnitude, then attach the sign. The reference angle is measured to the
+  nearest part of the \(x\)-axis, never the \(y\)-axis.</p>
+
+  <h3>The two formula families</h3>
+  $$\cos(A\mp B)=\cos A\cos B \pm \sin A\sin B \qquad \sin(A\pm B)=\sin A\cos B \pm \cos A\sin B$$
+  $$\tan(A\pm B)=\frac{\tan A\pm\tan B}{1\mp\tan A\tan B} \qquad
+    \cos\frac{\theta}{2}=\pm\sqrt{\frac{1+\cos\theta}{2}} \qquad
+    \sin\frac{\theta}{2}=\pm\sqrt{\frac{1-\cos\theta}{2}}$$
+  <p>On the half-angle formulas the \(\pm\) is not decoration. You pick it from the quadrant of
+  \(\theta/2\), the angle you are computing, and not from \(\theta\).</p>
+</section>
+
+<section>
+  <span class="snum">03</span>
+  <h2>The procedure for any exact-value question</h2>
+  <p class="sub">Four moves. Learn the moves rather than the answers, and the whole family becomes one
+  question.</p>
+  <ol class="writeup">
+    <li><strong>Strip.</strong> Kill the minus sign with parity. Reduce anything past \(2\pi\) by
+    subtracting full turns. Note the quadrant and hold that sign aside.</li>
+    <li><strong>Classify.</strong> Look at the denominator of the angle. That one number picks your
+    tool, per the table below.</li>
+    <li><strong>Substitute.</strong> Write the formula out in full symbols first, then substitute.
+    Never substitute into a half-remembered formula.</li>
+    <li><strong>Simplify and check.</strong> Put it over one denominator, then run the eight-second
+    check in section 06 before you commit.</li>
+  </ol>
+  <div class="note good">
+    <span class="tag">The decisive table</span>
+    <p>This is the part worth memorising. The denominator of the angle tells you the method, and
+    picking the method in ten seconds is the actual exam skill.</p>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Angle looks like</th><th>Tool</th><th>Answer shape</th></tr></thead>
+      <tbody>
+        <tr><td>multiple of \(\pi/6,\pi/4,\pi/3,\pi/2\)</td><td><strong>straight recall</strong>, no formula</td><td>simple fraction or single root</td></tr>
+        <tr class="hl"><td>odd multiple of \(\pi/12\) &nbsp;(15, 75, 105, 165&hellip;)</td><td><strong>sum or difference formula</strong></td><td>\((\sqrt6\pm\sqrt2)/4\)</td></tr>
+        <tr><td>odd multiple of \(\pi/8\) &nbsp;(22.5, 67.5&hellip;)</td><td><strong>half-angle formula</strong></td><td>nested radical</td></tr>
+        <tr><td>odd multiple of \(\pi/24\) or worse</td><td>half-angle applied twice</td><td>doubly nested radical</td></tr>
+        <tr><td>contains \(\arcsin,\arccos,\arctan\)</td><td><strong>reference triangle</strong>, no formula</td><td>rational, or a single root</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>For this question: step 1 gives \(\cos(\pi/12)\), quadrant I so positive. Step 2 sees a
+  denominator of 12 and picks the difference formula. Done deciding, in under ten seconds.</p>
+</section>
+
+<section>
+  <span class="snum">04</span>
+  <h2>Three routes, and which one to use</h2>
+  <p class="sub">All three are legitimate and all three land on the same surd. They are not equally
+  good under pressure.</p>
+
+  <h3>Route A &mdash; parity first, then the difference formula</h3>
+  <p>Cosine is even, so \(\cos\!\left(-\tfrac{\pi}{12}\right)=\cos\tfrac{\pi}{12}\). Then split the
+  angle, checking the split before using it:
+  \(\tfrac{\pi}{4}-\tfrac{\pi}{6}=\tfrac{3\pi-2\pi}{12}=\tfrac{\pi}{12}\). Good.</p>
+  $$\cos\left(\frac{\pi}{4}-\frac{\pi}{6}\right)=\cos\frac{\pi}{4}\cos\frac{\pi}{6}+\sin\frac{\pi}{4}\sin\frac{\pi}{6}
+  =\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}+\frac{\sqrt2}{2}\cdot\frac{1}{2}
+  =\frac{\sqrt6}{4}+\frac{\sqrt2}{4}=\frac{\sqrt6+\sqrt2}{4}$$
+
+  <h3>Route B &mdash; the same formula without using parity</h3>
+  <p>Keep the minus inside and split \(-\tfrac{\pi}{12}=\tfrac{\pi}{6}-\tfrac{\pi}{4}\), which gives
+  \(\tfrac{\sqrt6}{4}+\tfrac{\sqrt2}{4}\) again. That is the point: cosine does not care about the
+  order of the subtraction, because it is even. A third valid split is
+  \(\tfrac{\pi}{12}=\tfrac{\pi}{3}-\tfrac{\pi}{4}\), also verified to give 0.9659258263. Useful as a
+  cross-check, but it is one more thing to get right.</p>
+
+  <h3>Route C &mdash; half angle from \(\pi/6\)</h3>
+  <p>\(\tfrac{\pi}{12}\) is half of \(\tfrac{\pi}{6}\), and it sits in quadrant I, so take the plus:</p>
+  $$\cos\frac{\pi}{12}=+\sqrt{\frac{1+\cos(\pi/6)}{2}}=\sqrt{\frac{1+\frac{\sqrt3}{2}}{2}}
+  =\sqrt{\frac{2+\sqrt3}{4}}=\frac{\sqrt{2+\sqrt3}}{2}$$
+  <p>Correct, and numerically identical, but it is a <em>nested</em> radical. It does equal the clean
+  form, \(\tfrac{\sqrt{2+\sqrt3}}{2}=\tfrac{\sqrt6+\sqrt2}{4}\), and denesting that by hand is real
+  work you did not have to do.</p>
+
+  <div class="routes">
+    <div class="route pick">
+      <h4>Route A &middot; use this</h4>
+      <p>4 lines. One risk: the middle sign. Output is already the clean surd. This is the exam
+      answer.</p>
+    </div>
+    <div class="route">
+      <h4>Route B &middot; cross-check</h4>
+      <p>4 lines. Two risks: the middle sign, and the direction of the split. Same clean output.</p>
+    </div>
+    <div class="route">
+      <h4>Route C &middot; hold in reserve</h4>
+      <p>5 lines plus denesting. Two risks: choosing the \(\pm\), and the nested form. This is the
+      right tool for \(\pi/8\), not for \(\pi/12\).</p>
+    </div>
+  </div>
+  <div class="note good">
+    <span class="tag">The decision, stated</span>
+    <p>Half-angle is correct for \(\pi/8\) angles, where no sum of standard angles can reach the
+    target. It is the wrong tool for \(\pi/12\) angles, where a difference of standard angles lands
+    on it exactly. Matching tool to denominator is the entire skill.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">05</span>
+  <h2>The write-up that earns method marks</h2>
+  <p class="sub">If the paper asks for procedure, these four sentences are the marks. Copy the shape,
+  not just the numbers.</p>
+  <ol class="writeup">
+    <li>Since cosine is an even function, \(\cos\!\left(-\dfrac{\pi}{12}\right)=\cos\!\left(\dfrac{\pi}{12}\right)\).</li>
+    <li>Writing \(\dfrac{\pi}{12}=\dfrac{\pi}{4}-\dfrac{\pi}{6}\) expresses the angle as a difference of two standard angles.</li>
+    <li>By the cosine difference identity \(\cos(A-B)=\cos A\cos B+\sin A\sin B\), \(\ \cos\dfrac{\pi}{12}=\dfrac{\sqrt2}{2}\cdot\dfrac{\sqrt3}{2}+\dfrac{\sqrt2}{2}\cdot\dfrac12\).</li>
+    <li>Therefore \(\cos\!\left(-\dfrac{\pi}{12}\right)=\dfrac{\sqrt6+\sqrt2}{4}\).</li>
+  </ol>
+  <p>Three things markers look for that students skip: <strong>naming</strong> the parity property,
+  <strong>naming</strong> the identity, and presenting the decomposition as a deliberate choice rather
+  than letting \(\tfrac{\pi}{4}-\tfrac{\pi}{6}\) appear from nowhere. Those are free marks.</p>
+</section>
+
+<section>
+  <span class="snum">06</span>
+  <h2>Check it in eight seconds</h2>
+  <p class="sub">\(\sqrt6\approx2.449\) and \(\sqrt2\approx1.414\), so the answer is about
+  \(3.863/4\approx0.966\). Is that plausible? \(-\pi/12\) is only \(-15^\circ\), and \(\cos 0=1\), so
+  the value must be positive and a hair under 1. It fits.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Invariant</th><th>Check</th><th>What it catches</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Range</strong></td><td>every sin or cos answer lies in \([-1,1]\)</td><td>\((\sqrt6+\sqrt2)/2\approx1.93\) means you dropped a factor of 2</td></tr>
+        <tr><td><strong>Sign</strong></td><td>get the quadrant from ASTC <em>independently</em>, then confirm the algebra agrees</td><td>every parity and quadrant slip</td></tr>
+        <tr><td><strong>Neighbour</strong></td><td>cos decreases on \([0,\pi]\), so \(\cos\frac{\pi}{12}\) sits between \(\cos\frac{\pi}{6}\approx0.866\) and 1</td><td>a wrong angle, or degrees-versus-radians</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Memorise these four decimals outright.</strong> Every answer in the 15-degree family is
+  one of the first three, up to a sign. If your surd does not evaluate to one of them in absolute
+  value, you have made an arithmetic error rather than found a new value.</p>
+  <div class="nums">
+    <div class="num"><div class="v">0.9659</div><div class="n">\((\sqrt6+\sqrt2)/4\)</div></div>
+    <div class="num"><div class="v">0.2588</div><div class="n">\((\sqrt6-\sqrt2)/4\)</div></div>
+    <div class="num"><div class="v">0.2679</div><div class="n">\(2-\sqrt3\)</div></div>
+    <div class="num"><div class="v">0.9239</div><div class="n">\(\sqrt{2+\sqrt2}/2\)</div></div>
+  </div>
+</section>
+
+<section>
+  <span class="snum">07</span>
+  <h2>Typing it without losing the mark</h2>
+  <p class="sub">M&ouml;bius hides two different parsers behind one answer box and nothing in the
+  interface tells you which one you are in. Grading is by mathematical equivalence, so a correct
+  answer is never rejected for its <em>form</em> &mdash; only for being <em>parsed</em> differently
+  than you intended.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>Rule</th><th class="mono">Do</th><th class="mono">Not</th></tr></thead>
+      <tbody>
+        <tr><td>Multiplication</td><td class="mono">2*x</td><td class="mono">2x</td></tr>
+        <tr><td>Roots</td><td class="mono">sqrt(6)</td><td class="mono">a root glyph, 6^.5</td></tr>
+        <tr class="hl"><td>Denominators</td><td class="mono">(sqrt(6)+sqrt(2))/4</td><td class="mono">sqrt(6)+sqrt(2)/4</td></tr>
+        <tr><td>Natural log</td><td class="mono">ln(x)</td><td class="mono">log(x)</td></tr>
+        <tr><td>Exact form</td><td class="mono">(sqrt(6)+sqrt(2))/4</td><td class="mono">0.9659</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note trap">
+    <span class="tag">The most expensive typo available on this question</span>
+    <p><code class="entry" style="display:inline;padding:2px 6px;white-space:normal">sqrt(6)+sqrt(2)/4</code>
+    parses as \(\sqrt6+\tfrac{\sqrt2}{4}\approx2.80\), which is not even in the range of cosine.
+    Bracket the whole numerator, every time.</p>
+    <p><strong>Always click the preview icon.</strong> An empty preview modal means broken syntax,
+    not wrong mathematics.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">08</span>
+  <h2>The variation catalog</h2>
+  <p class="sub">This is what makes the question repeatable. The families are organised by the
+  <em>tool the variation forces</em>, not by how the question looks on the page. Every value below was
+  recomputed independently and checked against a direct evaluation.</p>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 0</span><span class="fam-t">The freebies</span><span class="fam-tool">recall only</span></div>
+    <div class="fam-body">
+      <p>Multiples of \(\pi/6,\pi/4,\pi/3\). Reference angle plus ASTC, no formula:
+      \(\cos\frac{2\pi}{3}=-\frac12\), \(\sin\frac{5\pi}{6}=\frac12\), \(\tan\frac{7\pi}{4}=-1\),
+      \(\cos\frac{5\pi}{2}=0\). <strong>If the denominator is 2, 3, 4 or 6, you should not be
+      writing a formula.</strong></p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 1</span><span class="fam-t">The \(\pi/12\) &middot; 15&deg; family</span><span class="fam-tool">sum / difference</span></div>
+    <div class="fam-body">
+      <p>Q1.1's own family, and the single most likely variation to appear. Every entry is built from
+      \(15=45-30\), \(75=45+30\), or \(105=60+45\).</p>
+      <div class="tw">
+        <table>
+          <thead><tr><th class="mono">angle</th><th class="mono">deg</th><th>cos</th><th>sin</th><th>tan</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td class="mono">\(\pi/12\)</td><td class="deg">15</td><td>\(\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td></tr>
+            <tr><td class="mono">\(5\pi/12\)</td><td class="deg">75</td><td>\(\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td></tr>
+            <tr><td class="mono">\(7\pi/12\)</td><td class="deg">105</td><td>\(\frac{\sqrt2-\sqrt6}{4}\)</td><td>\(\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+            <tr><td class="mono">\(11\pi/12\)</td><td class="deg">165</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(\sqrt3-2\)</td></tr>
+            <tr><td class="mono">\(13\pi/12\)</td><td class="deg">195</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td></tr>
+            <tr><td class="mono">\(17\pi/12\)</td><td class="deg">255</td><td>\(\frac{\sqrt2-\sqrt6}{4}\)</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td></tr>
+            <tr><td class="mono">\(19\pi/12\)</td><td class="deg">285</td><td>\(\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+            <tr><td class="mono">\(23\pi/12\)</td><td class="deg">345</td><td>\(\frac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\frac{\sqrt6-\sqrt2}{4}\)</td><td>\(\sqrt3-2\)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Read that as structure, not as 24 facts.</strong> There are only two magnitudes in
+      the whole table, 0.9659 and 0.2588, and cosine and sine swap which one they get as you move
+      between the 15 and 75 columns. Negative angles fold in through parity. In practice, reduce to a
+      reference angle of \(15^\circ\) or \(75^\circ\) and let ASTC supply the sign; that is fewer
+      moves than hunting for a clever split.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 2</span><span class="fam-t">The \(\pi/8\) &middot; 22.5&deg; family</span><span class="fam-tool">half angle</span></div>
+    <div class="fam-body">
+      <p>No sum of standard angles hits \(22.5^\circ\), so here half-angle is the <em>only</em> tool.</p>
+      <div class="tw">
+        <table>
+          <thead><tr><th class="mono">angle</th><th class="mono">deg</th><th>cos</th><th>sin</th><th>tan</th></tr></thead>
+          <tbody>
+            <tr><td class="mono">\(\pi/8\)</td><td class="deg">22.5</td><td>\(\frac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\frac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td></tr>
+            <tr><td class="mono">\(3\pi/8\)</td><td class="deg">67.5</td><td>\(\frac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\frac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td></tr>
+            <tr><td class="mono">\(5\pi/8\)</td><td class="deg">112.5</td><td>\(-\frac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\frac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td></tr>
+            <tr><td class="mono">\(7\pi/8\)</td><td class="deg">157.5</td><td>\(-\frac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\frac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      $$\cos\frac{\pi}{8}=+\sqrt{\frac{1+\cos(\pi/4)}{2}}=\sqrt{\frac{2+\sqrt2}{4}}=\frac{\sqrt{2+\sqrt2}}{2}\approx0.9239$$
+      <p>The nested radical is the <em>expected</em> answer form here. Do not try to denest it.
+      M&ouml;bius accepts <code class="entry" style="display:inline;padding:2px 6px;white-space:normal">sqrt(2+sqrt(2))/2</code>.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 3</span><span class="fam-t">Reciprocal functions</span><span class="fam-tool">flip, then conjugate</span></div>
+    <div class="fam-body">
+      <p>Do the cosine or sine first, then flip and rationalise. There is no "secant difference
+      formula", so do not go looking for one.</p>
+      $$\sec\left(-\frac{\pi}{12}\right)=\frac{4}{\sqrt6+\sqrt2}
+      =\frac{4(\sqrt6-\sqrt2)}{6-2}=\sqrt6-\sqrt2\approx1.0353$$
+      <p>The conjugate step is the whole content of this variation. The difference of squares collapses
+      the denominator to \(6-2=4\), which cancels the 4 on top, which is why these come out so clean:
+      \(\csc\frac{\pi}{12}=\sqrt6+\sqrt2\approx3.8637\) and \(\cot\frac{\pi}{12}=2+\sqrt3\approx3.7321\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 4</span><span class="fam-t">Tangent of a 15&deg; angle</span><span class="fam-tool">divide, or tan formula</span></div>
+    <div class="fam-body">
+      $$\tan\frac{\pi}{12}=\frac{1-\frac{1}{\sqrt3}}{1+\frac{1}{\sqrt3}}=\frac{\sqrt3-1}{\sqrt3+1}
+      =\frac{(\sqrt3-1)^2}{2}=\frac{4-2\sqrt3}{2}=2-\sqrt3\approx0.2679$$
+      <p>That first form is exact but unsimplified; rationalising by \(\sqrt3-1\) finishes it. Faster
+      alternative: if you already have the sine and the cosine, just divide them,
+      \(\frac{\sqrt6-\sqrt2}{\sqrt6+\sqrt2}\), and rationalise to the same \(2-\sqrt3\). Dividing beats
+      learning a third formula.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 5</span><span class="fam-t">Inverse trig composition</span><span class="fam-tool">reference triangle</span></div>
+    <div class="fam-body">
+      <p>\(\sin(\arccos\frac35)\) and relatives. There is no identity for these. <strong>Draw the
+      triangle.</strong> \(\arccos\frac35\) means "the angle whose cosine is \(\frac35\)", so label
+      adjacent 3 and hypotenuse 5; Pythagoras gives opposite 4. Then read off what the outer function
+      wants: \(\sin(\arccos\frac35)=\frac45\).</p>
+      $$\cos\left(\arcsin\frac13\right)=\frac{2\sqrt2}{3}\approx0.9428 \qquad
+        \tan\left(\arcsin\frac13\right)=\frac{\sqrt2}{4} \qquad
+        \tan\left(\arccos\left(-\frac23\right)\right)=-\frac{\sqrt5}{2}$$
+      <div class="note trap">
+        <span class="tag">Where this one bites</span>
+        <p>Get the <em>magnitude</em> from the triangle and the <em>sign</em> from the inverse
+        function's range. \(\arccos\) has range \([0,\pi]\), so a negative cosine puts the angle in
+        quadrant II, where tangent is negative. \(\arcsin\) and \(\arctan\) land in
+        \([-\frac{\pi}{2},\frac{\pi}{2}]\).</p>
+      </div>
+      <p>The algebraic version is the same method:
+      \(\tan(\arcsin x)=\dfrac{x}{\sqrt{1-x^2}}\), from a triangle with opposite \(x\) and hypotenuse 1.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 6</span><span class="fam-t">Double-angle composition</span><span class="fam-tool">pick the right identity form</span></div>
+    <div class="fam-body">
+      <p>\(\cos(2\arcsin\frac13)\) looks worse than it is. Set \(\theta=\arcsin\frac13\), so
+      \(\sin\theta=\frac13\) <em>by definition</em>, then choose the form of the double-angle identity
+      whose input you already have:</p>
+      $$\cos\left(2\arcsin\frac13\right)=1-2\sin^2\theta=1-\frac29=\frac79\approx0.7778$$
+      <p>You never compute \(\cos\theta\) at all. That is the whole trick. Same move elsewhere:
+      \(\sin(2\arccos\frac35)=2\cdot\frac45\cdot\frac35=\frac{24}{25}\),
+      \(\tan(2\arctan\frac12)=\frac43\), and \(\cos(2\arctan\frac34)=\frac{7}{25}=0.28\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 7</span><span class="fam-t">The identity read backwards</span><span class="fam-tool">recognise, do not grind</span></div>
+    <div class="fam-body">
+      <p>Sometimes the question hands you the right-hand side of an identity and the value is one line.</p>
+      $$\sin75^\circ\cos15^\circ+\cos75^\circ\sin15^\circ=\sin90^\circ=1 \qquad
+        \cos^2\frac{\pi}{8}-\sin^2\frac{\pi}{8}=\cos\frac{\pi}{4}=\frac{\sqrt2}{2}$$
+      $$2\sin\frac{\pi}{12}\cos\frac{\pi}{12}=\sin\frac{\pi}{6}=\frac12 \qquad
+        \cos\frac{\pi}{12}\cos\frac{\pi}{4}+\sin\frac{\pi}{12}\sin\frac{\pi}{4}=\cos\frac{\pi}{6}=\frac{\sqrt3}{2}$$
+      <p><strong>The recognition cue:</strong> two products added or subtracted, with the same two
+      angles in both terms, is always a sum or difference formula collapsing. A squared cosine minus a
+      squared sine of the same angle is always a double angle collapsing.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 8</span><span class="fam-t">Deeper nesting</span><span class="fam-tool">half angle, twice</span></div>
+    <div class="fam-body">
+      <p>\(\pi/24\) is \(7.5^\circ\), half of \(15^\circ\), so apply half-angle to the answer you
+      already have:</p>
+      $$\cos\frac{\pi}{24}=\sqrt{\frac{1+\cos(\pi/12)}{2}}=\frac{\sqrt{2+\sqrt{2+\sqrt3}}}{2}\approx0.9914$$
+      <p>Doubly nested radicals are the correct final form. This is unlikely on the midterm, but
+      knowing the pattern continues tells you the method is general rather than a bag of memorised
+      special cases.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <span class="snum">09</span>
+  <h2>Traps, ranked by what they actually cost</h2>
+  <ol class="traps">
+    <li><strong>The middle sign of \(\cos(A\pm B)\).</strong> The formula's sign is the opposite of the bracket's, so \(\cos(A-B)\) has a plus. Number one error on this question.</li>
+    <li><strong>Bracketing the numerator on entry.</strong> <code>sqrt(6)+sqrt(2)/4</code> is a different number from <code>(sqrt(6)+sqrt(2))/4</code>.</li>
+    <li><strong>Giving a decimal.</strong> "Exact value" forbids it, at any precision.</li>
+    <li><strong>Applying odd-function parity to cosine.</strong> \(\cos(-x)=+\cos x\). Writing \(-\cos x\) flips the answer's sign for free.</li>
+    <li><strong>Choosing the half-angle \(\pm\) from the wrong quadrant.</strong> The sign comes from \(\theta/2\), the angle you are computing.</li>
+    <li><strong>Degrees versus radians.</strong> \(\pi/12\) is \(15^\circ\), not \(12^\circ\). A calculator left in degrees makes every numerical check lie to you silently.</li>
+    <li><strong>Forgetting to reduce past \(2\pi\).</strong> \(\frac{25\pi}{12}\) is coterminal with \(\frac{\pi}{12}\).</li>
+    <li><strong>Not rationalising a reciprocal.</strong> \(\frac{4}{\sqrt6+\sqrt2}\) is exact. M&ouml;bius accepts it; a human marker may call it unsimplified.</li>
+    <li><strong>Reaching for a formula in Family 0.</strong> Denominator 2, 3, 4 or 6 means recall is the method.</li>
+    <li><strong>Trying to denest a \(\pi/8\) answer.</strong> The nested radical <em>is</em> the answer there.</li>
+  </ol>
+</section>
+
+<section>
+  <span class="snum">10</span>
+  <h2>Drill set</h2>
+  <p class="sub">Twelve on paper in under ten minutes, then open the key. Score the <strong>sign</strong>
+  separately from the <strong>magnitude</strong>.</p>
+  <ol class="drills">
+    <li>\(\sin\!\left(-\dfrac{7\pi}{12}\right)\)</li>
+    <li>\(\cos\dfrac{11\pi}{12}\)</li>
+    <li>\(\tan\!\left(-\dfrac{\pi}{12}\right)\)</li>
+    <li>\(\sec\dfrac{5\pi}{12}\)</li>
+    <li>\(\cos\dfrac{\pi}{8}\)</li>
+    <li>\(\sin\dfrac{7\pi}{8}\)</li>
+    <li>\(\cos 105^\circ\)</li>
+    <li>\(\sin 255^\circ\)</li>
+    <li>\(\tan\!\left(\arccos\!\left(-\dfrac23\right)\right)\)</li>
+    <li>\(\cos\!\left(2\arctan\dfrac34\right)\)</li>
+    <li>\(\sin\dfrac{\pi}{12}\cos\dfrac{\pi}{12}\)</li>
+    <li>\(\cos\dfrac{13\pi}{12}\)</li>
+  </ol>
+  <details class="key">
+    <summary>Answer key &middot; 12 items</summary>
+    <div class="inner">
+      <div class="tw">
+        <table>
+          <thead><tr><th class="mono">#</th><th>exact</th><th class="mono">decimal</th><th>family and method</th></tr></thead>
+          <tbody>
+            <tr><td class="deg">1</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td class="mono">-0.9659</td><td>1 &middot; odd parity, then \(105^\circ\)</td></tr>
+            <tr><td class="deg">2</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td class="mono">-0.9659</td><td>1 &middot; ref \(15^\circ\), QII so cos negative</td></tr>
+            <tr><td class="deg">3</td><td>\(\sqrt3-2\)</td><td class="mono">-0.2679</td><td>4 &middot; odd parity</td></tr>
+            <tr><td class="deg">4</td><td>\(\sqrt6+\sqrt2\)</td><td class="mono">3.8637</td><td>3 &middot; reciprocal, then conjugate</td></tr>
+            <tr><td class="deg">5</td><td>\(\frac{\sqrt{2+\sqrt2}}{2}\)</td><td class="mono">0.9239</td><td>2 &middot; half angle</td></tr>
+            <tr><td class="deg">6</td><td>\(\frac{\sqrt{2-\sqrt2}}{2}\)</td><td class="mono">0.3827</td><td>2 &middot; ref \(22.5^\circ\), QII so sin positive</td></tr>
+            <tr><td class="deg">7</td><td>\(\frac{\sqrt2-\sqrt6}{4}\)</td><td class="mono">-0.2588</td><td>1 &middot; \(105=60+45\)</td></tr>
+            <tr><td class="deg">8</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td class="mono">-0.9659</td><td>1 &middot; ref \(75^\circ\), QIII so sin negative</td></tr>
+            <tr><td class="deg">9</td><td>\(-\frac{\sqrt5}{2}\)</td><td class="mono">-1.1180</td><td>5 &middot; triangle plus the \(\arccos\) range</td></tr>
+            <tr><td class="deg">10</td><td>\(\frac{7}{25}\)</td><td class="mono">0.2800</td><td>6 &middot; 3-4-5 triangle, \(2\cos^2\theta-1\)</td></tr>
+            <tr><td class="deg">11</td><td>\(\frac14\)</td><td class="mono">0.2500</td><td>7 &middot; half of \(\sin\frac{\pi}{6}\)</td></tr>
+            <tr><td class="deg">12</td><td>\(-\frac{\sqrt6+\sqrt2}{4}\)</td><td class="mono">-0.9659</td><td>1 &middot; ref \(15^\circ\), QIII so cos negative</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+  <div class="note">
+    <span class="tag">How to read your own score</span>
+    <p>If magnitudes keep coming out right and signs keep coming out wrong, the problem is ASTC and
+    reference angles, not the identities. Drilling more identities will not fix it.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">11</span>
+  <h2>The whole thing on one page</h2>
+<pre class="chain">Exact value of a trig function of THETA?
+|
++-- Is there an inverse trig function inside?
+|     YES -&gt; draw a <b>REFERENCE TRIANGLE</b>. Magnitude from the sides,
+|            sign from the inverse function's RANGE.
+|            (arcsin, arctan -&gt; [-pi/2, pi/2];  arccos -&gt; [0, pi])
+|            Outer function doubled? Use a DOUBLE-ANGLE identity
+|            in the form whose input you already know.
+|
++-- Is it two products added, or cos^2 - sin^2?
+|     YES -&gt; an identity is collapsing. <b>Read it BACKWARDS.</b> Usually one line.
+|
++-- Otherwise: <b>STRIP</b> first.
+      1. Negative angle?  cos/sec: drop the sign.  Others: pull it out front.
+      2. Bigger than 2pi? Subtract full turns.
+      3. Note the quadrant. Get the sign from ASTC and set it aside.
+      4. Reduce to a reference angle in [0, pi/2].
+      Now look at the DENOMINATOR of the reference angle:
+        2, 3, 4, 6      -&gt; <b>RECALL.</b> No formula.
+        12              -&gt; <b>SUM/DIFFERENCE</b> formula (15 = 45-30, 75 = 45+30).
+        8               -&gt; <b>HALF-ANGLE</b> formula. A nested radical is the answer.
+        24 or worse     -&gt; HALF-ANGLE twice.
+      5. Reattach the sign from step 3.
+      6. Check: in [-1,1]? decimal is 0.9659 / 0.2588 / 0.2679 / 0.9239 / 0.3827?
+      7. Type it with every bracket, and <b>PREVIEW</b>.</pre>
+</section>
+
+<footer>
+  <div class="verified">&#10003; 102 exact forms verified, 0 mismatches</div>
+  <p>Question text from <code>notes\MATH265.md</code> (Q1.1) and <code>notes\MATH265\MATH265.md</code>
+  (Midterm Exam 1, item 1, 5 points). Variation families extended from
+  <code>notes\MATH265\MATH265_Categorized.md</code> section 1. Answer-entry rules from the M&ouml;bius
+  platform notes and the A1 block of the MATH 265 exam note sheets.</p>
+  <p>Every exact form on this page was recomputed independently in Python and compared against a direct
+  trigonometric evaluation at tolerance 1e-11, on 2026-08-31. 102 values checked, 0 mismatches. Nothing
+  here was copied from a solution key.</p>
+  <p>Full write-up, including the longer worked routes:
+  <code>C:\Users\mnguyen\notes\Q1.1 - Exact value of a cosine.md</code></p>
+</footer>
+
+</div>
