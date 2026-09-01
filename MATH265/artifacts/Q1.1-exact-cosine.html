@@ -293,6 +293,12 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
 .legend .k-sd{border-color:var(--accent-line);background:var(--accent-soft);color:var(--accent)}
 .legend .k-ha{border-color:var(--slate);background:var(--ha-wash);color:var(--slate)}
 #angtab .und{color:var(--ink3);font-style:italic}
+#angtab thead th .par{
+  display:inline-block;margin-left:6px;padding:1px 4px;vertical-align:1px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9px;
+  letter-spacing:.1em;text-transform:uppercase;font-weight:400;
+  color:var(--accent);border:1px solid var(--accent-line);border-radius:2px;
+}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 
@@ -398,50 +404,58 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
   </div>
 
   <div class="note">
-    <span class="tag">Why the cos(&minus;x) column is here</span>
-    <p>It is <strong>identical to the cos x column on every row</strong>. That is not a printing
-    mistake, it is the parity fact made visual: cosine is even, so a minus sign inside the bracket
-    simply evaporates. It is here so your eye learns it, because that is the first move of Q1.1.</p>
+    <span class="tag">How to read the nine columns</span>
+    <p>All six trig functions are here, so an "exact value" question about any of them is one lookup
+    rather than a lookup and a division. Two carry an <strong>even</strong> chip: \(\cos(-x)=\cos x\)
+    and \(\sec(-x)=\sec x\), so on those two a minus sign inside the bracket evaporates before you
+    do anything else. The other four are odd and pull the minus out in front instead.</p>
+    <p>The cos(&minus;x) column is <strong>identical to the cos x column on every row</strong>. That is
+    not a printing mistake, it is that same parity fact made visual, and it is the first move of Q1.1.</p>
+    <p>\(\csc x = 1/\sin x\) and \(\sec x = 1/\cos x\), so those two columns are sine and cosine
+    turned upside down, sign and all. Their size is never below 1, which is a free sanity check. Once
+    rationalised they stop looking like their parents: \(4/(\sqrt6-\sqrt2)\) is \(\sqrt6+\sqrt2\),
+    so the reciprocal columns carry the same surds without the quarter.</p>
     <p>\(\cot x = 1/\tan x = \cos x/\sin x\), so tan and cot are reciprocals and each is undefined
-    exactly where the other is zero: tan at \(90^\circ\) and \(270^\circ\), cot at \(0^\circ\),
-    \(180^\circ\) and \(360^\circ\).</p>
+    exactly where the other is zero. Tan and sec are undefined at \(90^\circ\) and \(270^\circ\),
+    where cosine is zero; cot and csc at \(0^\circ\), \(180^\circ\) and \(360^\circ\), where
+    sine is zero.</p>
   </div>
 <div class="tw tall"><table id="angtab">
-<thead><tr><th class="mono">deg</th><th class="mono">rad</th><th>sin x</th><th>cos x</th><th>cos(&minus;x)</th><th>tan x</th><th>cot x</th></tr></thead>
+<thead><tr><th class="mono">deg</th><th class="mono">rad</th><th>sin x</th><th>cos x <span class="par">even</span></th><th>cos(&minus;x)</th><th>tan x</th><th>csc x</th><th>sec x <span class="par">even</span></th><th>cot x</th></tr></thead>
 <tbody>
-<tr class="f-recall"><td class="deg">0</td><td class="mono">\(0\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
-<tr class="f-sd"><td class="deg">15</td><td class="mono">\(\tfrac{\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(2+\sqrt3\)</td></tr>
-<tr class="f-ha"><td class="deg">22.5</td><td class="mono">\(\tfrac{\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(\sqrt2+1\)</td></tr>
-<tr class="f-recall"><td class="deg">30</td><td class="mono">\(\tfrac{\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
-<tr class="f-recall"><td class="deg">45</td><td class="mono">\(\tfrac{\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(1\)</td></tr>
-<tr class="f-recall"><td class="deg">60</td><td class="mono">\(\tfrac{\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
-<tr class="f-ha"><td class="deg">67.5</td><td class="mono">\(\tfrac{3\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(\sqrt2-1\)</td></tr>
-<tr class="f-sd"><td class="deg">75</td><td class="mono">\(\tfrac{5\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(2-\sqrt3\)</td></tr>
-<tr class="f-recall"><td class="deg">90</td><td class="mono">\(\tfrac{\pi}{2}\)</td><td>\(1\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
-<tr class="f-sd"><td class="deg">105</td><td class="mono">\(\tfrac{7\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(-(2-\sqrt3)\)</td></tr>
-<tr class="f-ha"><td class="deg">112.5</td><td class="mono">\(\tfrac{5\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(-(\sqrt2-1)\)</td></tr>
-<tr class="f-recall"><td class="deg">120</td><td class="mono">\(\tfrac{2\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
-<tr class="f-recall"><td class="deg">135</td><td class="mono">\(\tfrac{3\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td></tr>
-<tr class="f-recall"><td class="deg">150</td><td class="mono">\(\tfrac{5\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
-<tr class="f-ha"><td class="deg">157.5</td><td class="mono">\(\tfrac{7\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(-(\sqrt2+1)\)</td></tr>
-<tr class="f-sd"><td class="deg">165</td><td class="mono">\(\tfrac{11\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(-(2+\sqrt3)\)</td></tr>
-<tr class="f-recall"><td class="deg">180</td><td class="mono">\(\pi\)</td><td>\(0\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
-<tr class="f-sd"><td class="deg">195</td><td class="mono">\(\tfrac{13\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(2+\sqrt3\)</td></tr>
-<tr class="f-ha"><td class="deg">202.5</td><td class="mono">\(\tfrac{9\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(\sqrt2+1\)</td></tr>
-<tr class="f-recall"><td class="deg">210</td><td class="mono">\(\tfrac{7\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
-<tr class="f-recall"><td class="deg">225</td><td class="mono">\(\tfrac{5\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(1\)</td></tr>
-<tr class="f-recall"><td class="deg">240</td><td class="mono">\(\tfrac{4\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
-<tr class="f-ha"><td class="deg">247.5</td><td class="mono">\(\tfrac{11\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(\sqrt2-1\)</td></tr>
-<tr class="f-sd"><td class="deg">255</td><td class="mono">\(\tfrac{17\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(2-\sqrt3\)</td></tr>
-<tr class="f-recall"><td class="deg">270</td><td class="mono">\(\tfrac{3\pi}{2}\)</td><td>\(-(1)\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
-<tr class="f-sd"><td class="deg">285</td><td class="mono">\(\tfrac{19\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(-(2-\sqrt3)\)</td></tr>
-<tr class="f-ha"><td class="deg">292.5</td><td class="mono">\(\tfrac{13\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(-(\sqrt2-1)\)</td></tr>
-<tr class="f-recall"><td class="deg">300</td><td class="mono">\(\tfrac{5\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
-<tr class="f-recall"><td class="deg">315</td><td class="mono">\(\tfrac{7\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td></tr>
-<tr class="f-recall"><td class="deg">330</td><td class="mono">\(\tfrac{11\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
-<tr class="f-ha"><td class="deg">337.5</td><td class="mono">\(\tfrac{15\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(-(\sqrt2+1)\)</td></tr>
-<tr class="f-sd"><td class="deg">345</td><td class="mono">\(\tfrac{23\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(-(2+\sqrt3)\)</td></tr>
-<tr class="f-recall"><td class="deg">360</td><td class="mono">\(2\pi\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td></tr>
+<tr class="f-recall"><td class="deg">0</td><td class="mono">\(0\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(1\)</td><td><span class="und">undef</span></td></tr>
+<tr class="f-sd"><td class="deg">15</td><td class="mono">\(\tfrac{\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(\sqrt6+\sqrt2\)</td><td>\(\sqrt6-\sqrt2\)</td><td>\(2+\sqrt3\)</td></tr>
+<tr class="f-ha"><td class="deg">22.5</td><td class="mono">\(\tfrac{\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(\sqrt{4+2\sqrt2}\)</td><td>\(\sqrt{4-2\sqrt2}\)</td><td>\(\sqrt2+1\)</td></tr>
+<tr class="f-recall"><td class="deg">30</td><td class="mono">\(\tfrac{\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(2\)</td><td>\(\tfrac{2\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">45</td><td class="mono">\(\tfrac{\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(\sqrt2\)</td><td>\(\sqrt2\)</td><td>\(1\)</td></tr>
+<tr class="f-recall"><td class="deg">60</td><td class="mono">\(\tfrac{\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(\tfrac{2\sqrt3}{3}\)</td><td>\(2\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-ha"><td class="deg">67.5</td><td class="mono">\(\tfrac{3\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(\sqrt{4-2\sqrt2}\)</td><td>\(\sqrt{4+2\sqrt2}\)</td><td>\(\sqrt2-1\)</td></tr>
+<tr class="f-sd"><td class="deg">75</td><td class="mono">\(\tfrac{5\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(\sqrt6-\sqrt2\)</td><td>\(\sqrt6+\sqrt2\)</td><td>\(2-\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">90</td><td class="mono">\(\tfrac{\pi}{2}\)</td><td>\(1\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(1\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
+<tr class="f-sd"><td class="deg">105</td><td class="mono">\(\tfrac{7\pi}{12}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(\sqrt6-\sqrt2\)</td><td>\(-(\sqrt6+\sqrt2)\)</td><td>\(-(2-\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">112.5</td><td class="mono">\(\tfrac{5\pi}{8}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(\sqrt{4-2\sqrt2}\)</td><td>\(-(\sqrt{4+2\sqrt2})\)</td><td>\(-(\sqrt2-1)\)</td></tr>
+<tr class="f-recall"><td class="deg">120</td><td class="mono">\(\tfrac{2\pi}{3}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(\tfrac{2\sqrt3}{3}\)</td><td>\(-(2)\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-recall"><td class="deg">135</td><td class="mono">\(\tfrac{3\pi}{4}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(\sqrt2\)</td><td>\(-(\sqrt2)\)</td><td>\(-(1)\)</td></tr>
+<tr class="f-recall"><td class="deg">150</td><td class="mono">\(\tfrac{5\pi}{6}\)</td><td>\(\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(2\)</td><td>\(-\tfrac{2\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">157.5</td><td class="mono">\(\tfrac{7\pi}{8}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(\sqrt{4+2\sqrt2}\)</td><td>\(-(\sqrt{4-2\sqrt2})\)</td><td>\(-(\sqrt2+1)\)</td></tr>
+<tr class="f-sd"><td class="deg">165</td><td class="mono">\(\tfrac{11\pi}{12}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(\sqrt6+\sqrt2\)</td><td>\(-(\sqrt6-\sqrt2)\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+<tr class="f-recall"><td class="deg">180</td><td class="mono">\(\pi\)</td><td>\(0\)</td><td>\(-(1)\)</td><td>\(-(1)\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(-(1)\)</td><td><span class="und">undef</span></td></tr>
+<tr class="f-sd"><td class="deg">195</td><td class="mono">\(\tfrac{13\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(2-\sqrt3\)</td><td>\(-(\sqrt6+\sqrt2)\)</td><td>\(-(\sqrt6-\sqrt2)\)</td><td>\(2+\sqrt3\)</td></tr>
+<tr class="f-ha"><td class="deg">202.5</td><td class="mono">\(\tfrac{9\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\sqrt2-1\)</td><td>\(-(\sqrt{4+2\sqrt2})\)</td><td>\(-(\sqrt{4-2\sqrt2})\)</td><td>\(\sqrt2+1\)</td></tr>
+<tr class="f-recall"><td class="deg">210</td><td class="mono">\(\tfrac{7\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{3}\)</td><td>\(-(2)\)</td><td>\(-\tfrac{2\sqrt3}{3}\)</td><td>\(\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">225</td><td class="mono">\(\tfrac{5\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(1\)</td><td>\(-(\sqrt2)\)</td><td>\(-(\sqrt2)\)</td><td>\(1\)</td></tr>
+<tr class="f-recall"><td class="deg">240</td><td class="mono">\(\tfrac{4\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac12\)</td><td>\(-\tfrac12\)</td><td>\(\sqrt3\)</td><td>\(-\tfrac{2\sqrt3}{3}\)</td><td>\(-(2)\)</td><td>\(\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-ha"><td class="deg">247.5</td><td class="mono">\(\tfrac{11\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\sqrt2+1\)</td><td>\(-(\sqrt{4-2\sqrt2})\)</td><td>\(-(\sqrt{4+2\sqrt2})\)</td><td>\(\sqrt2-1\)</td></tr>
+<tr class="f-sd"><td class="deg">255</td><td class="mono">\(\tfrac{17\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(2+\sqrt3\)</td><td>\(-(\sqrt6-\sqrt2)\)</td><td>\(-(\sqrt6+\sqrt2)\)</td><td>\(2-\sqrt3\)</td></tr>
+<tr class="f-recall"><td class="deg">270</td><td class="mono">\(\tfrac{3\pi}{2}\)</td><td>\(-(1)\)</td><td>\(0\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(-(1)\)</td><td><span class="und">undef</span></td><td>\(0\)</td></tr>
+<tr class="f-sd"><td class="deg">285</td><td class="mono">\(\tfrac{19\pi}{12}\)</td><td>\(-\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(-(2+\sqrt3)\)</td><td>\(-(\sqrt6-\sqrt2)\)</td><td>\(\sqrt6+\sqrt2\)</td><td>\(-(2-\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">292.5</td><td class="mono">\(\tfrac{13\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(-(\sqrt2+1)\)</td><td>\(-(\sqrt{4-2\sqrt2})\)</td><td>\(\sqrt{4+2\sqrt2}\)</td><td>\(-(\sqrt2-1)\)</td></tr>
+<tr class="f-recall"><td class="deg">300</td><td class="mono">\(\tfrac{5\pi}{3}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12\)</td><td>\(\tfrac12\)</td><td>\(-(\sqrt3)\)</td><td>\(-\tfrac{2\sqrt3}{3}\)</td><td>\(2\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td></tr>
+<tr class="f-recall"><td class="deg">315</td><td class="mono">\(\tfrac{7\pi}{4}\)</td><td>\(-\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(\tfrac{\sqrt2}{2}\)</td><td>\(-(1)\)</td><td>\(-(\sqrt2)\)</td><td>\(\sqrt2\)</td><td>\(-(1)\)</td></tr>
+<tr class="f-recall"><td class="deg">330</td><td class="mono">\(\tfrac{11\pi}{6}\)</td><td>\(-\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac{\sqrt3}{2}\)</td><td>\(-\tfrac{\sqrt3}{3}\)</td><td>\(-(2)\)</td><td>\(\tfrac{2\sqrt3}{3}\)</td><td>\(-(\sqrt3)\)</td></tr>
+<tr class="f-ha"><td class="deg">337.5</td><td class="mono">\(\tfrac{15\pi}{8}\)</td><td>\(-\tfrac{\sqrt{2-\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(\tfrac{\sqrt{2+\sqrt2}}{2}\)</td><td>\(-(\sqrt2-1)\)</td><td>\(-(\sqrt{4+2\sqrt2})\)</td><td>\(\sqrt{4-2\sqrt2}\)</td><td>\(-(\sqrt2+1)\)</td></tr>
+<tr class="f-sd"><td class="deg">345</td><td class="mono">\(\tfrac{23\pi}{12}\)</td><td>\(-\tfrac{\sqrt6-\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(\tfrac{\sqrt6+\sqrt2}{4}\)</td><td>\(-(2-\sqrt3)\)</td><td>\(-(\sqrt6+\sqrt2)\)</td><td>\(\sqrt6-\sqrt2\)</td><td>\(-(2+\sqrt3)\)</td></tr>
+<tr class="f-recall"><td class="deg">360</td><td class="mono">\(2\pi\)</td><td>\(0\)</td><td>\(1\)</td><td>\(1\)</td><td>\(0\)</td><td><span class="und">undef</span></td><td>\(1\)</td><td><span class="und">undef</span></td></tr>
 </tbody></table></div>
   <p>Notice how few distinct numbers there actually are. The whole 15-degree family uses only
   \(\frac{\sqrt6+\sqrt2}{4}\) and \(\frac{\sqrt6-\sqrt2}{4}\) for its sines and cosines, and only
@@ -1280,19 +1294,28 @@ footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2)
 </section>
 
 <footer>
-  <div class="verified">&#10003; 345 checks verified, 0 mismatches</div>
+  <div class="verified">&#10003; 613 checks verified, 0 mismatches</div>
   <p>Question text from <code>notes\MATH265.md</code> (Q1.1) and <code>notes\MATH265\MATH265.md</code>
   (Midterm Exam 1, item 1, 5 points). Variation families extended from
   <code>notes\MATH265\MATH265_Categorized.md</code> section 1. Answer-entry rules from the M&ouml;bius
   platform notes and the A1 block of the MATH 265 exam note sheets.</p>
   <p>Every exact form on this page was recomputed independently in Python and compared against a direct
   trigonometric evaluation at tolerance 1e-11, on 2026-08-31. <strong>345 checks, 0 mismatches:</strong>
-  102 for the original sections, 160 for the 33 rows of the angle table, 27 for the worked examples in
-  sections 03A, 03B and 03C, and 56 for the decomposition table, where every split was checked twice,
-  once for its degree arithmetic and once by expanding the formula against a direct evaluation of the
-  target. Deduplicated, 323 are kept as permanent assertions in
-  <code>Work\knowledge	opics\math265-answer-verification.py</code>, reporting 323 PASS and 0 FAIL.
+  102 for the original sections, 160 for the 33 rows of the angle table (5 value columns at the time),
+  27 for the worked examples in sections 03A, 03B and 03C, and 56 for the decomposition table, where
+  every split was checked twice, once for its degree arithmetic and once by expanding the formula
+  against a direct evaluation of the target. Deduplicated, 323 are kept as permanent assertions in
+  <code>Work\knowledge\topics\math265-answer-verification.py</code>.
   Nothing here was copied from a solution key.</p>
+  <p>On 2026-09-01 the angle table was widened from five value columns to seven, adding csc and sec so
+  all six trig functions are present alongside the cos(&minus;x) parity column. Those cells were checked
+  the same way, but against the markup rather than a re-derivation: the check parses the LaTeX back out
+  of the page source and evaluates it, so it fails if a printed cell is ever hand-edited.
+  <strong>268 checks, 0 mismatches</strong> &mdash; every radian entry, all 221 defined function cells,
+  all 10 <span class="und">undef</span> markers, and the four claims the note above makes about the
+  columns. It is kept as the <code>T6</code> block of that same assertion file, which now reports
+  <strong>7030 PASS, 2 FAIL</strong> overall, the 2 being pre-existing <code>sin62</code> /
+  <code>cos62</code> tolerance artifacts unrelated to this page.</p>
   <p>Every one of the 33 rows in the angle table has an exact value, which is the point of that row set:
   it is near enough the complete list of angles an exact-value question can use. An angle outside it,
   such as 5 or 10 degrees, has no expression in square roots at all, because a regular 72-sided polygon

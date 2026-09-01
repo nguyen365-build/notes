@@ -1,0 +1,448 @@
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; Q11.1 &middot; MT1 item 7 &middot; 5 points</p>
+  <h1>Always Versus When</h1>
+  <p class="stand">Gravel falls onto a pile at \(0.5\ \mathrm{m^3/min}\). The pile is a cone whose base diameter and height are always equal. How fast is the height rising when the pile is 4 m high? This is the first related-rates question in the bank, and it is a different animal from everything before it: the calculus is one power rule, and every single mark is in the reading.</p>
+  <div class="ansbar">
+    <div><span class="k">The answer</span><span class="v">\(\dfrac{dh}{dt} = \dfrac{1}{8\pi}\ \mathrm{m/min}\)</span></div>
+    <div><span class="k">Decimal</span><span class="v">0.0398 m/min</span></div>
+    <div><span class="k">Type into M&ouml;bius</span><span class="v mono">1/(8*pi)</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="num">01</span> Two words decide the whole question</h2>
+  <p>A related-rates stem hands you numbers of two completely different kinds, and it does not label them. Some are <b>rates</b> and <b>fixed relationships</b>, true at every moment. Others are <b>snapshots</b>, true only at the instant you are asked about. Telling them apart is not a detail of this question; it <i>is</i> this question.</p>
+
+  <div class="ledger">
+    <div class="col add">
+      <p class="colh">&ldquo;Always&rdquo; &mdash; true at every instant</p>
+      <ul>
+        <li><b>&ldquo;at a rate of \(0.5\ \mathrm{m^3/min}\)&rdquo;</b> &rarr; \(\dfrac{dV}{dt}=0.5\), and it stays 0.5 forever.</li>
+        <li><b>&ldquo;base diameter and height are <i>always</i> equal&rdquo;</b> &rarr; \(2r=h\), so \(r=\dfrac{h}{2}\).</li>
+      </ul>
+      <p class="tag ok">You may substitute these into the equation <b>before</b> you differentiate. That is the whole point of the word &ldquo;always&rdquo;.</p>
+    </div>
+    <div class="col inh">
+      <p class="colh">&ldquo;When&rdquo; &mdash; true at one instant only</p>
+      <ul>
+        <li><b>&ldquo;<i>when</i> the pile is 4 m high&rdquo;</b> &rarr; \(h=4\), and only at one moment out of all time.</li>
+      </ul>
+      <p class="tag no">Substituting this early turns \(h\) into a number, so \(V\) becomes a constant, so \(\dfrac{dV}{dt}=0\), and you are left solving \(0.5 = 0\). The question is destroyed and there is nothing to salvage.</p>
+    </div>
+  </div>
+
+  <p class="note">This is the defining error of the entire related-rates category. It is not a slip in the algebra &mdash; it is a misreading, committed before any calculus starts. If you take one thing from this page: <b>a variable may not be replaced by its value until after you differentiate.</b></p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Write four lines before you touch calculus</h2>
+  <p>Every related-rates solution starts the same way, and the four lines below are cheap insurance. If you cannot fill them in, you have not finished reading the question yet.</p>
+
+  <div class="steps">
+    <div class="st"><p class="sth">1 &middot; Name</p><p>\(h\) = height in m, \(r\) = base radius in m, \(V\) = volume in m\(^3\). Each is a function of time \(t\) in minutes.</p></div>
+    <div class="st"><p class="sth">2 &middot; Given</p><p>\(\dfrac{dV}{dt} = 0.5\ \mathrm{m^3/min}\). A rate, with units, holding at all times.</p></div>
+    <div class="st"><p class="sth">3 &middot; Want</p><p>\(\dfrac{dh}{dt}\) in m/min, at the instant \(h = 4\) m.</p></div>
+    <div class="st"><p class="sth">4 &middot; Relate</p><p>One equation joining what you have to what you want: \(V = \dfrac{1}{3}\pi r^2 h\).</p></div>
+  </div>
+
+  <p class="warn"><b>The formula is not printed on this question.</b> The other cone question in the course, MT2 item 2, prints the hint &ldquo;The volume of a cone is \(V = \frac{\pi r^2 h}{3}\)&rdquo;. MT1 item 7 does not. You have to know it.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span> Eliminate, then differentiate, then substitute</h2>
+  <p>The relating equation has two variables, \(r\) and \(h\), and you only want one. The fixed ratio is what removes the extra one. <b>Diameter</b> means \(2r\), so &ldquo;the base diameter equals the height&rdquo; is \(2r = h\), which is \(r = h/2\) &mdash; not \(r = h\).</p>
+
+  <div class="chain">
+    <div class="ch"><p class="chh">Eliminate</p><p class="chm">\(V = \dfrac{1}{3}\pi\left(\dfrac{h}{2}\right)^{2}h = \dfrac{\pi h^{3}}{12}\)</p></div>
+    <div class="ch"><p class="chh">Differentiate in \(t\)</p><p class="chm">\(\dfrac{dV}{dt} = \dfrac{\pi}{4}h^{2}\,\dfrac{dh}{dt}\)</p></div>
+    <div class="ch"><p class="chh">Substitute the instant</p><p class="chm">\(0.5 = \dfrac{\pi}{4}(4)^{2}\dfrac{dh}{dt} = 4\pi\dfrac{dh}{dt}\)</p></div>
+    <div class="ch"><p class="chh">Solve</p><p class="chm">\(\dfrac{dh}{dt} = \dfrac{1}{8\pi} \approx 0.0398\)</p></div>
+  </div>
+
+  <p><b>Where the chain rule enters.</b> \(h\) is not a plain variable here &mdash; it is \(h(t)\), a function of time. So differentiating \(h^3\) with respect to \(t\) gives \(3h^2\) <i>times</i> \(dh/dt\), and that trailing factor is the thing you are solving for. This is exactly the \(y'\) from Q10.1 wearing different clothes. If your differentiated equation does not contain the rate you want, you dropped it: go back.</p>
+
+  <p class="note">Both MT1 questions that test this chain factor are worth 5 points and sit two items apart: item 7 is this one, item 8 is Q10.1's implicit differentiation. Revise them together.</p>
+</section>
+
+<section>
+  <h2><span class="num">04</span> What is actually happening</h2>
+  <div class="figbox">FIGURE_SVG</div>
+  <p class="cap111">Left: because the diameter equals the height, the pile's cross-section is drawn to scale &mdash; as wide as it is tall, at every size it ever reaches. Right: the real growth curve \(h(t)=(6t/\pi)^{1/3}\) for a pile fed at a constant \(0.5\ \mathrm{m^3/min}\) from empty. The answer is the slope of that curve at one point. The curve visibly flattens, which is the physical content of the answer: the taller the pile, the wider its base, so the same half cubic metre per minute buys less height.</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Two other routes, and why you should not use them</h2>
+
+  <p><b>Route B &mdash; differentiate first, eliminate afterwards.</b> Keep both variables and use the product rule:</p>
+  <p class="disp">\[\frac{dV}{dt} = \frac{\pi}{3}\left(2rh\,\frac{dr}{dt} + r^{2}\,\frac{dh}{dt}\right)\]</p>
+  <p>Then put in \(r = h/2\) <i>and</i> its own derivative \(\dfrac{dr}{dt} = \dfrac12\dfrac{dh}{dt}\), and it collapses to the same \(\dfrac{\pi}{4}h^2\dfrac{dh}{dt}\). This is worth doing once, because it proves the early substitution in Route A was legal rather than lucky. It is a bad exam route: it needs the product rule and it needs the ratio's derivative, and forgetting the second is a fresh way to lose the mark.</p>
+
+  <p><b>Route C &mdash; the base-area shortcut.</b> For any cone that keeps its shape as it grows, differentiating \(V = \frac13\pi k^2h^3\) gives \(\dfrac{dV}{dh} = \pi(kh)^2 = \pi r^2\), which is exactly the base area. So</p>
+  <p class="disp">\[\frac{dh}{dt} = \frac{dV/dt}{\text{base area}} = \frac{0.5}{4\pi} = \frac{1}{8\pi}\]</p>
+  <p>in a single line. Do not write this as your method &mdash; the marker wants the differentiation. Use it as an eight-second check.</p>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Route</th><th>Steps</th><th>How it goes wrong</th><th>Time</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b> &mdash; eliminate, then differentiate</td><td class="mono">4</td><td>halving the diameter wrongly</td><td class="mono">~60 s</td></tr>
+      <tr><td><b>B</b> &mdash; differentiate, then eliminate</td><td class="mono">6</td><td>product rule; forgetting \(dr/dt=\frac12 dh/dt\)</td><td class="mono">~120 s</td></tr>
+      <tr><td><b>C</b> &mdash; base-area shortcut</td><td class="mono">1</td><td>shows no working, so no method marks</td><td class="mono">~15 s</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="verdict"><b>Use Route A under pressure and check with Route C.</b></p>
+</section>
+
+<section>
+  <h2><span class="num">06</span> Check it in eight seconds</h2>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">Magnitude</p><p>Half a cubic metre spread over a base of \(4\pi \approx 12.6\ \mathrm{m^2}\) must raise the pile about \(0.5/12.6 \approx 0.04\) m each minute. Four centimetres a minute is right for a gravel pile. Four metres a minute is not.</p></div>
+    <div class="ck"><p class="ckh">Units, worked not guessed</p><p>\(\left[\dfrac{dh}{dt}\right] = \dfrac{\mathrm{m^3/min}}{\mathrm{m^2}} = \mathrm{m/min}\). Not m\(^3\)/min just because the given rate was. This is the classic lost mark and no numerical check catches it.</p></div>
+    <div class="ck"><p class="ckh">Sign</p><p>Positive. The pile is growing. A negative answer means you inverted a rate somewhere.</p></div>
+    <div class="ck"><p class="ckh">Is the instant reachable?</p><p>Do not assume it. \(V = 0.5t\) and \(\pi h^3/12 = 0.5t\) give \(h = 4\) at \(t = \frac{32\pi}{3} \approx 33.5\) min. Finite and positive, so yes. Run the same screen on a shrinking pile asked to reach a greater height and it correctly returns &ldquo;never&rdquo;.</p></div>
+    <div class="ck"><p class="ckh">Scaling</p><p>\(dh/dt \propto 1/h^2\), so doubling the height divides the rate by exactly 4. Check your own two answers against that.</p></div>
+    <div class="ck"><p class="ckh">Answer the right question</p><p>&ldquo;How fast is the <i>height</i> increasing&rdquo; is \(dh/dt\). Not \(dr/dt\) (half as big), not the base-area rate (0.25), and not \(dV/dt\), which you were given.</p></div>
+  </div>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Worth memorising</th><th>Exact</th><th>Decimal</th></tr></thead>
+    <tbody>
+      <tr><td>\(dh/dt\) at \(h=4\)</td><td class="mono">1/(8&pi;)</td><td class="mono">0.0397887 m/min</td></tr>
+      <tr><td>\(dr/dt\) at \(h=4\)</td><td class="mono">1/(16&pi;)</td><td class="mono">0.0198944 m/min</td></tr>
+      <tr><td>base area at \(h=4\), which is \(dV/dh\)</td><td class="mono">4&pi;</td><td class="mono">12.5664 m&sup2;</td></tr>
+      <tr><td>volume at \(h=4\)</td><td class="mono">16&pi;/3</td><td class="mono">16.7552 m&sup3;</td></tr>
+      <tr><td>time from empty to \(h=4\)</td><td class="mono">32&pi;/3</td><td class="mono">33.5103 min</td></tr>
+      <tr><td>base-area rate \(dA/dt\) at \(h=4\)</td><td class="mono">1/4</td><td class="mono">0.25 m&sup2;/min exactly</td></tr>
+      <tr><td>the answer in cm/min</td><td class="mono">100/(8&pi;)</td><td class="mono">3.9789 cm/min</td></tr>
+      <tr><td>the answer in m/h</td><td class="mono">60/(8&pi;)</td><td class="mono">2.3873 m/h</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span> The M&ouml;bius box</h2>
+  <p>Both exams are machine-marked and answer-only, so a right method with a wrong keystroke scores zero.</p>
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Type this</th><th>Never this</th><th>Because</th></tr></thead>
+    <tbody>
+      <tr><td class="mono ok2">1/(8*pi)</td><td class="mono no2">1/8*pi</td><td>parses as \((1/8)\pi = 0.3927\) &mdash; nearly ten times too big, and plausible enough that you will not notice</td></tr>
+      <tr><td class="mono ok2">0.5/(4*pi)</td><td class="mono no2">0.5/4*pi</td><td>the same failure</td></tr>
+      <tr><td class="mono ok2">2/(16*pi)</td><td class="mono no2">1/8pi</td><td>implicit multiplication is not guaranteed to be read</td></tr>
+      <tr><td class="mono ok2">0.0398</td><td class="mono no2">0.04</td><td>0.04 is \(2\times10^{-4}\) away, outside a \(10^{-4}\) tolerance</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="warn"><b>The most expensive typo is the missing bracket around the whole denominator.</b> If the box asks for a unit separately, it is <span class="mono">m/min</span>.</p>
+</section>
+
+<section>
+  <h2><span class="num">08</span> Every variation the examiner can reach for</h2>
+  <p>Read these as <b>structure</b>, not as a list of facts. For a self-similar cone there is only ever one formula, \(\dfrac{dh}{dt} = \dfrac{dV/dt}{\pi k^{2}h^{2}}\) with \(r = kh\), and every row in Family 1 is that formula with a different \(k\). The magnitudes are generated by \(k^{-2}\) alone; the signs are generated entirely by whether material is being added or removed. Every value below was verified twice &mdash; once from the closed form, and once formula-blind, by building an explicit \(h(t)\) and differentiating it numerically.</p>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 0</span> The same pile, a different unknown</p>
+    <p class="famt"><b>Trigger:</b> the same stem with the question mark moved. <b>Tool:</b> the same relating equation; only the unknown changes place.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(dh/dt\) at \(h=4\)</td><td>the exam question</td><td class="mono">1/(8&pi;) = 0.0397887 m/min</td></tr>
+        <tr><td>\(dV/dt\) if \(dh/dt=0.02\) at \(h=4\)</td><td>run it backwards</td><td class="mono">0.08&pi; = 0.2513274 m&sup3;/min</td></tr>
+        <tr><td>at what \(h\) is \(dh/dt = 0.1\)?</td><td>solve for \(h\)</td><td class="mono">2.5231 m</td></tr>
+        <tr><td>\(dr/dt\) at \(h=4\)</td><td>\(r=h/2 \Rightarrow \dot r = \dot h/2\)</td><td class="mono">1/(16&pi;) = 0.0198944 m/min</td></tr>
+        <tr><td>base-area rate at \(h=4\)</td><td>\(A = \pi h^2/4\)</td><td class="mono">0.25 m&sup2;/min exactly</td></tr>
+        <tr><td>lateral-surface rate at \(h=4\)</td><td>\(L = \pi\sqrt5\,h^2/4\)</td><td class="mono">&radic;5/4 = 0.5590 m&sup2;/min</td></tr>
+        <tr><td>is \(dh/dt\) rising or falling?</td><td>\(h'' &lt; 0\)</td><td class="mono">falling; h&Prime; &asymp; -7.916e-4 m/min&sup2;</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 1</span> A different fixed ratio</p>
+    <p class="famt"><b>Trigger:</b> any phrase fixing the shape with &ldquo;always&rdquo; or &ldquo;at all times&rdquo;. <b>Tool:</b> convert the English to \(r = kh\), then apply the one formula. The conversion is where the marks go, so do it slowly.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Phrasing</th><th>\(r = kh\)</th><th>\(dh/dt\) at \(h=4\), \(dV/dt=0.5\)</th></tr></thead>
+      <tbody>
+        <tr><td>&ldquo;base diameter and height are always equal&rdquo;</td><td class="mono">k = 1/2</td><td class="mono">1/(8&pi;) = 0.0397887</td></tr>
+        <tr><td>&ldquo;height is double the radius&rdquo;</td><td class="mono">k = 1/2 &mdash; the SAME constraint</td><td class="mono">1/(8&pi;) = 0.0397887</td></tr>
+        <tr><td>&ldquo;radius always equals the height&rdquo;</td><td class="mono">k = 1</td><td class="mono">1/(32&pi;) = 0.0099472</td></tr>
+        <tr><td>&ldquo;base diameter is always three times the height&rdquo;</td><td class="mono">k = 3/2</td><td class="mono">1/(72&pi;) = 0.0044210</td></tr>
+        <tr><td>&ldquo;height is always three times the radius&rdquo;</td><td class="mono">k = 1/3</td><td class="mono">9/(32&pi;) = 0.0895247</td></tr>
+        <tr><td>&ldquo;radius is always twice the height&rdquo;</td><td class="mono">k = 2</td><td class="mono">1/(128&pi;) = 0.0024868</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Look at the second row. MT2 item 2 says &ldquo;a cone whose height is double the size of its radius&rdquo;, which is <b>exactly the same geometry</b> as this question's wording. The examiner has already used both phrasings on this course.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 2</span> A different solid, one variable</p>
+    <p class="famt"><b>Trigger:</b> a sphere, a cube, a balloon, a tank of fixed radius. <b>Tool:</b> no elimination needed &mdash; differentiate the volume formula and solve.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Relation</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>sphere, \(dV/dt=0.5\), \(r=4\)</td><td>\(\dot V = 4\pi r^2\dot r\)</td><td class="mono">1/(128&pi;) = 0.0024868 m/min</td></tr>
+        <tr><td>that sphere's surface</td><td>\(\dot S = 8\pi r\dot r\)</td><td class="mono">0.25 m&sup2;/min</td></tr>
+        <tr><td>cube, \(dV/dt=0.5\), \(s=4\)</td><td>\(\dot V = 3s^2\dot s\)</td><td class="mono">1/96 = 0.0104167 m/min</td></tr>
+        <tr><td>that cube's surface</td><td>\(\dot S = 12s\dot s\)</td><td class="mono">0.5 m&sup2;/min</td></tr>
+        <tr><td>cylinder, radius fixed at 2</td><td>\(\dot V = 4\pi\dot h\)</td><td class="mono">1/(8&pi;) = 0.0397887 m/min</td></tr>
+        <tr><td>inverted conical tank, radius 3 at depth 6</td><td>the walls fix \(r = h/2\)</td><td class="mono">at h=4, 1/(8&pi;) &mdash; identical algebra</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn">The cylinder row is a warning, not a shortcut. It agrees with the cone <b>only at \(h=4\)</b>, because that is the one height where the cone's base area happens to be \(4\pi\). At \(h=2\) or \(h=6\) the two disagree completely.</p>
+    <p class="note">The tank row deserves its own sentence. A <b>pile</b> fixes its ratio by growing self-similarly; a <b>tank</b> fixes it with its walls. The algebra is identical, but only one of the two stems contains the word &ldquo;always&rdquo;, so you must recognise the second kind without that cue.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 3</span> Pythagorean relations</p>
+    <p class="famt"><b>Trigger:</b> a right angle, a ladder, a radar station, a baseball diamond. <b>Tool:</b> \(x^2+y^2=z^2\), differentiated to \(x\dot x + y\dot y = z\dot z\). Nothing to eliminate.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>10 ft ladder, foot moving out at 1 ft/s, foot 6 ft out</td><td class="mono">-0.75 ft/s (the top slides DOWN)</td></tr>
+        <tr><td><b>Q11.2</b>: radar 5 mi away, rocket at 4 mi, \(\dot z = 2000\) mi/h</td><td class="mono">500&radic;41 = 3201.5621 mi/h</td></tr>
+        <tr><td>18 m diamond, runner 3 m from second at 7.5 m/s</td><td class="mono">112.5/&radic;549 = 4.8014 m/s from home</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Q11.2 lives here, not in Family 1. The category's second question deliberately swaps the relating equation while keeping everything else the same, which is precisely why the four-line setup discipline in section 02 is the part that transfers.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 4</span> Similar triangles and shadows</p>
+    <p class="famt"><b>Trigger:</b> a lamp post, a person &ldquo;tall&rdquo;, walking &ldquo;away&rdquo;. <b>Tool:</b> the proportion between two similar triangles, which is the same elimination move as the cone's ratio.</p>
+    <p>A 5 m lamp, a 2 m person walking away at 1.5 m/s. With \(s\) the shadow length and \(x\) the distance from the post, \(\frac{2}{s} = \frac{5}{s+x}\) gives \(s = \frac{2x}{3}\).</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>how fast the shadow <b>lengthens</b></td><td class="mono">1 m/s</td></tr>
+        <tr><td>how fast the shadow's <b>tip</b> moves</td><td class="mono">1.5 + 1 = 2.5 m/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn">Two different questions, two different answers. Confusing them is the standard trap in this family.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 5</span> Trigonometric relations</p>
+    <p class="famt"><b>Trigger:</b> an angle, an angle of elevation, &ldquo;the angle \(\theta\) shown in the figure&rdquo;. <b>Tool:</b> a trig relation, differentiated, with \(\sec^2\) and \(\csc\cot\) turning up.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>satellite, \(h = r(\csc\theta-1)\), \(r=6378\), at \(\theta=\pi/6\)</td><td class="mono">-12756&radic;3 = -22094.04 km/rad</td></tr>
+        <tr><td>average rate of that \(h\) from \(\pi/4\) to \(\pi/3\)</td><td class="mono">-6322.30 km/rad</td></tr>
+        <tr><td>balloon rising 2 m/s, observer 50 m away, at height 50 m</td><td class="mono">0.02 rad/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">The satellite question is in the course's own categorised list. Its part (c) asks for a rate but never supplies \(d\theta/dt\), so what it wants is \(dh/d\theta\), in kilometres per <b>radian</b>. Answer the units question the stem actually poses.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 6</span> Two independent rates &mdash; do not eliminate</p>
+    <p class="famt"><b>Trigger:</b> two quantities each get their own rate, and no &ldquo;always&rdquo; phrase links them. <b>Tool:</b> the product rule, keeping both rate terms. There is nothing to eliminate and trying to is the error.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>cone, \(r=2\), \(h=4\), \(\dot r = 0.1\), \(\dot h = 0.05\)</td><td class="mono">(&pi;/3)(2rh&#775;r + r&sup2;h&#775;) = 0.6&pi; = 1.8850 m&sup3;/min</td></tr>
+        <tr><td>rectangle, \(l=10\), \(w=6\), \(\dot l = 2\), \(\dot w = -3\)</td><td class="mono">2(6) + 10(-3) = -18 units&sup2;/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn">The rectangle row is the point of this family: the area <b>shrinks</b> while the length <b>grows</b>. When two rates fight, the sign of the answer is not the sign of either input and you cannot guess it.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 7</span> Inverse and asymptotic questions</p>
+    <p class="famt"><b>Trigger:</b> &ldquo;at what height&rdquo;, &ldquo;how long until&rdquo;, &ldquo;what happens as the pile gets large&rdquo;. <b>Tool:</b> the same formula, solved for a different letter.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>at what height is \(dh/dt = 0.01\) m/min?</td><td class="mono">7.9788 m</td></tr>
+        <tr><td>\(dh/dt\) at \(h=8\)</td><td class="mono">1/(32&pi;) = 0.0099472 m/min</td></tr>
+        <tr><td>\(dh/dt\) as \(h \to \infty\)</td><td class="mono">&rarr; 0; the pile rises ever more slowly</td></tr>
+        <tr><td>doubling \(h\) does what?</td><td class="mono">divides the rate by exactly 4</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span> Where a wrong answer hides</h2>
+  <p>Seven plausible wrong formulas were scanned across nine heights and five volume rates. The degenerate cases were deliberately <b>included</b> rather than skipped for tidiness, because that is exactly where a wrong answer becomes invisible.</p>
+
+  <div class="hide">
+    <div class="hd1"><p class="hdh">At a zero rate, everything looks right</p><p>All seven wrong formulas differ from the truth by a multiplicative constant, so at \(dV/dt = 0\) every one of them returns 0 &mdash; the same as the truth. A spot-check performed on a stationary pile <b>cannot fail</b>, so it proves nothing at all.</p></div>
+    <div class="hd1"><p class="hdh">At \(h = 1\), the exponent slips vanish</p><p>Writing \(h^3\) or \(h\) where \(h^2\) belongs is invisible at \(h = 1\), and only there, because that is where the extra factor equals one. Never sanity-check a related-rates formula at \(h = 1\).</p></div>
+    <div class="hd1"><p class="hdh">This stem is itself a degenerate case</p><p>Because the diameter equals the height, \(d = h = 4\) numerically at the instant asked. A student who reads the pile's &ldquo;width&rdquo; as its height gets the right number here <b>by luck</b>. Change the ratio to \(r = h\) and the same confusion costs a factor of 4.</p></div>
+  </div>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>The mistake</th><th>What it gives</th><th>Off by</th></tr></thead>
+    <tbody>
+      <tr><td>never substituted \(r = h/2\); treated \(r\) as constant</td><td class="mono">3/(8&pi;) = 0.1193662</td><td class="mono">&times;3</td></tr>
+      <tr><td>used \(r = h\) &mdash; read diameter as radius</td><td class="mono">1/(32&pi;) = 0.0099472</td><td class="mono">&times;1/4</td></tr>
+      <tr><td>dropped the \(\frac13\) and used a cylinder</td><td class="mono">1/(24&pi;) = 0.0132629</td><td class="mono">&times;1/3</td></tr>
+      <tr><td>inverted the ratio to \(r = 2h\)</td><td class="mono">1/(128&pi;) = 0.0024868</td><td class="mono">&times;1/16</td></tr>
+      <tr><td>substituted \(r\) for \(h\) after eliminating</td><td class="mono">1/(2&pi;) = 0.1591549</td><td class="mono">&times;4</td></tr>
+      <tr><td>dropped the chain factor \(dh/dt\)</td><td class="mono">0.5 = 12.566</td><td class="mono">no unknown left</td></tr>
+      <tr><td>substituted \(h = 4\) before differentiating</td><td class="mono">0.5 = 0</td><td class="mono">no solution</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">10</span> The trap list, ranked</h2>
+  <ol class="tl111">
+    <li><span><b>Substituting \(h = 4\) before differentiating.</b> The defining error of the category. A snapshot may only be substituted after you differentiate; a relationship holding at all times may be substituted before. The word &ldquo;always&rdquo; is the only thing distinguishing them.</span></li>
+    <li><span><b>Using \(r = h\) instead of \(r = h/2\).</b> The stem says the <i>diameter</i> equals the height. This is the single most common wrong answer here, a factor of 4 too small.</span></li>
+    <li><span><b>Never substituting the ratio at all.</b> Treating \(r\) as a constant gives an answer three times too large, and it looks like a complete solution, which is what makes it dangerous.</span></li>
+    <li><span><b>Dropping the chain factor.</b> If the rate you want is missing from your differentiated equation, you dropped it. Re-differentiate rather than pressing on.</span></li>
+    <li><span><b>Dropping the \(\frac13\)</b> and integrating a cylinder's worth of gravel instead.</span></li>
+    <li><span><b>Reporting m\(^3\)/min</b> because that is what the given rate was in. The answer is a length per time. No numerical check catches this, so units get their own line.</span></li>
+    <li><span><b>Answering the wrong question</b> &mdash; giving \(dr/dt\), or the base-area rate, or restating \(dV/dt\).</span></li>
+    <li><span><b>The missing bracket</b> in the M&ouml;bius box.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">11</span> Drill set</h2>
+  <p>Score <b>sign</b> separately from <b>magnitude</b>. A wrong sign is a reading problem; a wrong magnitude is an algebra problem. They need different fixes, so do not lump them together.</p>
+  <ol class="dr111">
+    <li><span>The same gravel pile: how fast is the height increasing when the pile is 2 m high?</span></li>
+    <li><span>The same pile at \(h=4\): how fast is the base <b>radius</b> increasing?</span></li>
+    <li><span>The same pile at \(h=4\): how fast is the <b>base area</b> increasing?</span></li>
+    <li><span>Gravel at 2 m\(^3\)/min forms a cone whose base radius always equals its height. How fast is the height rising at \(h = 3\)?</span></li>
+    <li><span>Water enters an inverted conical tank of top radius 3 m and depth 6 m at 0.8 m\(^3\)/min. How fast is the depth rising when it is 2 m?</span></li>
+    <li><span>A spherical balloon is inflated at 10 cm\(^3\)/s. How fast is the radius growing when \(r = 5\) cm?</span></li>
+    <li><span>Same balloon, same instant: how fast is the surface area growing?</span></li>
+    <li><span>A 13 ft ladder leans on a wall; the foot is pulled away at 2 ft/s. How fast is the top sliding down when the foot is 5 ft out?</span></li>
+    <li><span>A rocket rises vertically, tracked by a radar station 5 mi away. How fast is it rising when it is 4 mi high and its distance from the station grows at 2000 mi/h?</span></li>
+    <li><span>A cone has \(r=2\), \(h=4\), with \(\dot r = 0.1\) and \(\dot h = 0.05\) independently. How fast is the volume growing?</span></li>
+    <li><span>A 5 m lamp post, a 2 m person walking away at 1.5 m/s. How fast is the <b>tip</b> of the shadow moving?</span></li>
+    <li><span>For the original pile, at what height is the height increasing at exactly 1 cm/min?</span></li>
+  </ol>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>#</th><th>Exact</th><th>Decimal</th><th>Family and method</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1</td><td class="mono">1/(2&pi;) m/min</td><td class="mono">0.1591549</td><td>F0 &mdash; same formula at \(h=2\); note it is 4&times; the \(h=4\) answer</td></tr>
+      <tr><td class="mono">2</td><td class="mono">1/(16&pi;) m/min</td><td class="mono">0.0198944</td><td>F0 &mdash; \(r = h/2 \Rightarrow \dot r = \dot h/2\)</td></tr>
+      <tr><td class="mono">3</td><td class="mono">1/4 m&sup2;/min</td><td class="mono">0.25 exactly</td><td>F0 &mdash; \(A = \pi h^2/4\), chain rule</td></tr>
+      <tr><td class="mono">4</td><td class="mono">2/(9&pi;) m/min</td><td class="mono">0.0707355</td><td>F1 &mdash; \(k=1\), so \(\dot h = \dot V/(\pi h^2)\)</td></tr>
+      <tr><td class="mono">5</td><td class="mono">0.8/&pi; m/min</td><td class="mono">0.2546479</td><td>F2 &mdash; a tank fixes \(r = h/2\) with its walls</td></tr>
+      <tr><td class="mono">6</td><td class="mono">1/(10&pi;) cm/s</td><td class="mono">0.0318310</td><td>F2 &mdash; sphere, \(\dot V = 4\pi r^2\dot r\)</td></tr>
+      <tr><td class="mono">7</td><td class="mono">4 cm&sup2;/s</td><td class="mono">4 exactly</td><td>F2 &mdash; \(\dot S = 8\pi r\dot r\), or the shortcut \(2\dot V/r\)</td></tr>
+      <tr><td class="mono">8</td><td class="mono">-5/6 ft/s</td><td class="mono">-0.8333333</td><td>F3 &mdash; Pythagoras; the sign must be negative</td></tr>
+      <tr><td class="mono">9</td><td class="mono">500&radic;41 mi/h</td><td class="mono">3201.5621</td><td>F3 &mdash; this is Q11.2</td></tr>
+      <tr><td class="mono">10</td><td class="mono">0.6&pi; m&sup3;/min</td><td class="mono">1.8849556</td><td>F6 &mdash; two rates, product rule, no elimination</td></tr>
+      <tr><td class="mono">11</td><td class="mono">2.5 m/s</td><td class="mono">2.5 exactly</td><td>F4 &mdash; tip speed is \(\dot x + \dot s\), not \(\dot s\)</td></tr>
+      <tr><td class="mono">12</td><td class="mono">&radic;(2/(0.01&pi;)) m</td><td class="mono">7.9788456</td><td>F7 &mdash; solve the formula for \(h\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Drill 8 is the sign drill. Drill 11 is the reading drill. Drill 5 is the vocabulary drill &mdash; nothing in it says &ldquo;always&rdquo;, yet the ratio is still fixed, by the tank.</p>
+</section>
+
+<section>
+  <h2><span class="num">12</span> The one-page decision tree</h2>
+  <pre class="tree111">READ THE STEM
+   |
+   +-- underline every RATE   ("at a rate of", "per minute", "how fast")
+   +-- circle every VALUE     ("when", "at the instant", "at the moment")
+   |
+   v
+WRITE FOUR LINES BEFORE ANY CALCULUS
+   NAME  : every changing quantity gets a letter AND a unit
+   GIVEN : d?/dt = ____ units
+   WANT  : d?/dt = ?  at the instant ____ = ____
+   RELATE: one equation joining them
+   |
+   v
+PICK THE RELATING EQUATION
+   +-- cone / sphere / cube / cylinder ......... a volume formula
+   +-- right angle, two distances .............. x^2 + y^2 = z^2
+   +-- "tall" + "away" + a lamp or wall ........ similar triangles
+   +-- an angle ................................ a trig relation
+   |
+   v
+HOW MANY VARIABLES ARE LEFT?
+   +-- ONE ...................... go differentiate
+   +-- TWO, and the stem says "always" / "at all times"
+   |        ==> ELIMINATE NOW with that fixed ratio
+   |            cone: r = k h, so V = (1/3) pi k^2 h^3
+   +-- TWO, each with its OWN given rate, no "always"
+            ==> DO NOT ELIMINATE. Product rule, keep both terms.
+   |
+   v
+DIFFERENTIATE WITH RESPECT TO t
+   every variable gains its own rate as a trailing factor
+   |
+   v
+IS THE RATE YOU WANT ACTUALLY IN THE EQUATION?
+   no  -> you dropped a chain factor. Go back.
+   yes -> continue
+   |
+   v
+NOW SUBSTITUTE THE INSTANT, AND SOLVE
+   |
+   v
+CHECK
+   sign      : should it grow or shrink? does your sign agree?
+   units     : work them out, do not guess
+   magnitude : cone shortcut  dh/dt = (dV/dt) / (base area)
+   reachable : could that instant actually occur? solve for t.
+   NOT at h = 1 and NOT at a zero rate - wrong answers hide there
+   |
+   v
+PREVIEW THE MOBIUS BOX
+   brackets around the WHOLE denominator:  1/(8*pi)   not   1/8*pi</pre>
+</section>
+
+<section>
+  <h2><span class="num">13</span> Provenance and verification</h2>
+
+  <div class="prov">
+    <div class="pv"><p class="pvh">The paper</p><p>Midterm Exam 1, item 7. MT1 prints ten point values &mdash; 5, 6, 5, 16, 8, 4, 5, 5, 5, 5 &mdash; summing to <b>64</b>, and item 7 is worth <b>5</b>, or 7.8 percent of that total. Parsed from the paper file rather than typed.</p></div>
+    <div class="pv"><p class="pvh">Clauses that do not apply</p><p>MT1 carries exactly one &ldquo;no credit will be given&rdquo; clause and it is on item 3. Item 7 also lacks MT1's &ldquo;You may not need to simplify&rdquo; permission, which sits on item 5. Do not import a neighbour's clause.</p></div>
+    <div class="pv"><p class="pvh">Its sibling</p><p>Item 8 is Q10.1, implicit differentiation, also 5 points. Both test the same chain factor &mdash; written \(y'\) there and \(dh/dt\) here. Revise them as a pair.</p></div>
+    <div class="pv"><p class="pvh">What the course files get right</p><p>Both of \(\texttt{MATH265\_Review.md}\)'s statements of the cone method are correct, and so is the paper file's walkthrough. This is one of the cleaner topics in the course material.</p></div>
+    <div class="pv"><p class="pvh">What they leave out</p><p>No course file ever finishes the arithmetic &mdash; the value \(1/(8\pi)\) appears nowhere in any of the four &mdash; and neither related-rates passage mentions <b>units</b> at all.</p></div>
+    <div class="pv"><p class="pvh">And one dangerous phrasing</p><p>&ldquo;Substitute \(r\) to get \(V\) in terms of \(h\) <i>before</i> differentiating&rdquo; is correct, but a student who generalises it into &ldquo;substitute before differentiating&rdquo; will put \(h=4\) in early and destroy the problem. No course file draws that distinction. This page exists largely to draw it.</p></div>
+  </div>
+
+  <p class="note">No marking scheme exists anywhere in the course material &mdash; zero occurrences of &ldquo;rubric&rdquo;, &ldquo;marking scheme&rdquo; or &ldquo;part marks&rdquo; across all four files &mdash; so any claim about which sentences earn which marks is inference, and is flagged as such rather than asserted.</p>
+
+  <div class="vbar">
+    <div><span class="k">Assertions</span><span class="v">180</span></div>
+    <div><span class="k">Failures</span><span class="v">0</span></div>
+    <div><span class="k">Seeded controls</span><span class="v">15</span></div>
+    <div><span class="k">Verified</span><span class="v">2026-09-01</span></div>
+  </div>
+
+  <p>The headline answer was checked four ways that never see the claimed value: a complex-step derivative of the explicit parametrisation \(h(t) = (6t/\pi)^{1/3}\); a bounded Richardson ladder whose convergence order was <b>measured</b> rather than assumed; the differentiated relation tested against an arbitrary non-constant \(h(t)\) at 24 instants; and the whole formula re-derived at 40 separate instants along the real pile. The relating equation's identity was checked at 60 heights, the base-area result at seven ratios and fourteen heights each, and the early-versus-late substitution equivalence at 45 grid points. Units were verified <b>dimensionally</b>, with four seeded controls confirming the check rejects m\(^3\)/min, m/min\(^2\), min/m and an inhomogeneous relation.</p>
+
+  <p class="note">Full write-up: <span class="mono">notes\Q11.1 - Gravel cone growing in height.md</span>. Harness sections <span class="mono">q111</span> and <span class="mono">q111d</span> in <span class="mono">Work\knowledge\topics\math265-answer-verification.py</span>.</p>
+</section>
+
+</main>

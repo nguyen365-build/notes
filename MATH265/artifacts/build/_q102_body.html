@@ -1,0 +1,259 @@
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; Q10.2 &middot; MT2 item 10 &middot; 4 points</p>
+  <h1>The Point Must Be On The Curve</h1>
+  <p class="stand">Find the equation of the tangent line to \(y^3 + yx^2 + x^2 = 3y^2\) at \((1,1)\). This is the last question in the implicit-differentiation category, and it invents nothing. It joins the derivative you learned in Q10.1 to the line you learned in Q9.1, and it adds one obligation neither parent had.</p>
+  <div class="ansbar">
+    <div><span class="k">The answer</span><span class="v">\(y = 2x - 1\)</span></div>
+    <div><span class="k">Slope at (1,1)</span><span class="v">\(m = 2\)</span></div>
+    <div><span class="k">Type into M&ouml;bius</span><span class="v mono">2*x-1</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="num">01</span> What it adds, what it inherits</h2>
+  <p>Q10.2 is a <b>join</b>. Nothing in it is a new technique, which is exactly why it is only worth four points and exactly why it is easy to drop them. Two halves you already own, plus one obligation that appears the moment they are put together.</p>
+
+  <div class="ledger">
+    <div class="col inh">
+      <p class="colh">Inherited</p>
+      <ul>
+        <li><b>From Q10.1</b> - differentiate both sides in \(x\), attach \(y'\) to every \(y\), collect the \(y'\) terms, divide.</li>
+        <li><b>From Q10.1</b> - the answer legitimately contains \(y\). That is not a mistake and not an unfinished step.</li>
+        <li><b>From Q9.1</b> - a slope plus a point makes a line: \(y - y_1 = m(x - x_1)\).</li>
+        <li><b>From Q9.1</b> - the geometry around it: normals, parallels, perpendiculars.</li>
+      </ul>
+    </div>
+    <div class="col add">
+      <p class="colh">Added here</p>
+      <ul>
+        <li><b>It needs both coordinates.</b> An explicit \(f'(x)\) takes one number. An implicit \(y'\) is a function of \(x\) <i>and</i> \(y\), so the point travels as a pair. That is why the stem hands you \((1,1)\) and not just \(x = 1\).</li>
+        <li><b>The point must be verified.</b> Feed \(y'\) a \(y\) that does not belong to that \(x\) and it returns a confident, wrong number. Nothing in the algebra complains.</li>
+        <li><b>A slope is not a line.</b> Q9.1 asked for values of \(x\). This asks for an <i>equation</i>. Stopping at \(m = 2\) answers a question nobody asked.</li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="note">One more difference, and it is real. Q10.1's stem says <i>"using implicit differentiation"</i> - a method instruction. Q10.2's stem says no such thing. Any correct route is legal here, so pick the fastest rather than the one the stem names, because the stem names none.</p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> The thirty-second version</h2>
+  <pre class="card30">GIVEN  y^3 + y x^2 + x^2 = 3 y^2   at (1,1)
+
+  0) CHECK the point:  1 + 1 + 1 = 3  and  3(1) = 3.   ON the curve.
+
+  1) d/dx both sides, y' on every y:
+        3y^2 y' + (x^2 y' + 2xy) + 2x = 6y y'
+
+  2) SUBSTITUTE (1,1) NOW, while it is still linear in y':
+        3m + m + 2 + 2 = 6m   ->   4m + 4 = 6m   ->   m = 2
+
+  3) BUILD THE LINE:  y - 1 = 2(x - 1)   ->   y = 2x - 1
+
+  4) CHECK:  x = 1 gives y = 1.          ANSWER: y = 2x - 1</pre>
+  <p>Four steps, no fractions, no algebra with letters in it. Step 2 is the whole trick, and section 04 measures what the textbook order costs instead.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span> The curve, and every point that matters on it</h2>
+  <p>This one picture carries most of the tutorial. The relation is quadratic in \(x\), so it can be drawn exactly from \(x = \pm y\sqrt{(3-y)/(1+y)}\) for \(-1 &lt; y \le 3\) - every plotted point satisfies the relation by construction rather than by root-finding.</p>
+
+  FIGURE_SVG
+
+  <p class="cap">The curve is a <b>node</b>: a closed loop for \(0 \le y \le 3\) and two unbounded arms below, crossing themselves at the origin. The amber tangent touches at \((1,1)\) and, being a line against a cubic, is entitled to cross the curve again - it does, at \((2/5, -1/5)\). The two dashed marks are where the tangent turns vertical and the slope form stops applying.</p>
+
+  <div class="pgrid">
+    <div class="pcard main"><p class="pk">(1, 1)</p><p class="pv">the exam point</p><p class="pd">\(F_y = -2 \ne 0\), so the slope is finite and point-slope applies. \(m = 2\).</p></div>
+    <div class="pcard fam"><p class="pk">(0, 3)</p><p class="pv">horizontal tangent</p><p class="pd">\(F_x = 0\), \(F_y = 9 \ne 0\). The tangent is \(y = 3\). Also where two wrong answers hide - see section 07.</p></div>
+    <div class="pcard los"><p class="pk">\(\left(\pm\sqrt{6\sqrt3 - 9},\ \sqrt3\right)\)</p><p class="pv">vertical tangents</p><p class="pd">\(F_y = 0\) but \(F_x \approx \pm 6.447 \ne 0\). The answer is \(x = \pm 1.17996\), with no \(m\) anywhere in it.</p></div>
+    <div class="pcard sing"><p class="pk">(0, 0)</p><p class="pv">singular point</p><p class="pd">Both partials vanish. \(-F_x/F_y\) is \(0/0\) and there is no unique tangent. Do not report a slope of zero.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span> Three routes, and why the short one wins</h2>
+
+  <div class="routes">
+    <article class="rt">
+      <p class="rth">Route A <span class="tag">textbook order</span></p>
+      <p>Solve for \(y'\) as a formula first, substitute afterwards.</p>
+      <p>$$y'\left(3y^2 + x^2 - 6y\right) = -2x(y+1)$$</p>
+      <p>$$\frac{dy}{dx} = \frac{-2x(y+1)}{3y^2 + x^2 - 6y} \;\Longrightarrow\; m = \frac{-4}{-2} = 2$$</p>
+      <p class="cost"><b>Seven lines.</b> A factorisation, then a division of a negative by a negative - two sign opportunities in one step. Worth it only when a later part needs the general formula.</p>
+    </article>
+
+    <article class="rt pick">
+      <p class="rth">Route B <span class="tag on">use this one</span></p>
+      <p>Differentiate, then substitute the point <i>before</i> solving.</p>
+      <p>$$3y^2 y' + x^2 y' + 2xy + 2x = 6y y'$$</p>
+      <p>$$3m + m + 2 + 2 = 6m \;\Longrightarrow\; 4m + 4 = 6m \;\Longrightarrow\; m = 2$$</p>
+      <p class="cost"><b>Three lines.</b> No factorisation, no letters, no fraction. Every sign trap in Route A lives in the step this route never takes.</p>
+    </article>
+
+    <article class="rt">
+      <p class="rth">Route C <span class="tag">verification only</span></p>
+      <p>Make \(x\) explicit in \(y\) and reciprocate.</p>
+      <p>$$x = y\sqrt{\frac{3-y}{1+y}} \;\Longrightarrow\; \left.\frac{dx}{dy}\right|_{y=1} = \tfrac12$$</p>
+      <p>$$\frac{dy}{dx} = \frac{1}{dx/dy} = 2$$</p>
+      <p class="cost"><b>Ten-plus lines</b>, and it only exists because this relation happens to be quadratic in \(x\). Most are not. Excellent as an independent check, a trap as an exam route.</p>
+    </article>
+  </div>
+
+  <p class="warn"><b>Why Route B is legal, and what it is confused with.</b> The differentiated equation is an identity holding at every point of the curve. \((1,1)\) is such a point - you checked in step 0 - and the equation is linear in \(y'\), so solving it there gives \(y'\) there. What is genuinely illegal is substituting into the <b>original</b> relation first: setting \(y = 1\) turns the relation into \(1 + x^2 + x^2 = 3\), an equation in \(x\) alone, and \(y'\) has left the building. Differentiate first, substitute second.</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span> The procedure, with the exit nobody draws</h2>
+  <p>Most students draw one path through this question. There are three, and they separate at a single step: what the coefficient of \(m\) turns out to be.</p>
+
+  <ol class="steps">
+    <li><b>Verify the point.</b> Substitute both coordinates into the original relation. Exact agreement, or stop.</li>
+    <li><b>Differentiate both sides in \(x\).</b> A \(y'\) on every \(y\); the product rule on every term where two things vary. Do not simplify, do not solve yet.</li>
+    <li><b>Substitute the point.</b> You now hold a linear equation in the single unknown \(m\).</li>
+    <li><b>Read the coefficient of \(m\)</b> - and this is where the paths split.</li>
+  </ol>
+
+  <div class="exits">
+    <div class="ex ok">
+      <p class="exh">coefficient &ne; 0</p>
+      <p class="exm">\(m\) is a number</p>
+      <p>Build the line: \(y - y_1 = m(x - x_1)\). This is the exam question, and the answer is \(y = 2x - 1\).</p>
+    </div>
+    <div class="ex vert">
+      <p class="exh">coefficient = 0, rest &ne; 0</p>
+      <p class="exm">vertical tangent</p>
+      <p>The answer is \(x = x_1\). There is no \(m\), and point-slope form cannot be used at all. This is the cardioid question the course sets.</p>
+    </div>
+    <div class="ex sing">
+      <p class="exh">coefficient = 0, rest = 0</p>
+      <p class="exm">singular point</p>
+      <p>\(0/0\). No unique tangent exists. Say so - do not report \(m = 0\), which is what the arithmetic tempts you into.</p>
+    </div>
+  </div>
+
+  <p class="then"><b>Then, always:</b> put \(x = x_1\) back into your finished line. If it does not return \(y_1\), the line misses the given point and nothing else about it matters.</p>
+</section>
+
+<section>
+  <h2><span class="num">06</span> How this answer was checked</h2>
+  <p>The claimed derivative was never allowed to check itself. Following the pattern set in Q10.1: a <b>gate</b> proving every sample point is genuinely on the curve <i>before</i> any slope is compared, then arms that have never seen the claimed formula.</p>
+
+  <div class="vtab tscroll">
+    <table>
+      <thead><tr><th>Gate or arm</th><th>What it actually does</th><th>Result</th></tr></thead>
+      <tbody>
+        <tr><td class="g">Exact gate</td><td>\(F(1,1) = 0\) in exact rationals, no floating point anywhere</td><td class="ok">0, exactly</td></tr>
+        <tr><td class="g">Residual gate</td><td>24 points, both branches at 12 values of \(y\), proved on the curve to \(10^{-12}\) <b>before</b> any slope is mentioned</td><td class="ok">all pass</td></tr>
+        <tr><td class="g">Arm 1</td><td>\(-F_x/F_y\) from complex-step partials at \(h = 10^{-30}\); never sees the claimed formula</td><td class="ok">agrees to \(10^{-9}\)</td></tr>
+        <tr><td class="g">Arm 2</td><td>complex-step on the explicit branch \(x(y)\), then reciprocated; never sees the claimed formula</td><td class="ok">agrees to \(10^{-9}\)</td></tr>
+        <tr><td class="g">Arm 3</td><td>Richardson ladder on \(y(x)\) recovered by Newton, convergence order measured</td><td class="ok">4.04 / 4.01 / 4.00</td></tr>
+        <tr><td class="g">Double-root gate</td><td>exact identity \(F(x, 2x-1) = 2(x-1)^2(5x-2)\), plus \(P(1) = P'(1) = 0\), \(P''(1) \ne 0\)</td><td class="ok">exact</td></tr>
+        <tr><td class="g">\(F_y\) screen</td><td>both vertical tangents and the singular point located; distance from \((1,1)\) measured</td><td class="ok">\(|F_y| = 2\)</td></tr>
+        <tr><td class="g">Wrong-answer census</td><td>four classic slips scanned over 120 curve points for a hiding place</td><td class="ok">see 07</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="tot"><b>282 assertions, 282 pass, 0 fail</b>, of which <b>36 are seeded controls</b> proving each gate can actually bite.</p>
+
+  <p class="warn"><b>What the tangency check really is.</b> A tangent line does not just touch the curve - it meets it in a <i>double</i> root. Substituting \(y = 2x-1\) back into the relation gives \(10x^3 - 24x^2 + 18x - 4 = 2(x-1)^2(5x-2)\), and that squared factor <i>is</i> the tangency, stated algebraically. A merely secant line through \((1,1)\) leaves \((x-1)\) to the first power; slopes 1, 3 and 7/4 were each tried and each rejected. The leftover factor \(5x-2\) is a free bonus: it names \((2/5, -1/5)\), the point where the tangent crosses the curve again.</p>
+
+  <p class="note"><b>A measurement mistake worth repeating.</b> The Richardson ladder first ran with a fixed step \(h = 0.04\) everywhere. That is fine at \((1,1)\), where the slope is 2, but at \(y = 2\) on the negative branch the slope is 5.196, so a step that size moves \(y\) far enough that Newton lands on a <i>different branch of the curve</i>: error 8.38, apparent order 7.28. The fix is not a looser tolerance - it is a base step derived from the measured slope, \(h_0 = 0.04/|m|\). Then the orders read 4.08 / 4.02 / 4.00. A fixed step is always calibrated on the flattest point you happened to test.</p>
+</section>
+
+<section>
+  <h2><span class="num">07</span> Where the marks actually go</h2>
+
+  <ol class="traps">
+    <li><span><b>Reporting the slope instead of the line.</b> The stem says <i>equation of the tangent line</i>. \(m = 2\) is not an equation. On an answer-only platform this is a clean zero for a question you solved correctly, and it is the single most common way to lose all four points.</span></li>
+    <li><span><b>Substituting into the original relation before differentiating.</b> Freezing \(y = 1\) destroys the function you were about to differentiate. Note this is <i>not</i> Route B, which substitutes into the already-differentiated equation and is both legal and recommended.</span></li>
+    <li><span><b>Never checking that \((1,1)\) is on the curve.</b> Here it is, so nothing goes wrong. When it is not, nothing goes wrong either - right up until the mark.</span></li>
+    <li><span><b>Dropping half the product rule on \(yx^2\).</b> The term the whole curve is built around. Keeping only \(x^2y'\) gives \(m = 1\).</span></li>
+    <li><span><b>Forgetting \(y'\) on one \(y\)-term but not the others.</b> On \(y^3\) it gives 1.4; on \(3y^2\) it gives 0.5. Both look like plausible answers.</span></li>
+    <li><span><b>Sign slip collecting \(6yy'\).</b> Gives \(m = -2\) - right magnitude, wrong direction, which is what makes it dangerous.</span></li>
+    <li><span><b>The intercept subtraction.</b> \(b = 1 - 2 = -1\). Writing \(y = 2x + 1\) puts the line through \((1,3)\), which is not on the curve at all.</span></li>
+  </ol>
+
+  <h3>Where the wrong answers hide</h3>
+  <p>Whether a wrong answer has a hiding place is a property of <i>this curve</i>, not of the topic. All four slips were scanned over 120 points spanning both branches, with no convenience exclusions.</p>
+
+  <div class="vtab tscroll">
+    <table>
+      <thead><tr><th>The slip</th><th>\(m\) at (1,1)</th><th>Hides anywhere on the curve?</th></tr></thead>
+      <tbody>
+        <tr><td>Forgot \(y'\) on \(y^3\)</td><td class="mono">1.4</td><td class="no">no</td></tr>
+        <tr><td>Missed the product rule on \(yx^2\)</td><td class="mono">1.0</td><td class="yes">yes - at (0, 3)</td></tr>
+        <tr><td>Sign slip on the \(6yy'\) term</td><td class="mono">-2</td><td class="yes">yes - at (0, 3)</td></tr>
+        <tr><td>Forgot \(y'\) on \(3y^2\)</td><td class="mono">0.5</td><td class="no">no</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn"><b>So do not spot-check an implicit derivative at a horizontal tangent.</b> Two of the four slips are exactly invisible at \((0,3)\), because both collapse to zero wherever the true slope is zero. That point is fully reachable, and it is the second most convenient point on this curve - precisely the one a student reaches for. \((1,1)\) is a good check point because none of the four survives there.</p>
+</section>
+
+<section>
+  <h2><span class="num">08</span> The variation families</h2>
+  <p>Read this as structure, not as eleven facts. Every family is the same two-part machine: get a slope from \(-F_x/F_y\), then do something geometric with it. What changes is only which half the examiner hides.</p>
+
+  <div class="fams">
+    <div class="fm"><p class="fh">F0 &middot; point given, on the curve</p><p class="ft">"at the point \((a,b)\)"</p><p>The exam question. Differentiate, substitute the pair, solve, build the line. Circle, ellipse, folium, \(x^2+xy+y^2=3\) - one method, not six.</p></div>
+    <div class="fm"><p class="fh">F1 &middot; one coordinate given</p><p class="ft">"at the point where \(x = a\)"</p><p>Solve for the missing coordinate first, and expect several. At \(x = 1\) this curve gives \(y = 1\) and \(y = 1 \pm \sqrt2\) - three points, three tangents. That ambiguity is why the real stem hands you the pair.</p></div>
+    <div class="fm"><p class="fh">F2 &middot; horizontal tangents</p><p class="ft">numerator \(F_x = 0\)</p><p>Solve \(F_x = 0\) with \(F = 0\), then confirm \(F_y \ne 0\). Here \(F_x = 2x(y+1)\), and \(y = -1\) is not on the curve at all, so only \(x = 0\) survives.</p></div>
+    <div class="fm"><p class="fh">F3 &middot; vertical tangents</p><p class="ft">denominator \(F_y = 0\)</p><p>The answer is \(x = c\); there is no \(m\). Confirm \(F_x \ne 0\) so the ratio is infinite and not \(0/0\). The course sets exactly this on the cardioid.</p></div>
+    <div class="fm"><p class="fh">F4 &middot; the normal line</p><p class="ft">"normal", "perpendicular to the curve"</p><p>Flip: \(m_n = -1/m = -\tfrac12\), giving \(y = -\tfrac{x}{2} + \tfrac32\). Q9.1's condition reused unchanged.</p></div>
+    <div class="fm"><p class="fh">F5 &middot; a prescribed slope</p><p class="ft">"parallel to", "perpendicular to \(y = \ldots\)"</p><p>Two equations in two unknowns: \(-F_x/F_y = k\) <i>together with</i> \(F = 0\). The half people forget is the second one.</p></div>
+    <div class="fm"><p class="fh">F6 &middot; transcendental relations</p><p class="ft">\(\sin\), \(\cos\), \(e^x\), \(\ln\)</p><p>Identical method; only the outer derivative changes. Examiners pick the point so the transcendental evaluates to 0 or 1 - if you are computing \(e^{2.7}\), you substituted the wrong coordinate.</p></div>
+    <div class="fm"><p class="fh">F7 &middot; the second derivative</p><p class="ft">\(y''\), concavity</p><p>Quotient rule on \(y'\), then substitute the \(y'\) you already have. Here \(y'' = 6 > 0\): concave up, tangent below the curve.</p></div>
+    <div class="fm"><p class="fh">F8 &middot; meets the curve again</p><p class="ft">"the other intersection"</p><p>Divide out the double factor. \(2(x-1)^2(5x-2)\) gives \((2/5, -1/5)\). Also the cleanest self-check on F0: if \((x-x_1)\) does not divide twice, the slope is wrong.</p></div>
+    <div class="fm"><p class="fh">F9 &middot; the point is not on the curve</p><p class="ft">nothing in the wording - that is the point</p><p>Every later line still works. \(y'\) returns a number, the line looks tidy, nothing complains. Only possible because implicit \(y'\) takes two inputs and validates neither.</p></div>
+    <div class="fm"><p class="fh">F10 &middot; tangent as an approximation</p><p class="ft">"estimate \(y\) when \(x = 1.05\)"</p><p>Linearization with the derivative arriving implicitly: \(y \approx 1.1\). And \(y'' &gt; 0\) tells you for free that it is an underestimate.</p></div>
+    <div class="fm"></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span> Answer entry</h2>
+  <p>M&ouml;bius is answer-only and machine-marked, so a right method with a bad keystroke scores nothing.</p>
+  <div class="entry">
+    <div class="e do"><p class="eh">Do</p><ul><li><span class="mono">2*x-1</span> - explicit multiplication</li><li>Give the whole line when an equation is asked for</li><li>Lower-case <span class="mono">x</span></li><li>Preview, then read what actually rendered</li></ul></div>
+    <div class="e dont"><p class="eh">Do not</p><ul><li><span class="mono">2x-1</span> - implied multiplication may not parse</li><li><span class="mono">2</span> - that is the slope, not a line</li><li><span class="mono">y=</span> twice, when the box already prints it</li><li>Submit without previewing</li></ul></div>
+  </div>
+  <p class="note">If the platform splits slope and intercept into two boxes, they are \(2\) and \(-1\). No marking scheme exists in any of the four course files, so every claim here about what earns marks is reasoned inference, flagged as such rather than quoted.</p>
+</section>
+
+<section>
+  <h2><span class="num">10</span> Drill set</h2>
+  <p>Score <b>sign</b> and <b>magnitude</b> separately. A wrong magnitude means a mis-differentiated term; a wrong sign means the collect-and-divide step. They need different fixes.</p>
+  <div class="vtab tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Problem</th><th>Answer</th><th>Family</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>\(x^2+y^2=25\) at \((3,4)\)</td><td>\(y = -\tfrac34 x + \tfrac{25}{4}\)</td><td class="fmc">F0</td></tr>
+        <tr><td class="mono">2</td><td>\(x^2+xy+y^2=3\) at \((1,1)\)</td><td>\(y = -x + 2\)</td><td class="fmc">F0</td></tr>
+        <tr><td class="mono">3</td><td>\(x^3+y^3=9xy\) at \((2,4)\)</td><td>\(y = \tfrac45 x + \tfrac{12}{5}\)</td><td class="fmc">F0</td></tr>
+        <tr><td class="mono">4</td><td>the exam curve at \((0,3)\)</td><td>\(y = 3\)</td><td class="fmc">F2</td></tr>
+        <tr><td class="mono">5</td><td>every vertical tangent of the exam curve</td><td>\(x = \pm\sqrt{6\sqrt3-9} \approx \pm 1.17996\)</td><td class="fmc">F3</td></tr>
+        <tr><td class="mono">6</td><td>the <b>normal</b> at \((1,1)\)</td><td>\(y = -\tfrac{x}{2} + \tfrac32\)</td><td class="fmc">F4</td></tr>
+        <tr><td class="mono">7</td><td>\(y''\) at \((1,1)\), and the concavity</td><td>\(y'' = 6\), concave up</td><td class="fmc">F7</td></tr>
+        <tr><td class="mono">8</td><td>where the tangent meets the curve again</td><td>\(\left(\tfrac25, -\tfrac15\right)\)</td><td class="fmc">F8</td></tr>
+        <tr><td class="mono">9</td><td>\(\sin(x+y) = 2x-2y\) at \((0,0)\)</td><td>\(y = \tfrac{x}{3}\)</td><td class="fmc">F6</td></tr>
+        <tr><td class="mono">10</td><td>\(xe^y + y = 2\) at \((2,0)\)</td><td>\(y = -\tfrac{x}{3} + \tfrac23\)</td><td class="fmc">F6</td></tr>
+        <tr><td class="mono">11</td><td>\(\tfrac{x^2}{9}+\tfrac{y^2}{4}=1\) at \(\left(\tfrac{3}{\sqrt2},\sqrt2\right)\)</td><td>\(y = -\tfrac23 x + 2\sqrt2\)</td><td class="fmc">F0</td></tr>
+        <tr><td class="mono">12</td><td>\(y^2 = x^3(2-x)\) at \((1,1)\)</td><td>\(y = x\)</td><td class="fmc">F0</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note">Every line in this key was verified three ways: the point is on the curve, the slope matches a formula-blind \(-F_x/F_y\), and substituting the line back into the relation produces a double root at the point. Missing 4 or 5 sends you to families F2 and F3, where the slope form breaks. Missing 7 usually means you re-derived \(y'\) instead of substituting the number you had.</p>
+</section>
+
+<footer class="wrap ftr">
+  <p class="fk">Provenance</p>
+  <p>Midterm Exam 2, item 10, <b>4 points</b>. MT2 prints each value on its own line <i>before</i> the item, so the 4 above item 10 is its own and the 6 below belongs to item 11. MT2's eleven items sum to 94, so this is 4.26 percent of that paper - no paper in this course sums to 100. MT2's two printed "no credit" clauses sit on items 4 and 7; item 10 carries neither, and carries no method instruction either.</p>
+  <p class="fk">Verified</p>
+  <p><span class="mono">Work\knowledge\topics\math265-answer-verification.py</span>, section <span class="mono">q102</span>: 282 PASS, 0 FAIL, 36 seeded controls, counted by grepping the section's own prefix rather than trusting a shared counter. Companion tutorials: Q10.1 (the implicit method and this verification pattern) and Q9.1 (assembling the line). Written 2026-09-01.</p>
+</footer>
+
+</main>
