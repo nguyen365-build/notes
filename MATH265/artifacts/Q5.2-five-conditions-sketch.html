@@ -1,0 +1,1058 @@
+<title>Five Conditions, One Sketch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== dark-first ops console =====================================
+   Q5.2 has FIVE conditions, so five semantic marks carry the page.
+   Each is a token, never a literal, and each keeps the same colour on
+   the graph, in the ledger, in the matrix and in the decision tree:
+     --lvl   (a)  the tail settles          -> a LEVEL       slate
+     --pt    (b)  a value exists            -> a POINT       amber
+     --apr   (c)  a finite limit, value free-> an APPROACH   mauve
+     --brk   (d)  both branches blow up     -> a POLE        terracotta
+     --kink  (e)  continuous, no tangent    -> a KINK        teal
+   --apr is new on this page: Q5.1 had no condition of that kind.
+   ================================================================== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+  --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+  --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+  --kink:#6FA8A0; --kink-soft:rgba(111,168,160,.13);--kink-line:rgba(111,168,160,.44);
+  --apr:#B98BA6;  --apr-soft:rgba(185,139,166,.13); --apr-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0; --no:#D2765C;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+    --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+    --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+    --kink:#2E6B63; --kink-soft:rgba(46,107,99,.10);  --kink-line:rgba(46,107,99,.40);
+    --apr:#7A3F63;  --apr-soft:rgba(122,63,99,.10);   --apr-line:rgba(122,63,99,.40);
+    --ok:#2E6B63; --no:#A8492F;
+    --grid:rgba(23,27,34,.042);
+    --plot:#BCC3CE; --plotlab:#6C7583;
+    --mj:#171B22;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+  --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+  --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+  --kink:#6FA8A0; --kink-soft:rgba(111,168,160,.13);--kink-line:rgba(111,168,160,.44);
+  --apr:#B98BA6;  --apr-soft:rgba(185,139,166,.13); --apr-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0; --no:#D2765C;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+  --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+  --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+  --kink:#2E6B63; --kink-soft:rgba(46,107,99,.10);  --kink-line:rgba(46,107,99,.40);
+  --apr:#7A3F63;  --apr-soft:rgba(122,63,99,.10);   --apr-line:rgba(122,63,99,.40);
+  --ok:#2E6B63; --no:#A8492F;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.brk {border-color:var(--brk-line); color:var(--brk);  background:var(--brk-soft)}
+.mark.pt  {border-color:var(--pt-line);  color:var(--pt);   background:var(--pt-soft)}
+.mark.lvl {border-color:var(--lvl-line); color:var(--lvl);  background:var(--lvl-soft)}
+.mark.kink{border-color:var(--kink-line);color:var(--kink); background:var(--kink-soft)}
+.mark.apr {border-color:var(--apr-line); color:var(--apr);  background:var(--apr-soft)}
+
+.slab{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:26px 0}
+.slab-top{
+  padding:10px 20px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.slab-body{padding:22px 20px}
+.slab-body p{margin:0 0 10px}
+.slab-body p:last-child{margin-bottom:0}
+
+/* ---- the condition ledger: the interpretation half, one row each ---- */
+.ledger{display:grid;gap:10px;margin:24px 0}
+.lrow{
+  display:grid;grid-template-columns:96px minmax(140px,.82fr) minmax(210px,1.7fr);
+  gap:6px 18px;align-items:start;
+  border:1px solid var(--line);border-left-width:3px;background:var(--surface);
+  border-radius:3px;padding:13px 16px;
+}
+.lrow.a{border-left-color:var(--lvl)}
+.lrow.b{border-left-color:var(--pt)}
+.lrow.c{border-left-color:var(--apr)}
+.lrow.d{border-left-color:var(--brk)}
+.lrow.e{border-left-color:var(--kink)}
+.lrow .lid{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);padding-top:4px;
+}
+.lrow .lnot{font-size:14px;color:var(--ink);overflow-wrap:anywhere;min-width:0}
+.lrow .lsay{font-size:13.5px;color:var(--ink2);min-width:0}
+.lrow .lsay b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;margin-bottom:3px;font-weight:600}
+.lrow.a .lsay b{color:var(--lvl)}
+.lrow.b .lsay b{color:var(--pt)}
+.lrow.c .lsay b{color:var(--apr)}
+.lrow.d .lsay b{color:var(--brk)}
+.lrow.e .lsay b{color:var(--kink)}
+.lrow .lfree{grid-column:2 / -1;font-size:13px;color:var(--ink3);border-top:1px dashed var(--line);
+  padding-top:8px;margin-top:2px}
+@media (max-width:720px){
+  .lrow{grid-template-columns:1fr}
+  .lrow .lfree{grid-column:1}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:14px 10px 4px;overflow-x:auto}
+.figbox svg{display:block;min-width:620px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;
+}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.swatch i{width:11px;height:11px;border-radius:2px;display:inline-block;flex:none}
+
+svg .axis{stroke:var(--plot);stroke-width:1.1}
+svg .tick{stroke:var(--plot);stroke-width:1}
+svg .tbg{fill:var(--surface)}
+svg .tl{fill:var(--plotlab);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px}
+svg .asym{stroke-width:1.4;stroke-dasharray:7 5}
+svg .asym.lvl{stroke:var(--lvl)}
+svg .asym.brk{stroke:var(--brk)}
+svg .curve{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+svg .dot{stroke:var(--ground);stroke-width:1.6}
+svg .dot.pt{fill:var(--pt)}
+svg .dot.apr{fill:var(--apr)}
+svg .kinkring{fill:none;stroke:var(--kink);stroke-width:1.4;stroke-dasharray:3 3}
+svg .crossdot{fill:none;stroke:var(--lvl);stroke-width:1.4}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.06em}
+svg .lab.lvl{fill:var(--lvl)}
+svg .lab.brk{fill:var(--brk)}
+svg .lab.apr{fill:var(--apr)}
+svg .lab.kink{fill:var(--kink)}
+svg .lab.dim{fill:var(--ink3);font-size:10px}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre .g1{color:var(--brk)} pre .g2{color:var(--pt)}
+pre .g3{color:var(--lvl)} pre .g4{color:var(--kink)} pre .g5{color:var(--apr)}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.num,th.num{font-variant-numeric:tabular-nums}
+
+/* ---- the reconciliation matrix ---- */
+table.mx{font-size:12.5px}
+table.mx th,table.mx td{padding:7px 9px;text-align:center;white-space:nowrap}
+table.mx tbody th{
+  text-align:left;background:var(--sunk);color:var(--ink2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  font-weight:500;letter-spacing:.04em;text-transform:none;position:sticky;left:0;
+  border-right:1px solid var(--line);
+}
+table.mx thead th{font-size:10px;letter-spacing:.05em;text-transform:none}
+table.mx td.y{color:var(--ok)}
+table.mx td.n{color:var(--no);background:var(--brk-soft);font-weight:600}
+table.mx td.d{color:var(--ink3)}
+table.mx td.hi{outline:1.5px solid var(--accent);outline-offset:-2px}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--brk-line);background:var(--brk-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--kink-line);background:var(--kink-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brk);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--kink)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 2 &middot; Question 5 &middot; 10 points</div>
+  <h1>Five Conditions, One Sketch</h1>
+  <p class="deck">Two of these five conditions land on the same point, and they cooperate:
+  together they force a limit that neither of them states. A third is written as an
+  equality with infinity, which is a stronger claim than it looks. Everything else is
+  bookkeeping.</p>
+</header>
+
+<div class="slab">
+  <div class="slab-top">The question, verbatim</div>
+  <div class="slab-body">
+    <p>Interpret in terms of the graph of the function \(f\) the conditions listed below.
+    Sketch the graph of a single function \(f(x)\) which satisfies all of the conditions listed below.</p>
+    <div class="ledger">
+      <div class="lrow a"><div class="lid">a &middot; level</div>
+        <div class="lnot">\(\displaystyle\lim_{x\to\infty} f(x) = 3\)</div>
+        <div class="lsay"><b>Horizontal asymptote</b>The line \(y=3\) is a horizontal asymptote at the
+        right-hand end: as \(x\) grows without bound the curve settles onto it and the vertical gap
+        tends to zero.</div>
+        <div class="lfree">Does not constrain the left-hand end, and does not stop the graph crossing \(y=3\).</div>
+      </div>
+      <div class="lrow b"><div class="lid">b &middot; point</div>
+        <div class="lnot">\(f(0) = 0\)</div>
+        <div class="lsay"><b>A point on the graph</b>The function is defined at \(0\) and its value there
+        is \(0\), so \((0,0)\) lies on the graph.</div>
+        <div class="lfree">On its own, says nothing at all about the curve on either side of \(0\).</div>
+      </div>
+      <div class="lrow c"><div class="lid">c &middot; approach</div>
+        <div class="lnot">\(\displaystyle\lim_{x\to-1} f(x) = 2\)</div>
+        <div class="lsay"><b>Both branches converge</b>As \(x\) approaches \(-1\) from the left and from
+        the right, the height of the curve approaches \(2\).</div>
+        <div class="lfree">Does not constrain \(f(-1)\), which may be \(2\), may be another number, or may be undefined.</div>
+      </div>
+      <div class="lrow d"><div class="lid">d &middot; pole</div>
+        <div class="lnot">\(\displaystyle\lim_{x\to 1} f(x) = \infty\)</div>
+        <div class="lsay"><b>Vertical asymptote, both sides up</b>Because this is an <em>equality</em> with
+        \(+\infty\) and not the phrase &ldquo;does not exist&rdquo;, the curve rises without bound on
+        <strong>both</strong> sides of \(x=1\). \(f\) is undefined there.</div>
+        <div class="lfree">Rules out \(\frac{1}{x-1}\), whose two sides disagree. An even power in the denominator keeps the sign.</div>
+      </div>
+      <div class="lrow e"><div class="lid">e &middot; kink</div>
+        <div class="lnot">\(f\) is continuous but not differentiable at \(x=0\)</div>
+        <div class="lsay"><b>Unbroken, but no tangent line</b>Both one-sided limits equal the value, so
+        \(\lim_{x\to0}f(x)=f(0)=0\); but the two one-sided slopes differ, so \(f'(0)\) does not exist.
+        The cheapest picture is a corner.</div>
+        <div class="lfree">The word <em>continuous</em> deletes the break option, leaving corner, cusp and vertical tangent.</div>
+      </div>
+    </div>
+    <p style="margin-top:16px">Conditions (b) and (e) both live at \(x=0\).
+    That is the one structural difference from the four-condition version of this question,
+    where the conditions sat at three separate places and could not interact.</p>
+  </div>
+</div>
+
+<blockquote>
+  <p><strong>The one sentence that decides this question.</strong>
+  (b) puts a dot at the origin and (e) welds both branches onto it, so together they force
+  \(\lim_{x\to0}f(x)=0\), which neither says alone.
+  The four-condition version did the opposite at the same point and forced the graph to break there.
+  Same notation, opposite picture.</p>
+</blockquote>
+
+<section>
+  <h2><span class="num">01</span>The answer, and how to read it</h2>
+  <p>There is no unique answer, and that is the point: any function with these five features scores
+  full marks, and the marks are spread over the five conditions. Here is one, chosen so that every
+  landmark is a whole number or a small fraction.</p>
+  <p>$$f(x)=\begin{cases}-2x, & x \le 0\\[4pt] \dfrac{x}{1-x}, & 0 < x < 1\\[4pt] 3 + \dfrac{1}{x-1}, & x > 1\end{cases}$$</p>
+
+  <figure>
+    <div class="figtop">The shipped answer, plotted from the function &middot; every coordinate evaluated, none drawn</div>
+    <div class="figbox"><svg viewBox="0 0 760 430" role="img"
+     aria-label="Graph of the shipped answer: a straight line of slope minus two coming down from the upper left through the point (minus one, two) to the origin, where it meets a rising curve at a corner. That curve rises to plus infinity at the dashed vertical asymptote x equals one, crossing the dashed horizontal line y equals three on the way. To the right of the asymptote a second branch comes down from plus infinity and settles onto y equals three from above.">
+  <line x1="44.00" y1="244.12" x2="744.00" y2="244.12" class="asym lvl"/>
+  <line x1="281.10" y1="400.00" x2="281.10" y2="14.00" class="asym brk"/>
+  <line x1="44.00" y1="355.46" x2="744.00" y2="355.46" class="axis"/>
+  <line x1="224.65" y1="14.00" x2="224.65" y2="400.00" class="axis"/>
+  <line x1="55.29" y1="355.46" x2="55.29" y2="360.46" class="tick"/><rect x="44.79" y="363.46" width="21.00" height="14" class="tbg"/><text x="55.29" y="373.46" class="tl" text-anchor="middle">-3</text><line x1="111.74" y1="355.46" x2="111.74" y2="360.46" class="tick"/><rect x="101.24" y="363.46" width="21.00" height="14" class="tbg"/><text x="111.74" y="373.46" class="tl" text-anchor="middle">-2</text><line x1="168.19" y1="355.46" x2="168.19" y2="360.46" class="tick"/><rect x="157.69" y="363.46" width="21.00" height="14" class="tbg"/><text x="168.19" y="373.46" class="tl" text-anchor="middle">-1</text><line x1="281.10" y1="355.46" x2="281.10" y2="360.46" class="tick"/><rect x="274.60" y="363.46" width="13.00" height="14" class="tbg"/><text x="281.10" y="373.46" class="tl" text-anchor="middle">1</text><line x1="337.55" y1="355.46" x2="337.55" y2="360.46" class="tick"/><rect x="331.05" y="363.46" width="13.00" height="14" class="tbg"/><text x="337.55" y="373.46" class="tl" text-anchor="middle">2</text><line x1="394.00" y1="355.46" x2="394.00" y2="360.46" class="tick"/><rect x="387.50" y="363.46" width="13.00" height="14" class="tbg"/><text x="394.00" y="373.46" class="tl" text-anchor="middle">3</text><line x1="506.90" y1="355.46" x2="506.90" y2="360.46" class="tick"/><rect x="500.40" y="363.46" width="13.00" height="14" class="tbg"/><text x="506.90" y="373.46" class="tl" text-anchor="middle">5</text><line x1="619.81" y1="355.46" x2="619.81" y2="360.46" class="tick"/><rect x="613.31" y="363.46" width="13.00" height="14" class="tbg"/><text x="619.81" y="373.46" class="tl" text-anchor="middle">7</text><line x1="732.71" y1="355.46" x2="732.71" y2="360.46" class="tick"/><rect x="726.21" y="363.46" width="13.00" height="14" class="tbg"/><text x="732.71" y="373.46" class="tl" text-anchor="middle">9</text><line x1="219.65" y1="281.23" x2="224.65" y2="281.23" class="tick"/><rect x="202.65" y="275.23" width="13.00" height="14" class="tbg"/><text x="215.65" y="285.23" class="tl" text-anchor="end">2</text><line x1="219.65" y1="244.12" x2="224.65" y2="244.12" class="tick"/><rect x="202.65" y="238.12" width="13.00" height="14" class="tbg"/><text x="215.65" y="248.12" class="tl" text-anchor="end">3</text><line x1="219.65" y1="169.88" x2="224.65" y2="169.88" class="tick"/><rect x="202.65" y="163.88" width="13.00" height="14" class="tbg"/><text x="215.65" y="173.88" class="tl" text-anchor="end">5</text><line x1="219.65" y1="95.65" x2="224.65" y2="95.65" class="tick"/><rect x="202.65" y="89.65" width="13.00" height="14" class="tbg"/><text x="215.65" y="99.65" class="tl" text-anchor="end">7</text><line x1="219.65" y1="21.42" x2="224.65" y2="21.42" class="tick"/><rect x="202.65" y="15.42" width="13.00" height="14" class="tbg"/><text x="215.65" y="25.42" class="tl" text-anchor="end">9</text>
+  <polyline class="curve" points="44.00,117.92 45.13,119.41 46.26,120.89 47.39,122.38 48.52,123.86 49.65,125.35 50.77,126.83 51.90,128.32 53.03,129.80 54.16,131.28 55.29,132.77 56.42,134.25 57.55,135.74 58.68,137.22 59.81,138.71 60.94,140.19 62.06,141.68 63.19,143.16 64.32,144.65 65.45,146.13 66.58,147.62 67.71,149.10 68.84,150.58 69.97,152.07 71.10,153.55 72.23,155.04 73.35,156.52 74.48,158.01 75.61,159.49 76.74,160.98 77.87,162.46 79.00,163.95 80.13,165.43 81.26,166.92 82.39,168.40 83.52,169.88 84.65,171.37 85.77,172.85 86.90,174.34 88.03,175.82 89.16,177.31 90.29,178.79 91.42,180.28 92.55,181.76 93.68,183.25 94.81,184.73 95.94,186.22 97.06,187.70 98.19,189.18 99.32,190.67 100.45,192.15 101.58,193.64 102.71,195.12 103.84,196.61 104.97,198.09 106.10,199.58 107.23,201.06 108.35,202.55 109.48,204.03 110.61,205.52 111.74,207.00 112.87,208.48 114.00,209.97 115.13,211.45 116.26,212.94 117.39,214.42 118.52,215.91 119.65,217.39 120.77,218.88 121.90,220.36 123.03,221.85 124.16,223.33 125.29,224.82 126.42,226.30 127.55,227.78 128.68,229.27 129.81,230.75 130.94,232.24 132.06,233.72 133.19,235.21 134.32,236.69 135.45,238.18 136.58,239.66 137.71,241.15 138.84,242.63 139.97,244.12 141.10,245.60 142.23,247.08 143.35,248.57 144.48,250.05 145.61,251.54 146.74,253.02 147.87,254.51 149.00,255.99 150.13,257.48 151.26,258.96 152.39,260.45 153.52,261.93 154.65,263.42 155.77,264.90 156.90,266.38 158.03,267.87 159.16,269.35 160.29,270.84 161.42,272.32 162.55,273.81 163.68,275.29 164.81,276.78 165.94,278.26 167.06,279.75 168.19,281.23 169.32,282.72 170.45,284.20 171.58,285.68 172.71,287.17 173.84,288.65 174.97,290.14 176.10,291.62 177.23,293.11 178.35,294.59 179.48,296.08 180.61,297.56 181.74,299.05 182.87,300.53 184.00,302.02 185.13,303.50 186.26,304.98 187.39,306.47 188.52,307.95 189.65,309.44 190.77,310.92 191.90,312.41 193.03,313.89 194.16,315.38 195.29,316.86 196.42,318.35 197.55,319.83 198.68,321.32 199.81,322.80 200.94,324.28 202.06,325.77 203.19,327.25 204.32,328.74 205.45,330.22 206.58,331.71 207.71,333.19 208.84,334.68 209.97,336.16 211.10,337.65 212.23,339.13 213.35,340.62 214.48,342.10 215.61,343.58 216.74,345.07 217.87,346.55 219.00,348.04 220.13,349.52 221.26,351.01 222.39,352.49 223.52,353.98 224.65,355.46"/>
+  <polyline class="curve" points="224.65,355.46 224.83,355.34 225.02,355.21 225.21,355.09 225.40,354.96 225.59,354.83 225.77,354.70 225.96,354.57 226.15,354.44 226.34,354.31 226.53,354.18 226.72,354.05 226.90,353.92 227.09,353.78 227.28,353.64 227.47,353.51 227.66,353.37 227.84,353.23 228.03,353.09 228.22,352.95 228.41,352.81 228.60,352.67 228.78,352.52 228.97,352.38 229.16,352.23 229.35,352.09 229.54,351.94 229.73,351.79 229.91,351.64 230.10,351.49 230.29,351.34 230.48,351.18 230.67,351.03 230.85,350.87 231.04,350.72 231.23,350.56 231.42,350.40 231.61,350.24 231.80,350.08 231.98,349.92 232.17,349.75 232.36,349.59 232.55,349.42 232.74,349.25 232.92,349.08 233.11,348.91 233.30,348.74 233.49,348.57 233.68,348.39 233.87,348.22 234.05,348.04 234.24,347.86 234.43,347.68 234.62,347.50 234.81,347.31 234.99,347.13 235.18,346.94 235.37,346.76 235.56,346.57 235.75,346.38 235.94,346.18 236.12,345.99 236.31,345.79 236.50,345.60 236.69,345.40 236.88,345.20 237.06,344.99 237.25,344.79 237.44,344.58 237.63,344.38 237.82,344.17 238.01,343.95 238.19,343.74 238.38,343.53 238.57,343.31 238.76,343.09 238.95,342.87 239.13,342.65 239.32,342.42 239.51,342.19 239.70,341.97 239.89,341.73 240.08,341.50 240.26,341.27 240.45,341.03 240.64,340.79 240.83,340.55 241.02,340.30 241.20,340.06 241.39,339.81 241.58,339.55 241.77,339.30 241.96,339.05 242.15,338.79 242.33,338.53 242.52,338.26 242.71,338.00 242.90,337.73 243.09,337.46 243.27,337.18 243.46,336.90 243.65,336.62 243.84,336.34 244.03,336.06 244.22,335.77 244.40,335.48 244.59,335.18 244.78,334.88 244.97,334.58 245.16,334.28 245.34,333.97 245.53,333.66 245.72,333.35 245.91,333.03 246.10,332.71 246.28,332.39 246.47,332.06 246.66,331.73 246.85,331.40 247.04,331.06 247.23,330.72 247.41,330.37 247.60,330.02 247.79,329.67 247.98,329.31 248.17,328.95 248.35,328.58 248.54,328.22 248.73,327.84 248.92,327.46 249.11,327.08 249.30,326.69 249.48,326.30 249.67,325.90 249.86,325.50 250.05,325.09 250.24,324.68 250.42,324.27 250.61,323.84 250.80,323.42 250.99,322.99 251.18,322.55 251.37,322.10 251.55,321.66 251.74,321.20 251.93,320.74 252.12,320.27 252.31,319.80 252.49,319.32 252.68,318.84 252.87,318.35 253.06,317.85 253.25,317.34 253.44,316.83 253.62,316.31 253.81,315.79 254.00,315.25 254.19,314.71 254.38,314.16 254.56,313.61 254.75,313.04 254.94,312.47 255.13,311.89 255.32,311.30 255.51,310.70 255.69,310.10 255.88,309.48 256.07,308.86 256.26,308.22 256.45,307.58 256.63,306.93 256.82,306.26 257.01,305.59 257.20,304.90 257.39,304.21 257.58,303.50 257.76,302.78 257.95,302.05 258.14,301.31 258.33,300.56 258.52,299.79 258.70,299.01 258.89,298.22 259.08,297.41 259.27,296.59 259.46,295.75 259.65,294.91 259.83,294.04 260.02,293.16 260.21,292.27 260.40,291.35 260.59,290.42 260.77,289.48 260.96,288.52 261.15,287.53 261.34,286.53 261.53,285.51 261.72,284.47 261.90,283.41 262.09,282.33 262.28,281.23 262.47,280.11 262.66,278.96 262.84,277.79 263.03,276.59 263.22,275.37 263.41,274.12 263.60,272.85 263.78,271.55 263.97,270.22 264.16,268.86 264.35,267.47 264.54,266.05 264.73,264.59 264.91,263.10 265.10,261.58 265.29,260.02 265.48,258.43 265.67,256.79 265.85,255.11 266.04,253.39 266.23,251.63 266.42,249.83 266.61,247.97 266.80,246.07 266.98,244.12 267.17,242.11 267.36,240.05 267.55,237.93 267.74,235.75 267.92,233.51 268.11,231.21 268.30,228.83 268.49,226.39 268.68,223.87 268.87,221.28 269.05,218.60 269.24,215.84 269.43,212.99 269.62,210.04 269.81,207.00 269.99,203.86 270.18,200.60 270.37,197.23 270.56,193.75 270.75,190.13 270.94,186.38 271.12,182.49 271.31,178.45 271.50,174.25 271.69,169.89 271.88,165.34 272.06,160.61 272.25,155.67 272.44,150.52 272.63,145.14 272.82,139.52 273.01,133.63 273.19,127.47 273.38,121.00 273.57,114.21 273.76,107.08 273.95,99.56 274.13,91.64 274.32,83.28 274.51,74.45 274.70,65.09 274.89,55.17 275.08,44.62 275.26,33.40 275.45,21.43"/>
+  <polyline class="curve" points="290.35,17.80 291.90,50.13 293.44,74.38 294.98,93.24 296.53,108.33 298.07,120.67 299.61,130.96 301.16,139.66 302.70,147.12 304.24,153.59 305.78,159.25 307.33,164.24 308.87,168.68 310.41,172.65 311.96,176.22 313.50,179.45 315.04,182.39 316.59,185.08 318.13,187.54 319.67,189.80 321.22,191.89 322.76,193.82 324.30,195.62 325.84,197.29 327.39,198.85 328.93,200.31 330.47,201.68 332.02,202.97 333.56,204.18 335.10,205.32 336.65,206.40 338.19,207.42 339.73,208.38 341.27,209.30 342.82,210.17 344.36,211.00 345.90,211.78 347.45,212.54 348.99,213.25 350.53,213.94 352.08,214.60 353.62,215.22 355.16,215.83 356.70,216.40 358.25,216.96 359.79,217.49 361.33,218.00 362.88,218.50 364.42,218.97 365.96,219.43 367.51,219.87 369.05,220.29 370.59,220.70 372.13,221.10 373.68,221.48 375.22,221.86 376.76,222.21 378.31,222.56 379.85,222.90 381.39,223.22 382.94,223.54 384.48,223.85 386.02,224.15 387.56,224.44 389.11,224.72 390.65,224.99 392.19,225.26 393.74,225.51 395.28,225.77 396.82,226.01 398.37,226.25 399.91,226.48 401.45,226.71 402.99,226.93 404.54,227.14 406.08,227.35 407.62,227.56 409.17,227.76 410.71,227.95 412.25,228.14 413.80,228.33 415.34,228.51 416.88,228.68 418.42,228.86 419.97,229.03 421.51,229.19 423.05,229.36 424.60,229.51 426.14,229.67 427.68,229.82 429.23,229.97 430.77,230.12 432.31,230.26 433.85,230.40 435.40,230.54 436.94,230.67 438.48,230.80 440.03,230.93 441.57,231.06 443.11,231.18 444.66,231.31 446.20,231.42 447.74,231.54 449.28,231.66 450.83,231.77 452.37,231.88 453.91,231.99 455.46,232.10 457.00,232.20 458.54,232.31 460.09,232.41 461.63,232.51 463.17,232.61 464.72,232.70 466.26,232.80 467.80,232.89 469.34,232.99 470.89,233.08 472.43,233.16 473.97,233.25 475.52,233.34 477.06,233.42 478.60,233.51 480.15,233.59 481.69,233.67 483.23,233.75 484.77,233.83 486.32,233.91 487.86,233.98 489.40,234.06 490.95,234.13 492.49,234.20 494.03,234.28 495.58,234.35 497.12,234.42 498.66,234.49 500.20,234.55 501.75,234.62 503.29,234.69 504.83,234.75 506.38,234.81 507.92,234.88 509.46,234.94 511.01,235.00 512.55,235.06 514.09,235.12 515.63,235.18 517.18,235.24 518.72,235.30 520.26,235.35 521.81,235.41 523.35,235.47 524.89,235.52 526.44,235.58 527.98,235.63 529.52,235.68 531.06,235.73 532.61,235.78 534.15,235.84 535.69,235.89 537.24,235.94 538.78,235.98 540.32,236.03 541.87,236.08 543.41,236.13 544.95,236.17 546.49,236.22 548.04,236.27 549.58,236.31 551.12,236.36 552.67,236.40 554.21,236.44 555.75,236.49 557.30,236.53 558.84,236.57 560.38,236.61 561.92,236.65 563.47,236.70 565.01,236.74 566.55,236.78 568.10,236.81 569.64,236.85 571.18,236.89 572.73,236.93 574.27,236.97 575.81,237.01 577.35,237.04 578.90,237.08 580.44,237.12 581.98,237.15 583.53,237.19 585.07,237.22 586.61,237.26 588.16,237.29 589.70,237.33 591.24,237.36 592.78,237.39 594.33,237.43 595.87,237.46 597.41,237.49 598.96,237.52 600.50,237.56 602.04,237.59 603.59,237.62 605.13,237.65 606.67,237.68 608.22,237.71 609.76,237.74 611.30,237.77 612.84,237.80 614.39,237.83 615.93,237.86 617.47,237.89 619.02,237.92 620.56,237.94 622.10,237.97 623.65,238.00 625.19,238.03 626.73,238.05 628.27,238.08 629.82,238.11 631.36,238.13 632.90,238.16 634.45,238.19 635.99,238.21 637.53,238.24 639.08,238.26 640.62,238.29 642.16,238.31 643.70,238.34 645.25,238.36 646.79,238.39 648.33,238.41 649.88,238.43 651.42,238.46 652.96,238.48 654.51,238.50 656.05,238.53 657.59,238.55 659.13,238.57 660.68,238.60 662.22,238.62 663.76,238.64 665.31,238.66 666.85,238.68 668.39,238.71 669.94,238.73 671.48,238.75 673.02,238.77 674.56,238.79 676.11,238.81 677.65,238.83 679.19,238.85 680.74,238.87 682.28,238.89 683.82,238.91 685.37,238.93 686.91,238.95 688.45,238.97 689.99,238.99 691.54,239.01 693.08,239.03 694.62,239.05 696.17,239.07 697.71,239.09 699.25,239.10 700.80,239.12 702.34,239.14 703.88,239.16 705.42,239.18 706.97,239.20 708.51,239.21 710.05,239.23 711.60,239.25 713.14,239.27 714.68,239.28 716.23,239.30 717.77,239.32 719.31,239.33 720.85,239.35 722.40,239.37 723.94,239.38 725.48,239.40 727.03,239.42 728.57,239.43 730.11,239.45 731.66,239.47 733.20,239.48 734.74,239.50 736.28,239.51 737.83,239.53 739.37,239.54 740.91,239.56 742.46,239.57 744.00,239.59"/>
+  <circle cx="266.98" cy="244.12" r="3.4" class="crossdot"/>
+  <circle cx="168.19" cy="281.23" r="5" class="dot apr"/>
+  <circle cx="224.65" cy="355.46" r="5.6" class="dot pt"/>
+  <circle cx="224.65" cy="355.46" r="11" class="kinkring"/>
+  <text x="666.00" y="227.12" class="lab lvl">y = 3</text>
+  <text x="290.10" y="394.46" class="lab brk">x = 1</text>
+  <text x="158.19" y="272.23" class="lab apr" text-anchor="end">(-1, 2)</text>
+  <text x="213.65" y="394.46" class="lab kink" text-anchor="end">corner (0, 0)</text>
+  <text x="259.98" y="261.12" class="lab dim" text-anchor="end">crosses y=3</text>
+</svg></div>
+    <figcaption>
+      <span class="swatch"><i style="background:var(--lvl)"></i>(a) horizontal asymptote \(y=3\)</span>
+      <span class="swatch"><i style="background:var(--pt)"></i>(b) the point \((0,0)\)</span>
+      <span class="swatch"><i style="background:var(--apr)"></i>(c) the approach at \(x=-1\)</span>
+      <span class="swatch"><i style="background:var(--brk)"></i>(d) pole at \(x=1\), up on both sides</span>
+      <span class="swatch"><i style="background:var(--kink)"></i>(e) the corner, slopes \(-2\) and \(+1\)</span>
+    </figcaption>
+  </figure>
+
+  <p>Read the picture in the order the marks are placed. A straight line of slope \(-2\) comes down
+  through \((-1,2)\) to the origin. There it meets a rising curve at a visible angle: same height,
+  different slope, which is condition (e) in its entirety. That curve crosses \(y=3\) at \(x=\tfrac34\)
+  and runs up the dashed line \(x=1\). On the far side of that line a second branch comes down from
+  \(+\infty\) and flattens onto \(y=3\) from above.</p>
+
+  <div class="callout good">
+    <div class="ch">Why the graph crosses its own asymptote</div>
+    <p>The middle branch starts at height \(0\) and runs to \(+\infty\). If it is drawn without lifting
+    the pen, the Intermediate Value Theorem forces it through every height above \(0\), and \(3\) is one
+    of them. A horizontal asymptote constrains the tail, not the whole curve. Only the vertical
+    asymptote is a barrier, and only because \(f\) is undefined there.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">02</span>The 30-second version</h2>
+  <p>The four-condition version of this question was pure translation. This one is translation
+  <strong>plus routing</strong>, because two conditions share a point and because the curve now has
+  to travel between the marks.</p>
+<pre>
+STEP 1  <b>SORT THE CONDITIONS BY x.</b>   -1 . . . 0 . . . 1 . . . . . -> +inf
+        <span class="g5">x=-1  (c)</span>   <span class="g2">x=0  (b)</span>+<span class="g4">(e)</span>   <span class="g1">x=1  (d)</span>   <span class="g3">tail  (a)</span>
+        TWO of them share x=0.  Reconcile that pair BEFORE drawing.
+
+STEP 2  <span class="g2">x = 0</span>   (b) says the point (0,0) is ON the graph.
+                <span class="g4">(e)</span> says the graph is UNBROKEN there but has NO tangent.
+        Together:  lim_{x->0} f = f(0) = 0, and the curve arrives from
+        both sides with DIFFERENT slopes.  A V-vertex.  Not a smooth
+        minimum.  Not a break.
+
+STEP 3  <span class="g1">x = 1</span>   "lim = inf" is an EQUALITY, not "does not exist".
+        BOTH branches run UP.  Dashed vertical line, curve rising on
+        each side of it.  An EVEN power in a denominator does this;
+        1/(x-1) does NOT.
+
+STEP 4  <span class="g3">x -> +inf</span>  "= 3" -> dashed HORIZONTAL line y=3, right end settles
+        onto it.  With step 3 this forces the right branch back DOWN.
+
+STEP 5  <span class="g5">x = -1</span>  "lim = 2" -> the curve approaches height 2 there.
+        The VALUE f(-1) is your free choice; a solid dot is simplest.
+
+STEP 6  <b>JOIN UP.</b>  -2x, then x/(1-x), then 3+1/(x-1).
+
+CHECK   Slope each side of 0?   -2 and +1.   DIFFERENT -> corner.
+        Height each side of 0?  0 and 0.     SAME      -> continuous.
+        Both sides of x=1 UP?   yes.
+        f(11), f(101), f(1001)? 3.1, 3.01, 3.001.  Gap SHRINKING.
+</pre>
+</section>
+
+<section>
+  <h2><span class="num">03</span>Two conditions at the same x</h2>
+  <p>This is the mechanic the four-condition version did not have. When two conditions name the same
+  \(x\), they must be reconciled before anything is drawn, because the second will otherwise quietly
+  overwrite the first.</p>
+  <p>The matrix below was settled by exhaustive search over a 573-model domain, not by argument. Each
+  model is a tuple of left limit, right limit, value and differentiability, with
+  &ldquo;differentiable implies continuous&rdquo; enforced as an axiom. A cell is impossible exactly
+  when no model satisfies both conditions.</p>
+  <div class="tscroll"><table class="mx"><thead><tr><th></th><th>f(a)=0</th><th>f(a) undef</th><th>lim = 0</th><th>lim = 2</th><th>lim DNE</th><th>lim = +&#8734;</th><th>continuous</th><th>differentiable</th><th>not differentiable</th></tr></thead><tbody><tr><th>f(a)=0</th><td class="d">&#183;</td><td class="n">&#10007;</td><td class="y">ok</td><td class="y hi">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y hi">ok</td><td class="y">ok</td><td class="y">ok</td></tr><tr><th>f(a) undef</th><td class="n">&#10007;</td><td class="d">&#183;</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td></tr><tr><th>lim = 0</th><td class="y">ok</td><td class="y">ok</td><td class="d">&#183;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td></tr><tr><th>lim = 2</th><td class="y hi">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="d">&#183;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td></tr><tr><th>lim DNE</th><td class="y">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="d">&#183;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td></tr><tr><th>lim = +&#8734;</th><td class="y">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="d">&#183;</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td></tr><tr><th>continuous</th><td class="y hi">ok</td><td class="n">&#10007;</td><td class="y">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="d">&#183;</td><td class="y">ok</td><td class="y hi">ok</td></tr><tr><th>differentiable</th><td class="y">ok</td><td class="n">&#10007;</td><td class="y">ok</td><td class="y">ok</td><td class="n">&#10007;</td><td class="n">&#10007;</td><td class="y">ok</td><td class="d">&#183;</td><td class="n">&#10007;</td></tr><tr><th>not differentiable</th><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y">ok</td><td class="y hi">ok</td><td class="n">&#10007;</td><td class="d">&#183;</td></tr></tbody></table></div>
+  <p>There are only sixteen impossible pairs and they come from four ideas: two different values at
+  one point, two different limits at one point, a limit and continuity disagreeing, and
+  differentiable and not differentiable at once.</p>
+
+  <div class="callout">
+    <div class="ch">The two cells students get wrong are both in the &ldquo;ok&rdquo; column</div>
+    <p>\(f(a)=0\) together with \(\lim_{x\to a}f=2\) is <strong>legal</strong>: it is the displaced dot,
+    a hollow circle at \((a,2)\) and a solid dot at \((a,0)\). And &ldquo;continuous <em>and</em> not
+    differentiable&rdquo; is <strong>legal</strong>: it is condition (e), and it is the whole reason
+    this question exists. Both are outlined in the matrix.</p>
+    <p style="margin-top:8px">This tutorial's own first draft had those two cells marked impossible.
+    The exhaustive searcher rejected the draft, which is what a gate is for.</p>
+  </div>
+
+  <h3>Cooperating pairs force a third fact</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th>Pair at the same point</th><th>The fact it forces</th></tr></thead>
+    <tbody>
+      <tr><td>\(f(a)=c\) and continuous at \(a\)</td><td>\(\lim_{x\to a}f = c\) - this is (b) + (e)</td></tr>
+      <tr><td>\(\lim_{x\to a}f=L\) and continuous at \(a\)</td><td>\(f(a) = L\)</td></tr>
+      <tr><td>\(\lim_{x\to a}f=L\) and \(f(a)=c\neq L\)</td><td>not continuous, and therefore not differentiable</td></tr>
+      <tr><td>differentiable at \(a\)</td><td>continuous at \(a\), and therefore \(\lim_{x\to a}f=f(a)\)</td></tr>
+      <tr><td>continuous and <strong>not</strong> differentiable</td><td>corner, cusp or vertical tangent; never a break</td></tr>
+    </tbody>
+  </table></div>
+  <p>The first row is verified rather than argued: conditions (b) and (e) together admit
+  <strong>exactly one</strong> model out of 573, and its two-sided limit is \(0\). Drop the word
+  &ldquo;continuous&rdquo; and <strong>nine</strong> different two-sided behaviours survive. One word
+  does all that work.</p>
+</section>
+
+<section>
+  <h2><span class="num">04</span>&ldquo;\(=\infty\)&rdquo; is stronger than &ldquo;does not exist&rdquo;</h2>
+  <p>This is the single most misread line on the paper, and it is condition (d). The rule underneath
+  is one sentence: <strong>an even power in the denominator keeps the sign, an odd power flips it.</strong></p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Written condition</th><th>Left branch</th><th>Right branch</th><th>A function that does it</th><th>Power</th></tr></thead>
+    <tbody>
+      <tr><td>\(\lim_{x\to a}f = +\infty\)</td><td>up</td><td>up</td><td>\(\dfrac{1}{(x-a)^2}\)</td><td>even</td></tr>
+      <tr><td>\(\lim_{x\to a}f = -\infty\)</td><td>down</td><td>down</td><td>\(-\dfrac{1}{(x-a)^2}\)</td><td>even</td></tr>
+      <tr><td>\(\lim_{x\to a}f\) DNE, asymptote</td><td>down</td><td>up</td><td>\(\dfrac{1}{x-a}\)</td><td>odd</td></tr>
+      <tr><td>\(\lim_{x\to a^+}f = +\infty\) only</td><td>free</td><td>up</td><td>patch the right side</td><td>either</td></tr>
+      <tr><td>\(\lim_{x\to a}f\) DNE, no asymptote</td><td>finite</td><td>finite, different</td><td>a jump</td><td>none</td></tr>
+    </tbody>
+  </table></div>
+  <p>Only two pictures exist here: both branches the same way, or the two branches opposite. Every row
+  is one of those two with labels changed.</p>
+  <div class="callout">
+    <div class="ch">The most attractive wrong answer on this question</div>
+    <p>Change one sign in the middle branch, to \(\dfrac{x}{x-1}\), and conditions (a), (b), (c) and (e)
+    all still hold. But now the left branch runs to \(-\infty\) while the right runs to \(+\infty\), the
+    two-sided limit does not exist, and &ldquo;\(\lim_{x\to1}f=\infty\)&rdquo; becomes false rather than
+    approximate. Verified: that function breaks condition (d) and only condition (d).</p>
+    <p style="margin-top:8px">A hole is also not an asymptote. \(\dfrac{x^2-1}{x-1}\) has a vanishing
+    denominator at \(x=1\) and its limit there is \(2\). The rule is &ldquo;denominator zero
+    <em>after simplification</em>&rdquo;, and the course review file drops that qualifier in one of the
+    three places it states the rule.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">05</span>Routing: what is forced between the marks</h2>
+  <p>Once the marks are placed, each gap between them is a small design problem with a forced answer.
+  This is the step the four-condition version never needed.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>On an interval where \(f\) is continuous</th><th>What is forced</th></tr></thead>
+    <tbody>
+      <tr><td>\(f\) runs from height \(c\) to \(+\infty\)</td><td>\(f\) takes <strong>every</strong> height above \(c\), asymptote heights included</td></tr>
+      <tr><td>\(f\) runs from \(+\infty\) down to \(L\)</td><td>\(f\) takes every value above \(L\), and none at or below it</td></tr>
+      <tr><td>vertical asymptote at \(p\), horizontal at \(L\) for \(x>p\)</td><td>the branch must come <strong>back down</strong>; it cannot keep rising</td></tr>
+      <tr><td>\(f'&gt;0\) throughout, \(\lim_{x\to\infty}f=L\)</td><td>\(f&lt;L\) on that tail, approaching from below, concave down</td></tr>
+      <tr><td>\(f'&lt;0\) throughout, \(\lim_{x\to\infty}f=L\)</td><td>\(f&gt;L\) on that tail, approaching from above, concave up</td></tr>
+    </tbody>
+  </table></div>
+  <p>In this question it bites twice. The middle branch must cross \(y=3\), and the right branch must
+  descend on net. A right branch that climbs contradicts (a) and (d) together, and which one it
+  contradicts depends only on where you stopped drawing.</p>
+  <p>The last two rows answer most of the six-condition version of this question in one line:
+  <strong>a tail that settles onto a horizontal asymptote is concave the opposite way from its
+  direction of travel.</strong></p>
+</section>
+
+<section>
+  <h2><span class="num">06</span>Eight routes, and which one to use</h2>
+  <p>Every function below was audited against all five conditions by the same automated checker, with
+  each condition tested the way its own definition is written.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Route</th><th>The function</th><th>Mechanism at \(0\)</th><th>Speed</th><th>What it buys</th></tr></thead>
+    <tbody>
+      <tr><td><strong>A</strong> line + two hyperbolas</td><td>\(-2x\) / \(\frac{x}{1-x}\) / \(3+\frac{1}{x-1}\)</td><td>corner, \(-2\) and \(+1\)</td><td><strong>fastest</strong></td><td>every landmark is a whole number or a small fraction</td></tr>
+      <tr><td>B one closed formula</td><td>\(\dfrac{3x^2+5\lvert x\rvert}{(x-1)^2}\)</td><td>corner, \(-5\) and \(+5\)</td><td>slow</td><td>shows how the conditions fix the coefficients; \(y=3\) at both ends</td></tr>
+      <tr><td>C two pieces</td><td>\(-2x\) / \(\dfrac{3x^2}{(x-1)^2}\)</td><td>corner, \(-2\) and \(0\)</td><td>fast</td><td>one expression handles (a) and (d) together</td></tr>
+      <tr><td>D hole at \(-1\)</td><td>A, with \(f(-1)=5\) or undefined</td><td>corner</td><td>fast</td><td>proves (c) does not pin \(f(-1)\)</td></tr>
+      <tr><td>E cusp</td><td>\(2\lvert x\rvert^{2/3}\) / \(\dfrac{x^{2/3}}{1-x}\) / \(3+\frac{1}{x-1}\)</td><td>cusp, \(\mp\infty\)</td><td>slow</td><td>the second legal mechanism for (e)</td></tr>
+      <tr><td>F vertical tangent</td><td>\(2\sqrt[3]{-x}\) / \(-2\sqrt[3]{x}+\frac{x}{1-x}\) / \(3+\frac{1}{x-1}\)</td><td>vertical tangent, \(-\infty\) both sides</td><td>slow</td><td>the third; the cusp-versus-tangent distinction</td></tr>
+      <tr><td>G tail from below</td><td>A, right branch \(3+\dfrac{2-x}{(x-1)^2}\)</td><td>corner</td><td>medium</td><td>kills the &ldquo;asymptotes are fences&rdquo; belief; crosses \(y=3\) at \(x=2\)</td></tr>
+      <tr><td>W the wrong reading</td><td>A, middle branch \(\dfrac{x}{x-1}\)</td><td>corner</td><td>fast</td><td><strong>fails (d)</strong>, and only (d)</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Under exam pressure: a straight line into the origin, a second curve leaving it at a
+  visibly different angle, both branches rising up the dashed line \(x=1\), and the right branch
+  flattening onto the dashed line \(y=3\).</strong></p>
+
+  <h3>Any numeric reword is one substitution</h3>
+  <p>For the condition set &ldquo;\(\lim_{x\to\infty}f=H\); \(f(0)=v\); \(\lim_{x\to c}f=m\) with
+  \(c&lt;0\); \(\lim_{x\to p}f=+\infty\) with \(p&gt;0\); continuous but not differentiable at \(0\)&rdquo;:</p>
+  <p>$$f(x)=\begin{cases} v + \dfrac{m-v}{c}\,x, & x\le0\\[8pt] v + \dfrac{x}{p-x}, & 0<x<p\\[8pt] H + \dfrac{1}{x-p}, & x>p \end{cases}$$</p>
+  <p>The corner slopes are \(\frac{m-v}{c}\) and \(\frac1p\). Eight instances of this were audited
+  against their own five conditions. There is exactly one way to get it wrong: if
+  \(\frac{m-v}{c}=\frac1p\) the two slopes agree, the join is straight, and condition (e) fails
+  silently. If your numbers land there, scale the middle branch.</p>
+</section>
+
+<section>
+  <h2><span class="num">07</span>Verify before you commit</h2>
+  <p>Go through the conditions one at a time, in the order given, and point at the feature. Budget
+  thirty seconds of a three-minute answer for this.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Condition</th><th>The check</th><th>What the shipped answer reads</th></tr></thead>
+    <tbody>
+      <tr><td>(a) the tail</td><td>read \(f\) at three growing \(x\); the <strong>gap</strong> must shrink, not merely be small</td><td>\(f(11)=\tfrac{31}{10}\), \(f(101)=\tfrac{301}{100}\), \(f(1001)=\tfrac{3001}{1000}\)</td></tr>
+      <tr><td>(b) the dot</td><td>exactly one solid dot on the line \(x=0\), on the \(x\)-axis</td><td>one dot, at \((0,0)\)</td></tr>
+      <tr><td>(c) the approach</td><td>heights just each side of \(-1\); both near \(2\) and near each other</td><td>\(2+2h\) and \(2-2h\)</td></tr>
+      <tr><td>(d) both branches</td><td>cover each half of the picture in turn; each branch beside \(x=1\) must go <strong>up</strong></td><td>\(+\infty\) on both sides</td></tr>
+      <tr><td>(e) continuity</td><td>heights just each side of \(0\) must be the <strong>same</strong></td><td>\(0\) and \(0\), equal to \(f(0)\)</td></tr>
+      <tr><td>(e) no tangent</td><td>slopes just each side of \(0\) must be <strong>different</strong></td><td>\(-2\) and \(+1\)</td></tr>
+      <tr><td>all</td><td>vertical line test, everywhere</td><td>passes</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <div class="ch">A trap in the checking itself</div>
+    <p>If you check differentiability by sampling either side of \(0\) and averaging, you are computing
+    the <strong>centred</strong> difference \(\frac{f(h)-f(-h)}{2h}\), and for this function it returns a
+    stable, entirely plausible \(-0.5\). That number is just the average of \(-2\) and \(+1\).</p>
+    <p style="margin-top:8px">A centred difference is blind to corners, and here it does something worse
+    than fail: it reports a specific slope, so it looks like a successful measurement. Differentiability
+    has to be tested <strong>one side at a time</strong>, which is what the definition says. The automated
+    checker behind this page was rewritten to do exactly that.</p>
+  </div>
+
+  <h3>The numbers worth memorising</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th>Quantity</th><th class="num">Value</th></tr></thead>
+    <tbody>
+      <tr><td>corner</td><td class="num">\((0,0)\), slopes \(-2\) then \(+1\)</td></tr>
+      <tr><td>\(f(-2),\,f(-\tfrac32),\,f(-1),\,f(-\tfrac12)\)</td><td class="num">\(4,\ 3,\ 2,\ 1\)</td></tr>
+      <tr><td>\(f(\tfrac12),\,f(\tfrac23),\,f(\tfrac34),\,f(\tfrac45),\,f(\tfrac9{10})\)</td><td class="num">\(1,\ 2,\ 3,\ 4,\ 9\) &nbsp; (the pattern is \(\tfrac{n}{n+1}\mapsto n\))</td></tr>
+      <tr><td>\(f(2),\,f(3),\,f(5),\,f(11)\)</td><td class="num">\(4,\ \tfrac72,\ \tfrac{13}4,\ \tfrac{31}{10}\)</td></tr>
+      <tr><td>where the graph crosses \(y=3\)</td><td class="num">\(x=-\tfrac32\) and \(x=\tfrac34\), never again</td></tr>
+      <tr><td>vertical asymptote</td><td class="num">\(x=1\), \(+\infty\) on both sides</td></tr>
+      <tr><td>horizontal asymptote</td><td class="num">\(y=3\), right end only, approached from above</td></tr>
+      <tr><td>\(f'\) by branch</td><td class="num">\(-2\); \(\dfrac{1}{(1-x)^2}\); \(-\dfrac{1}{(x-1)^2}\)</td></tr>
+      <tr><td>shape</td><td class="num">middle branch increasing, concave up; right branch decreasing, concave up</td></tr>
+      <tr><td>left end</td><td class="num">\(f\to+\infty\), and that is unconstrained</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="num">08</span>Answer entry</h2>
+  <p>The sample paper wants prose and a drawing, and a machine can mark neither. So the live delivery
+  almost certainly collects the same ten points as feature boxes, yes/no items, or a graph-selection
+  item. That is inference from two established facts - the platform is answer-only and
+  machine-marked, and a machine cannot mark a freehand curve - and not a verified fact about the
+  platform. Preparing for all three costs nothing, because the content is identical.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>An infinite limit</td><td><code>infinity</code></td><td><code>inf</code>, <code>oo</code>, the symbol, a blank box</td></tr>
+      <tr><td>The horizontal asymptote</td><td><code>y=3</code></td><td><code>3</code>, or <code>x=3</code></td></tr>
+      <tr><td>The vertical asymptote</td><td><code>x=1</code></td><td><code>1</code>, or <code>y=1</code></td></tr>
+      <tr><td>\(\lim_{x\to0}f\)</td><td><code>0</code></td><td><code>DNE</code> - (b) and (e) force it to exist</td></tr>
+      <tr><td>\(f(-1)\), if asked</td><td>whatever <em>your</em> graph does</td><td><code>2</code>, unless you chose the continuous route</td></tr>
+      <tr><td>The mechanism</td><td><code>corner</code></td><td><code>cusp</code>, which is a different thing</td></tr>
+      <tr><td>Continuity at \(0\)</td><td><code>yes</code></td><td><code>no</code>, the commonest slip</td></tr>
+      <tr><td>Continuity at \(1\)</td><td><code>no</code></td><td><code>yes</code></td></tr>
+      <tr><td>The middle branch</td><td><code>x/(1-x)</code></td><td><code>x/1-x</code>, which parses as \(\frac{x}{1}-x\)</td></tr>
+      <tr><td>The right branch</td><td><code>3+1/(x-1)</code></td><td><code>3+1/x-1</code>, which parses as \(3+\frac1x-1\)</td></tr>
+      <tr><td>Multiplication</td><td><code>-2*x</code></td><td><code>-2x</code></td></tr>
+    </tbody>
+  </table></div>
+  <h3>If it is multiple choice, eliminate in this order</h3>
+  <ol>
+    <li>Look at \(x=1\) first. A graph with one branch down dies on (d). This usually removes half the options.</li>
+    <li>Look at \(x=0\). Smooth there dies on (e); broken there also dies on (e).</li>
+    <li>Look at the right tail. Running off, or flattening at the wrong height, dies on (a).</li>
+    <li>Only then check the dot at the origin and the height at \(-1\).</li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">09</span>The variation catalog</h2>
+  <p>The four-condition tutorial already carries the base translation dictionary as its Families 0 to
+  13. This catalog does not repeat them. It covers what can vary in a question that has an
+  interpretation half, conditions that collide, and a route to plan between them.</p>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 0</span><span class="fname">The interpretation half on its own</span><span class="mark">Q5.3 is entirely this</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Trigger</b>&ldquo;Interpret in terms of the graph&rdquo;, &ldquo;give the interpretation&rdquo;, &ldquo;state what each condition means&rdquo;.</div>
+      <div><b>Tool</b>The ledger at the top of this page, read from the notation to the feature name.</div>
+      <div><b>Trap</b>Describing the picture in ordinary words. &ldquo;It jumps&rdquo; is worth less than &ldquo;the one-sided limits are 3 and 2, so the two-sided limit does not exist&rdquo;.</div>
+    </div>
+    <p>A sentence template that always earns the mark:
+    <em>&ldquo;&lt;feature name&gt; at &lt;location&gt;, which means &lt;what the curve does&gt;, and which does not constrain &lt;what it leaves free&gt;.&rdquo;</em>
+    The third clause is the one nobody writes and it is usually where the mark is.</p>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 1</span><span class="fname">Two conditions at the same x</span><span class="mark kink">(b) + (e)</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Trigger</b>Two of the listed conditions mention the same value of \(x\).</div>
+      <div><b>Tool</b>The reconciliation matrix in section 03. Look the pair up before drawing.</div>
+      <div><b>Trap</b>Drawing them one at a time, so the second silently overwrites the first.</div>
+    </div>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 2</span><span class="fname">The infinite-limit wording ladder</span><span class="mark brk">(d)</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Trigger</b>Any condition with \(\infty\) in it near a finite \(x\).</div>
+      <div><b>Tool</b>Read whether the statement is an <strong>equality</strong> or a <strong>denial</strong>. That one word decides the picture. See section 04.</div>
+      <div><b>Trap</b>Treating &ldquo;\(=\infty\)&rdquo; as loose shorthand and drawing \(\frac{1}{x-a}\).</div>
+    </div>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 3</span><span class="fname">Routing between the marked points</span><span class="mark lvl">(a) + (d)</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Trigger</b>Three or more constrained locations at different heights.</div>
+      <div><b>Tool</b>The forced-consequences table in section 05.</div>
+      <div><b>Trap</b>Treating the picture as five independent features and drawing a curve between them that quietly violates one.</div>
+    </div>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 4</span><span class="fname">Mechanisms for &ldquo;continuous but not differentiable&rdquo;</span><span class="mark kink">(e)</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>Mechanism</th><th>One-sided slopes</th><th>Continuous?</th><th>Legal for (e)?</th><th>Cheapest at \(0\)</th></tr></thead>
+      <tbody>
+        <tr><td>Corner</td><td>two different <strong>finite</strong> numbers</td><td>yes</td><td><strong>yes</strong> - use this</td><td>\(\lvert x\rvert\)</td></tr>
+        <tr><td>Cusp</td><td>\(+\infty\) and \(-\infty\), <strong>opposite</strong> signs</td><td>yes</td><td>yes</td><td>\(\lvert x\rvert^{2/3}\)</td></tr>
+        <tr><td>Vertical tangent</td><td>\(\pm\infty\), the <strong>same</strong> sign</td><td>yes</td><td>yes</td><td>\(\sqrt[3]{x}\)</td></tr>
+        <tr><td>Discontinuity</td><td>not applicable</td><td>no</td><td><strong>no</strong></td><td>a jump</td></tr>
+      </tbody>
+    </table></div>
+    <p>The word &ldquo;continuous&rdquo; deletes the last row. Without it, all four are legal, which is
+    what the four-condition version allowed.</p>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 5</span><span class="fname">A finite limit and its three pictures</span><span class="mark apr">(c)</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>Picture</th><th>\(f(a)\)</th><th>Continuous at \(a\)?</th><th>Drawn as</th></tr></thead>
+      <tbody>
+        <tr><td>solid dot on the curve</td><td>\(L\)</td><td>yes</td><td>one solid dot at \((a,L)\)</td></tr>
+        <tr><td>displaced dot</td><td>some \(c\neq L\)</td><td>no</td><td>hollow circle at \((a,L)\), solid dot at \((a,c)\)</td></tr>
+        <tr><td>hole</td><td>undefined</td><td>no</td><td>hollow circle at \((a,L)\), nothing else</td></tr>
+      </tbody>
+    </table></div>
+    <p>All three answer (c) in full. Choose the first, because nothing else in this question touches \(x=-1\).</p>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 6</span><span class="fname">Which tails are constrained</span><span class="mark lvl">(a)</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Trap</b>Forcing both tails onto the same line when only one was named. Extra work, extra risk, no marks.</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Condition set</th><th>Picture</th><th>Example</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to\infty}f=3\) only</td><td>right end flattens, left end free</td><td>route A, whose left tail runs to \(+\infty\)</td></tr>
+        <tr><td>\(\lim_{x\to\pm\infty}f=3\)</td><td>both ends flatten onto the same line</td><td>route B</td></tr>
+        <tr><td>two different finite tails</td><td>two horizontal asymptotes</td><td>\(\dfrac{x}{\sqrt{x^2+1}}\) scaled</td></tr>
+        <tr><td>\(f(x)-(2x+1)\to0\)</td><td>a <strong>slant</strong> asymptote</td><td>\(2x+1+\dfrac1x\)</td></tr>
+      </tbody>
+    </table></div>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 7</span><span class="fname">The parametric generator</span><span class="mark">any numeric reword</span></div>
+  <div class="fam-body"><p>Section 06. Substitute four numbers; nothing has to be re-derived. Eight instances verified, plus the one degenerate case where the two corner slopes coincide.</p></div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 8</span><span class="fname">Adding a sixth condition</span><span class="mark">satisfiable or not</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>Sixth condition</th><th>Verdict</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>&ldquo;\(f\) is differentiable at \(0\)&rdquo;</td><td><strong>impossible</strong></td><td>contradicts (e) directly</td></tr>
+        <tr><td>&ldquo;\(f\) is continuous at \(1\)&rdquo;, or &ldquo;\(f(1)=5\)&rdquo;</td><td><strong>impossible</strong></td><td>(d) makes \(f\) undefined at \(1\)</td></tr>
+        <tr><td>&ldquo;\(\lim_{x\to0}f=2\)&rdquo;</td><td><strong>impossible</strong></td><td>(b) and (e) already force that limit to be \(0\)</td></tr>
+        <tr><td>&ldquo;\(f\) is bounded&rdquo;, or &ldquo;\(f\) is a polynomial&rdquo;</td><td><strong>impossible</strong></td><td>(d) drives \(f\) above every bound; polynomials have no poles</td></tr>
+        <tr><td>&ldquo;the graph never crosses \(y=3\)&rdquo;</td><td><strong>impossible</strong></td><td>routing: the middle branch must cross it</td></tr>
+        <tr><td>&ldquo;\(f(-1)\) is undefined&rdquo;, or &ldquo;\(f(-1)=7\)&rdquo;</td><td>satisfiable</td><td>route D; (c) never pinned the value</td></tr>
+        <tr><td>&ldquo;\(f'&lt;0\) on \((-\infty,0)\)&rdquo;</td><td>satisfiable</td><td>route A already is</td></tr>
+        <tr><td>&ldquo;\(\lim_{x\to-\infty}f=3\) as well&rdquo;</td><td>satisfiable</td><td>route B, which has \(y=3\) at both ends</td></tr>
+      </tbody>
+    </table></div>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 9</span><span class="fname">The reverse question: read conditions off a graph</span><span class="mark">evaluate, do not translate</span></div>
+  <div class="fam-body">
+    <p>Worked example, \(f(x)=\dfrac{2x-6}{(x-2)^2}\): the horizontal asymptote is \(y=0\); the behaviour at
+    \(x=2\) is \(-\infty\) on <strong>both</strong> sides, because the denominator is squared and the numerator
+    is \(-2\) there; \(f(0)=-\tfrac32\); the only \(x\)-intercept is \(x=3\).</p>
+    <p>The sign check is the whole exercise. A squared denominator alone does not give \(+\infty\); the
+    numerator's sign near the pole decides it.</p>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 10</span><span class="fname">Graph selection and elimination order</span><span class="mark">multiple choice</span></div>
+  <div class="fam-body"><p>Section 08. The six near-miss functions used to test this page's own checker are
+  exactly the six distractors an examiner would build: a tail at the wrong height, a value at the wrong
+  height, a limit at the wrong height, no asymptote at all, a smooth join, and a broken join. Each fails
+  exactly one condition and passes the other four, which is what makes a good distractor.</p></div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 11</span><span class="fname">A formula is given; does it satisfy the conditions?</span><span class="mark">audit, do not skim</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>Candidate</th><th>(a)</th><th>(b)</th><th>(c)</th><th>(d)</th><th>(e)</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>\(\dfrac{3x^2+5\lvert x\rvert}{(x-1)^2}\)</td><td>ok</td><td>ok</td><td>ok</td><td>ok</td><td>ok</td><td><strong>works</strong> - route B</td></tr>
+        <tr><td>\(\dfrac{3x^2}{(x-1)^2}\)</td><td>ok</td><td>ok</td><td>no</td><td>ok</td><td>no</td><td>limit at \(-1\) is \(\tfrac34\); smooth at \(0\) with \(f'(0)=0\)</td></tr>
+        <tr><td>\(3+\dfrac{1}{(x-1)^2}\)</td><td>ok</td><td>no</td><td>no</td><td>ok</td><td>no</td><td>\(f(0)=4\); smooth everywhere it is defined</td></tr>
+        <tr><td>\(\dfrac{3x}{x+1}\)</td><td>ok</td><td>ok</td><td>no</td><td>no</td><td>no</td><td>its pole is at \(-1\), not \(1\)</td></tr>
+      </tbody>
+    </table></div>
+    <p>The second row is the instructive one. It gets three of five right, it looks like a serious
+    candidate, and the two it fails are the two this question was built to test.</p>
+  </div></div>
+
+  <div class="fam"><div class="fam-head"><span class="fno">Family 12</span><span class="fname">The same conditions as \(f'\) and \(f''\) signs</span><span class="mark">Q5.3</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f'\)</th><th>\(f''\)</th><th>Shape</th><th>With \(\lim_{x\to\infty}f=L\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(&lt;0\)</td><td>\(&gt;0\)</td><td>falling, concave up</td><td>settles onto \(y=L\) <strong>from above</strong></td></tr>
+        <tr><td>\(&lt;0\)</td><td>\(&lt;0\)</td><td>falling, concave down</td><td>cannot settle; it accelerates downward</td></tr>
+        <tr><td>\(&gt;0\)</td><td>\(&lt;0\)</td><td>rising, concave down</td><td>settles onto \(y=L\) <strong>from below</strong></td></tr>
+        <tr><td>\(&gt;0\)</td><td>\(&gt;0\)</td><td>rising, concave up</td><td>cannot settle</td></tr>
+      </tbody>
+    </table></div>
+    <p>Row one is this answer's right branch, and it is also the six-condition version's conditions (c),
+    (d) and (f) taken together.</p>
+  </div></div>
+</section>
+
+<section>
+  <h2><span class="num">10</span>The trap list</h2>
+  <p>Ranked by how often each one actually costs marks on this question.</p>
+  <ol class="traps">
+    <li><span><strong>Drawing the left side of \(x=1\) going down.</strong> Condition (d) is an equality with \(+\infty\), so both branches rise. Reaching for \(\frac{1}{x-1}\) because it is the hyperbola you know loses the most heavily signalled condition on the item.</span></li>
+    <li><span><strong>Skipping the interpretation half.</strong> The question opens with &ldquo;Interpret in terms of the graph&rdquo;. A perfect sketch and no sentences is at best half of ten points.</span></li>
+    <li><span><strong>Drawing a smooth curve through the origin.</strong> (b) and (e) together do force the curve through \((0,0)\) unbroken, which makes the smooth version feel right. What it must not be is <em>smooth</em>: the pen has to change direction.</span></li>
+    <li><span><strong>Breaking the graph at the origin instead.</strong> The opposite error, from pattern-matching to the four-condition version, where the conditions at \(x=0\) really did force a break. The word &ldquo;continuous&rdquo; is the difference.</span></li>
+    <li><span><strong>Answering &ldquo;no&rdquo; to &ldquo;is \(f\) continuous at \(x=0\)&rdquo;.</strong> The condition says continuous. Three of the four non-differentiability mechanisms are continuous anyway.</span></li>
+    <li><span><strong>Writing \(f(-1)=2\) as though (c) said so.</strong> It says the limit is \(2\). Making \(f(-1)=2\) is a legal choice, not a requirement, and a question can ask which it is.</span></li>
+    <li><span><strong>Believing the graph cannot cross \(y=3\).</strong> It must, on \((0,1)\), if that branch is drawn unbroken. Only vertical asymptotes are barriers.</span></li>
+    <li><span><strong>Forcing the left tail onto \(y=3\) as well.</strong> Only \(x\to+\infty\) was constrained.</span></li>
+    <li><span><strong>Letting the right branch rise.</strong> (a) and (d) together force it back down.</span></li>
+    <li><span><strong>Using a cusp and calling it a corner, or the reverse.</strong> A corner has two different <em>finite</em> one-sided slopes; a cusp has two <em>infinite</em> ones of opposite sign; a vertical tangent has two of the same sign.</span></li>
+    <li><span><strong>Checking differentiability with a centred difference.</strong> It returns a stable \(-0.5\) here, which is just the average of the two true slopes.</span></li>
+    <li><span><strong>Putting the asymptote at \(x=-1\) and the finite limit at \(x=1\).</strong> The conditions are printed out of order along the axis: (c) is at \(-1\) and (d) is at \(1\).</span></li>
+    <li><span><strong>Leaving it unlabelled.</strong> On a ten-point picture the marker is looking for five features. Dash both asymptotes and write their equations.</span></li>
+    <li><span><strong>Failing the vertical line test.</strong> A leftover solid dot turns a correct answer into a non-function.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">11</span>Drill set</h2>
+  <p>No answers beside the questions. Twelve problems in under thirty minutes, on paper. For each one
+  give the interpretation sentences <strong>and</strong> a labelled sketch, and name the mechanism you
+  used at any non-differentiable point.</p>
+  <ol>
+    <li>\(\lim_{x\to\infty}f=-2\); \(f(0)=1\); \(\lim_{x\to-1}f=3\); \(\lim_{x\to2}f=\infty\); continuous but not differentiable at \(0\).</li>
+    <li>All five conditions, but the non-differentiability at \(0\) must be a <strong>cusp</strong>.</li>
+    <li>All five, but with \(\lim_{x\to1}f=-\infty\).</li>
+    <li>All five except that \(\lim_{x\to1}f\) <strong>does not exist</strong> because the two sides disagree.</li>
+    <li>All five, and in addition \(f(-1)\) is undefined.</li>
+    <li>Explain why <strong>no</strong> function can satisfy \(\lim_{x\to1}f=\infty\) and &ldquo;\(f\) is continuous at \(1\)&rdquo;.</li>
+    <li>Explain why <strong>no</strong> function can satisfy &ldquo;\(f\) is differentiable at \(0\)&rdquo; together with condition (e).</li>
+    <li>All five, and in addition \(\lim_{x\to-\infty}f=3\).</li>
+    <li>All five, but the right branch must approach \(y=3\) <strong>from below</strong>.</li>
+    <li>Given \(f(x)=\dfrac{2x-6}{(x-2)^2}\), state the horizontal asymptote, the behaviour at \(x=2\) on each side, \(f(0)\), and every \(x\)-intercept.</li>
+    <li>Write a function for: \(\lim_{x\to\infty}f=-1\); \(f(0)=0\); \(\lim_{x\to-2}f=4\); \(\lim_{x\to2}f=\infty\); continuous but not differentiable at \(0\).</li>
+    <li>All five, and in addition \(f'(x)&lt;0\) on \((-\infty,0)\).</li>
+  </ol>
+
+  <h3>Answer key</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th class="num">#</th><th>One valid answer</th><th>The key features</th><th>Family</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>\(1-2x\) / \(1+\frac{x}{2-x}\) / \(-2+\frac{1}{x-2}\)</td><td>corner at \((0,1)\), slopes \(-2\) and \(+\tfrac12\); pole at \(2\); \(y=-2\) right</td><td>7</td></tr>
+      <tr><td class="num">2</td><td>route E</td><td>quotient \(\to-\infty\) left, \(+\infty\) right</td><td>4</td></tr>
+      <tr><td class="num">3</td><td>\(-2x\) / \(-\frac{x}{1-x}\) / \(3-\frac{1}{x-1}\)</td><td>both branches at \(x=1\) run down; the other four conditions untouched</td><td>2</td></tr>
+      <tr><td class="num">4</td><td>route W</td><td>left \(\to-\infty\), right \(\to+\infty\); the limit genuinely DNE</td><td>2</td></tr>
+      <tr><td class="num">5</td><td>route A with \(f(-1)\) deleted</td><td>hollow circle at \((-1,2)\), nothing else in that column</td><td>5</td></tr>
+      <tr><td class="num">6</td><td>no such function</td><td>continuity needs \(f(1)\) to exist and equal a <em>finite</em> limit</td><td>1</td></tr>
+      <tr><td class="num">7</td><td>no such function</td><td>differentiable and not differentiable at once</td><td>1</td></tr>
+      <tr><td class="num">8</td><td>route B</td><td>\(y=3\) at both ends; corner slopes \(\pm5\)</td><td>6</td></tr>
+      <tr><td class="num">9</td><td>route G</td><td>still \(+\infty\) at \(1^+\); crosses \(y=3\) at \(x=2\)</td><td>3 and 6</td></tr>
+      <tr><td class="num">10</td><td>\(y=0\); \(-\infty\) both sides; \(f(0)=-\tfrac32\); intercept \(x=3\)</td><td>squared denominator plus a negative numerator gives \(-\infty\) twice</td><td>9</td></tr>
+      <tr><td class="num">11</td><td>\(-2x\) / \(\frac{x}{2-x}\) / \(-1+\frac{1}{x-2}\)</td><td>corner slopes \(-2\) and \(+\tfrac12\); pole at \(2\); \(y=-1\) right</td><td>7</td></tr>
+      <tr><td class="num">12</td><td>route A</td><td>it already has \(f'=-2\) on the whole left branch</td><td>12</td></tr>
+    </tbody>
+  </table></div>
+  <p>Mark yourself on three separate scores, because they fail for different reasons.
+  <strong>Wording</strong> (3, 4, 6, 10): if these went wrong you are reading \(\infty\) as decoration
+  rather than as a claim about both sides.
+  <strong>Collisions</strong> (2, 5, 7, 12): you are not reconciling conditions that share an \(x\).
+  <strong>Construction</strong> (1, 8, 9, 11): memorise the generator's three lines and these become free.</p>
+</section>
+
+<section>
+  <h2><span class="num">12</span>The one-page decision tree</h2>
+<pre>
+"Interpret the conditions, then sketch a single function satisfying them."
+|
++-- STEP 0.  <b>ANSWER THE FIRST SENTENCE.</b>  For each condition write:
+|            "&lt;FEATURE NAME&gt; at &lt;where&gt;, which means &lt;what the curve does&gt;,
+|             and which does NOT constrain &lt;what it leaves free&gt;."
+|            That is half the marks and it needs no drawing.
+|
++-- STEP 1.  <b>SORT THE CONDITIONS ONTO THE x-AXIS.</b>
+|            Tails go in a separate pile.  They are usually printed
+|            OUT OF ORDER.
+|
++-- STEP 2.  <b>TWO CONDITIONS AT THE SAME x?</b>
+|      no  -> independent.  Draw them in any order.
+|      yes -> reconcile FIRST:
+|                f(a)=c  + continuous         -> FORCES lim = c
+|                lim=L   + continuous         -> FORCES f(a) = L
+|                f(a)=c  + lim=L, c != L      -> displaced dot, NOT continuous
+|                f(a)=c  + lim DNE            -> break with an isolated dot
+|                <span class="g4">cont    + not differentiable -> corner / cusp / vertical tangent</span>
+|                <span class="g1">lim=+inf+ continuous         -> IMPOSSIBLE</span>
+|                f(a) undef + continuous      -> IMPOSSIBLE
+|                diff    + not diff           -> IMPOSSIBLE
+|             If impossible: name the two conditions and draw NOTHING.
+|
++-- STEP 3.  <b>TRANSLATE.</b>
+|                <span class="g1">lim = +-infinity AT a  -> VERTICAL ASYMPTOTE at a</span>
+|                    EQUALITY "= +inf" -> BOTH branches UP.   Even power.
+|                    DENIAL   "DNE"    -> branches DISAGREE.  Odd power.
+|                <span class="g3">lim at +-infinity      -> HORIZONTAL ASYMPTOTE, THAT END ONLY</span>
+|                <span class="g5">lim = L at finite a    -> both branches converge; VALUE still free</span>
+|                <span class="g2">f(a) = b               -> ONE SOLID DOT at (a,b)</span>
+|                <span class="g4">continuous + not diff  -> CORNER is the cheapest of three</span>
+|
++-- STEP 4.  <b>DRAW THE FRAME ONLY.</b>  Axes.  A dashed line for each
+|            asymptote, labelled with its equation.  A tick at every
+|            constrained x.  No curves yet.
+|
++-- STEP 5.  <b>PLACE THE MARKS.</b>  Solid dot where a value exists, hollow
+|            circle where a limit is approached but not attained.
+|            EXACTLY ONE solid dot on any vertical line.
+|
++-- STEP 6.  <b>ROUTE BETWEEN THE MARKS.</b>  For each gap ask what is FORCED:
+|                mark -> +inf on a continuous branch: it crosses EVERY
+|                        height above the mark, asymptote heights included.
+|                +inf -> horizontal asymptote L: the branch must come DOWN.
+|                falling onto an asymptote -> concave UP, from above.
+|                rising  onto an asymptote -> concave DOWN, from below.
+|
++-- STEP 7.  <b>CHECK, condition by condition, in the order given.</b>
+|            lim at inf = L  -> read f at 3 growing x.  The GAP must SHRINK.
+|            f(a) = b        -> exactly one solid dot, at the right height.
+|            lim at a = L    -> read the height EACH SIDE.  Both near L.
+|            lim at a = +inf -> cover each half.  BOTH branches must go UP.
+|            cont + not diff -> heights each side SAME, slopes each side
+|                               DIFFERENT.  Never a centred difference.
+|            is it a function? -> vertical line test, everywhere.
+|
++-- STEP 8.  <b>LABEL.</b>  Both asymptote equations, the height at every
+             marked point, the word "corner" at the kink.  An unlabelled
+             correct sketch and an unlabelled wrong one look the same.
+</pre>
+</section>
+
+<section>
+  <h2><span class="num">13</span>How every number here was checked</h2>
+  <p>A sketch question has no single numeric answer, so what is verified is that a proposed function
+  satisfies the <strong>conditions</strong>. Each condition is tested the way its own definition is
+  written, never by looking at one sample point: a finite limit must show an error shrinking by at
+  least a factor of five along a ladder down to \(10^{-6}\); a limit at infinity must shrink along a
+  ladder up to \(10^{8}\); a pole must show a magnitude increasing at every rung, exceeding
+  \(10^{8}\), with a consistent sign on <em>each side separately</em>; a corner must show two
+  one-sided difference quotients each stable across \(h\in[10^{-5},10^{-7}]\) and differing from each
+  other.</p>
+  <div class="tscroll"><table>
+    <thead><tr><th>Gate</th><th class="num">Checks</th><th>Proved live by</th></tr></thead>
+    <tbody>
+      <tr><td>Five-condition audit of all eight routes</td><td class="num">322 total in the section, 0 failures</td><td>six seeded near-misses, each required to break <em>exactly</em> its own condition and leave the other four standing</td></tr>
+      <tr><td>Individual claim checkers</td><td class="num">20 lies, 13 truths</td><td>all 20 false claims rejected, all 13 true ones accepted</td></tr>
+      <tr><td>Exact rational second pass</td><td class="num">800 agreement points</td><td>\(f(11)\) verified as \(\tfrac{31}{10}\), not \(3.1\); the corner proved with no floating point at all</td></tr>
+      <tr><td>The same-\(x\) matrix</td><td class="num">573 models, 16 impossible pairs</td><td>exhaustive search; the printed set is asserted to equal the search result, reporting any extra or missing cell</td></tr>
+      <tr><td>The figure on this page</td><td class="num">20 checks, 0 failures</td><td>re-read from its own pixels against the five conditions after it was drawn</td></tr>
+      <tr><td>Whole harness file</td><td class="num">4575 pass, 2 fail</td><td>both failures pre-existing and in an unrelated linear-approximation section, where a tolerance is tighter than the approximation error</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <div class="ch">Two verifier defects, and both looked exactly like wrong mathematics</div>
+    <p><strong>One.</strong> Route B's corner slopes were reported wrong. They are \(\pm5\), and the
+    checker's default tolerance of \(10^{-4}\) rejected them. The one-sided quotient is exactly
+    \(\frac{3h+5}{(h-1)^2}\), which is \(5+13h+O(h^2)\); at the ladder's first rung \(h=10^{-5}\) that is
+    \(5.00013\), missing a \(10^{-4}\) window by thirty per cent. The error is <em>truncation</em>, not
+    roundoff, and it scales with the second derivative: a tolerance calibrated on a piecewise-linear
+    corner is too tight for a curved one. The claim now ships at \(10^{-3}\), with the exact rational
+    identity beside it, one control confirming the original tolerance still rejects it, and a second
+    confirming \(10^{-3}\) still rejects a genuinely wrong pair of slopes.</p>
+    <p style="margin-top:8px"><strong>Two.</strong> The same-\(x\) matrix disagreed with the exhaustive
+    searcher on two cells. The <em>author</em> was wrong, not the searcher: a value together with a
+    different finite limit is the displaced dot, and it is legal. That is the single idea this question
+    is built on, and the gate caught the tutorial writing it down backwards.</p>
+  </div>
+
+  <div class="callout">
+    <div class="ch">And one layout gate that was protecting nothing</div>
+    <p>Both browser gates rendered the narrow cases with Chrome's <em>mobile</em> emulation. A local
+    artifact file has no viewport meta tag, because the publish skeleton adds it, so mobile emulation
+    falls back to a layout viewport of about 918 CSS pixels and the &ldquo;430px&rdquo; case silently
+    measured a <strong>wide</strong> layout. Measured on this page: the figure container reported a
+    client width of 918 with mobile emulation on and 367 with it off, at the same declared 430px. The
+    narrow half of the layout gate had never tested a narrow layout on any local file. Both tools now
+    use desktop metrics, which reproduce exactly the layout the published page gets at 430 CSS pixels;
+    after the fix the containment probe reports 16 of 16 tables <em>actually scrolling</em> at 430px,
+    where before it reported 3.</p>
+    <p style="margin-top:8px">Three label collisions in this figure were caught the same way, by
+    looking at the rendered page rather than at the code: <code>x = 1</code> and <code>corner (0, 0)</code>
+    sat on top of the tick labels, and the dashed rules struck through the <code>3</code> and
+    <code>1</code> ticks. None of that is visible in the source, and no automated check found it.</p>
+  </div>
+
+  <p>The figure is generated from the function, not drawn. Each branch is sampled <strong>separately</strong>
+  and stops exactly on its own breakpoint, because a uniformly sampled polyline steps across \(x=0\) and
+  rounds the corner off, which is the one feature the question tests. The finished figure is then re-read
+  from its own coordinates: the left polyline ends exactly at the origin and the middle one starts exactly
+  there; the drawn screen slope changes across that junction; no point lands on the pole column \(x=1\);
+  every right-branch point is strictly above \(y=3\) and its gap to that line shrinks monotonically without
+  reaching zero. An earlier plot geometry was rejected because the middle branch's topmost sample rounded
+  onto the asymptote's own column.</p>
+</section>
+
+<footer>
+  <p><strong>Sources.</strong> Question text from <code>MATH265.md</code> (Q5.2) and
+  <code>MATH265\MATH265.md</code> (Midterm Exam 2, item 5, 10 points). Midterm 2 prints each point value
+  on the line <em>above</em> its question, which is fixed by the first value appearing between the paper's
+  title and item 1; its eleven items sum to 94 points.</p>
+  <p style="margin-top:10px"><strong>Conflicts in the course notes, recorded rather than smoothed over.</strong>
+  <code>MATH265_Review.md</code> states the non-differentiability list four times and the four statements
+  disagree; one gives only three items and omits discontinuity, which is wrong in general and happens to be
+  exactly right for condition (e). Another writes &ldquo;Sharp corners (cusps)&rdquo;, merging two different
+  things. It also states the vertical-asymptote rule in three places and only some carry the
+  &ldquo;after simplification&rdquo; qualifier; without it the rule misclassifies every removable hole as an
+  asymptote. And <code>MATH265\MATH265.md</code> claims that a defined \(f(0)\) rules out a vertical
+  asymptote, which is false: defining a value places one dot and says nothing about the behaviour nearby.
+  Treat these files as study aids, not authorities.</p>
+  <p style="margin-top:10px">This page is the browser version of
+  <code>notes\Q5.2 - Interpret five conditions, then sketch.md</code>, and it is written to complement the
+  four-condition tutorial rather than duplicate it: that one owns the base translation dictionary and its
+  Families 0 to 13, this one owns the interpretation half, the same-\(x\) matrix, the equality-versus-denial
+  reading of \(\infty\), the routing constraints, and the parametric generator. Nothing here was copied from
+  a solution key. Every route was constructed, then audited against the five conditions, then re-derived by
+  exact arithmetic where exact arithmetic applies.</p>
+</footer>
+
+</div>

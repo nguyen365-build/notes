@@ -1,0 +1,511 @@
+<title>The y-prime Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q9.1 was a
+   four-station pipeline.  Q10.1 is a LEDGER: the equation splits into terms,
+   each term splits into pieces, and every piece either carries a y' or it
+   does not.  That single binary is the whole subject, so it owns the two
+   loudest hues and the page's signature table is built on it.
+
+     CARRIES A y'  (the chain factor you must not drop)   --rul   amber
+     NO y'         (the ordinary derivative half)         --chn   slate
+     WHERE MARKS DIE                                      --los   terracotta
+     THE VARIATION families                               --fam   teal
+     NUMERICS: gates, arms, tolerances, controls          --num   mauve
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 1, item 8 &middot; 5 points</div>
+  <h1>The y-prime Ledger</h1>
+  <p class="deck">Implicit differentiation is not a new rule. It is the chain rule applied to a function nobody gave you a formula for, and every mark on this question is won or lost by whether four terms in a row remember that.</p>
+  <p class="stem">Find \(y'\) using implicit differentiation: &nbsp; \(x^3 y + x y^2 = 4xy + 7\)</p>
+  <div class="verdict">
+    <div>
+      <div class="vlab">The answer</div>
+      <div class="big">\(y' = \dfrac{4y - 3x^2 y - y^2}{x^3 + 2xy - 4x}\)</div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">It contains both \(x\) and \(y\), and that is <b>correct, not unfinished</b>. Factored, it is \(\dfrac{y(4-3x^2-y)}{x(x^2+2y-4)}\).</p>
+    </div>
+    <div>
+      <div class="vlab">Type into M&ouml;bius</div>
+      <div class="big"><code style="font-size:14.5px">(4*y-3*x^2*y-y^2)/(x^3+2*x*y-4*x)</code></div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">Bracket the <b>whole</b> numerator and the <b>whole</b> denominator. Leave <code>y</code> in as a variable. Preview before submitting.</p>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2><span class="snum">01</span>The one idea</h2>
+  <p class="lede">If you take away one sentence, take this one.</p>
+  <p><b>\(y\) is secretly \(y(x)\).</b> So differentiating a \(y\) is a composite-function problem, and the \(y'\) that appears is nothing more exotic than the inner derivative.</p>
+  <p>You already do this without noticing. When you write \(\frac{d}{dx}\sin(x^2) = \cos(x^2)\cdot 2x\), the \(2x\) is the derivative of the inside. When you write \(\frac{d}{dx}[y^2] = 2y\cdot y'\), the \(y'\) is the derivative of the inside. Same rule, same reason, same line of your own notes from six weeks ago.</p>
+  <div class="note">
+    <div class="nl">Why this matters more than five marks</div>
+    <p>MT1 item 7, the gravel cone, asks you to get \(\frac{dV}{dt} = \frac{\pi}{4}h^2\frac{dh}{dt}\). That \(\frac{dh}{dt}\) is the same object as this \(y'\), arriving for the same reason. Two items on the same paper, five points each, one idea. Related rates is this question wearing a hat.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">02</span>The term ledger</h2>
+  <p class="lede">This is the whole method as a bookkeeping exercise. Each term of the equation produces one or two pieces, and each piece either carries a \(y'\) or it does not.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>term</th><th>rule it needs</th><th class="ypn">piece without \(y'\)</th><th class="ypy">piece with \(y'\)</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">x^3 y</td><td>Product Rule, then \(\frac{d}{dx}[y]=y'\)</td><td class="ypn">\(3x^2 y\)</td><td class="ypy">\(x^3\,y'\)</td></tr>
+        <tr><td class="mono">x y^2</td><td>Product Rule, then Chain Rule on \(y^2\)</td><td class="ypn">\(y^2\)</td><td class="ypy">\(2xy\,y'\)</td></tr>
+        <tr><td class="mono">4 x y</td><td>Constant Multiple, then Product Rule</td><td class="ypn">\(4y\)</td><td class="ypy">\(4x\,y'\)</td></tr>
+        <tr><td class="mono">7</td><td>constant</td><td class="ypn">\(0\)</td><td class="ypy">none</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px">Read the two right-hand columns as the two sides of the answer. The <span class="mark rul">\(y'\) column</span> becomes the denominator. The <span class="mark chn">no-\(y'\) column</span> becomes the numerator, with its signs flipped as it crosses the equals sign.</p>
+
+  <div class="pipe steps">
+    <div><p class="st">Step 1 &middot; differentiate</p><p class="sv">\(3x^2y + x^3y' + y^2 + 2xy\,y' = 4y + 4xy'\)</p><p class="sn">Both sides, term by term, exactly as printed. Move nothing first.</p></div>
+    <div><p class="st">Step 2 &middot; split</p><p class="sv">\(x^3y' + 2xy\,y' - 4xy' = 4y - 3x^2y - y^2\)</p><p class="sn">Every \(y'\) piece left, everything else right. Flip signs as they cross.</p></div>
+    <div><p class="st">Step 3 &middot; factor</p><p class="sv">\(y'\left(x^3+2xy-4x\right) = 4y - 3x^2y - y^2\)</p><p class="sn">The bracket is the \(y'\) column of the ledger, verbatim.</p></div>
+    <div class="hot"><p class="st">Step 4 &middot; divide, then STOP</p><p class="sv">\(y' = \dfrac{4y-3x^2y-y^2}{x^3+2xy-4x}\)</p><p class="sn">Do not try to eliminate \(y\). It cannot be done and it is not wanted.</p></div>
+  </div>
+
+  <div class="note">
+    <div class="nl">The two-second audit that catches almost everything</div>
+    <p>Three of the four terms are <b>mixed</b>: they hold an \(x\) and a \(y\) at once. A mixed term always produces <b>exactly two</b> pieces. So after differentiating you must have \(3\times 2 = 6\) terms. Count them: \(3x^2y,\; x^3y',\; y^2,\; 2xy\,y',\; 4y,\; 4xy'\). Six. If you have five, you dropped a \(y'\), and that is the single most common way this question is failed.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">03</span>Why the answer contains \(y\)</h2>
+  <p class="lede">Students delete the \(y\) because the answer looks unfinished. Here is the picture that shows why it cannot be deleted.</p>
+  <p>An implicit equation usually defines <b>more than one</b> function of \(x\). This one is a quadratic in \(y\), namely \(xy^2 + (x^3-4x)y - 7 = 0\), so above almost every \(x\) there are two points on the curve, with two different slopes. No formula in \(x\) alone could report both. The \(y\) is what tells them apart.</p>
+  <div class="fscroll figbox">
+<svg viewBox="0 0 720 400" width="100%" style="max-width:720px;height:auto" role="img" aria-label="The curve x cubed y plus x y squared equals 4xy plus 7. Above x = 2 the curve has two points, at y = plus and minus root 14 over 2, with two different tangent slopes."><line class="gridl" x1="46.0" y1="339.4" x2="704.0" y2="339.4"/><line class="gridl" x1="46.0" y1="295.1" x2="704.0" y2="295.1"/><line class="gridl" x1="46.0" y1="250.8" x2="704.0" y2="250.8"/><line class="gridl" x1="46.0" y1="206.5" x2="704.0" y2="206.5"/><line class="gridl" x1="46.0" y1="162.2" x2="704.0" y2="162.2"/><line class="gridl" x1="46.0" y1="117.9" x2="704.0" y2="117.9"/><line class="gridl" x1="46.0" y1="73.6" x2="704.0" y2="73.6"/><line class="gridl" x1="46.0" y1="29.3" x2="704.0" y2="29.3"/><line class="gridl" x1="178.5" y1="16.0" x2="178.5" y2="366.0"/><line class="gridl" x1="407.0" y1="16.0" x2="407.0" y2="366.0"/><line class="gridl" x1="635.5" y1="16.0" x2="635.5" y2="366.0"/><line class="axis" x1="46.0" y1="206.5" x2="704.0" y2="206.5"/><line class="axis" x1="46.0" y1="16.0" x2="46.0" y2="366.0"/><text class="tl lab" x="178.5" y="380.0" text-anchor="middle">1</text><text class="tl lab" x="407.0" y="380.0" text-anchor="middle">2</text><text class="tl lab" x="635.5" y="380.0" text-anchor="middle">3</text><text class="tl lab" x="40.0" y="342.8" text-anchor="end">-6</text><text class="tl lab" x="40.0" y="298.5" text-anchor="end">-4</text><text class="tl lab" x="40.0" y="254.2" text-anchor="end">-2</text><text class="tl lab" x="40.0" y="165.6" text-anchor="end">2</text><text class="tl lab" x="40.0" y="121.3" text-anchor="end">4</text><text class="tl lab" x="40.0" y="77.0" text-anchor="end">6</text><text class="tl lab" x="40.0" y="32.7" text-anchor="end">8</text><text class="tl lab" x="40.0" y="209.9" text-anchor="end">0</text><text class="tl lab" x="704.0" y="394.0" text-anchor="middle">x</text><text class="tl lab" x="16.0" y="24.0" text-anchor="middle">y</text><line class="lev" x1="407.0" y1="161.1" x2="407.0" y2="340.0"/><polyline class="curve" points="46.00,64.30 47.94,65.22 49.87,66.13 51.81,67.01 53.74,67.87 55.68,68.72 57.61,69.54 59.55,70.35 61.48,71.14 63.42,71.92 65.35,72.68 67.29,73.43 69.22,74.17 71.16,74.89 73.09,75.60 75.03,76.30 76.96,76.99 78.90,77.67 80.84,78.34 82.77,79.00 84.71,79.65 86.64,80.30 88.58,80.93 90.51,81.56 92.45,82.18 94.38,82.79 96.32,83.40 98.25,84.00 100.19,84.59 102.12,85.18 104.06,85.76 105.99,86.34 107.93,86.91 109.86,87.48 111.80,88.05 113.74,88.61 115.67,89.16 117.61,89.71 119.54,90.26 121.48,90.81 123.41,91.35 125.35,91.88 127.28,92.42 129.22,92.95 131.15,93.48 133.09,94.01 135.02,94.53 136.96,95.05 138.89,95.57 140.83,96.09 142.76,96.61 144.70,97.12 146.64,97.63 148.57,98.14 150.51,98.65 152.44,99.16 154.38,99.67 156.31,100.17 158.25,100.68 160.18,101.18 162.12,101.68 164.05,102.18 165.99,102.68 167.92,103.18 169.86,103.68 171.79,104.18 173.73,104.68 175.66,105.18 177.60,105.67 179.54,106.17 181.47,106.66 183.41,107.16 185.34,107.65 187.28,108.15 189.21,108.64 191.15,109.14 193.08,109.63 195.02,110.13 196.95,110.62 198.89,111.12 200.82,111.61 202.76,112.11 204.69,112.60 206.63,113.10 208.56,113.59 210.50,114.09 212.44,114.58 214.37,115.08 216.31,115.57 218.24,116.07 220.18,116.57 222.11,117.06 224.05,117.56 225.98,118.06 227.92,118.55 229.85,119.05 231.79,119.55 233.72,120.05 235.66,120.55 237.59,121.05 239.53,121.55 241.46,122.05 243.40,122.55 245.34,123.06 247.27,123.56 249.21,124.06 251.14,124.56 253.08,125.07 255.01,125.57 256.95,126.08 258.88,126.58 260.82,127.09 262.75,127.59 264.69,128.10 266.62,128.61 268.56,129.12 270.49,129.62 272.43,130.13 274.36,130.64 276.30,131.15 278.24,131.66 280.17,132.17 282.11,132.68 284.04,133.19 285.98,133.70 287.91,134.21 289.85,134.73 291.78,135.24 293.72,135.75 295.65,136.26 297.59,136.78 299.52,137.29 301.46,137.80 303.39,138.31 305.33,138.83 307.26,139.34 309.20,139.86 311.14,140.37 313.07,140.88 315.01,141.40 316.94,141.91 318.88,142.43 320.81,142.94 322.75,143.45 324.68,143.97 326.62,144.48 328.55,144.99 330.49,145.51 332.42,146.02 334.36,146.53 336.29,147.04 338.23,147.55 340.16,148.06 342.10,148.58 344.04,149.09 345.97,149.59 347.91,150.10 349.84,150.61 351.78,151.12 353.71,151.63 355.65,152.13 357.58,152.64 359.52,153.14 361.45,153.64 363.39,154.14 365.32,154.65 367.26,155.15 369.19,155.64 371.13,156.14 373.06,156.64 375.00,157.13 376.94,157.63 378.87,158.12 380.81,158.61 382.74,159.10 384.68,159.58 386.61,160.07 388.55,160.55 390.48,161.04 392.42,161.52 394.35,161.99 396.29,162.47 398.22,162.94 400.16,163.42 402.09,163.89 404.03,164.35 405.96,164.82 407.90,165.28 409.84,165.74 411.77,166.20 413.71,166.66 415.64,167.11 417.58,167.56 419.51,168.01 421.45,168.45 423.38,168.90 425.32,169.34 427.25,169.77 429.19,170.21 431.12,170.64 433.06,171.06 434.99,171.49 436.93,171.91 438.86,172.33 440.80,172.74 442.74,173.15 444.67,173.56 446.61,173.97 448.54,174.37 450.48,174.77 452.41,175.16 454.35,175.55 456.28,175.94 458.22,176.32 460.15,176.70 462.09,177.08 464.02,177.45 465.96,177.82 467.89,178.19 469.83,178.55 471.76,178.91 473.70,179.26 475.64,179.61 477.57,179.96 479.51,180.30 481.44,180.64 483.38,180.97 485.31,181.31 487.25,181.63 489.18,181.96 491.12,182.28 493.05,182.59 494.99,182.90 496.92,183.21 498.86,183.52 500.79,183.82 502.73,184.11 504.66,184.41 506.60,184.70 508.54,184.98 510.47,185.26 512.41,185.54 514.34,185.82 516.28,186.09 518.21,186.35 520.15,186.62 522.08,186.88 524.02,187.13 525.95,187.39 527.89,187.63 529.82,187.88 531.76,188.12 533.69,188.36 535.63,188.60 537.56,188.83 539.50,189.06 541.44,189.28 543.37,189.50 545.31,189.72 547.24,189.94 549.18,190.15 551.11,190.36 553.05,190.57 554.98,190.77 556.92,190.97 558.85,191.17 560.79,191.36 562.72,191.55 564.66,191.74 566.59,191.92 568.53,192.11 570.46,192.29 572.40,192.46 574.34,192.64 576.27,192.81 578.21,192.98 580.14,193.15 582.08,193.31 584.01,193.47 585.95,193.63 587.88,193.79 589.82,193.94 591.75,194.10 593.69,194.25 595.62,194.39 597.56,194.54 599.49,194.68 601.43,194.82 603.36,194.96 605.30,195.10 607.24,195.24 609.17,195.37 611.11,195.50 613.04,195.63 614.98,195.75 616.91,195.88 618.85,196.00 620.78,196.12 622.72,196.24 624.65,196.36 626.59,196.48 628.52,196.59 630.46,196.70 632.39,196.81 634.33,196.92 636.26,197.03 638.20,197.14 640.14,197.24 642.07,197.35 644.01,197.45 645.94,197.55 647.88,197.64 649.81,197.74 651.75,197.84 653.68,197.93 655.62,198.02 657.55,198.12 659.49,198.21 661.42,198.30 663.36,198.38 665.29,198.47 667.23,198.56 669.16,198.64 671.10,198.72 673.04,198.80 674.97,198.88 676.91,198.96 678.84,199.04 680.78,199.12 682.71,199.20 684.65,199.27 686.58,199.34 688.52,199.42 690.45,199.49 692.39,199.56 694.32,199.63 696.26,199.70 698.19,199.77 700.13,199.83 702.06,199.90 704.00,199.97"/><polyline class="curve" points="46.00,264.02 47.94,263.25 49.87,262.51 51.81,261.79 53.74,261.10 55.68,260.42 57.61,259.77 59.55,259.14 61.48,258.53 63.42,257.94 65.35,257.36 67.29,256.81 69.22,256.26 71.16,255.74 73.09,255.23 75.03,254.73 76.96,254.25 78.90,253.78 80.84,253.32 82.77,252.88 84.71,252.45 86.64,252.03 88.58,251.62 90.51,251.22 92.45,250.83 94.38,250.45 96.32,250.09 98.25,249.73 100.19,249.38 102.12,249.04 104.06,248.71 105.99,248.38 107.93,248.07 109.86,247.76 111.80,247.46 113.74,247.17 115.67,246.89 117.61,246.61 119.54,246.34 121.48,246.07 123.41,245.81 125.35,245.56 127.28,245.32 129.22,245.08 131.15,244.84 133.09,244.62 135.02,244.39 136.96,244.18 138.89,243.97 140.83,243.76 142.76,243.56 144.70,243.36 146.64,243.17 148.57,242.99 150.51,242.80 152.44,242.63 154.38,242.46 156.31,242.29 158.25,242.12 160.18,241.96 162.12,241.81 164.05,241.66 165.99,241.51 167.92,241.37 169.86,241.23 171.79,241.09 173.73,240.96 175.66,240.83 177.60,240.71 179.54,240.59 181.47,240.47 183.41,240.36 185.34,240.25 187.28,240.14 189.21,240.04 191.15,239.94 193.08,239.84 195.02,239.75 196.95,239.65 198.89,239.57 200.82,239.48 202.76,239.40 204.69,239.32 206.63,239.25 208.56,239.18 210.50,239.11 212.44,239.04 214.37,238.98 216.31,238.92 218.24,238.86 220.18,238.81 222.11,238.76 224.05,238.71 225.98,238.66 227.92,238.62 229.85,238.58 231.79,238.54 233.72,238.50 235.66,238.47 237.59,238.44 239.53,238.42 241.46,238.39 243.40,238.37 245.34,238.35 247.27,238.34 249.21,238.32 251.14,238.31 253.08,238.31 255.01,238.30 256.95,238.30 258.88,238.30 260.82,238.30 262.75,238.31 264.69,238.32 266.62,238.33 268.56,238.34 270.49,238.36 272.43,238.38 274.36,238.40 276.30,238.43 278.24,238.45 280.17,238.49 282.11,238.52 284.04,238.56 285.98,238.59 287.91,238.64 289.85,238.68 291.78,238.73 293.72,238.78 295.65,238.83 297.59,238.89 299.52,238.95 301.46,239.01 303.39,239.08 305.33,239.14 307.26,239.22 309.20,239.29 311.14,239.37 313.07,239.45 315.01,239.53 316.94,239.62 318.88,239.71 320.81,239.80 322.75,239.90 324.68,240.00 326.62,240.11 328.55,240.21 330.49,240.32 332.42,240.44 334.36,240.55 336.29,240.67 338.23,240.80 340.16,240.93 342.10,241.06 344.04,241.20 345.97,241.33 347.91,241.48 349.84,241.62 351.78,241.78 353.71,241.93 355.65,242.09 357.58,242.25 359.52,242.42 361.45,242.59 363.39,242.77 365.32,242.95 367.26,243.13 369.19,243.32 371.13,243.51 373.06,243.71 375.00,243.91 376.94,244.12 378.87,244.33 380.81,244.54 382.74,244.76 384.68,244.99 386.61,245.22 388.55,245.45 390.48,245.69 392.42,245.94 394.35,246.19 396.29,246.44 398.22,246.70 400.16,246.97 402.09,247.24 404.03,247.52 405.96,247.80 407.90,248.09 409.84,248.38 411.77,248.68 413.71,248.98 415.64,249.29 417.58,249.61 419.51,249.93 421.45,250.26 423.38,250.59 425.32,250.93 427.25,251.27 429.19,251.63 431.12,251.98 433.06,252.35 434.99,252.72 436.93,253.10 438.86,253.48 440.80,253.87 442.74,254.27 444.67,254.67 446.61,255.08 448.54,255.49 450.48,255.92 452.41,256.34 454.35,256.78 456.28,257.22 458.22,257.67 460.15,258.13 462.09,258.59 464.02,259.06 465.96,259.54 467.89,260.02 469.83,260.51 471.76,261.01 473.70,261.51 475.64,262.02 477.57,262.54 479.51,263.07 481.44,263.60 483.38,264.14 485.31,264.69 487.25,265.24 489.18,265.80 491.12,266.37 493.05,266.94 494.99,267.52 496.92,268.11 498.86,268.71 500.79,269.31 502.73,269.92 504.66,270.54 506.60,271.16 508.54,271.79 510.47,272.43 512.41,273.07 514.34,273.72 516.28,274.38 518.21,275.05 520.15,275.72 522.08,276.40 524.02,277.08 525.95,277.77 527.89,278.47 529.82,279.18 531.76,279.89 533.69,280.61 535.63,281.33 537.56,282.06 539.50,282.80 541.44,283.55 543.37,284.30 545.31,285.05 547.24,285.82 549.18,286.59 551.11,287.36 553.05,288.15 554.98,288.94 556.92,289.73 558.85,290.53 560.79,291.34 562.72,292.15 564.66,292.97 566.59,293.80 568.53,294.63 570.46,295.47 572.40,296.31 574.34,297.16 576.27,298.02 578.21,298.88 580.14,299.74 582.08,300.61 584.01,301.49 585.95,302.38 587.88,303.27 589.82,304.16 591.75,305.06 593.69,305.97 595.62,306.88 597.56,307.79 599.49,308.72 601.43,309.64 603.36,310.58 605.30,311.51 607.24,312.46 609.17,313.40 611.11,314.36 613.04,315.32 614.98,316.28 616.91,317.25 618.85,318.22 620.78,319.20 622.72,320.19 624.65,321.17 626.59,322.17 628.52,323.17 630.46,324.17 632.39,325.18 634.33,326.19 636.26,327.21 638.20,328.23 640.14,329.26 642.07,330.29 644.01,331.33 645.94,332.37 647.88,333.42 649.81,334.47 651.75,335.52 653.68,336.58 655.62,337.65 657.55,338.72 659.49,339.79 661.42,340.87 663.36,341.95 665.29,343.04 667.23,344.13 669.16,345.22 671.10,346.32 673.04,347.43 674.97,348.54 676.91,349.65 678.84,350.77 680.78,351.89 682.71,353.01 684.65,354.14 686.58,355.28 688.52,356.42 690.45,357.56 692.39,358.71 694.32,359.86 696.26,361.01 698.19,362.17 700.13,363.33 702.06,364.50 704.00,365.67"/><polyline class="tang" points="265.33,131.17 548.64,198.96"/><polyline class="tang" points="265.33,226.90 548.64,268.99"/><circle class="dot" cx="406.99" cy="165.06" r="4.2"/><circle class="dot" cx="406.99" cy="247.95" r="4.2"/><text class="al lab" x="421.0" y="153.1" fill="var(--rul)">slope -2.4677</text><text class="al lab" x="391.0" y="277.9" text-anchor="end" fill="var(--rul)">slope -1.5323</text><text class="al lab" x="571.5" y="178.4" fill="var(--ink3)">upper branch</text><text class="al lab" x="258.5" y="260.3" text-anchor="end" fill="var(--ink3)">lower branch</text><text class="al lab" x="407.0" y="362.0" text-anchor="middle" fill="var(--los)">one x, two slopes</text></svg>
+  </div>
+  <p class="cap">At \(x = 2\) the \(x^3y\) and \(4xy\) terms cancel exactly, leaving \(2y^2 = 7\), so \(y = \pm\frac{\sqrt{14}}{2}\). Feed each into the answer and the general formula collapses to \(y' = \frac{-8-y}{4}\), giving \(-2-\frac{\sqrt{14}}{8}\) and \(-2+\frac{\sqrt{14}}{8}\). Both slopes were confirmed three independent ways.</p>
+  <div class="note calm">
+    <div class="nl">The same fact, run backwards, is your fastest check</div>
+    <p>\(x=2\) is the easy point on this curve because two terms annihilate each other there. Substitute \(x=2\) into your denominator before simplifying: \(8 + 4y - 8\) must collapse to \(4y\). If it does not, you have mis-transcribed a coefficient, and you know that in about four seconds without a calculator.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">04</span>What the denominator is telling you</h2>
+  <p class="lede">A vanishing denominator is a fact about the curve, not a mistake in your algebra. Knowing which is which is worth a whole variation family.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>you want</th><th>set this to zero</th><th>and check this is <b>not</b> zero</th><th>on this curve</th></tr></thead>
+      <tbody>
+        <tr><td>horizontal tangent</td><td>the numerator</td><td>the denominator</td><td class="n">\(x = 1.346011,\; y = -1.435234\)</td></tr>
+        <tr><td>vertical tangent</td><td>the denominator</td><td>the numerator</td><td class="n">\(x = -2.688358,\; y = -1.613635\)</td></tr>
+        <tr><td>singular point</td><td>both</td><td>nothing; the test is inconclusive</td><td class="n">none exist here</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>The second column alone proves nothing.</b> A vertical-tangent proof is "the denominator is zero <i>and</i> the numerator is not", because \(0/0\) is not a vertical tangent, it is no information at all. <code>MATH265_Categorized.md</code> sets exactly this as a question on the cardioid \(x^2+y^2=(2x^2+2y^2-x)^2\) at \((1,0)\), and the two-part test is what answers it.</p>
+</section>
+
+<section>
+  <h2><span class="snum">05</span>Answer-entry rules</h2>
+  <p class="lede">M&ouml;bius is answer-only and machine-marked, so a right derivative with a bad keystroke scores zero.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>do</th><th>do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">(4*y-3*x^2*y-y^2)/(x^3+2*x*y-4*x)</td><td class="mono">4*y-3*x^2*y-y^2/(x^3+2*x*y-4*x)</td></tr>
+        <tr><td>bracket the <b>whole</b> numerator and the <b>whole</b> denominator</td><td>bracket only part of either, which silently changes the expression</td></tr>
+        <tr><td>type every multiplication with <code>*</code>, including <code>2*x*y</code></td><td><code>2xy</code>, which one of the two M&ouml;bius parsers rejects</td></tr>
+        <tr><td>leave <code>y</code> in as a variable</td><td>substitute anything for it, or try to eliminate it</td></tr>
+        <tr><td>enter the <b>unsimplified</b> form when unsure of a cancellation</td><td>guess at a factorisation you have not checked</td></tr>
+        <tr><td><b>preview the rendered expression</b> before submitting</td><td>submit unpreviewed</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>The most expensive typo here is the missing bracket around the numerator.</b> <code>4*y-3*x^2*y-y^2/(...)</code> renders as \(4y-3x^2y-\frac{y^2}{\,\cdots\,}\), which looks plausible and is wrong. <b>The second most expensive</b> is entering the factored form as <code>y*(4-3*x^2-y)/x*(x^2+2*y-4)</code>, where the trailing bracket multiplies instead of dividing. M&ouml;bius grades by algebraic equivalence, not string match, so the expanded form is always a safe choice and it has fewer brackets to get wrong.</p>
+</section>
+
+<section>
+  <h2><span class="snum">06</span>The variation catalog</h2>
+  <p class="lede">Read this as structure, not as fifteen facts. Every family below is the same four steps. What changes is only <b>which rule step 1 needs</b>, and there are exactly five possibilities: power, product, quotient, chain, and a nesting of those. Every derivative shown was checked numerically at a point first confirmed to lie on its curve.</p>
+  <div class="cards">
+    <div class="card"><div class="fno">Family 1</div><h4>Pure powers, no mixed term</h4><p class="trig">Trigger: \(x\) and \(y\) never multiply each other.</p><p>\(x^2+y^2=25 \Rightarrow y' = -\frac{x}{y}\). Also \(\sqrt{x}+\sqrt{y}=4 \Rightarrow y'=-\frac{\sqrt y}{\sqrt x}\), and \(y^2=x^3(2-x) \Rightarrow y' = \frac{6x^2-4x^3}{2y}\).</p><p>The circle is the cheapest proof that a \(y\) in the answer is normal.</p></div>
+    <div class="card"><div class="fno">Family 2</div><h4>A mixed product term: this is Q10.1</h4><p class="trig">Trigger: \(x\) and \(y\) side by side.</p><p>\(xy=1 \Rightarrow -\frac{y}{x}\). &nbsp; \(x^2+xy+y^2=7 \Rightarrow -\frac{2x+y}{x+2y}\). &nbsp; \(x^3+y^3=6xy \Rightarrow \frac{6y-3x^2}{3y^2-6x}\). &nbsp; \(x^2y^3-x=6 \Rightarrow \frac{1-2xy^3}{3x^2y^2}\).</p><p>The folium is the classic exam version: it is symmetric, so swapping \(x\) and \(y\) must turn \(y'\) into \(1/y'\). That is a free check.</p></div>
+    <div class="card"><div class="fno">Family 3</div><h4>A quotient containing \(y\)</h4><p class="trig">Trigger: a \(y\) in a denominator.</p><p>\(\frac{x}{y}+\frac{y}{x}=3 \Rightarrow y' = \frac{y}{x}\), which is startlingly simple until you notice the relation is homogeneous: with \(t=y/x\) it reads \(t+1/t=3\), so \(t\) is constant and the "curve" is a pair of straight lines through the origin.</p><p><b>Do not use the quotient rule here.</b> Multiply through by the denominator first, then differentiate. It is faster every time.</p></div>
+    <div class="card"><div class="fno">Family 4</div><h4>\(y\) inside a named function</h4><p class="trig">Trigger: \(\sin y\), \(\cos y\), \(\tan y\), \(e^y\), \(\ln y\).</p><p>\(\sin y + x = y \Rightarrow y' = \frac{1}{1-\cos y}\). &nbsp; \(x\sin y = y \Rightarrow y' = -\frac{\sin y}{x\cos y - 1}\).</p><p>The second is Family 4 and Family 2 at once, which is the commonest way an examiner raises difficulty without changing topic.</p></div>
+    <div class="card danger"><div class="fno">Family 5</div><h4>\(x\) and \(y\) inside the same bracket</h4><p class="trig">Trigger: \((x+y)^n\), \(\sin(xy)\), \(\tan(xy)\).</p><p>\((x+y)^3=x \Rightarrow y' = \frac{1-3(x+y)^2}{3(x+y)^2}\), because the inner derivative is \(1+y'\). &nbsp; \(\tan(xy)=x \Rightarrow y' = \frac{1-y\sec^2(xy)}{x\sec^2(xy)}\).</p><p><b>The most-failed family.</b> The \(y'\) arrives one level down and is easy to lose. Write the inner derivative on its own line before you multiply.</p></div>
+    <div class="card"><div class="fno">Family 6</div><h4>The slope at a given point</h4><p class="trig">Trigger: "find \(y'\) at \((a,b)\)".</p><p>Q10.1 unchanged, then substitute <b>both</b> coordinates. Collect first, substitute last.</p><p>Check the point is actually on the curve before you use it. On Q10.1, \((1,\,4.5413813)\) is on the curve and gives \(-2.6439899\); \((1,4)\) is not, and any slope you compute there is meaningless.</p></div>
+    <div class="card"><div class="fno">Family 7</div><h4>The tangent line: this is Q10.2</h4><p class="trig">Trigger: "find the equation of the tangent line".</p><p>\(y^3+yx^2+x^2=3y^2\) at \((1,1)\) gives \(y' = \frac{-(2xy+2x)}{3y^2+x^2-6y} = \frac{-4}{-2} = 2\), so the tangent is \(y = 2x-1\).</p><p><b>Answer with the line, not the slope.</b> Answering with the wrong kind of object is the largest single loss on the Q9.1 family too.</p></div>
+    <div class="card"><div class="fno">Family 8</div><h4>Horizontal and vertical tangents</h4><p class="trig">Trigger: "where is the tangent vertical?"</p><p>Numerator zero for horizontal, denominator zero for vertical, and in both cases check the other one is <b>not</b> zero.</p><p>This is section 04's table, and it is the family the course notes never mention despite setting it as a question.</p></div>
+    <div class="card"><div class="fno">Family 9</div><h4>The second derivative</h4><p class="trig">Trigger: "find \(y''\)".</p><p>Quotient-rule your \(y'\), then <b>substitute the expression for \(y'\) back in</b>. That substitution is the entire family.</p><p>On the circle: \(y''=-\frac{y-xy'}{y^2} = -\frac{y^2+x^2}{y^3} = -\frac{r^2}{y^3}\), and the middle step is where the substitution happens.</p></div>
+    <div class="card"><div class="fno">Family 10</div><h4>Swap the roles, or add a third variable</h4><p class="trig">Trigger: "find \(dx/dy\)", or anything with "how fast".</p><p>\(\frac{dx}{dy}\) is just \(1/y'\), and it equals \(0\) at a vertical tangent, which is the clean way to state one without dividing by zero.</p><p>For related rates the chain factor is \(\frac{dh}{dt}\) instead of \(y'\) and nothing else changes. <b>Doing Q10.1 means you have already done the hard half of category 11.</b></p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">07</span>Where the marks actually go</h2>
+  <p class="lede">Ranked by how often each really costs you. The first four are one mistake wearing four coats: a \(y\) got differentiated as though it were a constant, or as though it were \(x\).</p>
+  <ol class="traps">
+    <li><b>Forgetting the \(y'\) on one term</b><span>You have five terms where you should have six. Count them; each mixed term must yield exactly two.</span></li>
+    <li><b>Forgetting the product rule on a mixed term</b><span>\(\frac{d}{dx}[x^3y]\) written as \(3x^2y'\) or as \(3x^2y\). Either way you lost half of it.</span></li>
+    <li><b>Algebra when collecting</b><span>A sign that did not flip crossing the equals sign. Move one term at a time, and re-read the line you just wrote.</span></li>
+    <li><b>Forgetting the chain factor inside \(y^2\)</b><span>\(\frac{d}{dx}[xy^2]\) written as \(y^2+2xy\). \(y^2\) is a composite; its derivative is \(2y\cdot y'\), always.</span></li>
+    <li><b>Treating the answer as unfinished</b><span>Two branches, two slopes, so the \(y\) has to stay. Section 03 is the picture of why.</span></li>
+    <li><b>Losing the \(y'\) one level down</b><span>\((x+y)^3\) differentiated as \(3(x+y)^2\). Write the inner derivative \(1+y'\) on its own line.</span></li>
+    <li><b>Using a check point that is not on the curve</b><span>Your numeric check disagrees and you doubt correct work. Verify the point satisfies the relation before you use it.</span></li>
+    <li><b>Calling a vertical tangent an error</b><span>Denominator zero with numerator non-zero is a real feature of the curve, not a slip.</span></li>
+    <li><b>Solving for \(y\) first</b><span>The stem says <i>using implicit differentiation</i>. Right slope, method mark lost.</span></li>
+    <li><b>Leaving a constant in the answer</b><span>\(\frac{d}{dx}[7]=0\), always. A 7 anywhere in your \(y'\) is a copy error.</span></li>
+  </ol>
+  <div class="note">
+    <div class="nl">Measured, not asserted, and this curve is unusually forgiving</div>
+    <p>Five of those mistakes were built as working formulas and compared against the truth at 44 points on the curve. Worst relative deviations: <b>15.5</b> (no \(y'\) in \(x^3y\)), <b>5.01</b> (no chain factor on \(y^2\)), <b>1.96</b> (no product rule), <b>3.92</b> (sign slip), <b>122</b> (no \(y'\) in \(4xy\)).</p>
+    <p>None of them has a hiding place <b>on this curve</b>. The two "forgot the \(y'\)" errors differ from the truth only by an \(x^3\) or a \(-4x\) in the denominator, so they would agree exactly at \(x=0\), and \(x=0\) is not on this curve, because \(F(0,y) = -7\) for every \(y\). One numeric check anywhere legitimate catches all five.</p>
+    <p><b>That is a property of this curve, not of the topic.</b> Control, verified: on \(x^2+y^2=25\) the analogous mistake gives \(y'=-x\) instead of \(-x/y\), and those agree <b>exactly at \(x=0\)</b>, the top of the circle and the most convenient point on it. The convenient input is the blind spot. Check somewhere awkward.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">08</span>Numbers worth holding</h2>
+  <div class="vgrid">
+    <div class="vcell"><div class="vn">-2.4677072</div><div class="vt">y' AT (2, +ROOT14/2)</div></div>
+    <div class="vcell"><div class="vn">-1.5322928</div><div class="vt">y' AT (2, -ROOT14/2)</div></div>
+    <div class="vcell"><div class="vn">-2.6439899</div><div class="vt">y' AT x = 1, UPPER</div></div>
+    <div class="vcell"><div class="vn">+0.6439899</div><div class="vt">y' AT x = 1, LOWER</div></div>
+    <div class="vcell"><div class="vn">-2.6883584</div><div class="vt">THE VERTICAL TANGENT</div></div>
+    <div class="vcell"><div class="vn">+1.3460106</div><div class="vt">THE HORIZONTAL TANGENT</div></div>
+  </div>
+  <p style="margin-top:16px">Memorise only the first two. Their exact forms are \(-2-\frac{\sqrt{14}}{8}\) and \(-2+\frac{\sqrt{14}}{8}\), at the two points \(\left(2,\;\pm\frac{\sqrt{14}}{2}\right)\). At \(x=1\), where \(y=\frac{3\pm\sqrt{37}}{2}\), the two slopes are \(-1-\frac{10}{\sqrt{37}}\) on the upper branch and \(\frac{10}{\sqrt{37}}-1\) on the lower. The rest are here so a drill answer can be checked.</p>
+</section>
+
+<section>
+  <h2><span class="snum">09</span>How this page was checked</h2>
+  <p class="lede">There is no explicit \(f(x)\) here, so the usual two-arm numeric check does not apply directly. It was replaced by a residual gate plus three arms, none of which ever sees the claimed formula.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>gate or arm</th><th>what it computes</th><th>independent of the answer?</th></tr></thead>
+      <tbody>
+        <tr><td>residual gate</td><td>\(F(x,y)\) at every test point, to \(10^{-9}\), <b>before</b> any slope is compared</td><td>yes, and it runs first</td></tr>
+        <tr><td>arm 1</td><td>\(-F_x/F_y\) from complex-step partials of \(F\), exact for a polynomial</td><td>yes</td></tr>
+        <tr><td>arm 2</td><td>complex-step \(\frac{d}{dx}\) of the explicit branch \(y_\pm(x)\) at \(h=10^{-60}\)</td><td>yes</td></tr>
+        <tr><td>arm 3</td><td>Richardson centred-difference ladder, with its convergence <b>order</b> measured</td><td>yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>320 assertions, 0 failures</b>, of which 15 are seeded controls proving the gates can bite. Coverage: 44 on-curve points over 22 values of \(x\), both branches at every \(x\), spanning \(x\in[0.25,\,12]\) on the right component and \(x\in[-25,\,-2.70]\) on the left. The ladder's measured error ratios were 15.94 / 15.98 / 15.99 at \(x=2\) and 16.62 / 16.15 / 16.04 at \(x=-3\), against a theoretical 16 for a fourth-order method.</p>
+  <div class="note calm">
+    <div class="nl">Two defects, both in the checking, neither in the mathematics</div>
+    <p><b>The first draft sampled points that are not on the curve.</b> The discriminant is \(x\left[x(x^2-4)^2+28\right]\), which is <i>negative</i> for \(-2.688 &lt; x &lt; 0\), so the whole initial negative-\(x\) sample was empty and the run died on a square root of a negative number. The curve exists only for \(x&gt;0\) or \(x \le -2.688358\). A slope comparison at a point that is not on the curve measures nothing, which is why the residual gate has to run first and has to be believed.</p>
+    <p><b>A fixed tolerance on a fourth-order ladder is calibrated on the flattest sample point.</b> A \(2\times10^{-7}\) bound passed at \(x=2\) and failed at \(x=-3\) by \(6\times10^{-7}\), purely because the branch is steeper there. The tolerance now scales as \(h^4\), and three seeded \(\pm 0.1\%\) perturbations confirm it can still reject a wrong slope.</p>
+  </div>
+  <p style="margin-top:16px;font-size:13px;color:var(--ink3)">Sources: <code>notes\MATH265.md</code> section 10 &middot; <code>notes\MATH265\MATH265.md</code> Midterm 1 item 8 &middot; <code>MATH265_Categorized.md</code> section 5 &middot; harness section <code>q101</code> in <code>Work\knowledge\topics\math265-answer-verification.py</code>. MT1's ten items print 64 points, not 100, so item 8 is 7.8&#37; of that paper. MT1's single "no credit will be given" clause is on item 3 and does not apply here. Full tutorial: <code>notes\Q10.1 - Find the derivative implicitly.md</code>. Verified 2026-09-01.</p>
+</section>
+
+</div>
+

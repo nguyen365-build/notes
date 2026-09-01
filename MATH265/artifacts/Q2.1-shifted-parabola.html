@@ -1,0 +1,1641 @@
+<title>Shifted Parabola Transformations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$']],
+    displayMath: [['$$', '$$']]
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'] }
+};
+</script>
+<script id="MathJax-script" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+
+<style>
+/* ---- dark-first ops-console tokens; bare :root IS the dark palette ---- */
+:root {
+  --ground:   #14181F;
+  --surface:  #1A202A;
+  --raised:   #212936;
+  --border:   #2C3441;
+  --border-hi:#3C465699;
+  --ink:      #E7EBF1;
+  --ink-mid:  #A7B1C0;
+  --ink-dim:  #77828F;
+  --amber:    #F2A53C;
+  --amber-dim:#8A5F1C;
+  --amber-wash:#F2A53C14;
+  --pass:     #56B981;
+  --pass-wash:#56B98114;
+  --stop:     #E4674A;
+  --stop-wash:#E4674A14;
+  --order:    #6BA7E0;
+  --order-wash:#6BA7E014;
+  --shadow:   0 1px 0 #ffffff08 inset, 0 8px 24px -14px #00000099;
+  --grid:     #2C3441;
+  --curve-parent: #77828F;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --ground:   #F4F5F7;
+    --surface:  #FFFFFF;
+    --raised:   #FAFAFC;
+    --border:   #DDE1E8;
+    --border-hi:#C3CAD6;
+    --ink:      #171C24;
+    --ink-mid:  #4E5765;
+    --ink-dim:  #737D8C;
+    --amber:    #9A5F04;
+    --amber-dim:#E7B871;
+    --amber-wash:#F2A53C1F;
+    --pass:     #1E7A48;
+    --pass-wash:#1E7A4814;
+    --stop:     #B93B1D;
+    --stop-wash:#B93B1D14;
+    --order:    #1F5F98;
+    --order-wash:#1F5F9814;
+    --shadow:   0 1px 2px #1720281a, 0 8px 20px -16px #17202833;
+    --grid:     #DDE1E8;
+    --curve-parent: #98A1AF;
+    color-scheme: light;
+  }
+}
+:root[data-theme="light"] {
+  --ground:   #F4F5F7;
+  --surface:  #FFFFFF;
+  --raised:   #FAFAFC;
+  --border:   #DDE1E8;
+  --border-hi:#C3CAD6;
+  --ink:      #171C24;
+  --ink-mid:  #4E5765;
+  --ink-dim:  #737D8C;
+  --amber:    #9A5F04;
+  --amber-dim:#E7B871;
+  --amber-wash:#F2A53C1F;
+  --pass:     #1E7A48;
+  --pass-wash:#1E7A4814;
+  --stop:     #B93B1D;
+  --stop-wash:#B93B1D14;
+  --order:    #1F5F98;
+  --order-wash:#1F5F9814;
+  --shadow:   0 1px 2px #1720281a, 0 8px 20px -16px #17202833;
+  --grid:     #DDE1E8;
+  --curve-parent: #98A1AF;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 16px;
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- shell ---- */
+.shell {
+  display: grid;
+  grid-template-columns: 232px minmax(0, 1fr);
+  gap: 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  align-items: start;
+}
+.rail {
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
+  padding: 30px 20px 40px 24px;
+  border-right: 1px solid var(--border);
+}
+.rail-badge {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 4px;
+}
+.rail-title {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-bottom: 18px;
+  color: var(--ink);
+}
+.rail nav { display: flex; flex-direction: column; gap: 1px; }
+.rail a {
+  display: grid;
+  grid-template-columns: 22px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 4px 6px;
+  border-radius: 3px;
+  text-decoration: none;
+  color: var(--ink-mid);
+  font-size: 13px;
+  line-height: 1.4;
+}
+.rail a .n {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+}
+.rail a:hover { background: var(--amber-wash); color: var(--ink); }
+.rail a:hover .n { color: var(--amber); }
+.rail a:focus-visible { outline: 2px solid var(--amber); outline-offset: 1px; }
+
+main { padding: 30px 34px 96px; min-width: 0; }
+
+/* ---- masthead ---- */
+.mast { border-bottom: 1px solid var(--border); padding-bottom: 26px; margin-bottom: 8px; }
+.eyebrow {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.eyebrow .sep { color: var(--ink-dim); }
+h1 {
+  font-size: clamp(27px, 3.6vw, 38px);
+  line-height: 1.12;
+  letter-spacing: -0.021em;
+  font-weight: 700;
+  margin: 0 0 14px;
+  text-wrap: balance;
+}
+.standfirst { font-size: 17px; color: var(--ink-mid); max-width: 66ch; margin: 0; }
+
+/* ---- generic blocks ---- */
+h2 {
+  font-size: 21px;
+  letter-spacing: -0.012em;
+  font-weight: 600;
+  margin: 0 0 4px;
+  text-wrap: balance;
+  scroll-margin-top: 18px;
+}
+h3 {
+  font-size: 15.5px;
+  font-weight: 600;
+  margin: 26px 0 6px;
+  letter-spacing: -0.005em;
+}
+section { padding: 34px 0 4px; border-top: 1px solid var(--border); margin-top: 30px; }
+section:first-of-type { border-top: 0; }
+.sec-num {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  font-variant-numeric: tabular-nums;
+}
+p { max-width: 68ch; margin: 0 0 11px; }
+.lede { font-size: 16.5px; color: var(--ink-mid); max-width: 66ch; }
+strong { font-weight: 600; color: var(--ink); }
+em { font-style: italic; }
+a.inline { color: var(--amber); text-decoration: underline; text-underline-offset: 2px; }
+
+code, .mono {
+  font-family: "IBM Plex Mono", ui-monospace, "SFMono-Regular", monospace;
+  font-size: 0.875em;
+}
+p code, td code, li code {
+  background: var(--raised);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0.08em 0.34em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+/* long file paths must be allowed to break, or they bleed the viewport */
+.footnote code, ul.plain code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+pre {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--amber);
+  border-radius: 4px;
+  padding: 15px 17px;
+  overflow-x: auto;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12.6px;
+  line-height: 1.68;
+  color: var(--ink);
+  margin: 14px 0 16px;
+  box-shadow: var(--shadow);
+}
+
+/* ---- tables ---- */
+.tw { overflow-x: auto; margin: 14px 0 18px; border: 1px solid var(--border); border-radius: 5px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 8px 13px; border-bottom: 1px solid var(--border); vertical-align: top; }
+thead th {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: 500;
+  background: var(--raised);
+  white-space: nowrap;
+}
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover { background: var(--amber-wash); }
+td.num, th.num { font-variant-numeric: tabular-nums; }
+.tw table.tight td, .tw table.tight th { padding: 6px 11px; font-size: 13.4px; }
+
+/* ---- callouts ---- */
+.call {
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--amber);
+  background: var(--surface);
+  border-radius: 4px;
+  padding: 14px 17px;
+  margin: 16px 0;
+  box-shadow: var(--shadow);
+}
+.call > :last-child { margin-bottom: 0; }
+.call .tag {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: block;
+  margin-bottom: 5px;
+}
+.call.stop { border-left-color: var(--stop); background: var(--stop-wash); }
+.call.stop .tag { color: var(--stop); }
+.call.pass { border-left-color: var(--pass); background: var(--pass-wash); }
+.call.pass .tag { color: var(--pass); }
+.call.order { border-left-color: var(--order); background: var(--order-wash); }
+.call.order .tag { color: var(--order); }
+
+/* ---- the point map transformer ---- */
+.pmap {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px 18px;
+  margin: 18px 0;
+  box-shadow: var(--shadow);
+}
+.pmap .cell { text-align: center; }
+.pmap .cap {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 7px;
+}
+.pmap .val { font-size: 18px; }
+.pmap .arrow { color: var(--amber); font-size: 22px; line-height: 1; padding: 0 4px; }
+.pmap .box {
+  border: 1px dashed var(--amber-dim);
+  border-radius: 4px;
+  padding: 9px 12px;
+  background: var(--amber-wash);
+}
+
+/* ---- graphs ---- */
+.strip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+  margin: 18px 0;
+}
+figure {
+  margin: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 12px 12px 8px;
+  box-shadow: var(--shadow);
+  min-width: 0;
+}
+figure > svg { width: 100%; height: auto; display: block; }
+/* MathJax output inside a caption must keep its own intrinsic size */
+figcaption mjx-container { font-size: inherit !important; }
+figcaption mjx-container > svg { width: auto; height: auto; display: inline-block; }
+figcaption {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--ink-mid);
+  margin-top: 7px;
+  text-align: center;
+  line-height: 1.5;
+}
+figcaption b { color: var(--amber); font-weight: 500; }
+figcaption b.alt, figcaption b.alt * { color: var(--order); }
+.stage-n {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  margin-bottom: 6px;
+  text-align: center;
+}
+.big-fig { max-width: 560px; margin: 18px 0; }
+.axis { stroke: var(--ink-dim); stroke-width: 1; }
+.gridline { stroke: var(--grid); stroke-width: 1; }
+.curve { fill: none; stroke: var(--amber); stroke-width: 2.1; stroke-linejoin: round; stroke-linecap: round; }
+.curve.ghost { stroke: var(--curve-parent); stroke-width: 1.5; stroke-dasharray: 4 3; }
+.curve.alt { stroke: var(--order); }
+.tick { fill: var(--ink-dim); font-family: "IBM Plex Mono", monospace; font-size: 8.5px; }
+.ptdot { fill: var(--amber); stroke: var(--surface); stroke-width: 1.4; }
+.ptdot.vertex { fill: var(--ink); }
+.ptdot.alt { fill: var(--order); }
+.ptlab.altlab { fill: var(--order); }
+.ptlab { fill: var(--ink); font-family: "IBM Plex Mono", monospace; font-size: 9px; font-weight: 500; }
+.symaxis { stroke: var(--amber); stroke-width: 1.2; stroke-dasharray: 2 5; opacity: 0.75; }
+.symlab { fill: var(--amber); }
+
+/* ---- family cards ---- */
+.fam {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 16px 18px 6px;
+  margin: 14px 0;
+  box-shadow: var(--shadow);
+  scroll-margin-top: 18px;
+}
+.fam > h3 { margin-top: 0; }
+.fam-head { display: flex; gap: 11px; align-items: baseline; flex-wrap: wrap; margin-bottom: 3px; }
+.fam-id {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  color: var(--ground);
+  background: var(--amber);
+  border-radius: 3px;
+  padding: 2px 7px;
+  white-space: nowrap;
+}
+.fam-name { font-size: 16px; font-weight: 600; letter-spacing: -0.006em; }
+.tt { display: grid; grid-template-columns: 78px 1fr; gap: 4px 12px; margin: 10px 0 12px; font-size: 14px; }
+.tt dt {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  padding-top: 4px;
+}
+.tt dd { margin: 0; color: var(--ink-mid); }
+.tt dd strong { color: var(--ink); }
+
+/* ---- misc ---- */
+ol.proc { max-width: 68ch; padding-left: 22px; margin: 14px 0 16px; }
+ol.proc > li { margin-bottom: 8px; padding-left: 2px; }
+ol.traps { max-width: 68ch; padding-left: 24px; margin: 14px 0; counter-reset: none; }
+ol.traps > li { margin-bottom: 9px; }
+ul.plain { max-width: 68ch; padding-left: 20px; margin: 12px 0; }
+ul.plain > li { margin-bottom: 6px; }
+.chip {
+  display: inline-block;
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border-hi);
+  color: var(--ink-mid);
+  white-space: nowrap;
+}
+.chip.yes { color: var(--pass); border-color: var(--pass); background: var(--pass-wash); }
+.chip.no  { color: var(--stop); border-color: var(--stop); background: var(--stop-wash); }
+.chip.ord { color: var(--order); border-color: var(--order); background: var(--order-wash); }
+.chip.amb { color: var(--amber); border-color: var(--amber-dim); background: var(--amber-wash); }
+.famlink { color: var(--amber); text-decoration: none; border-bottom: 1px dotted var(--amber-dim); white-space: nowrap; }
+.famlink:hover { border-bottom-style: solid; }
+.kbd {
+  font-family: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 12.5px;
+  background: var(--raised);
+  border: 1px solid var(--border-hi);
+  border-radius: 3px;
+  padding: 1px 6px;
+  color: var(--amber);
+  white-space: nowrap;
+}
+.footnote { font-size: 13.5px; color: var(--ink-dim); max-width: 72ch; }
+.footnote code { font-size: 12px; }
+hr.soft { border: 0; border-top: 1px solid var(--border); margin: 26px 0; }
+
+@media (max-width: 860px) {
+  .shell { grid-template-columns: 1fr; }
+  .rail {
+    position: static;
+    max-height: none;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 22px 20px 18px;
+  }
+  .rail nav { flex-direction: row; flex-wrap: wrap; gap: 3px; }
+  .rail a { grid-template-columns: auto; gap: 0; border: 1px solid var(--border); padding: 3px 8px; }
+  .rail a .n { display: none; }
+  main { padding: 24px 20px 80px; }
+  .pmap { grid-template-columns: 1fr; }
+  .pmap .arrow { transform: rotate(90deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+</style>
+
+<div class="shell">
+  <aside class="rail">
+    <div class="rail-badge">MATH 265 &middot; Q2.1</div>
+    <div class="rail-title">Graph a shifted parabola by transformations</div>
+    <nav>
+      <a href="#s0"><span class="n">00</span><span>The 30-second version</span></a>
+      <a href="#s1"><span class="n">01</span><span>What it really tests</span></a>
+      <a href="#s2"><span class="n">02</span><span>Have these cold</span></a>
+      <a href="#s3"><span class="n">03</span><span>The procedure</span></a>
+      <a href="#s4"><span class="n">04</span><span>Worked four ways</span></a>
+      <a href="#s5"><span class="n">05</span><span>The write-up</span></a>
+      <a href="#s6"><span class="n">06</span><span>Verify in 8 seconds</span></a>
+      <a href="#s7"><span class="n">07</span><span>Answer entry</span></a>
+      <a href="#s8"><span class="n">08</span><span>Variation catalog</span></a>
+      <a href="#s9"><span class="n">09</span><span>The trap list</span></a>
+      <a href="#s10"><span class="n">10</span><span>Drill set</span></a>
+      <a href="#s11"><span class="n">11</span><span>Decision tree</span></a>
+      <a href="#s12"><span class="n">12</span><span>Provenance</span></a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="mast">
+      <div class="eyebrow">
+        <span>Midterm&nbsp;1 &middot; Q3</span><span class="sep">/</span>
+        <span>5 points</span><span class="sep">/</span>
+        <span>272 checks, 0 failures</span>
+      </div>
+      <h1>Graph a shifted parabola by transformations</h1>
+      <p class="standfirst">
+        Sketch $g(x)=3(x+4)^2$ from a basic function. The whole question is one point map,
+        and the marks are for the <em>procedure</em>, not the picture.
+      </p>
+    </div>
+
+    <div class="call stop">
+      <span class="tag">The grading clause, verbatim</span>
+      <p>&ldquo;Give a labeled graph of the function $g(x)=3(x+4)^2$ by starting with the graph of a basic
+      function, and then applying the appropriate transformations. Explain the procedure you are using.
+      <strong>No credit will be given if any other method is used.</strong>&rdquo;</p>
+      <p>In plain words: if you multiply the brackets out to $3x^2+24x+48$ and find the vertex with
+      $x=-b/(2a)$, you will draw exactly the right parabola and score <strong>zero</strong>. That is not a
+      trick. The question exists to force one specific skill, so the skill is what is being marked.</p>
+    </div>
+
+    <div class="call pass">
+      <span class="tag">The answer</span>
+      <p>Start from the parent $y=x^2$. Shift it <strong>left 4</strong>, then <strong>stretch it vertically by 3</strong>.</p>
+      <p>Result: an upward parabola, <strong>vertex $(-4,0)$</strong>, axis of symmetry $x=-4$,
+      through $(-3,3)$, $(-5,3)$, $(-2,12)$, $(-6,12)$, with $y$-intercept $48$.</p>
+      <p><span class="chip amb">Möbius</span> &nbsp;equation <span class="kbd">3*(x+4)^2</span> &nbsp;
+      vertex <span class="kbd">(-4,0)</span> &nbsp; and $h$ is <span class="kbd">-4</span>, not <span class="kbd">4</span>.</p>
+    </div>
+
+    <!-- ============================================================ 00 -->
+    <section id="s0">
+      <div class="sec-num">Section 00</div>
+      <h2>The 30-second version</h2>
+      <p class="lede">If you remember one thing, remember this chain. It has to run from memory,
+      with no lookup.</p>
+<pre>g(x) = 3(x+4)^2
+
+  -&gt; parent is y = x^2                 vertex (0,0), points (+/-1, 1), (+/-2, 4)
+  -&gt; (x+4) is x - (-4), so h = -4      shift LEFT 4:  vertex (-4, 0)
+  -&gt; the 3 sits OUTSIDE, so it hits y  stretch x3:    (-3,1) -&gt; (-3,3)
+  -&gt; label vertex + 2 symmetric pairs  done</pre>
+      <p>Everything below is that chain, justified and then generalised.</p>
+    </section>
+
+    <!-- ============================================================ 01 -->
+    <section id="s1">
+      <div class="sec-num">Section 01</div>
+      <h2>What this question is really testing</h2>
+      <p class="lede">Worth 5 of 64 points. The cheapest 5 on the paper if you know one rule,
+      and the most expensive if you improvise.</p>
+
+      <div class="tw"><table>
+        <thead><tr><th>Reflex being tested</th><th>Where it comes back</th></tr></thead>
+        <tbody>
+          <tr><td>Reading $(a,b,h,k)$ out of an expression</td><td>asymptotes (Q4.1), the sine and cosine graphs, any &ldquo;sketch $y=f(x)+c$&rdquo;</td></tr>
+          <tr><td>Knowing the parent library cold</td><td>limits by inspection, domain questions, guessing the shape of a derivative</td></tr>
+          <tr><td>Tracking <em>points</em> instead of plotting</td><td>sketch-from-conditions (Q5.1&ndash;Q5.3), sketching $f'$ from $f$</td></tr>
+          <tr><td>Obeying an instruction exactly</td><td>the &ldquo;no credit&rdquo; clause is a grading rule, not a hint</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>So the deliverable is not one graph. It is a <strong>named parent</strong>, a <strong>named
+      ordered list</strong> of transformations, and a graph with <strong>labeled points</strong>.</p>
+
+      <div class="call">
+        <span class="tag">Format warning</span>
+        <p>The paper says &ldquo;explain the procedure&rdquo; and awards 5 points, which reads like a
+        hand-marked written exam. The live delivery is Möbius: answer-only, machine-marked, and you
+        cannot submit a freehand sketch. So the Möbius form of this question is almost certainly
+        multiple choice over four candidate graphs, or fill-in fields for the vertex, the shift, $h$,
+        $k$, or the equation. Prepare for both: the four-line procedure in Section 05, and the vertex
+        as a typed string in eight seconds.</p>
+      </div>
+
+      <div class="call stop">
+        <span class="tag">Your own notes disagree with themselves here</span>
+        <p>Three defects in the files you would otherwise revise from. Trust this page over them.</p>
+        <ul class="plain">
+          <li><code>MATH265_Review.md</code> says a stretch is $a&gt;1$ and a compression is $a&lt;1$.
+          Wrong for negative $a$: the conditions are $|a|&gt;1$ and $0&lt;|a|&lt;1$. Under the written
+          rule $a=-3$ would be a &ldquo;compression&rdquo;, which it is not.</li>
+          <li>The same summary omits reflections and horizontal scaling entirely, so it cannot handle
+          Q2.2 or any variation with a coefficient on $x$.</li>
+          <li><code>MATH265\MATH265.md</code> calls $3(x+4)^2$ &ldquo;three transformations&rdquo; in one
+          place and &ldquo;exactly two&rdquo; in another. <strong>Two</strong> is correct.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ============================================================ 02 -->
+    <section id="s2">
+      <div class="sec-num">Section 02</div>
+      <h2>The three things you must have cold</h2>
+      <p class="lede">These have to be recall, not derivation. All 55 anchor points below were
+      verified numerically.</p>
+
+      <h3>2.1 &nbsp;The parent library</h3>
+      <p>Learn the <em>anchor points</em>, not the shape. The shape follows from the points.</p>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>Parent</th><th>Anchor points</th><th>Shape notes</th></tr></thead>
+        <tbody>
+          <tr><td>$y=x$</td><td class="num">$(-2,-2),(-1,-1),(0,0),(1,1),(2,2)$</td><td>line, slope 1</td></tr>
+          <tr><td>$y=x^2$</td><td class="num">$(-2,4),(-1,1),(0,0),(1,1),(2,4)$</td><td>parabola, vertex origin, <strong>even</strong></td></tr>
+          <tr><td>$y=x^3$</td><td class="num">$(-2,-8),(-1,-1),(0,0),(1,1),(2,8)$</td><td>inflection at origin, <strong>odd</strong></td></tr>
+          <tr><td>$y=|x|$</td><td class="num">$(-2,2),(-1,1),(0,0),(1,1),(2,2)$</td><td>corner, slopes $\pm1$, <strong>even</strong></td></tr>
+          <tr><td>$y=\sqrt{x}$</td><td class="num">$(0,0),(1,1),(4,2),(9,3)$</td><td>half-parabola, domain $[0,\infty)$</td></tr>
+          <tr><td>$y=\sqrt[3]{x}$</td><td class="num">$(-8,-2),(-1,-1),(0,0),(1,1),(8,2)$</td><td>all reals, <strong>odd</strong></td></tr>
+          <tr><td>$y=1/x$</td><td class="num">$(-2,-\tfrac12),(-1,-1),(\tfrac12,2),(1,1),(2,\tfrac12)$</td><td>QI and QIII, VA $x=0$, HA $y=0$, <strong>odd</strong></td></tr>
+          <tr><td>$y=1/x^2$</td><td class="num">$(-2,\tfrac14),(-1,1),(1,1),(2,\tfrac14)$</td><td>both branches up, <strong>even</strong></td></tr>
+          <tr><td>$y=\sin x$</td><td class="num">$(0,0),(\tfrac{\pi}{2},1),(\pi,0),(\tfrac{3\pi}{2},-1)$</td><td>period $2\pi$, <strong>odd</strong></td></tr>
+          <tr><td>$y=\cos x$</td><td class="num">$(0,1),(\tfrac{\pi}{2},0),(\pi,-1),(\tfrac{3\pi}{2},0)$</td><td>period $2\pi$, <strong>even</strong></td></tr>
+          <tr><td>$y=e^x$</td><td class="num">$(-1,1/e),(0,1),(1,e)$</td><td>HA $y=0$ on the left</td></tr>
+          <tr><td>$y=\ln x$</td><td class="num">$(1/e,-1),(1,0),(e,1)$</td><td>VA $x=0$, domain $(0,\infty)$</td></tr>
+        </tbody>
+      </table></div>
+
+      <p>Read that as <em>structure</em>, not 55 facts. For $x^2$ the heights at 1 and 2 units from the
+      vertex are $1$ and $4$; after a vertical stretch by $a$ they become $a$ and $4a$. That one
+      sentence is what lets you label a stretched parabola without computing anything.</p>
+
+      <h3>Parity decides whether a reflection is even visible</h3>
+      <p>This is the most-missed fact in the topic. All of it was verified on a grid.</p>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>Parents</th><th>Parity</th><th>Consequence</th></tr></thead>
+        <tbody>
+          <tr><td>$x^2$, $|x|$, $\cos x$, $1/x^2$</td><td><strong>even</strong>, $f(-x)=f(x)$</td><td>a $y$-axis reflection does <strong>nothing at all</strong></td></tr>
+          <tr><td>$x$, $x^3$, $\sqrt[3]{x}$, $\sin x$, $1/x$</td><td><strong>odd</strong>, $f(-x)=-f(x)$</td><td>a $y$-axis reflection gives the <strong>same graph</strong> as an $x$-axis reflection</td></tr>
+          <tr><td>$\sqrt{x}$, $e^x$, $\ln x$</td><td>neither</td><td>the two reflections genuinely differ, and one changes the domain</td></tr>
+        </tbody>
+      </table></div>
+
+      <h3>2.2 &nbsp;The canonical template</h3>
+      <p>Every transformation question in this course fits one form. Get the expression into it and
+      the question is over.</p>
+      <p style="text-align:center;font-size:19px;margin:18px 0">$$y = a\,f\big(b(x-h)\big) + k$$</p>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>Param</th><th>Where it sits</th><th>What it does</th><th>Direction</th></tr></thead>
+        <tbody>
+          <tr><td>$a$</td><td>multiplies the <strong>output</strong></td><td>vertical scale by $|a|$; reflect in $x$-axis if $a&lt;0$</td><td>as written</td></tr>
+          <tr><td>$k$</td><td><strong>added</strong> to the output</td><td>vertical shift up $k$</td><td>as written</td></tr>
+          <tr><td>$b$</td><td>multiplies the <strong>input</strong></td><td>horizontal scale by $1/|b|$; reflect in $y$-axis if $b&lt;0$</td><td><strong>reciprocal</strong></td></tr>
+          <tr><td>$h$</td><td><strong>subtracted</strong> from the input</td><td>horizontal shift right $h$</td><td><strong>opposite sign to what you see</strong></td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="call">
+        <span class="tag">Why the horizontal shift looks backwards</span>
+        <p>Take $y=f(x-3)$ and ask what happens at $x=5$: you get $f(2)$. So the height the parent had
+        at 2 now shows up at 5. Every height moved <em>right</em> 3, even though the expression says
+        minus 3. It is not a convention to memorise, it is a consequence: to <em>see</em> the parent's
+        value later, you have to <em>ask</em> for an earlier input.</p>
+      </div>
+
+      <p>For our question, $g(x)=3(x+4)^2$ gives
+      $a=3$, &nbsp; $b=1$, &nbsp; $h=-4$ (because $x+4=x-(-4)$), &nbsp; $k=0$.</p>
+
+      <h3>2.3 &nbsp;The master point map</h3>
+      <p>This is the single most useful line on this page. For $y=a\,f\big(b(x-h)\big)+k$, every parent
+      point moves like this:</p>
+      <div class="pmap">
+        <div class="cell">
+          <div class="cap">parent point</div>
+          <div class="val">$(x_0,\;y_0)$</div>
+        </div>
+        <div class="arrow">&rarr;</div>
+        <div class="cell">
+          <div class="cap">image point</div>
+          <div class="val box">$\left(\dfrac{x_0}{b}+h,\;\; a\,y_0+k\right)$</div>
+        </div>
+      </div>
+      <p>The $x$ is <strong>divided</strong> by $b$ then shifted by $h$; the $y$ is multiplied by $a$
+      then shifted by $k$. The reciprocal and the sign flip are already baked in, which is exactly why
+      using the map beats reasoning verbally about &ldquo;backwards&rdquo;.</p>
+      <div class="call pass">
+        <span class="tag">Verified</span>
+        <p>Checked over 6 parents &times; 54 parameter sets &times; their anchor points:
+        <strong>1458 combinations, zero mismatches</strong>. Also checked in the failing direction:
+        writing $x_0\cdot b+h$ instead of $x_0/b+h$ misses the target curve at all 4 test anchors,
+        so the division is load-bearing rather than decorative.</p>
+      </div>
+      <p>For Q2.1, substituting $a=3,\;b=1,\;h=-4,\;k=0$ collapses the whole question to:</p>
+      <div class="pmap">
+        <div class="cell"><div class="cap">parent $y=x^2$</div><div class="val">$(x,\;y)$</div></div>
+        <div class="arrow">&rarr;</div>
+        <div class="cell"><div class="cap">on $g(x)=3(x+4)^2$</div><div class="val box">$(x-4,\;\;3y)$</div></div>
+      </div>
+    </section>
+
+    <!-- ============================================================ 03 -->
+    <section id="s3">
+      <div class="sec-num">Section 03</div>
+      <h2>The universal procedure</h2>
+      <ol class="proc">
+        <li><strong>Name the parent.</strong> Strip every constant until only the bare function of $x$ is left. Say its name and write its anchor points.</li>
+        <li><strong>Factor the input.</strong> If a coefficient multiplies $x$ <em>and</em> a constant sits inside, factor it out so the input reads $b(x-h)$. This is where most marks are lost, and it is skipped precisely when it matters.</li>
+        <li><strong>Read off $a$, $b$, $h$, $k$.</strong> Four numbers. Write them down explicitly.</li>
+        <li><strong>Build the point map</strong> $(x,y)\mapsto\left(\frac{x}{b}+h,\;ay+k\right)$.</li>
+        <li><strong>Push 3 to 5 anchors through it.</strong> For a parabola: the vertex and two symmetric pairs.</li>
+        <li><strong>State the transformations as an ordered list.</strong> This is what the &ldquo;explain the procedure&rdquo; marks pay for.</li>
+        <li><strong>Sketch and label</strong> the vertex, your computed pairs, and any intercepts on your scale.</li>
+        <li><strong>Check</strong> with Section 06, then type it with Section 07.</li>
+      </ol>
+
+      <div class="call order">
+        <span class="tag">The order rule, in one sentence</span>
+        <p>On each side independently, do the <strong>multiplication before the addition</strong>.
+        Vertically: scale and reflect, then shift. Horizontally: scale and reflect, then shift by $h$
+        with the input already factored. Across the two sides, order never matters at all
+        (proved in <a class="famlink" href="#f7">Family 7</a>).</p>
+      </div>
+
+      <h3>The classification table to run at step 3</h3>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>What you see</th><th>Which parameter</th><th>What it forces</th></tr></thead>
+        <tbody>
+          <tr><td>a number added or subtracted <strong>outside</strong></td><td>$k$</td><td>vertical shift, same sign</td></tr>
+          <tr><td>a number multiplying the function <strong>outside</strong></td><td>$a$</td><td>vertical scale; reflect if negative</td></tr>
+          <tr><td>a constant <strong>inside</strong>, no coefficient on $x$</td><td>$h$</td><td>horizontal shift, <strong>opposite</strong> sign</td></tr>
+          <tr><td>a coefficient on $x$ <strong>inside</strong>, nothing added</td><td>$b$</td><td>horizontal scale by $1/|b|$; reflect if negative</td></tr>
+          <tr><td>a coefficient on $x$ <strong>and</strong> a constant, inside</td><td>$b$ and $h$</td><td><strong>factor first</strong>, then shift by $c/b$, never by $c$</td></tr>
+        </tbody>
+      </table></div>
+    </section>
+
+    <!-- ============================================================ 04 -->
+    <section id="s4">
+      <div class="sec-num">Section 04</div>
+      <h2>Q2.1 worked four ways</h2>
+
+      <h3>Route A &nbsp;&middot;&nbsp; shift first, then stretch &nbsp;<span class="chip yes">use this one</span></h3>
+      <p>Same axes on all three panels, so the two transformations are visible as motion. The dashed
+      grey curve is the previous stage.</p>
+      <div class="strip">
+        <figure>
+          <div class="stage-n">Stage 0 &middot; parent</div>
+          <svg viewBox="0 0 240 190" role="img" aria-label="Graph of y equals x squared, vertex at the origin"></svg>
+          <figcaption>$y=x^2$<br><b>vertex (0, 0)</b></figcaption>
+        </figure>
+        <figure>
+          <div class="stage-n">Stage 1 &middot; left 4</div>
+          <svg viewBox="0 0 240 190" role="img" aria-label="Graph of y equals x plus 4 squared, vertex moved left to minus 4"></svg>
+          <figcaption>$y=(x+4)^2$<br><b>vertex (&minus;4, 0)</b></figcaption>
+        </figure>
+        <figure>
+          <div class="stage-n">Stage 2 &middot; stretch &times;3</div>
+          <svg viewBox="0 0 240 190" role="img" aria-label="Graph of y equals 3 times x plus 4 squared, narrower than the previous stage"></svg>
+          <figcaption>$y=3(x+4)^2$<br><b>vertex (&minus;4, 0), narrower</b></figcaption>
+        </figure>
+      </div>
+
+      <p><strong>Stage 1, horizontal shift.</strong> Replace $x$ by $x+4$. Since $x+4=x-(-4)$ we have
+      $h=-4$, so the graph moves <strong>left 4</strong>. Every point keeps its height and loses 4 from
+      its $x$.</p>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>parent</th><th class="num">$(-2,4)$</th><th class="num">$(-1,1)$</th><th class="num">$(0,0)$</th><th class="num">$(1,1)$</th><th class="num">$(2,4)$</th></tr></thead>
+        <tbody><tr><td>after left 4</td><td class="num">$(-6,4)$</td><td class="num">$(-5,1)$</td><td class="num">$(-4,0)$</td><td class="num">$(-3,1)$</td><td class="num">$(-2,4)$</td></tr></tbody>
+      </table></div>
+
+      <p><strong>Stage 2, vertical stretch.</strong> Multiply the output by 3. Every point keeps its $x$
+      and triples its height.</p>
+      <div class="tw"><table class="tight">
+        <thead><tr><th>after left 4</th><th class="num">$(-6,4)$</th><th class="num">$(-5,1)$</th><th class="num">$(-4,0)$</th><th class="num">$(-3,1)$</th><th class="num">$(-2,4)$</th></tr></thead>
+        <tbody><tr><td>after $\times 3$</td><td class="num">$(-6,12)$</td><td class="num">$(-5,3)$</td><td class="num">$(-4,0)$</td><td class="num">$(-3,3)$</td><td class="num">$(-2,12)$</td></tr></tbody>
+      </table></div>
+
+      <div class="call">
+        <span class="tag">Why the vertex does not move in stage 2</span>
+        <p>Its height is $0$, and $3\times 0=0$. A vertical stretch fixes every point on the $x$-axis and
+        moves everything else. Had the question been $3(x+4)^2+1$, the vertex would have moved, which is
+        the whole reason order matters once a $+k$ appears.</p>
+      </div>
+
+      <h3>The labeled answer</h3>
+      <figure class="big-fig">
+        <svg viewBox="0 0 520 330" role="img" aria-label="Labeled graph of g of x equals 3 times x plus 4 squared with vertex at minus 4 comma 0"></svg>
+        <figcaption>$g(x)=3(x+4)^2$ &middot; vertex $(-4,0)$ &middot; axis $x=-4$ &middot;
+        <b>$y$-intercept 48 is off-scale</b></figcaption>
+      </figure>
+
+      <h3>Route B &nbsp;&middot;&nbsp; stretch first, then shift</h3>
+      <p>$x^2 \to 3x^2 \to 3(x+4)^2$. This gives <strong>exactly the same function</strong>, verified to
+      agree everywhere on $[-12,4]$, because a vertical operation and a horizontal one never interfere.
+      It is still the worse habit: it survives here only by luck, and the same instinct produces a wrong
+      answer the moment a vertical shift appears.</p>
+
+      <h3>Route C &nbsp;&middot;&nbsp; expand or use the vertex formula &nbsp;<span class="chip no">scores zero</span></h3>
+      <p>$3(x+4)^2=3x^2+24x+48$, then $x=-\frac{24}{6}=-4$, then $y=0$. Both steps verified correct.
+      Mathematically flawless, and worth <strong>no marks</strong>, because the question forbids it in
+      writing. It is on this page only so you recognise it as the trap it is: it is the route most
+      students find faster, and it is the one being explicitly excluded.</p>
+
+      <h3>Route D &nbsp;&middot;&nbsp; the two-point fit</h3>
+      <p>If you already believe the vertex is $(-4,0)$, get $a$ from one more point:
+      $a(-3+4)^2=3$ gives $a=3$, and $a(-2+4)^2=12$ also gives $a=3$. Both verified. This is not a
+      solution method here, it is the <strong>check</strong> in Section 06 and the tool for
+      <a class="famlink" href="#f8">Family 8</a>.</p>
+
+      <h3>Which route, and why</h3>
+      <div class="tw"><table>
+        <thead><tr><th>Route</th><th>Time</th><th>Risk</th><th>Earns the marks?</th></tr></thead>
+        <tbody>
+          <tr><td>A &middot; shift then stretch</td><td>~30 s</td><td>low; matches the reading order of the expression</td><td><span class="chip yes">yes</span></td></tr>
+          <tr><td>B &middot; stretch then shift</td><td>~30 s</td><td>none here, but trains a habit that fails when $k\neq0$</td><td><span class="chip yes">yes</span></td></tr>
+          <tr><td>C &middot; expand / vertex formula</td><td>~45 s</td><td>none mathematically</td><td><span class="chip no">explicitly zero</span></td></tr>
+          <tr><td>D &middot; two-point fit</td><td>~15 s</td><td>assumes the vertex you were meant to derive</td><td><span class="chip no">no, but best check</span></td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>Use Route A under pressure.</strong> It reads the expression outward from $x$, the same
+      order the template is written in, so there is nothing extra to remember, and it generalises
+      unchanged to every variation in Section 08.</p>
+    </section>
+
+    <!-- ============================================================ 05 -->
+    <section id="s5">
+      <div class="sec-num">Section 05</div>
+      <h2>The exam-ready write-up</h2>
+      <p class="lede">If the paper asks for method, these are the sentences that earn the marks.
+      Copy the shape, not just the numbers.</p>
+      <div class="call">
+        <ol class="proc">
+          <li>The basic function is $y=x^2$, the parabola with vertex at the origin through $(\pm1,1)$ and $(\pm2,4)$.</li>
+          <li>Writing $g(x)=3\big(x-(-4)\big)^2$ puts it in the form $a\,f(x-h)+k$ with $a=3$, $h=-4$, $k=0$.</li>
+          <li><strong>First transformation:</strong> replacing $x$ by $x+4$ translates the graph 4 units <strong>left</strong>, moving the vertex from $(0,0)$ to $(-4,0)$ and $(\pm1,1)$ to $(-3,1)$ and $(-5,1)$.</li>
+          <li><strong>Second transformation:</strong> multiplying by 3 stretches vertically by a factor of 3, fixing $(-4,0)$ because its height is zero, and sending $(-3,1)$ and $(-5,1)$ to $(-3,3)$ and $(-5,3)$.</li>
+          <li>The result is an upward parabola, vertex $(-4,0)$, axis $x=-4$, narrower than $y=x^2$ by a factor of 3, with $g(0)=48$.</li>
+        </ol>
+      </div>
+      <p>Five things markers look for that students routinely skip, each of them free:</p>
+      <ul class="plain">
+        <li><strong>Naming</strong> the basic function, not just drawing it.</li>
+        <li>Writing $g(x)=3(x-(-4))^2$, which is what makes &ldquo;left&rdquo; defensible instead of asserted.</li>
+        <li>Saying the transformations are applied <strong>in that order</strong>, since a procedure was requested.</li>
+        <li><strong>Labeling</strong> real coordinates, because &ldquo;labeled graph&rdquo; is in the question text.</li>
+        <li>Saying the stretch <strong>fixes</strong> the vertex, which shows you know why rather than that you noticed.</li>
+      </ul>
+      <p>Do not write &ldquo;shift 4&rdquo; without a direction, and do not write &ldquo;$h=4$&rdquo;.
+      Both lose the mark they were meant to earn.</p>
+    </section>
+
+    <!-- ============================================================ 06 -->
+    <section id="s6">
+      <div class="sec-num">Section 06</div>
+      <h2>Verify before you commit</h2>
+      <p class="lede">Eight seconds, and it catches nearly every error available on this question.</p>
+      <div class="call pass">
+        <span class="tag">The five-second core check</span>
+        <p><strong>Substitute your vertex back.</strong> You claim $(-4,0)$, so $g(-4)$ must be 0:
+        $3(-4+4)^2=0$. That is the entire check for a shift, and it works because the vertex is the one
+        point whose coordinates you <em>asserted</em> rather than computed.</p>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Invariant</th><th>For Q2.1</th><th>What a failure means</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Direction</strong></td><td>$a=3&gt;0$, opens up</td><td>you dropped or invented a minus sign</td></tr>
+          <tr><td><strong>Width</strong></td><td>one unit out the height is $|a|=3$; two units out, $4|a|=12$</td><td>labels read $(-3,1)$ and $(-2,4)$: you forgot to stretch</td></tr>
+          <tr><td><strong>$y$-intercept</strong></td><td>$g(0)=3(4)^2=48$</td><td>a sketch crossing near the origin means the shift went the wrong way</td></tr>
+          <tr><td><strong>Symmetry</strong></td><td>$g(-4+t)=g(-4-t)$, verified at $t=0.5,1,2,3.7,10$</td><td>two labeled points at one height not equidistant from the axis</td></tr>
+        </tbody>
+      </table></div>
+      <div class="call">
+        <span class="tag">The two-second left-versus-right test</span>
+        <p>Ask which $x$ makes the inside zero. For $(x+4)^2$ that is $x=-4$, which is to the
+        <em>left</em> of the origin, so the shift is left. This never fails and it needs no rule.</p>
+      </div>
+      <p><strong>The numbers worth memorising.</strong> The parent heights $1,4,9$ at 1, 2 and 3 units
+      from the vertex become $a,4a,9a$. For $a=3$ that is $3,\,12,\,27$. If a labeled height on your
+      sketch is not 3, 12 or 27, you have either mislabeled or misread $a$.</p>
+    </section>
+
+    <!-- ============================================================ 07 -->
+    <section id="s7">
+      <div class="sec-num">Section 07</div>
+      <h2>Answer-entry rules</h2>
+      <p class="lede">Möbius runs two different maths parsers behind one answer box, and nothing in the
+      interface tells you which one you are in. Grading is by mathematical equivalence, so a correct
+      answer is never rejected for its <em>form</em>, only for being <em>parsed</em> differently than
+      you meant.</p>
+      <div class="tw"><table>
+        <thead><tr><th>Field</th><th>Type this</th><th>Not this</th></tr></thead>
+        <tbody>
+          <tr><td>the transformed equation</td><td><span class="kbd">3*(x+4)^2</span></td><td><code>3(x+4)^2</code>, <code>3(x+4)&sup2;</code></td></tr>
+          <tr><td>the vertex</td><td><span class="kbd">(-4,0)</span></td><td><code>-4,0</code>, <code>x=-4</code></td></tr>
+          <tr><td>$h$ in $a(x-h)^2+k$</td><td><span class="kbd">-4</span></td><td><code>4</code></td></tr>
+          <tr><td>$k$</td><td><span class="kbd">0</span></td><td>blank</td></tr>
+          <tr><td>$a$</td><td><span class="kbd">3</span></td><td><code>-3</code></td></tr>
+          <tr><td>shift amount, separate direction field</td><td><span class="kbd">4</span> + <span class="kbd">left</span></td><td><code>-4</code> + <code>left</code></td></tr>
+          <tr><td>the domain</td><td><span class="kbd">(-inf,inf)</span></td><td><code>all reals</code></td></tr>
+          <tr><td>the range</td><td><span class="kbd">[0,inf)</span></td><td><code>(0,inf)</code></td></tr>
+          <tr><td>the $y$-intercept</td><td><span class="kbd">48</span></td><td><code>(0,48)</code> if it asked for a number</td></tr>
+        </tbody>
+      </table></div>
+      <div class="call stop">
+        <span class="tag">The single most expensive typo</span>
+        <p>Entering <code>4</code> for $h$. The expression shows $+4$ and the shift is 4 units, so
+        <code>4</code> feels right twice over. But the template is $a(x-h)^2+k$ and $x+4=x-(-4)$, so
+        $h=-4$. The <em>amount</em> is 4 and the <em>parameter</em> is $-4$; the box is asking for one
+        specific one of those. <strong>Read the field label before you type.</strong></p>
+      </div>
+      <p>Two rules that are never wrong, so always use them: type the explicit <code>*</code> for every
+      multiplication (valid in both parsers, so it can never cost you anything, while implicit
+      multiplication fails silently in one of them), and bracket every function argument and every
+      denominator. Then <strong>click preview</strong>: an empty preview modal means broken syntax, not
+      wrong mathematics.</p>
+      <div class="call order">
+        <span class="tag">On a multiple-choice version, discriminate in this order</span>
+        <p><strong>1. Direction</strong> (up or down) eliminates half the options from the sign of $a$
+        alone. <strong>2. Vertex</strong>, read off the inside-zero, $x=-4$ here.
+        <strong>3. Width</strong>, check the height one unit from the vertex against $|a|$.
+        Distractor graphs in this family are built by flipping exactly one of those three, so checking
+        all three in that order is both necessary and sufficient.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ 08 -->
+    <section id="s8">
+      <div class="sec-num">Section 08</div>
+      <h2>The variation catalog</h2>
+      <p class="lede">Thirteen families, organised by <strong>the tool the variation forces</strong>,
+      not by how the question looks. Every entry was numerically verified, and the order claims were
+      verified in both directions.</p>
+
+      <div class="fam" id="f0">
+        <div class="fam-head"><span class="fam-id">F0</span><span class="fam-name">Name and sketch the parent</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>&ldquo;sketch the basic function&rdquo;, or a first step you have to supply</dd>
+          <dt>Tool</dt><dd>recall from the table in Section 02</dd>
+        </dl>
+        <p>Nothing to derive, and it gates all twelve families below. If you cannot produce
+        $\sqrt[3]{x}$ or $1/x^2$ from memory in five seconds, no amount of transformation technique
+        saves the question.</p>
+      </div>
+
+      <div class="fam" id="f1">
+        <div class="fam-head"><span class="fam-id">F1</span><span class="fam-name">Pure shifts</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>constants added inside and outside, <strong>no coefficient anywhere</strong></dd>
+          <dt>Tool</dt><dd>$(x,y)\mapsto(x+h,\,y+k)$. Nothing scales, so no order question exists</dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>Parent</th><th>Point map</th><th>Key point</th><th>Extra</th></tr></thead>
+          <tbody>
+            <tr><td>$(x-3)^2+2$</td><td>$x^2$</td><td class="num">$(x+3,\,y+2)$</td><td class="num">vertex $(3,2)$</td><td>no $x$-intercept</td></tr>
+            <tr><td>$|x+1|-4$</td><td>$|x|$</td><td class="num">$(x-1,\,y-4)$</td><td class="num">vertex $(-1,-4)$</td><td>$x$-ints $3$, $-5$</td></tr>
+            <tr><td>$\sqrt{x-2}+1$</td><td>$\sqrt{x}$</td><td class="num">$(x+2,\,y+1)$</td><td class="num">start $(2,1)$</td><td>domain $[2,\infty)$</td></tr>
+            <tr><td>$(x+5)^3-1$</td><td>$x^3$</td><td class="num">$(x-5,\,y-1)$</td><td class="num">inflection $(-5,-1)$</td><td></td></tr>
+          </tbody>
+        </table></div>
+        <p>One rule, not four: <strong>the parent's anchor point goes to $(h,k)$</strong>, and every
+        other point rides along.</p>
+      </div>
+
+      <div class="fam" id="f2">
+        <div class="fam-head"><span class="fam-id">F2</span><span class="fam-name">Vertical scaling</span><span class="chip amb">Q2.1 lives here</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>a coefficient <strong>outside</strong> the function</dd>
+          <dt>Tool</dt><dd>multiply heights by $a$, <strong>before</strong> any vertical shift</dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>Point map</th><th>Vertex or start</th><th>$y$-intercept</th></tr></thead>
+          <tbody>
+            <tr><td>$3(x+4)^2$ &nbsp;<span class="chip amb">Q2.1</span></td><td class="num">$(x-4,\,3y)$</td><td class="num">$(-4,0)$</td><td class="num">$48$</td></tr>
+            <tr><td>$2(x-1)^2-5$</td><td class="num">$(x+1,\,2y-5)$</td><td class="num">$(1,-5)$</td><td class="num">$-3$</td></tr>
+            <tr><td>$\tfrac12|x|+3$</td><td class="num">$(x,\,\tfrac{y}{2}+3)$</td><td class="num">$(0,3)$</td><td class="num">$3$</td></tr>
+            <tr><td>$4\sqrt{x}-2$</td><td class="num">$(x,\,4y-2)$</td><td class="num">$(0,-2)$</td><td class="num">$-2$, $x$-int $\tfrac14$</td></tr>
+          </tbody>
+        </table></div>
+        <p>Look at the $y$ column of every map: always &ldquo;multiply, then add&rdquo;, in that order.
+        That is the whole family.</p>
+      </div>
+
+      <div class="fam" id="f3">
+        <div class="fam-head"><span class="fam-id">F3</span><span class="fam-name">Reflections, and when one is invisible</span><span class="chip amb">Q2.2 lives here</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>a minus sign. The only question is <strong>which side of $f$</strong> it is on</dd>
+          <dt>Tool</dt><dd>minus <strong>outside</strong> flips vertically; minus <strong>multiplying $x$</strong> flips horizontally</dd>
+        </dl>
+        <div class="strip" style="grid-template-columns:repeat(auto-fit,minmax(230px,1fr))">
+          <figure>
+            <svg viewBox="0 0 300 230" role="img" aria-label="Graph of f of x equals minus 3 times absolute value of x minus 2, an inverted V with vertex at 2 comma 0"></svg>
+            <figcaption>$f(x)=-3|x-2|$ &middot; <b>Q2.2</b> &middot; vertex $(2,0)$, opens down</figcaption>
+          </figure>
+          <div>
+            <div class="tw" style="margin-top:0"><table class="tight">
+              <thead><tr><th>Function</th><th>Flip</th><th>Point map</th><th>Range</th></tr></thead>
+              <tbody>
+                <tr><td>$-3|x-2|$</td><td>vertical</td><td class="num">$(x+2,\,-3y)$</td><td>$(-\infty,0]$</td></tr>
+                <tr><td>$-(x+1)^2+4$</td><td>vertical</td><td class="num">$(x-1,\,-y+4)$</td><td>$(-\infty,4]$</td></tr>
+                <tr><td>$-\sqrt{x}$</td><td>vertical</td><td class="num">$(x,\,-y)$</td><td>$(-\infty,0]$</td></tr>
+                <tr><td>$\sqrt{-x}$</td><td>horizontal</td><td class="num">$(-x,\,y)$</td><td>$[0,\infty)$, <strong>domain</strong> flips</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+        <p>$-3|x-2|$ has vertex $(2,0)$, passes $(1,-3)$ and $(3,-3)$, has $y$-intercept $-6$, and its
+        only $x$-intercept is $x=2$. All verified.</p>
+        <div class="call stop">
+          <span class="tag">The three degeneracies that decide whether a flip is visible</span>
+          <div class="tw" style="margin-bottom:0"><table class="tight">
+            <thead><tr><th>Algebraic fact</th><th>Verified consequence</th></tr></thead>
+            <tbody>
+              <tr><td>$(-x)^2=x^2$ and $|-x|=|x|$</td><td>for an <strong>even</strong> parent a $y$-axis flip changes <strong>nothing</strong></td></tr>
+              <tr><td>$(-x)^3=-x^3$ and $\tfrac{1}{-x}=-\tfrac1x$</td><td>for an <strong>odd</strong> parent the two flips give the <strong>same</strong> graph</td></tr>
+              <tr><td>$3|-(x-2)|=3|x-2|\neq-3|x-2|$</td><td>the minus must be <strong>outside</strong> to turn the graph over</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <p>That last row is what costs marks on Q2.2, and it was verified in both directions:
+        $3|-(x-2)|$ and $3|x-2|$ agree everywhere, and both differ from $-3|x-2|$.</p>
+      </div>
+
+      <div class="fam" id="f4">
+        <div class="fam-head"><span class="fam-id">F4</span><span class="fam-name">Horizontal scaling, and the degeneracy that hides it</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>a coefficient <strong>on $x$</strong>, nothing added inside</dd>
+          <dt>Tool</dt><dd>the factor is $1/|b|$, the <strong>reciprocal</strong>. $f(2x)$ is a <em>compression</em></dd>
+        </dl>
+        <p>Here is the fact nobody mentions, and it explains why this family is under-tested and
+        therefore dangerous. <strong>For power and root parents a horizontal scaling is
+        indistinguishable from a vertical one.</strong></p>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>Equals</th><th>So the &ldquo;horizontal compression&rdquo; is really</th></tr></thead>
+          <tbody>
+            <tr><td>$(2x)^2$</td><td>$4x^2$</td><td>a vertical stretch by 4</td></tr>
+            <tr><td>$\sqrt{4x}$</td><td>$2\sqrt{x}$</td><td>a vertical stretch by 2</td></tr>
+            <tr><td>$|x/2|$</td><td>$\tfrac12|x|$</td><td>a vertical compression by $\tfrac12$</td></tr>
+            <tr><td>$(x/3)^3$</td><td>$x^3/27$</td><td>a vertical compression by $\tfrac1{27}$</td></tr>
+          </tbody>
+        </table></div>
+        <p>Verified over $b\in\{2,3,\tfrac12\}$ and $n\in\{2,3,4\}$: compressing $x^n$ horizontally by
+        $1/b$ equals stretching it vertically by $b^n$. So on a <em>parabola</em> you can never be
+        marked wrong for confusing the two, and you will therefore never learn the difference from
+        parabola practice.</p>
+        <div class="call pass">
+          <span class="tag">Where the degeneracy fails, which is where the marks are</span>
+          <div class="tw" style="margin-bottom:0"><table class="tight">
+            <thead><tr><th>Function</th><th>What actually happens</th></tr></thead>
+            <tbody>
+              <tr><td>$\sin 2x$</td><td>period halves to $\pi$; <strong>not</strong> any vertical scaling of $\sin x$ (at $x=\tfrac{\pi}{2}$ the constant would have to be 0, at $x=\tfrac{\pi}{4}$ it would have to be $\sqrt2$)</td></tr>
+              <tr><td>$\ln 4x$</td><td>$=\ln x+\ln 4$: a horizontal compression of $\ln$ is a vertical <strong>shift</strong></td></tr>
+              <tr><td>$e^{3x}$</td><td>$=(e^3)^x$: a horizontal compression of $e^x$ is a change of <strong>base</strong></td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <p>If a horizontal-scaling question appears, expect a trig, log or exponential parent, because
+        those are the only ones where the answer differs from the vertical version.</p>
+      </div>
+
+      <div class="fam" id="f5">
+        <div class="fam-head"><span class="fam-id">F5</span><span class="fam-name">The unfactored input</span><span class="chip no">where the marks actually go</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>a coefficient on $x$ <strong>and</strong> a constant inside, not factored</dd>
+          <dt>Tool</dt><dd><strong>factor $b$ out first.</strong> The shift is $c/b$, never $c$</dd>
+        </dl>
+        <p>This gets its own family because it is the most reliable way to lose the question, and
+        because the wrong answer looks completely reasonable.</p>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>Factored</th><th>Shift, once factored</th><th>Wrong if you scale first, then shift by $c$</th></tr></thead>
+          <tbody>
+            <tr><td>$(2x-6)^2$</td><td>$\big(2(x-3)\big)^2=4(x-3)^2$</td><td>right <strong>3</strong></td><td>right 6</td></tr>
+            <tr><td>$\sqrt{3x+9}$</td><td>$\sqrt{3(x+3)}=\sqrt3\sqrt{x+3}$</td><td>left <strong>3</strong></td><td>left 9</td></tr>
+            <tr><td>$|4x-8|$</td><td>$4|x-2|$</td><td>right <strong>2</strong></td><td>right 8</td></tr>
+            <tr><td>$\sin(2x-\pi)$</td><td>$\sin\big(2(x-\tfrac{\pi}{2})\big)$</td><td>right $\tfrac{\pi}{2}$</td><td>right $\pi$</td></tr>
+            <tr><td>$(-x+2)^2$</td><td>$\big(-(x-2)\big)^2=(x-2)^2$</td><td>right <strong>2</strong>, flip invisible</td><td>a visible $y$-axis flip</td></tr>
+          </tbody>
+        </table></div>
+        <div class="call order">
+          <span class="tag">Read that last column precisely, it is easy to over-learn</span>
+          <p>It does <strong>not</strong> say the larger number is always wrong. Shifting by $c$ is
+          correct in the <em>unfactored</em> reading, provided the shift comes <strong>first</strong>:
+          $\sqrt{3x+9}$ really can be built as &ldquo;left 9, then compress by $\tfrac13$&rdquo;, and
+          that was verified. What fails is taking the <em>amount</em> from one reading and the
+          <em>order</em> from the other.</p>
+        </div>
+        <p>Verified as a real difference, not merely asserted: $(2x-6)^2$ and
+        $\big(2(x-6)\big)^2$ disagree, with vertices at 3 and 6.</p>
+        <figure class="big-fig">
+          <svg viewBox="0 0 520 300" role="img" aria-label="Two parabolas compared, 4 times x minus 3 squared with vertex at 3 and 2x minus 3 squared with vertex at 1.5"></svg>
+          <figcaption>Compress-then-shift <b>$4(x-3)^2$</b> (amber, vertex 3) against
+          shift-then-compress <b class="alt">$(2x-3)^2$</b> (blue, vertex 1.5)</figcaption>
+        </figure>
+        <div class="call order">
+          <span class="tag">Why order matters here and only here</span>
+          <p>With the input written as $b(x-h)$ you must <strong>scale then shift</strong>: that gives
+          $f\big(b(x-h)\big)$. Shifting first gives $f(bx-h)$, which is a shift of $h/b$. Both orders
+          work if you match the amount to the form, and <em>mixing</em> them is the error.</p>
+          <div class="tw" style="margin-bottom:0"><table class="tight">
+            <thead><tr><th>Form you wrote</th><th>Correct order</th><th>Correct amount</th></tr></thead>
+            <tbody>
+              <tr><td>$f\big(b(x-h)\big)$, factored</td><td>scale first, then shift</td><td>$h$</td></tr>
+              <tr><td>$f(bx-c)$, unfactored</td><td>shift first, then scale</td><td>$c$</td></tr>
+            </tbody>
+          </table></div>
+        </div>
+        <p>Factoring first removes the choice, which is exactly why step 2 of the procedure exists.</p>
+      </div>
+
+      <div class="fam" id="f6">
+        <div class="fam-head"><span class="fam-id">F6</span><span class="fam-name">The full composite, all four parameters live</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>more than two things happening at once</dd>
+          <dt>Tool</dt><dd>the master point map. Do not reason verbally about four transformations</dd>
+        </dl>
+        <p><strong>Worked shape: $y=-2\sqrt{3-x}+1$.</strong> Factor the input: $3-x=-(x-3)$, so
+        $y=-2\sqrt{-(x-3)}+1$, giving $a=-2$, $b=-1$, $h=3$, $k=1$. The point map is
+        $(x,y)\mapsto(3-x,\;-2y+1)$. As an ordered list: reflect in the $y$-axis, shift right 3,
+        stretch vertically by 2, reflect in the $x$-axis, shift up 1.</p>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Parent point</th><th>Image</th><th>Check</th></tr></thead>
+          <tbody>
+            <tr><td class="num">$(0,0)$</td><td class="num">$(3,1)$</td><td>starting point</td></tr>
+            <tr><td class="num">$(1,1)$</td><td class="num">$(2,-1)$</td><td>on the curve</td></tr>
+            <tr><td class="num">$(4,2)$</td><td class="num">$(-1,-3)$</td><td>on the curve</td></tr>
+            <tr><td class="num">$(9,3)$</td><td class="num">$(-6,-5)$</td><td>on the curve</td></tr>
+          </tbody>
+        </table></div>
+        <p>Domain $(-\infty,3]$, range $(-\infty,1]$, $y$-intercept $1-2\sqrt3$, $x$-intercept
+        $x=\tfrac{11}{4}$. All verified. Two more instances: $\tfrac12(x+2)^3-4$ maps
+        $(x-2,\,\tfrac{y}{2}-4)$ with inflection $(-2,-4)$ and passes the origin; $3-2|x+1|$ maps
+        $(x-1,\,-2y+3)$ with vertex $(-1,3)$ and $x$-intercepts $\tfrac12$ and $-\tfrac52$.</p>
+      </div>
+
+      <div class="fam" id="f7">
+        <div class="fam-head"><span class="fam-id">F7</span><span class="fam-name">Does the order matter?</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>&ldquo;indicate the transformations <strong>in the order</strong> they are applied&rdquo;, which is Q2.2's own wording</dd>
+          <dt>Tool</dt><dd>the one-sentence rule, plus the table below</dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Pair of transformations</th><th>Order?</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>any vertical with any horizontal</td><td><span class="chip yes">free</span></td><td>they touch different coordinates</td></tr>
+            <tr><td>two shifts on the same axis</td><td><span class="chip yes">free</span></td><td>additions commute; right 2 then right 3 is right 5</td></tr>
+            <tr><td>vertical reflect with vertical stretch</td><td><span class="chip yes">free</span></td><td>both are multiplications of $y$</td></tr>
+            <tr><td>horizontal compress with vertical stretch</td><td><span class="chip yes">free</span></td><td>different coordinates</td></tr>
+            <tr><td>vertical stretch with vertical <em>shift</em></td><td><span class="chip no">matters</span></td><td>$2x^2+5$ versus $2(x^2+5)=2x^2+10$</td></tr>
+            <tr><td>vertical reflect with vertical <em>shift</em></td><td><span class="chip no">matters</span></td><td>$-x^2+4$ versus $-(x^2+4)=-x^2-4$</td></tr>
+            <tr><td>horizontal scale with horizontal <em>shift</em></td><td><span class="chip no">matters</span></td><td>$4(x-3)^2$ versus $(2x-3)^2$, vertices 3 and $\tfrac32$</td></tr>
+            <tr><td>horizontal reflect with horizontal <em>shift</em></td><td><span class="chip no">matters</span></td><td>$|2-x|$ versus $|-x-2|$</td></tr>
+          </tbody>
+        </table></div>
+        <p>The pattern is exactly one line: <strong>order matters only between a multiply and an add on
+        the same axis.</strong></p>
+        <div class="call stop">
+          <span class="tag">The trap disguised as good news</span>
+          <p>Both transformation questions on the past papers are <strong>order-insensitive</strong>.
+          Q2.1's two orders were verified identical, and for Q2.2 <strong>all six</strong> orderings of
+          {shift right 2, stretch 3, reflect in $x$} were verified to reproduce $f$ exactly. Neither has
+          a vertical shift, so nothing can go wrong.</p>
+          <p>Which means you can practise both past questions with sloppy order, score full marks twice,
+          and conclude order does not matter. Add a $+k$ and it does: $3(x+4)^2+6$ and
+          $3\big((x+4)^2+6\big)$ are verified different functions, 12 apart everywhere.</p>
+        </div>
+      </div>
+
+      <div class="fam" id="f8">
+        <div class="fam-head"><span class="fam-id">F8</span><span class="fam-name">Reverse direction: write the equation</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>&ldquo;the graph of $f$ is shifted&hellip;, find the new equation&rdquo;, or a graph with labeled points</dd>
+          <dt>Tool</dt><dd>the same template read right to left, applying the operations <strong>in the order given</strong></dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Described sequence</th><th>Equation</th><th>Check</th></tr></thead>
+          <tbody>
+            <tr><td>$x^2$: right 5, stretch 2, down 3</td><td>$2(x-5)^2-3$</td><td>vertex $(5,-3)$</td></tr>
+            <tr><td>$|x|$: reflect in $x$-axis, left 3, up 1</td><td>$-|x+3|+1$</td><td>vertex $(-3,1)$</td></tr>
+            <tr><td>$\sqrt{x}$: compress by $\tfrac13$, up 2</td><td>$\sqrt{3x}+2$</td><td>start $(0,2)$</td></tr>
+            <tr><td><strong>up 3 then stretch 2</strong></td><td>$2(x^2+3)=2x^2+6$</td><td><strong>not</strong> $2x^2+3$</td></tr>
+          </tbody>
+        </table></div>
+        <p>That last row is the order trap running backwards, verified as a genuine difference. When the
+        question dictates an order that puts the shift first, obey it, and the constant gets
+        multiplied.</p>
+        <p><strong>From a graph:</strong> read the vertex for $h$ and $k$, then fit $a$ from any one
+        other labeled point. Vertex $(2,-3)$ through $(3,-1)$ gives $a(1)^2-3=-1$, so $a=2$ and
+        $y=2(x-2)^2-3$, verified through both $(3,-1)$ and $(1,-1)$. The same fit on Q2.1's vertex
+        $(-4,0)$ and point $(-3,3)$ recovers $a=3$.</p>
+      </div>
+
+      <div class="fam" id="f9">
+        <div class="fam-head"><span class="fam-id">F9</span><span class="fam-name">An abstract $f$, given only points</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>&ldquo;the graph of $y=f(x)$ is shown; sketch $y=2f(x-1)-3$&rdquo;. No formula given</dd>
+          <dt>Tool</dt><dd>the point map on the labeled points <strong>only</strong></dd>
+        </dl>
+        <p>This looks harder than the others and is actually easier, because you cannot be tempted into
+        expanding. Take $f$ with labeled points $(-3,2),(-2,1),(0,-3),(2,-4),(4,2)$.</p>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Transformation</th><th>Point map</th><th>The five images</th></tr></thead>
+          <tbody>
+            <tr><td>$2f(x-1)-3$</td><td class="num">$(x+1,\,2y-3)$</td><td class="num">$(-2,1),(-1,-1),(1,-9),(3,-11),(5,1)$</td></tr>
+            <tr><td>$-f(x)+1$</td><td class="num">$(x,\,-y+1)$</td><td class="num">$(-3,-1),(-2,0),(0,4),(2,5),(4,-1)$</td></tr>
+            <tr><td>$f(2x)$</td><td class="num">$(\tfrac{x}{2},\,y)$</td><td class="num">$(-1.5,2),(-1,1),(0,-3),(1,-4),(2,2)$</td></tr>
+            <tr><td>$f(-x)$</td><td class="num">$(-x,\,y)$</td><td class="num">$(3,2),(2,1),(0,-3),(-2,-4),(-4,2)$</td></tr>
+            <tr><td>$f(x+3)-2$</td><td class="num">$(x-3,\,y-2)$</td><td class="num">$(-6,0),(-5,-1),(-3,-5),(-1,-6),(1,0)$</td></tr>
+            <tr><td>$\tfrac12 f(x)$</td><td class="num">$(x,\,\tfrac{y}{2})$</td><td class="num">$(-3,1),(-2,0.5),(0,-1.5),(2,-2),(4,1)$</td></tr>
+          </tbody>
+        </table></div>
+        <p>All six maps were verified against an interpolated $f$ through those five points. Note that
+        $f(-x)$ <strong>reverses the left-to-right order</strong> of the points, which is what makes it
+        easy to plot in the wrong order.</p>
+      </div>
+
+      <div class="fam" id="f10">
+        <div class="fam-head"><span class="fam-id">F10</span><span class="fam-name">Domain and range under transformation</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>&ldquo;state the domain and range of the transformed function&rdquo;</dd>
+          <dt>Tool</dt><dd>horizontal ops act on the <strong>domain</strong> with the inverse operation; vertical ops act on the <strong>range</strong> with the same operation</dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>Domain</th><th>Range</th></tr></thead>
+          <tbody>
+            <tr><td>$3(x+4)^2$</td><td>$(-\infty,\infty)$</td><td>$[0,\infty)$</td></tr>
+            <tr><td>$-3|x-2|$</td><td>$(-\infty,\infty)$</td><td>$(-\infty,0]$</td></tr>
+            <tr><td>$\sqrt{x-2}+1$</td><td>$[2,\infty)$</td><td>$[1,\infty)$</td></tr>
+            <tr><td>$\sqrt{-x}$</td><td>$(-\infty,0]$</td><td>$[0,\infty)$</td></tr>
+            <tr><td>$-2\sqrt{3-x}+1$</td><td>$(-\infty,3]$</td><td>$(-\infty,1]$</td></tr>
+            <tr><td>$\tfrac{1}{x-2}+3$</td><td>$x\neq2$</td><td>$y\neq3$</td></tr>
+          </tbody>
+        </table></div>
+        <p>Verified with a function whose domain is exactly $[-1,3]$: $f(2x)$ has domain
+        $[-\tfrac12,\tfrac32]$, $f(x-2)$ has domain $[1,5]$, and $2f(x)-3$ leaves the domain unchanged
+        while its range moves from $[0,2]$ to $[-3,1]$. Only the <em>parent's</em> restriction can
+        create a domain restriction: $3(x+4)^2$ is defined everywhere no matter what you do to it.</p>
+      </div>
+
+      <div class="fam" id="f11">
+        <div class="fam-head"><span class="fam-id">F11</span><span class="fam-name">Parents with asymptotes</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>the parent is $1/x$, $1/x^2$, $\ln$ or $e^x$</dd>
+          <dt>Tool</dt><dd>an asymptote is a set of points, so it moves by the <strong>same point map</strong></dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>Function</th><th>VA</th><th>HA</th><th>Points</th></tr></thead>
+          <tbody>
+            <tr><td>$\tfrac{1}{x-2}+3$</td><td>$x=2$</td><td>$y=3$</td><td>$(3,4)$, $(1,2)$; $x$-int $\tfrac53$</td></tr>
+            <tr><td>$\tfrac{2}{x+1}-1$</td><td>$x=-1$</td><td>$y=-1$</td><td>$x$-int $1$</td></tr>
+            <tr><td>$\ln(x+3)$</td><td>$x=-3$</td><td>none</td><td>$(-2,0)$</td></tr>
+            <tr><td>$e^{x-1}-2$</td><td>none</td><td>$y=-2$</td><td>$(1,-1)$; $x$-int $1+\ln2$</td></tr>
+            <tr><td>$-\tfrac1x$</td><td>$x=0$</td><td>$y=0$</td><td>QII and QIV, since $-\tfrac1x=\tfrac{1}{-x}$</td></tr>
+          </tbody>
+        </table></div>
+        <p>All verified, including the asymptotes as one-sided limits. The commonest error here is
+        shifting the curve and leaving the asymptote where it was.</p>
+      </div>
+
+      <div class="fam" id="f12">
+        <div class="fam-head"><span class="fam-id">F12</span><span class="fam-name">A restricted domain</span></div>
+        <dl class="tt">
+          <dt>Trigger</dt><dd>the phrase &ldquo;in the interval&rdquo;, which is in Q2.2's own wording</dd>
+          <dt>Tool</dt><dd>endpoints are points, so they move by the point map like everything else</dd>
+        </dl>
+        <div class="tw"><table class="tight">
+          <thead><tr><th>If $f$ lives on $[-1,3]$</th><th>New interval</th><th>Note</th></tr></thead>
+          <tbody>
+            <tr><td>$f(x-2)$</td><td class="num">$[1,5]$</td><td>same sign as the shift</td></tr>
+            <tr><td>$f(2x)$</td><td class="num">$[-\tfrac12,\tfrac32]$</td><td>halves, the reciprocal again</td></tr>
+            <tr><td>$f(x/2)$</td><td class="num">$[-2,6]$</td><td>doubles</td></tr>
+            <tr><td>$f(-x)$</td><td class="num">$[-3,1]$</td><td>the <strong>endpoints swap</strong></td></tr>
+            <tr><td>$2f(x)-3$</td><td class="num">$[-1,3]$</td><td>vertical, so unchanged</td></tr>
+          </tbody>
+        </table></div>
+        <p>Watch the swap under $f(-x)$: writing $[3,-1]$ is not an interval.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ 09 -->
+    <section id="s9">
+      <div class="sec-num">Section 09</div>
+      <h2>The trap list</h2>
+      <p class="lede">Ranked by how often each one actually costs marks on this question.</p>
+      <ol class="traps">
+        <li><strong>Using the vertex formula or expanding.</strong> The question says no credit. The only trap here that scores zero with completely correct mathematics, which is why it is first.</li>
+        <li><strong>Getting the shift direction backwards.</strong> $(x+4)^2$ shifts <em>left</em>. Test it by asking which $x$ makes the inside zero.</li>
+        <li><strong>Not factoring a coefficient out of the input.</strong> $(2x-6)^2$ shifts right <em>3</em>, not 6. The biggest silent error in the topic. <a class="famlink" href="#f5">F5</a></li>
+        <li><strong>Entering $h=4$ instead of $h=-4$.</strong> The <em>amount</em> is 4, the <em>parameter</em> is $-4$. Read the field label.</li>
+        <li><strong>Forgetting the stretch when labeling.</strong> Writing $(-3,1)$ instead of $(-3,3)$. One unit from the vertex, the height equals $|a|$.</li>
+        <li><strong>Applying a vertical shift before a vertical stretch.</strong> $2x^2+5$ is not $2(x^2+5)$. Multiply, then add. <a class="famlink" href="#f7">F7</a></li>
+        <li><strong>Treating a horizontal scale as a stretch when it is a compression.</strong> The factor is the reciprocal. <a class="famlink" href="#f4">F4</a></li>
+        <li><strong>Putting a minus on the wrong side of $f$.</strong> $-3|x-2|$ opens down; $3|-(x-2)|$ is just $3|x-2|$. <a class="famlink" href="#f3">F3</a></li>
+        <li><strong>Not naming the parent function.</strong> On a written paper this is an explicit part of &ldquo;starting with the graph of a basic function&rdquo;.</li>
+        <li><strong>Giving an unlabeled sketch.</strong> The question says &ldquo;labeled graph&rdquo;. A correct curve with no coordinates is an incomplete answer.</li>
+        <li><strong>Moving the curve and leaving the asymptote.</strong> <a class="famlink" href="#f11">F11</a></li>
+        <li><strong>Reversing an interval.</strong> $f(-x)$ on $[-1,3]$ lives on $[-3,1]$, not $[3,-1]$. <a class="famlink" href="#f12">F12</a></li>
+      </ol>
+    </section>
+
+    <!-- ============================================================ 10 -->
+    <section id="s10">
+      <div class="sec-num">Section 10</div>
+      <h2>Drill set</h2>
+      <p class="lede">Twelve problems, under fifteen minutes, on paper. Do not read the key first.</p>
+      <ol class="proc">
+        <li>Sketch $y=2(x-3)^2-1$ by transformations. Give the vertex and the $y$-intercept.</li>
+        <li>Sketch $y=-|x+2|+3$. Give the vertex and both $x$-intercepts.</li>
+        <li>Sketch $y=\sqrt{x+4}-2$. State the domain and range.</li>
+        <li>For $y=(3x-12)^2$, what is the horizontal shift, and where is the vertex?</li>
+        <li>For $y=\sqrt{2x+6}$, list the transformations in order with their amounts, and give the starting point.</li>
+        <li>For $y=x^2$, does the order of &ldquo;stretch vertically by 4&rdquo; and &ldquo;shift up 2&rdquo; matter? Give both results.</li>
+        <li>$y=x^3$ is reflected in the $y$-axis. Write the equation and simplify. What do you notice?</li>
+        <li>Write the equation: $|x|$ stretched vertically by 5, reflected in the $x$-axis, right 1, then down 2.</li>
+        <li>$f$ has points $(-3,2),(0,0),(2,-4)$. Give the three points on $y=-f(x+3)+1$.</li>
+        <li>For $y=\frac{1}{x+1}-2$, give both asymptotes, the $x$-intercept, and one point on each branch.</li>
+        <li>For $y=3-2\sqrt{x-1}$, give the domain, range, starting point and $x$-intercept.</li>
+        <li>Sketch $g(x)=3(x+4)^2$ and $h(x)=3x^2+24x+48$. What is the relationship, and which method may you use?</li>
+      </ol>
+
+      <h3>Answer key</h3>
+      <div class="tw"><table>
+        <thead><tr><th class="num">#</th><th>Answer</th><th>Family and method</th></tr></thead>
+        <tbody>
+          <tr><td class="num">1</td><td>vertex $(3,-1)$, $y$-int $17$; map $(x+3,\,2y-1)$</td><td><a class="famlink" href="#f2">F2</a> stretch before shift</td></tr>
+          <tr><td class="num">2</td><td>vertex $(-2,3)$, $x$-ints $1$ and $-5$, $y$-int $1$</td><td><a class="famlink" href="#f3">F3</a> vertical reflect, opens down</td></tr>
+          <tr><td class="num">3</td><td>start $(-4,-2)$, passes the <strong>origin</strong>, $D=[-4,\infty)$, $R=[-2,\infty)$</td><td><a class="famlink" href="#f1">F1</a> + <a class="famlink" href="#f10">F10</a></td></tr>
+          <tr><td class="num">4</td><td>$=9(x-4)^2$, shift right <strong>4</strong> (not 12), vertex $(4,0)$</td><td><a class="famlink" href="#f5">F5</a> factor the 3 out first</td></tr>
+          <tr><td class="num">5</td><td>$=\sqrt2\sqrt{x+3}$: compress by $\tfrac12$, then <strong>left 3</strong> (not 6); start $(-3,0)$, passes $(-1,2)$</td><td><a class="famlink" href="#f5">F5</a> factor first</td></tr>
+          <tr><td class="num">6</td><td><strong>Yes.</strong> Stretch then shift $=4x^2+2$; shift then stretch $=4x^2+8$</td><td><a class="famlink" href="#f7">F7</a> multiply before add</td></tr>
+          <tr><td class="num">7</td><td>$(-x)^3=-x^3$: identical to reflecting in the $x$-axis, because $x^3$ is <strong>odd</strong></td><td><a class="famlink" href="#f3">F3</a> the parity degeneracy</td></tr>
+          <tr><td class="num">8</td><td>$y=-5|x-1|-2$; vertex $(1,-2)$, $y$-int $-7$, range $(-\infty,-2]$, <strong>no</strong> $x$-intercept</td><td><a class="famlink" href="#f8">F8</a> reverse direction</td></tr>
+          <tr><td class="num">9</td><td>map $(x-3,\,-y+1)$: $(-6,-1)$, $(-3,1)$, $(-1,5)$</td><td><a class="famlink" href="#f9">F9</a> abstract $f$</td></tr>
+          <tr><td class="num">10</td><td>VA $x=-1$, HA $y=-2$, $x$-int $-\tfrac12$, points $(0,-1)$ and $(-2,-3)$</td><td><a class="famlink" href="#f11">F11</a> asymptotes shift too</td></tr>
+          <tr><td class="num">11</td><td>$D=[1,\infty)$, $R=(-\infty,3]$, start $(1,3)$, $x$-int $\tfrac{13}{4}$, passes $(5,-1)$</td><td><a class="famlink" href="#f6">F6</a> full composite</td></tr>
+          <tr><td class="num">12</td><td><strong>identical functions</strong>, but expanding is forbidden, so you must transform. Vertex $(-4,0)$, $y$-int $48$, height-3 pair $(-5,3)$ and $(-3,3)$</td><td><a class="famlink" href="#f2">F2</a> + the grading clause</td></tr>
+        </tbody>
+      </table></div>
+
+      <div class="call">
+        <span class="tag">Mark yourself on three axes separately, because they need different fixes</span>
+        <ul class="plain">
+          <li><strong>Direction</strong> errors (left/right, up/down): re-read Section 02 and use the inside-zero test.</li>
+          <li><strong>Magnitude</strong> errors (shifting 6 instead of 3, forgetting the stretch): you are not factoring. Drill <a class="famlink" href="#f5">F5</a> only.</li>
+          <li><strong>Order</strong> errors: drill <a class="famlink" href="#f7">F7</a> only, specifically the four rows where order matters.</li>
+        </ul>
+        <p>If directions are right and magnitudes are wrong, more sketching will not help you.
+        Factoring practice will.</p>
+      </div>
+    </section>
+
+    <!-- ============================================================ 11 -->
+    <section id="s11">
+      <div class="sec-num">Section 11</div>
+      <h2>The one-page decision tree</h2>
+<pre>Sketch y = &lt;expression&gt; by transformations?
+|
++-- 0. Is a GRAPH or a POINT LIST given instead of a formula?
+|      YES -&gt; FAMILY 9. Apply the point map to the labeled points only.
+|             Nothing else is possible and nothing else is needed.
+|
++-- 1. NAME THE PARENT.  Strip all constants.  Write its anchor points.
+|      x, x^2, x^3, |x|, sqrt(x), cbrt(x), 1/x, 1/x^2, sin, cos, e^x, ln
+|      Note its PARITY: even -&gt; a y-axis flip is invisible
+|                       odd  -&gt; the two flips are the same graph
+|
++-- 2. FACTOR THE INPUT.   &lt;- skipped exactly when it matters
+|      Coefficient on x AND a constant inside?
+|        YES -&gt; rewrite as b(x - h).  The shift is c/b, NOT c.
+|        NO  -&gt; b is 1 or absent.  Carry on.
+|
++-- 3. READ OFF FOUR NUMBERS from  y = a*f(b(x-h)) + k
+|        a = outside multiplier   (|a| scales y;  a&lt;0 flips vertically)
+|        k = outside addend       (shift up k)
+|        b = inside multiplier    (scale x by 1/|b|;  b&lt;0 flips horizontally)
+|        h = inside subtrahend    (shift RIGHT h;  x+4 means h = -4)
+|
++-- 4. BUILD THE POINT MAP     (x, y) -&gt; ( x/b + h ,  a*y + k )
+|
++-- 5. PUSH 3-5 ANCHORS THROUGH IT.  Vertex/start, plus two pairs.
+|
++-- 6. STATE THE ORDER, because "explain the procedure" is worth marks.
+|      On EACH axis: MULTIPLY BEFORE ADD.  Across axes: order is free.
+|      Safe recital: h-scale, h-flip, h-shift, v-scale, v-flip, v-shift.
+|
++-- 7. SKETCH AND LABEL the vertex and every point from step 5.
+|
++-- 8. CHECK, in eight seconds:
+       a. substitute the vertex back: does it give the y you claimed?
+       b. sign of a: does the sketch open the right way?
+       c. one unit from the vertex, is the height |a|?
+       d. set x = 0 in the ORIGINAL: does the sketch cross there?
+       e. even parent? is it symmetric about x = h?
+
+  Then TYPE it: explicit *, brackets on every argument,
+  h is NEGATIVE for a left shift, and PREVIEW.</pre>
+    </section>
+
+    <!-- ============================================================ 12 -->
+    <section id="s12">
+      <div class="sec-num">Section 12</div>
+      <h2>Sources and provenance</h2>
+      <ul class="plain footnote">
+        <li><strong>Question text:</strong> <code>notes\MATH265.md</code> (Q2.1) and
+        <code>notes\MATH265\MATH265.md</code> (Midterm Exam 1, item 3, <strong>5 points</strong>),
+        including the &ldquo;no credit&rdquo; clause verbatim.</li>
+        <li><strong>Sibling question:</strong> Q2.2, $f(x)=-3|x-2|$, is Midterm Exam 2 item 4,
+        <strong>6 points</strong>.</li>
+        <li><strong>A provenance trap worth recording:</strong> the two papers put the point value on
+        opposite sides of the question. Midterm 1 prints it at the <em>end</em> of the question text;
+        Midterm 2 prints it on the line <em>before</em>. Reading Midterm 2 with Midterm 1's convention
+        gives Q2.2 a value of 10 rather than 6.</li>
+        <li><strong>Variation families:</strong> <code>MATH265_Categorized.md</code> lists only the two
+        exam instances, so Families 0 to 12 were derived from the mathematics by enumerating the
+        distinct methods a marker can test under this heading.</li>
+        <li><strong>Three defects found in the existing notes</strong> are listed in Section 01 and were
+        not corrected in place.</li>
+        <li><strong>Numerical verification, 2026-08-31: 272 checks, 0 failures</strong>, kept as a
+        permanent section in <code>Work\knowledge\topics\math265-answer-verification.py</code>.
+        Re-run that file to re-check every number on this page. Coverage: 55 parent anchor points,
+        12 parity claims, 10 stage-table coordinates, 34 point maps across 12 families, 17 order
+        claims, 1458 master-point-map combinations, and all 12 drill answers with their domains,
+        ranges, intercepts and asymptotes.</li>
+        <li><strong>The order claims were checked in both directions.</strong> Every &ldquo;these two
+        orders agree&rdquo; claim was verified to agree, and every &ldquo;these two orders differ&rdquo;
+        claim was verified to actually differ. A one-sided check would pass even if the mathematics
+        were wrong.</li>
+        <li><strong>The suite was mutation-tested.</strong> Eight deliberately wrong claims were
+        injected one at a time (vertex moved, shift reversed, $y$-intercept changed, F5 shift 6 instead
+        of 3, a non-commuting pair asserted to commute, a wrong range floor, a parabola asserted to
+        open the wrong way, a domain widened to include an excluded point). All eight were caught.</li>
+        <li><strong>The whole-file pass count is deliberately not quoted.</strong> That harness is
+        shared and append-only, and a parallel job added several hundred lines to it <em>during</em>
+        this session, so any whole-file total is stale within the hour and would attribute other
+        sections' results to this one. The number that means something is the section total,
+        <code>Q2.1 SECTION TOTAL: 272 PASS, 0 FAIL</code>. Outside this block expect exactly two
+        failures, <code>sin62</code> and <code>cos62</code>, a tolerance artifact in an unrelated
+        section rather than wrong answers.</li>
+        <li><strong>A harness hazard found and fixed while building this.</strong> That verification file
+        is built by appending, and a later-appended section defined <code>same()</code> with a different
+        signature than an earlier one. This section's helpers initially shadowed it and crashed a later
+        section with a <code>TypeError</code>, silently skipping roughly 270 lines of checks. All 40
+        names this section binds are now <code>_q21</code>-prefixed. Anyone appending to that file
+        should prefix every module-level name.</li>
+        <li><strong>Markdown twin:</strong>
+        <code>notes\Q2.1 - Graph a shifted parabola by transformations.md</code>, 769 lines,
+        linted to zero em dashes and zero en dashes.</li>
+      </ul>
+    </section>
+  </main>
+</div>
+
+<script>
+(function () {
+  "use strict";
+
+  var NS = "http://www.w3.org/2000/svg";
+  function el(name, attrs) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) { if (attrs[k] !== undefined) n.setAttribute(k, attrs[k]); }
+    return n;
+  }
+
+  // Draw one cartesian panel into an <svg>. Options:
+  //   xmin xmax ymin ymax : world window
+  //   curves : [{ f, cls, from, to }]
+  //   pts    : [{ x, y, label, dx, dy, vertex }]
+  //   xticks yticks : world values to tick
+  function panel(svg, o) {
+    var vb = svg.getAttribute("viewBox").split(/\s+/);
+    var W = parseFloat(vb[2]), H = parseFloat(vb[3]);
+    var m = o.margin || { l: 26, r: 10, t: 10, b: 20 };
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+
+    function X(x) { return m.l + (x - o.xmin) / (o.xmax - o.xmin) * iw; }
+    function Y(y) { return m.t + ih - (y - o.ymin) / (o.ymax - o.ymin) * ih; }
+
+    var g = el("g");
+
+    // gridlines on integer ticks
+    (o.xticks || []).forEach(function (t) {
+      g.appendChild(el("line", { x1: X(t), y1: m.t, x2: X(t), y2: m.t + ih, "class": "gridline" }));
+    });
+    (o.yticks || []).forEach(function (t) {
+      g.appendChild(el("line", { x1: m.l, y1: Y(t), x2: m.l + iw, y2: Y(t), "class": "gridline" }));
+    });
+
+    // axes
+    if (o.ymin <= 0 && o.ymax >= 0) {
+      g.appendChild(el("line", { x1: m.l, y1: Y(0), x2: m.l + iw, y2: Y(0), "class": "axis" }));
+    }
+    if (o.xmin <= 0 && o.xmax >= 0) {
+      g.appendChild(el("line", { x1: X(0), y1: m.t, x2: X(0), y2: m.t + ih, "class": "axis" }));
+    }
+
+    // tick labels
+    (o.xticks || []).forEach(function (t) {
+      if (t === 0) return;
+      var ty = (o.ymin <= 0 && o.ymax >= 0) ? Y(0) + 10 : m.t + ih - 2;
+      g.appendChild(text(String(t), X(t), ty, "tick", "middle"));
+    });
+    (o.yticks || []).forEach(function (t) {
+      if (t === 0) return;
+      g.appendChild(text(String(t), m.l - 4, Y(t) + 3, "tick", "end"));
+    });
+
+    // curves, sampled densely and clipped to the window
+    (o.curves || []).forEach(function (c) {
+      var a = (c.from === undefined) ? o.xmin : c.from;
+      var b = (c.to === undefined) ? o.xmax : c.to;
+      var N = 400, runs = [], cur = [];
+      for (var i = 0; i <= N; i++) {
+        var x = a + (b - a) * i / N, y;
+        try { y = c.f(x); } catch (e) { y = NaN; }
+        if (!isFinite(y) || y < o.ymin - 1e-9 || y > o.ymax + 1e-9) {
+          if (cur.length > 1) runs.push(cur);
+          cur = [];
+        } else {
+          cur.push(X(x).toFixed(2) + "," + Y(y).toFixed(2));
+        }
+      }
+      if (cur.length > 1) runs.push(cur);
+      runs.forEach(function (r) {
+        g.appendChild(el("polyline", { points: r.join(" "), "class": "curve " + (c.cls || "") }));
+      });
+    });
+
+    // labeled points
+    (o.pts || []).forEach(function (p) {
+      g.appendChild(el("circle", {
+        cx: X(p.x), cy: Y(p.y), r: p.vertex ? 3.6 : 3,
+        "class": "ptdot" + (p.vertex ? " vertex" : "") + (p.cls ? " " + p.cls : "")
+      }));
+      if (p.label) {
+        g.appendChild(text(p.label, X(p.x) + (p.dx === undefined ? 6 : p.dx),
+                           Y(p.y) + (p.dy === undefined ? -6 : p.dy),
+                           "ptlab" + (p.labCls ? " " + p.labCls : ""),
+                           p.anchor || "start"));
+      }
+    });
+
+    svg.appendChild(g);
+  }
+
+  function text(s, x, y, cls, anchor) {
+    var t = el("text", { x: x, y: y, "class": cls, "text-anchor": anchor || "start" });
+    t.textContent = s;
+    return t;
+  }
+
+  var sq = function (x) { return x * x; };
+  var XT = [-8, -6, -4, -2, 0, 2, 4];
+  var YT = [0, 4, 8, 12];
+
+  // ---- Stage strip: same window on all three, so the motion is visible ----
+  var strip = document.querySelectorAll("#s4 .strip figure svg");
+  var win = { xmin: -8.6, xmax: 4.6, ymin: -2.4, ymax: 15, xticks: XT, yticks: YT };
+
+  function withWin(extra) {
+    var o = {};
+    for (var k in win) { o[k] = win[k]; }
+    for (var k2 in extra) { o[k2] = extra[k2]; }
+    return o;
+  }
+
+  if (strip.length >= 3) {
+    panel(strip[0], withWin({
+      curves: [{ f: sq }],
+      pts: [{ x: 0, y: 0, label: "(0,0)", vertex: true, dx: 7, dy: 22 },
+            { x: 2, y: 4, label: "(2,4)" }]
+    }));
+    panel(strip[1], withWin({
+      curves: [{ f: sq, cls: "ghost" }, { f: function (x) { return sq(x + 4); } }],
+      pts: [{ x: -4, y: 0, label: "(-4,0)", vertex: true, dx: 0, dy: 22, anchor: "middle" },
+            { x: -2, y: 4, label: "(-2,4)", dx: -7, dy: -6, anchor: "end" }]
+    }));
+    panel(strip[2], withWin({
+      curves: [{ f: function (x) { return sq(x + 4); }, cls: "ghost" },
+               { f: function (x) { return 3 * sq(x + 4); } }],
+      pts: [{ x: -4, y: 0, label: "(-4,0)", vertex: true, dx: 0, dy: 22, anchor: "middle" },
+            { x: -3, y: 3, label: "(-3,3)", dx: 8, dy: 12 },
+            { x: -2, y: 12, label: "(-2,12)", dx: 7, dy: 3 }]
+    }));
+  }
+
+  // ---- The labeled answer ----
+  var big = document.querySelector("#s4 .big-fig svg");
+  if (big) {
+    panel(big, {
+      xmin: -8.4, xmax: 1.4, ymin: -2.6, ymax: 17,
+      xticks: [-8, -7, -6, -5, -4, -3, -2, -1, 0, 1],
+      yticks: [0, 3, 6, 9, 12, 15],
+      margin: { l: 34, r: 14, t: 16, b: 26 },
+      curves: [{ f: function (x) { return 3 * sq(x + 4); } }],
+      pts: [
+        { x: -4, y: 0, label: "vertex (-4, 0)", vertex: true, dx: 0, dy: 30, anchor: "middle" },
+        { x: -3, y: 3, label: "(-3, 3)", dx: 7, dy: 2 },
+        { x: -5, y: 3, label: "(-5, 3)", dx: -8, dy: 2, anchor: "end" },
+        { x: -2, y: 12, label: "(-2, 12)", dx: 7, dy: 0 },
+        { x: -6, y: 12, label: "(-6, 12)", dx: -8, dy: 0, anchor: "end" }
+      ]
+    });
+    // axis of symmetry
+    var vb = big.getAttribute("viewBox").split(/\s+/);
+    var Wb = parseFloat(vb[2]), Hb = parseFloat(vb[3]);
+    var ml = 34, mr = 14, mt = 16, mb = 26;
+    var xs = ml + (-4 - (-8.4)) / (1.4 - (-8.4)) * (Wb - ml - mr);
+    var ln = el("line", {
+      x1: xs, y1: mt, x2: xs, y2: Hb - mb, "class": "symaxis"
+    });
+    big.insertBefore(ln, big.firstChild);
+    var lab = text("axis x = -4", xs + 6, mt + 10, "ptlab symlab", "start");
+    big.appendChild(lab);
+  }
+
+  // ---- Q2.2, the reflected absolute value ----
+  var q22 = document.querySelector("#f3 .strip figure svg");
+  if (q22) {
+    panel(q22, {
+      xmin: -1.6, xmax: 5.6, ymin: -10.4, ymax: 2.2,
+      xticks: [-1, 0, 1, 2, 3, 4, 5], yticks: [0, -3, -6, -9],
+      margin: { l: 30, r: 12, t: 12, b: 22 },
+      curves: [{ f: function (x) { return -3 * Math.abs(x - 2); } }],
+      pts: [
+        { x: 2, y: 0, label: "(2,0)", vertex: true, dx: 5, dy: -5 },
+        { x: 1, y: -3, label: "(1,-3)", dx: -7, dy: -4, anchor: "end" },
+        { x: 3, y: -3, label: "(3,-3)", dx: 6, dy: -4 },
+        { x: 0, y: -6, label: "(0,-6)", dx: 5, dy: 11 },
+        { x: 4, y: -6, label: "(4,-6)", dx: 5, dy: 0 }
+      ]
+    });
+  }
+
+  // ---- Family 5, the order counterexample ----
+  var f5 = document.querySelector("#f5 .big-fig svg");
+  if (f5) {
+    panel(f5, {
+      xmin: -0.6, xmax: 5.6, ymin: -2.2, ymax: 22,
+      xticks: [0, 1, 2, 3, 4, 5], yticks: [0, 5, 10, 15, 20],
+      margin: { l: 32, r: 14, t: 16, b: 26 },
+      curves: [
+        { f: function (x) { return 4 * sq(x - 3); } },
+        { f: function (x) { return sq(2 * x - 3); }, cls: "alt" }
+      ],
+      pts: [
+        { x: 3, y: 0, label: "4(x-3)^2  vertex 3", dx: 8, dy: 26 },
+        { x: 1.5, y: 0, cls: "alt", labCls: "altlab",
+          label: "(2x-3)^2  vertex 1.5", dx: -8, dy: -10, anchor: "end" }
+      ]
+    });
+  }
+})();
+</script>

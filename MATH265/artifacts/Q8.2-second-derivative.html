@@ -1,0 +1,1253 @@
+<title>The Second Pass</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged from Q1.1 through Q8.1.
+   What is specific to THIS page is what the five accent hues MEAN.  Q8.1 was
+   four independent computations settled by ONE classification, so its device
+   was a rule board.  Q8.2 is not: it is ONE expression differentiated TWICE,
+   where the rule changes between the passes.  So the device here is a LADDER -
+   three stations read top to bottom, and the hue tells you which pass you are
+   in.  That is the page's whole argument encoded in colour:
+
+     PASS 1, the first differentiation              --rul   amber
+     PASS 2, and the rule that CHANGED              --chn   slate
+     WHERE MARKS DIE: signs, degrees, lost terms    --los   terracotta
+     THE FAMILY structure of the variation catalog  --fam   teal
+     NUMERICS: the h valley, tolerances, checks     --num   mauve
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+/* ---- the verdict ---- */
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.ans{display:grid;gap:11px}
+.ans > div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.ans i{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;color:var(--accent);
+}
+.ans span{min-width:0;overflow-x:auto}
+.entry{display:grid;gap:9px}
+.entry > div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.entry i{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;color:var(--accent);
+}
+@media (max-width:760px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+}
+
+/* ---- THE RULE BOARD: this page's structural thesis ---- */
+.board{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:0 0 20px;
+}
+.card{padding:18px 20px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.card:nth-child(2n){border-right:none}
+.card:nth-last-child(-n+2){border-bottom:none}
+.card-h{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.card-h b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;
+}
+.card-h .mark{margin-left:auto}
+.fld{display:grid;grid-template-columns:88px minmax(0,1fr);gap:3px 12px;margin:0 0 9px;align-items:baseline}
+.fld > b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:500;
+}
+.fld > span{min-width:0;overflow-x:auto;font-size:13.5px;color:var(--ink2)}
+.fld:last-child{margin-bottom:0}
+.fld.key > span{color:var(--ink);font-weight:500}
+@media (max-width:820px){
+  .board{grid-template-columns:1fr}
+  .card{border-right:none}
+  .card:nth-last-child(-n+2):not(:last-child){border-bottom:1px solid var(--line-soft)}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:16px 12px 8px;overflow-x:auto}
+.figbox > svg{display:block;min-width:700px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+svg .conn{stroke:var(--plot);stroke-width:1.6;fill:none}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  letter-spacing:.02em;font-weight:500;fill:var(--ink);text-anchor:middle}
+svg .lab.sm{font-size:10.5px;letter-spacing:.11em;fill:var(--ink3);font-weight:500}
+svg .lab.big{font-size:15px;font-weight:600}
+svg .lab.rl{font-size:12.5px;font-weight:600;letter-spacing:.13em;fill:var(--rul)}
+svg .lab.cn{fill:var(--chn)}
+svg .badge{fill:var(--rul-soft);stroke:var(--rul-line);stroke-width:1}
+svg .badge.c{fill:var(--chn-soft);stroke:var(--chn-line)}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--chn);font-style:normal}
+pre s{color:var(--los);text-decoration:none}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.n,th.n{font-variant-numeric:tabular-nums;text-align:right}
+td.y{color:var(--ok);font-weight:600}
+td.x{color:var(--los);font-weight:600}
+tr.hi td{background:var(--rul-soft)}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--los-line);background:var(--los-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--fam-line);background:var(--fam-soft)}
+.callout.note{border-color:var(--num-line);background:var(--num-soft)}
+.callout.rule{border-color:var(--rul-line);background:var(--rul-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--fam)}
+.callout.note .ch{color:var(--num)}
+.callout.rule .ch{color:var(--rul)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0;max-width:78ch}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+ol.drills{counter-reset:d;list-style:none;padding-left:0;max-width:100%;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+ol.drills li{
+  counter-increment:d;display:grid;grid-template-columns:26px minmax(0,1fr);gap:0 8px;
+  margin:0;padding:10px 12px;border:1px solid var(--line-soft);border-radius:3px;
+  background:var(--surface);align-items:baseline;
+}
+ol.drills li::before{
+  content:counter(d);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;color:var(--accent);
+}
+ol.drills li > span{min-width:0;overflow-x:auto}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+  .card{padding:15px 14px}
+  .fld{grid-template-columns:1fr}
+}
+
+/* ---- page-specific: the two-pass ladder ------------------------------- */
+.ladder{display:grid;gap:0;margin:22px 0 20px;border:1px solid var(--line);
+  border-radius:3px;background:var(--surface);overflow:hidden}
+.ladder .stn{padding:16px 20px;border-bottom:1px solid var(--line-soft);
+  border-left:3px solid var(--line)}
+.ladder .stn:last-child{border-bottom:none}
+.ladder .stn.r{border-left-color:var(--rul);background:var(--rul-soft)}
+.ladder .stn.l{border-left-color:var(--los);background:var(--los-soft)}
+.ladder .stn.c{border-left-color:var(--chn);background:var(--chn-soft)}
+.ladder .sh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:8px}
+.ladder .sh b{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3)}
+.ladder .sh .mark{margin-left:auto}
+.ladder p{margin:0 0 9px;font-size:14px;color:var(--ink2);max-width:72ch}
+.ladder .res{font-size:15px;padding:9px 12px;background:var(--surface);
+  border:1px solid var(--line-soft);border-radius:3px;overflow-x:auto}
+
+/* ---- three-up board --------------------------------------------------- */
+.board.three{grid-template-columns:repeat(3,minmax(0,1fr))}
+.board.three .card{border-right:1px solid var(--line-soft);border-bottom:none}
+.board.three .card:nth-child(2n){border-right:1px solid var(--line-soft)}
+.board.three .card:last-child{border-right:none}
+@media (max-width:820px){
+  .board.three{grid-template-columns:1fr}
+  .board.three .card{border-right:none;border-bottom:1px solid var(--line-soft)}
+  .board.three .card:nth-child(2n){border-right:none}
+  .board.three .card:last-child{border-bottom:none}
+}
+
+/* ---- before / after split --------------------------------------------- */
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+  margin:16px 0 16px}
+.half{padding:15px 17px;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);min-width:0}
+.half.bad{border-color:var(--los-line);background:var(--los-soft)}
+.half.good{border-color:var(--fam-line);background:var(--fam-soft)}
+.half .hh{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.13em;text-transform:uppercase;margin-bottom:10px}
+.half.bad .hh{color:var(--los)}
+.half.good .hh{color:var(--fam)}
+.half p{margin:0 0 8px;overflow-x:auto}
+.half p.hn{font-size:13.5px;color:var(--ink2);margin-bottom:0}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+
+/* ---- a fourth callout tone -------------------------------------------- */
+.callout.bad{border-color:var(--los-line);background:var(--los-soft)}
+.callout.bad .ch{color:var(--los)}
+
+/* ---- inline coloured emphasis in tables ------------------------------- */
+b.cchn{color:var(--chn)} b.clos{color:var(--los)}
+b.cfam{color:var(--fam)} b.cnum{color:var(--num)}
+tbody.tnum td{font-variant-numeric:tabular-nums}
+
+/* ---- the h-valley small multiples ------------------------------------- */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));
+  gap:12px;margin:18px 0 20px}
+.mini{margin:0;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);padding:8px 6px 0;min-width:0}
+.mini > svg{display:block;width:100%;height:auto}
+.mini figcaption{padding:6px 10px 10px;border-top:1px solid var(--line-soft);
+  font-size:12px;color:var(--ink2);display:flex;gap:8px;flex-wrap:wrap;
+  align-items:baseline;margin-top:4px}
+.mini figcaption b{font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;color:var(--ink)}
+.mini figcaption span{margin-left:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.06em;color:var(--num)}
+.mini .grid{stroke:var(--grid);stroke-width:1}
+.mini .axis{stroke:var(--line);stroke-width:1}
+.mini .thresh{stroke:var(--los);stroke-width:1.2;stroke-dasharray:3 3;opacity:.85}
+.mini .guide{stroke:var(--num-line);stroke-width:1.2}
+.mini .ser{fill:none;stroke:var(--num);stroke-width:2;
+  stroke-linejoin:round;stroke-linecap:round}
+.mini .pt{fill:var(--num);stroke:var(--surface);stroke-width:1.5}
+.mini .pt.best{fill:var(--surface);stroke:var(--num);stroke-width:2.4}
+.mini circle:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.mini .ax{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:7.5px;
+  fill:var(--plotlab);letter-spacing:.02em}
+.mini .axt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:7.5px;
+  fill:var(--ink3);letter-spacing:.08em}
+
+#tip{position:absolute;z-index:20;transform:translate(-50%,-100%);
+  padding:6px 9px;border:1px solid var(--num-line);border-radius:3px;
+  background:var(--surface);color:var(--ink);font-size:11.5px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;white-space:nowrap;
+  pointer-events:none;opacity:0;visibility:hidden;
+  box-shadow:0 4px 16px rgba(0,0,0,.16)}
+#tip.on{opacity:1;visibility:visible}
+
+/* ---- the two-pass figure ---------------------------------------------- */
+.figure{margin:22px 0 20px;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);overflow:hidden}
+svg .lab.rls{fill:var(--rul);font-size:10.5px;letter-spacing:.06em}
+svg .lab.cns{fill:var(--chn);font-size:10.5px;letter-spacing:.06em}
+svg .lab.ls{fill:var(--los);font-size:12.5px;font-weight:600;letter-spacing:.13em}
+svg .badge.l{fill:var(--los-soft);stroke:var(--los-line)}
+
+/* ---- the decision tree ------------------------------------------------ */
+pre.tree{margin:14px 0 0;padding:18px 20px;overflow-x:auto;
+  border:1px solid var(--line);border-radius:3px;background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;
+  line-height:1.65;color:var(--ink2);white-space:pre}
+
+/* ---- the answer key, folded away -------------------------------------- */
+details.key{margin:18px 0 0;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);overflow:hidden}
+details.key > summary{padding:12px 18px;cursor:pointer;list-style:none;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  background:var(--sunk);border-bottom:1px solid transparent}
+details.key[open] > summary{border-bottom-color:var(--line)}
+details.key > summary::-webkit-details-marker{display:none}
+details.key > summary::before{content:"+ ";font-weight:600}
+details.key[open] > summary::before{content:"- "}
+details.key > div,details.key > p{margin:14px 16px}
+details.key > .tscroll{margin:14px 16px}
+</style>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm Exam 2 &middot; Item 9 &middot; 16 points</div>
+  <h1>The Second Pass</h1>
+  <p class="deck">Three of these four derivatives are one rule each. The fourth asks for a second derivative, and that is a different kind of question: you run the procedure twice, and the rule you need on the second run may not be the rule you used on the first.</p>
+</header>
+
+<div class="verdict">
+  <div>
+    <div class="vlab">The answers</div>
+    <div class="ans">
+      <div><i>a</i><span>\(\dfrac{d^2}{dx^2}\cot(2x) = 8\csc^2(2x)\cot(2x)\)</span></div>
+      <div><i>b</i><span>\((2x-3)\sec\left(x^2-3x\right)\tan\left(x^2-3x\right)\)</span></div>
+      <div><i>c</i><span>\(\dfrac{\left(2x+3\sin 3x\right)\left(x\sin 2x\right) - \left(x^2-\cos 3x\right)\left(\sin 2x + 2x\cos 2x\right)}{\left(x\sin 2x\right)^2}\)</span></div>
+      <div><i>d</i><span>\(\dfrac{4-3\sqrt3}{24} \approx -0.0498397\)</span></div>
+    </div>
+  </div>
+  <div>
+    <div class="vlab">What to type into M&ouml;bius</div>
+    <div class="entry">
+      <div><i>a</i><code>8*csc(2*x)^2*cot(2*x)</code></div>
+      <div><i>b</i><code>(2*x-3)*sec(x^2-3*x)*tan(x^2-3*x)</code></div>
+      <div><i>c</i><code>((2*x+3*sin(3*x))*(x*sin(2*x))-(x^2-cos(3*x))*(sin(2*x)+2*x*cos(2*x)))/(x*sin(2*x))^2</code></div>
+      <div><i>d</i><code>(4-3*sqrt(3))/24</code></div>
+    </div>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--ink2)">If the preview on part (a) will not render <code>csc</code> and <code>cot</code>, the fallback <code>8*cos(2*x)/sin(2*x)^3</code> is the same function and no parser can refuse it. Note the exponent position: <code>csc(2*x)^2</code>, never <code>csc^2(2*x)</code>.</p>
+  </div>
+</div>
+
+<div class="callout rule">
+  <div class="ch">What this question adds to the one before it</div>
+  <p>Q8.1 settled how you pick a rule, how far you simplify, and how you check. All three carry over unchanged, and this page does not repeat them. What Q8.2 adds is <strong>the second differentiation</strong>, and it is three separate ideas: the simplification policy <em>inverts</em> when \(f'\) is an input rather than an answer; the rule choice can <em>change</em> between the two passes; and the numerical check you use on \(f''\) behaves in the opposite way to the one you use on \(f'\), so reusing Q8.1's advice about step size will actively mislead you.</p>
+</div>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">01</span>Part (a): the same expression, asked twice</h2>
+<p>The whole of Q8.2's difficulty lives in one sub-question. Here is what happens when you run the last-operation test on \(\cot(2x)\), and then run it again on what came out.</p>
+
+<figure class="figure">
+<div class="figtop">The two passes, and the rule that changes between them</div>
+<div class="figbox">
+<svg viewBox="0 0 760 446" role="img" aria-label="A top to bottom flow: cot(2x) is differentiated by the chain rule with a named-function outer to give minus 2 csc squared 2x; a middle station asks whether that is in its shortest form; then a second differentiation, this time the chain rule with a power outer, gives 8 csc squared 2x cot 2x.">
+  <defs>
+    <marker id="q82ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0,1 L9,5 L0,9 z" fill="var(--plot)"/>
+    </marker>
+  </defs>
+
+  <text class="lab big" x="380" y="30">d^2/dx^2  cot(2x)</text>
+  <text class="lab sm" x="380" y="50">THE QUESTION</text>
+  <line class="conn" x1="380" y1="62" x2="380" y2="92" marker-end="url(#q82ar)"/>
+
+  <rect class="badge" x="232" y="98" width="296" height="30" rx="3"/>
+  <text class="lab rl" x="380" y="118">PASS 1 &#183; CHAIN, NAMED OUTER</text>
+  <text class="lab" x="380" y="150">d/dx cot(u) = -csc^2(u),   u = 2x,   u' = 2</text>
+  <text class="lab big" x="380" y="178">f' = -2 csc^2(2x)</text>
+  <text class="lab sm rls" x="640" y="150">one factor of 2</text>
+  <line class="conn" x1="380" y1="190" x2="380" y2="218" marker-end="url(#q82ar)"/>
+
+  <rect class="badge l" x="212" y="224" width="336" height="30" rx="3"/>
+  <text class="lab ls" x="380" y="244">STOP. IS f' IN ITS SHORTEST FORM?</text>
+  <text class="lab" x="380" y="274">One term, one coefficient, no brackets.  YES.</text>
+  <text class="lab sm" x="380" y="301">on a quotient the answer is NO and you cancel here</text>
+  <line class="conn" x1="380" y1="314" x2="380" y2="346" marker-end="url(#q82ar)"/>
+
+  <rect class="badge c" x="224" y="352" width="312" height="30" rx="3"/>
+  <text class="lab rl cn" x="380" y="372">PASS 2 &#183; CHAIN, POWER OUTER</text>
+  <text class="lab" x="380" y="404">-2 * 2 csc(2x) * (-csc(2x) cot(2x)) * 2</text>
+  <text class="lab big" x="380" y="432">f'' = 8 csc^2(2x) cot(2x)</text>
+  <text class="lab sm cns" x="646" y="404">two more 2s</text>
+</svg>
+</div>
+<figcaption>The two boxes announce <b>different rules</b>. Pass 1 sees a named function applied to <code>2x</code>; pass 2 sees a square. The only way to know that is to ask the last-operation question a second time instead of assuming the answer carried over. The three factors of 2 that make the coefficient 8 are the power rule, the inner derivative of <code>2x</code>, and the coefficient pass 1 produced.</figcaption>
+</figure>
+
+<div class="ladder">
+  <div class="stn r">
+    <div class="sh"><b>Pass 1</b><span class="mark rul">chain, named outer</span></div>
+    <p>The last operation is \(\cot\) applied to \(2x\). The outer derivative is \({-\csc^2}\) and the inner derivative is \(2\).</p>
+    <div class="res">\(f' = -2\csc^2(2x)\)</div>
+  </div>
+  <div class="stn l">
+    <div class="sh"><b>Stop and look</b><span class="mark los">the step with no analogue in Q8.1</span></div>
+    <p>Is \(f'\) as short as it will get? Here, yes, so this costs three seconds and returns nothing. On a quotient the answer is <strong>no</strong>, and cancelling here is what saves four minutes later.</p>
+    <div class="res">\(-2\csc^2(2x)\) is already in lowest terms</div>
+  </div>
+  <div class="stn c">
+    <div class="sh"><b>Pass 2</b><span class="mark chn">chain, POWER outer</span></div>
+    <p>Ask again, from scratch. The last operation in \(-2\csc^2(2x)\) is the <strong>squaring</strong>, not the \(\csc\). That is a different rule from pass 1.</p>
+    <div class="res">\(f'' = 8\csc^2(2x)\cot(2x)\)</div>
+  </div>
+</div>
+
+<div class="callout note">
+  <div class="ch">Where the 8 comes from, and why the sign is positive</div>
+  <p>The coefficient is \(2\times 2\times 2\): one factor of 2 from the power rule on the square, one from the chain rule on the inner \(2x\) during pass 2, and one from the coefficient \(-2\) that pass 1 produced. Miss any of the three and you write 4. The sign is \((-2)\times(-1)=+\), where the \(-1\) is the minus in \(\frac{d}{dx}\csc = -\csc\cot\), so <strong>two minus signs cancel and the answer is positive</strong>, which surprises people who expect the second derivative of a falling function to stay negative.</p>
+  <p style="margin-top:9px">Cross-check the coefficient against the general formula \(\frac{d^2}{dx^2}\cot(kx) = 2k^2\csc^2(kx)\cot(kx)\). For \(k=2\) that is 8, arrived at by counting something different, so two independent countings agree. That formula was verified for \(k=1\) through \(5\).</p>
+</div>
+
+<h3>Four ways to reach the same answer</h3>
+<div class="tscroll"><table>
+<thead><tr><th>route</th><th>trig derivatives it needs</th><th>lines</th><th>the risk</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td><b>A</b> chain, then the squared-trig rule</td><td>\(\cot'\) and \(\csc'\)</td><td>3</td><td>the coefficient 8</td><td>the standard; write this</td></tr>
+<tr><td><b>B</b> rewrite \(\csc^2 = 1+\cot^2\) first</td><td>\(\cot'\) only</td><td>3</td><td>the identity's direction</td><td><b>fastest if \(\csc'\) is shaky</b></td></tr>
+<tr><td><b>C</b> sines and cosines throughout</td><td>none</td><td>7</td><td>a long quotient rule twice</td><td>correct, slow, and it proves the answer</td></tr>
+<tr><td><b>D</b> the memorised \(2k^2\) formula</td><td>none</td><td>1</td><td>misremembering \(2k^2\) as \(k^2\)</td><td>a check, not a method</td></tr>
+</tbody></table></div>
+<p><strong>Use Route A and check the coefficient with Route D.</strong> Route B is the one to switch to if you freeze on \(\frac{d}{dx}\csc\), because it needs only the derivative you used thirty seconds earlier. All four answers were verified to be the same function over fourteen sample points.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">02</span>Which functions change rule, and which do not</h2>
+<p>This is the table that makes part (a) predictable rather than surprising. Sort the six trigonometric functions by <em>what shape their derivative has</em>, and the pass-2 rule falls out of it.</p>
+
+<div class="board three">
+  <div class="card">
+    <div class="card-h"><b>Differentiate into a SQUARE</b><span class="mark chn">pass 2 is a power</span></div>
+    <div class="fld"><b>tan</b><span>\(\tan' = \sec^2\)</span></div>
+    <div class="fld"><b>cot</b><span>\(\cot' = -\csc^2\)</span></div>
+    <div class="fld key"><b>so</b><span>the second pass is a <strong>chain rule with a power outer</strong>. This is Q8.2a.</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Differentiate into a PRODUCT</b><span class="mark los">pass 2 is a product</span></div>
+    <div class="fld"><b>sec</b><span>\(\sec' = \sec\tan\)</span></div>
+    <div class="fld"><b>csc</b><span>\(\csc' = -\csc\cot\)</span></div>
+    <div class="fld key"><b>so</b><span>the second pass is a <strong>product rule</strong>, and \(f''\) has two terms, not one.</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Differentiate into EACH OTHER</b><span class="mark">pass 2 unchanged</span></div>
+    <div class="fld"><b>sin</b><span>\(\sin' = \cos\)</span></div>
+    <div class="fld"><b>cos</b><span>\(\cos' = -\sin\)</span></div>
+    <div class="fld key"><b>so</b><span>the second pass is the <strong>same chain rule</strong>. Nothing new appears, which is why these breed the habit of not looking again.</span></div>
+  </div>
+</div>
+
+<div class="tscroll"><table>
+<thead><tr><th>\(f\)</th><th>\(f'\)</th><th>pass&nbsp;2 rule</th><th>\(f''\)</th></tr></thead>
+<tbody>
+<tr><td>\(\cot(2x)\)</td><td>\(-2\csc^2(2x)\)</td><td><b class="cchn">power</b></td><td>\(8\csc^2(2x)\cot(2x)\)</td></tr>
+<tr><td>\(\cot(3x)\)</td><td>\(-3\csc^2(3x)\)</td><td><b class="cchn">power</b></td><td>\(18\csc^2(3x)\cot(3x)\)</td></tr>
+<tr><td>\(\tan(3x)\)</td><td>\(3\sec^2(3x)\)</td><td><b class="cchn">power</b></td><td>\(18\sec^2(3x)\tan(3x)\)</td></tr>
+<tr><td>\(\tan x\)</td><td>\(\sec^2 x\)</td><td><b class="cchn">power</b></td><td>\(2\sec^2 x\tan x\)</td></tr>
+<tr><td>\(\sec x\)</td><td>\(\sec x\tan x\)</td><td><b class="clos">product</b></td><td>\(\sec x\tan^2 x + \sec^3 x\)</td></tr>
+<tr><td>\(\csc x\)</td><td>\(-\csc x\cot x\)</td><td><b class="clos">product</b></td><td>\(\csc x\cot^2 x + \csc^3 x\)</td></tr>
+<tr><td>\(\cos\left(x^2\right)\)</td><td>\(-2x\sin\left(x^2\right)\)</td><td><b class="clos">product</b></td><td>\(-2\sin\left(x^2\right) - 4x^2\cos\left(x^2\right)\)</td></tr>
+<tr><td>\(\sin(2x)\)</td><td>\(2\cos(2x)\)</td><td>chain, unchanged</td><td>\(-4\sin(2x)\)</td></tr>
+</tbody></table></div>
+<p>Eight rows and three shapes. The coefficient in the first four rows is always \(2k^2\), which is worth carrying as an independent check on the arithmetic rather than as the method. Rows 5 and 6 are the ones that catch people who expect \(f''\) to be a single term.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">03</span>The other three parts, which are one rule each</h2>
+<p>Parts (b), (c) and (d) are Q8.1's machinery applied without modification. They are worth twelve of the sixteen points and they should take less time than part (a) does alone.</p>
+
+<div class="board">
+  <div class="card">
+    <div class="card-h"><b>Part b</b><span class="mark">40 seconds</span></div>
+    <div class="fld"><b>asked</b><span>\(\dfrac{d}{dx}\sec\left(x^2-3x\right)\)</span></div>
+    <div class="fld"><b>last op</b><span>apply \(\sec\) to a polynomial</span></div>
+    <div class="fld key"><b>rule</b><span><strong>chain</strong>, named outer, \(\sec' = \sec\tan\)</span></div>
+    <div class="fld"><b>answer</b><span>\((2x-3)\sec\left(x^2-3x\right)\tan\left(x^2-3x\right)\)</span></div>
+    <div class="fld"><b>free check</b><span>it must vanish at \(x=1.5\), where the inner derivative does</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Part c</b><span class="mark los">a rule inside a rule</span></div>
+    <div class="fld"><b>asked</b><span>\(\dfrac{d}{dx}\dfrac{x^2-\cos 3x}{x\sin 2x}\)</span></div>
+    <div class="fld"><b>last op</b><span>a division</span></div>
+    <div class="fld key"><b>rule</b><span><strong>quotient</strong>, with a <strong>chain</strong> in \(u'\) and a <strong>product</strong> in \(v'\)</span></div>
+    <div class="fld"><b>the pieces</b><span>\(u' = 2x + 3\sin 3x\) and \(v' = \sin 2x + 2x\cos 2x\)</span></div>
+    <div class="fld"><b>free check</b><span>the sign in \(u'\) is <strong>plus</strong>: two minus signs from \(-\cos\)</span></div>
+  </div>
+</div>
+
+<div class="callout note">
+  <div class="ch">Part (c) is where Q8.1's missing rule turns up</div>
+  <p>Q8.1 samples the rule space almost completely and leaves out exactly one rule: the product rule. Here it is, buried one level down inside the denominator of a quotient. \(v = x\sin 2x\) is a product, so \(v' = \sin 2x + 2x\cos 2x\), and taking \(v' = 2x\cos 2x\) loses a whole term. That error was seeded into the verification and confirmed to be caught by the numerical check.</p>
+</div>
+
+<h3>Part (d): numbers instead of functions</h3>
+<p>Nothing is differentiated here at all. You are being asked whether you know the quotient rule as a <em>formula</em> rather than as a procedure you can only run on expressions. Write it with letters first, then substitute.</p>
+
+<div class="tscroll"><table>
+<thead><tr><th>needed</th><th>given as</th><th>value</th></tr></thead>
+<tbody>
+<tr><td>\(f(1)\)</td><td>directly</td><td>\(3\)</td></tr>
+<tr><td>\(g(1)\)</td><td>directly</td><td>\(6\)</td></tr>
+<tr><td>\(f'(1)\)</td><td>\(f'(x)=\sqrt x\)</td><td>\(1\)</td></tr>
+<tr><td>\(g'(1)\)</td><td>\(g'(x)=3\sin(\pi x/3)\)</td><td>\(3\sin\frac\pi3 = \frac{3\sqrt3}{2} \approx 2.598076\), <b class="clos">in radians</b></td></tr>
+</tbody></table></div>
+
+<p>$$\left.\left(\frac fg\right)'\right|_{x=1} = \frac{f'(1)g(1)-f(1)g'(1)}{\left[g(1)\right]^2} = \frac{6-\frac{9\sqrt3}{2}}{36} = \frac{4-3\sqrt3}{24} \approx -0.0498397$$</p>
+
+<div class="callout bad">
+  <div class="ch">Both traps in part (d) are silent</div>
+  <p>A calculator in degrees reads \(\sin(\pi/3)\) as \(\sin(1.047^\circ)=0.018277\) and produces \(+0.162098\): wrong sign, wrong size, and entirely plausible on the page. Substituting \(x=1\) first turns \(\frac36\) into a constant and produces \(0\), which also looks like an answer. Neither is caught by re-reading your work.</p>
+  <p style="margin-top:9px"><strong>The sign is the guard.</strong> \(f'(1)=1\) and \(g'(1)=2.6\), so \(g\) is outrunning \(f\) and their ratio must be falling. A positive answer on part (d) is wrong before you check anything else, and the degrees trap produces exactly that.</p>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">04</span>The simplification policy, inverted</h2>
+<p>Q8.1's policy is that simplifying has zero marginal reward and non-zero marginal risk, so you stop the moment the derivative is written. That is right when \(f'\) is the answer. It is wrong when \(f'\) is an input.</p>
+
+<div class="callout rule">
+  <div class="ch">The whole policy in one question</div>
+  <p><strong>Is there another differentiation coming?</strong> If yes, tidy \(f'\) now, because every factor you carry forward gets differentiated too. If no, stop, because Q8.1's risk calculation applies unchanged.</p>
+</div>
+
+<div class="tscroll"><table>
+<thead><tr><th>the case</th><th>tidy it?</th><th>why</th></tr></thead>
+<tbody>
+<tr><td>\(f'\) in parts (b), (c), (d)</td><td><b class="cfam">no</b></td><td>it is the answer; Q8.1's policy, unchanged</td></tr>
+<tr><td>\(f'\) in part (a), before pass 2</td><td><b class="cchn">yes</b></td><td>it is an input, though here it is already shortest</td></tr>
+<tr><td>\(f''\) in part (a), after pass 2</td><td><b class="cfam">no</b></td><td>it is the answer again</td></tr>
+<tr><td>a quotient's \(f'\) before a second pass</td><td><b class="clos">yes, and this is the expensive one</b></td><td>see below</td></tr>
+</tbody></table></div>
+
+<h3>The row that costs whole minutes</h3>
+<p>Take Q8.1's part (b), \(y = \dfrac{2x-16}{(x+3)^2}\), and ask for \(y''\).</p>
+<div class="split">
+  <div class="half bad">
+    <div class="hh">Differentiating the raw \(f'\)</div>
+    <p>\(\dfrac{2(x+3)^2 - 2(2x-16)(x+3)}{(x+3)^4}\)</p>
+    <p class="hn">A quotient rule with a quadratic numerator over a quartic denominator, then a cancellation of \((x+3)^5\) out of \((x+3)^8\) at the end.</p>
+  </div>
+  <div class="half good">
+    <div class="hh">Differentiating the tidy \(f'\)</div>
+    <p>\(\dfrac{38-2x}{(x+3)^3}\)</p>
+    <p class="hn">One quotient rule with a linear numerator. Same answer, \(\dfrac{4(x-30)}{(x+3)^4}\), a quarter of the writing, a quarter of the places to slip.</p>
+  </div>
+</div>
+<p>The two forms of \(f'\) were verified to be the same function, so this is purely a question of what you choose to differentiate. <strong>It is the only place in category 8 where the printed permission not to simplify is a trap rather than a gift.</strong></p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">05</span>Checking a second derivative, where Q8.1's advice reverses</h2>
+<p>The check for \(f'\) is a centred first difference and Q8.1's rule is that \(h=0.001\) gives five good digits and smaller is harmless. The analogue for \(f''\) is the centred second difference, and the second half of that rule is false for it.</p>
+
+<div class="callout rule">
+  <div class="ch">The check</div>
+  <p>$$f''(x) \approx \frac{f(x+h) - 2f(x) + f(x-h)}{h^2}$$</p>
+  <p>Three evaluations, and a division by \(h^2\) instead of \(h\). <strong>Use \(h = 0.001\). Do not go smaller.</strong> A calculator holds about ten significant digits, so each \(f\) value carries an absolute error near \(10^{-10}\); dividing by \(h^2\) multiplies that by \(1/h^2\), and at \(h=10^{-5}\) that factor is \(10^{10}\), which is all of your precision.</p>
+</div>
+
+<h3>The measured valley</h3>
+<p>Each panel is one function on a simulated ten-digit machine: relative error in \(f''\) down the vertical axis, step size across. The dotted line is three significant figures; the vertical guide is \(h=10^{-3}\). Every curve is <strong>below the line at the guide</strong>, and every curve turns back upward to the right of it.</p>
+
+<div class="charts">
+<figure class="mini">
+<svg viewBox="0 0 196 152" role="img" aria-label="relative error of the calculator second difference for cot(2x) at x = 0.7, against step size h; the curve falls then rises, with its lowest point marked">
+<line class="thresh" x1="34.0" y1="45.0" x2="188.0" y2="45.0"/>
+<line class="grid" x1="34.0" y1="22.0" x2="188.0" y2="22.0"/>
+<text class="ax" x="29.0" y="25.0" text-anchor="end">1e0</text>
+<line class="grid" x1="34.0" y1="42.0" x2="188.0" y2="42.0"/>
+<text class="ax" x="29.0" y="45.0" text-anchor="end">1e-2</text>
+<line class="grid" x1="34.0" y1="62.0" x2="188.0" y2="62.0"/>
+<text class="ax" x="29.0" y="65.0" text-anchor="end">1e-4</text>
+<line class="grid" x1="34.0" y1="82.0" x2="188.0" y2="82.0"/>
+<text class="ax" x="29.0" y="85.0" text-anchor="end">1e-6</text>
+<line class="grid" x1="34.0" y1="102.0" x2="188.0" y2="102.0"/>
+<text class="ax" x="29.0" y="105.0" text-anchor="end">1e-8</text>
+<line class="grid" x1="34.0" y1="122.0" x2="188.0" y2="122.0"/>
+<text class="ax" x="29.0" y="125.0" text-anchor="end">1e-10</text>
+<line class="axis" x1="34.0" y1="14.0" x2="34.0" y2="124.0"/>
+<line class="guide" x1="111.0" y1="14.0" x2="111.0" y2="124.0"/>
+<polyline class="ser" points="34.0,37.4 72.5,57.5 111.0,73.9 149.5,62.1 188.0,34.5"/>
+<circle class="pt" cx="34.0" cy="37.4" r="2.8" data-h="1e-1" data-e="2.9e-02" data-f="cot(2x) at x = 0.7"><title>h = 1e-1, relative error 2.9e-02</title></circle>
+<circle class="pt" cx="72.5" cy="57.5" r="2.8" data-h="1e-2" data-e="2.8e-04" data-f="cot(2x) at x = 0.7"><title>h = 1e-2, relative error 2.8e-04</title></circle>
+<circle class="pt best" cx="111.0" cy="73.9" r="4.2" data-h="1e-3" data-e="6.5e-06" data-f="cot(2x) at x = 0.7"><title>h = 1e-3, relative error 6.5e-06</title></circle>
+<circle class="pt" cx="149.5" cy="62.1" r="2.8" data-h="1e-4" data-e="9.8e-05" data-f="cot(2x) at x = 0.7"><title>h = 1e-4, relative error 9.8e-05</title></circle>
+<circle class="pt" cx="188.0" cy="34.5" r="2.8" data-h="1e-5" data-e="5.6e-02" data-f="cot(2x) at x = 0.7"><title>h = 1e-5, relative error 5.6e-02</title></circle>
+<text class="ax" x="34.0" y="137.0" text-anchor="middle">-1</text>
+<text class="ax" x="72.5" y="137.0" text-anchor="middle">-2</text>
+<text class="ax" x="111.0" y="137.0" text-anchor="middle">-3</text>
+<text class="ax" x="149.5" y="137.0" text-anchor="middle">-4</text>
+<text class="ax" x="188.0" y="137.0" text-anchor="middle">-5</text>
+<text class="axt" x="111.0" y="149.0" text-anchor="middle">h = 10 to the power</text>
+</svg>
+<figcaption><b>cot(2x)</b> at x = 0.7<span>best at h = 1e-3</span></figcaption>
+</figure>
+<figure class="mini">
+<svg viewBox="0 0 196 152" role="img" aria-label="relative error of the calculator second difference for x^2 sin x at x = 1.0, against step size h; the curve falls then rises, with its lowest point marked">
+<line class="thresh" x1="34.0" y1="45.0" x2="188.0" y2="45.0"/>
+<line class="grid" x1="34.0" y1="22.0" x2="188.0" y2="22.0"/>
+<text class="ax" x="29.0" y="25.0" text-anchor="end">1e0</text>
+<line class="grid" x1="34.0" y1="42.0" x2="188.0" y2="42.0"/>
+<text class="ax" x="29.0" y="45.0" text-anchor="end">1e-2</text>
+<line class="grid" x1="34.0" y1="62.0" x2="188.0" y2="62.0"/>
+<text class="ax" x="29.0" y="65.0" text-anchor="end">1e-4</text>
+<line class="grid" x1="34.0" y1="82.0" x2="188.0" y2="82.0"/>
+<text class="ax" x="29.0" y="85.0" text-anchor="end">1e-6</text>
+<line class="grid" x1="34.0" y1="102.0" x2="188.0" y2="102.0"/>
+<text class="ax" x="29.0" y="105.0" text-anchor="end">1e-8</text>
+<line class="grid" x1="34.0" y1="122.0" x2="188.0" y2="122.0"/>
+<text class="ax" x="29.0" y="125.0" text-anchor="end">1e-10</text>
+<line class="axis" x1="34.0" y1="14.0" x2="34.0" y2="124.0"/>
+<line class="guide" x1="111.0" y1="14.0" x2="111.0" y2="124.0"/>
+<polyline class="ser" points="34.0,46.2 72.5,66.2 111.0,76.7 149.5,58.4 188.0,52.5"/>
+<circle class="pt" cx="34.0" cy="46.2" r="2.8" data-h="1e-1" data-e="3.8e-03" data-f="x^2 sin x at x = 1.0"><title>h = 1e-1, relative error 3.8e-03</title></circle>
+<circle class="pt" cx="72.5" cy="66.2" r="2.8" data-h="1e-2" data-e="3.8e-05" data-f="x^2 sin x at x = 1.0"><title>h = 1e-2, relative error 3.8e-05</title></circle>
+<circle class="pt best" cx="111.0" cy="76.7" r="4.2" data-h="1e-3" data-e="3.4e-06" data-f="x^2 sin x at x = 1.0"><title>h = 1e-3, relative error 3.4e-06</title></circle>
+<circle class="pt" cx="149.5" cy="58.4" r="2.8" data-h="1e-4" data-e="2.3e-04" data-f="x^2 sin x at x = 1.0"><title>h = 1e-4, relative error 2.3e-04</title></circle>
+<circle class="pt" cx="188.0" cy="52.5" r="2.8" data-h="1e-5" data-e="8.9e-04" data-f="x^2 sin x at x = 1.0"><title>h = 1e-5, relative error 8.9e-04</title></circle>
+<text class="ax" x="34.0" y="137.0" text-anchor="middle">-1</text>
+<text class="ax" x="72.5" y="137.0" text-anchor="middle">-2</text>
+<text class="ax" x="111.0" y="137.0" text-anchor="middle">-3</text>
+<text class="ax" x="149.5" y="137.0" text-anchor="middle">-4</text>
+<text class="ax" x="188.0" y="137.0" text-anchor="middle">-5</text>
+<text class="axt" x="111.0" y="149.0" text-anchor="middle">h = 10 to the power</text>
+</svg>
+<figcaption><b>x^2 sin x</b> at x = 1.0<span>best at h = 1e-3</span></figcaption>
+</figure>
+<figure class="mini">
+<svg viewBox="0 0 196 152" role="img" aria-label="relative error of the calculator second difference for 1/(x^2+1) at x = 0.5, against step size h; the curve falls then rises, with its lowest point marked">
+<line class="thresh" x1="34.0" y1="45.0" x2="188.0" y2="45.0"/>
+<line class="grid" x1="34.0" y1="22.0" x2="188.0" y2="22.0"/>
+<text class="ax" x="29.0" y="25.0" text-anchor="end">1e0</text>
+<line class="grid" x1="34.0" y1="42.0" x2="188.0" y2="42.0"/>
+<text class="ax" x="29.0" y="45.0" text-anchor="end">1e-2</text>
+<line class="grid" x1="34.0" y1="62.0" x2="188.0" y2="62.0"/>
+<text class="ax" x="29.0" y="65.0" text-anchor="end">1e-4</text>
+<line class="grid" x1="34.0" y1="82.0" x2="188.0" y2="82.0"/>
+<text class="ax" x="29.0" y="85.0" text-anchor="end">1e-6</text>
+<line class="grid" x1="34.0" y1="102.0" x2="188.0" y2="102.0"/>
+<text class="ax" x="29.0" y="105.0" text-anchor="end">1e-8</text>
+<line class="grid" x1="34.0" y1="122.0" x2="188.0" y2="122.0"/>
+<text class="ax" x="29.0" y="125.0" text-anchor="end">1e-10</text>
+<line class="axis" x1="34.0" y1="14.0" x2="34.0" y2="124.0"/>
+<line class="guide" x1="111.0" y1="14.0" x2="111.0" y2="124.0"/>
+<polyline class="ser" points="34.0,37.2 72.5,57.2 111.0,116.7 149.5,96.1 188.0,28.6"/>
+<circle class="pt" cx="34.0" cy="37.2" r="2.8" data-h="1e-1" data-e="3.0e-02" data-f="1/(x^2+1) at x = 0.5"><title>h = 1e-1, relative error 3.0e-02</title></circle>
+<circle class="pt" cx="72.5" cy="57.2" r="2.8" data-h="1e-2" data-e="3.0e-04" data-f="1/(x^2+1) at x = 0.5"><title>h = 1e-2, relative error 3.0e-04</title></circle>
+<circle class="pt best" cx="111.0" cy="116.7" r="4.2" data-h="1e-3" data-e="3.4e-10" data-f="1/(x^2+1) at x = 0.5"><title>h = 1e-3, relative error 3.4e-10</title></circle>
+<circle class="pt" cx="149.5" cy="96.1" r="2.8" data-h="1e-4" data-e="3.9e-08" data-f="1/(x^2+1) at x = 0.5"><title>h = 1e-4, relative error 3.9e-08</title></circle>
+<circle class="pt" cx="188.0" cy="28.6" r="2.8" data-h="1e-5" data-e="2.2e-01" data-f="1/(x^2+1) at x = 0.5"><title>h = 1e-5, relative error 2.2e-01</title></circle>
+<text class="ax" x="34.0" y="137.0" text-anchor="middle">-1</text>
+<text class="ax" x="72.5" y="137.0" text-anchor="middle">-2</text>
+<text class="ax" x="111.0" y="137.0" text-anchor="middle">-3</text>
+<text class="ax" x="149.5" y="137.0" text-anchor="middle">-4</text>
+<text class="ax" x="188.0" y="137.0" text-anchor="middle">-5</text>
+<text class="axt" x="111.0" y="149.0" text-anchor="middle">h = 10 to the power</text>
+</svg>
+<figcaption><b>1/(x^2+1)</b> at x = 0.5<span>best at h = 1e-3</span></figcaption>
+</figure>
+<figure class="mini">
+<svg viewBox="0 0 196 152" role="img" aria-label="relative error of the calculator second difference for tan(3x) at x = 0.5, against step size h; the curve falls then rises, with its lowest point marked">
+<line class="thresh" x1="34.0" y1="45.0" x2="188.0" y2="45.0"/>
+<line class="grid" x1="34.0" y1="22.0" x2="188.0" y2="22.0"/>
+<text class="ax" x="29.0" y="25.0" text-anchor="end">1e0</text>
+<line class="grid" x1="34.0" y1="42.0" x2="188.0" y2="42.0"/>
+<text class="ax" x="29.0" y="45.0" text-anchor="end">1e-2</text>
+<line class="grid" x1="34.0" y1="62.0" x2="188.0" y2="62.0"/>
+<text class="ax" x="29.0" y="65.0" text-anchor="end">1e-4</text>
+<line class="grid" x1="34.0" y1="82.0" x2="188.0" y2="82.0"/>
+<text class="ax" x="29.0" y="85.0" text-anchor="end">1e-6</text>
+<line class="grid" x1="34.0" y1="102.0" x2="188.0" y2="102.0"/>
+<text class="ax" x="29.0" y="105.0" text-anchor="end">1e-8</text>
+<line class="grid" x1="34.0" y1="122.0" x2="188.0" y2="122.0"/>
+<text class="ax" x="29.0" y="125.0" text-anchor="end">1e-10</text>
+<line class="axis" x1="34.0" y1="14.0" x2="34.0" y2="124.0"/>
+<line class="guide" x1="111.0" y1="14.0" x2="111.0" y2="124.0"/>
+<polyline class="ser" points="34.0,21.6 72.5,28.6 111.0,49.4 149.5,69.2 188.0,64.4"/>
+<circle class="pt" cx="34.0" cy="21.6" r="2.8" data-h="1e-1" data-e="1.1e+00" data-f="tan(3x) at x = 0.5"><title>h = 1e-1, relative error 1.1e+00</title></circle>
+<circle class="pt" cx="72.5" cy="28.6" r="2.8" data-h="1e-2" data-e="2.2e-01" data-f="tan(3x) at x = 0.5"><title>h = 1e-2, relative error 2.2e-01</title></circle>
+<circle class="pt" cx="111.0" cy="49.4" r="2.8" data-h="1e-3" data-e="1.8e-03" data-f="tan(3x) at x = 0.5"><title>h = 1e-3, relative error 1.8e-03</title></circle>
+<circle class="pt best" cx="149.5" cy="69.2" r="4.2" data-h="1e-4" data-e="1.9e-05" data-f="tan(3x) at x = 0.5"><title>h = 1e-4, relative error 1.9e-05</title></circle>
+<circle class="pt" cx="188.0" cy="64.4" r="2.8" data-h="1e-5" data-e="5.8e-05" data-f="tan(3x) at x = 0.5"><title>h = 1e-5, relative error 5.8e-05</title></circle>
+<text class="ax" x="34.0" y="137.0" text-anchor="middle">-1</text>
+<text class="ax" x="72.5" y="137.0" text-anchor="middle">-2</text>
+<text class="ax" x="111.0" y="137.0" text-anchor="middle">-3</text>
+<text class="ax" x="149.5" y="137.0" text-anchor="middle">-4</text>
+<text class="ax" x="188.0" y="137.0" text-anchor="middle">-5</text>
+<text class="axt" x="111.0" y="149.0" text-anchor="middle">h = 10 to the power</text>
+</svg>
+<figcaption><b>tan(3x)</b> at x = 0.5<span>best at h = 1e-4</span></figcaption>
+</figure>
+<figure class="mini">
+<svg viewBox="0 0 196 152" role="img" aria-label="relative error of the calculator second difference for sqrt(2x+1) at x = 1.1, against step size h; the curve falls then rises, with its lowest point marked">
+<line class="thresh" x1="34.0" y1="45.0" x2="188.0" y2="45.0"/>
+<line class="grid" x1="34.0" y1="22.0" x2="188.0" y2="22.0"/>
+<text class="ax" x="29.0" y="25.0" text-anchor="end">1e0</text>
+<line class="grid" x1="34.0" y1="42.0" x2="188.0" y2="42.0"/>
+<text class="ax" x="29.0" y="45.0" text-anchor="end">1e-2</text>
+<line class="grid" x1="34.0" y1="62.0" x2="188.0" y2="62.0"/>
+<text class="ax" x="29.0" y="65.0" text-anchor="end">1e-4</text>
+<line class="grid" x1="34.0" y1="82.0" x2="188.0" y2="82.0"/>
+<text class="ax" x="29.0" y="85.0" text-anchor="end">1e-6</text>
+<line class="grid" x1="34.0" y1="102.0" x2="188.0" y2="102.0"/>
+<text class="ax" x="29.0" y="105.0" text-anchor="end">1e-8</text>
+<line class="grid" x1="34.0" y1="122.0" x2="188.0" y2="122.0"/>
+<text class="ax" x="29.0" y="125.0" text-anchor="end">1e-10</text>
+<line class="axis" x1="34.0" y1="14.0" x2="34.0" y2="124.0"/>
+<line class="guide" x1="111.0" y1="14.0" x2="111.0" y2="124.0"/>
+<polyline class="ser" points="34.0,51.2 72.5,70.9 111.0,65.9 149.5,37.2 188.0,22.0"/>
+<circle class="pt" cx="34.0" cy="51.2" r="2.8" data-h="1e-1" data-e="1.2e-03" data-f="sqrt(2x+1) at x = 1.1"><title>h = 1e-1, relative error 1.2e-03</title></circle>
+<circle class="pt best" cx="72.5" cy="70.9" r="4.2" data-h="1e-2" data-e="1.3e-05" data-f="sqrt(2x+1) at x = 1.1"><title>h = 1e-2, relative error 1.3e-05</title></circle>
+<circle class="pt" cx="111.0" cy="65.9" r="2.8" data-h="1e-3" data-e="4.1e-05" data-f="sqrt(2x+1) at x = 1.1"><title>h = 1e-3, relative error 4.1e-05</title></circle>
+<circle class="pt" cx="149.5" cy="37.2" r="2.8" data-h="1e-4" data-e="3.0e-02" data-f="sqrt(2x+1) at x = 1.1"><title>h = 1e-4, relative error 3.0e-02</title></circle>
+<circle class="pt" cx="188.0" cy="22.0" r="2.8" data-h="1e-5" data-e="1.0e+00" data-f="sqrt(2x+1) at x = 1.1"><title>h = 1e-5, relative error 1.0e+00</title></circle>
+<text class="ax" x="34.0" y="137.0" text-anchor="middle">-1</text>
+<text class="ax" x="72.5" y="137.0" text-anchor="middle">-2</text>
+<text class="ax" x="111.0" y="137.0" text-anchor="middle">-3</text>
+<text class="ax" x="149.5" y="137.0" text-anchor="middle">-4</text>
+<text class="ax" x="188.0" y="137.0" text-anchor="middle">-5</text>
+<text class="axt" x="111.0" y="149.0" text-anchor="middle">h = 10 to the power</text>
+</svg>
+<figcaption><b>sqrt(2x+1)</b> at x = 1.1<span>best at h = 1e-2</span></figcaption>
+</figure>
+</div>
+
+<div class="tscroll"><table>
+<thead><tr><th>function and point</th><th>\(h=0.1\)</th><th>\(h=0.01\)</th><th>\(h=0.001\)</th><th>\(h=10^{-4}\)</th><th>\(h=10^{-5}\)</th></tr></thead>
+<tbody class="tnum">
+<tr><td>\(\cot(2x)\) at \(0.7\)</td><td>2.9e-2</td><td>2.8e-4</td><td><b class="cnum">6.5e-6</b></td><td>9.8e-5</td><td>5.6e-2</td></tr>
+<tr><td>\(x^2\sin x\) at \(1.0\)</td><td>3.8e-3</td><td>3.8e-5</td><td><b class="cnum">3.4e-6</b></td><td>2.3e-4</td><td>8.9e-4</td></tr>
+<tr><td>\(\frac{1}{x^2+1}\) at \(0.5\)</td><td>3.0e-2</td><td>3.0e-4</td><td><b class="cnum">3.4e-10</b></td><td>3.9e-8</td><td>2.2e-1</td></tr>
+<tr><td>\(\tan(3x)\) at \(0.5\)</td><td>1.1</td><td>2.2e-1</td><td>1.8e-3</td><td><b class="cnum">1.9e-5</b></td><td>5.8e-5</td></tr>
+<tr><td>\(\sqrt{2x+1}\) at \(1.1\)</td><td>1.2e-3</td><td><b class="cnum">1.3e-5</b></td><td>4.1e-5</td><td>3.0e-2</td><td>1.0</td></tr>
+</tbody></table></div>
+
+<p>Read it as a <strong>valley, not a slope</strong>. The error falls as \(h\) shrinks because truncation shrinks, then rises because roundoff grows. \(h=0.001\) clears three significant figures on all five. \(h=0.01\) fails that bar on \(\tan(3x)\), where it is off by 22 percent. \(h=10^{-5}\) gives relative errors up to \(1.0\), meaning <strong>no correct figures at all</strong> on two of the five, and the collapse from \(h=0.001\) is a factor of 556 on the worst function and \(6\times10^{8}\) on \(\frac{1}{x^2+1}\). Every number here was measured on a machine deliberately truncated to ten significant digits, not estimated.</p>
+
+<h3>The check applied to this question</h3>
+<div class="tscroll"><table>
+<thead><tr><th>part</th><th>\(x\)</th><th>your answer at \(x\)</th><th>what the calculator shows</th><th>agrees to</th></tr></thead>
+<tbody class="tnum">
+<tr><td>a, \(f''\)</td><td>0.5</td><td>\(8\csc^2 1\cot 1 = 7.2545315\)</td><td>7.2545700</td><td>5 figures</td></tr>
+<tr><td>b, \(f'\)</td><td>1</td><td>5.2506463</td><td>5.2507011</td><td>4 figures</td></tr>
+<tr><td>c, \(f'\)</td><td>1</td><td>2.4797582</td><td>2.4797676</td><td>5 figures</td></tr>
+<tr><td>d</td><td>1</td><td>\(-0.0498397\)</td><td>\(-0.0498397\)</td><td>exact, by construction</td></tr>
+</tbody></table></div>
+<p>Rehearse part (a) at \(x=\pi/8\) instead, where \(2x=\pi/4\) makes \(\csc^2 = 2\) and \(\cot = 1\), so \(f=1\), \(f'=-4\) and \(f''=8\cdot2\cdot1=16\) with no decimals anywhere. If you can produce \(1, -4, 16\) from memory you have the whole part.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">06</span>The variation catalog</h2>
+<p>Organised around <strong>what happens on the second pass</strong>, which is Q8.2's axis. Q8.1's catalog is organised around which rule you pick on the first pass; the two are complementary, and between them every derivative in the bank has a home.</p>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F1</span><span class="fname">The rule does not change</span><span class="mark fam">the easy case, and the one that breeds the bad habit</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>a polynomial, a power, or a sine or cosine of a linear argument</div>
+      <div><b>tool</b>the same rule twice</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>\(f''\)</th></tr></thead>
+      <tbody>
+      <tr><td>\(4x^5+3x^4-6x^3+6\)</td><td>\(20x^4+12x^3-18x^2\)</td><td>\(80x^3+36x^2-36x\)</td></tr>
+      <tr><td>\(x^{1/2}\)</td><td>\(\tfrac12 x^{-1/2}\)</td><td>\(-\tfrac14 x^{-3/2}\)</td></tr>
+      <tr><td>\(\frac1x\)</td><td>\(-\frac1{x^2}\)</td><td>\(\frac{2}{x^3}\)</td></tr>
+      <tr><td>\(x^{2/3}\)</td><td>\(\tfrac23 x^{-1/3}\)</td><td>\(-\tfrac29 x^{-4/3}\)</td></tr>
+      <tr><td>\((3x+1)^4\)</td><td>\(12(3x+1)^3\)</td><td>\(108(3x+1)^2\)</td></tr>
+      <tr><td>\(\sqrt{2x+1}\)</td><td>\((2x+1)^{-1/2}\)</td><td>\(-(2x+1)^{-3/2}\)</td></tr>
+      <tr><td>\(\sin(2x)\)</td><td>\(2\cos(2x)\)</td><td>\(-4\sin(2x)\)</td></tr>
+      </tbody></table></div>
+    <p>Seven rows and two facts. For a power, \(f''\) has coefficient \(n(n-1)\) and exponent \(n-2\); for \(\sin(kx)\), two differentiations give \(-k^2\) times the original. Row 6 is the prettiest: the halves cancel so cleanly that both coefficients are \(\pm1\).</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F2</span><span class="fname">The rule changes, which is Q8.2a</span><span class="mark chn">the question's centre</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>a first derivative that does not look like the first function</div>
+      <div><b>tool</b>the last-operation test, run a second time</div>
+    </div>
+    <p>The full table is in section 02. The one thing to hold: <strong>\(\tan\) and \(\cot\) give squares, \(\sec\) and \(\csc\) give products, \(\sin\) and \(\cos\) give each other.</strong> That sentence is the whole family.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F3</span><span class="fname">The second derivative of a quotient</span><span class="mark los">tidying is mandatory here</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>\(f''\) of anything with a division in it</div>
+      <div><b>tool</b>quotient rule, cancel, quotient rule again</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>tidy \(f'\)</th><th>\(f''\)</th></tr></thead>
+      <tbody>
+      <tr><td>\(\dfrac{2x-16}{(x+3)^2}\)</td><td>\(\dfrac{38-2x}{(x+3)^3}\)</td><td>\(\dfrac{4(x-30)}{(x+3)^4}\)</td></tr>
+      <tr><td>\(\dfrac{x}{x+1}\)</td><td>\(\dfrac{1}{(x+1)^2}\)</td><td>\(-\dfrac{2}{(x+1)^3}\)</td></tr>
+      <tr><td>\(\dfrac{1}{x^2+1}\)</td><td>\(-\dfrac{2x}{\left(x^2+1\right)^2}\)</td><td>\(\dfrac{6x^2-2}{\left(x^2+1\right)^3}\)</td></tr>
+      <tr><td>\(\dfrac{x+1}{x-2}\)</td><td>\(-\dfrac{3}{(x-2)^2}\)</td><td>\(\dfrac{6}{(x-2)^3}\)</td></tr>
+      <tr><td>\(\dfrac{x^2}{x-1}\)</td><td>\(\dfrac{x^2-2x}{(x-1)^2}\)</td><td>\(\dfrac{2}{(x-1)^3}\)</td></tr>
+      </tbody></table></div>
+    <p>The invariant down the whole table is the denominator's power: \(n\), then \(n+1\), then \(n+2\). Every differentiation makes a pole one order worse and never better, so any other power means you cancelled wrongly or not at all.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F4</span><span class="fname">The Pythagorean rewrite, a second route to the same \(f''\)</span><span class="mark num">four spellings of one function</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>a \(\csc^2\) or \(\sec^2\) that you now have to differentiate</div>
+      <div><b>tool</b>\(\csc^2 u = 1+\cot^2 u\), \(\sec^2 u = 1+\tan^2 u\), applied to \(f'\) before pass 2</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>form of the Q8.2a answer</th><th>how you get there</th></tr></thead>
+      <tbody>
+      <tr><td>\(8\csc^2(2x)\cot(2x)\)</td><td>Route A, the standard answer</td></tr>
+      <tr><td>\(8\cot(2x)+8\cot^3(2x)\)</td><td>Route B, expanding \(\csc^2 = 1+\cot^2\)</td></tr>
+      <tr><td>\(\dfrac{8\cos(2x)}{\sin^3(2x)}\)</td><td>Route C, sines and cosines throughout</td></tr>
+      <tr><td>\(\dfrac{16\cot(2x)}{1-\cos(4x)}\)</td><td>using \(\sin^2 u = \frac{1-\cos 2u}{2}\)</td></tr>
+      </tbody></table></div>
+    <p>All four agree to \(2.3\times10^{-16}\) over fourteen points. Any of them earns full marks, and the third is the one to type if the parser does not know \(\csc\). The fourth is here to make the point that the answer is a <em>function</em> and not a string, which is exactly why M&ouml;bius grades by equivalence.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F5</span><span class="fname">The product second derivative, and Leibniz</span><span class="mark fam">\((uv)'' = u''v + 2u'v' + uv''\)</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>\(f''\)</th></tr></thead>
+      <tbody>
+      <tr><td>\(x\sin x\)</td><td>\(2\cos x - x\sin x\)</td></tr>
+      <tr><td>\(x^2\sin x\)</td><td>\(\left(2-x^2\right)\sin x + 4x\cos x\)</td></tr>
+      <tr><td>\(x^2\cos 3x\)</td><td>\(\left(2-9x^2\right)\cos 3x - 12x\sin 3x\)</td></tr>
+      <tr><td>\(x^2\tan x\)</td><td>\(2\tan x + 4x\sec^2 x + 2x^2\sec^2 x\tan x\)</td></tr>
+      <tr><td>\(x^3\tan x\)</td><td>\(6x\tan x + 6x^2\sec^2 x + 2x^3\sec^2 x\tan x\)</td></tr>
+      </tbody></table></div>
+    <p>Row 4 is the review question, asked as \(\left.\frac{d^2}{dx^2}x^2\tan x\right|_{x=\pi}\). At \(x=\pi\), \(\tan\pi=0\) and \(\sec^2\pi=1\), so the first and third terms vanish and the answer is \(4\pi\). <strong>That is how these are built:</strong> the evaluation point is chosen to kill two of the three terms, and spotting it turns a messy expression into one multiplication.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F6</span><span class="fname">Third and higher derivatives</span><span class="mark fam">find the cycle, do not grind</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>\(f''\)</th><th>\(f'''\)</th><th>the pattern</th></tr></thead>
+      <tbody>
+      <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>\(-\sin x\)</td><td>\(-\cos x\)</td><td>period 4</td></tr>
+      <tr><td>\(\frac1x\)</td><td>\(-\frac1{x^2}\)</td><td>\(\frac2{x^3}\)</td><td>\(-\frac6{x^4}\)</td><td>\((-1)^n\frac{n!}{x^{n+1}}\)</td></tr>
+      <tr><td>\(\sin 2x\)</td><td>\(2\cos 2x\)</td><td>\(-4\sin 2x\)</td><td>\(-8\cos 2x\)</td><td>period 4, with \(2^n\)</td></tr>
+      <tr><td>\(x^5\)</td><td>\(5x^4\)</td><td>\(20x^3\)</td><td>\(60x^2\)</td><td>terminates at \(n=6\)</td></tr>
+      <tr><td>\(\cos 3x\)</td><td>\(-3\sin 3x\)</td><td>\(-9\cos 3x\)</td><td>\(27\sin 3x\)</td><td>period 4, with \(3^n\)</td></tr>
+      </tbody></table></div>
+    <p>No new mathematics: it is the same wrapper run three times. The only skill is noticing you do not have to run it a hundred times. The 100th derivative of \(\sin x\) is \(\sin x\), because \(100 = 4\times 25\).</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F7</span><span class="fname">The named-outer chain, which is Q8.2b</span><span class="mark rul">one idea, eight rows</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>\(f'\)</th></tr></thead>
+      <tbody>
+      <tr><td>\(\sec\left(x^2-3x\right)\)</td><td>\((2x-3)\sec\left(x^2-3x\right)\tan\left(x^2-3x\right)\)</td></tr>
+      <tr><td>\(\csc\left(x^2+1\right)\)</td><td>\(-2x\csc\left(x^2+1\right)\cot\left(x^2+1\right)\)</td></tr>
+      <tr><td>\(\tan\left(x^2-3x\right)\)</td><td>\((2x-3)\sec^2\left(x^2-3x\right)\)</td></tr>
+      <tr><td>\(\cot\left(x^2-3x\right)\)</td><td>\(-(2x-3)\csc^2\left(x^2-3x\right)\)</td></tr>
+      <tr><td>\(\sin\left(x^2-3x\right)\)</td><td>\((2x-3)\cos\left(x^2-3x\right)\)</td></tr>
+      <tr><td>\(\sec(3x)\)</td><td>\(3\sec(3x)\tan(3x)\)</td></tr>
+      <tr><td>\(\sec^2 x\)</td><td>\(2\sec^2 x\tan x\) &nbsp;<span class="mark chn">power outer, for contrast</span></td></tr>
+      <tr><td>\(\sqrt{x^2-3x}\)</td><td>\(\dfrac{2x-3}{2\sqrt{x^2-3x}}\)</td></tr>
+      </tbody></table></div>
+    <p>The outer derivative evaluated at the <strong>untouched</strong> inner, times the inner derivative. The inner derivative \(2x-3\) is the same in five of the eight rows, which is the examiner reusing one polynomial. Row 7 is the contrast: \(\sec^2 x\) is a square, so its last operation is the power and not the \(\sec\).</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F8</span><span class="fname">A quotient needing a rule in both halves, which is Q8.2c</span><span class="mark los">compute all four slots first</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>what the sub-rules are</th></tr></thead>
+      <tbody>
+      <tr><td>\(\dfrac{x^2-\cos 3x}{x\sin 2x}\)</td><td>chain in \(u'\), <b class="clos">product</b> in \(v'\) &nbsp;<span class="mark">Q8.2c</span></td></tr>
+      <tr><td>\(\dfrac{x^2+\sin x}{x\cos x}\)</td><td>sum in \(u'\), <b class="clos">product</b> in \(v'\)</td></tr>
+      <tr><td>\(\dfrac{\sin 3x}{x^2+1}\)</td><td>chain in \(u'\), nothing in \(v'\)</td></tr>
+      <tr><td>\(\dfrac{x\tan x}{x^2-1}\)</td><td><b class="clos">product</b> in \(u'\)</td></tr>
+      <tr><td>\(\dfrac{\sqrt{x^2-1}}{x^2-2x-8}\)</td><td>chain in \(u'\) &nbsp;<span class="mark">Q8.3d</span></td></tr>
+      </tbody></table></div>
+    <p>All five answers are final as written, which is the whole reason the printed permission exists. The structure is identical every time: two products in the numerator with a minus between them, and the untouched denominator squared underneath. What varies is only which of the four slots \(u, u', v, v'\) needed a rule of its own, so <strong>compute all four before you write the fraction.</strong></p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F9</span><span class="fname">A derivative from given values, which is Q8.2d</span><span class="mark rul">letters first, numbers last</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>asked</th><th>rule</th><th>answer</th></tr></thead>
+      <tbody class="tnum">
+      <tr><td>\(\left(\frac fg\right)'(1)\)</td><td>quotient</td><td>\(\frac{4-3\sqrt3}{24} \approx -0.0498397\)</td></tr>
+      <tr><td>\(\left(\frac gf\right)'(1)\)</td><td>quotient, the other way</td><td>\(\frac{3\sqrt3-4}{6} \approx 0.1993587\)</td></tr>
+      <tr><td>\((fg)'(1)\)</td><td>product</td><td>\(6+\frac{9\sqrt3}{2} \approx 13.7942286\)</td></tr>
+      <tr><td>\((f+g)'(1)\)</td><td>sum</td><td>\(1+\frac{3\sqrt3}{2} \approx 3.5980762\)</td></tr>
+      <tr><td>\(\left(f^2\right)'(1)\)</td><td>chain, power outer</td><td>\(6\)</td></tr>
+      <tr><td>\(\left(\frac fx\right)'(1)\)</td><td>quotient with \(v=x\)</td><td>\(-2\)</td></tr>
+      <tr><td>\(\left(x^2f\right)'(1)\)</td><td>product</td><td>\(7\)</td></tr>
+      <tr><td>\(\left(\sqrt f\right)'(1)\)</td><td>chain</td><td>\(\frac{1}{2\sqrt3} \approx 0.2886751\)</td></tr>
+      <tr><td>\(\left(\frac1g\right)'(1)\)</td><td>quotient with \(u=1\)</td><td>\(-\frac{\sqrt3}{24} \approx -0.0721688\)</td></tr>
+      <tr><td>\((f-2g)'(1)\)</td><td>sum and constant multiple</td><td>\(1-3\sqrt3 \approx -4.1961524\)</td></tr>
+      </tbody></table></div>
+    <p>Ten rows, one procedure. Rows 1 and 2 are <em>not</em> negatives of each other, which is exactly why the quotient rule's order matters: swapping \(f\) and \(g\) changes the denominator as well as flipping the numerator. And \(\sqrt3\) appears in seven of the ten answers, all of it from the single evaluation \(\sin\frac\pi3 = \frac{\sqrt3}{2}\).</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">F10</span><span class="fname">What the second derivative is actually for</span><span class="mark fam">downstream</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f''\) used for</th><th>worked example, verified</th></tr></thead>
+      <tbody>
+      <tr><td>the second-derivative test</td><td>Q8.1(b) has a critical point at \(x=19\), and \(f''(19) = \frac{4(19-30)}{22^4} = -1.878\times10^{-4} &lt; 0\), so it is a <strong>maximum</strong></td></tr>
+      <tr><td>inflection candidates</td><td>the same \(f''\) vanishes at \(x=30\)</td></tr>
+      <tr><td>confirming one by a sign change</td><td>\(f''(29) = -3.8\times10^{-6}\) and \(f''(31) = +3.0\times10^{-6}\), so \(x=30\) really is an inflection point</td></tr>
+      <tr><td>reading concavity off Q8.2a</td><td>\(f''\) has the sign of \(\cot(2x)\), so \(\cot(2x)\) is concave <strong>up</strong> on \(\left(0,\frac\pi4\right)\) and <strong>down</strong> on \(\left(\frac\pi4,\frac\pi2\right)\)</td></tr>
+      <tr><td>the sketch questions' conditions</td><td>Q5.1, Q5.2 and Q5.3 all state things like "\(f''(x) &gt; 0\) on \([4,\infty)\)", which is a concavity instruction</td></tr>
+      </tbody></table></div>
+    <p>The concavity row is what repays the effort of part (a): once you have \(f'' = 8\csc^2(2x)\cot(2x)\), you know the concavity of \(\cot(2x)\) everywhere for free, because \(\csc^2\) is always positive and the sign is entirely \(\cot\)'s. <strong>Check the direction rather than reasoning about it</strong>, and this page is the reason to say so: the first draft of that claim had the two signs the wrong way round, and the numeric check caught it where re-reading did not.</p>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">07</span>The trap list</h2>
+<p>Ranked by how often each one actually costs marks in this family.</p>
+<ol class="traps">
+<li><span><b>Not asking the last-operation question a second time.</b> You differentiate \(\cot(2x)\) correctly, then differentiate \(-2\csc^2(2x)\) as if it were still a plain chain rule. This is the trap Q8.2 exists to test.</span></li>
+<li><span><b>Losing one of the three factors of 2 in part (a).</b> You write \(4\csc^2(2x)\cot(2x)\), which is half the right answer. Route D's \(2k^2\) is an independent count and it takes five seconds.</span></li>
+<li><span><b>A calculator in degrees on part (d).</b> \(+0.162\) instead of \(-0.0498\): wrong sign, wrong size, completely plausible. The sign invariant catches it and nothing else will.</span></li>
+<li><span><b>Substituting \(x=1\) before differentiating in part (d).</b> \(\frac36\) differentiates to \(0\), and the zero looks like an answer.</span></li>
+<li><span><b>Forgetting the product rule on \(v = x\sin 2x\) in part (c).</b> Writing \(v' = 2x\cos 2x\) loses the whole \(\sin 2x\) term.</span></li>
+<li><span><b>The sign of \(\frac{d}{dx}(-\cos 3x)\) in part (c).</b> It is \(+3\sin 3x\): two minus signs. \(-3\sin 3x\) is the plausible error.</span></li>
+<li><span><b>Reading \(\csc^2(2x)\) as \(\csc\left(4x^2\right)\), or the reverse.</b> It changes which rule pass 2 needs, so it is not a notation slip, it is a wrong method.</span></li>
+<li><span><b>Differentiating an untidied \(f'\).</b> Not wrong, just four times the work and four times the risk.</span></li>
+<li><span><b>Dropping the inner derivative \((2x-3)\) in part (b).</b> Q8.1's trap 1, still the most common error in the course, in its easiest costume here.</span></li>
+<li><span><b>Writing \(\frac{d}{dx}\sec u = \sec^2 u\).</b> That is \(\tan\)'s derivative. \(\sec\) gives a <em>product</em> and \(\tan\) gives a <em>square</em>, and confusing them changes the shape of the answer.</span></li>
+<li><span><b>Using \(h\) too small on the second-difference check.</b> \(h=10^{-5}\) gives zero correct figures, so a right answer looks wrong and you "fix" it.</span></li>
+<li><span><b>Expanding \(\left(x\sin 2x\right)^2\) in part (c).</b> It gains nothing, and <code>x*sin(2*x)^2</code> on M&ouml;bius is a different function.</span></li>
+<li><span><b>Simplifying \(f''\) in part (a) at all.</b> The two \(\csc\) factors have already combined; anything further is pure risk.</span></li>
+</ol>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">08</span>Drill set</h2>
+<p>Do all twelve on paper in under thirty minutes, then check. Score <strong>pass-1 rule</strong>, <strong>pass-2 rule</strong> and <strong>execution</strong> as three separate columns. Track pass 2 separately: it is the only column Q8.1 could not test, and it is the column Q8.2 is marking.</p>
+<ol class="drills">
+<li><span>\(\dfrac{d^2}{dx^2}\tan(3x)\)</span></li>
+<li><span>\(\dfrac{d^2}{dx^2}\dfrac{2x-16}{(x+3)^2}\)</span></li>
+<li><span>\(\dfrac{d}{dx}\csc\left(x^2+1\right)\)</span></li>
+<li><span>\(\dfrac{d^2}{dx^2}x^2\cos(3x)\)</span></li>
+<li><span>\(\dfrac{d^2}{dx^2}\sec x\)</span></li>
+<li><span>\(\dfrac{d}{dx}\dfrac{\sin 3x}{x^2+1}\)</span></li>
+<li><span>\(\dfrac{d^2}{dx^2}\sqrt{2x+1}\)</span></li>
+<li><span>\(\dfrac{d^2}{dx^2}\cot(3x)\)</span></li>
+<li><span>\(\dfrac{d}{dx}\dfrac{x\tan x}{x^2-1}\)</span></li>
+<li><span>\((fg)'(1)\) with part (d)'s data</span></li>
+<li><span>\(\left.\dfrac{d^2}{dx^2}x^2\tan x\right|_{x=\pi}\)</span></li>
+<li><span>\(\dfrac{d^3}{dx^3}\sin(2x)\)</span></li>
+</ol>
+
+<details class="key">
+<summary>Answer key</summary>
+<div class="tscroll"><table>
+<thead><tr><th>#</th><th>answer</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>\(18\sec^2(3x)\tan(3x)\)</td><td>F2, chain then <b>power</b>; the 18 is \(2k^2\) with \(k=3\)</td></tr>
+<tr><td>2</td><td>\(\dfrac{4(x-30)}{(x+3)^4}\)</td><td>F3; cancel to \(\frac{38-2x}{(x+3)^3}\) first, and the denominator power is 4</td></tr>
+<tr><td>3</td><td>\(-2x\csc\left(x^2+1\right)\cot\left(x^2+1\right)\)</td><td>F7; the minus is \(\csc\)'s</td></tr>
+<tr><td>4</td><td>\(\left(2-9x^2\right)\cos 3x - 12x\sin 3x\)</td><td>F5, product rule twice or Leibniz in one line</td></tr>
+<tr><td>5</td><td>\(\sec x\tan^2 x + \sec^3 x\)</td><td>F2, chain then <b>product</b>; two terms, not one</td></tr>
+<tr><td>6</td><td>\(\dfrac{3\cos 3x\left(x^2+1\right)-2x\sin 3x}{\left(x^2+1\right)^2}\)</td><td>F8, quotient with a chain in \(u'\) only</td></tr>
+<tr><td>7</td><td>\(-(2x+1)^{-3/2}\)</td><td>F1, and both coefficients are \(\pm1\) because the halves cancel</td></tr>
+<tr><td>8</td><td>\(18\csc^2(3x)\cot(3x)\)</td><td>F2, and the sign is <b>plus</b>, because two minus signs cancelled</td></tr>
+<tr><td>9</td><td>\(\dfrac{\left(\tan x + x\sec^2 x\right)\left(x^2-1\right)-2x^2\tan x}{\left(x^2-1\right)^2}\)</td><td>F8, with the <b>product</b> rule in \(u'\)</td></tr>
+<tr><td>10</td><td>\(6+\dfrac{9\sqrt3}{2} \approx 13.7942286\)</td><td>F9, product rule, radians</td></tr>
+<tr><td>11</td><td>\(4\pi \approx 12.5664\)</td><td>F5, and \(x=\pi\) kills two of the three terms</td></tr>
+<tr><td>12</td><td>\(-8\cos(2x)\)</td><td>F6, three chain rules so \(2^3=8\), and the cycle gives the sign</td></tr>
+</tbody></table></div>
+<p>Four of the twelve are deliberately mis-shaped. Number 5 looks like a power rule on pass 2 and needs a product rule. Number 7 looks like two chain rules and collapses to \(\pm1\). Number 8 looks like it should be negative. Number 11 looks like it needs all three terms and needs one. If you missed any of those four, it is the second-pass habit that needs work, not the rule table.</p>
+</details>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">09</span>The one-page decision tree</h2>
+<pre class="tree">"Find d^2/dx^2 &lt;expression&gt;"   or   "Find d/dx &lt;expression&gt;"
+|
++-- Is there a 2 upstairs?   d^2/dx^2, f'', "concavity", "inflection"
+|      NO   -&gt; run Q8.1's tree once.  Stop.  Do not simplify.
+|      YES  -&gt; continue below.
+|
++-- PASS 1.  Run Q8.1's tree.  Get f'.
+|
++-- STOP.  LOOK AT f'.  Is it as short as it will get?
+|      a quotient from the quotient rule -&gt; CANCEL NOW.  Always.
+|      csc^2 or sec^2 you must differentiate
+|                                       -&gt; consider 1 + cot^2 / 1 + tan^2
+|      anything else                    -&gt; usually nothing.  3 seconds.
+|
++-- PASS 2.  ASK THE LAST-OPERATION QUESTION AGAIN.  From scratch.
+|      f' ends in ( )^2          -&gt; CHAIN, power outer   2T(u) T'(u) u'
+|      f' is T(u) * S(u)         -&gt; PRODUCT
+|      f' is poly / ( )^n        -&gt; QUOTIENT
+|      f' is c * T(kx)           -&gt; CHAIN, named outer.  Same as pass 1.
+|      f' is a polynomial        -&gt; POWER and SUM
+|
+|      tan, cot  -&gt; differentiate into a SQUARE  -&gt; pass 2 is a POWER
+|      sec, csc  -&gt; differentiate into a PRODUCT -&gt; pass 2 is a PRODUCT
+|      sin, cos  -&gt; differentiate into each other -&gt; pass 2 is UNCHANGED
+|
++-- f'' IS the answer now.  Q8.1's policy applies again.  Stop.
+|
++-- CHECK.  [f(x+h) - 2 f(x) + f(x-h)] / h^2   with h = 0.001.
+             NOT 1e-5.  Dividing by h^2 makes a small h ruinous, and
+             1e-5 gives ZERO correct figures on a 10-digit calculator.
+
+      COEFF     count the 2s: power rule, inner derivative, pass-1 coeff
+      2k^2      d2/dx2 cot(kx) = 2k^2 csc^2(kx) cot(kx).  Cross-check it.
+      SIGN      two minus signs make a PLUS.  Expect it.
+      INNER     the inside of a bracket or trig function is UNCHANGED
+      POLES     a pole's order rises by ONE per differentiation
+      RADIANS   before you evaluate ANYTHING with a pi in it
+      LETTERS   given values?  differentiate with letters, substitute LAST
+      TYPE IT   csc(2*x)^2, never csc^2(2*x).  (x*sin(2*x))^2, never
+                x*sin(2*x)^2.
+      PREVIEW   always</pre>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">10</span>Provenance, and how these numbers were checked</h2>
+
+<div class="board">
+  <div class="card">
+    <div class="card-h"><b>Where the question comes from</b></div>
+    <div class="fld"><b>paper</b><span>Midterm Exam 2, item 9</span></div>
+    <div class="fld"><b>points</b><span>16, printed on its <strong>own line before</strong> the item</span></div>
+    <div class="fld"><b>paper total</b><span>94 over 11 items, so this is 17 percent</span></div>
+    <div class="fld"><b>no-credit clause</b><span><strong>none.</strong> Midterm 2's two are on items 4 and 7</span></div>
+    <div class="fld key"><b>printed instruction</b><span>"Show your work" and "You may not need to simplify your answer"</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>How the numbers were checked</b><span class="mark num">212 checks, 0 failures</span></div>
+    <div class="fld"><b>first derivatives</b><span>complex-step at \(h=10^{-30}\) and a Richardson difference-quotient ladder; worst disagreement \(6.5\times10^{-16}\) and \(1.6\times10^{-11}\)</span></div>
+    <div class="fld"><b>second derivatives</b><span>two arms that never read my own \(f'\): a Richardson second difference on a bounded ladder, worst \(8.1\times10^{-7}\), and a Richardson difference <em>of the complex-step \(f'\)</em>, worst \(4.0\times10^{-12}\)</span></div>
+    <div class="fld"><b>simplifications</b><span>every rewritten form checked as an identity over many points, worst \(2.3\times10^{-16}\)</span></div>
+    <div class="fld key"><b>seeded controls</b><span>27, each required to fail and each confirmed to</span></div>
+  </div>
+</div>
+
+<div class="callout bad">
+  <div class="ch">Nine checks failed on the first run, and the mathematics was right every time</div>
+  <p>In all nine it was the <strong>check or the claim</strong> that was broken, not a derivative. That is now eight runs in a row in this series where every first-run failure was a verifier defect. Three of the nine were one disease in three costumes: a numerical method used outside the regime where it is valid, once at a fixed step size on a third difference and once as a tolerance tighter than a method's own floor.</p>
+  <p style="margin-top:9px">Two were <strong>invented numbers wearing the costume of measurements</strong>. A pole screen demanded that a denominator stay above 0.15, a threshold tied to nothing the method needs; replacing it with a bound derived from the largest step any arm takes exposed four genuinely bad sample points that the guess had waved through. And the claim that "\(h=0.01\) is right and smaller is worse" was written before the measurement, which then refuted it: the table in section 05 is the corrected version.</p>
+  <p style="margin-top:9px">Two more were gates that could not fail, one ending in <code>and True</code> and one comparing a value to itself. Both would have passed forever. The remaining two were plain slips, a wrong constant in a reconstruction and the backwards concavity claim in F10, and both were caught by arms that do not share code with the thing they check.</p>
+</div>
+
+<div class="callout note">
+  <div class="ch">Conflicts found in the course files</div>
+  <p>The course files are study aids, not authorities. For this topic no false statement was found, but the gap is one of omission and it is large. <code>MATH265_Review.md</code> uses \(f''\) in four separate places, in the second-derivative test, the concavity rule, the ten-step curve-sketching procedure and the optimisation procedure, and <strong>nowhere does it say how to compute one</strong>. There is no worked second derivative anywhere in an 84 KB revision file, no statement that the rule can change between passes, and no mention that a quotient's \(f'\) should be cancelled before it is differentiated again. Q8.2 is 16 points and the file's coverage of it is zero.</p>
+  <p style="margin-top:9px">The same file's section 9 also omits \(\csc\) from its trigonometric derivative list, which bites here specifically: part (a)'s answer is written in \(\csc\), and Route A needs \(\frac{d}{dx}\csc = -\csc\cot\), the one derivative that list does not have. The file's other list has all six.</p>
+</div>
+
+<footer>
+  <p>Sources: <code>notes\MATH265.md</code> (Q8.2), <code>notes\MATH265\MATH265.md</code> (Midterm Exam 2, item 9), <code>notes\MATH265\MATH265_Categorized.md</code>, with all three transcriptions compared after whitespace normalisation. The prerequisite tutorial, which holds the last-operation test, the simplification policy and the first-derivative check that this page builds on and does not restate, is <code>notes\Q8.1 - Four derivatives, power chain and quotient rules.md</code>.</p>
+  <p>Verification run 2026-09-01, appended as a new section to <code>Work\knowledge\topics\math265-answer-verification.py</code>. Re-run that file to re-check every number on this page: it produces exactly two unrelated pre-existing failures, <code>sin62</code> and <code>cos62</code>, which are a tolerance artifact of a linear-approximation check elsewhere in it, and no others.</p>
+</footer>
+
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  var tip = document.getElementById("tip");
+  function show(c){
+    tip.textContent = c.getAttribute("data-f") + "  |  h = " + c.getAttribute("data-h")
+                    + "  |  rel err " + c.getAttribute("data-e");
+    var r = c.getBoundingClientRect();
+    tip.style.left = Math.round(r.left + r.width/2 + window.scrollX) + "px";
+    tip.style.top  = Math.round(r.top + window.scrollY - 10) + "px";
+    tip.classList.add("on");
+  }
+  function hide(){ tip.classList.remove("on"); }
+  var pts = document.querySelectorAll(".mini circle");
+  for (var i = 0; i < pts.length; i++){
+    pts[i].setAttribute("tabindex","0");
+    pts[i].addEventListener("mouseenter", function(e){ show(e.target); });
+    pts[i].addEventListener("focus", function(e){ show(e.target); });
+    pts[i].addEventListener("mouseleave", hide);
+    pts[i].addEventListener("blur", hide);
+  }
+})();
+</script>
+

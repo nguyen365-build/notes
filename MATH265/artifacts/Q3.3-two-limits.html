@@ -1,0 +1,1526 @@
+<title>Limits at the Edges</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 0.97 },
+  options: { enableMenu: false },
+  startup: { pageReady: function () {
+    return MathJax.startup.defaultPageReady().then(function () {
+      document.documentElement.setAttribute('data-mj','done');
+    });
+  } }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+/* ============================================================
+   Tokens. Light is the bare :root. Dark is redefined twice so
+   both the OS default and an explicit toggle resolve correctly.
+   ============================================================ */
+:root{
+  --bg:#F7F6F3; --panel:#FFFFFF; --panel-2:#F1EFEA;
+  --ink:#181C22; --ink-2:#4A5461; --ink-3:#646D7A;
+  --accent:#945509; --accent-soft:#FBF1DE; --accent-rule:#DFB679;
+  --rule:#D9DCE0; --rule-soft:#E9EBEE; --rule-dash:#BEC4CC;
+  --pos:#1A6E9E; --pos-wash:#E4F0F7;
+  --neg:#A8332A; --neg-wash:#FAEBE9;
+  --dne:#8A5A06; --dne-wash:#FBF1DE;
+  --fin:#1B6B44; --fin-wash:#E6F1EB;
+  --trap:#A8332A; --trap-wash:#FBECEA;
+  --shadow:0 1px 2px rgba(20,24,31,.06), 0 8px 24px rgba(20,24,31,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14181F; --panel:#1B212A; --panel-2:#222933;
+    --ink:#E8ECF2; --ink-2:#A3AEBC; --ink-3:#8B96A6;
+    --accent:#F2A53C; --accent-soft:#2A2418; --accent-rule:#7A5A22;
+    --rule:#2C343F; --rule-soft:#232A34; --rule-dash:#3C4653;
+    --pos:#5FB3DE; --pos-wash:#16242E;
+    --neg:#E8837A; --neg-wash:#2A1B1A;
+    --dne:#F2A53C; --dne-wash:#2A2418;
+    --fin:#61BE92; --fin-wash:#152520;
+    --trap:#E8837A; --trap-wash:#2A1B1A;
+    --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.22);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14181F; --panel:#1B212A; --panel-2:#222933;
+  --ink:#E8ECF2; --ink-2:#A3AEBC; --ink-3:#8B96A6;
+  --accent:#F2A53C; --accent-soft:#2A2418; --accent-rule:#7A5A22;
+  --rule:#2C343F; --rule-soft:#232A34; --rule-dash:#3C4653;
+  --pos:#5FB3DE; --pos-wash:#16242E;
+  --neg:#E8837A; --neg-wash:#2A1B1A;
+  --dne:#F2A53C; --dne-wash:#2A2418;
+  --fin:#61BE92; --fin-wash:#152520;
+  --trap:#E8837A; --trap-wash:#2A1B1A;
+  --shadow:0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.22);
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,Segoe UI,sans-serif;
+  font-size:16px; line-height:1.62;
+}
+.wrap{max-width:960px; margin:0 auto; padding:0 24px 96px}
+
+/* ---- the asymptote motif: a dashed rule the content approaches ---- */
+.approach{border:0; border-top:1px dashed var(--rule-dash); margin:56px 0 0}
+
+/* ---------------- masthead ---------------- */
+header.mast{padding:56px 0 8px}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px; font-weight:500; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); display:flex; flex-wrap:wrap; gap:6px 14px; margin-bottom:18px;
+}
+.eyebrow span{white-space:nowrap}
+.eyebrow span+span{position:relative; padding-left:14px}
+.eyebrow span+span::before{content:"/"; position:absolute; left:0; color:var(--rule-dash)}
+h1{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(30px,5.2vw,46px); line-height:1.1; letter-spacing:-.012em;
+  margin:0 0 14px; text-wrap:balance;
+}
+.standfirst{font-size:17.5px; color:var(--ink-2); max-width:62ch; margin:0}
+
+/* ---------------- the question ---------------- */
+.question{
+  background:var(--panel); border:1px solid var(--rule); border-radius:3px;
+  padding:22px 24px; margin:30px 0 0; box-shadow:var(--shadow);
+}
+.question .lab{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); margin-bottom:10px;
+}
+.question .verbatim{font-style:italic; color:var(--ink-2); margin:0 0 4px}
+.parts{display:grid; gap:2px; margin-top:12px}
+.part{display:flex; gap:12px; align-items:baseline; padding:8px 0}
+.part .k{
+  font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--accent);
+  font-size:13px; min-width:18px;
+}
+
+/* ---------------- answer cards ---------------- */
+.answers{display:grid; grid-template-columns:repeat(auto-fit,minmax(288px,1fr)); gap:16px; margin-top:20px}
+.ans{
+  background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--accent);
+  border-radius:3px; padding:18px 20px; box-shadow:var(--shadow);
+}
+.ans h3{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); margin:0 0 10px; font-weight:500;
+}
+.ans .val{font-size:20px; margin:0 0 10px}
+.ans p{margin:0; font-size:14.5px; color:var(--ink-2)}
+
+/* ---------------- chips ---------------- */
+.chip{
+  display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  font-weight:600; letter-spacing:.06em; padding:2px 8px; border-radius:2px;
+  border:1px solid currentColor; white-space:nowrap; vertical-align:baseline;
+}
+.c-pos{color:var(--pos); background:var(--pos-wash)}
+.c-neg{color:var(--neg); background:var(--neg-wash)}
+.c-dne{color:var(--dne); background:var(--dne-wash)}
+.c-fin{color:var(--fin); background:var(--fin-wash)}
+
+/* ---------------- sections ---------------- */
+section{margin-top:34px; scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; font-weight:600;
+  letter-spacing:.13em; color:var(--accent); text-transform:uppercase;
+}
+h2{
+  font-family:"IBM Plex Serif",Georgia,serif; font-weight:600;
+  font-size:clamp(21px,2.9vw,27px); line-height:1.22; letter-spacing:-.008em;
+  margin:6px 0 14px; text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif; font-weight:600; font-size:16.5px;
+  margin:26px 0 8px; color:var(--ink); text-wrap:balance;
+}
+h4{
+  font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:12px;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3); margin:20px 0 6px;
+}
+p{margin:0 0 12px; max-width:68ch}
+ul,ol{margin:0 0 12px; padding-left:22px; max-width:68ch}
+li{margin:0 0 6px}
+strong{font-weight:600}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px}
+
+/* ---------------- code / procedure blocks ---------------- */
+pre{
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; line-height:1.66;
+  background:var(--panel-2); border:1px solid var(--rule-soft); border-radius:3px;
+  padding:16px 18px; overflow-x:auto; margin:0 0 14px; color:var(--ink-2);
+}
+code{font-family:"IBM Plex Mono",monospace; font-size:.92em; background:var(--panel-2);
+  padding:1px 5px; border-radius:2px; color:var(--ink); overflow-wrap:anywhere}
+/* but never break the fixed-width procedure blocks, which are drawn with spaces */
+pre code{background:none; padding:0; font-size:inherit; overflow-wrap:normal}
+
+/* ---------------- callouts ---------------- */
+.note,.trap,.win{
+  border-left:2px dashed var(--rule-dash); padding:12px 0 12px 18px; margin:16px 0;
+  max-width:68ch;
+}
+.trap{border-left-color:var(--trap)}
+.win{border-left-color:var(--fin)}
+.note>:last-child,.trap>:last-child,.win>:last-child{margin-bottom:0}
+.tag{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; display:block; margin-bottom:4px;
+}
+.trap .tag{color:var(--trap)} .win .tag{color:var(--fin)} .note .tag{color:var(--ink-3)}
+
+/* ---------------- tables ---------------- */
+.tw{overflow-x:auto; margin:0 0 16px; border:1px solid var(--rule); border-radius:3px; background:var(--panel)}
+table{border-collapse:collapse; width:100%; font-size:14px}
+caption{
+  text-align:left; font-family:"IBM Plex Mono",monospace; font-size:11px;
+  letter-spacing:.11em; text-transform:uppercase; color:var(--ink-3);
+  padding:11px 14px 0;
+}
+th,td{padding:9px 14px; text-align:left; vertical-align:top; border-bottom:1px solid var(--rule-soft)}
+thead th{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-weight:600;
+  letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3);
+  border-bottom:1px solid var(--rule); white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--panel-2)}
+td.num{font-variant-numeric:tabular-nums; font-family:"IBM Plex Mono",monospace; font-size:13px}
+.hl td{background:var(--accent-soft)}
+.hl td:first-child{box-shadow:inset 2px 0 0 var(--accent)}
+
+/* ---------------- diagrams ---------------- */
+.fig{
+  background:var(--panel); border:1px solid var(--rule); border-radius:3px;
+  padding:16px 18px 12px; margin:20px 0; box-shadow:var(--shadow);
+}
+.fig svg{display:block; width:100%; height:auto}
+.fig figcaption{
+  font-size:13.5px; color:var(--ink-2); margin-top:10px; padding-top:10px;
+  border-top:1px dashed var(--rule-dash);
+}
+.figs{display:grid; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); gap:16px}
+.figs .fig{margin:0}
+.key{
+  display:flex; flex-wrap:wrap; gap:6px 16px; margin-top:8px;
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3);
+  letter-spacing:.04em;
+}
+.key i{display:inline-block; width:16px; height:0; border-top-width:2px; margin-right:6px;
+  vertical-align:middle; border-top-style:solid}
+
+/* ---------------- disclosure blocks ---------------- */
+details{
+  border:1px solid var(--rule); border-radius:3px; background:var(--panel);
+  padding:0 16px; margin:0 0 10px;
+}
+summary{
+  cursor:pointer; padding:12px 0; font-weight:600; font-size:14.5px;
+  list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px;
+}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+"; font-family:"IBM Plex Mono",monospace; color:var(--accent); font-weight:600}
+details[open] summary::after{content:"\2212"}
+details[open] summary{border-bottom:1px dashed var(--rule-dash)}
+details .body{padding:12px 0 4px}
+details .body>:last-child{margin-bottom:0}
+
+/* ---------------- provenance ---------------- */
+.prov{font-size:13.5px; color:var(--ink-2)}
+.prov li{margin-bottom:9px}
+.stat{
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:1px;
+  background:var(--rule); border:1px solid var(--rule); border-radius:3px;
+  overflow:hidden; margin:18px 0;
+}
+.stat div{background:var(--panel); padding:14px 16px}
+.stat b{
+  display:block; font-family:"IBM Plex Mono",monospace; font-size:23px; font-weight:600;
+  color:var(--accent); font-variant-numeric:tabular-nums; line-height:1.15;
+}
+.stat span{
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--ink-3);
+}
+mjx-container{overflow-x:auto; overflow-y:hidden; max-width:100%}
+mjx-container[display="true"]{margin:14px 0!important}
+@media (prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 16px 72px}
+  body{font-size:15.5px}
+  .part{flex-wrap:wrap}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">
+    <span>MATH 265</span><span>Final Exam 2</span><span>Question 1</span><span>8 points</span>
+  </div>
+  <h1>Limits at the Edges</h1>
+  <p class="standfirst">
+    Two limits that look unrelated are the same question asked twice. One asks what the graph
+    settles down to far away to the right. The other asks what it does as it runs into a wall.
+    Answer both by naming the edge.
+  </p>
+
+  <div class="question">
+    <div class="lab">The question, verbatim</div>
+    <p class="verbatim">
+      Evaluate the following limits, no credit will be given for unjustified answers.
+      If a limit does not exist explain why.
+    </p>
+    <div class="parts">
+      <div class="part"><span class="k">a.</span>
+        <span>\(\displaystyle\lim_{x \to \infty}\left(\frac{3x^2 - 4}{4 + 2x + 2x^4}\right)\sin(x)\)</span></div>
+      <div class="part"><span class="k">b.</span>
+        <span>\(\displaystyle\lim_{x \to 5\pi/2}\tan x\)</span></div>
+    </div>
+  </div>
+
+  <div class="answers">
+    <div class="ans">
+      <h3>Part (a) &middot; the answer</h3>
+      <p class="val">\(= 0\) &nbsp;<span class="chip c-fin">FINITE</span></p>
+      <p>The oscillating factor is trapped between &plusmn;1, and the fraction it multiplies goes to
+         zero. Squeeze Theorem. Type <code>0</code>.</p>
+    </div>
+    <div class="ans">
+      <h3>Part (b) &middot; the answer</h3>
+      <p class="val">does not exist &nbsp;<span class="chip c-dne">DNE</span></p>
+      <p>Left side <span class="chip c-pos">+&infin;</span>, right side
+         <span class="chip c-neg">&minus;&infin;</span>. They disagree, so you may not write
+         &ldquo;\(=\infty\)&rdquo;. The reason <em>is</em> the answer.</p>
+    </div>
+  </div>
+</header>
+
+<hr class="approach">
+
+<!-- ============ 0 ============ -->
+<section id="s0">
+  <div class="snum">Section 00</div>
+  <h2>The thirty-second version</h2>
+  <p>If you remember nothing else, remember these two chains. Neither needs a calculator and neither
+     needs L&rsquo;H&ocirc;pital.</p>
+<pre><code>(a)  lim (3x^2-4)/(2x^4+2x+4) * sin(x)      as x -> inf
+
+  -> sin(x) has NO limit, so the product law is ILLEGAL here
+  -> but |sin(x)| &lt;= 1 always, so sin(x) is BOUNDED
+  -> the fraction: degree 2 on top, degree 4 on the bottom, so it -> 0
+  -> bounded x vanishing = SQUEEZE
+     -R(x)  &lt;=  R(x)sin(x)  &lt;=  R(x),   and both ends -> 0
+  ANSWER   0</code></pre>
+<pre><code>(b)  lim tan(x)                             as x -> 5pi/2
+
+  -> tan blows up where cos = 0, that is at pi/2 + k*pi
+     5pi/2 = pi/2 + 2pi, so k = 2.  YES, it is an asymptote.
+  -> tan = sin/cos, and at 5pi/2:  sin = 1, cos = 0.  So it is 1/0, NOT 0/0.
+  -> LEFT  of it: cos -> 0 through POSITIVE values  ->  tan -> +inf
+     RIGHT of it: cos -> 0 through NEGATIVE values  ->  tan -> -inf
+  -> the two sides disagree, so you may not even write "= inf"
+  ANSWER   does not exist   (+inf from the left, -inf from the right)</code></pre>
+</section>
+
+<hr class="approach">
+
+<!-- ============ pictures ============ -->
+<section id="pics">
+  <div class="snum">The mechanism</div>
+  <h2>What each part looks like</h2>
+  <p>Two pictures worth more than the algebra. The left one is a squeeze: the wavy line cannot escape
+     the two dashed envelopes, and the envelopes are closing on zero, so the wave has nowhere to go
+     but zero. The right one is a wall: the curve runs up one side of it and comes from below on the
+     other, which is exactly why there is no single answer.</p>
+  <div class="figs">
+    <figure class="fig">
+      <svg id="figA" viewBox="0 0 460 260" role="img"
+           aria-label="The expression oscillating inside two envelopes that both close on zero as x grows."></svg>
+      <div class="key">
+        <span><i style="border-color:var(--accent)"></i>R(x)&middot;sin(x)</span>
+        <span><i style="border-color:var(--pos); border-top-style:dashed"></i>&plusmn;R(x), the envelope</span>
+        <span><i style="border-color:var(--rule-dash); border-top-style:dashed"></i>y = 0</span>
+      </div>
+      <figcaption><strong>Part (a).</strong> The wave is pinned between \(+R(x)\) and \(-R(x)\).
+        Both envelopes fall to zero, so the wave is squeezed to zero with them. Its own wobbling
+        never mattered.</figcaption>
+    </figure>
+    <figure class="fig">
+      <svg id="figB" viewBox="0 0 460 260" role="img"
+           aria-label="Two branches of tan x on either side of a vertical dashed asymptote, one rising to plus infinity and one coming up from minus infinity."></svg>
+      <div class="key">
+        <span><i style="border-color:var(--pos)"></i>left branch &rarr; +&infin;</span>
+        <span><i style="border-color:var(--neg)"></i>right branch &rarr; &minus;&infin;</span>
+        <span><i style="border-color:var(--accent); border-top-style:dashed"></i>x = 5&pi;/2</span>
+      </div>
+      <figcaption><strong>Part (b).</strong> The two sides run in opposite directions. No single
+        value, finite or infinite, describes both, which is precisely what &ldquo;does not
+        exist&rdquo; means here.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+  <div class="snum">Section 01</div>
+  <h2>What this question is really testing</h2>
+  <p>This is question 1 of Final Exam 2 and it carries 8 points for two limits, so 4 points each.
+     That is the highest per-limit value anywhere on the four sample papers: Q3.1 spreads its
+     allocation over five limits and Q3.2 over six. The examiner has picked the two limits that
+     cannot be done by substituting and factoring, then written
+     <em>no credit will be given for unjustified answers</em> across the top.</p>
+  <p>The single insight that turns two problems into one:
+     <strong>each part is an asymptote question.</strong></p>
+  <div class="tw"><table>
+    <caption>The same question in two directions</caption>
+    <thead><tr><th>Part</th><th>What it is really asking</th><th>Asymptote language</th></tr></thead>
+    <tbody>
+      <tr><td><strong>(a)</strong></td><td>what does the graph settle down to far to the right</td>
+          <td>does it have a <strong>horizontal</strong> asymptote, and at what height</td></tr>
+      <tr><td><strong>(b)</strong></td><td>what does it do approaching a value the function cannot take</td>
+          <td>it has a <strong>vertical</strong> asymptote there, and which way does each side go</td></tr>
+    </tbody>
+  </table></div>
+  <p>That is why the same paper also asks Q4.1, &ldquo;find the vertical and horizontal
+     asymptotes&rdquo;. Q4.1 is this question with the wrapper taken off. If you can do Q3.3 you can
+     do Q4.1 in one line, and the reverse holds too.</p>
+  <div class="tw"><table>
+    <caption>Three reflexes, each of which returns later in the paper</caption>
+    <thead><tr><th>Reflex</th><th>Where it comes back</th></tr></thead>
+    <tbody>
+      <tr><td>Spotting that a factor is <em>bounded</em> rather than convergent</td>
+          <td>Q3.1e, Q3.2b, and any \(\sin\) or \(\cos\) that survives a limit</td></tr>
+      <tr><td>Comparing degrees instead of computing</td>
+          <td>Q3.2d, Q4.1&rsquo;s horizontal asymptote, every end-behaviour sketch</td></tr>
+      <tr><td>Testing the two sides separately at a zero of a denominator</td>
+          <td>Q3.1b, Q3.1c, Q3.2f, Q4.1&rsquo;s vertical asymptote, the curve-sketching question</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap">
+    <span class="tag">The grading clause is the question</span>
+    <p>&ldquo;No credit will be given for unjustified answers&rdquo; means the bare number \(0\), with
+       no mention of the squeeze, is worth nothing on a written paper. And &ldquo;if a limit does not
+       exist explain why&rdquo; means the bare words <em>does not exist</em> are worth nothing either.
+       On part (b) the reason is the answer.</p>
+  </div>
+  <div class="note">
+    <span class="tag">Format warning</span>
+    <p>The live delivery is M&ouml;bius, answer-only and machine-marked, where no work can be typed.
+       The sample paper is plainly a hand-marked written exam. Prepare for both: get
+       <code>0</code> and &ldquo;DNE&rdquo; fast, which is all M&ouml;bius can accept, and be able to
+       write the four justification sentences in Section 05 in case the paper you sit asks for method.</p>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+  <div class="snum">Section 02</div>
+  <h2>The five things you must have cold</h2>
+  <p>None of these can be derived under time pressure. They have to be recall.</p>
+
+  <h3>2.1 &nbsp;The degree rule for a rational function as \(x \to \pm\infty\)</h3>
+  <p>Compare only the <strong>leading</strong> terms. Everything else is noise.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Case</th><th>Limit</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>top degree &lt; bottom degree</td><td class="num">0</td>
+          <td>\(\dfrac{3x^2-4}{2x^4+2x+4} \to 0\)</td></tr>
+      <tr><td>top degree = bottom degree</td><td>ratio of leading coefficients</td>
+          <td>\(\dfrac{3x^2+1}{2x^2-5} \to \dfrac32\)</td></tr>
+      <tr><td>top degree &gt; bottom degree</td><td>\(\pm\infty\), sign from the leading coefficients</td>
+          <td>\(\dfrac{5-2x^3}{x^2+2} \to -\infty\)</td></tr>
+    </tbody>
+  </table></div>
+  <p>The mechanism, if you ever have to show it, is to divide top and bottom by the highest power in
+     the <strong>bottom</strong>:</p>
+  $$\frac{3x^2-4}{2x^4+2x+4} = \frac{\dfrac{3}{x^2}-\dfrac{4}{x^4}}{2+\dfrac{2}{x^3}+\dfrac{4}{x^4}}
+    \longrightarrow \frac{0-0}{2+0+0} = 0$$
+  <p>The rate is worth knowing as well: this one shrinks like \(\tfrac32 x^{-2}\).
+     Verified, \(x^2R(x) \to 3/2\).</p>
+
+  <h3>2.2 &nbsp;The Squeeze Theorem, in the only shape this course asks for</h3>
+  <p>If \(g \le f \le h\) near the point of interest and \(g\) and \(h\) both tend to the same \(L\),
+     then \(f\) tends to \(L\) too. The corollary is what you actually use:</p>
+  $$\textbf{bounded} \ \times \ \textbf{something tending to } 0 \ = \ 0$$
+  <p>If \(\lvert u(x)\rvert \le M\) for all \(x\) and \(v(x) \to 0\), then
+     \(-M\lvert v\rvert \le uv \le M\lvert v\rvert\), and both outer expressions go to zero.</p>
+  <div class="trap">
+    <span class="tag">Bounded is load-bearing</span>
+    <p>It is not enough for the other factor to merely &ldquo;not blow up fast&rdquo;. Verified
+       contrast: \(R(x)\cdot x^3 \to \infty\) even though \(R(x) \to 0\), because \(x^3\) is not
+       bounded.</p>
+  </div>
+
+  <h3>2.3 &nbsp;Where each trig function has its vertical asymptotes</h3>
+  <p>This table is the whole of part (b), and it holds the trap that costs the most marks.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Function</th><th>Equals</th><th>Asymptotes where</th><th>Period</th>
+      <th>All asymptotes alike?</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>\(\tan x\)</td><td>\(\dfrac{\sin x}{\cos x}\)</td>
+        <td>\(\cos x = 0\), so \(x=\dfrac{\pi}{2}+k\pi\)</td><td class="num">&pi;</td>
+        <td><strong>Yes.</strong> Always <span class="chip c-pos">+&infin;</span> left,
+            <span class="chip c-neg">&minus;&infin;</span> right</td></tr>
+      <tr><td>\(\cot x\)</td><td>\(\dfrac{\cos x}{\sin x}\)</td>
+        <td>\(\sin x = 0\), so \(x = k\pi\)</td><td class="num">&pi;</td>
+        <td><strong>Yes.</strong> Always <span class="chip c-neg">&minus;&infin;</span> left,
+            <span class="chip c-pos">+&infin;</span> right</td></tr>
+      <tr><td>\(\sec x\)</td><td>\(\dfrac{1}{\cos x}\)</td>
+        <td>\(x=\dfrac{\pi}{2}+k\pi\)</td><td class="num">2&pi;</td>
+        <td><strong>No.</strong> They alternate with \(k\)</td></tr>
+      <tr><td>\(\csc x\)</td><td>\(\dfrac{1}{\sin x}\)</td>
+        <td>\(x = k\pi\)</td><td class="num">2&pi;</td>
+        <td><strong>No.</strong> They alternate with \(k\)</td></tr>
+    </tbody>
+  </table></div>
+  <p>One sentence of thought beats memorising four rows. \(\tan\) and \(\cot\) repeat every \(\pi\)
+     and their asymptotes are also spaced \(\pi\) apart, so every asymptote is a copy of every other
+     and they must all behave identically. \(\sec\) and \(\csc\) repeat every \(2\pi\) while their
+     asymptotes are still spaced \(\pi\) apart, so consecutive asymptotes are <em>not</em> copies of
+     each other and the signs flip between them.</p>
+
+  <h3>2.4 &nbsp;&ldquo;Does not exist&rdquo; versus &ldquo;\(=\infty\)&rdquo;, which are different answers</h3>
+  <p>Strictly, \(\lim = +\infty\) already means the limit does not exist as a real number. But it says
+     <em>more</em> than &ldquo;does not exist&rdquo;: it says the function grows without bound in one
+     definite direction. Give the most informative true statement.</p>
+  <div class="tw"><table>
+    <caption>Which answer form is correct</caption>
+    <thead><tr><th>Situation</th><th>Write</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td>Both one-sided limits are \(+\infty\)</td>
+          <td><span class="chip c-pos">= +&infin;</span> and add &ldquo;grows without bound&rdquo;</td>
+          <td>\(\dfrac{\cos \pi x}{(x-2)^2}\) at \(x=2\)</td></tr>
+      <tr><td>Both are \(-\infty\)</td><td><span class="chip c-neg">= &minus;&infin;</span></td>
+          <td>\(-\dfrac{1}{x^2}\) at \(x=0\)</td></tr>
+      <tr class="hl"><td>The two sides have <strong>opposite</strong> signs</td>
+          <td><span class="chip c-dne">DNE</span> and quote both one-sided values</td>
+          <td>\(\tan x\) at \(5\pi/2\), which is part (b)</td></tr>
+      <tr><td>The sides are finite but different</td><td><span class="chip c-dne">DNE</span>, a jump</td>
+          <td>\(\dfrac{\lvert x\rvert}{x}\) at \(0\)</td></tr>
+      <tr><td>The function oscillates forever</td>
+          <td><span class="chip c-dne">DNE</span>, say it oscillates</td>
+          <td>\(\sin x\) as \(x\to\infty\)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap">
+    <span class="tag">For part (b), do not write &infin;</span>
+    <p>Writing &ldquo;\(=\infty\)&rdquo; claims both sides go the same way. Here they do not.</p>
+  </div>
+
+  <h3>2.5 &nbsp;The two facts about \(\sin\) that this question turns on</h3>
+  $$\lvert \sin x\rvert \le 1 \ \text{ for every real } x
+    \qquad\text{and}\qquad \lim_{x\to\infty}\sin x \ \text{ does not exist.}$$
+  <p>Both are used in part (a) and they pull in opposite directions. The second forbids the product
+     law. The first rescues the problem anyway. Verified: sampling \(\sin\) across
+     \(x\in[1000,1007]\) fills \([-1,1]\), so no limit exists.</p>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+  <div class="snum">Section 03</div>
+  <h2>The universal procedure</h2>
+<pre><code>1.  SUBSTITUTE, at least in your head. The shape you get names the method.
+2.  CLASSIFY by that shape, using the table below. No algebra before this step.
+3.  APPLY the one tool the shape names.
+4.  If anything came out infinite or undefined, TEST THE TWO SIDES separately.
+    A one-sided test is the only way to tell "+inf" from "DNE".
+5.  CHECK magnitude and sign independently of the algebra.
+6.  WRITE the justification sentence, or type the answer and PREVIEW it.</code></pre>
+  <p>Step 2 is the whole skill.</p>
+  <div class="tw"><table>
+    <caption>The classify table</caption>
+    <thead><tr><th>Substitution gives</th><th>You are in</th><th>Tool</th></tr></thead>
+    <tbody>
+      <tr><td>a number</td><td>nothing special</td><td>that number is the answer, done</td></tr>
+      <tr><td>\(\dfrac00\)</td><td>an indeterminate form</td>
+          <td>factor, then conjugate, then common denominator, then trig identity</td></tr>
+      <tr><td>\(\dfrac{k}{0}\), \(k\ne0\)</td><td>a <strong>pole</strong>, not indeterminate</td>
+          <td>test both sides for the sign; never try to factor</td></tr>
+      <tr><td>\(\dfrac{\infty}{\infty}\), or a rational as \(x\to\pm\infty\)</td><td>end behaviour</td>
+          <td>compare degrees</td></tr>
+      <tr class="hl"><td>(bounded) \(\times\) (something \(\to 0\))</td>
+          <td>a squeeze - <strong>part (a)</strong></td><td>the answer is \(0\)</td></tr>
+      <tr><td>(bounded) \(\times\) (something \(\to L\ne0\))</td><td>oscillation that never settles</td>
+          <td><span class="chip c-dne">DNE</span>, and say it oscillates</td></tr>
+      <tr class="hl"><td>a trig function at its own asymptote</td>
+          <td>a pole again - <strong>part (b)</strong></td>
+          <td>rewrite as \(\sin/\cos\), test both sides</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap">
+    <span class="tag">The most common error on this whole topic</span>
+    <p>Treating \(\tfrac{k}{0}\) as if it were \(\tfrac00\) and hunting for a factor to cancel. There
+       is nothing to cancel. \(\tfrac{k}{0}\) with \(k \ne 0\) is always an infinite one-sided
+       behaviour, and the only remaining question is the sign on each side.</p>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+  <div class="snum">Section 04</div>
+  <h2>Q3.3 worked several ways</h2>
+
+  <h3>Part (a), Route A - squeeze, the intended route</h3>
+  <p>Name the fraction so you can talk about it:</p>
+  $$R(x) = \frac{3x^2-4}{4+2x+2x^4}, \qquad \text{so the question is } \lim_{x\to\infty} R(x)\sin x.$$
+  <ol>
+    <li>\(R(x) \to 0\) by the degree rule: top degree 2, bottom degree 4.</li>
+    <li>For \(x > 2/\sqrt3 \approx 1.1547\) the numerator is positive and the denominator is positive,
+        so \(R(x) > 0\). Since \(x\to\infty\), we may assume \(x\) is past that point.</li>
+    <li>Because \(-1 \le \sin x \le 1\) and \(R(x) > 0\), multiplying through keeps the inequalities:
+        \(-R(x) \le R(x)\sin x \le R(x)\).</li>
+    <li>Both outer functions tend to \(0\), so by the Squeeze Theorem the middle one does too.</li>
+  </ol>
+  $$\lim_{x\to\infty}\left(\frac{3x^2-4}{4+2x+2x^4}\right)\sin x = 0$$
+  <div class="win">
+    <span class="tag">Verified three ways</span>
+    <p>The inequality \(\lvert R\sin\rvert \le R\) holds on 4000 samples across \([10,1490]\) with zero
+       violations; the supremum of \(\lvert R\sin\rvert\) over a <em>full period</em> shrinks like
+       \(1.5/x^2\); and the same conclusion holds as \(x \to -\infty\).</p>
+  </div>
+
+  <h3>Part (a), Route B - the product law, which is illegal here</h3>
+  <p>Worth writing out once, because it is the route most students take and it is not an arithmetic
+     slip, it is an invalid step.</p>
+  $$\lim (R(x)\sin x) \overset{?}{=} \left(\lim R(x)\right)\cdot\left(\lim \sin x\right)
+    = 0 \cdot \left(\lim_{x\to\infty}\sin x\right)$$
+  <p>The product law requires <strong>both</strong> limits to exist. \(\lim_{x\to\infty}\sin x\) does
+     not exist, so the law does not apply and that line is not mathematics.</p>
+  <div class="trap">
+    <span class="tag">Why this one is dangerous</span>
+    <p>It reaches the right answer, which is exactly the problem. It will be marked wrong on a paper
+       that says &ldquo;no credit for unjustified answers&rdquo;, and the identical reasoning gives the
+       <em>wrong</em> answer on the Family 3 variation, where the fraction tends to \(3/2\) instead of
+       \(0\). You may write &ldquo;\(0 \times \text{bounded} = 0\)&rdquo; as shorthand for the squeeze.
+       You may not write &ldquo;\(0 \times \lim \sin x\)&rdquo;.</p>
+  </div>
+
+  <h3>Part (a), Route C - L&rsquo;H&ocirc;pital, which does not apply</h3>
+  <p>Substituting gives \(0 \cdot (\text{no limit})\), which is neither \(\tfrac00\) nor
+     \(\tfrac\infty\infty\), so there is no indeterminate quotient to work on. Forcing it into
+     \(\dfrac{\sin x}{1/R(x)}\) does not help: the top still has no limit, and differentiating gives
+     \(\dfrac{\cos x}{(1/R)'}\), which oscillates forever.</p>
+
+  <h3>Part (a), Route D - bound first, then compare</h3>
+  <p>Since \(\lvert\sin x\rvert \le 1\),</p>
+  $$0 \le \left\lvert R(x)\sin x \right\rvert \le \lvert R(x)\rvert = R(x) \longrightarrow 0,$$
+  <p>so \(\lvert R\sin\rvert \to 0\), and a quantity whose absolute value tends to zero tends to zero.
+     Same squeeze with the modulus taken first, one line shorter.</p>
+
+  <div class="tw"><table>
+    <caption>Part (a), route comparison</caption>
+    <thead><tr><th>Route</th><th>Valid</th><th>Lines</th><th>Risk</th></tr></thead>
+    <tbody>
+      <tr><td>A &middot; squeeze with explicit inequalities</td><td>yes</td><td class="num">4</td>
+          <td>none, but you must state \(R>0\) to keep the inequality direction</td></tr>
+      <tr><td>B &middot; product law</td><td><strong>no</strong></td><td class="num">1</td>
+          <td>right answer, zero marks, and it fails outright on Family 3</td></tr>
+      <tr><td>C &middot; L&rsquo;H&ocirc;pital</td><td><strong>no</strong></td><td class="num">-</td>
+          <td>hypotheses not met; leads nowhere</td></tr>
+      <tr class="hl"><td>D &middot; squeeze on the modulus</td><td>yes</td><td class="num">3</td>
+          <td>none; avoids the sign-of-\(R\) discussion entirely</td></tr>
+    </tbody>
+  </table></div>
+  <div class="win">
+    <span class="tag">Use this one under pressure</span>
+    <p><strong>Route D</strong>, and Route A if the paper wants the Squeeze Theorem named. Route D
+       sidesteps arguing that \(R(x)>0\), because \(\lvert R(x)\rvert\) is non-negative by
+       construction.</p>
+  </div>
+
+  <h3>Part (b), Route A - rewrite as \(\sin/\cos\) and test the sides</h3>
+  <ol>
+    <li><strong>Is \(5\pi/2\) actually an asymptote?</strong> \(\tan\) blows up where \(\cos = 0\),
+        at \(x = \tfrac\pi2 + k\pi\). Setting \(\tfrac\pi2+k\pi = \tfrac{5\pi}{2}\) gives \(k=2\).
+        Yes.</li>
+    <li><strong>Substitute to see the shape.</strong>
+        \(\tan\tfrac{5\pi}{2} = \dfrac{\sin(5\pi/2)}{\cos(5\pi/2)} = \dfrac{1}{0}\). That is \(k/0\)
+        with \(k = 1 \ne 0\), a pole, not an indeterminate form. Nothing to factor.</li>
+    <li><strong>Test each side</strong> by asking only about the sign of \(\cos\). Just to the
+        <em>left</em>, the angle is coterminal with just under \(\pi/2\), where \(\cos\) is small and
+        <strong>positive</strong>, so \(\tan \to +\infty\). Just to the <em>right</em>, \(\cos\) is
+        small and <strong>negative</strong>, so \(\tan \to -\infty\).</li>
+    <li><strong>Conclude.</strong> The one-sided limits differ in sign, so the two-sided limit does not
+        exist and cannot be written as \(\pm\infty\).</li>
+  </ol>
+  $$\lim_{x\to 5\pi/2^{-}}\tan x = +\infty,\qquad \lim_{x\to 5\pi/2^{+}}\tan x = -\infty,
+    \qquad \lim_{x\to 5\pi/2}\tan x \ \text{DNE}$$
+  <div class="win">
+    <span class="tag">Verified</span>
+    <p>At \(h = 10^{-3}, 10^{-5}, 10^{-7}\), and the <em>size</em> checked too:
+       \(\tan(5\pi/2 - h) \approx +1/h\) and \(\tan(5\pi/2+h)\approx -1/h\).</p>
+  </div>
+
+  <h3>Part (b), Route B - reduce to a coterminal angle first</h3>
+  $$\frac{5\pi}{2} = 450^\circ = 360^\circ + 90^\circ, \quad\text{so } \frac{5\pi}{2}
+    \text{ is coterminal with } \frac{\pi}{2}.$$
+  <p>\(\tan\) has period \(\pi\), so the behaviour near \(5\pi/2\) is an exact copy of the behaviour
+     near \(\pi/2\), and you already know that picture: it climbs to \(+\infty\) on the left and comes
+     up from \(-\infty\) on the right. Done, in two lines.</p>
+
+  <h3>Part (b), Route C - the monotonicity argument</h3>
+  <p>\(\tan' = \sec^2 x > 0\) wherever it is defined, so \(\tan\) increases on each branch. An
+     increasing unbounded function on \(\left(\tfrac{3\pi}{2}, \tfrac{5\pi}{2}\right)\) must run to
+     \(+\infty\) at the right end of that interval. Correct, but slower, and easy to fumble which
+     branch you are on. Use it only as a check.</p>
+
+  <div class="tw"><table>
+    <caption>Part (b), route comparison</caption>
+    <thead><tr><th>Route</th><th>Valid</th><th>Lines</th><th>Risk</th></tr></thead>
+    <tbody>
+      <tr><td>A &middot; \(\sin/\cos\) and the sign of \(\cos\)</td><td>yes</td><td class="num">4</td>
+          <td>none; the only route that also works for \(\sec\) and \(\csc\)</td></tr>
+      <tr class="hl"><td>B &middot; coterminal reduction to \(\pi/2\)</td><td>yes</td><td class="num">2</td>
+          <td>you must know the graph near \(\pi/2\) cold, and that \(\tan\) has period \(\pi\), not \(2\pi\)</td></tr>
+      <tr><td>C &middot; monotonicity</td><td>yes</td><td class="num">5</td>
+          <td>slow, and easy to fumble the branch</td></tr>
+    </tbody>
+  </table></div>
+  <div class="win">
+    <span class="tag">Use this one under pressure</span>
+    <p><strong>Route B</strong>, confirmed with Route A&rsquo;s sign test. Two lines to the answer, plus
+       an eight-second check that catches a flipped sign. Do not rely on Route B alone for \(\sec\) or
+       \(\csc\), where coterminal reduction is not enough because their asymptotes alternate.</p>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+  <div class="snum">Section 05</div>
+  <h2>The exam-ready write-up</h2>
+  <p>These are the sentences that earn the method marks. Learn the shape, not the words.</p>
+  <h4>Part (a), four sentences</h4>
+  <div class="note">
+    <p>The factor \(\dfrac{3x^2-4}{4+2x+2x^4}\) has numerator of degree 2 and denominator of degree 4,
+       so it tends to \(0\) as \(x\to\infty\). The factor \(\sin x\) has no limit as \(x\to\infty\), so
+       the product rule for limits cannot be applied. However \(\lvert\sin x\rvert\le 1\) for all
+       \(x\), so \(\left\lvert\dfrac{3x^2-4}{4+2x+2x^4}\sin x\right\rvert \le
+       \dfrac{3x^2-4}{4+2x+2x^4}\) for \(x > 2/\sqrt3\), and the right-hand side tends to \(0\). By the
+       Squeeze Theorem the limit is \(0\).</p>
+  </div>
+  <p>Sentence two is the one worth marks and the one everybody omits. It is the sentence that shows
+     you knew the easy route was illegal.</p>
+  <h4>Part (b), four sentences</h4>
+  <div class="note">
+    <p>\(\tan x = \dfrac{\sin x}{\cos x}\) is undefined where \(\cos x = 0\), that is at
+       \(x = \dfrac{\pi}{2}+k\pi\), and \(\dfrac{5\pi}{2} = \dfrac{\pi}{2}+2\pi\) is such a point. At
+       \(x = \dfrac{5\pi}{2}\) we have \(\sin x = 1\) and \(\cos x = 0\), so this is of the form
+       \(1/0\) and not an indeterminate form. As \(x \to \dfrac{5\pi}{2}^{-}\), \(\cos x \to 0^{+}\),
+       so \(\tan x \to +\infty\); as \(x \to \dfrac{5\pi}{2}^{+}\), \(\cos x \to 0^{-}\), so
+       \(\tan x \to -\infty\). The one-sided limits are different, so the limit does not exist;
+       \(x = \dfrac{5\pi}{2}\) is a vertical asymptote.</p>
+  </div>
+  <p>Sentence four is the &ldquo;explain why&rdquo; the question explicitly asked for. Note that it
+     does <em>not</em> say \(=\infty\), which would be a false claim about both sides.</p>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+  <div class="snum">Section 06</div>
+  <h2>Verify before you commit</h2>
+  <p>Eight seconds each, and between them they catch nearly every error available here.</p>
+  <h4>Part (a) &middot; the magnitude check</h4>
+  <p>At \(x = 100\), \(R(x) \approx 1.5/100^2 = 1.5\times10^{-4}\), and \(\sin\) can only scale that
+     by at most \(1\). So the expression is already under \(0.0002\) at \(x=100\) and keeps shrinking
+     like \(1/x^2\). An answer of \(0\) is plausible; \(3/2\) or \(\infty\) is not.</p>
+  <h4>Part (a) &middot; two cheap invariants</h4>
+  <ol>
+    <li><strong>A bounded factor can never change the limit of a vanishing factor.</strong> If your
+        answer is non-zero you have treated the oscillating factor as if it grew. It cannot: it lives
+        in \([-1,1]\).</li>
+    <li><strong>Degrees.</strong> \(2 &lt; 4\), so the fraction heads to \(0\), not to a ratio. If you
+        wrote \(3/2\) you compared the wrong pair of terms, which is the Family 3 answer.</li>
+  </ol>
+  <h4>Part (b) &middot; the sign check, done independently</h4>
+  <p>Do not re-derive it. Picture the graph of \(\tan\) near any asymptote: up on the left, up from
+     below on the right. Now check that your algebra agrees. Two independent routes to the same sign
+     is what makes it a check rather than a restatement.</p>
+  <h4>Part (b) &middot; is it even an asymptote?</h4>
+  <p>Before any sign work, confirm \(\cos\) is genuinely \(0\) there. Verified trap: at \(x = 2\pi\)
+     and \(x = 3\pi\), \(\tan\) is perfectly well behaved and the answer is simply \(0\). A number
+     containing \(\pi\) is not automatically an asymptote.</p>
+  <div class="win">
+    <span class="tag">Worth memorising outright</span>
+    <p>\(\dfrac{5\pi}{2} = 450^\circ \equiv 90^\circ\). If you can say &ldquo;450 degrees is 90
+       degrees&rdquo; without hesitating, part (b) takes twenty seconds.</p>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+  <div class="snum">Section 07</div>
+  <h2>Answer-entry rules</h2>
+  <p>M&ouml;bius hides two different parsers behind one answer box and tells you nothing about which
+     one you are in. Grading is by mathematical equivalence, so a correct answer is never rejected for
+     its <em>form</em>, only for being <em>parsed</em> differently than you intended.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Multiplication</td><td><code>2*x</code></td><td><code>2x</code></td></tr>
+      <tr><td>Angles</td><td>radians, always</td><td>degrees</td></tr>
+      <tr><td>Denominators</td><td><code>(3*x^2-4)/(2*x^4+2*x+4)</code></td><td><code>3*x^2-4/2*x^4</code></td></tr>
+      <tr><td>Natural log</td><td><code>ln(x)</code></td><td><code>log(x)</code></td></tr>
+      <tr><td>Exact form</td><td><code>0</code></td><td><code>0.0000</code></td></tr>
+      <tr><td>Infinity, where a box takes it</td><td><code>infinity</code> or <code>inf</code> as offered</td>
+          <td>the &infin; glyph pasted in</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Part (a) is the easy half: type <code>0</code>.</strong> There is no bracket to get
+     wrong. The risk on part (a) is not typing, it is having convinced yourself the answer was
+     \(3/2\).</p>
+  <p><strong>Part (b) is the expensive half, and a different kind of risk.</strong> A machine-marked
+     box cannot accept the sentence this question actually wants. Expect one of three interfaces:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Interface</th><th>What to enter</th></tr></thead>
+    <tbody>
+      <tr><td>A dropdown or multiple choice including &ldquo;does not exist&rdquo;</td>
+          <td>pick <strong>does not exist</strong>, not \(+\infty\)</td></tr>
+      <tr><td>Two boxes, one per one-sided limit</td>
+          <td><code>infinity</code> in the left box, <code>-infinity</code> in the right</td></tr>
+      <tr><td>A single numeric box with no DNE option</td>
+          <td>the question is then almost certainly one-sided - <strong>re-read it</strong> for a
+              \(^-\) or \(^+\) superscript before typing</td></tr>
+    </tbody>
+  </table></div>
+  <div class="trap">
+    <span class="tag">The single most expensive mistake here</span>
+    <p>Entering \(+\infty\) for part (b). That is the answer to the <em>one-sided</em> question and it
+       is wrong for the two-sided one. If a box will only take a number or an infinity and offers no
+       &ldquo;does not exist&rdquo;, read the limit again: you are probably being asked for
+       \(\lim_{x\to 5\pi/2^-}\), which <em>is</em> \(+\infty\).</p>
+  </div>
+  <p><strong>Always click the preview icon.</strong> An empty preview modal means broken syntax, not
+     wrong mathematics.</p>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 8 ============ -->
+<section id="s8">
+  <div class="snum">Section 08</div>
+  <h2>The variation catalog</h2>
+  <p>This is the part that makes the question repeatable. Read each table as <strong>structure</strong>,
+     not as a list of facts. Everything below has been numerically verified.</p>
+  <p>The ten families are organised by the tool they force, and they split the way Q3.3 does: families
+     0, 1, 3, 6, 7 and 8 are about \(x \to \pm\infty\); families 2, 4, 5 and 9 are about approaching a
+     finite point.</p>
+
+  <details open><summary>Family 0 &middot; a pure rational function at infinity</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> A ratio of polynomials, \(x\to\pm\infty\), no trig anywhere.
+       <strong>Tool.</strong> The degree rule. Do not divide anything out longhand.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Degrees</th><th>Answer</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{3x^2-4}{2x^4+2x+4}\)</td><td class="num">2 &lt; 4</td>
+            <td><span class="chip c-fin">0</span></td><td>bottom wins</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{x^2-1}{x^3+x}\)</td><td class="num">2 &lt; 3</td>
+            <td><span class="chip c-fin">0</span></td><td>bottom wins</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{2x+1}{x^2}\)</td><td class="num">1 &lt; 2</td>
+            <td><span class="chip c-fin">0</span></td><td>bottom wins</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{3x^2+1}{2x^2-5}\)</td><td class="num">2 = 2</td>
+            <td><span class="chip c-fin">3/2</span></td><td>leading coefficients</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{4x^3-x}{2x^3+7}\)</td><td class="num">3 = 3</td>
+            <td><span class="chip c-fin">2</span></td><td>\(4/2\)</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{5-2x^3}{x^2+2}\) <strong>[Q3.2d]</strong></td><td class="num">3 &gt; 2</td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td>top wins, coefficient \(-2\)</td></tr>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{5-2x^3}{x^2+2}\)</td><td class="num">3 &gt; 2</td>
+            <td><span class="chip c-pos">+&infin;</span></td><td>odd power flips the sign</td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> There are only three answers in the whole family: \(0\), a ratio, or
+       \(\pm\infty\). Which one you get is decided before you write anything, by comparing two
+       integers.</p>
+  </div></details>
+
+  <details open><summary>Family 1 &middot; bounded &times; vanishing, at infinity - this is part (a)</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> A factor that oscillates and never settles, multiplied by a factor
+       that tends to \(0\). <strong>Tool.</strong> Squeeze. The answer is always \(0\).</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit as \(x\to\infty\)</th><th>Vanishing factor</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>\(\left(\dfrac{3x^2-4}{2x^4+2x+4}\right)\sin x\) <strong>[Q3.3a]</strong></td>
+            <td>\(\sim 1.5/x^2\)</td><td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\dfrac{\sin x}{x}\)</td><td>\(1/x\)</td><td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\dfrac{\cos x}{x^2+1}\)</td><td>\(1/(x^2+1)\)</td><td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\dfrac{\sin x}{x^2}\)</td><td>\(1/x^2\)</td><td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\left(\dfrac{2x+1}{x^2}\right)\cos(x^3)\)</td><td>\(\sim 2/x\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\dfrac{\sin x + \cos x}{\sqrt x}\)</td><td>\(\sqrt2/\sqrt x\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> Every entry has the same answer and the same one-line reason. Only
+       the decoration inside the oscillating factor changes, and it never matters: \(\cos(x^3)\) is
+       exactly as bounded as \(\cos x\). That is why the examiner can dress it up freely.</p>
+  </div></details>
+
+  <details><summary>Family 2 &middot; bounded &times; vanishing, at a finite point</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> Oscillation at a <em>point</em>, which in practice means
+       \(\sin(1/x)\) or \(\cos(1/x)\) as \(x\to0\). <strong>Tool.</strong> The same squeeze.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit as \(x\to0\)</th><th>Bound used</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(x\sin\dfrac1x\)</td><td>\(\lvert\cdot\rvert \le \lvert x\rvert\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(x^2\cos\dfrac1x\)</td><td>\(\lvert\cdot\rvert \le x^2\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(x^2\sin\dfrac{1}{x^3}\)</td><td>\(\lvert\cdot\rvert \le x^2\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\sqrt x\,\sin\dfrac1x\) (from the right)</td><td>\(\lvert\cdot\rvert \le \sqrt x\)</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> The oscillating factor gets wilder down the table and the answer
+       does not move, because wildness is irrelevant once the amplitude is capped at 1.</p>
+  </div></details>
+
+  <details open><summary>Family 3 &middot; bounded &times; NON-vanishing - the trap twin of Family 1</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> Looks exactly like Family 1, but the other factor tends to something
+       <strong>non-zero</strong>. <strong>Tool.</strong> No squeeze is available. The answer is DNE.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Amplitude tends to</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to\infty}\sin x\)</td><td class="num">1</td>
+            <td><span class="chip c-dne">DNE</span> oscillates in \([-1,1]\)</td></tr>
+        <tr><td>\(\lim_{x\to\infty}\cos x\)</td><td class="num">1</td>
+            <td><span class="chip c-dne">DNE</span> oscillates in \([-1,1]\)</td></tr>
+        <tr class="hl"><td>\(\lim_{x\to\infty}\left(\dfrac{3x^2+1}{2x^2-5}\right)\sin x\)</td>
+            <td class="num">3/2</td>
+            <td><span class="chip c-dne">DNE</span> oscillates in \(\left[-\tfrac32,\tfrac32\right]\)</td></tr>
+        <tr><td>\(\lim_{x\to 0}\sin\dfrac1x\)</td><td class="num">1</td>
+            <td><span class="chip c-dne">DNE</span> oscillates in \([-1,1]\)</td></tr>
+        <tr><td>\(\lim_{x\to\infty} x\sin x\)</td><td>grows</td>
+            <td><span class="chip c-dne">DNE</span> unbounded oscillation</td></tr>
+      </tbody>
+    </table></div>
+    <div class="trap">
+      <span class="tag">The most important family in this document</span>
+      <p>It is one character away from part (a) and has a different answer. Change the exponent in
+         part (a)&rsquo;s denominator from \(2x^4\) to \(2x^2\) and the answer stops being \(0\) and
+         becomes DNE. The illegal Route B gives \(0\) for every row of this table, all of them wrong.</p>
+    </div>
+  </div></details>
+
+  <details open><summary>Family 4 &middot; a trig function at its own asymptote - this is part (b)</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> \(\tan\), \(\cot\), \(\sec\) or \(\csc\) at a point where its
+       denominator vanishes. <strong>Tool.</strong> Rewrite as \(\sin/\cos\), confirm the numerator is
+       non-zero, then test the sign of the denominator on each side.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Left</th><th>Right</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(\tan x\) at \(\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\tan x\) at \(3\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr class="hl"><td>\(\tan x\) at \(5\pi/2\) <strong>[Q3.3b]</strong></td>
+            <td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\tan x\) at \(-\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\tan x\) at \(7\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\cot x\) at \(0\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\cot x\) at \(\pi\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\cot x\) at \(2\pi\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\sec x\) at \(\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr class="hl"><td>\(\sec x\) at \(3\pi/2\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-dne">DNE</span> <strong>signs flipped</strong></td></tr>
+        <tr><td>\(\sec x\) at \(5\pi/2\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-dne">DNE</span> flipped back</td></tr>
+        <tr><td>\(\csc x\) at \(0\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td><td><span class="chip c-dne">DNE</span></td></tr>
+        <tr class="hl"><td>\(\csc x\) at \(\pi\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-dne">DNE</span> <strong>signs flipped</strong></td></tr>
+        <tr><td>\(\csc x\) at \(2\pi\)</td><td><span class="chip c-neg">&minus;&infin;</span></td>
+            <td><span class="chip c-pos">+&infin;</span></td>
+            <td><span class="chip c-dne">DNE</span> flipped back</td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure, and count the distinct behaviours: there are only two.</em> Either it is
+       \(+\infty\) then \(-\infty\), or the reverse. The whole table is generated by two rules:
+       \(\tan\) and \(\cot\) never change (period \(\pi\)), while \(\sec\) and \(\csc\) alternate at
+       consecutive asymptotes (period \(2\pi\)).</p>
+    <h4>The squared versions do not split</h4>
+    <div class="tw"><table>
+      <thead><tr><th>Limit at \(5\pi/2\)</th><th>Both sides</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(\tan^2 x\)</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td>\(= +\infty\), a legitimate answer, not DNE-with-disagreement</td></tr>
+        <tr><td>\(\sec^2 x\)</td><td><span class="chip c-pos">+&infin;</span></td><td>\(= +\infty\)</td></tr>
+        <tr><td>\(\lvert\tan x\rvert\)</td><td><span class="chip c-pos">+&infin;</span></td><td>\(= +\infty\)</td></tr>
+        <tr><td>\(-\tan^2 x\)</td><td><span class="chip c-neg">&minus;&infin;</span></td><td>\(= -\infty\)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="trap">
+      <span class="tag">The trap pair - the sharpest variation available</span>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th>Answer</th><th>Why it catches people</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to 5\pi/2}\cot x\)</td><td><span class="chip c-fin">0</span></td>
+              <td>the <em>same</em> \(5\pi/2\) that destroys \(\tan\) is an ordinary point for \(\cot\)</td></tr>
+          <tr><td>\(\lim_{x\to 2\pi}\tan x\)</td><td><span class="chip c-fin">0</span></td>
+              <td>a multiple of \(\pi\), but \(\cos(2\pi)=1\neq0\), so no asymptote</td></tr>
+          <tr><td>\(\lim_{x\to 3\pi}\tan x\)</td><td><span class="chip c-fin">0</span></td><td>same</td></tr>
+          <tr><td>\(\lim_{x\to \pi}\sec x\)</td><td><span class="chip c-fin">&minus;1</span></td>
+              <td>ordinary point, just substitute</td></tr>
+          <tr><td>\(\lim_{x\to \pi/2}\csc x\)</td><td><span class="chip c-fin">1</span></td>
+              <td>ordinary point, just substitute</td></tr>
+        </tbody>
+      </table></div>
+      <p>Never conclude &ldquo;asymptote&rdquo; from the shape of the number. Check that the
+         denominator is actually zero.</p>
+    </div>
+  </div></details>
+
+  <details><summary>Family 5 &middot; a rational function at a zero of the denominator</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> \(x \to a\) finite, and the denominator vanishes at \(a\).
+       <strong>Tool.</strong> Factor and cancel <em>first</em>. Then look at the
+       <strong>multiplicity</strong> of the surviving denominator factor.</p>
+    $$\textbf{even} \Rightarrow \text{same sign both sides} \Rightarrow \ =\pm\infty
+      \qquad \textbf{odd} \Rightarrow \text{signs flip} \Rightarrow \textbf{DNE}$$
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>After cancelling</th><th>Multiplicity</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr class="hl"><td>\(\lim_{x\to-2}\dfrac{3x^2-2x-16}{(x+2)^2}\) <strong>[Q3.1b]</strong></td>
+            <td>\(\dfrac{3x-8}{x+2}\), top \(\to-14\)</td><td>odd</td>
+            <td><span class="chip c-dne">DNE</span> \(+\infty\) left, \(-\infty\) right</td></tr>
+        <tr><td>\(\lim_{x\to3}\dfrac{2x^2-x+1}{x-3}\) <strong>[Q3.1c]</strong></td>
+            <td>nothing cancels, top \(=16\)</td><td>odd</td>
+            <td><span class="chip c-dne">DNE</span> \(-\infty\) left, \(+\infty\) right</td></tr>
+        <tr><td>\(\lim_{x\to2}\dfrac{\cos \pi x}{(x-2)^2}\) <strong>[Q3.2f]</strong></td>
+            <td>top \(=\cos2\pi=1>0\)</td><td>even</td><td><span class="chip c-pos">= +&infin;</span></td></tr>
+        <tr><td>\(\lim_{x\to0}\dfrac{1}{x^2}\)</td><td>-</td><td>even</td>
+            <td><span class="chip c-pos">= +&infin;</span></td></tr>
+        <tr><td>\(\lim_{x\to0}-\dfrac{1}{x^2}\)</td><td>-</td><td>even</td>
+            <td><span class="chip c-neg">= &minus;&infin;</span></td></tr>
+        <tr><td>\(\lim_{x\to0}\dfrac{1}{x}\)</td><td>-</td><td>odd</td>
+            <td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\lim_{x\to-2}\dfrac{1}{(x+2)^3}\)</td><td>-</td><td>odd</td>
+            <td><span class="chip c-dne">DNE</span></td></tr>
+        <tr><td>\(\lim_{x\to1}\dfrac{x+1}{(x-1)^2}\)</td><td>top \(\to2>0\)</td><td>even</td>
+            <td><span class="chip c-pos">= +&infin;</span></td></tr>
+        <tr><td>\(\lim_{x\to1}\dfrac{x^2-1}{x-1}\)</td><td>\(x+1\), fully cancels</td><td>none left</td>
+            <td><span class="chip c-fin">2</span>, no asymptote at all</td></tr>
+      </tbody>
+    </table></div>
+    <div class="trap">
+      <span class="tag">Study the Q3.1b row</span>
+      <p>A squared denominator looks like it guarantees \(+\infty\), and it does not. The numerator
+         also vanishes there, one factor of \((x+2)\) cancels, and what survives has <strong>odd</strong>
+         multiplicity. So the answer is DNE. Cancel first, then count.</p>
+    </div>
+  </div></details>
+
+  <details><summary>Family 6 &middot; radicals at infinity</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> A square root with \(x\to\pm\infty\). <strong>Tool.</strong> For a
+       difference, multiply by the conjugate. For a quotient, divide by \(\lvert x\rvert\) and remember
+       \(\sqrt{x^2} = \lvert x\rvert\), which is \(-x\) when \(x<0\).</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Tool</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+1}-x\right)\)</td><td>conjugate</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+        <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+x}-x\right)\)</td><td>conjugate</td>
+            <td><span class="chip c-fin">1/2</span></td></tr>
+        <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+4x}-x\right)\)</td><td>conjugate</td>
+            <td><span class="chip c-fin">2</span></td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{\sqrt{4x^2+1}}{x+1}\)</td><td>divide by \(x\)</td>
+            <td><span class="chip c-fin">2</span></td></tr>
+        <tr class="hl"><td>\(\lim_{x\to-\infty}\dfrac{\sqrt{4x^2+1}}{x+1}\)</td>
+            <td>divide by \(\lvert x\rvert = -x\)</td><td><span class="chip c-fin">&minus;2</span></td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{\sqrt{x^2+1}}{x}\)</td><td>divide by \(x\)</td>
+            <td><span class="chip c-fin">1</span></td></tr>
+        <tr class="hl"><td>\(\lim_{x\to-\infty}\dfrac{\sqrt{x^2+1}}{x}\)</td><td>\(\sqrt{x^2}=-x\)</td>
+            <td><span class="chip c-fin">&minus;1</span></td></tr>
+        <tr><td>\(\lim_{x\to\infty}\dfrac{x}{\sqrt{x^2+1}}\)</td><td>divide by \(x\)</td>
+            <td><span class="chip c-fin">1</span></td></tr>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{2x+1}{\sqrt{x^2+3}}\)</td><td>\(\sqrt{x^2}=-x\)</td>
+            <td><span class="chip c-fin">&minus;2</span></td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> The first three rows show that \(\sqrt{x^2+bx}-x \to b/2\), worth
+       knowing as a formula. The paired rows show the only real trap: \(\sqrt{x^2}\) is
+       \(\lvert x\rvert\), so at \(-\infty\) every answer picks up a minus sign. Verified
+       \(\sqrt{(-5)^2} = 5\), not \(-5\).</p>
+  </div></details>
+
+  <details><summary>Family 7 &middot; approaching negative infinity</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> \(x\to-\infty\) rather than \(+\infty\). <strong>Tool.</strong> The
+       same rules, but track the sign through every odd power and every radical.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Answer</th><th>Contrast at \(+\infty\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{5-2x^3}{x^2+2}\)</td>
+            <td><span class="chip c-pos">+&infin;</span></td><td>\(-\infty\)</td></tr>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{x^4}{1-x^3}\)</td>
+            <td><span class="chip c-pos">+&infin;</span></td><td>\(-\infty\)</td></tr>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{1}{x^3}\)</td>
+            <td><span class="chip c-fin">0</span>, from below</td><td>\(0\), from above</td></tr>
+        <tr><td>\(\lim_{x\to-\infty}\dfrac{3x^2-4}{2x^4+2x+4}\)</td>
+            <td><span class="chip c-fin">0</span></td><td>\(0\)</td></tr>
+        <tr class="hl"><td>\(\lim_{x\to-\infty}\left(\dfrac{3x^2-4}{2x^4+2x+4}\right)\sin x\)</td>
+            <td><span class="chip c-fin">0</span></td><td>\(0\)</td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> Even powers are blind to the sign of \(x\); odd powers are not.
+       Part (a) is blind to it, so the answer would still be \(0\) if the examiner sent \(x\) the other
+       way. That makes &ldquo;\(x\to-\infty\)&rdquo; a cheap variation for them and a free mark for
+       you.</p>
+  </div></details>
+
+  <details open><summary>Family 8 &middot; the same formula at 0 and at infinity</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> An expression that turns up in both an \(x\to0\) and an
+       \(x\to\infty\) question. <strong>Tool.</strong> Notice which one you are in. These have
+       <em>different answers for the same formula</em>, which is what earns the family its section.</p>
+    <div class="tw"><table>
+      <thead><tr><th>Formula</th><th>As \(x\to 0\)</th><th>As \(x\to\infty\)</th></tr></thead>
+      <tbody>
+        <tr><td>\(\dfrac{\sin 3x}{x}\)</td><td><span class="chip c-fin">3</span> by \(\tfrac{\sin u}{u}\to1\)</td>
+            <td><span class="chip c-fin">0</span> by squeeze</td></tr>
+        <tr class="hl"><td>\(x\sin\dfrac1x\)</td><td><span class="chip c-fin">0</span> by squeeze</td>
+            <td><span class="chip c-fin">1</span> by \(u=1/x\)</td></tr>
+        <tr><td>\(\sin\dfrac1x\)</td><td><span class="chip c-dne">DNE</span> oscillates</td>
+            <td><span class="chip c-fin">0</span></td></tr>
+      </tbody>
+    </table></div>
+    <p>Two more from the sample papers, for the \(x\to0\) technique:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Limit</th><th>Answer</th><th>Move</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to0}\dfrac{\sin 3x}{x^2-x}\) <strong>[Q3.1e]</strong></td>
+            <td><span class="chip c-fin">&minus;3</span></td>
+            <td>\(\dfrac{\sin3x}{3x}\cdot\dfrac{3}{x-1} \to 1\cdot\dfrac{3}{-1}\)</td></tr>
+        <tr><td>\(\lim_{x\to0}\dfrac{x^2}{1-\cos 2x}\) <strong>[Q3.2b]</strong></td>
+            <td><span class="chip c-fin">1/2</span></td>
+            <td>\(1-\cos2x = 2\sin^2 x\), then \(\dfrac{x^2}{2\sin^2x}\to\dfrac12\)</td></tr>
+      </tbody>
+    </table></div>
+    <div class="trap">
+      <span class="tag">The sharpest thing in this document</span>
+      <p>\(x\sin(1/x)\) is \(0\) at the origin and \(1\) at infinity. The formula tells you nothing.
+         Only the arrow does.</p>
+    </div>
+  </div></details>
+
+  <details><summary>Family 9 &middot; the two limits restated as an asymptote question</summary>
+  <div class="body">
+    <p><strong>Trigger.</strong> The words &ldquo;find the vertical and horizontal asymptotes&rdquo;
+       instead of &ldquo;evaluate the limit&rdquo;. Same mathematics, different wrapper.</p>
+    <p>For \(f(x)=\dfrac{x^2-3x-4}{x^2-16}\), which is <strong>Q4.1</strong> on this very paper:</p>
+    <div class="tw"><table>
+      <thead><tr><th>Question</th><th>Answer</th><th>Reason</th></tr></thead>
+      <tbody>
+        <tr><td>Horizontal asymptote</td><td>\(y = 1\)</td><td>degrees equal, coefficients \(1/1\)</td></tr>
+        <tr><td>Vertical asymptote</td><td>\(x = -4\) only</td>
+            <td>\(f = \dfrac{(x-4)(x+1)}{(x-4)(x+4)} = \dfrac{x+1}{x+4}\)</td></tr>
+        <tr><td>Behaviour at \(x=-4\)</td>
+            <td><span class="chip c-dne">DNE</span> \(+\infty\) left, \(-\infty\) right</td>
+            <td>odd multiplicity</td></tr>
+        <tr class="hl"><td>Behaviour at \(x=4\)</td><td><span class="chip c-fin">5/8</span></td>
+            <td>the factor cancelled, so it is a <strong>hole</strong>, not an asymptote</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tw"><table>
+      <thead><tr><th>Function</th><th>Horizontal</th><th>Vertical</th></tr></thead>
+      <tbody>
+        <tr><td>\(\dfrac{2x^2+1}{x^2-1}\)</td><td>\(y=2\)</td><td>\(x=1\) and \(x=-1\), both DNE</td></tr>
+        <tr><td>\(\dfrac{1}{x-2}\)</td><td>\(y=0\)</td><td>\(x=2\), DNE</td></tr>
+        <tr><td>\(\dfrac{3x^2-4}{2x^4+2x+4}\), from <strong>part (a)</strong></td><td>\(y=0\)</td>
+            <td>none for \(x>0\)</td></tr>
+        <tr class="hl"><td>\(\tan x\)</td><td><strong>none</strong>, it never settles</td>
+            <td>\(x=\dfrac{\pi}{2}+k\pi\), every one DNE</td></tr>
+      </tbody>
+    </table></div>
+    <p><em>Read as structure.</em> The last row is Q3.3 in a single line: part (a) is the
+       horizontal column and part (b) is the vertical column. And note why \(\tan\) has no horizontal
+       asymptote - precisely because of Family 3, it oscillates forever.</p>
+  </div></details>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 9 ============ -->
+<section id="s9">
+  <div class="snum">Section 09</div>
+  <h2>The trap list</h2>
+  <p>Ranked by how often each one actually costs marks on this question.</p>
+  <ol>
+    <li><strong>Using the product law on part (a).</strong> \(\lim \sin x\) does not exist, so the law
+        does not apply. Right number, no marks, and the identical step gives the wrong answer on
+        Family 3.</li>
+    <li><strong>Answering \(+\infty\) for part (b).</strong> The two sides disagree in sign, so no
+        single infinite value is correct.</li>
+    <li><strong>Not testing both sides at all.</strong> Once you reach \(k/0\), the sign work
+        <em>is</em> the question.</li>
+    <li><strong>Treating \(k/0\) as \(0/0\)</strong> and hunting for a factor. There is nothing to
+        cancel and the time is gone.</li>
+    <li><strong>Assuming a squared denominator forces \(+\infty\).</strong> Q3.1b squares \((x+2)\)
+        and the answer is still DNE.</li>
+    <li><strong>Assuming any \(\pi\)-flavoured number is an asymptote.</strong> \(\tan\) at \(2\pi\)
+        is \(0\); \(\cot\) at \(5\pi/2\) is \(0\).</li>
+    <li><strong>Applying \(\tan\)&rsquo;s period to \(\sec\).</strong> Period \(\pi\) versus
+        \(2\pi\) is the whole difference.</li>
+    <li><strong>Forgetting \(\sqrt{x^2}=\lvert x\rvert\) at \(-\infty\)</strong>, which silently flips
+        every answer in Family 6.</li>
+    <li><strong>Comparing the wrong terms in the degree rule.</strong> For part (a) that is \(3x^2\)
+        against \(2x^4\), not \((3-4)\) against \((2+2+4)\).</li>
+    <li><strong>Reaching for L&rsquo;H&ocirc;pital.</strong> Part (a) is \(0\times\text{bounded}\) and
+        part (b) is \(1/0\). The rule applies to neither.</li>
+    <li><strong>Writing &ldquo;DNE&rdquo; with no reason</strong> on a paper that says in bold that
+        unjustified answers score zero.</li>
+  </ol>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 10 ============ -->
+<section id="s10">
+  <div class="snum">Section 10</div>
+  <h2>Drill set</h2>
+  <p>Twelve problems. Cold, no notes, fifteen minutes.</p>
+  <div class="tw"><table>
+    <thead><tr><th>#</th><th>Evaluate</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td>\(\displaystyle\lim_{x\to\infty}\frac{4x^3-2x}{3x^3+5}\)</td></tr>
+      <tr><td class="num">2</td><td>\(\displaystyle\lim_{x\to\infty}\frac{\cos x}{x^2+3}\)</td></tr>
+      <tr><td class="num">3</td><td>\(\displaystyle\lim_{x\to 3\pi}\cot x\)</td></tr>
+      <tr><td class="num">4</td><td>\(\displaystyle\lim_{x\to5}\frac{1}{(x-5)^2}\)</td></tr>
+      <tr><td class="num">5</td><td>\(\displaystyle\lim_{x\to-\infty}\frac{\sqrt{9x^2+2}}{2x-1}\)</td></tr>
+      <tr><td class="num">6</td><td>\(\displaystyle\lim_{x\to\infty}\left(\frac{x^2+1}{x^2}\right)\sin x\)</td></tr>
+      <tr><td class="num">7</td><td>\(\displaystyle\lim_{x\to0}x^3\cos\frac1x\)</td></tr>
+      <tr><td class="num">8</td><td>\(\displaystyle\lim_{x\to 7\pi/2}\sec x\)</td></tr>
+      <tr><td class="num">9</td><td>\(\displaystyle\lim_{x\to\infty}\frac{x^3+1}{x^2+1}\)</td></tr>
+      <tr><td class="num">10</td><td>\(\displaystyle\lim_{x\to4\pi}\tan x\)</td></tr>
+      <tr><td class="num">11</td><td>\(\displaystyle\lim_{x\to\infty}\left(\sqrt{x^2+4x}-x\right)\)</td></tr>
+      <tr><td class="num">12</td><td>\(\displaystyle\lim_{x\to2\pi}\csc^2 x\)</td></tr>
+    </tbody>
+  </table></div>
+
+  <details><summary>Answer key - every answer below was verified numerically</summary>
+  <div class="body">
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>Answer</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td><span class="chip c-fin">4/3</span></td>
+            <td><strong>F0</strong> degrees equal, \(4/3\)</td></tr>
+        <tr><td class="num">2</td><td><span class="chip c-fin">0</span></td>
+            <td><strong>F1</strong> bounded over growing, squeeze</td></tr>
+        <tr><td class="num">3</td><td><span class="chip c-dne">DNE</span> &minus;&infin; left, +&infin; right</td>
+            <td><strong>F4</strong> \(\cot\) at a multiple of \(\pi\); same at every one</td></tr>
+        <tr><td class="num">4</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><strong>F5</strong> even multiplicity, so not DNE-with-disagreement</td></tr>
+        <tr><td class="num">5</td><td><span class="chip c-fin">&minus;3/2</span></td>
+            <td><strong>F6</strong> \(\sqrt{9x^2}=3\lvert x\rvert=-3x\) at \(-\infty\)</td></tr>
+        <tr><td class="num">6</td><td><span class="chip c-dne">DNE</span></td>
+            <td><strong>F3</strong> amplitude \(\to1\), not \(0\), so it oscillates</td></tr>
+        <tr><td class="num">7</td><td><span class="chip c-fin">0</span></td>
+            <td><strong>F2</strong> \(\lvert\cdot\rvert\le x^3\), squeeze</td></tr>
+        <tr><td class="num">8</td><td><span class="chip c-dne">DNE</span> &minus;&infin; left, +&infin; right</td>
+            <td><strong>F4</strong> \(7\pi/2 = 3\pi/2 + 2\pi\), the alternating case</td></tr>
+        <tr><td class="num">9</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><strong>F0</strong> top degree bigger, positive coefficients</td></tr>
+        <tr><td class="num">10</td><td><span class="chip c-fin">0</span></td>
+            <td><strong>F4 trap</strong> \(\cos 4\pi = 1 \ne 0\), ordinary point</td></tr>
+        <tr><td class="num">11</td><td><span class="chip c-fin">2</span></td>
+            <td><strong>F6</strong> conjugate; \(\sqrt{x^2+bx}-x\to b/2\)</td></tr>
+        <tr><td class="num">12</td><td><span class="chip c-pos">+&infin;</span></td>
+            <td><strong>F4 squared</strong> both sides \(+\infty\), so not DNE</td></tr>
+      </tbody>
+    </table></div>
+  </div></details>
+
+  <div class="note">
+    <span class="tag">Score sign separately from magnitude</span>
+    <p>They are different failure modes and they need different fixes.</p>
+    <ul>
+      <li>Wrong <strong>magnitude</strong> (said \(0\) where it was \(3/2\), or \(\pm\infty\) where it
+          was finite): you misread the classify table. Re-read Section 03.</li>
+      <li>Wrong <strong>sign or direction</strong> (said \(+\infty\) for \(-\infty\), or missed an
+          alternation): your problem is Family 4 and Family 6. Re-read 2.3 and the \(\sqrt{x^2}\) rule.</li>
+      <li>Wrote \(\pm\infty\) where the answer was DNE, or the reverse: your problem is 2.4 and nothing
+          else. That single table is worth more marks here than any algebra.</li>
+    </ul>
+    <p>Items 3, 6, 8, 10 and 12 are the five that separate a 4 from a 2 on part (b).</p>
+  </div>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 11 ============ -->
+<section id="s11">
+  <div class="snum">Section 11</div>
+  <h2>The one-page decision tree</h2>
+<pre><code>Evaluate a limit.
+|
++-- Where is x going?
+|
++== TO INFINITY (or minus infinity) =========================================
+|   |
+|   +-- Is there an OSCILLATING factor (sin, cos of anything)?
+|   |     YES -> what does the OTHER factor do?
+|   |            -> 0        : SQUEEZE. answer 0.           [F1]
+|   |            -> L != 0   : DNE, oscillates in [-L, L].  [F3]
+|   |            -> infinity : DNE, unbounded oscillation.  [F3]
+|   |     NO  -> continue
+|   |
+|   +-- Any SQUARE ROOT?
+|   |     YES -> difference? multiply by the CONJUGATE.     [F6]
+|   |            quotient?   divide by |x|, and remember
+|   |                        sqrt(x^2) = |x| = -x when x&lt;0.  [F6]
+|   |
+|   +-- Otherwise it is RATIONAL: compare DEGREES.          [F0]
+|         top &lt; bottom -> 0
+|         top = bottom -> ratio of LEADING coefficients
+|         top &gt; bottom -> +-infinity, sign from leading coefficients
+|         then, if x -> -infinity, re-check every ODD power
+|         for a sign flip.                                  [F7]
+|
++== TO A FINITE POINT a =====================================================
+    |
+    +-- SUBSTITUTE first. What came out?
+    |
+    +-- a number          -> that is the answer. Done.
+    |
+    +-- 0/0               -> factor, conjugate, common denominator,
+    |                        trig identity. Then substitute again.
+    |                        If it all cancels it is a HOLE,
+    |                        not an asymptote.               [F5]
+    |
+    +-- k/0 with k != 0   -> a POLE. Do NOT factor.
+    |                        Cancel first, then count the MULTIPLICITY
+    |                        of the surviving denominator factor:
+    |                          EVEN -> same sign both sides -> "= +-infinity"
+    |                          ODD  -> signs flip           -> "DNE"   [F5]
+    |
+    +-- a trig function undefined at a -> rewrite as sin/cos. [F4]
+    |                        tan, cot : period pi,  EVERY asymptote identical
+    |                        sec, csc : period 2pi, asymptotes ALTERNATE
+    |                        First confirm cos (or sin) is really 0 at a.
+    |                        tan at 2pi is 0. cot at 5pi/2 is 0. Do not guess.
+    |
+    +-- oscillation at a (sin(1/x)) -> multiplied by something -> 0?
+                             YES -> SQUEEZE, answer 0.       [F2]
+                             NO  -> DNE, oscillates.         [F3]
+
+FINALLY, before you commit:
+  1. Magnitude plausible?
+  2. Sign derived a SECOND, independent way?
+  3. Is it "= +-infinity" or "DNE"? Those are DIFFERENT answers.
+  4. Written paper: write the justification sentence.
+     Mobius: explicit *, radians, every bracket, and PREVIEW.</code></pre>
+</section>
+
+<hr class="approach">
+
+<!-- ============ 12 ============ -->
+<section id="s12">
+  <div class="snum">Section 12</div>
+  <h2>Sources and provenance</h2>
+  <div class="stat">
+    <div><b>186</b><span>checks run</span></div>
+    <div><b>0</b><span>failures</span></div>
+    <div><b>12/12</b><span>false claims rejected</span></div>
+    <div><b>10</b><span>variation families</span></div>
+  </div>
+  <ul class="prov">
+    <li><strong>Question text.</strong> <code>notes\MATH265.md</code> (Q3.3), and
+      <code>notes\MATH265\MATH265.md</code> and <code>MATH265_questions.md</code>
+      (&ldquo;Final Exam 2&rdquo;, item 1, 8 points). The clause
+      &ldquo;no credit will be given for unjustified answers&rdquo; and the instruction
+      &ldquo;If a limit does not exist explain why&rdquo; are quoted verbatim from that paper.</li>
+    <li><strong>Method notes.</strong> <code>MATH265_Review.md</code>, the Squeeze Theorem and
+      limits-at-infinity entries, and its &ldquo;When Does a Limit Not Exist&rdquo; list.</li>
+    <li><strong>Variation families: derived here.</strong> <code>MATH265_Categorized.md</code> has an
+      &ldquo;Evaluation of limits&rdquo; section, but it lists only the Q3.1 and Q3.2 items and has no
+      entry for either of Q3.3&rsquo;s two limits, so the ten families above were enumerated from the
+      mathematics rather than copied.</li>
+    <li><strong>Answer-entry rules.</strong> The A1 and A7 blocks of the MATH 265 exam note sheets,
+      which supply the radians, explicit <code>*</code>, <code>ln(x)</code>,
+      bracket-every-denominator and preview-every-answer rules, and the &ldquo;DNE needs a
+      reason&rdquo; clause.</li>
+    <li><strong>Independent corroboration.</strong> That note sheet&rsquo;s A8 block records
+      &ldquo;rational \(\to0\), sin bounded, squeeze \(\to 0\)&rdquo; for part (a) and
+      &ldquo;\(5\pi/2 \equiv \pi/2\); \(+\infty\) left, \(-\infty\) right \(\to\) DNE&rdquo; for part
+      (b), derived on a separate occasion from the work here.</li>
+    <li><strong>Numerical verification</strong>, run 2026-08-31: <strong>186 checks, 0 failures</strong>,
+      appended as a permanent section to
+      <code>Work\knowledge\topics\math265-answer-verification.py</code>. Re-run that file to re-check
+      every number here; the whole file reports 2284 PASS (it is shared, and sibling jobs append their own questions). Expect exactly 2 unrelated pre-existing
+      failures elsewhere in it (<code>sin62</code>, <code>cos62</code>), a tolerance artifact of a
+      linear-approximation check and not a wrong answer.</li>
+    <li><strong>The verification helpers were themselves tested.</strong> Because a limit is a
+      statement about <em>convergence</em> rather than about the value at any finite \(x\), each helper
+      checks that an error shrinks along a ladder and finishes under tolerance. Each was then fed a
+      deliberately false claim to confirm it actually fails: <strong>12 of 12 false claims correctly
+      rejected</strong>. That negative control is kept at
+      <code>Work\knowledge\topics\math265-q33-negative-control.py</code>.</li>
+    <li><strong>Three checks failed on their first run for reasons that were defects in the test, not
+      in the mathematics</strong>, and are recorded because the same mistakes are easy to repeat:
+      asserting a limit&rsquo;s value at a finite \(x\) rather than its convergence; evaluating a
+      squeeze bound at the wrong end of a sweep window when the ladder runs toward \(-\infty\); and
+      setting a tolerance tighter than a first-order-accurate quantity can reach.</li>
+  </ul>
+</section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  function css(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
+  function el(tag, attrs){
+    var e = document.createElementNS(NS, tag), k;
+    for (k in attrs) e.setAttribute(k, attrs[k]);
+    return e;
+  }
+  var W = 460, H = 260, L = 44, R = 14, T = 16, B = 34;
+
+  function frame(svg, xlab, ylab){
+    var rule = css("--rule"), ink3 = css("--ink-3");
+    svg.appendChild(el("line", {x1:L, y1:H-B, x2:W-R, y2:H-B, stroke:rule, "stroke-width":1}));
+    svg.appendChild(el("line", {x1:L, y1:T, x2:L, y2:H-B, stroke:rule, "stroke-width":1}));
+    var tx = el("text", {x:W-R, y:H-B+20, "text-anchor":"end", fill:ink3,
+      "font-family":"IBM Plex Mono, monospace", "font-size":"10.5"});
+    tx.textContent = xlab; svg.appendChild(tx);
+    var ty = el("text", {x:L-6, y:T+4, "text-anchor":"end", fill:ink3,
+      "font-family":"IBM Plex Mono, monospace", "font-size":"10.5"});
+    ty.textContent = ylab; svg.appendChild(ty);
+  }
+  function poly(svg, pts, stroke, width, dash){
+    if (!pts.length) return;
+    var a = { points: pts.map(function(p){ return p[0].toFixed(2)+","+p[1].toFixed(2); }).join(" "),
+              fill:"none", stroke:stroke, "stroke-width":width,
+              "stroke-linejoin":"round", "stroke-linecap":"round" };
+    if (dash) a["stroke-dasharray"] = dash;
+    svg.appendChild(el("polyline", a));
+  }
+  function label(svg, x, y, t, fill, anchor){
+    var e = el("text", {x:x, y:y, fill:fill, "text-anchor":anchor || "start",
+      "font-family":"IBM Plex Mono, monospace", "font-size":"10.5"});
+    e.textContent = t; svg.appendChild(e);
+  }
+
+  /* ---- Figure A: the squeeze ---- */
+  function drawA(){
+    var svg = document.getElementById("figA");
+    if (!svg) return;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var accent = css("--accent"), pos = css("--pos"),
+        dash = css("--rule-dash"), ink3 = css("--ink-3");
+    var x0 = 1.15, x1 = 22, ymax = 0.155;
+    function X(x){ return L + (x - x0) / (x1 - x0) * (W - L - R); }
+    function Y(y){ return (T + (H - B)) / 2 - (y / ymax) * ((H - B - T) / 2); }
+    function Rf(x){ return (3*x*x - 4) / (4 + 2*x + 2*Math.pow(x,4)); }
+
+    frame(svg, "x → ∞", "y");
+    svg.appendChild(el("line", {x1:L, y1:Y(0), x2:W-R, y2:Y(0),
+      stroke:dash, "stroke-width":1, "stroke-dasharray":"3 4"}));
+
+    var up = [], dn = [], wv = [], i, x;
+    for (i = 0; i <= 900; i++){
+      x = x0 + (x1 - x0) * i / 900;
+      up.push([X(x), Y(Rf(x))]);
+      dn.push([X(x), Y(-Rf(x))]);
+      wv.push([X(x), Y(Rf(x) * Math.sin(x * 3.1))]);
+    }
+    poly(svg, up, pos, 1.4, "4 3");
+    poly(svg, dn, pos, 1.4, "4 3");
+    poly(svg, wv, accent, 1.9);
+
+    label(svg, X(4.4), Y(0.146), "+R(x)", pos);
+    label(svg, X(4.4), Y(-0.122), "−R(x)", pos);
+    label(svg, W-R-2, Y(0)-6, "y = 0", ink3, "end");
+  }
+
+  /* ---- Figure B: the vertical asymptote ---- */
+  function drawB(){
+    var svg = document.getElementById("figB");
+    if (!svg) return;
+    while (svg.firstChild) svg.removeChild(svg.firstChild);
+    var accent = css("--accent"), pos = css("--pos"),
+        neg = css("--neg"), dash = css("--rule-dash");
+    var a = 5 * Math.PI / 2, half = 1.45, ymax = 6.2;
+    function X(x){ return L + (x - (a - half)) / (2 * half) * (W - L - R); }
+    function Y(y){ return (T + (H - B)) / 2 - (y / ymax) * ((H - B - T) / 2); }
+
+    frame(svg, "x", "tan x");
+    svg.appendChild(el("line", {x1:L, y1:Y(0), x2:W-R, y2:Y(0),
+      stroke:dash, "stroke-width":1, "stroke-dasharray":"3 4"}));
+
+    var left = [], right = [], i, x, y;
+    for (i = 0; i <= 600; i++){
+      x = (a - half) + (half - 0.0025) * i / 600;
+      y = Math.tan(x);
+      if (y <= ymax && y >= -ymax) left.push([X(x), Y(y)]);
+    }
+    for (i = 0; i <= 600; i++){
+      x = a + 0.0025 + (half - 0.0025) * i / 600;
+      y = Math.tan(x);
+      if (y <= ymax && y >= -ymax) right.push([X(x), Y(y)]);
+    }
+    poly(svg, left, pos, 2);
+    poly(svg, right, neg, 2);
+
+    svg.appendChild(el("line", {x1:X(a), y1:T, x2:X(a), y2:H-B,
+      stroke:accent, "stroke-width":1.5, "stroke-dasharray":"5 4"}));
+    label(svg, X(a)+6, T+11, "x = 5π/2", accent);
+    label(svg, X(a)-8, T+11, "+∞", pos, "end");
+    label(svg, X(a)+6, H-B-6, "−∞", neg);
+  }
+
+  function drawAll(){ drawA(); drawB(); }
+  drawAll();
+
+  /* Redraw on theme change so the curves keep using the theme tokens. */
+  if (window.matchMedia){
+    var mq = window.matchMedia("(prefers-color-scheme: dark)");
+    if (mq.addEventListener) mq.addEventListener("change", drawAll);
+    else if (mq.addListener) mq.addListener(drawAll);
+  }
+  new MutationObserver(drawAll).observe(document.documentElement,
+    { attributes:true, attributeFilter:["data-theme"] });
+})();
+</script>

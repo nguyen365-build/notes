@@ -1,0 +1,362 @@
+<title>MATH 265 Tutorial Queue</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root {
+    --ground: #F4F5F3;
+    --panel: #FFFFFF;
+    --panel-2: #ECEEEA;
+    --ink: #191D22;
+    --ink-2: #4A5460;
+    --muted: #6E7885;
+    --line: #D6DAD4;
+    --line-soft: #E4E7E1;
+    --accent: #9A5B02;
+    --accent-soft: rgba(242, 165, 60, 0.16);
+    --accent-line: rgba(154, 91, 2, 0.42);
+    --ok: #1F6B47;
+    --ok-soft: rgba(31, 107, 71, 0.12);
+    --wait: #6E7885;
+    --wait-soft: rgba(110, 120, 133, 0.12);
+    --shadow: 0 1px 2px rgba(20, 24, 31, 0.06), 0 8px 24px rgba(20, 24, 31, 0.05);
+    --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+    --sans: "IBM Plex Sans", -apple-system, "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ground: #14181F;
+      --panel: #1B212B;
+      --panel-2: #222A36;
+      --ink: #E9ECF1;
+      --ink-2: #B6BFCC;
+      --muted: #8A94A6;
+      --line: #2C3542;
+      --line-soft: #232B36;
+      --accent: #F2A53C;
+      --accent-soft: rgba(242, 165, 60, 0.13);
+      --accent-line: rgba(242, 165, 60, 0.40);
+      --ok: #63C295;
+      --ok-soft: rgba(99, 194, 149, 0.12);
+      --wait: #8A94A6;
+      --wait-soft: rgba(138, 148, 166, 0.12);
+      --shadow: 0 1px 0 rgba(255,255,255,0.03), 0 10px 30px rgba(0,0,0,0.34);
+    }
+  }
+  :root[data-theme="dark"] {
+    --ground: #14181F;
+    --panel: #1B212B;
+    --panel-2: #222A36;
+    --ink: #E9ECF1;
+    --ink-2: #B6BFCC;
+    --muted: #8A94A6;
+    --line: #2C3542;
+    --line-soft: #232B36;
+    --accent: #F2A53C;
+    --accent-soft: rgba(242, 165, 60, 0.13);
+    --accent-line: rgba(242, 165, 60, 0.40);
+    --ok: #63C295;
+    --ok-soft: rgba(99, 194, 149, 0.12);
+    --wait: #8A94A6;
+    --wait-soft: rgba(138, 148, 166, 0.12);
+    --shadow: 0 1px 0 rgba(255,255,255,0.03), 0 10px 30px rgba(0,0,0,0.34);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 40px 24px 72px; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  h1 {
+    font-family: var(--sans);
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    margin: 8px 0 6px;
+    text-wrap: balance;
+  }
+  .sub { color: var(--ink-2); margin: 0 0 32px; max-width: 62ch; }
+
+  h2 {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 40px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .stat {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .stat .n {
+    font-family: var(--mono);
+    font-size: 30px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+    display: block;
+  }
+  .stat .l {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-top: 6px;
+    display: block;
+  }
+  .stat.is-run { border-color: var(--accent-line); background: var(--accent-soft); }
+  .stat.is-run .n { color: var(--accent); }
+  .stat.is-ok .n { color: var(--ok); }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 20px 22px;
+    box-shadow: var(--shadow);
+  }
+  .card p { margin: 0 0 12px; max-width: 66ch; }
+  .card p:last-child { margin-bottom: 0; }
+  .card ol { margin: 0 0 12px; padding-left: 20px; max-width: 66ch; }
+  .card li { margin-bottom: 7px; }
+  .card li:last-child { margin-bottom: 0; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.88em;
+    background: var(--panel-2);
+    border: 1px solid var(--line-soft);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+  pre {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 1.65;
+    background: var(--panel-2);
+    border: 1px solid var(--line);
+    border-left: 2px solid var(--accent-line);
+    border-radius: 4px;
+    padding: 14px 16px;
+    margin: 0;
+    overflow-x: auto;
+  }
+  pre code { background: none; border: 0; padding: 0; font-size: inherit; }
+
+  .note {
+    border-left: 2px solid var(--accent-line);
+    background: var(--accent-soft);
+    padding: 14px 18px;
+    border-radius: 0 4px 4px 0;
+  }
+  .note p { margin: 0 0 10px; max-width: 66ch; }
+  .note p:last-child { margin-bottom: 0; }
+  .note strong { color: var(--accent); }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; box-shadow: var(--shadow); }
+  table { width: 100%; border-collapse: collapse; background: var(--panel); font-size: 13.5px; }
+  th {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+    text-align: left;
+    padding: 11px 16px;
+    background: var(--panel-2);
+    border-bottom: 1px solid var(--line);
+    white-space: nowrap;
+  }
+  td { padding: 9px 16px; border-bottom: 1px solid var(--line-soft); vertical-align: middle; }
+  tr:last-child td { border-bottom: 0; }
+  td.qid { font-family: var(--mono); font-weight: 500; white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.st { width: 1%; white-space: nowrap; }
+
+  .chip {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+  }
+  .chip.done { color: var(--ok); background: var(--ok-soft); border-color: var(--ok); }
+  .chip.running, .chip.next { color: var(--accent); background: var(--accent-soft); border-color: var(--accent-line); }
+  .chip.queued { color: var(--wait); background: var(--wait-soft); border-color: var(--line); }
+  tr.running td, tr.next td { background: var(--accent-soft); }
+
+  .files { list-style: none; padding: 0; margin: 0; }
+  .files li {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--line-soft);
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  .files li:last-child { border-bottom: 0; }
+  .files .p { color: var(--ink); }
+  .files .d { color: var(--muted); font-family: var(--sans); font-size: 13px; }
+
+  footer {
+    margin-top: 44px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-soft);
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+</style>
+
+<div class="wrap">
+  <span class="eyebrow">MATH 265 · question bank · automation</span>
+  <h1>MATH 265 Tutorial Queue</h1>
+  <p class="sub">Every question in the bank gets a full <code>/my-math265-teach</code> tutorial, one per hour, each written in a completely fresh Claude context. Questions that already have a file in <code>notes\</code> are skipped.</p>
+
+  <div class="stats">
+    <div class="stat"><span class="n">49</span><span class="l">In the bank</span></div>
+    <div class="stat is-ok"><span class="n">8</span><span class="l">Written</span></div>
+    <div class="stat"><span class="n">41</span><span class="l">Still queued</span></div>
+    <div class="stat is-run"><span class="n">Q1.3</span><span class="l">Next up</span></div>
+    <div class="stat"><span class="n">~41h</span><span class="l">To finish</span></div>
+  </div>
+
+  <h2>How the queue runs</h2>
+  <div class="card">
+    <ol>
+      <li>Every hour, the driver reads the queue and picks the <strong>first question with no tutorial on disk</strong>. State is read from the <code>notes\</code> folder itself, not from a saved cursor — so a failed run just retries next hour, and anything you write by hand is picked up as done automatically.</li>
+      <li>That one question is handed to a <strong>brand-new Claude context</strong> running <code>/my-math265-teach &lt;QID&gt;</code>. Nothing carries over between questions.</li>
+      <li>When the run finishes, the driver checks that <code>notes\&lt;QID&gt; - &lt;title&gt;.md</code> actually exists before recording it as done.</li>
+      <li>One at a time, in bank order. A run still going when the next hour fires is left alone.</li>
+      <li>When every question has a tutorial, the job turns itself off.</li>
+    </ol>
+    <p>Usage-limit hits are not counted as failures — they simply retry next hour. A question that genuinely fails three times is skipped so the queue keeps moving.</p>
+  </div>
+
+  <h2>One command left for you</h2>
+  <div class="note">
+    <p><strong>The hourly job needs you to register it.</strong> The scripts are written and the queue logic is verified, but this session was not permitted to create a Scheduled Task or launch a background process. Run this once and the whole queue takes care of itself, including across reboots:</p>
+    <pre><code>pwsh -NoProfile -ExecutionPolicy Bypass -File "C:\Users\mnguyen\Work\bin\math265-teach-register.ps1"</code></pre>
+    <p>Until then, the queue is being driven from this Claude session instead — which works, but stops when the session closes.</p>
+  </div>
+
+  <h2>Watch it</h2>
+  <div class="card">
+    <pre><code>Get-Content C:\Users\mnguyen\Work\logs\math265-teach-ledger.log -Tail 20 -Wait</code></pre>
+    <p style="margin-top:12px">One line per hour: <code>START</code>, then <code>OK</code> with the file size, or <code>FAIL</code> / <code>LIMIT</code> / <code>TIMEOUT</code> with the reason. Pause anytime with <code>Disable-ScheduledTask -TaskName 'ClaudeMath265Teach'</code>.</p>
+  </div>
+
+  <h2>The queue</h2>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>Question</th><th>Title</th><th>State</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <h2>What was written</h2>
+  <div class="card">
+    <ul class="files">
+      <li><span class="p">Work\bin\math265-teach-queue.txt</span><span class="d">All 49 questions in bank order</span></li>
+      <li><span class="p">Work\bin\math265-teach-run.ps1</span><span class="d">Hourly driver — picks one, runs it, verifies it</span></li>
+      <li><span class="p">Work\bin\math265-teach-register.ps1</span><span class="d">Registers the hourly task (run this once)</span></li>
+      <li><span class="p">Work\logs\math265-teach-ledger.log</span><span class="d">One line per run</span></li>
+      <li><span class="p">notes\&lt;QID&gt; - &lt;title&gt;.md</span><span class="d">The tutorials themselves</span></li>
+    </ul>
+  </div>
+
+  <footer>Snapshot after Q1.2 · 8 of 49 written · the ledger is the live source of truth</footer>
+</div>
+
+<script>
+const DATA = [
+  ["Q1.1","Exact value of a cosine","done"],
+  ["Q1.2","Composite functions and their domains","done"],
+  ["Q1.3","Which equations define a function of x","next"],
+  ["Q1.4","Volume of a cone as a function of its radius","done"],
+  ["Q2.1","Graph a shifted parabola by transformations","done"],
+  ["Q2.2","Graph a reflected absolute value by transformations","done"],
+  ["Q3.1","Five limits, algebraic and trigonometric","done"],
+  ["Q3.2","Six limits, with justification required","done"],
+  ["Q3.3","Two limits, at infinity and at an asymptote","done"],
+  ["Q4.1","Vertical and horizontal asymptotes of a rational function","queued"],
+  ["Q5.1","Sketch a function from four conditions","queued"],
+  ["Q5.2","Interpret five conditions, then sketch","queued"],
+  ["Q5.3","Interpret six conditions, then sketch","queued"],
+  ["Q6.1","Average and instantaneous rate of population change","queued"],
+  ["Q7.1","Derivative of cotangent from the definition","queued"],
+  ["Q8.1","Four derivatives, power chain and quotient rules","queued"],
+  ["Q8.2","Four derivatives, including a second derivative","queued"],
+  ["Q8.3","Five derivatives, nested chain and quotient rules","queued"],
+  ["Q8.4","Two derivatives, naming the rules used","queued"],
+  ["Q9.1","Tangent line perpendicular to a given line","queued"],
+  ["Q10.1","Find the derivative implicitly","queued"],
+  ["Q10.2","Tangent line to an implicit curve","queued"],
+  ["Q11.1","Gravel cone growing in height","queued"],
+  ["Q11.2","Rocket tracked by a radar station","queued"],
+  ["Q12.1","Approximate a square root with differentials","queued"],
+  ["Q12.2","Estimate a sine with linearization","queued"],
+  ["Q12.3","Two estimates to four decimal places","queued"],
+  ["Q13.1","Approximate a root with Newtons method","queued"],
+  ["Q14.1","Sketch two curves with a full calculus analysis","queued"],
+  ["Q15.1","All maxima and minima on closed intervals","queued"],
+  ["Q15.2","Rectangle of least perimeter","queued"],
+  ["Q15.3","Absolute extremes by the Extreme Value Theorem","queued"],
+  ["Q15.4","Cheapest rectangular box","queued"],
+  ["Q15.5","Absolute extremes of a function with a cusp","queued"],
+  ["Q16.1","Five integrals","queued"],
+  ["Q16.2","Four integrals, naming the technique","queued"],
+  ["Q17.1","Interval containing a secant integral","queued"],
+  ["Q17.2","Estimate an integral from its properties","queued"],
+  ["Q17.3","Bound an integral from its properties","queued"],
+  ["Q18.1","Differentiate an integral with variable limits","queued"],
+  ["Q19.1","Area between a line and a parabola","queued"],
+  ["Q19.2","Area between a cosine and a horizontal line","queued"],
+  ["Q19.3","Net change, water flowing from a tank","queued"],
+  ["Q19.4","Work, raising one end of a chain","queued"],
+  ["Q19.5","Work, stretching a spring","queued"],
+  ["Q19.6","Average temperature of a metal rod","queued"],
+  ["Q19.7","Find k from an average value","queued"],
+  ["Q19.8","Displacement and distance travelled","queued"],
+  ["Q19.9","Sprinter with piecewise acceleration","queued"]
+];
+const LABEL = { done: "Done", running: "Running", next: "Next up", queued: "Queued" };
+const tbody = document.getElementById("rows");
+for (const [qid, title, state] of DATA) {
+  const tr = document.createElement("tr");
+  if (state === "running" || state === "next") tr.className = state;
+  const a = document.createElement("td"); a.className = "qid"; a.textContent = qid;
+  const b = document.createElement("td"); b.textContent = title;
+  const c = document.createElement("td"); c.className = "st";
+  const chip = document.createElement("span"); chip.className = "chip " + state; chip.textContent = LABEL[state];
+  c.appendChild(chip);
+  tr.append(a, b, c);
+  tbody.appendChild(tr);
+}
+</script>

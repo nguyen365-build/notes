@@ -1,0 +1,1592 @@
+<title>Asymptote or Hole</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== dark-first ops console: bare :root is dark, light is the override =====
+   Three semantic marks carry the entire answer to this question, so they are
+   tokens in their own right and never literals:
+     --pole   the function blows up there        (terracotta)
+     --hole   the function stays finite there    (teal)
+     --level  the function settles on a level    (slate)
+   ========================================================================== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --pole:#D2765C; --pole-soft:rgba(210,118,92,.12); --pole-line:rgba(210,118,92,.40);
+  --hole:#6FA8A0; --hole-soft:rgba(111,168,160,.12); --hole-line:rgba(111,168,160,.42);
+  --level:#7E9BC4; --level-soft:rgba(126,155,196,.11); --level-line:rgba(126,155,196,.40);
+  --grid:rgba(230,234,241,.026);
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --pole:#A8492F; --pole-soft:rgba(168,73,47,.09); --pole-line:rgba(168,73,47,.38);
+    --hole:#33726A; --hole-soft:rgba(51,114,106,.10); --hole-line:rgba(51,114,106,.40);
+    --level:#3F6493; --level-soft:rgba(63,100,147,.09); --level-line:rgba(63,100,147,.38);
+    --grid:rgba(23,27,34,.042);
+    --mj:#171B22;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --pole:#D2765C; --pole-soft:rgba(210,118,92,.12); --pole-line:rgba(210,118,92,.40);
+  --hole:#6FA8A0; --hole-soft:rgba(111,168,160,.12); --hole-line:rgba(111,168,160,.42);
+  --level:#7E9BC4; --level-soft:rgba(126,155,196,.11); --level-line:rgba(126,155,196,.40);
+  --grid:rgba(230,234,241,.026);
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --pole:#A8492F; --pole-soft:rgba(168,73,47,.09); --pole-line:rgba(168,73,47,.38);
+  --hole:#33726A; --hole-soft:rgba(51,114,106,.10); --hole-line:rgba(51,114,106,.40);
+  --level:#3F6493; --level-soft:rgba(63,100,147,.09); --level-line:rgba(63,100,147,.38);
+  --grid:rgba(23,27,34,.042);
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+/* ---- masthead ---- */
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+/* ---- THE FATE CHIP ------------------------------------------------------
+   Every root of a denominator ends up as exactly one of three things, and
+   which one it is IS the answer to this question.  The chip carries that
+   verdict, and its colour repeats on the graph, in every family panel, in
+   the answer key and in the decision tree, so the same three colours mean
+   the same three things everywhere on the page. --------------------------- */
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.pole {border-color:var(--pole-line); color:var(--pole);  background:var(--pole-soft)}
+.mark.hole {border-color:var(--hole-line); color:var(--hole);  background:var(--hole-soft)}
+.mark.level{border-color:var(--level-line);color:var(--level); background:var(--level-soft)}
+.mark.none {border-color:var(--line);      color:var(--ink3);  background:var(--sunk)}
+.fam-head .mark{margin-left:auto}
+
+/* ---- the verdict slab ---- */
+.slab{
+  margin:30px 0 8px;border:1px solid var(--accent-line);background:var(--surface);
+  border-radius:3px;overflow:hidden;
+}
+.slab-head{
+  padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--accent-soft);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.slab-body{display:grid;grid-template-columns:1fr;gap:0}
+@media (min-width:820px){.slab-body{grid-template-columns:1fr 1fr 1fr}}
+.slab-cell{padding:22px 20px;min-width:0;border-top:1px solid var(--line-soft)}
+.slab-cell:first-child{border-top:0}
+@media (min-width:820px){
+  .slab-cell{border-top:0;border-left:1px solid var(--line-soft)}
+  .slab-cell:first-child{border-left:0}
+}
+.part{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--accent);display:flex;align-items:center;
+  gap:10px;flex-wrap:wrap;margin-bottom:12px;
+}
+.lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);
+  display:block;margin:16px 0 9px;
+}
+.entry{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:14px;font-weight:500;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;color:var(--accent);display:block;
+  overflow-x:auto;white-space:nowrap;
+}
+.entry + .entry{margin-top:8px}
+.decimal{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;color:var(--ink2);
+  margin-top:11px;font-variant-numeric:tabular-nums;
+}
+.cellnote{font-size:13.5px;color:var(--ink2);max-width:none;margin:12px 0 0}
+
+/* ---- the root ledger: the two candidates, side by side ---- */
+.ledger{
+  display:grid;gap:12px;grid-template-columns:1fr;margin:18px 0;
+}
+@media (min-width:700px){.ledger{grid-template-columns:1fr 1fr}}
+.cand{border:1px solid var(--line);border-radius:3px;background:var(--surface);overflow:hidden}
+.cand.pole{border-color:var(--pole-line)}
+.cand.hole{border-color:var(--hole-line)}
+.cand-head{
+  padding:12px 16px;border-bottom:1px solid var(--line-soft);background:var(--surface2);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.cand-body{padding:14px 16px}
+.cand-body dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:5px 14px;margin:0;
+  font-size:13.5px;align-items:baseline}
+.cand-body dt{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);
+}
+.cand-body dd{margin:0;color:var(--ink2);min-width:0}
+
+/* ---- sections ---- */
+section{margin-top:52px;scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--accent);display:block;margin-bottom:7px;
+}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;
+  margin:26px 0 8px;color:var(--ink);
+}
+h4{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14.5px;margin:20px 0 6px}
+.sub{color:var(--ink2);margin:0 0 18px;max-width:66ch}
+p{max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink)}
+code.inl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;
+  background:var(--sunk);border:1px solid var(--line);border-radius:2px;padding:1px 5px;color:var(--ink2);
+}
+
+/* ---- figures ---- */
+.figs{display:grid;gap:16px;grid-template-columns:1fr;margin:18px 0}
+@media (min-width:800px){.figs{grid-template-columns:1.15fr 1fr}}
+.fig{border:1px solid var(--line);border-radius:3px;background:var(--surface);overflow:hidden}
+.fig-head{
+  padding:12px 16px;border-bottom:1px solid var(--line-soft);background:var(--surface2);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.fig-body{padding:12px}
+.fig svg{display:block;width:100%;height:auto}
+.fig figcaption{padding:0 16px 14px;font-size:13px;color:var(--ink2);margin:0}
+.ax{stroke:var(--line);stroke-width:1.2}
+.axtick{stroke:var(--line);stroke-width:1}
+.curve{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.asym{stroke:var(--pole);stroke-width:1.6;stroke-dasharray:6 5}
+.level{stroke:var(--level);stroke-width:1.6;stroke-dasharray:6 5}
+.openpt{fill:var(--surface);stroke:var(--hole);stroke-width:2.4}
+.solidpt{fill:var(--accent);stroke:var(--surface);stroke-width:1.6}
+.svglbl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;fill:var(--ink3)}
+.svglbl.p{fill:var(--pole)} .svglbl.h{fill:var(--hole)} .svglbl.l{fill:var(--level)}
+
+/* ---- chain / tree code blocks ---- */
+pre.chain{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.75;
+  background:var(--sunk);border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:16px 0 0;overflow-x:auto;color:var(--ink);
+}
+pre.chain b{color:var(--accent);font-weight:600}
+pre.chain i{color:var(--pole);font-style:normal}
+pre.chain u{color:var(--hole);text-decoration:none}
+pre.chain s{color:var(--level);text-decoration:none}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  background:var(--surface2);white-space:nowrap;font-weight:500;
+}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums}
+td.nw{white-space:nowrap}
+.hl{background:var(--accent-soft)}
+.hl td{font-weight:500}
+.isp{color:var(--pole);font-weight:600}
+.ish{color:var(--hole);font-weight:600}
+.isl{color:var(--level);font-weight:600}
+
+/* ---- callouts ---- */
+.note{
+  border:1px solid var(--line);border-left:2px solid var(--level);background:var(--surface);
+  border-radius:3px;padding:15px 18px;margin:18px 0;
+}
+.note.trap{border-left-color:var(--pole);background:var(--pole-soft)}
+.note.good{border-left-color:var(--hole);background:var(--hole-soft)}
+.note .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--level);
+}
+.note.trap .tag{color:var(--pole)}
+.note.good .tag{color:var(--hole)}
+.note p{margin:0;max-width:64ch}
+.note p + p{margin-top:9px}
+
+/* ---- the wrong / right pair ---- */
+.wrongright{display:grid;gap:11px;grid-template-columns:1fr;margin:14px 0}
+@media (min-width:640px){.wrongright{grid-template-columns:1fr 1fr}}
+.wr{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:13px 15px}
+.wr .k{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;display:block;margin-bottom:8px;
+}
+.wr p{margin:0;font-size:13.5px;color:var(--ink2);max-width:none}
+.wr.bad{border-color:var(--pole-line)} .wr.bad .k{color:var(--pole)}
+.wr.ok{border-color:var(--hole-line)} .wr.ok .k{color:var(--hole)}
+
+/* ---- route cards ---- */
+.routes{display:grid;gap:14px;grid-template-columns:1fr}
+@media (min-width:760px){.routes{grid-template-columns:1fr 1fr}}
+.route{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:17px 18px}
+.route.pick{border-color:var(--accent-line);background:var(--accent-soft)}
+.route h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin:0 0 11px;color:var(--ink3);font-weight:500;
+}
+.route.pick h4{color:var(--accent)}
+.route p{font-size:13.5px;margin:0;color:var(--ink2);max-width:none}
+.route p + p{margin-top:8px}
+
+/* ---- family panels ---- */
+.fam{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;overflow:hidden}
+.fam-head{
+  padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:11px;
+}
+.fam-n{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-t{font-weight:600;font-size:15px}
+.fam-body{padding:16px 18px}
+.fam-body > :first-child{margin-top:0}
+.fam-body > :last-child{margin-bottom:0}
+.fam-body .tw{margin-left:0;margin-right:0}
+.trig{
+  display:grid;gap:4px 14px;grid-template-columns:auto minmax(0,1fr);margin:0 0 14px;
+  font-size:13.5px;align-items:baseline;
+}
+.trig dt{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);padding-top:3px;
+}
+.trig dd{margin:0;color:var(--ink2);min-width:0}
+
+/* ---- ordered trap list ---- */
+ol.traps{counter-reset:t;list-style:none;padding:0;margin:16px 0}
+ol.traps li{
+  counter-increment:t;position:relative;padding:11px 0 11px 46px;
+  border-bottom:1px solid var(--line-soft);max-width:72ch;
+}
+ol.traps li:last-child{border-bottom:0}
+ol.traps li::before{
+  content:counter(t,decimal-leading-zero);position:absolute;left:0;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);letter-spacing:.08em;
+}
+
+/* ---- drills ---- */
+ol.drills{
+  list-style:none;counter-reset:d;padding:0;margin:16px 0;
+  display:grid;gap:9px;grid-template-columns:1fr;
+}
+@media (min-width:700px){ol.drills{grid-template-columns:1fr 1fr}}
+ol.drills li{
+  counter-increment:d;border:1px solid var(--line);background:var(--surface);
+  border-radius:3px;padding:11px 14px 11px 42px;position:relative;font-size:13.5px;
+}
+ol.drills li::before{
+  content:counter(d);position:absolute;left:14px;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink3);
+}
+details.key{
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin:18px 0;overflow:hidden;
+}
+details.key > summary{
+  padding:13px 18px;cursor:pointer;background:var(--surface2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  list-style:none;
+}
+details.key > summary::-webkit-details-marker{display:none}
+details.key > summary::before{content:"[ + ]  ";color:var(--ink3)}
+details.key[open] > summary::before{content:"[ - ]  "}
+details.key > summary:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+details.key .tw{margin:0;border:0;border-radius:0}
+
+/* ---- write-up block ---- */
+ol.writeup{margin:16px 0;padding-left:0;list-style:none;counter-reset:w}
+ol.writeup li{
+  counter-increment:w;position:relative;padding:12px 16px 12px 48px;
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  margin-bottom:9px;max-width:76ch;
+}
+ol.writeup li::before{
+  content:"S" counter(w);position:absolute;left:15px;top:12px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--accent);
+}
+
+/* ---- numbers strip ---- */
+.nums{display:grid;gap:11px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:16px 0}
+.num{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:14px 16px;text-align:center}
+.num .v{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:18px;color:var(--accent);font-variant-numeric:tabular-nums}
+.num .n{font-size:12px;color:var(--ink3);margin-top:6px}
+
+/* ---- footer ---- */
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+footer p{max-width:78ch;margin:0 0 8px}
+footer code{font-family:"IBM Plex Mono",ui-monospace,monospace;color:var(--ink2);font-size:11.5px}
+.verified{
+  display:inline-flex;align-items:center;gap:8px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--hole);
+  border:1px solid var(--hole);border-radius:2px;padding:5px 10px;margin-bottom:14px;
+}
+a{color:var(--accent)}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 2 &middot; Question 6 &middot; 10 points</div>
+  <h1>Asymptote or hole</h1>
+  <p class="deck">The denominator \(x^{2}-16\) has two roots. One of them is a vertical asymptote
+  and the other is not. Telling them apart is the whole question, and it is worth ten points because
+  the fast answer gets it wrong.</p>
+</header>
+
+<div class="slab">
+  <div class="slab-head">\(f(x)=\dfrac{x^{2}-3x-4}{x^{2}-16}\) &nbsp;&middot;&nbsp; the three things to report</div>
+  <div class="slab-body">
+
+    <div class="slab-cell">
+      <span class="part">Vertical <span class="mark pole">blows up</span></span>
+      $$x = -4 \ \text{ only}$$
+      <p class="cellnote">The reduced denominator \(x+4\) vanishes there and the numerator does not:
+      it equals \(-3\). So the quotient is \(-3/0\) and the graph runs off the page.</p>
+      <span class="lbl">The two sides disagree</span>
+      $$\lim_{x\to-4^{-}}f=+\infty,\qquad \lim_{x\to-4^{+}}f=-\infty$$
+      <span class="lbl">Type into M&ouml;bius</span>
+      <code class="entry">x=-4</code>
+      <p class="decimal">Check: f(-4.1) = 31 and f(-3.9) = -29.</p>
+    </div>
+
+    <div class="slab-cell">
+      <span class="part">Horizontal <span class="mark level">settles</span></span>
+      $$y = 1 \ \text{ in both directions}$$
+      <p class="cellnote">Equal degrees, leading coefficients \(1\) and \(1\). The rule reads the
+      leading terms only, so the \(-3x-4\) and the \(-16\) play no part in it.</p>
+      <span class="lbl">And it is never reached</span>
+      $$f(x)=1-\frac{3}{x+4}\ne 1 \ \text{ for any } x$$
+      <span class="lbl">Type into M&ouml;bius</span>
+      <code class="entry">y=1</code>
+      <p class="decimal">Check: f(100) = 101/104 and f(-100) = 99/96.</p>
+    </div>
+
+    <div class="slab-cell">
+      <span class="part">At \(x=4\) <span class="mark hole">stays finite</span></span>
+      $$\text{a hole at } \left(4,\ \tfrac58\right)$$
+      <p class="cellnote">The factor \((x-4)\) cancels top and bottom, so the limit there is finite.
+      A finite limit is never an asymptote. This is the observation the question was built around.</p>
+      <span class="lbl">The cancellation</span>
+      $$\frac{(x-4)(x+1)}{(x-4)(x+4)}=\frac{x+1}{x+4}$$
+      <span class="lbl">Type into M&ouml;bius</span>
+      <code class="entry">(4,5/8)</code>
+      <p class="decimal">Check: f(3.999) = 0.6249, which is not large.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="note good">
+  <span class="tag">The one sentence that decides this question</span>
+  <p>A zero of the denominator is a vertical asymptote only if it <strong>survives
+  cancellation</strong>. Factor both halves first, cancel what cancels, and only then read the
+  asymptotes off what is left. Whatever you cancelled is a hole.</p>
+</div>
+
+<!-- ======================================================== FIGURES -->
+<div class="figs">
+
+  <figure class="fig">
+    <div class="fig-head">The whole graph <span class="mark pole">x = -4</span>
+      <span class="mark level">y = 1</span> <span class="mark hole">(4, 5/8)</span></div>
+    <div class="fig-body">
+      <svg viewBox="0 0 344 300" role="img" aria-label="The graph of f of x equals x squared minus three x minus four, over x squared minus sixteen. Two branches of a hyperbola. A dashed vertical line at x equals minus four separates them and neither branch touches it. A dashed horizontal line at y equals one is approached from above on the left and from below on the right. The right branch crosses the x axis at minus one, passes through zero comma one quarter, and carries a small open circle at four comma five eighths marking the hole.">
+        <!-- axes -->
+        <line class="ax" x1="12" y1="150" x2="336" y2="150"></line>
+        <line class="ax" x1="172" y1="10" x2="172" y2="292"></line>
+        <!-- ticks -->
+        <line class="axtick" x1="65.33" y1="146" x2="65.33" y2="154"></line>
+        <line class="axtick" x1="225.33" y1="146" x2="225.33" y2="154"></line>
+        <line class="axtick" x1="278.67" y1="146" x2="278.67" y2="154"></line>
+        <line class="axtick" x1="168" y1="56.67" x2="176" y2="56.67"></line>
+        <line class="axtick" x1="168" y1="243.33" x2="176" y2="243.33"></line>
+        <text class="svglbl" x="60" y="166">-8</text>
+        <text class="svglbl" x="222" y="166">4</text>
+        <text class="svglbl" x="275" y="166">8</text>
+        <text class="svglbl" x="178" y="60">4</text>
+        <text class="svglbl" x="178" y="247">-4</text>
+        <!-- the horizontal asymptote y = 1 -->
+        <line class="level" x1="12" y1="126.67" x2="336" y2="126.67"></line>
+        <text class="svglbl l" x="290" y="121">y = 1</text>
+        <!-- the vertical asymptote x = -4 -->
+        <line class="asym" x1="118.67" y1="10" x2="118.67" y2="292"></line>
+        <text class="svglbl p" x="60" y="22">x = -4</text>
+        <!-- left branch -->
+        <polyline class="curve" points="12.00,117.92 18.67,117.33 25.33,116.67 32.00,115.90 38.67,115.00 45.33,113.94 52.00,112.67 58.67,111.11 65.33,109.17 72.00,106.67 78.67,103.33 85.33,98.67 92.00,91.67 98.67,80.00 102.00,70.67 105.33,56.67 108.67,33.33 110.67,10.00"></polyline>
+        <!-- right branch -->
+        <polyline class="curve" points="124.38,290.00 124.67,282.22 125.33,266.67 126.00,253.94 126.67,243.33 127.33,234.36 128.00,226.67 128.67,220.00 129.33,214.17 130.00,209.02 130.67,204.44 131.33,200.35 132.00,196.67 132.67,193.33 136.00,180.51 139.33,171.83 142.67,165.56 146.00,160.81 149.33,157.10 152.67,154.12 156.00,151.67 159.33,149.62 162.67,147.88 166.00,146.38 169.33,145.09 172.67,143.95 176.00,142.95 179.33,142.05 182.67,141.25 186.00,140.53 192.67,139.28 199.33,138.24 206.00,137.35 212.67,136.60 219.33,135.94 226.00,135.36 232.67,134.85 239.33,134.40 246.00,134.00 252.67,133.63 259.33,133.30 266.00,133.00 272.67,132.73 279.33,132.48 286.00,132.24 292.67,132.03 299.33,131.83 306.00,131.65 312.67,131.48 319.33,131.32 326.00,131.17"></polyline>
+        <!-- landmark points -->
+        <circle class="solidpt" cx="158.67" cy="150" r="3.4"></circle>
+        <circle class="solidpt" cx="172" cy="144.17" r="3.4"></circle>
+        <circle class="openpt" cx="225.33" cy="135.42" r="4.4"></circle>
+        <text class="svglbl h" x="212" y="158">hole</text>
+      </svg>
+    </div>
+    <figcaption>Two branches, both increasing, neither touching \(y=1\). The open circle at
+    \(\left(4,\tfrac58\right)\) is the only thing happening at \(x=4\).</figcaption>
+  </figure>
+
+  <figure class="fig">
+    <div class="fig-head">Zoomed in on x = 4 <span class="mark hole">nothing happens</span></div>
+    <div class="fig-body">
+      <svg viewBox="0 0 340 290" role="img" aria-label="A zoom of the same graph over x from three to five and y from about zero point five five to zero point seven. The curve is an almost straight gentle rise with a single small open circle at four comma zero point six two five. There is no vertical asymptote and nothing grows large.">
+        <line class="ax" x1="30" y1="260" x2="322" y2="260"></line>
+        <line class="ax" x1="30" y1="20" x2="30" y2="260"></line>
+        <line class="axtick" x1="170" y1="256" x2="170" y2="264"></line>
+        <line class="axtick" x1="310" y1="256" x2="310" y2="264"></line>
+        <line class="axtick" x1="26" y1="145" x2="34" y2="145"></line>
+        <line class="axtick" x1="26" y1="180" x2="34" y2="180"></line>
+        <text class="svglbl" x="26" y="276">3</text>
+        <text class="svglbl" x="166" y="276">4</text>
+        <text class="svglbl" x="306" y="276">5</text>
+        <text class="svglbl" x="38" y="141">0.625</text>
+        <text class="svglbl" x="38" y="176">0.600</text>
+        <polyline class="curve" points="30.00,220.00 37.00,215.74 44.00,211.55 51.00,207.41 58.00,203.33 65.00,199.31 72.00,195.34 79.00,191.43 86.00,187.57 93.00,183.76 100.00,180.00 107.00,176.29 114.00,172.63 121.00,169.02 128.00,165.45 135.00,161.94 142.00,158.46 149.00,155.03 156.00,151.65 163.00,148.30 170.00,145.00 177.00,141.74 184.00,138.52 191.00,135.34 198.00,132.20 205.00,129.09 212.00,126.02 219.00,122.99 226.00,120.00 233.00,117.04 240.00,114.12 247.00,111.23 254.00,108.37 261.00,105.55 268.00,102.76 275.00,100.00 282.00,97.27 289.00,94.58 296.00,91.91 303.00,89.27 310.00,86.67"></polyline>
+        <circle class="openpt" cx="170" cy="145" r="5"></circle>
+        <text class="svglbl h" x="182" y="140">the only missing point</text>
+      </svg>
+    </div>
+    <figcaption>Same function, same \(x=4\), magnified about two hundred times. A vertical asymptote
+    would be a wall here. Instead the curve walks straight through with one point removed.</figcaption>
+  </figure>
+
+</div>
+
+<!-- ======================================================== 0 -->
+<section>
+  <span class="snum">SECTION 00</span>
+  <h2>The 30-second version</h2>
+  <p class="sub">The examiner wrote a numerator that shares a factor with the denominator. That is
+  the entire question. Everything else is the two rules you already know.</p>
+
+<pre class="chain">Find the vertical and horizontal asymptotes of f(x) = (x^2-3x-4)/(x^2-16).
+
+<b>STEP 1  FACTOR BOTH.</b>  Never solve "denominator = 0" before you factor.
+        x^2 - 3x - 4 = (x-4)(x+1)     two numbers: sum 3, product -4  -&gt;  4 and -1
+        x^2 - 16     = (x-4)(x+4)     difference of squares
+
+<b>STEP 2  CANCEL.</b>   f(x) = (x-4)(x+1) / [(x-4)(x+4)] = (x+1)/(x+4),  x != 4
+
+<b>STEP 3  VERTICAL</b> = the zeros that SURVIVED.
+        x + 4 = 0  -&gt;  <i>x = -4</i>     numerator there is -3, not 0, so it really blows up
+        x = 4 CANCELLED  -&gt;  <u>a HOLE at (4, 5/8)</u>,  NOT an asymptote
+
+<b>STEP 4  HORIZONTAL</b> = the degree rule.  deg 2 over deg 2, leading coefficients 1 and 1.
+        <s>y = 1</s>       and it is the same limit at +inf and at -inf
+
+<b>ANSWER</b>  Vertical: <i>x = -4</i> only.   Horizontal: <s>y = 1</s>.   Hole at <u>(4, 5/8)</u>.
+<b>CHECK</b>   f(-4.1) = +31  and  f(-3.9) = -29      blows up, opposite signs
+        f(3.999) = 0.6249  and  f(4.001) = 0.6251   does NOT blow up: a hole
+        f(100) = 101/104   and  f(-100) = 99/96     settling on 1 from both sides</pre>
+
+  <p style="margin-top:18px">If you factored, you got it. If you set \(x^{2}-16=0\) and wrote
+  "\(x=4\) and \(x=-4\)", you got half of it, and the half you lost is the half the examiner was
+  aiming at.</p>
+</section>
+
+<!-- ======================================================== 1 -->
+<section>
+  <span class="snum">SECTION 01</span>
+  <h2>What this question is really testing</h2>
+  <p class="sub">Question 6 is worth 10 of the 94 points on Midterm 2, the joint-largest single-part
+  award on the paper. Ten points for two asymptotes is a signal: the marks are not for reciting the
+  degree rule, they are for noticing that one of the two candidates is not an asymptote.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Reflex</th><th>Where it comes back</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Factor before you conclude anything about a rational function</td><td>Q3.1a, Q3.1c, Q3.2, every \(0/0\) limit in the course</td></tr>
+      <tr class="hl"><td>A cancelled factor leaves a hole, not an asymptote</td><td>Q3.1b, and every removable discontinuity</td></tr>
+      <tr><td>The degree rule for \(x\to\pm\infty\)</td><td>Q3.1d, Q3.3a, Final Exam Q4</td></tr>
+      <tr><td>\(c/0\) with \(c\neq0\) means blow-up, and the sign needs a side test</td><td>Q3.2f, Q3.3b</td></tr>
+      <tr><td>A limit that is \(+\infty\) on one side and \(-\infty\) on the other does not exist</td><td>Q3.2, Q3.3b</td></tr>
+      <tr><td>Reading exclusions off a denominator</td><td>Q1.2 composite domains, Q1.3 well-definedness, Q1.4 the cone</td></tr>
+      <tr><td>Asymptotes as step three of a curve sketch</td><td>Final Exam 1 Q4, Final Exam 2</td></tr>
+      <tr><td>Translating "\(\lim_{x\to a}f=\infty\)" into a picture</td><td>Q5.1, Q5.2, Q5.3</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3>Why the number 10 matters</h3>
+  <p>On a paper where the transformation question is 6 points and the tangent-line question is 4, an
+  asymptote question at 10 is not being asked casually. The neighbouring six-part limit question is
+  24, so each limit is worth 4. This question is worth two and a half limits, which is the examiner
+  telling you there are more than two things to say.</p>
+  <p>There are, and they are: the horizontal asymptote, the vertical asymptote, the hole, and the
+  reason the second candidate is not an asymptote.</p>
+
+  <div class="note">
+    <span class="tag">Format warning</span>
+    <p>The sample paper prints "(10 points)" and reads like a written exam. The live delivery is
+    M&ouml;bius, answer-only and machine-marked, where the ten points typically split across several
+    boxes: one for the vertical asymptote, one for the horizontal, often one for the hole or the
+    domain, sometimes one for the one-sided limits. A student who writes only "\(x=-4\), \(y=1\)"
+    has the right mathematics and may still be leaving boxes empty.</p>
+    <p>Note also that Midterm 2 prints each point value on the line <em>above</em> its question, the
+    opposite convention to Midterm 1. Read the boundary rather than assuming the marker trails.</p>
+  </div>
+</section>
+
+<!-- ======================================================== 2 -->
+<section>
+  <span class="snum">SECTION 02</span>
+  <h2>The five things you must have cold</h2>
+
+  <h3>2.1 &nbsp;Both asymptotes are limit statements, and nothing else</h3>
+  <p>Everything in this topic is a definition about limits wearing geometric clothes.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Kind</th><th>The definition</th><th>What you compute</th></tr></thead>
+    <tbody>
+      <tr><td class="nw"><span class="mark pole">vertical</span> at \(x=a\)</td><td>\(\lim_{x\to a^{-}}f=\pm\infty\) <strong>or</strong> \(\lim_{x\to a^{+}}f=\pm\infty\)</td><td>a one-sided limit at a finite point</td></tr>
+      <tr><td class="nw"><span class="mark level">horizontal</span> \(y=L\)</td><td>\(\lim_{x\to+\infty}f=L\) <strong>or</strong> \(\lim_{x\to-\infty}f=L\)</td><td>a limit at infinity</td></tr>
+      <tr><td class="nw"><span class="mark level">slant</span> \(y=mx+b\)</td><td>\(\lim_{x\to\pm\infty}\bigl[f(x)-(mx+b)\bigr]=0\)</td><td>the same limit, after subtracting a line</td></tr>
+      <tr><td class="nw"><span class="mark hole">hole</span> at \(x=a\)</td><td>\(\lim_{x\to a}f\) exists and is <strong>finite</strong>, but \(f(a)\) is undefined</td><td>a two-sided finite limit</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Three consequences of reading the definitions literally, which is where the marks are.</p>
+  <div class="wrongright">
+    <div class="wr ok"><span class="k">One side is enough for a vertical asymptote</span>
+      <p>The word "or" is in the definition. \(\ln x\) has a vertical asymptote at \(x=0\) even
+      though it is not defined at all on the left.</p></div>
+    <div class="wr ok"><span class="k">Both ends are separate questions for a horizontal one</span>
+      <p>A function can have one, or two different ones, or none. \(\arctan x\) has two. Rational
+      functions always agree at both ends, which is a convenience specific to them.</p></div>
+  </div>
+  <div class="note trap">
+    <span class="tag">A horizontal asymptote is not a fence</span>
+    <p>It is an end-behaviour statement. The graph is allowed to cross it, and many graphs do. Only
+    vertical asymptotes are barriers, and that is because the function is not defined there.</p>
+  </div>
+
+  <h3>2.2 &nbsp;The degree rule, all four cases</h3>
+  <p>Let \(f=\dfrac{N}{D}\) with \(n=\deg N\) and \(d=\deg D\), <strong>after cancelling</strong>.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Case</th><th>Horizontal</th><th>Slant</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">n &lt; d</td><td class="isl">\(y=0\)</td><td>none</td><td>the bottom outgrows the top</td></tr>
+      <tr class="hl"><td class="mono nw">n = d</td><td class="isl">\(y=\dfrac{\text{lead }N}{\text{lead }D}\)</td><td>none</td><td>the two growths match, so the ratio settles</td></tr>
+      <tr><td class="mono nw">n = d + 1</td><td><strong>none</strong></td><td class="isl">\(y=mx+b\), by long division</td><td>the quotient is a line</td></tr>
+      <tr><td class="mono nw">n &gt; d + 1</td><td><strong>none</strong></td><td>none</td><td>it runs off faster than any line</td></tr>
+    </tbody>
+  </table></div>
+  <p>The rule reads <strong>leading terms only</strong>. For this question that means comparing
+  \(x^{2}\) with \(x^{2}\), giving \(1/1=1\); the \(-3x-4\) and the \(-16\) have nothing to do with
+  it. Here is the algebra it is short for, worth doing once so that you trust it. Divide top and
+  bottom by the highest power in the denominator.</p>
+  $$\frac{x^{2}-3x-4}{x^{2}-16}=\frac{1-\dfrac{3}{x}-\dfrac{4}{x^{2}}}{1-\dfrac{16}{x^{2}}}
+  \xrightarrow[\ x\to\pm\infty\ ]{}\frac{1-0-0}{1-0}=1$$
+  <p>Every term with an \(x\) underneath dies, and the sign of \(x\) never enters, which is exactly
+  why a rational function has the same horizontal asymptote at both ends.</p>
+
+  <h3>2.3 &nbsp;Factoring the two quadratics in five seconds each</h3>
+  <p>You cannot do this question without factoring, and factoring is where the clock goes. For
+  \(x^{2}-3x-4\), find two numbers with <strong>sum \(+3\)</strong> and <strong>product \(-4\)</strong>:
+  opposite signs, because the product is negative, so \(4\) and \(-1\), giving \((x-4)(x+1)\). For
+  \(x^{2}-16\), a square minus a square, so \((x-4)(x+4)\).</p>
+  <div class="tw"><table>
+    <thead><tr><th>Pattern</th><th>Factored</th><th>Recognise it by</th></tr></thead>
+    <tbody>
+      <tr><td>\(x^{2}-16\)</td><td>\((x-4)(x+4)\)</td><td>a square minus a square, no middle term</td></tr>
+      <tr class="hl"><td>\(x^{2}-3x-4\)</td><td>\((x-4)(x+1)\)</td><td>sum \(3\), product \(-4\)</td></tr>
+      <tr><td>\(x^{2}+3x-4\)</td><td>\((x+4)(x-1)\)</td><td>the same numbers, signs swapped</td></tr>
+      <tr><td>\(x^{2}-5x+4\)</td><td>\((x-4)(x-1)\)</td><td>product positive, sum positive, both roots positive</td></tr>
+      <tr><td>\(x^{2}+16\)</td><td><strong>does not factor</strong> over the reals</td><td>a <em>sum</em> of squares has no real root</td></tr>
+    </tbody>
+  </table></div>
+  <p>That last row is a real exam trap in its own right. \(x^{2}+16\) is never zero, so a function
+  with it in the denominator has no vertical asymptote at all.</p>
+  <div class="note good">
+    <span class="tag">The five-second sanity check on any factoring</span>
+    <p>Multiply the two constants and compare with the constant term you started with:
+    \((-4)(+1)=-4\), which matches. Then add them: \(-4+1=-3\), which matches the middle
+    coefficient.</p>
+  </div>
+
+  <h3>2.4 &nbsp;Hole against vertical asymptote: it is a multiplicity comparison</h3>
+  <p>Write both halves factored and look at one root at a time. Let \((x-a)\) appear to power \(p\)
+  upstairs and power \(q\) downstairs.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Comparison</th><th>What \(x=a\) is</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">q &gt; p</td><td><span class="mark pole">vertical asymptote</span> of multiplicity \(q-p\)</td><td>\(\dfrac{x-1}{(x-1)^{2}}=\dfrac{1}{x-1}\)</td></tr>
+      <tr class="hl"><td class="mono nw">q = p</td><td><span class="mark hole">hole</span> at the height the reduced function gives</td><td>\(\dfrac{(x-4)(x+1)}{(x-4)(x+4)}\) at \(x=4\)</td></tr>
+      <tr><td class="mono nw">q &lt; p</td><td><span class="mark hole">hole</span> at height \(0\)</td><td>\(\dfrac{(x-1)^{2}}{x-1}=x-1\) at \(x=1\)</td></tr>
+      <tr><td class="mono nw">p = 0</td><td><span class="mark pole">vertical asymptote</span>, the ordinary case</td><td>\(\dfrac{1}{x-2}\)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="note trap">
+    <span class="tag">The row that catches people</span>
+    <p>"A factor cancelled, so it is a hole" is <strong>wrong</strong> when the denominator had more
+    copies than the numerator. In \(\dfrac{x-1}{(x-1)^{2}}\) a factor does cancel and \(x=1\) is
+    still an asymptote, because one copy is left downstairs.</p>
+  </div>
+  <p>The <strong>height</strong> of a hole is whatever the reduced function gives on substitution.
+  Here the reduced function is \(\dfrac{x+1}{x+4}\), and at \(x=4\) that is \(\dfrac58\). This is
+  exactly a \(0/0\) limit computed by cancelling, which is Q3.1a and Q3.2a all over again. The topic
+  heading changed; the mathematics did not.</p>
+
+  <h3>2.5 &nbsp;The sign test at a vertical asymptote</h3>
+  <p>Once you know \(x=a\) is an asymptote, saying <em>which</em> infinity is separate work, and on
+  this paper it is often a separate box. Substitute \(a\) into the numerator and keep its sign, then
+  ask what sign the denominator takes on each side, and divide.</p>
+  <div class="tw"><table>
+    <thead><tr><th>side</th><th>numerator \(x+1\)</th><th>denominator \(x+4\)</th><th>quotient</th><th>limit</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">x = -4.1</td><td class="mono">-3.1, negative</td><td class="mono">-0.1, negative</td><td>positive</td><td class="isp">\(+\infty\)</td></tr>
+      <tr><td class="mono nw">x = -3.9</td><td class="mono">-2.9, negative</td><td class="mono">+0.1, positive</td><td>negative</td><td class="isp">\(-\infty\)</td></tr>
+    </tbody>
+  </table></div>
+  <p>\(f(-4.1)=31\) exactly and \(f(-3.9)=-29\) exactly, which is a check you can do in your head.</p>
+  <div class="note good">
+    <span class="tag">The parity shortcut</span>
+    <p>If the surviving factor has <strong>odd</strong> multiplicity, the two sides have opposite
+    signs. If it has <strong>even</strong> multiplicity, they have the same sign. Here the
+    multiplicity is \(1\), so the signs are opposite, so \(\lim_{x\to-4}f(x)\) <strong>does not
+    exist</strong> and writing "\(=+\infty\)" is wrong. Contrast \(\dfrac{1}{(x-2)^{2}}\), where the
+    multiplicity is \(2\) and the limit genuinely is \(+\infty\) on both sides.</p>
+  </div>
+</section>
+
+<!-- ======================================================== 3 -->
+<section>
+  <span class="snum">SECTION 03</span>
+  <h2>The universal procedure</h2>
+  <p class="sub">This works on every version of this question in Section 08.</p>
+
+  <ol class="writeup">
+    <li><strong>Factor the numerator and the denominator completely.</strong> Before anything else.
+    Every error in this topic that is not an arithmetic slip comes from skipping this step.</li>
+    <li><strong>Cancel every common factor, and write down what you cancelled.</strong> The cancelled
+    roots are your candidate holes and you will need them again in step 5.</li>
+    <li><strong>Vertical asymptotes: set the REDUCED denominator to zero.</strong> Each real root is
+    an asymptote. Confirm the reduced numerator is nonzero there.</li>
+    <li><strong>Horizontal: compare the degrees of the REDUCED fraction.</strong> Use the four-case
+    table in 2.2. If the gap is exactly one, long-divide and report a slant instead.</li>
+    <li><strong>Holes: substitute each cancelled root into the reduced function.</strong> That value
+    is the height. Compare multiplicities first, per 2.4, because a partial cancellation is still an
+    asymptote.</li>
+    <li><strong>Sign test at each vertical asymptote</strong>, if the question or the box asks for
+    behaviour. Odd multiplicity means the sides disagree and the limit does not exist.</li>
+    <li><strong>State the domain if asked.</strong> Every root of the ORIGINAL denominator is
+    excluded, holes included.</li>
+  </ol>
+
+  <div class="note trap">
+    <span class="tag">Step 7 is the one people get backwards</span>
+    <p>Cancelling changes the formula, not the function. \(x=4\) is excluded from the domain of
+    \(f\) even though \(\dfrac{x+1}{x+4}\) is perfectly happy there.</p>
+  </div>
+
+  <h3>Classify before you start</h3>
+  <p>One look at the factored form tells you which family you are in and therefore what to write.</p>
+  <div class="tw"><table>
+    <thead><tr><th>What you see after factoring</th><th>Vertical</th><th>Horizontal</th><th>Family</th></tr></thead>
+    <tbody>
+      <tr><td>no common factor, \(\deg N=\deg D\)</td><td>every root of \(D\)</td><td>ratio of leading coefficients</td><td class="mono">0</td></tr>
+      <tr><td>no common factor, \(\deg N&lt;\deg D\)</td><td>every root of \(D\)</td><td>\(y=0\)</td><td class="mono">0</td></tr>
+      <tr class="hl"><td>a common factor cancels completely</td><td>the <strong>surviving</strong> roots only</td><td>degree rule on the reduced form</td><td class="mono">1</td></tr>
+      <tr><td>a repeated factor downstairs</td><td>still an asymptote, sign set by parity</td><td>unchanged</td><td class="mono">2</td></tr>
+      <tr><td>the denominator has no real root</td><td><strong>none</strong></td><td>degree rule</td><td class="mono">3</td></tr>
+      <tr><td>\(\deg N=\deg D+1\)</td><td>roots of \(D\)</td><td>none, a <strong>slant</strong> instead</td><td class="mono">4</td></tr>
+      <tr><td>a square root or \(\lvert x\rvert\) is present</td><td>roots of \(D\) in the domain</td><td>possibly <strong>two different</strong> ones</td><td class="mono">5</td></tr>
+      <tr><td>the graph meets its own horizontal line</td><td>unchanged</td><td>still a horizontal asymptote</td><td class="mono">6</td></tr>
+      <tr><td>\(e^{x}\), \(\ln\), \(\arctan\), \(\tan\)</td><td>wherever it blows up</td><td>one, two, or none</td><td class="mono">7</td></tr>
+      <tr><td>\(\lvert x\rvert\) inside a rational function</td><td>branch by branch, they can differ</td><td>branch by branch</td><td class="mono">8</td></tr>
+      <tr><td>the question gives the asymptotes and asks for a function</td><td>build \(D\) from the roots</td><td>build the leading ratio</td><td class="mono">9</td></tr>
+      <tr><td>the whole denominator cancels</td><td><strong>none</strong>, it is a polynomial with a hole</td><td>none</td><td class="mono">10</td></tr>
+      <tr><td>the question says "sketch the graph"</td><td>same work, step three of five</td><td>same</td><td class="mono">11</td></tr>
+      <tr><td>the question is phrased with \(\lim\)</td><td>translate, then do the same work</td><td>translate</td><td class="mono">12</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Q4.1 is Family 1</strong>, and Family 1 exists precisely because the naive route gets
+  Family 0's answer.</p>
+</section>
+
+<!-- ======================================================== 4 -->
+<section>
+  <span class="snum">SECTION 04</span>
+  <h2>The question worked four ways</h2>
+
+  <h3>Route A &nbsp;&middot;&nbsp; factor, cancel, then read off</h3>
+  $$f(x)=\frac{x^{2}-3x-4}{x^{2}-16}=\frac{(x-4)(x+1)}{(x-4)(x+4)}=\frac{x+1}{x+4},\qquad x\neq4$$
+  <div class="ledger">
+    <div class="cand pole">
+      <div class="cand-head">Candidate \(x=-4\) <span class="mark pole" style="margin-left:auto">asymptote</span></div>
+      <div class="cand-body"><dl>
+        <dt>numerator there</dt><dd>\((-4)^{2}-3(-4)-4=24\), and after cancelling, \(-4+1=-3\)</dd>
+        <dt>nonzero?</dt><dd>yes, so the quotient is \(\text{nonzero}/0\)</dd>
+        <dt>verdict</dt><dd>vertical asymptote \(x=-4\), multiplicity \(1\)</dd>
+        <dt>sides</dt><dd>\(+\infty\) from the left, \(-\infty\) from the right, so the limit does not exist</dd>
+      </dl></div>
+    </div>
+    <div class="cand hole">
+      <div class="cand-head">Candidate \(x=4\) <span class="mark hole" style="margin-left:auto">hole</span></div>
+      <div class="cand-body"><dl>
+        <dt>numerator there</dt><dd>\(4^{2}-3(4)-4=0\), so we have \(0/0\)</dd>
+        <dt>multiplicity</dt><dd>\(p=1\) upstairs and \(q=1\) downstairs, so \(q=p\)</dd>
+        <dt>verdict</dt><dd>a hole, at height \(\dfrac{4+1}{4+4}=\dfrac58\)</dd>
+        <dt>domain</dt><dd>\(x=4\) is still excluded, even though it is not an asymptote</dd>
+      </dl></div>
+    </div>
+  </div>
+  <p><strong>Horizontal.</strong> Reduced degrees are \(1\) over \(1\), leading coefficients \(1\)
+  and \(1\), so \(y=1\). Comparing the original degrees, \(2\) over \(2\), gives the same answer,
+  because cancelling a common factor cannot change the leading ratio.</p>
+
+  <h3>Route B &nbsp;&middot;&nbsp; solve "denominator = 0" without factoring</h3>
+  $$x^{2}-16=0 \implies x=4 \ \text{ or } \ x=-4$$
+  <p>"Therefore there are vertical asymptotes at \(x=4\) and \(x=-4\)."</p>
+  <div class="note trap">
+    <span class="tag">This is the answer the question was built to catch</span>
+    <p>It is fast, it looks finished, and it gets the horizontal asymptote right, so half the answer
+    is correct and nothing warns you about the other half. The warning you should have generated
+    yourself is one substitution: put \(x=4\) into the <strong>numerator</strong> and get
+    \(16-12-4=0\). A vertical asymptote needs a nonzero numerator. When both vanish you have
+    \(0/0\), which is the signature of a cancellation, and \(0/0\) is a limit to be computed, not an
+    asymptote to be declared.</p>
+    <p>Route B is not useless. It is Route A with step 1 skipped, and it is exactly right on every
+    function whose numerator shares no root, which is most of them. The fix is that one
+    substitution.</p>
+  </div>
+
+  <h3>Route C &nbsp;&middot;&nbsp; straight from the limit definitions</h3>
+  <p>If you distrust the shortcuts, or the question says "using limits", compute the four limits.</p>
+  $$\lim_{x\to\pm\infty}\frac{x^{2}-3x-4}{x^{2}-16}
+  =\lim_{x\to\pm\infty}\frac{1-\frac{3}{x}-\frac{4}{x^{2}}}{1-\frac{16}{x^{2}}}=\frac{1-0-0}{1-0}=1$$
+  $$\lim_{x\to4}\frac{(x-4)(x+1)}{(x-4)(x+4)}=\lim_{x\to4}\frac{x+1}{x+4}=\frac58
+  \quad\text{finite, so a hole and not an asymptote}$$
+  $$\lim_{x\to-4^{-}}\frac{x+1}{x+4}=\frac{-3}{0^{-}}=+\infty,\qquad
+  \lim_{x\to-4^{+}}\frac{x+1}{x+4}=\frac{-3}{0^{+}}=-\infty$$
+  <p>This route produces the most complete answer, because the one-sided limits come out of it for
+  free. It is also the route the marker wants if the wording is "justify".</p>
+
+  <h3>Route D &nbsp;&middot;&nbsp; rewrite as a shifted reciprocal</h3>
+  $$\frac{x+1}{x+4}=\frac{(x+4)-3}{x+4}=1-\frac{3}{x+4}$$
+  <div class="tw"><table>
+    <thead><tr><th>feature</th><th>why</th></tr></thead>
+    <tbody>
+      <tr><td class="isl">horizontal asymptote \(y=1\)</td><td>the \(\frac{3}{x+4}\) term vanishes at both ends</td></tr>
+      <tr><td class="isp">vertical asymptote \(x=-4\)</td><td>that term blows up there</td></tr>
+      <tr class="hl"><td>the graph <strong>never</strong> touches \(y=1\)</td><td>\(\frac{3}{x+4}=0\) has no solution</td></tr>
+      <tr><td>increasing on each branch</td><td>the derivative is \(\frac{3}{(x+4)^{2}}&gt;0\)</td></tr>
+      <tr><td>it is \(-3/x\) shifted left \(4\) and up \(1\)</td><td>that is what the form says</td></tr>
+    </tbody>
+  </table></div>
+  <p>This is a hyperbola, not a mysterious object, and Route D is the one to use if the question
+  continues "and sketch it", which is the Family 11 follow-up. It is also what produced the graph at
+  the top of this page.</p>
+
+  <h3>The route comparison</h3>
+  <div class="tw"><table>
+    <thead><tr><th></th><th>A: factor and cancel</th><th>B: denominator \(=0\)</th><th>C: limits</th><th>D: rewrite</th></tr></thead>
+    <tbody>
+      <tr><td>Gets the horizontal asymptote</td><td class="ish">yes</td><td class="ish">yes</td><td class="ish">yes</td><td class="ish">yes</td></tr>
+      <tr class="hl"><td>Gets the vertical asymptote</td><td class="ish">yes</td><td class="isp">no, invents an extra one</td><td class="ish">yes</td><td class="ish">yes</td></tr>
+      <tr><td>Finds the hole</td><td class="ish">yes</td><td class="isp">no</td><td class="ish">yes</td><td>not directly</td></tr>
+      <tr><td>Gives the one-sided signs</td><td>after a sign test</td><td class="isp">no</td><td class="ish">yes, for free</td><td class="ish">yes</td></tr>
+      <tr><td>Gives the shape for a sketch</td><td>no</td><td>no</td><td>no</td><td class="ish">yes</td></tr>
+      <tr><td>Works on a slant version</td><td>yes</td><td>partly</td><td>yes</td><td>yes, that <em>is</em> the division</td></tr>
+      <tr><td>Lines of work here</td><td class="mono">4</td><td class="mono">2</td><td class="mono">8</td><td class="mono">5</td></tr>
+      <tr><td>Risk</td><td>a factoring slip</td><td>a wrong answer that looks right</td><td>slow, and \(0/0\) still needs A</td><td>the division must be right</td></tr>
+    </tbody>
+  </table></div>
+  <div class="routes" style="margin-top:14px">
+    <div class="route pick"><h4>Under exam pressure</h4>
+      <p>Factor both, cancel, read the surviving roots and the leading ratio. Then spend the last ten
+      seconds on the sign test at the asymptote and the height of the hole, because those are usually
+      the extra boxes.</p></div>
+    <div class="route"><h4>When the wording changes</h4>
+      <p>"Justify" or "using limits" means Route C. "And sketch" means Route D. Route B is never a
+      method on its own; it is Route A with its first step missing.</p></div>
+  </div>
+</section>
+
+<!-- ======================================================== 5 -->
+<section>
+  <span class="snum">SECTION 05</span>
+  <h2>The exam-ready write-up</h2>
+  <p class="sub">If the paper you sit asks for method, these are the sentences that earn the marks.
+  Ten points wants roughly this much.</p>
+
+  <div class="note">
+    <span class="tag">Model answer</span>
+    <p>Factoring gives \(f(x)=\dfrac{(x-4)(x+1)}{(x-4)(x+4)}\), so for \(x\neq4\) we have
+    \(f(x)=\dfrac{x+1}{x+4}\).</p>
+    <p><strong>Vertical.</strong> The reduced denominator vanishes only at \(x=-4\), where the
+    numerator equals \(-3\neq0\). Hence \(\lim_{x\to-4^{-}}f=+\infty\) and
+    \(\lim_{x\to-4^{+}}f=-\infty\), and \(x=-4\) is the only vertical asymptote. The two-sided limit
+    at \(-4\) therefore does not exist.</p>
+    <p><strong>The other root of the denominator is not an asymptote.</strong> The factor \((x-4)\)
+    cancels, and \(\lim_{x\to4}f(x)=\dfrac58\), which is finite. So \(f\) has a removable
+    discontinuity (a hole) at \(\left(4,\tfrac58\right)\), not a vertical asymptote, although
+    \(x=4\) is still excluded from the domain.</p>
+    <p><strong>Horizontal.</strong> The numerator and denominator have equal degree with leading
+    coefficients \(1\) and \(1\), so \(\lim_{x\to\pm\infty}f(x)=1\) and \(y=1\) is a horizontal
+    asymptote in both directions.</p>
+  </div>
+
+  <h3>Four things a marker looks for that students routinely skip</h3>
+  <div class="wrongright">
+    <div class="wr ok"><span class="k">Saying why x = -4 survives</span>
+      <p>By checking the numerator is nonzero there. Without that sentence you have asserted an
+      asymptote rather than shown one.</p></div>
+    <div class="wr ok"><span class="k">Naming x = 4 and disposing of it</span>
+      <p>An answer that lists only \(x=-4\) reads like a student who never noticed the second root.
+      Say it: the factor cancels, the limit is finite, it is a hole.</p></div>
+    <div class="wr ok"><span class="k">Separating "not an asymptote" from "in the domain"</span>
+      <p>\(x=4\) is not in the domain of \(f\). Cancelling produced a different function that happens
+      to agree with \(f\) everywhere else.</p></div>
+    <div class="wr ok"><span class="k">Giving both one-sided limits</span>
+      <p>This is the difference between "\(\lim=\infty\)", which is wrong, and "the limit does not
+      exist; \(+\infty\) from the left and \(-\infty\) from the right", which is right.</p></div>
+  </div>
+</section>
+
+<!-- ======================================================== 6 -->
+<section>
+  <span class="snum">SECTION 06</span>
+  <h2>Verify before you commit</h2>
+  <p class="sub">About twenty seconds, and it catches every error this question can produce.</p>
+
+  <h3>Walk up to each candidate and see what happens</h3>
+  <div class="tw"><table>
+    <thead><tr><th>\(x\)</th><th>\(f(x)\)</th><th>reading</th></tr></thead>
+    <tbody>
+      <tr><td class="mono nw">-4.1</td><td class="mono">\(\dfrac{-3.1}{-0.1}=31\)</td><td class="isp">large and positive, so \(+\infty\) from the left</td></tr>
+      <tr><td class="mono nw">-3.9</td><td class="mono">\(\dfrac{-2.9}{0.1}=-29\)</td><td class="isp">large and negative, so \(-\infty\) from the right</td></tr>
+      <tr class="hl"><td class="mono nw">3.999</td><td class="mono">0.6249</td><td class="ish">small, so <strong>not</strong> an asymptote</td></tr>
+      <tr class="hl"><td class="mono nw">4.001</td><td class="mono">0.6251</td><td class="ish">small from the other side too, so a hole</td></tr>
+    </tbody>
+  </table></div>
+  <p>The contrast between rows two and three is the whole question in four arithmetic steps. If
+  \(f(3.999)\) had come out in the thousands you would have been wrong about the hole.</p>
+
+  <h3>Then go far out, in both directions</h3>
+  <p>\(f(100)=\dfrac{101}{104}\approx0.9712\) and \(f(-100)=\dfrac{99}{96}=1.03125\). Both close to
+  \(1\), approaching from opposite sides, which matches \(f=1-\dfrac{3}{x+4}\): the correction is
+  negative for \(x&gt;-4\) and positive for \(x&lt;-4\).</p>
+
+  <h3>Count the candidates</h3>
+  <p>A quotient of two quadratics has at most two vertical asymptotes. You found one, so exactly one
+  factor must have cancelled, and you should be able to name it. If you claim two asymptotes and no
+  hole, check whether the numerator vanishes at either root. If you claim one asymptote and no hole,
+  you have lost a root somewhere.</p>
+
+  <h3>The numbers worth memorising</h3>
+  <div class="nums">
+    <div class="num"><div class="v">5/8</div><div class="n">the hole height, 0.625</div></div>
+    <div class="num"><div class="v">1/4</div><div class="n">f(0), the y-intercept</div></div>
+    <div class="num"><div class="v">-1</div><div class="n">the only x-intercept</div></div>
+    <div class="num"><div class="v">4</div><div class="n">f(-5), on the left branch</div></div>
+    <div class="num"><div class="v">+31</div><div class="n">f(-4.1), left of the asymptote</div></div>
+    <div class="num"><div class="v">-29</div><div class="n">f(-3.9), right of it</div></div>
+    <div class="num"><div class="v">101/104</div><div class="n">f(100), below y = 1</div></div>
+    <div class="num"><div class="v">99/96</div><div class="n">f(-100), above y = 1</div></div>
+  </div>
+  <p>The first four are enough to sketch the right-hand branch from memory: it starts at
+  \(-\infty\) just right of \(-4\), crosses the \(x\)-axis at \(-1\), passes
+  \(\left(0,\tfrac14\right)\), has a hole at \(\left(4,\tfrac58\right)\), and climbs towards \(1\)
+  without ever reaching it.</p>
+</section>
+
+<!-- ======================================================== 7 -->
+<section>
+  <span class="snum">SECTION 07</span>
+  <h2>Answer-entry rules</h2>
+  <p class="sub">M&ouml;bius is answer-only and machine-marked, so on a question whose mathematics is
+  four lines the real risk is the shape of the box.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>A vertical asymptote is an equation in \(x\)</td><td class="mono">x=-4</td><td class="mono">-4 alone, if the box already shows "x ="</td></tr>
+      <tr><td>A horizontal asymptote is an equation in \(y\)</td><td class="mono">y=1</td><td class="mono">x=1</td></tr>
+      <tr><td>Exact heights</td><td class="mono">5/8</td><td class="mono">0.625, unless decimals are asked for</td></tr>
+      <tr><td>The hole as a point</td><td class="mono">(4,5/8)</td><td class="mono">4,5/8</td></tr>
+      <tr><td>Infinity</td><td class="mono">infinity, -infinity</td><td class="mono">inf, oo</td></tr>
+      <tr><td>No asymptote exists</td><td class="mono">none or DNE, as the item offers</td><td>a blank box</td></tr>
+      <tr><td>Two asymptotes in one box</td><td class="mono">x=-4,x=4</td><td class="mono">x=-4 and x=4</td></tr>
+      <tr><td>Multiplication</td><td class="mono">3*x</td><td class="mono">3x</td></tr>
+      <tr class="hl"><td>The simplified function</td><td class="mono">(x+1)/(x+4)</td><td class="mono">x+1/x+4</td></tr>
+      <tr><td>The domain</td><td class="mono">(-infinity,-4)U(-4,4)U(4,infinity)</td><td>a comma between intervals</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note trap">
+    <span class="tag">The single most expensive answer on this question</span>
+    <p><code class="inl">x=4, x=-4</code>. It is well formed, it parses, it is the answer to a
+    question the examiner deliberately did not ask, and it is what Route B produces. Before you
+    submit any vertical asymptote, substitute its \(x\) into the <strong>numerator</strong> and
+    confirm you do not get zero.</p>
+  </div>
+  <div class="note trap">
+    <span class="tag">The second most expensive</span>
+    <p><code class="inl">x+1/x+4</code>. Without brackets that parses as \(x+\dfrac1x+4\), which at
+    \(x=4\) gives \(8.25\) instead of \(\dfrac58\). Bracket the whole numerator and the whole
+    denominator, every time.</p>
+  </div>
+  <div class="note">
+    <span class="tag">Do not overcorrect</span>
+    <p>Two vertical asymptotes is a legitimate answer to other versions.
+    \(\dfrac{2x^{2}+5}{x^{2}-9}\) genuinely has asymptotes at \(x=3\) and \(x=-3\), because
+    \(2x^{2}+5\) is never zero. The rule is "check the numerator", not "expect a hole".</p>
+    <p>And the domain still excludes the hole. If a box asks for the domain, write three intervals,
+    not two. The point people drop is \(4\), exactly the one they just decided was "only a
+    hole".</p>
+  </div>
+</section>
+
+<!-- ======================================================== 8 -->
+<section>
+  <span class="snum">SECTION 08</span>
+  <h2>The variation catalog</h2>
+  <p class="sub">The families are organised by <strong>what the factored form forces you to
+  do</strong>, not by what the function looks like on the page. Read the whole catalog as one idea
+  seen thirteen times: only three things ever vary. Whether a factor cancels, how the degrees
+  compare, and whether the two ends of the graph behave the same way.</p>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 0</span><span class="fam-t">No common factor: the plain degree rule</span><span class="mark pole">every root is a pole</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>The numerator and denominator share no root. Substituting a root of the denominator into the numerator gives something nonzero.</dd>
+        <dt>Tool</dt><dd>Roots of the denominator are all vertical asymptotes; the degree rule gives the horizontal one.</dd>
+        <dt>Trap</dt><dd>Assuming this family when you are actually in Family 1. The test is one substitution.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>vertical</th><th>horizontal</th><th>note</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{3x^{2}+1}{x^{2}-4}\)</td><td class="isp">\(x=2\), \(x=-2\)</td><td class="isl">\(y=3\)</td><td>\(3x^{2}+1\) is never zero</td></tr>
+          <tr><td>\(\dfrac{2x+1}{x^{2}-9}\)</td><td class="isp">\(x=3\), \(x=-3\)</td><td class="isl">\(y=0\)</td><td>degree \(1\) under degree \(2\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-1}{2x^{2}+3x}\)</td><td class="isp">\(x=0\), \(x=-\tfrac32\)</td><td class="isl">\(y=\tfrac12\)</td><td>denominator is \(x(2x+3)\)</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}+16}\)</td><td><strong>none</strong></td><td class="isl">\(y=1\)</td><td>a <em>sum</em> of squares never vanishes</td></tr>
+        </tbody>
+      </table></div>
+      <p>The vertical column is always just "solve \(D=0\)" and the horizontal column is always just
+      "compare two leading coefficients". Row 4 is the exam question with one sign changed in the
+      denominator, and that one sign removes both vertical asymptotes and the hole at once.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 1</span><span class="fam-t">A factor cancels: a hole, not an asymptote. This is the exam question</span><span class="mark hole">one root becomes a hole</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>A root of the denominator also makes the numerator zero. You have \(0/0\) at that point.</dd>
+        <dt>Tool</dt><dd>Factor, cancel, then apply Family 0 to what is left. The cancelled roots are holes.</dd>
+        <dt>Trap</dt><dd>Reporting the cancelled root as an asymptote, which is Route B.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>reduces to</th><th>horizontal</th><th>vertical</th><th>hole</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}-16}\)</td><td>\(\dfrac{x+1}{x+4}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=-4\)</td><td class="ish">\(\left(4,\tfrac58\right)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-1}{x^{2}-x}\)</td><td>\(\dfrac{x+1}{x}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=0\)</td><td class="ish">\((1,2)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-4}{x^{2}-5x+6}\)</td><td>\(\dfrac{x+2}{x-3}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=3\)</td><td class="ish">\((2,-4)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-9}{x^{2}+x-12}\)</td><td>\(\dfrac{x+3}{x+4}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=-4\)</td><td class="ish">\(\left(3,\tfrac67\right)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-3x-4}{x^{2}-1}\)</td><td>\(\dfrac{x-4}{x-1}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=1\)</td><td class="ish">\(\left(-1,\tfrac52\right)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}+x-2}{x^{2}-4x+3}\)</td><td>\(\dfrac{x+2}{x-3}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=3\)</td><td class="ish">\(\left(1,-\tfrac32\right)\)</td></tr>
+          <tr><td>\(\dfrac{x-4}{x^{2}-16}\)</td><td>\(\dfrac{1}{x+4}\)</td><td class="isl">\(y=0\)</td><td class="isp">\(x=-4\)</td><td class="ish">\(\left(4,\tfrac18\right)\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-16}{x^{2}-3x-4}\)</td><td>\(\dfrac{x+4}{x+1}\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=-1\)</td><td class="ish">\(\left(4,\tfrac85\right)\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The horizontal column is \(y=1\) six times out of eight, and that is not a coincidence: it
+      is what "the examiner wants the hole to be the interesting part" looks like. Row 7 is the
+      version where the numerator loses a degree in the cancellation, and it is the only row where
+      the horizontal asymptote moves. Row 8 is the exam question turned upside down: the same
+      cancelled factor, so the same hole location, but a completely different vertical asymptote.</p>
+      <div class="note trap">
+        <span class="tag">Row 5 deserves a second look</span>
+        <p>It uses the <strong>same numerator</strong> as the exam question with a different
+        denominator, so the shared factor is now \((x+1)\) and not \((x-4)\). A student who
+        memorised "the hole is at \(4\)" instead of "the hole is where the factors match" gets this
+        one wrong.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 2</span><span class="fam-t">A repeated factor: the parity decides the signs</span><span class="mark pole">still a pole</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>A factor appears squared or cubed downstairs, or the same factor appears to different powers on both sides.</dd>
+        <dt>Tool</dt><dd>Compare multiplicities per 2.4, then use parity for the sign pattern.</dd>
+        <dt>Trap</dt><dd>"Something cancelled, so it must be a hole." A partial cancellation is still an asymptote.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>at the root</th><th>left</th><th>right</th><th>two-sided limit</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{1}{x-2}\)</td><td class="isp">asymptote, odd</td><td>\(-\infty\)</td><td>\(+\infty\)</td><td>does not exist</td></tr>
+          <tr><td>\(\dfrac{1}{(x-2)^{2}}\)</td><td class="isp">asymptote, even</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(=+\infty\)</td></tr>
+          <tr><td>\(\dfrac{x}{(x-1)^{3}}\)</td><td class="isp">asymptote, odd</td><td>\(-\infty\)</td><td>\(+\infty\)</td><td>does not exist</td></tr>
+          <tr><td>\(\dfrac{x+1}{(x-3)^{2}}\)</td><td class="isp">asymptote, even</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(=+\infty\)</td></tr>
+          <tr class="hl"><td>\(\dfrac{x-1}{(x-1)^{2}}=\dfrac{1}{x-1}\)</td><td class="isp">asymptote, \(q&gt;p\)</td><td>\(-\infty\)</td><td>\(+\infty\)</td><td>does not exist</td></tr>
+          <tr class="hl"><td>\(\dfrac{(x-1)^{2}}{x-1}=x-1\)</td><td class="ish">hole at height \(0\), \(p&gt;q\)</td><td>finite</td><td>finite</td><td>\(=0\)</td></tr>
+          <tr><td>\(\dfrac{\cos(\pi x)}{(x-2)^{2}}\) <em>[Q3.1f]</em></td><td class="isp">asymptote, even</td><td>\(+\infty\)</td><td>\(+\infty\)</td><td>\(=+\infty\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Rows 5 and 6 are the same two polynomials in the two possible orders and they land on
+      opposite verdicts. That pair is the cheapest way to remember 2.4. Note also that the exam
+      question's own answer sits in row 1's pattern: multiplicity one, so the sides disagree, so the
+      limit at \(-4\) does not exist.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 3</span><span class="fam-t">The denominator has no real root</span><span class="mark none">no vertical asymptote</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>A sum of squares, a quadratic with negative discriminant, or an even power plus a positive constant.</dd>
+        <dt>Tool</dt><dd>Check the discriminant, or complete the square, and say so explicitly.</dd>
+        <dt>Trap</dt><dd>Solving \(D=0\), getting complex numbers, and writing them down as asymptotes.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>why the denominator never vanishes</th><th>vertical</th><th>horizontal</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{1}{x^{2}+1}\)</td><td>\(x^{2}+1\geq1\)</td><td>none</td><td class="isl">\(y=0\)</td></tr>
+          <tr><td>\(\dfrac{2x^{2}+3}{x^{2}+4}\)</td><td>\(x^{2}+4\geq4\)</td><td>none</td><td class="isl">\(y=2\)</td></tr>
+          <tr><td>\(\dfrac{x}{x^{2}+2x+5}\)</td><td>discriminant \(4-20=-16&lt;0\); minimum value \(4\)</td><td>none</td><td class="isl">\(y=0\)</td></tr>
+          <tr><td>\(\dfrac{3x^{2}-4}{2x^{4}+2x+4}\) <em>[Q3.3a]</em></td><td>no real root</td><td>none</td><td class="isl">\(y=0\)</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}+16}\)</td><td>a sum of squares</td><td>none</td><td class="isl">\(y=1\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The last row is worth thirty seconds against the exam question. Changing \(x^{2}-16\) to
+      \(x^{2}+16\) deletes the vertical asymptote, deletes the hole, and leaves the horizontal
+      asymptote untouched. That is a very cheap reworking for an examiner to make.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 4</span><span class="fam-t">Degree gap of one: a slant asymptote instead</span><span class="mark level">tilted, not level</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>After cancelling, the numerator's degree is exactly one more than the denominator's.</dd>
+        <dt>Tool</dt><dd>Polynomial long division. The quotient is the slant asymptote; the remainder term vanishes.</dd>
+        <dt>Trap</dt><dd>Writing "no asymptote" because there is no horizontal one. There is one, it is just tilted.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>long division</th><th>slant</th><th>vertical</th><th>horizontal</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{x^{2}+1}{x-1}\)</td><td>\(x+1+\dfrac{2}{x-1}\)</td><td class="isl">\(y=x+1\)</td><td class="isp">\(x=1\)</td><td>none</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x+4}\)</td><td>\(x-7+\dfrac{24}{x+4}\)</td><td class="isl">\(y=x-7\)</td><td class="isp">\(x=-4\)</td><td>none</td></tr>
+          <tr><td>\(\dfrac{2x^{2}+1}{x}\)</td><td>\(2x+\dfrac{1}{x}\)</td><td class="isl">\(y=2x\)</td><td class="isp">\(x=0\)</td><td>none</td></tr>
+          <tr><td>\(\dfrac{5-2x^{3}}{x^{2}+2}\) <em>[Q3.1d]</em></td><td>\(-2x+\dfrac{4x+5}{x^{2}+2}\)</td><td class="isl">\(y=-2x\)</td><td>none</td><td>none</td></tr>
+          <tr><td>\(\dfrac{x^{3}+2}{x^{2}-1}\)</td><td>\(x+\dfrac{x+2}{x^{2}-1}\)</td><td class="isl">\(y=x\)</td><td class="isp">\(x=1\), \(x=-1\)</td><td>none</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row 2 is the exam question with one factor removed from the denominator, so the
+      cancellation no longer happens and the degree gap opens up. It is the most natural single edit
+      an examiner can make to this question, and it changes the answer completely: the hole
+      disappears, \(x=-4\) stays, and the horizontal asymptote becomes a slant. Row 4 is the exam's
+      own limit \(\lim_{x\to\infty}\dfrac{5-2x^{3}}{x^{2}+2}\) restated as an asymptote question.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 5</span><span class="fam-t">The two ends disagree: two horizontal asymptotes</span><span class="mark level">two levels</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>A square root, an absolute value, or an exponential. Anything where replacing \(x\) by \(-x\) is not just a sign change in the leading term.</dd>
+        <dt>Tool</dt><dd>Do the two limits separately, and remember \(\sqrt{x^{2}}=\lvert x\rvert\), which is \(-x\) when \(x&lt;0\).</dd>
+        <dt>Trap</dt><dd>Doing one limit and asserting the other by symmetry, which is only valid for rational functions.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>\(x\to+\infty\)</th><th>\(x\to-\infty\)</th><th>vertical</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{\sqrt{x^{2}+1}}{x}\)</td><td class="isl">\(y=1\)</td><td class="isl">\(y=-1\)</td><td class="isp">\(x=0\)</td></tr>
+          <tr><td>\(\dfrac{3x}{\sqrt{4x^{2}+1}}\)</td><td class="isl">\(y=\tfrac32\)</td><td class="isl">\(y=-\tfrac32\)</td><td>none</td></tr>
+          <tr><td>\(\dfrac{x}{\lvert x\rvert+1}\)</td><td class="isl">\(y=1\)</td><td class="isl">\(y=-1\)</td><td>none</td></tr>
+          <tr><td>\(\dfrac{\sqrt{x^{2}-1}}{x^{2}-2x-8}\)</td><td class="isl">\(y=0\)</td><td class="isl">\(y=0\)</td><td class="isp">\(x=4\), \(x=-2\)</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}-16}\)</td><td class="isl">\(y=1\)</td><td class="isl">\(y=1\)</td><td class="isp">\(x=-4\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The last row is here on purpose. The exam question belongs to the case where the two ends
+      <strong>agree</strong>, and it agrees for a reason worth naming: \(\sqrt{x^{2}}\) never
+      appears, so nothing distinguishes large positive \(x\) from large negative \(x\) except a sign
+      that cancels top and bottom. Every rational function is in that situation, which is why "the
+      horizontal asymptote" (singular) is safe language for rational functions and dangerous language
+      for anything else.</p>
+      <p>Row 4 carries a domain subtlety. \(\sqrt{x^{2}-1}\) needs \(\lvert x\rvert\geq1\), and both
+      \(4\) and \(-2\) clear that, so both roots of \((x-4)(x+2)\) really are asymptotes. Had a root
+      fallen inside \((-1,1)\) it would not have been one, because the function does not exist near
+      it.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 6</span><span class="fam-t">A horizontal asymptote is not a barrier</span><span class="mark level">crossing is legal</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>The question asks whether the graph can cross an asymptote, or a sketch appears to cross one.</dd>
+        <dt>Tool</dt><dd>Solve \(f(x)=L\). Solutions are crossings, and crossings are perfectly legal.</dd>
+        <dt>Trap</dt><dd>Believing a graph is trapped on one side of its horizontal asymptote.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>horizontal</th><th>crosses it at</th><th>comment</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{x}{x^{2}+1}\)</td><td class="isl">\(y=0\)</td><td>\(x=0\)</td><td>crosses once, then returns</td></tr>
+          <tr><td>\(\dfrac{x^{2}-2x}{x^{2}+1}\)</td><td class="isl">\(y=1\)</td><td>\(x=-\tfrac12\)</td><td>crosses once</td></tr>
+          <tr><td>\(\dfrac{2x^{2}-3x}{x^{2}+1}\)</td><td class="isl">\(y=2\)</td><td>\(x=-\tfrac23\)</td><td>crosses once</td></tr>
+          <tr><td>\(\dfrac{\sin x}{x}\)</td><td class="isl">\(y=0\)</td><td>\(x=k\pi\), every one</td><td>crosses infinitely often</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}-16}\)</td><td class="isl">\(y=1\)</td><td><strong>never</strong></td><td>\(1-\dfrac{3}{x+4}=1\) has no solution</td></tr>
+        </tbody>
+      </table></div>
+      <p>The exam question happens not to cross, and it is worth knowing <em>why</em> rather than
+      assuming it is a rule. Reaching the asymptote would need \(\dfrac{3}{x+4}=0\), and a nonzero
+      constant over anything is never zero. A vertical asymptote is different and genuinely is a
+      barrier, because the function is not defined there at all.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 7</span><span class="fam-t">Not a rational function</span><span class="mark none">no degree rule</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>\(e^{x}\), \(\ln\), \(\arctan\), \(\tan\), or a logistic-shaped quotient.</dd>
+        <dt>Tool</dt><dd>The definitions in 2.1 directly.</dd>
+        <dt>Trap</dt><dd>Reaching for degrees when there are no degrees.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>horizontal</th><th>vertical</th><th>comment</th></tr></thead>
+        <tbody>
+          <tr><td>\(e^{x}\)</td><td class="isl">\(y=0\) at \(-\infty\) only</td><td>none</td><td>one end has an asymptote, the other does not</td></tr>
+          <tr><td>\(e^{-x}\)</td><td class="isl">\(y=0\) at \(+\infty\) only</td><td>none</td><td>the mirror image</td></tr>
+          <tr><td>\(\ln x\)</td><td>none</td><td class="isp">\(x=0\), from the right</td><td>one-sided, and still an asymptote</td></tr>
+          <tr><td>\(\arctan x\)</td><td class="isl">\(y=\tfrac{\pi}{2}\) and \(y=-\tfrac{\pi}{2}\)</td><td>none</td><td><strong>two</strong> horizontal asymptotes</td></tr>
+          <tr class="hl"><td>\(\tan x\) <em>[Q3.3b]</em></td><td>none</td><td class="isp">\(x=\tfrac{\pi}{2}+k\pi\), infinitely many</td><td>never settles, so no horizontal one</td></tr>
+          <tr><td>\(\dfrac{1}{e^{x}-1}\)</td><td class="isl">\(y=0\) at \(+\infty\), \(y=-1\) at \(-\infty\)</td><td class="isp">\(x=0\), sides disagree</td><td>two different horizontal asymptotes</td></tr>
+          <tr><td>\(\dfrac{2^{x}}{2^{x}+1}\)</td><td class="isl">\(y=1\) at \(+\infty\), \(y=0\) at \(-\infty\)</td><td>none</td><td>the logistic shape</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row 5 is Q3.3(b) on the same paper, which asks for \(\lim_{x\to5\pi/2}\tan x\). That limit
+      does not exist precisely because \(5\pi/2=\pi/2+2\pi\) is one of \(\tan\)'s vertical asymptotes
+      and the two sides disagree, which is the same sentence as this question's answer at \(x=-4\)
+      with a different function in it.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 8</span><span class="fam-t">An absolute value splits the function into branches</span><span class="mark hole">branch by branch</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>\(\lvert x\rvert\) or \(\lvert x-a\rvert\) appears anywhere.</dd>
+        <dt>Tool</dt><dd>Split at the point inside the bars and analyse each branch separately. Use \(x^{2}=\lvert x\rvert^{2}\) when it helps.</dd>
+        <dt>Trap</dt><dd>Treating \(\lvert x\rvert\) as \(x\), which is the same trap as Q1.3.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>branch \(x&gt;0\)</th><th>branch \(x&lt;0\)</th><th>net result</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3\lvert x\rvert-4}{x^{2}-16}\)</td><td>\(\dfrac{x+1}{x+4}\)</td><td>\(\dfrac{x-1}{x-4}\)</td><td><strong>no vertical asymptote at all</strong>; holes at \(\left(4,\tfrac58\right)\) and \(\left(-4,\tfrac58\right)\); \(y=1\) both ends</td></tr>
+          <tr><td>\(\dfrac{\lvert x\rvert}{x-2}\)</td><td>\(\dfrac{x}{x-2}\)</td><td>\(\dfrac{-x}{x-2}\)</td><td>asymptote \(x=2\); \(y=1\) at \(+\infty\) and \(y=-1\) at \(-\infty\)</td></tr>
+          <tr><td>\(\dfrac{x^{2}-4}{\lvert x-2\rvert}\)</td><td>\(x+2\)</td><td>\(-(x+2)\)</td><td>at \(x=2\) a <strong>jump</strong> from \(-4\) to \(4\), neither hole nor asymptote</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note good">
+        <span class="tag">Row 1 is the most instructive variation on this page</span>
+        <p>It is the exam question with three characters changed, and it has <strong>no vertical
+        asymptote</strong>. For \(x&gt;0\) the numerator factors as \((x-4)(x+1)\), cancelling the
+        \((x-4)\); for \(x&lt;0\) it becomes \(x^{2}+3x-4=(x+4)(x-1)\), cancelling the \((x+4)\).
+        Each branch cancels the root that lives in it, so both roots of \(x^{2}-16\) turn into holes,
+        and both holes sit at the same height \(\tfrac58\).</p>
+      </div>
+      <p>Row 3 is the reminder that "the denominator is zero" has a third possible meaning. The two
+      one-sided limits are finite and different, so there is a jump discontinuity, which is neither
+      of the two things this question asks about.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 9</span><span class="fam-t">The reverse question: build a function with given asymptotes</span><span class="mark level">work backwards</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>"Give an example of a function with ...", or "find \(k\) so that ...".</dd>
+        <dt>Tool</dt><dd>Put the vertical asymptotes in the denominator as factors, and set the leading ratio to the horizontal asymptote.</dd>
+        <dt>Trap</dt><dd>Building a numerator that accidentally shares a root with the denominator, so your asymptote is a hole.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>specification</th><th>one answer</th><th>check</th></tr></thead>
+        <tbody>
+          <tr><td>vertical \(x=3\), horizontal \(y=2\)</td><td>\(\dfrac{2x}{x-3}=2+\dfrac{6}{x-3}\)</td><td>\(2x\) is nonzero at \(3\)</td></tr>
+          <tr><td>vertical \(x=\pm1\), horizontal \(y=0\)</td><td>\(\dfrac{1}{x^{2}-1}\)</td><td>numerator never zero</td></tr>
+          <tr class="hl"><td>vertical \(x=-4\), horizontal \(y=1\), hole at \(x=4\)</td><td>\(\dfrac{(x-4)(x+1)}{(x-4)(x+4)}\)</td><td><strong>this is the exam question</strong>, built backwards</td></tr>
+          <tr><td>vertical \(x=2\), slant \(y=x\)</td><td>\(x+\dfrac{1}{x-2}=\dfrac{(x-1)^{2}}{x-2}\)</td><td>degree \(2\) over degree \(1\)</td></tr>
+          <tr><td>horizontal \(y=3\) and \(y=0\), no vertical</td><td>\(\dfrac{3}{1+e^{-x}}\)</td><td>denominator \(&gt;1\) always</td></tr>
+          <tr><td>find \(k\): \(\dfrac{kx^{2}+1}{x^{2}-4}\) has \(y=5\)</td><td>\(k=5\)</td><td>the leading ratio is \(k/1\)</td></tr>
+          <tr><td>find \(a\): \(\dfrac{x^{2}-a}{x-3}\) has a hole at \(3\)</td><td>\(a=9\)</td><td>the numerator must vanish at \(3\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row 3 is the exam question stated in reverse, and building it once is the fastest way to
+      understand why it was set. The examiner chose a numerator sharing exactly one root with the
+      denominator, which is the minimum edit that turns a routine Family 0 question into a
+      discriminating one.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 10</span><span class="fam-t">Degenerate cases</span><span class="mark none">often no asymptote at all</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>The denominator divides the numerator completely, or the function is already a polynomial.</dd>
+        <dt>Tool</dt><dd>Divide it out and look at what you have. Often the honest answer is "no asymptotes".</dd>
+        <dt>Trap</dt><dd>Assuming every question in this topic must have an answer of each kind.</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>what it really is</th><th>vertical</th><th>horizontal</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\dfrac{x^{2}-16}{x-4}=x+4\)</td><td>a <strong>line</strong> with a hole at \((4,8)\)</td><td>none</td><td>none</td></tr>
+          <tr><td>\(\dfrac{(x-4)^{2}}{x-4}=x-4\)</td><td>a line with a hole at \((4,0)\)</td><td>none</td><td>none</td></tr>
+          <tr class="hl"><td>\(\dfrac{x-4}{(x-4)^{2}}=\dfrac{1}{x-4}\)</td><td>a hyperbola</td><td class="isp">\(x=4\)</td><td class="isl">\(y=0\)</td></tr>
+          <tr><td>\(x^{2}-3x-4\)</td><td>a parabola</td><td>none</td><td>none</td></tr>
+          <tr><td>\(\dfrac{x^{2}+1}{x^{2}+1}=1\)</td><td>the constant \(1\)</td><td>none</td><td class="isl">\(y=1\), and the graph <em>is</em> the line</td></tr>
+        </tbody>
+      </table></div>
+      <p>Rows 1 and 3 are the same two factors in the two possible orders and they land on opposite
+      answers, which is 2.4 restated one final time. Row 5 is the pedantic case: the limit at
+      infinity is \(1\), so by the definition \(y=1\) is a horizontal asymptote even though the graph
+      coincides with it. Most textbooks accept this; if a question ever hinges on it, say what you
+      mean rather than just writing the equation.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 11</span><span class="fam-t">Asymptotes as step three of a curve sketch</span><span class="mark level">the frame</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>"Sketch the graph. State all critical points, cusps, vertical asymptotes and points of inflection."</dd>
+        <dt>Tool</dt><dd>The same work, dropped into a fixed five-step order.</dd>
+        <dt>Trap</dt><dd>Sketching from the derivative alone and never establishing the frame.</dd>
+      </dl>
+      <div class="note good">
+        <span class="tag">The order that never fails</span>
+        <p><strong>Domain, intercepts, asymptotes, \(f'\), \(f''\).</strong> Asymptotes come third
+        because they are the frame the rest of the curve hangs on.</p>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>function</th><th>vertical</th><th>horizontal</th><th>source</th></tr></thead>
+        <tbody>
+          <tr><td>\(\dfrac{x^{2}}{x^{2}-1}\)</td><td class="isp">\(x=1\), \(x=-1\)</td><td class="isl">\(y=1\)</td><td>Final Exam 1, Q4a, 20 points</td></tr>
+          <tr><td>\(x+\sin x\)</td><td>none</td><td>none</td><td>Final Exam 1, Q4b</td></tr>
+          <tr class="hl"><td>\(\dfrac{x^{2}-3x-4}{x^{2}-16}\)</td><td class="isp">\(x=-4\)</td><td class="isl">\(y=1\)</td><td>this question, plus a hole at \(\left(4,\tfrac58\right)\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>\(\dfrac{x^{2}}{x^{2}-1}\) is the closest relative on the final paper, and it is Family 0
+      rather than Family 1: the numerator \(x^{2}\) does not vanish at \(\pm1\), so both roots really
+      are asymptotes. Working the two side by side is the best single drill for this topic, because
+      they differ only in whether the cancellation happens.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 12</span><span class="fam-t">The same facts written as limit statements</span><span class="mark none">translate first</span></div>
+    <div class="fam-body">
+      <dl class="trig">
+        <dt>Trigger</dt><dd>Conditions like "\(\lim_{x\to3}f(x)=\infty\)" with an instruction to interpret or sketch, which is Q5.1, Q5.2 and Q5.3 on this paper.</dd>
+        <dt>Tool</dt><dd>Translate each statement into a feature, then draw.</dd>
+        <dt>Trap</dt><dd>Reading "\(\lim=\infty\)" as "the limit exists".</dd>
+      </dl>
+      <div class="tw"><table>
+        <thead><tr><th>Statement</th><th>Feature</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to\infty}f(x)=L\)</td><td class="isl">horizontal asymptote \(y=L\) on the right</td></tr>
+          <tr><td>\(\lim_{x\to-\infty}f(x)=L\)</td><td class="isl">horizontal asymptote \(y=L\) on the left</td></tr>
+          <tr><td>\(\lim_{x\to a}f(x)=\infty\)</td><td class="isp">vertical asymptote \(x=a\), <strong>same</strong> sign on both sides</td></tr>
+          <tr class="hl"><td>\(\lim_{x\to a^{-}}f=+\infty\) and \(\lim_{x\to a^{+}}f=-\infty\)</td><td class="isp">vertical asymptote \(x=a\), and the two-sided limit does <strong>not exist</strong></td></tr>
+          <tr class="hl"><td>\(\lim_{x\to a}f(x)=L\) but \(f(a)\) undefined</td><td class="ish">a <strong>hole</strong> at \((a,L)\)</td></tr>
+          <tr><td>\(\lim_{x\to a}f(x)\) does not exist, both sides finite</td><td>a <strong>jump</strong>, not an asymptote</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row 4 is this question's own answer at \(x=-4\), and row 5 is its own answer at \(x=4\). The
+      exam asks the same two facts twice on the same paper, once as an asymptote question and once as
+      a sketching question, so the translation table is worth memorising in both directions.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================== 9 -->
+<section>
+  <span class="snum">SECTION 09</span>
+  <h2>The trap list</h2>
+  <p class="sub">Ranked by how often each one actually costs marks on this question.</p>
+  <ol class="traps">
+    <li><strong>Solving \(x^{2}-16=0\) and declaring both roots to be vertical asymptotes.</strong> This is the error the question was built to catch. Factor the numerator too, or at minimum substitute each root of the denominator into the numerator and confirm you do not get zero. At \(x=4\) the numerator is \(16-12-4=0\), which is the whole story.</li>
+    <li><strong>Calling \(x=4\) a hole and then also putting it back in the domain.</strong> Cancelling changes the formula, not the function. The domain is \((-\infty,-4)\cup(-4,4)\cup(4,\infty)\), three intervals, not two.</li>
+    <li><strong>Writing \(\lim_{x\to-4}f(x)=+\infty\).</strong> The two sides disagree in sign, so no single infinite value is correct. The limit does not exist; quote \(+\infty\) from the left and \(-\infty\) from the right.</li>
+    <li><strong>Assuming that because something cancelled, there is no asymptote there.</strong> In \(\dfrac{x-1}{(x-1)^{2}}\) a factor cancels and \(x=1\) is still an asymptote. Compare multiplicities; do not just look for a cancellation.</li>
+    <li><strong>Using the constant terms in the degree rule.</strong> The rule reads leading terms only. Here that is \(x^{2}\) against \(x^{2}\), so \(y=1\); the \(-3x-4\) and the \(-16\) are irrelevant to it.</li>
+    <li><strong>Reporting "no asymptote" when the degrees differ by one.</strong> There is one, it is slanted, and you get it from long division. \(\dfrac{x^{2}-3x-4}{x+4}\) is this question one edit away from it.</li>
+    <li><strong>Assuming both ends give the same horizontal asymptote.</strong> They do for every rational function, and they do not once a square root, an absolute value or an exponential appears. \(\dfrac{\sqrt{x^{2}+1}}{x}\) has two.</li>
+    <li><strong>Thinking a graph cannot cross a horizontal asymptote.</strong> It often does. Only vertical asymptotes are barriers.</li>
+    <li><strong>Not doing the sign test at all.</strong> Once you have \(-3/0\) the sign work <em>is</em> the remaining question, and on a 10-point item it is usually a separate box.</li>
+    <li><strong>Getting the factoring signs backwards.</strong> \(x^{2}-3x-4=(x-4)(x+1)\), not \((x+4)(x-1)\), which is \(x^{2}+3x-4\). Multiply back and check both the constant and the middle coefficient.</li>
+    <li><strong>Treating a sum of squares as factorable.</strong> \(x^{2}+16\) has no real root, so \(\dfrac{x^{2}-3x-4}{x^{2}+16}\) has no vertical asymptote at all.</li>
+    <li><strong>Treating a jump as an asymptote.</strong> \(\dfrac{x^{2}-4}{\lvert x-2\rvert}\) has finite one-sided limits \(-4\) and \(4\) at \(x=2\). Nothing blows up, so nothing is an asymptote.</li>
+    <li><strong>Forgetting the hole entirely.</strong> On a 10-point question that asks only for "asymptotes", the hole is still the discriminating observation, and the marker is looking for the sentence that disposes of \(x=4\).</li>
+  </ol>
+</section>
+
+<!-- ======================================================== 10 -->
+<section>
+  <span class="snum">SECTION 10</span>
+  <h2>Drill set</h2>
+  <p class="sub">Twelve problems in under twenty minutes, on paper, with the key closed. For each
+  one give <strong>every</strong> vertical asymptote, the horizontal asymptote (or the slant, or
+  "none"), and any hole with its height.</p>
+
+  <ol class="drills">
+    <li>\(f(x)=\dfrac{x^{2}-2x-8}{x^{2}-4}\)</li>
+    <li>\(f(x)=\dfrac{2x^{2}+5}{x^{2}-9}\)</li>
+    <li>\(f(x)=\dfrac{x+3}{x^{2}+2x-3}\)</li>
+    <li>\(f(x)=\dfrac{x^{2}+1}{x-2}\)</li>
+    <li>\(f(x)=\dfrac{3x}{\sqrt{x^{2}+4}}\)</li>
+    <li>\(f(x)=\dfrac{5}{x^{2}+1}\)</li>
+    <li>\(f(x)=\dfrac{x-5}{(x-5)^{2}}\)</li>
+    <li>\(f(x)=\dfrac{x^{3}-8}{x^{2}-4}\)</li>
+    <li>\(f(x)=\arctan(2x)\)</li>
+    <li>\(f(x)=\dfrac{4x^{2}-1}{2x^{2}+x}\)</li>
+    <li>\(f(x)=\dfrac{\lvert x-1\rvert}{x-1}\)</li>
+    <li>Find \(k\) so that \(f(x)=\dfrac{kx^{2}-3}{2x^{2}+x-1}\) has the horizontal asymptote \(y=4\), then give its vertical asymptotes.</li>
+  </ol>
+
+  <details class="key">
+    <summary>Answer key</summary>
+    <div class="tw"><table>
+      <thead><tr><th>#</th><th>vertical</th><th>horizontal or slant</th><th>hole</th><th>family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td class="isp">\(x=2\)</td><td class="isl">\(y=1\)</td><td class="ish">\(\left(-2,\tfrac32\right)\)</td><td><strong>1</strong>, \(\dfrac{(x-4)(x+2)}{(x-2)(x+2)}=\dfrac{x-4}{x-2}\)</td></tr>
+        <tr><td class="mono">2</td><td class="isp">\(x=3\), \(x=-3\)</td><td class="isl">\(y=2\)</td><td>none</td><td><strong>0</strong>, \(2x^{2}+5\) is never zero</td></tr>
+        <tr><td class="mono">3</td><td class="isp">\(x=1\)</td><td class="isl">\(y=0\)</td><td class="ish">\(\left(-3,-\tfrac14\right)\)</td><td><strong>1</strong>, \(\dfrac{x+3}{(x+3)(x-1)}=\dfrac{1}{x-1}\)</td></tr>
+        <tr><td class="mono">4</td><td class="isp">\(x=2\)</td><td class="isl">slant \(y=x+2\), no horizontal</td><td>none</td><td><strong>4</strong>, \(x^{2}+1=(x+2)(x-2)+5\)</td></tr>
+        <tr><td class="mono">5</td><td>none</td><td class="isl">\(y=3\) at \(+\infty\), \(y=-3\) at \(-\infty\)</td><td>none</td><td><strong>5</strong>, \(\sqrt{x^{2}}=\lvert x\rvert\)</td></tr>
+        <tr><td class="mono">6</td><td>none</td><td class="isl">\(y=0\)</td><td>none</td><td><strong>3</strong>, \(x^{2}+1\geq1\)</td></tr>
+        <tr class="hl"><td class="mono">7</td><td class="isp">\(x=5\)</td><td class="isl">\(y=0\)</td><td>none</td><td><strong>2</strong>, partial cancel, \(q&gt;p\), so still an asymptote</td></tr>
+        <tr><td class="mono">8</td><td class="isp">\(x=-2\)</td><td class="isl">slant \(y=x\), no horizontal</td><td class="ish">\((2,3)\)</td><td><strong>1 and 4</strong>, \(\dfrac{(x-2)(x^{2}+2x+4)}{(x-2)(x+2)}\)</td></tr>
+        <tr><td class="mono">9</td><td>none</td><td class="isl">\(y=\tfrac{\pi}{2}\) and \(y=-\tfrac{\pi}{2}\)</td><td>none</td><td><strong>7</strong>, not rational, use the definition</td></tr>
+        <tr><td class="mono">10</td><td class="isp">\(x=0\)</td><td class="isl">\(y=2\)</td><td class="ish">\(\left(-\tfrac12,4\right)\)</td><td><strong>1</strong>, \(\dfrac{(2x-1)(2x+1)}{x(2x+1)}=\dfrac{2x-1}{x}\)</td></tr>
+        <tr><td class="mono">11</td><td>none</td><td class="isl">\(y=1\) at \(+\infty\), \(y=-1\) at \(-\infty\)</td><td>none, a <strong>jump</strong> at \(x=1\)</td><td><strong>8</strong>, split at the bars</td></tr>
+        <tr><td class="mono">12</td><td class="isp">\(x=\tfrac12\), \(x=-1\)</td><td class="isl">\(y=4\) when \(k=8\)</td><td>none</td><td><strong>9</strong>, leading ratio \(k/2=4\); \(2x^{2}+x-1=(2x-1)(x+1)\)</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <h3>Mark yourself on three separate scores</h3>
+  <div class="routes">
+    <div class="route"><h4>Score 1 &middot; the vertical asymptotes</h4>
+      <p>Wrong here means you are skipping the factoring step. The fix is Section 03 step 1 and the
+      substitution test in trap 1. Questions 1, 3, 7, 8 and 10 are the discriminating ones, and 7
+      catches people who overcorrected after learning about holes.</p></div>
+    <div class="route"><h4>Score 2 &middot; the horizontal or slant</h4>
+      <p>Wrong here means you are misapplying the degree rule. The fix is the four-case table in 2.2,
+      and in particular noticing that 4 and 8 have a degree gap of one. On 8 you must cancel first,
+      or you divide the wrong pair.</p></div>
+    <div class="route"><h4>Score 3 &middot; the holes</h4>
+      <p>A missing hole is not the same error as a wrong asymptote. It means you found the
+      cancellation and then forgot to report it. The fix is Section 03 step 2: write down what you
+      cancelled as you cancel it, and revisit the list before you submit.</p></div>
+    <div class="route pick"><h4>Reading the three scores together</h4>
+      <p>Good on 1 and 2 but bad on 3, and you know the mathematics and are losing presentation
+      marks. Bad on 1, and you are still answering Route B's question rather than the
+      examiner's.</p></div>
+  </div>
+</section>
+
+<!-- ======================================================== 11 -->
+<section>
+  <span class="snum">SECTION 11</span>
+  <h2>The one-page decision tree</h2>
+<pre class="chain">"Find the vertical and horizontal asymptotes of f(x) = N(x)/D(x)."
+|
++-- <b>STEP 0.  IS IT RATIONAL?</b>
+|      no  -&gt; exponential / log / arctan / tan / |x| / sqrt   -&gt; FAMILY 7, 8, or 5.
+|             Use the LIMIT DEFINITIONS directly.  Do the two ends SEPARATELY.
+|             There is no degree rule for these.
+|      yes -&gt; continue.
+|
++-- <b>STEP 1.  FACTOR BOTH.</b>  Always.  Before anything else.
+|             quadratics: two numbers, sum = -b, product = c
+|             a^2 - b^2 = (a-b)(a+b)          a^2 + b^2 does NOT factor
+|
++-- <b>STEP 2.  CANCEL</b>, and WRITE DOWN what you cancelled.
+|             for each shared root a, compare the powers  p (top) and q (bottom):
+|                  q &gt; p   -&gt; <i>STILL A VERTICAL ASYMPTOTE</i>  (partial cancel)
+|                  q = p   -&gt; <u>HOLE</u>, height = reduced f(a)
+|                  q &lt; p   -&gt; <u>HOLE</u>, height = 0
+|
++-- <b>STEP 3.  VERTICAL</b> = real roots of the REDUCED denominator.
+|             no real roots?  (sum of squares, negative discriminant)  -&gt; NONE.   [F3]
+|             For each root, the SIGN TEST:
+|                  numerator sign at a  /  denominator sign on each side
+|                  multiplicity ODD  -&gt; sides DISAGREE -&gt; <i>limit DOES NOT EXIST</i>
+|                  multiplicity EVEN -&gt; sides AGREE    -&gt; limit = +inf or -inf
+|
++-- <b>STEP 4.  HORIZONTAL</b> = degrees of the REDUCED fraction.
+|                  deg N &lt;  deg D      -&gt;  <s>y = 0</s>
+|                  deg N =  deg D      -&gt;  <s>y = (lead N)/(lead D)</s>
+|                  deg N =  deg D + 1  -&gt;  NO horizontal.  LONG-DIVIDE -&gt; <s>SLANT</s>.  [F4]
+|                  deg N &gt;  deg D + 1  -&gt;  NO horizontal, NO slant.
+|             Rational function -&gt; both ends give the SAME answer.
+|             Anything else     -&gt; do BOTH ends.                                  [F5]
+|
++-- <b>STEP 5.  DOMAIN</b>, if asked.  Exclude EVERY root of the ORIGINAL denominator,
+|             including the holes.  n removed points -&gt; n+1 intervals.
+|
++-- <b>STEP 6.  CHECK</b>, by arithmetic, in about fifteen seconds.
+|             at each claimed VA:   f(a - 0.1) and f(a + 0.1) must be HUGE
+|             at each claimed hole: f(a - 0.001) and f(a + 0.001) must be NORMAL
+|             far out:              f(100) and f(-100) must sit near the claimed L
+|             count:                deg-2 over deg-2 gives AT MOST 2 vertical asymptotes
+|
++-- <b>STEP 7.  TYPE IT.</b>  x=-4 for a vertical, y=1 for a horizontal, (4,5/8) for a hole,
+             exact fractions not decimals, "infinity" spelled out, every numerator and
+             denominator bracketed.  Then PREVIEW.</pre>
+</section>
+
+<footer>
+  <span class="verified">&#10003; 690 checks &middot; 0 failures &middot; two independent mechanisms</span>
+  <p><strong>Question text.</strong> <code>C:\Users\mnguyen\notes\MATH265.md</code> (Q4.1) and
+  <code>C:\Users\mnguyen\notes\MATH265\MATH265.md</code> (Midterm Exam 2, item 6, 10 points).
+  Midterm 2 prints each point value on the line <em>above</em> its question, the opposite convention
+  to Midterm 1. The eleven markers pair one-to-one with the eleven items in that order, which is what
+  fixes this question at 10 rather than at the 24 that follows it; the 24 belongs to the six-part
+  limit question, at 4 points a limit. The paper's items sum to 94 points.</p>
+  <p><strong>Variation families.</strong> Cross-referenced against
+  <code>MATH265\MATH265_Categorized.md</code> (the "Asymptotes Using Limits" heading, which lists
+  this question and nothing else) and <code>MATH265\MATH265_Review.md</code>. Neither file breaks the
+  topic into families, so Families 0 to 12 were enumerated here by asking which distinct mechanisms
+  can change the answer: whether a factor cancels, how the degrees compare, and whether the two ends
+  of the graph behave the same way.</p>
+  <p><strong>A conflict inside the review file, recorded rather than smoothed over.</strong>
+  <code>MATH265_Review.md</code> states the vertical-asymptote rule twice and the two statements
+  disagree. The section headed "6. ASYMPTOTES" says "Denominator = 0 (after simplification)", which
+  is correct and is exactly what this question tests. A later quick-reference block says only
+  "Vertical: Denominator = 0", which is the Route B rule and gets this question wrong. A third
+  passage is the most complete: "Set the denominator equal to zero, but simplify the fraction first.
+  If a factor cancels, it's a hole, not a VA." Use that third form; the bare one is a summary that
+  lost its qualifier.</p>
+  <p><strong>Numerical verification, run 2026-08-31. 690 checks, 0 failures, by two mechanisms that
+  share no code.</strong> Both live permanently in
+  <code>Work\knowledge\topics\math265-answer-verification.py</code>. <em>Pass 1, numeric sampling,
+  489 checks:</em> every function is evaluated only through its original unsimplified formula, and a
+  limit is never verified by a single value. A horizontal asymptote must show an error that shrinks
+  monotonically along a ladder of \(x\) running to \(10^{8}\); a hole must show an error that falls
+  by at least a factor of five per decade as \(h\) runs from \(10^{-1}\) to \(10^{-6}\) and must
+  raise <code>ZeroDivisionError</code> at the point itself; a vertical asymptote must show a
+  magnitude that increases at every step, exceeds \(10^{6}\), and holds a consistent sign.
+  <em>Pass 2, exact polynomial arithmetic, 201 checks:</em> a verifier sharing the code under test
+  proves nothing, so the second pass re-derives every rational claim differently, with coefficients
+  as exact <code>Fraction</code>s, a Euclidean polynomial gcd to find the cancellation,
+  <code>numpy.roots</code> on the reduced denominator, and polynomial long division for every slant.
+  Hole heights are verified as exact rationals, so \(5/8\) is checked as \(5/8\) and not as
+  \(0.625\). The two passes agree on every shared claim across 41 catalog functions and 14 hole
+  heights.</p>
+  <p><strong>Both gates were proved live before being trusted</strong>, by feeding the verifier six
+  deliberately wrong claims and confirming it rejected all six: the horizontal asymptote stated as
+  \(y=2\); \(x=4\) stated as a vertical asymptote; the hole height stated as \(0.6\); the genuine
+  pole at \(x=-4\) stated as a hole of height \(0\); the slant of \(\dfrac{x^{2}+1}{x-1}\) stated as
+  \(y=x\); and the exact pass run with its gcd reduction disabled, which then reports \(x=4\) as an
+  asymptote. Each control produced between one and four failing assertions. A check that cannot fail
+  is not a check. The whole harness file reports 3879 PASS lines and exactly 2 failures, both
+  pre-existing and in an unrelated section (<code>sin62</code>, <code>cos62</code>), where a linear
+  approximation is compared at a tolerance tighter than its own error.</p>
+  <p><strong>Three harness defects found and fixed while building this page</strong>, all of which
+  had looked like correct mathematics failing. A hole-limit threshold of \(10^{-6}\) rejected every
+  hole whose reduced function has slope greater than one, which is most of them; the fix was to test
+  the order of convergence instead of one absolute value. A powers-of-ten ladder underflowed to
+  exactly zero for \(e^{x}\) at \(x=-1000\), making "the error shrinks" false because it had already
+  reached zero. And the constant function \(\dfrac{x^{2}+1}{x^{2}+1}\) has an error that is exactly
+  zero at every \(x\), so it can never shrink and needed a different assertion entirely.</p>
+  <p><strong>Related tutorials.</strong> <code>Q3.3 - Two limits, at infinity and at an
+  asymptote.md</code> already carries this question inside its Family 9 as the asymptote-flavoured
+  restatement of the same limits, and the two documents agree on every value. <code>Q3.1</code> and
+  <code>Q3.2</code> supply the \(0/0\) cancellation machinery that produces the hole height, and
+  <code>Q1.3</code> supplies the domain-exclusion reflex and the \(x^{2}=\lvert x\rvert^{2}\)
+  identity used in Family 8. Answer-entry rules come from the A1 block of the MATH 265 exam note
+  sheets and the M&ouml;bius platform notes in
+  <code>Work\knowledge\topics\math265-exam-note-sheets.md</code>.</p>
+  <p><strong>Layout and dash gates, all proved live.</strong>
+  <code>Work\knowledge\tools\artifact-lint\lint.mjs</code> reports PASS at 1280px and 430px in both
+  themes, and correctly failed two deliberately broken controls, a forced 3000px wrapper and a
+  transparent body background. A containment probe at 1280, 900, 700, 485 and 430px reports zero
+  horizontal body scroll, all 25 tables inside real scroll containers and 674 MathJax nodes typeset
+  at every width; a control with <code>overflow-x:visible</code> was flagged at all five widths. A
+  token audit confirms all 92 colour literals sit inside <code>:root</code> / media /
+  <code>[data-theme]</code> blocks, that all four theme blocks define the same 23 tokens, and that
+  <code>body</code> paints an explicit token background. The dash lint is entity-aware, because a
+  <code>chr(0x2014)</code> count cannot see <code>&amp;mdash;</code>: it counts the character and the
+  ten HTML spellings of it, and it caught a genuine entity in this page's first draft that a
+  character-only check would have passed.</p>
+  <p>Nothing on this page was copied from a solution key. Every asymptote was derived, then confirmed
+  numerically, then confirmed again by exact rational arithmetic. The markdown source of this
+  tutorial is <code>C:\Users\mnguyen\notes\Q4.1 - Vertical and horizontal asymptotes of a rational
+  function.md</code>.</p>
+</footer>
+
+</div>

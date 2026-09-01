@@ -1,0 +1,853 @@
+<title>Naming the Rules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans:wght@400;500;600&amp;display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged from Q1.1 through Q8.3.
+   What is specific to THIS page is what the five accent hues MEAN.  Q8.1 was
+   a rule board, Q8.2 a two-station ladder, Q8.3 a layer ledger.  Q8.4 grades
+   something none of those did: the NAME of the rule.  So the device here is
+   the ledger with a fourth column added - the name track - and the hue says
+   what a row is doing:
+
+     THE RULE NAME, and the vocabulary it comes from   --rul   amber
+     THE ROUTE, which decides which names are correct  --chn   slate
+     WHERE NAMING LOSES MARKS, and the blind spots     --los   terracotta
+     THE FAMILY structure of the variation catalog     --fam   teal
+     NUMERICS: checks, tolerances, measured values     --num   mauve
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.ans,.entry{display:grid;gap:11px}
+.ans > div,.entry > div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.ans i,.entry i{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;color:var(--accent);
+}
+.ans span,.entry span{min-width:0;overflow-x:auto}
+/* the entry strings are the point of that panel, so they WRAP rather than
+   scroll: a clipped answer string is worse than a two-line one. */
+.entry span{overflow-x:visible}
+.entry span code{display:inline-block;white-space:pre-wrap;overflow-wrap:anywhere;line-height:1.5}
+@media (max-width:820px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+}
+
+/* ---- THE LEDGER: this page's structural thesis ------------------------- */
+.ledger{
+  border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  overflow:hidden;margin:20px 0 18px;
+}
+.ledger .lhead{
+  display:grid;grid-template-columns:96px minmax(120px,1.05fr) 150px minmax(150px,1.5fr);
+  gap:0 14px;padding:9px 18px;background:var(--sunk);border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+}
+.ledger .lrow{
+  display:grid;grid-template-columns:96px minmax(120px,1.05fr) 150px minmax(150px,1.5fr);
+  gap:0 14px;padding:13px 18px;border-bottom:1px solid var(--line-soft);
+  border-left:3px solid var(--rul-line);align-items:baseline;
+}
+.ledger .lrow.d2{border-left-color:var(--chn-line)}
+.ledger .lrow.d3{border-left-color:var(--num-line)}
+.ledger .lrow > b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600;
+}
+.ledger .lrow > .what,.ledger .lrow > .der{min-width:0;overflow-x:auto;font-size:14px}
+.ledger .lrow > .der{color:var(--ink)}
+.ledger .lrow > .what{color:var(--ink2)}
+.ledger .lsum{
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px;
+  padding:14px 18px;background:var(--rul-soft);border-top:1px solid var(--rul-line);
+  border-left:3px solid var(--rul);
+}
+.ledger .lsum .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--rul);
+}
+.ledger .lsum .sv{min-width:0;overflow-x:auto;flex:1;font-size:15px}
+.ledger .lsum .ct{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--rul-line);border-radius:2px;
+  padding:4px 9px;color:var(--rul);background:var(--surface);white-space:nowrap;
+}
+@media (max-width:800px){
+  .ledger .lhead{display:none}
+  .ledger .lrow{grid-template-columns:1fr;gap:6px;padding:12px 14px}
+  .ledger .lrow > b{color:var(--ink3)}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:16px 12px 8px;overflow-x:auto}
+.figbox > svg{display:block;min-width:700px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+svg .conn{stroke:var(--plot);stroke-width:1.6;fill:none}
+svg .rule{stroke:var(--line);stroke-width:1;fill:none}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  letter-spacing:.02em;font-weight:500;fill:var(--ink);text-anchor:middle}
+svg .lab.l{text-anchor:start}
+svg .lab.e{text-anchor:end}
+svg .lab.sm{font-size:10px;letter-spacing:.12em;fill:var(--ink3);font-weight:500}
+svg .lab.big{font-size:15px;font-weight:600}
+svg .lab.rl{font-size:10.5px;font-weight:600;letter-spacing:.11em;fill:var(--rul)}
+svg .lab.cn{fill:var(--chn)}
+svg .lab.nm{fill:var(--num)}
+svg .lab.ls{fill:var(--los)}
+svg .lab.am{fill:var(--rul)}
+svg .badge{fill:var(--rul-soft);stroke:var(--rul-line);stroke-width:1}
+svg .badge.c{fill:var(--chn-soft);stroke:var(--chn-line)}
+svg .badge.n{fill:var(--num-soft);stroke:var(--num-line)}
+svg .ax{stroke:var(--plot);stroke-width:1;fill:none}
+svg .gl{stroke:var(--line-soft);stroke-width:1;fill:none}
+svg .ctrue{stroke:var(--rul);stroke-width:2.2;fill:none}
+svg .cdrop{stroke:var(--los);stroke-width:2.2;fill:none;stroke-dasharray:6 4}
+svg .dot{fill:var(--num);stroke:var(--surface);stroke-width:2}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--chn);font-style:normal}
+pre s{color:var(--los);text-decoration:none}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.n,th.n{font-variant-numeric:tabular-nums;text-align:right}
+td.y{color:var(--ok);font-weight:600}
+td.x{color:var(--los);font-weight:600}
+tr.hi td{background:var(--rul-soft)}
+tbody.tnum td{font-variant-numeric:tabular-nums}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--los-line);background:var(--los-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--fam-line);background:var(--fam-soft)}
+.callout.note{border-color:var(--num-line);background:var(--num-soft)}
+.callout.rule{border-color:var(--rul-line);background:var(--rul-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--fam)}
+.callout.note .ch{color:var(--num)}
+.callout.rule .ch{color:var(--rul)}
+.callout p:last-child{margin-bottom:0}
+
+.split{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:16px 0}
+.half{padding:15px 17px;border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);min-width:0}
+.half.bad{border-color:var(--los-line);background:var(--los-soft)}
+.half.good{border-color:var(--fam-line);background:var(--fam-soft)}
+.half .hh{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.13em;text-transform:uppercase;margin-bottom:10px}
+.half.bad .hh{color:var(--los)}
+.half.good .hh{color:var(--fam)}
+.half p{margin:0 0 8px;overflow-x:auto}
+.half p.hn{font-size:13.5px;color:var(--ink2);margin-bottom:0}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0;max-width:78ch}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+ol.drills{counter-reset:d;list-style:none;padding-left:0;max-width:100%;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:10px}
+ol.drills li{
+  counter-increment:d;display:grid;grid-template-columns:26px minmax(0,1fr);gap:0 8px;
+  margin:0;padding:10px 12px;border:1px solid var(--line-soft);border-radius:3px;
+  background:var(--surface);align-items:baseline;
+}
+ol.drills li::before{
+  content:counter(d);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;color:var(--accent);
+}
+ol.drills li > span{min-width:0;overflow-x:auto}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+}
+
+/* ---- Q8.4's own device: the ledger grows a NAME column ------------------ */
+.ledger.named .lhead,.ledger.named .lrow{
+  grid-template-columns:74px minmax(96px,.9fr) minmax(110px,1.1fr) minmax(150px,1.3fr);
+}
+.ledger.named .lrow > .rn{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.06em;color:var(--rul);font-weight:600;min-width:0;
+}
+.ledger.named .lrow.d2 > .rn{color:var(--chn)}
+.ledger.named .lrow.d3 > .rn{color:var(--num)}
+@media (max-width:800px){
+  .ledger.named .lrow{grid-template-columns:1fr}
+}
+/* Prose tables may WRAP.  The series default is width:max-content, which is
+   right for a table of formulae (never break an expression) and wrong for a
+   table of English: three sentence columns push the table 74 to 221px past
+   its container, and the reader sees the last column clipped with no hint
+   that it scrolls.  Measured with tools/artifact-lint/table-fit.mjs.
+   table-layout:fixed is what makes this safe: with the default auto layout,
+   allowing cells to wrap lets a column collapse to its min-content width and
+   the first draft squeezed one to 80px, about one word per line. Fixed layout
+   takes the widths from the rules below instead of from the content.
+   Scoped to wide viewports on purpose: at 430px, 20 percent of the container
+   is 80px and the same wrapping squeezes a column to about one word per line,
+   so below this breakpoint the table keeps the series default and scrolls. */
+@media (min-width:760px){
+  .tscroll.prose > table{width:100%;table-layout:fixed}
+  .tscroll.prose th:first-child,.tscroll.prose td:first-child{width:20%}
+  .tscroll.prose th:nth-child(2),.tscroll.prose td:nth-child(2){width:38%}
+  .tscroll.prose td{overflow-wrap:break-word}
+  .tscroll.prose thead th{white-space:normal}
+}
+/* the two-way audit, and the vocabulary board */
+.vocab{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));
+  gap:9px;margin:16px 0 20px}
+.vc{border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  padding:11px 13px;border-left:3px solid var(--rul-line)}
+.vc.zero{border-left-color:var(--los-line);background:var(--los-soft)}
+.vc .vn{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:13.5px;
+  color:var(--ink);margin-bottom:3px}
+.vc .vq{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;
+  color:var(--rul);font-variant-numeric:tabular-nums;line-height:1.15}
+.vc.zero .vq{color:var(--los)}
+.vc .vs{font-size:11.5px;color:var(--ink3);margin-top:2px}
+</style>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 2, item 2 &middot; 4 points</div>
+  <h1>Naming the Rules</h1>
+  <p class="deck">Two derivatives, and a second sentence that changes the job: <em>state which rule(s) you are applying</em>. It is the only question in the bank that grades the name of the rule rather than the result of using it, and it closes the four-question derivative block.</p>
+</header>
+
+<div class="verdict">
+  <div>
+    <div class="vlab">The answers</div>
+    <div class="ans">
+      <div><i>a.</i><span>\(\dfrac{2\sec^2(2x)\sqrt{x}-\tan(2x)\cdot\frac{1}{2\sqrt{x}}}{x}\), or cleared, \(\dfrac{4x\sec^2(2x)-\tan(2x)}{2x^{3/2}}\)</span></div>
+      <div><i></i><span class="tnum">quotient rule, then chain rule, then power rule</span></div>
+      <div><i>b.</i><span>\(-6x\cos^2(x^2)\sin(x^2)\), which at \(x=\frac{\sqrt\pi}{2}\) is \(-\dfrac{3\sqrt{2\pi}}{4}\approx-1.8799712060\)</span></div>
+      <div><i></i><span class="tnum">chain rule twice, then power rule</span></div>
+    </div>
+  </div>
+  <div>
+    <div class="vlab">What to type into M&ouml;bius</div>
+    <div class="entry">
+      <div><i>a.</i><span><code>(4*x/cos(2*x)^2-tan(2*x))/(2*x^(3/2))</code></span></div>
+      <div><i>b.</i><span><code>-3*sqrt(2*pi)/4</code></span></div>
+      <div><i></i><span class="tnum">Part (b) is a single number, so it is the one that must be exactly right. The grader tests equivalence, so <code>-(3/4)*sqrt(2)*sqrt(pi)</code> and <code>-3*sqrt(pi)/(2*sqrt(2))</code> are accepted too.</span></div>
+    </div>
+  </div>
+</div>
+
+<section>
+  <h2><span class="num">01</span>What closes here</h2>
+  <p>This is the last of four tutorials on the same block of exam questions, and the four are cumulative on purpose. Each one adds exactly one idea to a procedure that never changes.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Question</th><th>Paper</th><th>Points</th><th>Parts</th><th>Its one new idea</th></tr></thead>
+      <tbody>
+        <tr><td>Q8.1</td><td>Midterm 1, item 5</td><td class="tnum">8</td><td class="tnum">4</td><td>the machinery: rule selection, the simplification policy, the check</td></tr>
+        <tr><td>Q8.2</td><td>Midterm 2, item 9</td><td class="tnum">16</td><td class="tnum">4</td><td>run the procedure <strong>twice</strong>, and the rule may change under you</td></tr>
+        <tr><td>Q8.3</td><td>Final 1, item 1</td><td class="tnum">20</td><td class="tnum">5</td><td>the tree is <strong>three levels deep</strong>, so keep a ledger</td></tr>
+        <tr class="hi"><td>Q8.4</td><td>Final 2, item 2</td><td class="tnum">4</td><td class="tnum">2</td><td><strong>name</strong> the rules out loud, which the ledger gives you free</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Those point values were read out of the four papers rather than typed: they sum to 48 across 15 sub-parts, which makes this the largest computational block in the course.</p>
+
+  <h3>What is new, and it is not mathematics</h3>
+  <p>On the other three questions, rule selection stays private. You pick a rule in your head, you write the derivative, and the derivative is the whole answer. Here the paper prints <strong>&ldquo;State which rule(s) you are applying&rdquo;</strong>, and that one sentence turns a private habit into a graded artifact. So the new content is about writing, and it is three things.</p>
+  <div class="split">
+    <div class="half good">
+      <div class="hh">A vocabulary</div>
+      <p class="hn">There is a small fixed set of names a marker recognises. You cannot be graded on producing a name you do not have, so section 03 counts the list out of the course's own files.</p>
+    </div>
+    <div class="half good">
+      <div class="hh">A granularity</div>
+      <p class="hn">The printed &ldquo;(s)&rdquo; is plural, so a list is expected. The live question is how fine that list must be: does one &ldquo;chain rule&rdquo; cover a three-layer composite?</p>
+    </div>
+  </div>
+  <div class="callout">
+    <div class="ch">A new way to lose marks</div>
+    <p>Everywhere else, a correct derivative is a correct answer. Here you can differentiate perfectly and still drop marks by labelling the work wrongly, by naming a rule you did not use, or by leaving the labels off entirely. None of those are calculus errors, which is exactly why they are easy to miss when you revise.</p>
+  </div>
+  <p>Four points on a paper worth 81 makes this the joint-lightest item on Final 2, at 4.94 percent. Read that as good news with a catch: it should be the fastest four points you collect, and the only thing that makes it slow is hesitating over the naming demand.</p>
+</section>
+
+<section>
+  <h2><span class="num">02</span>The 30-second version</h2>
+  <pre>Run the SAME last-operation test as always.  The only new instruction is:
+write the rule's NAME on the page as you use it, one name per ledger line.
+
+   build the ledger            name it as you go
+   ------------------------    ---------------------------------
+   last op is a DIVISION   -&gt;  "by the QUOTIENT rule, u = ..., v = ..."
+   last op is ( )^n        -&gt;  "by the CHAIN rule (power outer)"
+   last op is sin/cos/tan  -&gt;  "by the CHAIN rule (named outer)"
+   a piece is x^n          -&gt;  "by the POWER rule"
+   a piece is c * f        -&gt;  "by the CONSTANT MULTIPLE rule"
+
+(a)  tan(2x)/sqrt(x)   -&gt; QUOTIENT, then CHAIN inside u, then POWER on v
+(b)  cos^3(x^2)        -&gt; CHAIN (power outer), CHAIN (cos outer), POWER
+     then substitute x = sqrt(pi)/2 LAST, because x^2 = pi/4 there.
+
+Differentiate with letters, substitute the number LAST.
+Check with [f(x+.001) - f(x-.001)] / .002, but NOT at x = 1/4 for (a)
+and NOT at x = 1/2 for (b).  Those two points hide the exact error you
+are most likely to have made.</pre>
+  <p>That is runnable from memory. The only genuinely new line is the last one, and section 06 explains why those two numbers are poisoned.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span>The vocabulary a marker recognises</h2>
+  <p>Six names cover every derivative in this course. Two more that students reach for under pressure are real names in other textbooks and are <em>never</em> used in this course's files, so writing them is a small unforced risk.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>The name to write</th><th>When you write it</th><th>The form to quote if you want to be safe</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Power rule</strong></td><td>a piece is \(x^n\), including \(\frac12\) and \(-\frac12\)</td><td>\(\frac{d}{dx}x^n=nx^{n-1}\)</td></tr>
+        <tr><td><strong>Constant multiple</strong></td><td>a constant sits in front</td><td>\((cf)'=cf'\)</td></tr>
+        <tr><td><strong>Sum / difference</strong></td><td>terms added or subtracted</td><td>\((f\pm g)'=f'\pm g'\)</td></tr>
+        <tr><td><strong>Product rule</strong></td><td>two \(x\)-dependent factors multiplied</td><td>\((uv)'=u'v+uv'\)</td></tr>
+        <tr><td><strong>Quotient rule</strong></td><td>a division</td><td>\(\left(\frac uv\right)'=\frac{u'v-uv'}{v^2}\)</td></tr>
+        <tr><td><strong>Chain rule</strong></td><td>a function of a function</td><td>\(\frac{d}{dx}f(g(x))=f'(g(x))g'(x)\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>How much of that vocabulary the course actually supplies, counted out of <code>MATH265_Review.md</code> rather than estimated:</p>
+  <div class="vocab">
+    <div class="vc"><div class="vn">Chain rule</div><div class="vq">42</div><div class="vs">the most-named, by a wide margin</div></div>
+    <div class="vc"><div class="vn">Quotient rule</div><div class="vq">24</div><div class="vs">mentions</div></div>
+    <div class="vc"><div class="vn">Product rule</div><div class="vq">19</div><div class="vs">mentions</div></div>
+    <div class="vc"><div class="vn">Power rule</div><div class="vq">17</div><div class="vs">mentions</div></div>
+    <div class="vc zero"><div class="vn">Sum / difference rule</div><div class="vq">0</div><div class="vs">never named, though the paper's own summary lists it</div></div>
+    <div class="vc zero"><div class="vn">Generalized power rule</div><div class="vq">0</div><div class="vs">do not invent it; call it a chain rule</div></div>
+  </div>
+  <p>Read that as one fact: <strong>the working vocabulary is about five names wide</strong>, and four of the five carry almost all the weight. A complete rule list for any question in this block is a short list drawn from a small pool.</p>
+
+  <h3>Does one &ldquo;chain rule&rdquo; cover three layers?</h3>
+  <p>This is the only genuinely ambiguous thing about the question, so it is worth settling now rather than in the exam room. Part (b) has three layers, two of which are chain-rule steps.</p>
+  <div class="tscroll prose">
+    <table>
+      <thead><tr><th>Granularity</th><th>What you would write for (b)</th><th>The risk</th></tr></thead>
+      <tbody>
+        <tr><td>coarse</td><td>&ldquo;chain rule&rdquo;</td><td>if the marker wants one name per step, this understates the work by two thirds</td></tr>
+        <tr class="hi"><td><strong>per step</strong></td><td>&ldquo;chain rule (applied twice), and the power rule&rdquo;</td><td>none that I can see</td></tr>
+        <tr><td>per layer, named</td><td>&ldquo;chain with a power outer, then chain with a \(\cos\) outer, then the power rule&rdquo;</td><td>none, other than time</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout rule">
+    <div class="ch">Write the middle one</div>
+    <p>The reason is a cost asymmetry, not a piece of knowledge. Naming too finely costs a few seconds of writing. Naming too coarsely costs marks if, and only if, the marker was counting steps. You cannot know which marker you have, and the extra precision is nearly free, so the fine-grained list wins either way.</p>
+  </div>
+  <div class="callout note">
+    <div class="ch">Being honest about that advice</div>
+    <p>No marking scheme, rubric, or part-mark breakdown exists in any course file. That was checked: the words &ldquo;rubric&rdquo;, &ldquo;marking scheme&rdquo; and &ldquo;part marks&rdquo; appear nowhere in the bank, the papers, or the review notes. So every claim here about <em>how much</em> naming earns is inference from the printed instruction. What is not inference is the instruction itself, and the fact that its &ldquo;(s)&rdquo; is plural: a question expecting one name would not have written it.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span>The ledger already holds the answer</h2>
+  <p>The previous question in this block taught you to write a layer ledger so you would stop losing factors in deep composites. Add one column to it and it stops being a private scratchpad: the last column <em>is</em> the rule list this question asks for.</p>
+  <div class="ledger named">
+    <div class="lhead"><span>Layer</span><span>What it is</span><span>The rule name</span><span>Its derivative</span></div>
+    <div class="lrow"><b>1</b><span class="what">\((\;\underline{\phantom{xx}}\;)^3\)</span><span class="rn">CHAIN, power outer</span><span class="der">\(3(\;\underline{\phantom{xx}}\;)^2\)</span></div>
+    <div class="lrow d2"><b>2</b><span class="what">\(\cos(\;\underline{\phantom{xx}}\;)\)</span><span class="rn">CHAIN, named outer</span><span class="der">\(-\sin(\;\underline{\phantom{xx}}\;)\)</span></div>
+    <div class="lrow d3"><b>3</b><span class="what">\(x^2\)</span><span class="rn">POWER rule</span><span class="der">\(2x\)</span></div>
+    <div class="lsum"><span class="st">product down the column</span><span class="sv">\(y'=3\cos^2(x^2)\cdot(-\sin(x^2))\cdot 2x=-6x\cos^2(x^2)\sin(x^2)\)</span><span class="ct">3 layers &rarr; 3 factors</span></div>
+  </div>
+  <p>That is the whole trick of this question. If you are already keeping the ledger, naming the rules costs you nothing at all, which is why the table in section 01 calls this idea &ldquo;free&rdquo;.</p>
+  <p>The factor count still works as a check, unchanged: three layers must give three factors. The coefficient is the count made visible, since \(6=3\times2\), where the 3 is the outer cube and the 2 is the inner \(x^2\). <strong>An answer with a 3 in front has lost the inner layer; an answer with a 2 in front has lost the outer one.</strong></p>
+</section>
+
+<section>
+  <h2><span class="num">05</span>The two parts, worked</h2>
+  <p>They are a deliberate pair rather than two random derivatives. Part (a) is a breadth test and part (b) is a depth test, and between them they force you to name every rule the course teaches except the product rule.</p>
+
+  <h3>Part (a): a quotient, three different names</h3>
+  <p>The last operation is a division, so this is the quotient rule with \(u=\tan(2x)\) and \(v=\sqrt x=x^{1/2}\). Then \(u'=2\sec^2(2x)\) by the <strong>chain rule</strong>, and \(v'=\frac{1}{2\sqrt x}\) by the <strong>power rule</strong>.</p>
+  <p>$$y'=\frac{u'v-uv'}{v^2}=\frac{2\sec^2(2x)\sqrt x-\tan(2x)\cdot\dfrac{1}{2\sqrt x}}{x}$$</p>
+  <div class="callout good">
+    <div class="ch">Stop here</div>
+    <p>That is a complete answer. The item prints &ldquo;You may not need to simplify your answer&rdquo;, so every line past this point is risk without reward. If you do want the single cleared fraction it is \(\frac{4x\sec^2(2x)-\tan(2x)}{2x^{3/2}}\), and the two forms were checked as an identity to \(10^{-16}\) relative.</p>
+  </div>
+  <p>The power rule on \(\sqrt x\) is the name almost everyone uses and almost nobody writes down, because \(\sqrt x\) does not look like \(x^n\) until you rewrite it. It is the single most-omitted name on this question.</p>
+
+  <h3>Part (b): substitute last, and the point is designed</h3>
+  <p>First read the expression correctly: \(\cos^3(x^2)\) means \(\left[\cos(x^2)\right]^3\). It does <strong>not</strong> mean \(\cos(x^6)\). Those are different functions, not just different derivatives: at \(x=1\) they are \(0.158\) and \(0.540\).</p>
+  <p>Run the ledger from section 04, then and only then substitute. At \(x=\frac{\sqrt\pi}{2}\) we have \(x^2=\frac\pi4\) exactly, so \(\cos^2\left(\frac\pi4\right)=\frac12\) and \(\sin\left(\frac\pi4\right)=\frac{\sqrt2}{2}\):</p>
+  <p>$$y'\left(\tfrac{\sqrt\pi}{2}\right)=-6\cdot\frac{\sqrt\pi}{2}\cdot\frac12\cdot\frac{\sqrt2}{2}=-\frac{6\sqrt{2\pi}}{8}=-\frac{3\sqrt{2\pi}}{4}\approx-1.8799712060$$</p>
+  <div class="callout">
+    <div class="ch">The total-loss error</div>
+    <p>Substituting \(x=\frac{\sqrt\pi}{2}\) <em>before</em> differentiating means you are differentiating the constant \(\cos^3\left(\frac\pi4\right)\), whose derivative is zero. The vertical bar says <em>where to evaluate</em>, not <em>when to substitute</em>.</p>
+  </div>
+  <p>That \(\frac{\sqrt\pi}{2}\) looks awkward until you square it. An examiner who wanted an ugly number would not have picked a value whose square is the one angle where sine and cosine agree, so the moment you see it, expect \(\frac\pi4\) and expect the final arithmetic to be clean.</p>
+
+  <h3>The route changes the rule list</h3>
+  <p>This is the signature idea of the question and it exists nowhere else in the block. Every function below can be attacked more than one way, and each route is correct. What changes is the <em>names</em>, and the names are graded.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Function</th><th>Route 1, and its names</th><th>Route 2, and its names</th></tr></thead>
+      <tbody>
+        <tr class="hi"><td>\(\frac{\tan 2x}{\sqrt x}\)</td><td>quotient, chain, power</td><td>rewrite as \(\tan(2x)x^{-1/2}\): <strong>product</strong>, chain, power</td></tr>
+        <tr><td>\(\frac{x^2+1}{\sqrt x}\)</td><td>quotient, power</td><td>split into \(x^{3/2}+x^{-1/2}\): <strong>power rule only</strong></td></tr>
+        <tr><td>\(\frac{1}{(x+3)^2}\)</td><td>quotient, chain</td><td>rewrite as \((x+3)^{-2}\): chain only</td></tr>
+        <tr><td>\(\frac{x^2\sin 2x}{x}\)</td><td>quotient, product, chain</td><td>cancel first: product, chain</td></tr>
+        <tr><td>\(\cos^3(x^2)\)</td><td>chain twice, power</td><td>triple product: product, chain</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>All five pairs were verified to agree as identities. <strong>Row 2 is the one to study.</strong> \(\frac{x^2+1}{\sqrt x}\) looks like a quotient rule and is not: split it and the answer is \(\frac32x^{1/2}-\frac12x^{-3/2}\) by the power rule alone. On the earlier questions a smarter route only saved time; here it also changes the graded rule list, so the route is part of the answer.</p>
+</section>
+
+<section>
+  <h2><span class="num">06</span>The two points you must not check at</h2>
+  <p>The check itself is inherited and unchanged: compute \(\frac{f(x+0.001)-f(x-0.001)}{0.002}\) and compare. At \(h=0.001\) both parts clear five significant figures, which is the step size measured as optimal on a ten-digit calculator.</p>
+  <p>What is specific to this question is <em>where</em> you are allowed to do it. An earlier question in this block established that <strong>a dropped chain factor is invisible exactly where that factor equals 1</strong>. Both of this question's most likely errors have such a point, and both of those points are numbers a student would naturally reach for.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Part</th><th>The likely error</th><th>The factor that goes missing</th><th>It equals 1 at</th></tr></thead>
+      <tbody>
+        <tr><td>a</td><td>forgetting the power rule, writing \(v'=1\)</td><td>\(\frac{1}{2\sqrt x}\)</td><td class="tnum">\(x=\frac14\)</td></tr>
+        <tr><td>b</td><td>dropping the innermost chain factor</td><td>\(2x\)</td><td class="tnum">\(x=\frac12\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <div class="figtop">Part (b): the right answer and the wrong one, and where they touch</div>
+    <div class="figbox"><svg viewBox="0 0 940 336" role="img" aria-label="The true derivative of cos cubed of x squared and the version with the inner 2x factor dropped. The two curves cross at x = 0.5, where 2x equals 1, so a numerical check made at that point cannot tell them apart."><line class="gl" x1="196.0" y1="56" x2="196.0" y2="232"/><line class="gl" x1="326.0" y1="56" x2="326.0" y2="232"/><line class="gl" x1="456.0" y1="56" x2="456.0" y2="232"/><line class="gl" x1="586.0" y1="56" x2="586.0" y2="232"/><line class="gl" x1="716.0" y1="56" x2="716.0" y2="232"/><line class="gl" x1="846.0" y1="56" x2="846.0" y2="232"/><line class="ax" x1="92" y1="70.7" x2="872" y2="70.7"/><line class="ax" x1="92" y1="56" x2="92" y2="232"/><polyline class="cdrop" points="92.0,71.0 95.0,71.1 98.0,71.1 101.0,71.2 104.0,71.3 107.0,71.5 110.0,71.6 113.0,71.7 116.0,71.9 119.0,72.0 122.0,72.2 125.0,72.3 128.0,72.5 131.0,72.7 134.0,72.9 137.0,73.1 140.0,73.3 143.0,73.5 146.0,73.7 149.0,73.9 152.0,74.2 155.0,74.4 158.0,74.7 161.0,74.9 164.0,75.2 167.0,75.5 170.0,75.8 173.0,76.1 176.0,76.4 179.0,76.7 182.0,77.0 185.0,77.4 188.0,77.7 191.0,78.1 194.0,78.4 197.0,78.8 200.0,79.2 203.0,79.5 206.0,79.9 209.0,80.3 212.0,80.7 215.0,81.1 218.0,81.6 221.0,82.0 224.0,82.4 227.0,82.9 230.0,83.3 233.0,83.8 236.0,84.2 239.0,84.7 242.0,85.2 245.0,85.7 248.0,86.1 251.0,86.6 254.0,87.1 257.0,87.6 260.0,88.2 263.0,88.7 266.0,89.2 269.0,89.7 272.0,90.3 275.0,90.8 278.0,91.4 281.0,91.9 284.0,92.5 287.0,93.0 290.0,93.6 293.0,94.1 296.0,94.7 299.0,95.3 302.0,95.9 305.0,96.4 308.0,97.0 311.0,97.6 314.0,98.2 317.0,98.8 320.0,99.4 323.0,99.9 326.0,100.5 329.0,101.1 332.0,101.7 335.0,102.3 338.0,102.9 341.0,103.5 344.0,104.0 347.0,104.6 350.0,105.2 353.0,105.8 356.0,106.3 359.0,106.9 362.0,107.5 365.0,108.0 368.0,108.6 371.0,109.1 374.0,109.6 377.0,110.2 380.0,110.7 383.0,111.2 386.0,111.7 389.0,112.2 392.0,112.7 395.0,113.2 398.0,113.6 401.0,114.1 404.0,114.5 407.0,115.0 410.0,115.4 413.0,115.8 416.0,116.2 419.0,116.5 422.0,116.9 425.0,117.2 428.0,117.6 431.0,117.9 434.0,118.2 437.0,118.4 440.0,118.7 443.0,118.9 446.0,119.2 449.0,119.4 452.0,119.5 455.0,119.7 458.0,119.8 461.0,119.9 464.0,120.0 467.0,120.1 470.0,120.1 473.0,120.2 476.0,120.1 479.0,120.1 482.0,120.1 485.0,120.0 488.0,119.9 491.0,119.8 494.0,119.6 497.0,119.4 500.0,119.2 503.0,119.0 506.0,118.7 509.0,118.4 512.0,118.1 515.0,117.7 518.0,117.4 521.0,117.0 524.0,116.6 527.0,116.1 530.0,115.6 533.0,115.1 536.0,114.6 539.0,114.0 542.0,113.4 545.0,112.8 548.0,112.2 551.0,111.5 554.0,110.8 557.0,110.1 560.0,109.4 563.0,108.7 566.0,107.9 569.0,107.1 572.0,106.3 575.0,105.4 578.0,104.6 581.0,103.7 584.0,102.8 587.0,101.9 590.0,101.0 593.0,100.1 596.0,99.2 599.0,98.2 602.0,97.3 605.0,96.3 608.0,95.3 611.0,94.4 614.0,93.4 617.0,92.4 620.0,91.4 623.0,90.5 626.0,89.5 629.0,88.5 632.0,87.6 635.0,86.6 638.0,85.7 641.0,84.7 644.0,83.8 647.0,82.9 650.0,82.0 653.0,81.2 656.0,80.3 659.0,79.5 662.0,78.7 665.0,77.9 668.0,77.2 671.0,76.5 674.0,75.8 677.0,75.2 680.0,74.6 683.0,74.0 686.0,73.5 689.0,73.0 692.0,72.5 695.0,72.1 698.0,71.8 701.0,71.5 704.0,71.2 707.0,71.0 710.0,70.8 713.0,70.7 716.0,70.7 719.0,70.7 722.0,70.7 725.0,70.8 728.0,71.0 731.0,71.2 734.0,71.5 737.0,71.8 740.0,72.2 743.0,72.6 746.0,73.1 749.0,73.7 752.0,74.3 755.0,74.9 758.0,75.6 761.0,76.4 764.0,77.2 767.0,78.1 770.0,79.0 773.0,80.0 776.0,81.0 779.0,82.0 782.0,83.1 785.0,84.2 788.0,85.4 791.0,86.6 794.0,87.8 797.0,89.0 800.0,90.3 803.0,91.6 806.0,92.9 809.0,94.2 812.0,95.6 815.0,96.9 818.0,98.3 821.0,99.6 824.0,100.9 827.0,102.3 830.0,103.6 833.0,104.9 836.0,106.1 839.0,107.4 842.0,108.6 845.0,109.8 848.0,110.9 851.0,112.0 854.0,113.0 857.0,114.0 860.0,114.9 863.0,115.8 866.0,116.6 869.0,117.3 872.0,118.0"/><polyline class="ctrue" points="92.0,70.7 95.0,70.7 98.0,70.7 101.0,70.7 104.0,70.8 107.0,70.8 110.0,70.8 113.0,70.9 116.0,70.9 119.0,70.9 122.0,71.0 125.0,71.0 128.0,71.1 131.0,71.2 134.0,71.2 137.0,71.3 140.0,71.4 143.0,71.5 146.0,71.6 149.0,71.7 152.0,71.8 155.0,71.9 158.0,72.1 161.0,72.2 164.0,72.4 167.0,72.5 170.0,72.7 173.0,72.9 176.0,73.1 179.0,73.3 182.0,73.5 185.0,73.7 188.0,74.0 191.0,74.2 194.0,74.5 197.0,74.8 200.0,75.0 203.0,75.3 206.0,75.6 209.0,76.0 212.0,76.3 215.0,76.7 218.0,77.0 221.0,77.4 224.0,77.8 227.0,78.2 230.0,78.6 233.0,79.1 236.0,79.5 239.0,80.0 242.0,80.5 245.0,81.0 248.0,81.5 251.0,82.0 254.0,82.6 257.0,83.1 260.0,83.7 263.0,84.3 266.0,84.9 269.0,85.6 272.0,86.2 275.0,86.9 278.0,87.5 281.0,88.2 284.0,88.9 287.0,89.7 290.0,90.4 293.0,91.2 296.0,91.9 299.0,92.7 302.0,93.5 305.0,94.4 308.0,95.2 311.0,96.0 314.0,96.9 317.0,97.8 320.0,98.7 323.0,99.6 326.0,100.5 329.0,101.5 332.0,102.4 335.0,103.4 338.0,104.4 341.0,105.3 344.0,106.3 347.0,107.4 350.0,108.4 353.0,109.4 356.0,110.4 359.0,111.5 362.0,112.5 365.0,113.6 368.0,114.7 371.0,115.7 374.0,116.8 377.0,117.9 380.0,119.0 383.0,120.1 386.0,121.2 389.0,122.3 392.0,123.4 395.0,124.4 398.0,125.5 401.0,126.6 404.0,127.7 407.0,128.7 410.0,129.8 413.0,130.9 416.0,131.9 419.0,132.9 422.0,134.0 425.0,135.0 428.0,136.0 431.0,136.9 434.0,137.9 437.0,138.8 440.0,139.8 443.0,140.7 446.0,141.5 449.0,142.4 452.0,143.2 455.0,144.0 458.0,144.8 461.0,145.5 464.0,146.2 467.0,146.9 470.0,147.5 473.0,148.1 476.0,148.7 479.0,149.2 482.0,149.7 485.0,150.1 488.0,150.5 491.0,150.9 494.0,151.2 497.0,151.5 500.0,151.7 503.0,151.8 506.0,152.0 509.0,152.0 512.0,152.0 515.0,152.0 518.0,151.9 521.0,151.7 524.0,151.5 527.0,151.2 530.0,150.9 533.0,150.5 536.0,150.1 539.0,149.5 542.0,149.0 545.0,148.3 548.0,147.7 551.0,146.9 554.0,146.1 557.0,145.2 560.0,144.3 563.0,143.3 566.0,142.3 569.0,141.1 572.0,140.0 575.0,138.8 578.0,137.5 581.0,136.2 584.0,134.8 587.0,133.4 590.0,131.9 593.0,130.3 596.0,128.8 599.0,127.2 602.0,125.5 605.0,123.8 608.0,122.1 611.0,120.3 614.0,118.6 617.0,116.7 620.0,114.9 623.0,113.1 626.0,111.2 629.0,109.3 632.0,107.4 635.0,105.5 638.0,103.6 641.0,101.8 644.0,99.9 647.0,98.0 650.0,96.2 653.0,94.4 656.0,92.6 659.0,90.8 662.0,89.1 665.0,87.4 668.0,85.8 671.0,84.2 674.0,82.7 677.0,81.3 680.0,79.9 683.0,78.6 686.0,77.4 689.0,76.2 692.0,75.2 695.0,74.2 698.0,73.4 701.0,72.6 704.0,72.0 707.0,71.5 710.0,71.1 713.0,70.8 716.0,70.7 719.0,70.7 722.0,70.8 725.0,71.1 728.0,71.5 731.0,72.0 734.0,72.7 737.0,73.6 740.0,74.6 743.0,75.8 746.0,77.1 749.0,78.6 752.0,80.2 755.0,82.0 758.0,83.9 761.0,86.0 764.0,88.3 767.0,90.7 770.0,93.2 773.0,95.9 776.0,98.8 779.0,101.8 782.0,104.9 785.0,108.1 788.0,111.5 791.0,115.0 794.0,118.6 797.0,122.3 800.0,126.1 803.0,130.0 806.0,134.0 809.0,138.0 812.0,142.1 815.0,146.3 818.0,150.5 821.0,154.7 824.0,158.9 827.0,163.1 830.0,167.4 833.0,171.6 836.0,175.7 839.0,179.8 842.0,183.8 845.0,187.8 848.0,191.7 851.0,195.4 854.0,199.0 857.0,202.5 860.0,205.9 863.0,209.0 866.0,212.0 869.0,214.8 872.0,217.3"/><text class="lab sm" x="196.0" y="248">0.25</text><text class="lab sm" x="326.0" y="248">0.5</text><text class="lab sm" x="456.0" y="248">0.75</text><text class="lab sm" x="586.0" y="248">1</text><text class="lab sm" x="716.0" y="248">1.25</text><text class="lab sm" x="846.0" y="248">1.5</text><text class="lab sm l" x="880" y="74">x</text><line class="rule" x1="326.0" y1="100.5" x2="326.0" y2="42" stroke-dasharray="3 3"/><circle class="dot" cx="326.0" cy="100.5" r="5"/><text class="lab sm nm" x="326.0" y="32">x = 1/2, THE BLIND SPOT</text><line class="rule" x1="526.8" y1="151.2" x2="526.8" y2="116.1" stroke-dasharray="3 3"/><circle class="dot" cx="526.8" cy="151.2" r="4"/><circle class="dot" cx="526.8" cy="116.1" r="4"/><polyline class="ctrue" points="92,272 126,272"/><text class="lab rl l" x="136" y="276">TRUE: &#8722;6x cos&#178;(x&#178;) sin(x&#178;)</text><polyline class="cdrop" points="92,294 126,294"/><text class="lab sm ls l" x="136" y="298">DROPPED 2x: &#8722;3 cos&#178;(x&#178;) sin(x&#178;)</text><circle class="dot" cx="109" cy="316" r="4"/><text class="lab sm l" x="136" y="320">the exam point, x = sqrt(pi)/2, where 2x = 1.77</text></svg></div>
+    <figcaption>The solid curve is the true derivative and the dashed one is the same answer with the inner \(2x\) dropped. They cross at \(x=\frac12\), because that is where \(2x=1\) and the missing factor does nothing. A check made there returns agreement to \(10^{-14}\) and certifies a wrong derivative. At the exam's own point the same slip reads \(-1.0606602\) against the true \(-1.8799712\), so the error is loud everywhere except at the one place you might have looked.</figcaption>
+  </figure>
+  <div class="callout">
+    <div class="ch">The instruction</div>
+    <p>Never check at \(x=\frac14\) or \(x=\frac12\) on this question. Use \(x=1.1\), or use the exam's own point for part (b), which sits comfortably clear of both blind spots. More generally: choose the check point <em>after</em> looking at your chain factors, not before.</p>
+  </div>
+  <p>One thing the check cannot do here. It confirms the derivative and says nothing at all about the rule list, which is half the marks. There is no numerical check for naming, which is why the audit below is written as a procedure rather than left to care.</p>
+</section>
+
+<section>
+  <h2><span class="num">07</span>The write-up, and the two-way audit</h2>
+  <p>The simplification policy from the first question in this block still applies, and the naming demand runs against it. That opposition is the whole of this section, and nothing else in the block has a component where doing <em>more</em> is the safe direction.</p>
+  <blockquote>
+    <p><strong>Simplify as little as you can. Name as much as you can.</strong></p>
+    <p>Algebra past the derivative is unpaid risk. Naming past the minimum is paid, or at worst free, because the question asked for it in writing.</p>
+  </blockquote>
+
+  <h3>What counts as naming a rule</h3>
+  <div class="split">
+    <div class="half good">
+      <div class="hh">This counts</div>
+      <p class="hn">&ldquo;By the <strong>quotient rule</strong>, with \(u=\tan 2x\) and \(v=\sqrt x\).&rdquo; &nbsp;&ldquo;By the <strong>chain rule</strong>, outer \(\tan\), inner \(2x\).&rdquo; &nbsp;&ldquo;By the <strong>power rule</strong> on \(x^{1/2}\).&rdquo;</p>
+    </div>
+    <div class="half bad">
+      <div class="hh">This does not</div>
+      <p class="hn">Writing \(\frac{u'v-uv'}{v^2}\) with no name attached. A correct answer with no words at all. And worst of the three, <strong>naming a rule you did not use</strong>, which is a positive claim about your method that the marker can see is false.</p>
+    </div>
+  </div>
+
+  <h3>The short form, if time is tight</h3>
+  <blockquote>
+    <p><strong>a.</strong> By the <strong>quotient rule</strong> with \(u=\tan(2x)\), \(v=\sqrt x\); \(u'=2\sec^2(2x)\) by the <strong>chain rule</strong>, \(v'=\frac{1}{2\sqrt x}\) by the <strong>power rule</strong>: $$y'=\frac{2\sec^2(2x)\sqrt x-\tan(2x)\cdot\frac{1}{2\sqrt x}}{x}.$$</p>
+    <p><strong>b.</strong> By the <strong>chain rule</strong> applied twice, with the <strong>power rule</strong> on the inner \(x^2\): $$y'=-6x\cos^2(x^2)\sin(x^2),$$ and at \(x=\frac{\sqrt\pi}{2}\), where \(x^2=\frac\pi4\), this is \(-\frac{3\sqrt{2\pi}}{4}\).</p>
+  </blockquote>
+  <p>That is roughly ninety seconds of writing and it answers both halves of the question. Notice how little of it is extra work: every clause is something you had to decide anyway, and the only difference is that the decision is now on the paper instead of in your head.</p>
+
+  <h3>The audit, in both directions</h3>
+  <p>Before you move on, read the answer and the rule list against each other. It takes about ten seconds and it catches the failure mode unique to this question.</p>
+  <div class="tscroll prose">
+    <table>
+      <thead><tr><th>Direction</th><th>The question to ask</th><th>What a failure looks like</th></tr></thead>
+      <tbody>
+        <tr><td><strong>list &rarr; algebra</strong></td><td>for each name I wrote, where is it visible in my answer?</td><td>you wrote &ldquo;product rule&rdquo; but your answer is a single fraction</td></tr>
+        <tr class="hi"><td><strong>algebra &rarr; list</strong></td><td>for each rule my answer used, did I name it?</td><td>your answer contains \(\frac{1}{2\sqrt x}\), which came from the power rule, and &ldquo;power rule&rdquo; is nowhere on the page</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The second direction is the one that catches real omissions, and on part (a) it catches the specific one people make.</p>
+</section>
+
+<section>
+  <h2><span class="num">08</span>The variations, by family</h2>
+  <p>Read each table as <em>structure</em>, not as a list of facts. In every family below the answers are generated by one shape with a small number of moving parts, and once you see the shape the rows stop needing memory.</p>
+
+  <h3>Family 4: a trig over a power of \(x\), which is part (a)</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Function</th><th>Derivative</th><th>Names</th></tr></thead>
+      <tbody>
+        <tr class="hi"><td>\(\frac{\tan 2x}{\sqrt x}\)</td><td>\(\frac{4x\sec^2 2x-\tan 2x}{2x^{3/2}}\)</td><td>quotient, chain, power</td></tr>
+        <tr><td>\(\frac{\sin 3x}{\sqrt x}\)</td><td>\(\frac{6x\cos 3x-\sin 3x}{2x^{3/2}}\)</td><td>quotient, chain, power</td></tr>
+        <tr><td>\(\frac{\tan x}{x}\)</td><td>\(\frac{x\sec^2 x-\tan x}{x^2}\)</td><td>quotient, power</td></tr>
+        <tr><td>\(\frac{\cos 2x}{x^2}\)</td><td>\(\frac{-2x\sin 2x-2\cos 2x}{x^3}\)</td><td>quotient, chain, power</td></tr>
+        <tr><td>\(\frac{\sqrt x}{\tan 2x}\)</td><td>\(\frac{\frac{\tan 2x}{2\sqrt x}-2\sqrt x\sec^2 2x}{\tan^2 2x}\)</td><td>quotient, power, chain</td></tr>
+        <tr><td>\(\frac{x^2+1}{\sqrt x}\)</td><td>\(\frac32x^{1/2}-\frac12x^{-3/2}\)</td><td><strong>power rule only</strong>, after splitting</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Read the first four rows as one shape: clearing the \(\frac{1}{2\sqrt x}\) always multiplies through by \(2\sqrt x\) and always lands on a denominator of \(2x^{3/2}\). Row 5 is the same problem upside down and much messier, which is itself the lesson: a root on top is easier than a root on the bottom.</p>
+
+  <h3>Family 5: a power of a trig of a composite, which is part (b)</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Function</th><th>Derivative</th><th>Coefficient, and where it comes from</th></tr></thead>
+      <tbody>
+        <tr class="hi"><td>\(\cos^3(x^2)\)</td><td>\(-6x\cos^2(x^2)\sin(x^2)\)</td><td class="tnum">\(3\times2\)</td></tr>
+        <tr><td>\(\sin^3(x^2)\)</td><td>\(6x\sin^2(x^2)\cos(x^2)\)</td><td class="tnum">\(3\times2\), and no minus sign</td></tr>
+        <tr><td>\(\cos^5(x^2)\)</td><td>\(-10x\cos^4(x^2)\sin(x^2)\)</td><td class="tnum">\(5\times2\)</td></tr>
+        <tr><td>\(\sin^4(x^3)\)</td><td>\(12x^2\sin^3(x^3)\cos(x^3)\)</td><td class="tnum">\(4\times3\)</td></tr>
+        <tr><td>\(\tan^3(2x)\)</td><td>\(6\tan^2(2x)\sec^2(2x)\)</td><td class="tnum">\(3\times2\)</td></tr>
+        <tr><td>\(\cos^2(\sqrt x)\)</td><td>\(-\frac{\cos\sqrt x\sin\sqrt x}{\sqrt x}\)</td><td class="tnum">\(2\times\frac12=1\), so none survives</td></tr>
+        <tr><td>\(\cos^3 x\)</td><td>\(-3\cos^2 x\sin x\)</td><td class="tnum">\(3\times1\), two layers only</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The whole table is one formula. The coefficient is always the outer power times the inner derivative's coefficient, the trig power always drops by one, the argument never changes, and the sign is the sign of the outer function's derivative. Only two magnitudes do real work, and every number in the third column is their product. The last-but-one row is the one to notice: when the inner is \(\sqrt x\), the \(\frac12\) cancels the outer 2 and the coefficient vanishes, which looks like a dropped factor and is not.</p>
+
+  <h3>Family 6: a derivative asked at a designed point</h3>
+  <p>The trigger is the vertical bar with an \(a\) that looks strange. Read the second column, not the third: every point was chosen so the <em>inner</em> function lands on a special angle.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Function and point</th><th>Why that point</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr class="hi"><td>\(\cos^3(x^2)\) at \(\frac{\sqrt\pi}{2}\)</td><td>\(x^2=\frac\pi4\)</td><td class="tnum">\(-\frac{3\sqrt{2\pi}}{4}\approx-1.8799712060\)</td></tr>
+        <tr><td>\(\cos^3(x^2)\) at \(\sqrt{\pi/3}\)</td><td>\(x^2=\frac\pi3\)</td><td class="tnum">\(-\frac{3\sqrt\pi}{4}\approx-1.3293403882\)</td></tr>
+        <tr><td>\(\cos^5(x^2)\) at \(\frac{\sqrt\pi}{2}\)</td><td>\(x^2=\frac\pi4\)</td><td class="tnum">\(-\frac{5\sqrt{2\pi}}{8}\approx-1.5666426716\)</td></tr>
+        <tr><td>\(\tan^3(2x)\) at \(\frac\pi8\)</td><td>\(2x=\frac\pi4\)</td><td class="tnum">\(12\) exactly</td></tr>
+        <tr><td>\(\cos^2(\sqrt x)\) at \(\frac{\pi^2}{16}\)</td><td>\(\sqrt x=\frac\pi4\)</td><td class="tnum">\(-\frac2\pi\approx-0.6366197724\)</td></tr>
+        <tr><td>\(\frac{\tan 2x}{\sqrt x}\) at \(\frac\pi8\)</td><td>\(2x=\frac\pi4\)</td><td class="tnum">\(\frac{\pi-1}{2(\pi/8)^{3/2}}\approx4.3512801365\)</td></tr>
+        <tr><td>\(\frac{\sin 3x}{\sqrt x}\) at \(\frac\pi6\)</td><td>\(3x=\frac\pi2\)</td><td class="tnum">\(-\frac{1}{2(\pi/6)^{3/2}}\approx-1.3196904407\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout note">
+    <div class="ch">The last row refuted a draft of this page</div>
+    <p>An earlier version claimed that value was \(-\frac{\pi}{2(\pi/6)^{3/2}}\). At \(x=\frac\pi6\) the angle \(3x\) is \(\frac\pi2\), so \(\cos(3x)=0\) and the entire \(6x\cos(3x)\) term dies, leaving \(-\sin(3x)=-1\) and no \(\pi\) at all. The check refuted the claim; the derivative had been right the whole time. When a designed point makes a factor vanish, the surviving expression is usually much simpler than you expected, so recompute rather than pattern-matching the row above.</p>
+  </div>
+
+  <h3>Family 8: where naming goes wrong while the calculus goes right</h3>
+  <p>This family has no mathematics in it at all, which is exactly why it is easy to skip and expensive to skip.</p>
+  <div class="tscroll prose">
+    <table>
+      <thead><tr><th>The labelling error</th><th>What it looks like</th><th>Why it happens</th></tr></thead>
+      <tbody>
+        <tr><td>naming a rule you did not use</td><td>&ldquo;product rule&rdquo; over a quotient-rule computation</td><td>reciting the rule list instead of reading your own work</td></tr>
+        <tr><td>omitting the power rule on a root</td><td>naming &ldquo;quotient, chain&rdquo; on part (a)</td><td>\(\sqrt x\) does not look like \(x^n\)</td></tr>
+        <tr><td>collapsing two chain rules into one</td><td>naming &ldquo;chain rule&rdquo; once on part (b)</td><td>the two applications are adjacent and feel like one move</td></tr>
+        <tr><td>naming rules for a route you abandoned</td><td>naming &ldquo;quotient&rdquo; after rewriting as a product</td><td>the list was written before the algebra settled</td></tr>
+        <tr class="hi"><td><strong>naming nothing</strong></td><td>a correct bare derivative</td><td>the instruction is the <em>second</em> of three sentences, and it is easy to read the first and third and skip the middle</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span>The traps, ranked</h2>
+  <ol class="traps">
+    <li><span><strong>Not naming the rules at all.</strong> The question asks in writing, and it is half of what makes this item different from the other three.</span></li>
+    <li><span><strong>Dropping the inner \(2x\) in part (b).</strong> You write \(-3\cos^2(x^2)\sin(x^2)\) and it looks completely reasonable. Catch it with the factor count: three layers, three factors, coefficient 6.</span></li>
+    <li><span><strong>Substituting the point before differentiating.</strong> Then you are differentiating a constant and the answer is 0. Total loss on part (b).</span></li>
+    <li><span><strong>Writing the quotient rule as \(uv'-u'v\).</strong> The sign flips and the answer is exactly wrong. Write \(\frac{u'v-uv'}{v^2}\) with blanks before naming \(u\) and \(v\), every time.</span></li>
+    <li><span><strong>Forgetting the power rule on \(\sqrt x\).</strong> Invisible at \(x=\frac14\), which is why section 06 forbids checking there.</span></li>
+    <li><span><strong>Squaring errors at \(\frac\pi4\).</strong> \(\cos^2\left(\frac\pi4\right)=\frac12\), not \(\frac{\sqrt2}{2}\). Getting it wrong scales the answer by \(\sqrt2\), at the last step, when attention is lowest.</span></li>
+    <li><span><strong>Misreading \(\cos^3(x^2)\) as \(\cos(x^6)\).</strong> Different functions, not just different derivatives.</span></li>
+    <li><span><strong>Naming a rule you did not use.</strong> Worse than silence, because it is a false claim the marker can check.</span></li>
+    <li><span><strong>Bracketing errors in M&ouml;bius.</strong> <code>x^3/2</code> is not <code>x^(3/2)</code>, both parse, and neither raises an error.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">10</span>Drill set</h2>
+  <p>Do these with a pen, and for each one <strong>write the rule list before you write the derivative</strong>. That ordering is the whole point of drilling this question rather than the earlier ones. Score the derivative, the sign, and the rule list <em>separately</em>, because they need different remediation: a wrong derivative sends you back to the procedure, a wrong sign to the trig table, and a wrong rule list to section 03 and nothing else.</p>
+  <ol class="drills">
+    <li><span>\(\frac{d}{dx}\frac{\sin 3x}{\sqrt x}\)</span></li>
+    <li><span>\(\frac{d}{dx}\frac{\tan x}{x}\)</span></li>
+    <li><span>\(\frac{d}{dx}\cos^2(\sqrt x)\)</span></li>
+    <li><span>\(\frac{d}{dx}\sin^3(x^2)\)</span></li>
+    <li><span>\(\left.\frac{d}{dx}\cos^5(x^2)\right|_{x=\sqrt\pi/2}\)</span></li>
+    <li><span>\(\left.\frac{d}{dx}\tan^3(2x)\right|_{x=\pi/8}\)</span></li>
+    <li><span>\(\frac{d}{dx}\frac{x^2+1}{\sqrt x}\), naming the <em>cheapest</em> rule list</span></li>
+    <li><span>\(\frac{d}{dx}\frac{\sec 2x}{x^{1/3}}\)</span></li>
+    <li><span>\(\frac{d}{dx}\frac{\sqrt x}{\tan 2x}\)</span></li>
+    <li><span>\(\frac{d}{dx}\cos^3 x\): how many chain rules, and why not two?</span></li>
+    <li><span>\(\frac{d}{dx}\sin^4(x^3)\)</span></li>
+    <li><span>\(\left.\frac{d}{dx}\frac{\sin 3x}{\sqrt x}\right|_{x=\pi/6}\)</span></li>
+  </ol>
+  <h3>Answer key</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>#</th><th>Derivative</th><th>Value at the stated \(x\)</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="tnum">1</td><td>\(\frac{6x\cos 3x-\sin 3x}{2x^{3/2}}\)</td><td class="tnum">\(-2.7562093193\) at \(1.1\)</td><td><strong>F4</strong>: quotient, chain, power</td></tr>
+        <tr><td class="tnum">2</td><td>\(\frac{x\sec^2 x-\tan x}{x^2}\)</td><td class="tnum">\(2.7946685162\) at \(1.1\)</td><td><strong>F4</strong>: quotient, power</td></tr>
+        <tr><td class="tnum">3</td><td>\(-\frac{\cos\sqrt x\sin\sqrt x}{\sqrt x}\)</td><td class="tnum">\(-0.3326909880\) at \(1.3\)</td><td><strong>F5</strong>: the coefficient cancels</td></tr>
+        <tr><td class="tnum">4</td><td>\(6x\sin^2(x^2)\cos(x^2)\)</td><td class="tnum">\(0.9230771276\) at \(1.2\)</td><td><strong>F5</strong>: chain twice, power</td></tr>
+        <tr><td class="tnum">5</td><td>\(-10x\cos^4(x^2)\sin(x^2)\)</td><td class="tnum">\(-\frac{5\sqrt{2\pi}}{8}=-1.5666426716\)</td><td><strong>F6</strong>: substitute last, \(x^2=\frac\pi4\)</td></tr>
+        <tr><td class="tnum">6</td><td>\(6\tan^2(2x)\sec^2(2x)\)</td><td class="tnum">\(12\) exactly</td><td><strong>F6</strong>: \(\tan=1\), \(\sec^2=2\)</td></tr>
+        <tr><td class="tnum">7</td><td>\(\frac32x^{1/2}-\frac12x^{-3/2}\)</td><td class="tnum">\(1.4729831297\) at \(1.4\)</td><td><strong>F3</strong>: split first, <strong>power rule only</strong></td></tr>
+        <tr><td class="tnum">8</td><td>\(2\sec 2x\tan 2x\,x^{-1/3}-\frac13\sec 2x\,x^{-4/3}\)</td><td class="tnum">\(2.6924609665\) at \(1.2\)</td><td><strong>F4</strong>: product after rewriting</td></tr>
+        <tr><td class="tnum">9</td><td>\(\frac{\frac{\tan 2x}{2\sqrt x}-2\sqrt x\sec^2 2x}{\tan^2 2x}\)</td><td class="tnum">\(-5.3002300582\) at \(1.2\)</td><td><strong>F4</strong> inverted</td></tr>
+        <tr class="hi"><td class="tnum">10</td><td>\(-3\cos^2 x\sin x\)</td><td class="tnum">\(-0.5500962494\) at \(1.1\)</td><td><strong>F1</strong>: two layers, so <strong>one</strong> chain rule</td></tr>
+        <tr><td class="tnum">11</td><td>\(12x^2\sin^3(x^3)\cos(x^3)\)</td><td class="tnum">\(2.1427818178\) at \(0.9\)</td><td><strong>F5</strong>: coefficient \(4\times3\)</td></tr>
+        <tr class="hi"><td class="tnum">12</td><td>\(\frac{6x\cos 3x-\sin 3x}{2x^{3/2}}\)</td><td class="tnum">\(-\frac{1}{2(\pi/6)^{3/2}}=-1.3196904407\)</td><td><strong>F6</strong>: \(3x=\frac\pi2\) kills the first term</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Drill 10 is the one to get right for the counter-intuitive reason: \(\cos^3 x\) has two layers, so it takes <em>one</em> chain rule, and answering &ldquo;two&rdquo; there is the same granularity error as answering &ldquo;one&rdquo; on part (b). Drill 12 reuses drill 1's derivative at a designed point where the whole first term vanishes; if you carried a \(\pi\) into the answer, re-read the note in Family 6.</p>
+</section>
+
+<section>
+  <h2><span class="num">11</span>Closing the block: one procedure, four questions</h2>
+  <p>This is the last of the four, so it is worth saying plainly what they add up to. Everything in the block is one loop, and each question stresses a different part of it.</p>
+  <pre>1. If a point is given, IGNORE it until step 5.
+2. Ask what the LAST operation is.  That names the rule.  Write the name down.
+3. Write the rule with BLANKS, then fill in u and v, or outer and inner.
+4. RECURSE on every piece, one ledger line and one name per turn,
+   until every piece is x^n or a constant.
+5. ASSEMBLE, then substitute the point, then run a second pass if one was asked.
+6. COUNT: layers against factors.
+7. CHECK with a centred difference at h = 0.001, at a point you chose
+   AFTER looking at your chain factors.
+8. Stop simplifying.  Name generously, simplify stingily.</pre>
+  <p>Steps 1 to 4 come from Q8.1. Step 5's second clause is Q8.2's. Steps 4 and 6 in ledger form are Q8.3's. Step 2's &ldquo;write the name down&rdquo; and step 8's second clause are this question's. There is nothing else.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>The idea</th><th>Taught in</th><th>Why it lives there</th></tr></thead>
+      <tbody>
+        <tr><td>the last-operation test for rule selection</td><td>Q8.1</td><td>the cheapest item, so the machinery is learned where the stakes are lowest</td></tr>
+        <tr><td>the simplification policy</td><td>Q8.1</td><td>all four items print the same permission</td></tr>
+        <tr><td>the eight-second centred-difference check</td><td>Q8.1</td><td>the only check that works across the whole block</td></tr>
+        <tr><td>running the procedure twice, and the rule changing</td><td>Q8.2</td><td>the only item asking for a second derivative</td></tr>
+        <tr><td>the measured \(h\), and why smaller is not safer</td><td>Q8.2</td><td>a second difference divides by \(h^2\), so the measurement matters there</td></tr>
+        <tr><td>the layer ledger and the factor count</td><td>Q8.3</td><td>the only item with three-deep nesting on every part</td></tr>
+        <tr><td>a dropped factor is invisible where that factor is 1</td><td>Q8.3</td><td>deep nesting is where dropped factors happen</td></tr>
+        <tr class="hi"><td>the rule-name vocabulary and its granularity</td><td><strong>Q8.4</strong></td><td>the only item that grades the names</td></tr>
+        <tr class="hi"><td>the route changes the rule list, so the route is part of the answer</td><td><strong>Q8.4</strong></td><td>only meaningful once naming is graded</td></tr>
+        <tr class="hi"><td>name generously, simplify stingily</td><td><strong>Q8.4</strong></td><td>the two policies only collide here</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout rule">
+    <div class="ch">The one sentence to leave with</div>
+    <p>This block is 48 points across 15 sub-parts and every one of them is answered by the same loop, so the return on making that loop automatic is higher than on any other topic in the course. Q8.4 is where the loop stops being private, and the only preparation it needs beyond the other three is the habit of writing down a name you had already decided.</p>
+  </div>
+</section>
+
+<footer>
+  <p><strong>Provenance.</strong> Final Exam 2, item 2, 4 points of that paper's 81. Final 2 prints its point values on their own line <em>after</em> the item, so the 8 printed above item 2 belongs to item 1 and this question's value is the 4 below it. Item 2 carries the printed permission &ldquo;You may not need to simplify your answer&rdquo; and no &ldquo;no credit&rdquo; clause; its neighbour item 1 carries one of the question set's only four such clauses, and it is not this question's. No paper in the set sums to 100: Midterm 1 is 64 over 10 items, Midterm 2 is 94 over 11, Final 1 is 124 over 14, Final 2 is 81 over 12.</p>
+  <p><strong>Verification.</strong> Every derivative, simplification, table entry and drill answer here was recomputed in Python before it was written down, by two independent numerical methods: complex-step differentiation at \(h=10^{-30}\), and a bounded Richardson centred-difference ladder whose convergence order is asserted rather than assumed. Every simplified form was checked against its unsimplified form as an identity, and every route against every other route. 89 checks in the shared harness, 0 failures, 13 of them seeded controls required to fail; plus 91 further checks in this page&rsquo;s own verification script, 0 failures. Five checker defects were found and repaired along the way, and in every case the mathematics was right and the check was wrong: a dead clause that could never fail, two literal-versus-literal assertions that read nothing from any file, a typed statistic beside the measurement it claimed to report, and an invented pole threshold that was smaller than the largest step the ladder takes. The pole margin is now derived as twice that step, against poles located by bisection.</p>
+  <p><strong>Course files are study aids, not authorities.</strong> Three conflicts were found and are recorded in the full markdown tutorial: the review notes still omit \(\csc\) from a trig derivative list; they give the four rules with no selection guidance at all, since the phrases &ldquo;last operation&rdquo; and &ldquo;which rule&rdquo; appear zero times against 42 mentions of the chain rule; and, new here, the review material calls them &ldquo;the four rules&rdquo; and then lists five. On a question that grades rule names, a count that disagrees with its own list is worth not trusting.</p>
+  <p>Full tutorial: <code>C:\Users\mnguyen\notes\Q8.4 - Two derivatives, naming the rules used.md</code>. Verified 2026-09-01.</p>
+</footer>
+
+</div>

@@ -1,0 +1,725 @@
+<title>The Perpendicular Tangent</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q8.1 was a rule
+   board, Q8.3 a layer ledger.  Q9.1 is neither: it is a four-station
+   PIPELINE that starts at a printed line and ends at a reported object, and
+   the calculus is the cheapest station in it.  So the device is the
+   pipeline, and the hue says which station a thing belongs to:
+
+     THE SLOPE PIPELINE and the required slope        --rul   amber
+     THE DERIVATIVE, inherited from Q8                --chn   slate
+     WHERE MARKS DIE                                  --los   terracotta
+     THE VARIATION families                           --fam   teal
+     NUMERICS: checks, censuses, tolerances           --num   mauve
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 1, item 6 &middot; 4 points</div>
+  <h1>The Perpendicular Tangent</h1>
+  <p class="deck">A four-point question where the calculus is one line and every lost mark is somewhere else. Here is the pipeline, every variation the examiner can build from it, and the two places the marks actually go.</p>
+  <p class="stem">Find the values of \(x\) such that tangent line to the curve \(f(x) = 3x^2 + 4x - 3\) is perpendicular to the line \(y = 6x + 2\).</p>
+  <div class="verdict">
+    <div>
+      <div class="vlab">The answer</div>
+      <div class="big">\(x = -\dfrac{25}{36} \approx -0.694444\)</div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">Exactly one value. The curve is a quadratic, so its slope function is linear, so it hits any required slope exactly once.</p>
+    </div>
+    <div>
+      <div class="vlab">Type into M&ouml;bius</div>
+      <div class="big"><code style="font-size:17px">-25/36</code></div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">Exact fraction. <code>-0.694</code> fails at a \(10^{-4}\) tolerance, and <code>-1/6x</code> parses as \(-\frac{1}{6x}\).</p>
+    </div>
+  </div>
+</header>
+
+<section>
+  <span class="snum">01 &middot; The device</span>
+  <h2>It is a pipeline, not a derivative</h2>
+  <p class="lede">Four stations run from the printed line to the reported answer. Only the third one is calculus, and it is the cheapest of the four. Stations one and four are where four-point items go to zero.</p>
+
+  <div class="pipe">
+    <div>
+      <span class="st">01 &middot; Read</span>
+      <p class="sv">\(m_{\text{given}} = 6\)</p>
+      <p class="sn">Off the printed line. If it arrives as \(Ax+By=C\), solve for \(y\) first; the slope is \(-A/B\), never \(A\).</p>
+    </div>
+    <div>
+      <span class="st">02 &middot; Flip</span>
+      <p class="sv">\(m_{\text{req}} = -\dfrac16\)</p>
+      <p class="sn">Perpendicular means \(m_1m_2=-1\). Reciprocate <em>and</em> negate. Half a flip is the most common wrong number on the page.</p>
+    </div>
+    <div>
+      <span class="st">03 &middot; Solve</span>
+      <p class="sv">\(6x + 4 = -\dfrac16\)</p>
+      <p class="sn">The only calculus: \(f' = 6x+4\) by the power rule, then a linear equation. Then count the roots.</p>
+    </div>
+    <div class="hot">
+      <span class="st">04 &middot; Report</span>
+      <p class="sv">\(x = -\dfrac{25}{36}\)</p>
+      <p class="sn">The stem asked for values of \(x\). A point or a line equation would be the wrong object, and a machine-marked box rejects it.</p>
+    </div>
+  </div>
+
+  <pre><b>THE 30-SECOND VERSION</b>
+
+  READ the given line     -&gt;  m_given        (y=mx+b, or Ax+By=C, or two points)
+  FLIP it                 -&gt;  m_req = -1/m_given      perpendicular
+                              m_req =  m_given        parallel
+                              m_req =  0              horizontal
+  SOLVE f'(x) = m_req     -&gt;  <i>every real root, not the first one</i>
+  ANSWER what was asked   -&gt;  x?   (x, f(x))?   or the LINE y = m_req(x-x0) + f(x0)?</pre>
+
+  <div class="note">
+    <div class="nl">Where the four points actually go</div>
+    <p>The differentiation here is a first-week power rule and carries almost no risk. The examiner is testing that the word <em>perpendicular</em> reaches you as the number \(-\frac16\), and not as \(6\), \(-6\), or \(+\frac16\).</p>
+    <p>Note the stem says <strong>&ldquo;the values of \(x\)&rdquo;</strong>, plural. Here there is exactly one. The plural is a habit of phrasing, not a hint, so do not invent a partner answer to satisfy the grammar. On a cubic curve, though, the plural is literal and the second root is the classic lost mark.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">02 &middot; The picture</span>
+  <h2>What perpendicular looks like</h2>
+  <p class="lede">Drawn with equal scales on both axes, so the right angle is a real right angle. On a stretched plot it would not look like one, which is why the check is arithmetic and never visual.</p>
+
+  <figure>
+    <div class="fh">Curve, given line, and the tangent that meets it at 90&deg;</div>
+    <div class="fscroll figbox">
+    <svg viewBox="0 0 470 462" width="470" height="462" role="img" aria-label="The parabola f(x)=3x^2+4x-3 with the line y=6x+2 and the tangent line of slope -1/6 meeting it at a right angle.">
+      <g class="gridl"><line class="gridl" x1="44.0" y1="20" x2="44.0" y2="420"></line><line class="gridl" x1="110.7" y1="20" x2="110.7" y2="420"></line><line class="gridl" x1="177.3" y1="20" x2="177.3" y2="420"></line><line class="gridl" x1="244.0" y1="20" x2="244.0" y2="420"></line><line class="gridl" x1="310.7" y1="20" x2="310.7" y2="420"></line><line class="gridl" x1="377.3" y1="20" x2="377.3" y2="420"></line><line class="gridl" x1="444.0" y1="20" x2="444.0" y2="420"></line><line class="gridl" x1="44" y1="420.0" x2="444" y2="420.0"></line><line class="gridl" x1="44" y1="286.7" x2="444" y2="286.7"></line><line class="gridl" x1="44" y1="153.3" x2="444" y2="153.3"></line><line class="gridl" x1="44" y1="20.0" x2="444" y2="20.0"></line><rect x="44" y="20" width="400" height="400" fill="none" stroke="var(--plot)" stroke-width="1"></rect></g>
+      <polyline class="given" points="210.7,420.0 277.3,20.0"></polyline>
+      <polyline class="tang" points="44.0,205.3 444.0,272.0"></polyline>
+      <polyline class="curve" points="195.9,20.0 197.5,29.8 199.1,39.3 200.6,48.6 202.2,57.8 203.8,66.6 205.3,75.3 206.9,83.8 208.4,92.0 210.0,100.0 211.6,107.8 213.1,115.4 214.7,122.7 216.3,129.8 217.8,136.8 219.4,143.5 220.9,149.9 222.5,156.2 224.1,162.2 225.6,168.0 227.2,173.6 228.7,179.0 230.3,184.2 231.9,189.1 233.4,193.8 235.0,198.3 236.6,202.6 238.1,206.7 239.7,210.5 241.2,214.1 242.8,217.5 244.4,220.7 245.9,223.7 247.5,226.4 249.0,228.9 250.6,231.2 252.2,233.3 253.7,235.2 255.3,236.8 256.9,238.3 258.4,239.5 260.0,240.5 261.5,241.2 263.1,241.8 264.7,242.1 266.2,242.2 267.8,242.1 269.3,241.8 270.9,241.2 272.5,240.5 274.0,239.5 275.6,238.3 277.2,236.8 278.7,235.2 280.3,233.3 281.8,231.2 283.4,228.9 285.0,226.4 286.5,223.7 288.1,220.7 289.6,217.5 291.2,214.1 292.8,210.5 294.3,206.7 295.9,202.6 297.5,198.3 299.0,193.8 300.6,189.1 302.1,184.2 303.7,179.0 305.3,173.6 306.8,168.0 308.4,162.2 309.9,156.2 311.5,149.9 313.1,143.5 314.6,136.8 316.2,129.8 317.8,122.7 319.3,115.4 320.9,107.8 322.4,100.0 324.0,92.0 325.6,83.8 327.1,75.3 328.7,66.6 330.2,57.8 331.8,48.6 333.4,39.3 334.9,29.8 336.5,20.0"></polyline>
+      <polyline class="ra" points="241.0,238.2 242.8,227.3 253.6,229.1 251.8,240.0"></polyline>
+      <circle class="dot" cx="264.4" cy="242.1" r="4.5"></circle>
+      <text class="tl lab" x="44.0" y="444" text-anchor="middle">-4</text><text class="tl lab" x="110.7" y="444" text-anchor="middle">-3</text><text class="tl lab" x="177.3" y="444" text-anchor="middle">-2</text><text class="tl lab" x="244.0" y="444" text-anchor="middle">-1</text><text class="tl lab" x="310.7" y="444" text-anchor="middle">0</text><text class="tl lab" x="377.3" y="444" text-anchor="middle">1</text><text class="tl lab" x="444.0" y="444" text-anchor="middle">2</text><text class="tl lab" x="38" y="423.5" text-anchor="end">-7</text><text class="tl lab" x="38" y="290.2" text-anchor="end">-5</text><text class="tl lab" x="38" y="156.8" text-anchor="end">-3</text><text class="tl lab" x="38" y="23.5" text-anchor="end">-1</text>
+      <text class="al lab" x="206" y="384" fill="var(--chn)" text-anchor="end">y = 6x + 2</text>
+      <text class="al lab" x="54" y="196" fill="var(--rul)">tangent, slope -1/6</text>
+      <text class="al lab" x="300" y="282" fill="var(--rul)">x = -25/36</text>
+      <text class="al lab" x="210" y="252" fill="var(--los)" text-anchor="end">90&deg;</text>
+      <text class="tl lab" x="440" y="118" fill="var(--ink3)" text-anchor="end">f(x) = 3x&#178; + 4x - 3</text>
+    </svg>
+    </div>
+    <figcaption>The tangent touches the parabola once, at \(x=-\frac{25}{36}\), and crosses the given line at a right angle. The vertex sits at \(x=-\frac23\), exactly \(\frac{1}{36}\) to the right of the tangent point and under two pixels away at this plot&rsquo;s scale: the required slope \(-\frac16\) is so close to zero that the answer lands right beside the vertex. That is a free sanity check. A small negative required slope, on an upward parabola, must land just left of the vertex, and \(-0.694\) does.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <span class="snum">03 &middot; The count</span>
+  <h2>How many answers should there be?</h2>
+  <p class="lede">This is the one question in the family worth asking out loud, because the stem never answers it. The number of tangent points is the number of times the <em>slope function</em> \(f'\) crosses the horizontal level \(m_{\text{req}}\). Sketch \(f'\), draw the level, count crossings. That one picture covers every curve in the catalog.</p>
+
+  <figure>
+    <div class="fh">Slope functions: how many times does the derivative meet the required level?</div>
+    <div class="fscroll figbox">
+    <svg viewBox="0 0 530 192" width="530" height="192" role="img" aria-label="Two slope-function plots. A line crossing a horizontal level once, and a parabola crossing a horizontal level twice.">
+      <rect x="30" y="16" width="208" height="130" fill="none" class="axis"></rect>
+      <polyline class="curve" points="30.0,146.0 32.6,144.4 35.2,142.8 37.8,141.1 40.4,139.5 43.0,137.9 45.6,136.2 48.2,134.6 50.8,133.0 53.4,131.4 56.0,129.8 58.6,128.1 61.2,126.5 63.8,124.9 66.4,123.3 69.0,121.6 71.6,120.0 74.2,118.4 76.8,116.8 79.4,115.1 82.0,113.5 84.6,111.9 87.2,110.2 89.8,108.6 92.4,107.0 95.0,105.4 97.6,103.7 100.2,102.1 102.8,100.5 105.4,98.9 108.0,97.2 110.6,95.6 113.2,94.0 115.8,92.4 118.4,90.8 121.0,89.1 123.6,87.5 126.2,85.9 128.8,84.2 131.4,82.6 134.0,81.0 136.6,79.4 139.2,77.8 141.8,76.1 144.4,74.5 147.0,72.9 149.6,71.2 152.2,69.6 154.8,68.0 157.4,66.4 160.0,64.8 162.6,63.1 165.2,61.5 167.8,59.9 170.4,58.3 173.0,56.6 175.6,55.0 178.2,53.4 180.8,51.8 183.4,50.1 186.0,48.5 188.6,46.9 191.2,45.2 193.8,43.6 196.4,42.0 199.0,40.4 201.6,38.8 204.2,37.1 206.8,35.5 209.4,33.9 212.0,32.2 214.6,30.6 217.2,29.0 219.8,27.4 222.4,25.8 225.0,24.1 227.6,22.5 230.2,20.9 232.8,19.3 235.4,17.6 238.0,16.0"></polyline>
+      <polyline class="lev" points="30.0,89.4 238.0,89.4"></polyline>
+      <circle class="dot" cx="120.5" cy="89.4" r="4"></circle>
+      <text class="tl lab" x="30" y="161">f'(x) = 6x + 4  quadratic curve</text>
+      <text class="tl lab" x="30" y="180">meets y = -1/6 ONCE</text>
+
+      <rect x="310" y="16" width="208" height="130" fill="none" class="axis"></rect>
+      <polyline class="curve" points="310.0,37.7 312.6,42.3 315.2,46.9 317.8,51.3 320.4,55.6 323.0,59.8 325.6,63.9 328.2,67.8 330.8,71.6 333.4,75.3 336.0,78.8 338.6,82.3 341.2,85.6 343.8,88.8 346.4,91.8 349.0,94.8 351.6,97.6 354.2,100.3 356.8,102.8 359.4,105.3 362.0,107.6 364.6,109.8 367.2,111.8 369.8,113.8 372.4,115.6 375.0,117.3 377.6,118.8 380.2,120.3 382.8,121.6 385.4,122.8 388.0,123.9 390.6,124.8 393.2,125.6 395.8,126.3 398.4,126.9 401.0,127.3 403.6,127.7 406.2,127.9 408.8,127.9 411.4,127.9 414.0,127.7 416.6,127.4 419.2,127.0 421.8,126.4 424.4,125.8 427.0,125.0 429.6,124.1 432.2,123.0 434.8,121.8 437.4,120.5 440.0,119.1 442.6,117.6 445.2,115.9 447.8,114.1 450.4,112.2 453.0,110.2 455.6,108.0 458.2,105.7 460.8,103.3 463.4,100.8 466.0,98.1 468.6,95.3 471.2,92.4 473.8,89.4 476.4,86.2 479.0,82.9 481.6,79.5 484.2,76.0 486.8,72.3 489.4,68.5 492.0,64.6 494.6,60.6 497.2,56.4 499.8,52.2 502.4,47.8 505.0,43.2 507.6,38.6 510.2,33.8 512.8,28.9 515.4,23.9 518.0,18.7"></polyline>
+      <polyline class="lev" points="310.0,91.8 518.0,91.8"></polyline>
+      <circle class="dot2" cx="346.4" cy="91.8" r="4"></circle>
+      <circle class="dot2" cx="471.7" cy="91.8" r="4"></circle>
+      <text class="tl lab" x="310" y="161">f'(x) = 3x&#178; - 4x + 1  cubic curve</text>
+      <text class="tl lab" x="310" y="180">meets y = 3 TWICE</text>
+    </svg>
+    </div>
+    <figcaption>Same procedure, same flip, same equation. The only thing that changed is the shape of \(f'\), and with it the number of answers. The two dots on the right are \(x=\frac{2\pm\sqrt{10}}{3}\), and finding only one of them is the single most expensive habit in this family.</figcaption>
+  </figure>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>\(f\) is</th><th>\(f'\) is</th><th>\(f'(x)=m\) has</th><th>count</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td>quadratic</td><td>linear</td><td>exactly one root, always</td><td class="n">1</td></tr>
+        <tr><td>cubic</td><td>quadratic</td><td>0, 1 or 2 roots, by discriminant</td><td class="n">usually 2</td></tr>
+        <tr><td>quartic</td><td>cubic</td><td>1, 2 or 3 roots</td><td class="n">1 or 3</td></tr>
+        <tr><td>\(1/x\)</td><td>\(-1/x^2\)</td><td>none if \(m&gt;0\), two if \(m&lt;0\)</td><td class="n">0 or 2</td></tr>
+        <tr><td>\(\sqrt x\)</td><td>\(\frac{1}{2\sqrt x}\)</td><td>one if \(m&gt;0\), none otherwise</td><td class="n">0 or 1</td></tr>
+        <tr><td>\(e^x\)</td><td>\(e^x\)</td><td>one if \(m&gt;0\), none otherwise</td><td class="n">0 or 1</td></tr>
+        <tr><td>\(\sin x\)</td><td>\(\cos x\)</td><td>infinitely many unless an interval is given</td><td class="n">interval</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <span class="snum">04 &middot; Three routes</span>
+  <h2>Worked three ways, and which one to use</h2>
+
+  <h3>Route A - slope first, then solve</h3>
+  <p>The given line is already in \(y=mx+b\) form, so \(m_{\text{given}}=6\) and \(m_{\text{req}}=-\frac16\). By the power rule \(f'(x)=6x+4\), so</p>
+  <p>$$6x + 4 = -\frac16 \quad\Longrightarrow\quad 6x = -\frac{1}{6}-\frac{24}{6} = -\frac{25}{6} \quad\Longrightarrow\quad x = -\frac{25}{36}.$$</p>
+  <p>\(f'\) is linear with nonzero slope, so this is the only root.</p>
+
+  <h3>Route B - the quadratic slope formula</h3>
+  <p>For \(f=ax^2+bx+c\), solving \(2ax+b=m\) once gives a formula good for every quadratic in the family:</p>
+  <p>$$x = \frac{m-b}{2a} = \frac{-\frac16 - 4}{6} = -\frac{25}{36}.$$</p>
+
+  <h3>Route C - from the vertex, by symmetry</h3>
+  <p>The vertex is where the slope is zero, at \(x_v = -\frac{b}{2a} = -\frac23\). Moving \(\Delta x\) right of the vertex changes the slope by \(2a\,\Delta x\), so slope \(m\) occurs at</p>
+  <p>$$x = x_v + \frac{m}{2a} = -\frac{24}{36} - \frac{1}{36} = -\frac{25}{36}.$$</p>
+
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>route</th><th>steps</th><th>what it costs</th><th>what it buys</th><th>risk</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td><strong>A - slope first</strong></td><td class="n">4</td><td>one line of algebra</td><td>works for every \(f\), not just quadratics</td><td>fumbling \(-\frac16-4\)</td></tr>
+        <tr><td>B - \(\frac{m-b}{2a}\)</td><td class="n">1</td><td>memorising a formula</td><td>fastest on a quadratic; makes the root count obvious</td><td>useless once \(f\) is a cubic</td></tr>
+        <tr><td>C - from the vertex</td><td class="n">3</td><td>finding the vertex first</td><td>the which-side sanity check comes free</td><td>two chances to drop a sign</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><strong>Under exam pressure, use Route A</strong>, and carry Route C's &ldquo;which side of the vertex&rdquo; as the check. Route B is a real accelerator on a quadratic but does not generalise, and this family's harder variants are all cubics and rationals.</p>
+
+  <h3>The unasked extras, in case the variant demands them</h3>
+  <p>The tangent point is \(\left(-\frac{25}{36},\,-\frac{1871}{432}\right)\approx(-0.694444,\,-4.331019)\), and the tangent line is</p>
+  <p>$$y = -\frac16\left(x + \frac{25}{36}\right) - \frac{1871}{432} \;=\; -\frac{x}{6} - \frac{1921}{432}.$$</p>
+  <p>Both were confirmed by evaluating the curve and the line at the tangent point and getting the same number to \(10^{-14}\), and by showing \(f - T\) has a <em>double</em> root there. A double root is what tangency means; a single root would be a mere crossing.</p>
+</section>
+
+<section>
+  <span class="snum">05 &middot; The catalog</span>
+  <h2>Every variation, by the part it moves</h2>
+  <p class="lede">There are only three moving parts in this whole family, and each variation moves exactly one. Families 0 to 4 change the phrase that sets \(m_{\text{req}}\). Families 5 to 7 change the shape of \(f\), and therefore only the root count. Families 8 to 12 change what you report at the end.</p>
+
+  <div class="cards">
+    <div class="card">
+      <span class="fno">Family 0 &middot; the phrase</span>
+      <h4>Identify \(m_{\text{req}}\)</h4>
+      <p class="trig">Trigger: the relationship word in the stem.</p>
+      <p>perpendicular to a line \(\to -1/m\). parallel to \(\to m\). horizontal \(\to 0\). perpendicular to the \(y\)-axis \(\to 0\). perpendicular to the \(x\)-axis \(\to\) vertical tangent, impossible for a polynomial.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 1 &middot; quadratic</span>
+      <h4>Perpendicular, quadratic curve</h4>
+      <p class="trig">Trigger: &ldquo;perpendicular&rdquo;, and \(f\) is quadratic. This is Q9.1 itself.</p>
+      <p>\(f'\) is linear, so exactly one answer, always. Every answer is the vertex shifted by \(m_{\text{req}}/(2a)\), so the sign of \(m_{\text{req}}\) alone tells you which side to land on.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 2 &middot; parallel</span>
+      <h4>Parallel instead of perpendicular</h4>
+      <p class="trig">Trigger: &ldquo;parallel to&rdquo;, or &ldquo;the same slope as&rdquo;.</p>
+      <p>Identical procedure, no reciprocal. This is the <em>easier</em> variation, which is exactly why it is dangerous: a reflex trained on perpendicular flips a slope that should not be flipped.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 3 &middot; horizontal</span>
+      <h4>Horizontal tangent</h4>
+      <p class="trig">Trigger: &ldquo;horizontal&rdquo;, &ldquo;parallel to the \(x\)-axis&rdquo;, or in disguise: the vertex, the maximum, the critical point.</p>
+      <p>Same question with \(m_{\text{req}}=0\), and the bridge to the whole of the extrema category. On a quadratic the answer always equals \(-b/(2a)\), a free cross-check.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 4 &middot; degenerate line</span>
+      <h4>The given line is \(x=c\) or \(y=c\)</h4>
+      <p class="trig">Trigger: a line with no \(y\), or no \(x\).</p>
+      <p>\(-1/m\) is undefined or infinite, so go to the geometry. Perpendicular to a vertical line means a <em>horizontal</em> tangent, \(f'=0\). Perpendicular to a horizontal line needs a vertical tangent, which a polynomial never has.</p>
+    </div>
+    <div class="card danger">
+      <span class="fno">Family 5 &middot; two roots</span>
+      <h4>A cubic curve</h4>
+      <p class="trig">Trigger: \(f\) is a cubic, so \(f'(x)=m\) is a quadratic equation.</p>
+      <p><strong>The classic lost mark.</strong> One root gets found, the stem said &ldquo;values&rdquo;, and the second is never looked for. Say the count out loud: &ldquo;\(f'\) is a quadratic, the discriminant is positive, so there are exactly two.&rdquo;</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 6 &middot; no solution</span>
+      <h4>\(m_{\text{req}}\) outside the range of \(f'\)</h4>
+      <p class="trig">Trigger: a required slope the slope function never reaches.</p>
+      <p>Do not leave it blank. &ldquo;No such \(x\) exists, because \(f'(x)=3x^2+1\ge 1\) while the required slope is \(-\frac12\)&rdquo; is a complete answer and earns the marks.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 7 &middot; not a polynomial</span>
+      <h4>Roots, reciprocals, exponentials, trig</h4>
+      <p class="trig">Trigger: \(f\) is \(\sqrt x\), \(1/x\), \(e^x\), \(\ln x\), \(\sin x\).</p>
+      <p>Two new obligations: a <strong>domain check</strong>, since a root outside the domain is not an answer; and a root count that is not read off a degree. \(-1/x^2=-\frac14\) gives two answers, and \(\cos x=\frac12\) gives infinitely many unless an interval is stated.</p>
+    </div>
+    <div class="card danger">
+      <span class="fno">Family 8 &middot; a line</span>
+      <h4>The answer is an equation, not an \(x\)</h4>
+      <p class="trig">Trigger: &ldquo;find the equation of the tangent line&rdquo;.</p>
+      <p>Point-slope, with \(y_0=f(x_0)\) from the <strong>original</strong> function. Three failure modes in order: stopping at \(x_0\); using \(f'(x_0)\) as the \(y\)-coordinate; writing the line with \(m_{\text{given}}\) instead of \(m_{\text{req}}\).</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 9 &middot; the normal</span>
+      <h4>Normal line to the curve</h4>
+      <p class="trig">Trigger: &ldquo;normal line&rdquo;, or &ldquo;perpendicular to the <em>curve</em>&rdquo; rather than to a line.</p>
+      <p>The flip runs the other way: \(m_{\text{normal}}=-1/f'(a)\), and \(a\) was given to you. The word that decides is &ldquo;to the line&rdquo; versus &ldquo;to the curve&rdquo;.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 10 &middot; external point</span>
+      <h4>A tangent through a point off the curve</h4>
+      <p class="trig">Trigger: a <em>point</em> is given rather than a line, and it is not on the curve.</p>
+      <p>No perpendicularity at all. Unknown tangency point \(a\), then force \(f'(a)(p-a)+f(a)=q\). Usually two answers. Most likely family to be mistaken for Q9.1 and solved wrong.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 11 &middot; disguised line</span>
+      <h4>The slope is hidden</h4>
+      <p class="trig">Trigger: \(Ax+By=C\), two points, a segment, a description.</p>
+      <p>Convert to a slope before anything else. The standard misfire is reading \(A\) as the slope of \(2x-3y=6\), giving \(2\) instead of \(\frac23\), after which the whole answer follows the error silently.</p>
+    </div>
+    <div class="card">
+      <span class="fno">Family 12 &middot; parameter</span>
+      <h4>Solve for a constant, not for \(x\)</h4>
+      <p class="trig">Trigger: the curve or the line carries an unknown constant.</p>
+      <p>Same equation, different unknown. &ldquo;For which \(a\) does \(f=ax^2+4x-3\) have slope \(-\frac16\) at \(x=-1\)?&rdquo; gives \(-2a+4=-\frac16\), so \(a=\frac{25}{12}\).</p>
+    </div>
+  </div>
+
+  <h3>Verified instances</h3>
+  <p>Every row was solved and then re-verified: the claimed \(x\) substituted back into \(f'\) and checked against \(m_{\text{req}}\) by two independent derivative methods, and every root list confirmed complete by two independent root censuses.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>fam</th><th>curve \(f\)</th><th>condition</th><th class="mono">m_req</th><th class="mono">answer</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td class="n">1</td><td>\(3x^2+4x-3\)</td><td>perp. to \(y=6x+2\)</td><td class="n">\(-\frac16\)</td><td class="n">\(x=-\frac{25}{36}\)</td></tr>
+        <tr><td class="n">1</td><td>\(2x^2-5x+1\)</td><td>perp. to \(y=4x-7\)</td><td class="n">\(-\frac14\)</td><td class="n">\(x=\frac{19}{16}\)</td></tr>
+        <tr><td class="n">1</td><td>\(x^2-6x+4\)</td><td>perp. to \(y=\frac12x+3\)</td><td class="n">\(-2\)</td><td class="n">\(x=2\)</td></tr>
+        <tr><td class="n">1, 11</td><td>\(3x^2+4x-3\)</td><td>perp. to \(2x-3y=6\)</td><td class="n">\(-\frac32\)</td><td class="n">\(x=-\frac{11}{12}\)</td></tr>
+        <tr><td class="n">1, 11</td><td>\(3x^2+4x-3\)</td><td>perp. to \(4x+2y-7=0\)</td><td class="n">\(\frac12\)</td><td class="n">\(x=-\frac{7}{12}\)</td></tr>
+        <tr><td class="n">2</td><td>\(3x^2+4x-3\)</td><td>parallel to \(y=6x+2\)</td><td class="n">\(6\)</td><td class="n">\(x=\frac13\)</td></tr>
+        <tr><td class="n">2, 11</td><td>\(4x^2-8x+1\)</td><td>parallel to the line through \((1,3),(4,9)\)</td><td class="n">\(2\)</td><td class="n">\(x=\frac54\)</td></tr>
+        <tr><td class="n">3</td><td>\(3x^2+4x-3\)</td><td>horizontal tangent</td><td class="n">\(0\)</td><td class="n">\(x=-\frac23\)</td></tr>
+        <tr><td class="n">5</td><td>\(x^3-2x^2+x\)</td><td>perp. to \(y=-\frac13x+5\)</td><td class="n">\(3\)</td><td class="n">\(x=\frac{2\pm\sqrt{10}}{3}\)</td></tr>
+        <tr><td class="n">5</td><td>\(x^3-3x+2\)</td><td>parallel to \(y=9x+1\)</td><td class="n">\(9\)</td><td class="n">\(x=\pm2\)</td></tr>
+        <tr><td class="n">6</td><td>\(x^3+x\)</td><td>perp. to \(y=2x\)</td><td class="n">\(-\frac12\)</td><td class="n">no real \(x\)</td></tr>
+        <tr><td class="n">7</td><td>\(\sqrt x\)</td><td>perp. to \(y=-4x+1\)</td><td class="n">\(\frac14\)</td><td class="n">\(x=4\)</td></tr>
+        <tr><td class="n">7</td><td>\(1/x\)</td><td>perp. to \(y=4x\)</td><td class="n">\(-\frac14\)</td><td class="n">\(x=\pm2\)</td></tr>
+        <tr><td class="n">7</td><td>\(e^x\)</td><td>perp. to \(y=-\frac x2\)</td><td class="n">\(2\)</td><td class="n">\(x=\ln 2\)</td></tr>
+        <tr><td class="n">7</td><td>\(\sin x\) on \([0,2\pi]\)</td><td>perp. to \(y=-2x\)</td><td class="n">\(\frac12\)</td><td class="n">\(x=\frac{\pi}{3},\frac{5\pi}{3}\)</td></tr>
+        <tr><td class="n">8</td><td>\(x^2-6x+4\)</td><td>the <em>equation</em> of that tangent</td><td class="n">\(-2\)</td><td class="n">\(y=-2x\)</td></tr>
+        <tr><td class="n">9</td><td>\(3x^2+4x-3\)</td><td>normal line at \(x=1\)</td><td class="n">\(-\frac1{10}\)</td><td class="n">\(y=-\frac{x}{10}+\frac{41}{10}\)</td></tr>
+        <tr><td class="n">10</td><td>\(x^2\)</td><td>tangents through \((0,-1)\)</td><td class="n">-</td><td class="n">\(y=2x-1,\; y=-2x-1\)</td></tr>
+        <tr><td class="n">12</td><td>\(ax^2+4x-3\)</td><td>slope \(-\frac16\) at \(x=-1\); find \(a\)</td><td class="n">\(-\frac16\)</td><td class="n">\(a=\frac{25}{12}\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <span class="snum">06 &middot; The checks</span>
+  <h2>Verify before you commit</h2>
+  <p class="lede">One calculator operation tests all four stations at once. This is the centred-difference check established in the Q8.1 tutorial, applied at your answer rather than at a convenient point.</p>
+
+  <pre><b>THE EIGHT-SECOND CHECK</b>
+
+  take your x0, compute   ( f(x0 + 0.001) - f(x0 - 0.001) ) / 0.002
+  it must equal m_req     not merely "something plausible"
+
+  at x0 = -25/36:         -0.1666666667   vs required  -1/6 = -0.1666666667
+                          agreement to ten figures</pre>
+
+  <p>In Q8.1 this check verified that you had differentiated correctly. Here it verifies the <em>whole chain</em>. Flip the slope the wrong way, read the given line wrong, or slip in the algebra, and the number that comes out is not \(m_{\text{req}}\).</p>
+
+  <div class="tw">
+    <table>
+      <thead><tr><th>check</th><th>on Q9.1</th><th>what it catches</th></tr></thead>
+      <tbody>
+        <tr><td>\(m_{\text{given}}\times m_{\text{req}} = -1\)</td><td class="n">\(6\times(-\frac16)=-1\)</td><td>using \(6\), \(-6\), or \(+\frac16\)</td></tr>
+        <tr><td>the two slopes have opposite signs</td><td class="n">\(6&gt;0\), \(-\frac16&lt;0\)</td><td>forgetting the minus</td></tr>
+        <tr><td>\(|m_{\text{req}}| = 1/|m_{\text{given}}|\)</td><td class="n">\(\frac16\) against \(6\)</td><td>forgetting the reciprocal</td></tr>
+        <tr><td>the answer sits on the vertex side matching \(\operatorname{sign}(m_{\text{req}})\)</td><td class="n">\(-0.694 &lt; -0.667\)</td><td>a sign error in the algebra</td></tr>
+        <tr><td>for a line: line\((x_0)\) and \(f(x_0)\) are the same number</td><td class="n">both \(-4.331019\)</td><td>a right slope through a wrong point</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px">A perpendicular pair is always one steep and one shallow, and always one up and one down. If both your slopes are positive, you are wrong before you have done any calculus.</p>
+</section>
+
+<section>
+  <span class="snum">07 &middot; The traps</span>
+  <h2>Ranked by what it actually costs</h2>
+  <ol class="traps">
+    <li><b>Only one root found when there are two.</b><span>A cubic curve makes \(f'(x)=m\) a quadratic, and the stem's word &ldquo;values&rdquo; was literal. Fix: after solving, name the degree of \(f'\) and state the count.</span></li>
+    <li><b>Answering with the wrong object.</b><span>An \(x\) when a line was demanded, a line when an \(x\) was demanded, or the slope \(m_{\text{req}}\) when either was. Fix: re-read the stem's final clause before typing.</span></li>
+    <li><b>The perpendicular flip done half-way.</b><span>\(-6\) is negated but not reciprocated; \(\frac16\) is reciprocated but not negated. Fix: multiply the two slopes and demand exactly \(-1\).</span></li>
+    <li><b>Flipping when the stem said parallel, or not flipping when it said perpendicular.</b><span>Fix: underline the relationship word before station one.</span></li>
+    <li><b>Reading the slope wrong off \(Ax+By=C\).</b><span>\(2x-3y=6\) has slope \(\frac23\), not \(2\) and not \(-\frac23\). Fix: solve for \(y\); never eyeball it.</span></li>
+    <li><b>Using \(f'(x_0)\) as the \(y\)-coordinate of the tangent point.</b><span>The point is \((x_0,f(x_0))\), always from the original function. Fix: evaluate line and curve at \(x_0\) and demand the same number.</span></li>
+    <li><b>Rounding the answer.</b><span>\(-0.69\) is wrong, \(-0.694\) fails at \(10^{-4}\), \(-\frac{25}{36}\) is right. Fix: enter the exact fraction.</span></li>
+    <li><b>Missing a domain restriction on a non-polynomial.</b><span>A root of \(f'(x)=m\) outside the domain of \(f\) is not a tangent point. Fix: state the domain before solving.</span></li>
+    <li><b>Using \(-1/m\) on a vertical or horizontal given line.</b><span>\(-1/0\) is not an answer. Fix: switch to the geometric statement.</span></li>
+    <li><b>Manufacturing a second answer because the stem said &ldquo;values&rdquo;.</b><span>On a quadratic there is exactly one, and inventing a partner loses the mark you had. The count comes from the degree of \(f'\), not the grammar of the stem.</span></li>
+    <li><b>A silent sign error in \(-\frac16-4\).</b><span>It is \(-\frac{25}{6}\), not \(-\frac{23}{6}\) and not \(\frac{23}{6}\). Fix: the eight-second check catches this immediately.</span></li>
+  </ol>
+</section>
+
+<section>
+  <span class="snum">08 &middot; Answer entry</span>
+  <h2>M&ouml;bius is answer-only and machine-marked</h2>
+  <div class="tw">
+    <table>
+      <thead><tr><th class="mono">do</th><th class="mono">do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono"><code>-25/36</code></td><td class="mono"><code>-0.69</code>, outside tolerance</td></tr>
+        <tr><td class="mono"><code>-(25/36)</code> if the box dislikes a leading minus</td><td class="mono"><code>-25/36.</code> with a stray period</td></tr>
+        <tr><td class="mono"><code>-x/6</code> or <code>(-1/6)*x</code></td><td class="mono"><code>-1/6x</code>, which parses as \(-\frac{1}{6x}\)</td></tr>
+        <tr><td class="mono">every multiplication written with <code>*</code></td><td class="mono">juxtaposition anywhere, ever</td></tr>
+        <tr><td class="mono">an exact fraction unless a decimal is asked for</td><td class="mono">rounding; \(-\frac{25}{36}\) does not terminate</td></tr>
+        <tr><td class="mono">at least 6 figures if a decimal <em>is</em> demanded: <code>-0.694444</code></td><td class="mono"><code>-0.694</code>, which fails at \(10^{-4}\)</td></tr>
+        <tr><td class="mono">for a line, the full equation <code>y=-x/6-1921/432</code></td><td class="mono">the slope alone</td></tr>
+        <tr class="pick"><td class="mono"><strong>preview the rendered expression before submitting</strong></td><td class="mono">submitting unpreviewed</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note">
+    <div class="nl">The two most expensive keystrokes</div>
+    <p><strong>The bracket.</strong> <code>-1/6x</code> is one missing bracket, renders as something plausible, and is \(-\frac{1}{6x}\) rather than \(-\frac{x}{6}\). Write <code>-x/6</code> and the ambiguity disappears.</p>
+    <p><strong>The wrong object.</strong> A box that wants an \(x\) will not accept a line equation, and a box that wants a line will not accept <code>-25/36</code>. It is the stem's last four words that decide.</p>
+  </div>
+</section>
+
+<section>
+  <span class="snum">09 &middot; Drill key</span>
+  <h2>Score sign separately from magnitude</h2>
+  <p class="lede">A wrong sign almost always means station two, the flip, went wrong. A wrong magnitude almost always means station three, the algebra. Those need different remediation, so a single &ldquo;wrong&rdquo; tells you nothing.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>#</th><th>problem</th><th class="mono">answer</th><th>family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="n">1</td><td>\(3x^2+4x-3\), perp. to \(y=6x+2\)</td><td class="n">\(x=-\frac{25}{36}\)</td><td>F1 - flip to \(-\frac16\)</td></tr>
+        <tr><td class="n">2</td><td>\(2x^2-5x+1\), perp. to \(y=4x-7\)</td><td class="n">\(x=\frac{19}{16}\)</td><td>F1 - flip to \(-\frac14\)</td></tr>
+        <tr><td class="n">3</td><td>\(x^2-6x+4\), <em>equation</em> of the tangent perp. to \(y=\frac12x+3\)</td><td class="n">\(y=-2x\)</td><td>F8 - point-slope with \(f(2)\)</td></tr>
+        <tr><td class="n">4</td><td>\(x^3-2x^2+x\), perp. to \(y=-\frac13x+5\)</td><td class="n">\(x=\frac{2\pm\sqrt{10}}{3}\)</td><td>F5 - <strong>two</strong> roots</td></tr>
+        <tr><td class="n">5</td><td>\(x^3-3x+2\), <em>points</em> where the tangent is parallel to \(y=9x+1\)</td><td class="n">\((2,4)\), \((-2,0)\)</td><td>F5 with F2</td></tr>
+        <tr><td class="n">6</td><td>\(4x^2-8x+1\), parallel to the line through \((1,3),(4,9)\)</td><td class="n">\(x=\frac54\)</td><td>F2 with F11</td></tr>
+        <tr><td class="n">7</td><td>\(3x^2+4x-3\), horizontal tangent</td><td class="n">\(x=-\frac23\)</td><td>F3 - equals \(-b/2a\)</td></tr>
+        <tr><td class="n">8</td><td>\(1/x\), perp. to \(y=4x\)</td><td class="n">\(x=\pm2\)</td><td>F7 - <strong>two</strong> roots</td></tr>
+        <tr><td class="n">9</td><td>\(\sqrt x\), perp. to \(y=-4x+1\)</td><td class="n">\(x=4\)</td><td>F7 - check \(x&gt;0\)</td></tr>
+        <tr><td class="n">10</td><td>\(x^3+x\), perp. to \(y=2x\)</td><td class="n">none</td><td>F6 - say so, do not blank</td></tr>
+        <tr><td class="n">11</td><td>\(3x^2+4x-3\), <em>normal line</em> at \(x=1\)</td><td class="n">\(y=-\frac{x}{10}+\frac{41}{10}\)</td><td>F9 - flip \(f'(1)=10\)</td></tr>
+        <tr><td class="n">12</td><td>\(x^2\), both tangents through \((0,-1)\)</td><td class="n">\(y=2x-1\), \(y=-2x-1\)</td><td>F10 - no perpendicularity at all</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px">If 4, 5, 8 and 12 are the ones you missed, the problem is root counting. If 3 and 11, it is assembling a line. If 1, 2 and 6, it is the flip itself.</p>
+</section>
+
+<section>
+  <span class="snum">10 &middot; Provenance</span>
+  <h2>What was verified, and how</h2>
+
+  <div class="vgrid">
+    <div class="vcell"><div class="vn">177</div><div class="vt">assertions run</div></div>
+    <div class="vcell"><div class="vn">0</div><div class="vt">failures</div></div>
+    <div class="vcell"><div class="vn">15</div><div class="vt">seeded controls</div></div>
+    <div class="vcell"><div class="vn">4</div><div class="vt">points, MT1 item 6</div></div>
+  </div>
+
+  <div class="note calm">
+    <div class="nl">A quiet gate and an absent gate look identical</div>
+    <p>Fifteen of the assertions are <strong>seeded controls</strong>: each one is written to fail if the thing it guards were broken, so the gates are proven live rather than merely quiet. Three of them confirm that \(6\), \(-6\) and \(+\frac16\) all fail the perpendicularity product test, and two confirm that the eight-second check rejects the two most plausible wrong answers.</p>
+  </div>
+
+  <h3>The derivative, two independent ways</h3>
+  <p>\(f'(x)=6x+4\) was checked at five points by complex-step differentiation at \(h=10^{-30}\), which has no subtractive cancellation, and by a bounded Richardson centred-difference ladder. The ladder machinery was separately proven second order on a curved control function, \(\sin x + x^3\), with measured error ratios \(4.00,\ 4.00,\ 4.00\). That control is necessary because a centred quotient differentiates a quadratic <em>exactly</em>, so the quadratic itself cannot demonstrate the ladder's convergence order.</p>
+
+  <h3>The root count, two independent ways</h3>
+  <p>A numpy companion-matrix census and a 400,001-sample sign-change sweep over \([-50,50]\) with 80 bisection refinements. Both report exactly one real root. The census machinery was itself controlled by showing it returns <strong>two</strong> roots on \(3x^2-4x-2\) and <strong>zero</strong> on \(x^2+1\), so its answer of one here is a measurement and not a default.</p>
+
+  <h3>Tangency, by evaluation rather than algebra</h3>
+  <p>The line and the curve were each evaluated at \(x=-\frac{25}{36}\) and agreed to \(10^{-14}\); \(f-T\) was shown to have a double root there and to be positive on both sides, which distinguishes touching from crossing. A seeded control confirmed that a line with the right slope through the wrong point does change sign.</p>
+
+  <h3>Perpendicularity, numerically</h3>
+  <p>The slope of \(y=6x+2\) was recovered by complex-step as \(6.000000\) and the tangent's as \(-0.1666667\); their product is \(-1.000000\) to \(10^{-12}\), and the angle between the direction vectors is \(90.000000\) degrees. The given line's slope was read out of the exam paper by regular expression rather than assumed, so the number \(6\) on this page traces to the printed stem.</p>
+
+  <h3>Point value</h3>
+  <p>Midterm 1 prints its point values inline at the end of each stem. Item 6 is worth 4 points, confirmed by locating the marker immediately after the verbatim stem in the paper file. MT1 carries exactly one printed &ldquo;no credit will be given&rdquo; clause, on item 3, and it does not apply here. No paper on file sums to 100, so this question's weight is 4 of MT1's 64, not a percentage.</p>
+
+  <footer>
+    <p>Sources: question bank <code>notes\MATH265.md</code> (Q9.1, section 9); paper <code>notes\MATH265\MATH265.md</code> (Midterm Exam 1, item 6); families sketched in <code>MATH265_Categorized.md</code>; method notes in <code>MATH265_Review.md</code> section 7. The derivative machinery is cited rather than re-derived from the Q8.1 tutorial, sections 3 and 6. Verification harness: <code>Work\knowledge\topics\math265-answer-verification.py</code>, section Q9.1.</p>
+    <p>Full tutorial: <code>notes\Q9.1 - Tangent line perpendicular to a given line.md</code>. Verified 2026-09-01.</p>
+  </footer>
+</section>
+
+</div>

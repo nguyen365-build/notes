@@ -1,0 +1,1468 @@
+<title>Six Limits, Justified</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false, skipHtmlTags: ['script','noscript','style','textarea','pre'] },
+  startup: { pageReady: function () {
+    return MathJax.startup.defaultPageReady().then(function () {
+      document.documentElement.setAttribute('data-mj','done');
+    });
+  } }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style>
+/* ===== dark-first ops console: bare :root is dark, light is the override ===== */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --trap:#D2765C; --trap-soft:rgba(210,118,92,.12); --trap-line:rgba(210,118,92,.34);
+  --good:#6FA8A0; --good-soft:rgba(111,168,160,.12); --good-line:rgba(111,168,160,.34);
+  --slate:#7E9BC4;
+  --grid:rgba(230,234,241,.026);
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --trap:#A8492F; --trap-soft:rgba(168,73,47,.09); --trap-line:rgba(168,73,47,.40);
+    --good:#33726A; --good-soft:rgba(51,114,106,.10); --good-line:rgba(51,114,106,.40);
+    --slate:#3F6493;
+    --grid:rgba(23,27,34,.042);
+    --mj:#171B22;
+  }
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --trap:#A8492F; --trap-soft:rgba(168,73,47,.09); --trap-line:rgba(168,73,47,.40);
+  --good:#33726A; --good-soft:rgba(51,114,106,.10); --good-line:rgba(51,114,106,.40);
+  --slate:#3F6493;
+  --grid:rgba(23,27,34,.042);
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+/* Grid and flex children default to min-width:auto, so one indivisible wide
+   child (a MathJax display SVG) forces its track wider than the viewport and
+   the whole page scrolls sideways.  min-width:0 lets the track shrink so the
+   math container's own overflow-x:auto does the scrolling instead. */
+.vstrip > *, .routes > *, .counts > *, .qparts > li, ol.drills > li{min-width:0}
+.vstrip > * > *, .routes > * > *{min-width:0;max-width:100%}
+.route p, .route h4, .vc-why{overflow-wrap:break-word}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---- masthead ---- */
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+/* ---- the question ---- */
+.qbox{margin:28px 0 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.qbox-head{
+  padding:13px 18px;border-bottom:1px solid var(--line-soft);background:var(--surface2);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);
+  display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;
+}
+.qbox-head .pts{margin-left:auto;color:var(--accent)}
+.qbox-body{padding:17px 18px}
+.qbox-body p{margin:0 0 12px}
+.qparts{display:grid;gap:9px;grid-template-columns:1fr;margin:0;padding:0;list-style:none}
+@media (min-width:700px){.qparts{grid-template-columns:1fr 1fr}}
+.qparts li{
+  display:flex;gap:11px;align-items:center;
+  border:1px solid var(--line-soft);border-radius:3px;background:var(--sunk);padding:9px 12px;
+  overflow-x:auto;
+}
+.qparts .pl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--accent);
+  flex:0 0 auto;letter-spacing:.1em;text-transform:uppercase;
+}
+.nocredit{
+  margin:13px 0 0;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.06em;color:var(--trap);border-left:2px solid var(--trap);
+  padding:7px 0 7px 12px;background:var(--trap-soft);
+}
+
+/* ---- verdict strip: the thesis of this page ---- */
+.vstrip{display:grid;gap:12px;grid-template-columns:1fr;margin:26px 0 0}
+@media (min-width:620px){.vstrip{grid-template-columns:1fr 1fr}}
+@media (min-width:960px){.vstrip{grid-template-columns:repeat(3,1fr)}}
+.vc{
+  border:1px solid var(--line);border-top:2px solid var(--ink3);
+  border-radius:3px;background:var(--surface);padding:14px 16px;
+  display:flex;flex-direction:column;gap:9px;
+}
+.vc-f{border-top-color:var(--good)}
+.vc-i{border-top-color:var(--accent)}
+.vc-d{border-top-color:var(--trap)}
+.vc-top{display:flex;align-items:baseline;gap:10px}
+.vc-p{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);
+}
+.vc-kind{
+  margin-left:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+  letter-spacing:.13em;text-transform:uppercase;padding:2px 7px;border-radius:2px;
+}
+.vc-f .vc-kind{color:var(--good);background:var(--good-soft);border:1px solid var(--good-line)}
+.vc-i .vc-kind{color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line)}
+.vc-d .vc-kind{color:var(--trap);background:var(--trap-soft);border:1px solid var(--trap-line)}
+.vc-m{overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+.vc-a{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:19px;font-weight:600;
+  font-variant-numeric:tabular-nums;
+}
+.vc-f .vc-a{color:var(--good)}
+.vc-i .vc-a{color:var(--accent)}
+.vc-d .vc-a{color:var(--trap)}
+.vc-why{font-size:12.5px;color:var(--ink2);margin:0}
+
+/* ---- entry slab ---- */
+.slab{margin:26px 0 0;border:1px solid var(--accent-line);background:var(--surface);border-radius:3px;overflow:hidden}
+.slab-head{
+  padding:14px 20px;border-bottom:1px solid var(--line-soft);background:var(--accent-soft);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--accent);
+}
+.slab-body{padding:20px}
+.entry{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:15px;font-weight:500;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:11px 13px;color:var(--accent);display:block;overflow-x:auto;white-space:nowrap;
+}
+.lbl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);
+  display:block;margin-bottom:9px;
+}
+.slab-body p{margin:12px 0 0;font-size:13.5px;color:var(--ink2);max-width:70ch}
+
+/* ---- toc ---- */
+nav.toc{margin:30px 0 0;padding:16px 0 0;border-top:1px solid var(--line-soft);display:flex;flex-wrap:wrap;gap:7px}
+nav.toc a{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;
+  text-transform:uppercase;text-decoration:none;color:var(--ink2);
+  border:1px solid var(--line);border-radius:2px;padding:5px 9px;background:var(--surface);
+}
+nav.toc a:hover{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+
+/* ---- sections ---- */
+section{margin-top:52px;scroll-margin-top:20px}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.18em;color:var(--accent);display:block;margin-bottom:7px;
+}
+h2{font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+h4{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:14px;margin:20px 0 6px;color:var(--ink)}
+.sub{color:var(--ink2);margin:0 0 18px;max-width:66ch}
+p{max-width:66ch}
+strong{font-weight:600}
+em{font-style:italic;color:var(--ink)}
+ul.plain{max-width:68ch;padding-left:20px}
+ul.plain li{margin:5px 0}
+
+/* ---- chain / tree code blocks ---- */
+pre.chain{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.75;
+  background:var(--sunk);border:1px solid var(--line);border-left:2px solid var(--accent);
+  border-radius:3px;padding:18px 20px;margin:16px 0;overflow-x:auto;color:var(--ink);
+}
+pre.chain b{color:var(--accent);font-weight:600}
+pre.tree{font-size:11.5px;line-height:1.6}
+
+/* ---- tables ---- */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:min-content}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+  background:var(--surface2);white-space:nowrap;font-weight:500;
+}
+tbody tr:last-child td{border-bottom:0}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-variant-numeric:tabular-nums;white-space:nowrap}
+.hl{background:var(--accent-soft)}
+.hl td{font-weight:500}
+td.vf{color:var(--good);font-weight:600}
+td.vi{color:var(--accent);font-weight:600}
+td.vd{color:var(--trap);font-weight:600}
+
+/* ---- callouts ---- */
+.note{border:1px solid var(--line);border-left:2px solid var(--slate);background:var(--surface);border-radius:3px;padding:15px 18px;margin:18px 0}
+.note.trap{border-left-color:var(--trap);background:var(--trap-soft)}
+.note.good{border-left-color:var(--good);background:var(--good-soft)}
+.note.key{border-left-color:var(--accent);background:var(--accent-soft)}
+.note .tag{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.15em;text-transform:uppercase;display:block;margin-bottom:7px;color:var(--slate);
+}
+.note.trap .tag{color:var(--trap)}
+.note.good .tag{color:var(--good)}
+.note.key .tag{color:var(--accent)}
+.note p{margin:0;max-width:66ch}
+.note p + p{margin-top:9px}
+
+/* ---- route cards ---- */
+.routes{display:grid;gap:14px;grid-template-columns:1fr;margin:16px 0}
+@media (min-width:820px){.routes{grid-template-columns:repeat(2,1fr)}}
+.route{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:17px 18px}
+.route.pick{border-color:var(--accent-line);background:var(--accent-soft)}
+.route h4{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;margin:0 0 11px;color:var(--ink3);font-weight:500;
+}
+.route.pick h4{color:var(--accent)}
+.route p{font-size:13.5px;margin:0;color:var(--ink2)}
+.route p + p{margin-top:9px}
+
+/* ---- part blocks ---- */
+.part{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:20px 0;overflow:hidden}
+.part-head{padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);display:flex;flex-wrap:wrap;gap:11px;align-items:center}
+.part-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.part-m{overflow-x:auto}
+.part-v{margin-left:auto;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase}
+.part-body{padding:17px 18px}
+.part-body > :first-child{margin-top:0}
+.part-body .tw{margin-left:0;margin-right:0}
+
+/* ---- family panels ---- */
+.fam{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;overflow:hidden}
+.fam-head{padding:13px 18px;background:var(--surface2);border-bottom:1px solid var(--line-soft);display:flex;flex-wrap:wrap;align-items:baseline;gap:11px}
+.fam-n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.fam-t{font-weight:600;font-size:15px}
+.fam-tool{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-left:auto}
+.fam-body{padding:16px 18px}
+.fam-body > :first-child{margin-top:0}
+.fam-body .tw{margin-left:0;margin-right:0}
+.trig{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--ink2);
+  margin:0 0 12px;padding:8px 12px;background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+}
+.trig b{color:var(--accent);font-weight:500;letter-spacing:.1em;text-transform:uppercase;font-size:10.5px}
+
+/* ---- ordered trap list ---- */
+ol.traps{counter-reset:t;list-style:none;padding:0;margin:16px 0}
+ol.traps li{counter-increment:t;position:relative;padding:12px 0 12px 46px;border-bottom:1px solid var(--line-soft);max-width:72ch}
+ol.traps li:last-child{border-bottom:0}
+ol.traps li::before{
+  content:counter(t,decimal-leading-zero);position:absolute;left:0;top:12px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--accent);letter-spacing:.08em;
+}
+
+/* ---- drills ---- */
+ol.drills{list-style:none;counter-reset:d;padding:0;margin:16px 0;display:grid;gap:9px;grid-template-columns:1fr}
+@media (min-width:660px){ol.drills{grid-template-columns:1fr 1fr}}
+ol.drills li{
+  counter-increment:d;border:1px solid var(--line);background:var(--surface);
+  border-radius:3px;padding:11px 14px 11px 42px;position:relative;overflow-x:auto;
+}
+ol.drills li::before{
+  content:counter(d);position:absolute;left:14px;top:11px;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;color:var(--ink3);
+}
+details.key{border:1px solid var(--line);border-radius:3px;background:var(--surface);margin:16px 0;padding:0}
+details.key > summary{
+  cursor:pointer;padding:13px 18px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);
+  background:var(--accent-soft);
+}
+details.key[open] > summary{border-bottom:1px solid var(--line-soft)}
+details.key .tw{margin:0;border:0;border-radius:0}
+
+/* ---- verification footer ---- */
+.prov{margin-top:52px;padding-top:22px;border-top:1px solid var(--line)}
+.prov h2{font-size:22px}
+.counts{display:grid;gap:12px;grid-template-columns:1fr;margin:18px 0}
+@media (min-width:620px){.counts{grid-template-columns:repeat(3,1fr)}}
+.count{border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:15px 17px}
+.count .n{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:26px;font-weight:600;color:var(--accent);font-variant-numeric:tabular-nums;display:block;line-height:1.15}
+.count .k{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:block;margin-top:6px}
+.count.ok .n{color:var(--good)}
+.srclist{list-style:none;padding:0;margin:16px 0;max-width:74ch}
+.srclist li{padding:9px 0;border-bottom:1px solid var(--line-soft);font-size:13.5px;color:var(--ink2)}
+.srclist li:last-child{border-bottom:0}
+.srclist code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--ink);word-break:break-all}
+code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.92em;background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:1px 5px}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 2 &middot; Q7 &middot; Q3.2 in the bank</div>
+  <h1>Six Limits, Justified</h1>
+  <p class="deck">Twenty-four points, a quarter of the paper, and the largest single question on it.
+  It looks like six computations. It is really one classification test with six different answers, and
+  the examiner picked exactly one limit of each verdict type.</p>
+
+  <div class="qbox">
+    <div class="qbox-head">
+      <span>The question, verbatim</span>
+      <span class="pts">24 points &middot; 4 each</span>
+    </div>
+    <div class="qbox-body">
+      <p>Evaluate each of the limits given below. If a limit does not exist, explain why.</p>
+      <ul class="qparts">
+        <li><span class="pl">a</span> \(\displaystyle\lim_{x \to 1}\frac{x^2 - 1}{x^3 - 1}\)</li>
+        <li><span class="pl">b</span> \(\displaystyle\lim_{x \to 0}\frac{x^2}{1 - \cos(2x)}\)</li>
+        <li><span class="pl">c</span> \(\displaystyle\lim_{x \to 0}\frac{6x - 9}{x^3 - 12x + 3}\)</li>
+        <li><span class="pl">d</span> \(\displaystyle\lim_{x \to \infty}\frac{5 - 2x^3}{x^2 + 2}\)</li>
+        <li><span class="pl">e</span> \(\displaystyle\lim_{x \to -\pi/3}\frac{\tan(2x)}{3x + \pi}\)</li>
+        <li><span class="pl">f</span> \(\displaystyle\lim_{x \to 2}\frac{\cos(\pi x)}{(x-2)^2}\)</li>
+      </ul>
+      <p class="nocredit">Note: No credit will be given for unjustified answers.</p>
+    </div>
+  </div>
+
+  <div class="vstrip">
+    <div class="vc vc-f">
+      <div class="vc-top"><span class="vc-p">a</span><span class="vc-kind">finite</span></div>
+      <div class="vc-m">\(\dfrac{x^2-1}{x^3-1}\) at \(1\)</div>
+      <div class="vc-a">2/3</div>
+      <p class="vc-why">\(0/0\), factor and cancel</p>
+    </div>
+    <div class="vc vc-f">
+      <div class="vc-top"><span class="vc-p">b</span><span class="vc-kind">finite</span></div>
+      <div class="vc-m">\(\dfrac{x^2}{1-\cos 2x}\) at \(0\)</div>
+      <div class="vc-a">1/2</div>
+      <p class="vc-why">\(0/0\), trig identity \(1-\cos2x=2\sin^2x\)</p>
+    </div>
+    <div class="vc vc-f">
+      <div class="vc-top"><span class="vc-p">c</span><span class="vc-kind">finite</span></div>
+      <div class="vc-m">\(\dfrac{6x-9}{x^3-12x+3}\) at \(0\)</div>
+      <div class="vc-a">-3</div>
+      <p class="vc-why"><strong>Not indeterminate.</strong> Substitute and stop.</p>
+    </div>
+    <div class="vc vc-i">
+      <div class="vc-top"><span class="vc-p">d</span><span class="vc-kind">signed infinity</span></div>
+      <div class="vc-m">\(\dfrac{5-2x^3}{x^2+2}\) at \(\infty\)</div>
+      <div class="vc-a">&minus;&infin;</div>
+      <p class="vc-why">Numerator degree is higher, leading coefficient negative</p>
+    </div>
+    <div class="vc vc-d">
+      <div class="vc-top"><span class="vc-p">e</span><span class="vc-kind">does not exist</span></div>
+      <div class="vc-m">\(\dfrac{\tan 2x}{3x+\pi}\) at \(-\pi/3\)</div>
+      <div class="vc-a">DNE</div>
+      <p class="vc-why">nonzero\(/0\), linear denominator, so the sign <strong>flips</strong></p>
+    </div>
+    <div class="vc vc-i">
+      <div class="vc-top"><span class="vc-p">f</span><span class="vc-kind">signed infinity</span></div>
+      <div class="vc-m">\(\dfrac{\cos\pi x}{(x-2)^2}\) at \(2\)</div>
+      <div class="vc-a">+&infin;</div>
+      <p class="vc-why">nonzero\(/0\), even power, so the sign <strong>holds</strong></p>
+    </div>
+  </div>
+
+  <div class="slab">
+    <div class="slab-head">What to type into M&ouml;bius</div>
+    <div class="slab-body">
+      <span class="lbl">a &nbsp; b &nbsp; c &nbsp; d &nbsp; e &nbsp; f</span>
+      <code class="entry">2/3 &nbsp;&nbsp; 1/2 &nbsp;&nbsp; -3 &nbsp;&nbsp; -infinity &nbsp;&nbsp; DNE &nbsp;&nbsp; infinity</code>
+      <p>The three finite answers are safe as written. The last three depend on a platform convention
+      that is set per question by whoever authored it, so read Section&nbsp;7 before you trust them,
+      and confirm the convention once in practice rather than at the exam.</p>
+    </div>
+  </div>
+
+  <nav class="toc">
+    <a href="#s0">0 &middot; 30 seconds</a>
+    <a href="#s1">1 &middot; What it tests</a>
+    <a href="#s2">2 &middot; Have cold</a>
+    <a href="#s3">3 &middot; Procedure</a>
+    <a href="#s4">4 &middot; Worked</a>
+    <a href="#s5">5 &middot; Write-up</a>
+    <a href="#s6">6 &middot; Verify</a>
+    <a href="#s7">7 &middot; Answer entry</a>
+    <a href="#s8">8 &middot; Variations</a>
+    <a href="#s9">9 &middot; Traps</a>
+    <a href="#s10">10 &middot; Drills</a>
+    <a href="#s11">11 &middot; Decision tree</a>
+    <a href="#s12">12 &middot; Provenance</a>
+  </nav>
+</header>
+
+<section id="s0">
+  <span class="snum">SECTION 00</span>
+  <h2>The 30-second version</h2>
+  <p class="sub">You do not "do" a limit. You <strong>classify</strong> it, and the classification
+  names the tool.</p>
+<pre class="chain">lim f(x) as x -> a
+  -> 1. <b>SUBSTITUTE a.</b>  Do not simplify first.  Just look at what you get.
+  -> 2. <b>READ THE SYMBOL</b> you got:
+           a number      -> that IS the answer                  (done)
+           0/0           -> indeterminate: factor / conjugate / trig identity
+           nonzero / 0   -> INFINITE: do a one-sided SIGN check
+           x -> infinity -> compare the leading terms only
+  -> 3. Run the one tool that symbol named.
+  -> 4. State the verdict AND the reason, because unjustified = zero.</pre>
+  <p>Step 1 is the step everybody skips, and it is the step that decides everything.
+  Part (c) of this very question is worth 4 points and is over the instant you substitute.</p>
+</section>
+
+<section id="s1">
+  <span class="snum">SECTION 01</span>
+  <h2>What this question is really testing</h2>
+  <p class="sub">Midterm 2 is 94 points across 11 questions. This one question is 24 of them.</p>
+  <div class="tw"><table>
+    <tbody>
+      <tr class="hl"><td>Q3.2</td><td class="mono">24 points, 25.5% of the paper</td></tr>
+      <tr><td>Next largest question</td><td class="mono">16 points</td></tr>
+      <tr><td>Six sub-parts</td><td class="mono">4 points each</td></tr>
+    </tbody>
+  </table></div>
+  <p>That is a quarter of the paper in one question, and it is the highest-density
+  marks-per-minute item on the exam. There is no long computation anywhere in it.</p>
+
+  <div class="note key">
+    <span class="tag">The observation that matters more than any single answer</span>
+    <p>Look at the six cards at the top of this page again. <strong>All six reasons are
+    different.</strong> The examiner did not choose six limits, they chose one representative of each
+    verdict type.</p>
+  </div>
+
+  <div class="tw"><table>
+    <thead><tr><th>Part</th><th>The type it represents</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">a</td><td>\(0/0\) resolved by <strong>algebra</strong></td></tr>
+      <tr><td class="mono">b</td><td>\(0/0\) resolved by a <strong>trig identity</strong></td></tr>
+      <tr class="hl"><td class="mono">c</td><td><strong>Not indeterminate at all.</strong> The decoy.</td></tr>
+      <tr><td class="mono">d</td><td>Behaviour as \(x \to \infty\)</td></tr>
+      <tr><td class="mono">e</td><td>nonzero\(/0\) where the sign <strong>flips</strong>, so DNE</td></tr>
+      <tr><td class="mono">f</td><td>nonzero\(/0\) where the sign <strong>holds</strong>, so a signed infinity</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>This is a classification exam wearing the costume of a computation exam. The skill being marked
+  is not algebra, it is triage. If you can sort a limit into the right bin in five seconds, all six
+  parts take about eight minutes. If you cannot, you will apply cancelling to (c), get \(-1/2\), and
+  lose 4 points on the easiest item on the page.</p>
+
+  <h3>The "no credit for unjustified answers" clause</h3>
+  <p>This appears verbatim on the paper, and it also appears on Q3.3. It means a bare correct number
+  can score zero on a hand-marked sitting. Every answer needs its reason named, and Section 5 gives
+  you the exact sentences.</p>
+
+  <div class="note">
+    <span class="tag">Format warning</span>
+    <p>The printed paper says "explain why", which is hand-marked language. The live delivery for
+    this course is M&ouml;bius, answer-only and machine-marked, where no reasoning is collected at
+    all. Prepare for both: get the six verdicts fast, which is all M&ouml;bius wants, and be able to
+    write one justification line each in case the paper you sit does ask for method.</p>
+  </div>
+</section>
+
+<section id="s2">
+  <span class="snum">SECTION 02</span>
+  <h2>The four things you must have cold</h2>
+
+  <h3>2.1 &nbsp; The classification table</h3>
+  <p>This is the whole question. Substitute, then find your row.</p>
+  <div class="tw"><table>
+    <thead><tr><th>What substitution gives you</th><th>Name</th><th>What it means</th><th>Tool</th></tr></thead>
+    <tbody>
+      <tr><td>a finite number</td><td>determinate</td><td>the function is continuous there</td><td class="vf">you are done</td></tr>
+      <tr><td>\(\dfrac{0}{\text{nonzero}}\)</td><td>determinate</td><td>\(=0\)</td><td class="vf">done, the answer is 0</td></tr>
+      <tr class="hl"><td>\(\dfrac{\text{nonzero}}{0}\)</td><td><strong>infinite</strong></td><td>a vertical asymptote</td><td>one-sided sign check</td></tr>
+      <tr class="hl"><td>\(\dfrac{0}{0}\)</td><td><strong>indeterminate</strong></td><td>unknown until you do algebra</td><td>factor / conjugate / identity</td></tr>
+      <tr><td>\(x\to\pm\infty\)</td><td>indeterminate</td><td>unknown until you compare growth</td><td>leading terms</td></tr>
+      <tr><td>bounded \(\times\) something \(\to 0\)</td><td>-</td><td>pinned to 0</td><td>squeeze theorem</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note trap">
+    <span class="tag">"Indeterminate" and "undefined" are not the same word</span>
+    <p>\(\frac00\) is <em>indeterminate</em>: it tells you nothing yet, so you keep working.
+    \(\frac{5}{0}\) is <em>undefined</em>, and that is informative: the limit is infinite, so you
+    stop doing algebra and start checking signs.</p>
+    <p><strong>Cancelling is only legal in the \(\frac00\) row.</strong> The difference is 4 marks.</p>
+  </div>
+
+  <h3>2.2 &nbsp; The three trig limits, and the only form worth memorising</h3>
+  $$\lim_{x\to0}\frac{\sin x}{x}=1
+  \qquad
+  \lim_{x\to0}\frac{\sin(kx)}{x}=k
+  \qquad
+  \lim_{x\to0}\frac{1-\cos(kx)}{x^2}=\frac{k^2}{2}$$
+  <p>The third one is the one students do not have, and it is exactly what part (b) is. Learn it in
+  that form and (b) is a five-second question: \(\frac{x^2}{1-\cos2x}\) is the reciprocal of
+  \(\frac{1-\cos2x}{x^2}\to\frac{2^2}{2}=2\), so the answer is \(\frac12\).</p>
+  <p>Two supporting identities, both verified as identities over an interval, not just at a point:</p>
+  $$1-\cos(kx) = 2\sin^2\!\left(\frac{kx}{2}\right)
+  \qquad
+  \sin(2x) = 2\sin x\cos x$$
+
+  <h3>2.3 &nbsp; The degree rule for \(x\to\pm\infty\)</h3>
+  <p>For a ratio of polynomials, only the <strong>leading</strong> terms matter.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Degrees</th><th>Limit</th></tr></thead>
+    <tbody>
+      <tr><td>\(\deg(\text{num}) &lt; \deg(\text{den})\)</td><td class="mono vf">0</td></tr>
+      <tr><td>\(\deg(\text{num}) = \deg(\text{den})\)</td><td class="mono vf">ratio of the leading coefficients</td></tr>
+      <tr class="hl"><td>\(\deg(\text{num}) &gt; \deg(\text{den})\)</td><td class="mono vi">&plusmn;&infin;, so DNE</td></tr>
+    </tbody>
+  </table></div>
+  <p>Part (d) is row three: degree 3 over degree 2. The constants \(5\) and \(2\) are decoration and
+  do not enter the answer.</p>
+
+  <h3>2.4 &nbsp; The sign rule for nonzero\(/0\)</h3>
+  <p>This is the half of the question most marks are lost in, and it is the whole of (e) and (f).
+  Once you know the answer is infinite, one question remains: <strong>does the denominator's sign
+  change as you cross the point?</strong></p>
+  <div class="tw"><table>
+    <thead><tr><th>Denominator near \(a\)</th><th>Sign behaviour</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>an <strong>even</strong> power, e.g. \((x-2)^2\)</td><td>positive on both sides</td><td class="vi">one signed infinity</td></tr>
+      <tr><td>an <strong>odd</strong> power or a linear factor, e.g. \(3x+\pi\)</td><td>flips</td><td class="vd">left \(\neq\) right, so DNE</td></tr>
+    </tbody>
+  </table></div>
+  <p>Then the numerator's sign at the point decides which infinity. That is the entire method, and
+  it is two lines of work.</p>
+</section>
+
+<section id="s3">
+  <span class="snum">SECTION 03</span>
+  <h2>The universal procedure</h2>
+  <div class="note key">
+    <span class="tag">Seven steps, and four of them are free</span>
+    <p>1. <strong>Substitute \(a\) into the unsimplified expression.</strong> Write down the symbol you get.<br>
+    2. <strong>Classify</strong> it using the table in 2.1.<br>
+    3. If \(0/0\): pick the algebra by looking at what is <em>in</em> the expression, whether polynomial, root, stacked fraction, or trig.<br>
+    4. If nonzero\(/0\): do <strong>not</strong> do algebra. Do a sign check from each side.<br>
+    5. If \(x\to\pm\infty\): compare leading terms only.<br>
+    6. <strong>Recheck</strong> by substituting a number close to \(a\) into the original. This catches sign errors.<br>
+    7. <strong>State the verdict and name the reason.</strong> Unjustified means unmarked.</p>
+  </div>
+  <p>The classify step, applied to this question:</p>
+  <div class="tw"><table>
+    <thead><tr><th>Part</th><th>Substitute and you get</th><th>Row</th><th>Tool</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">a</td><td>\(\frac{1-1}{1-1}=\frac00\)</td><td>indeterminate</td><td>factor, both are differences of powers</td></tr>
+      <tr><td class="mono">b</td><td>\(\frac{0}{1-\cos0}=\frac00\)</td><td>indeterminate</td><td>trig identity</td></tr>
+      <tr class="hl"><td class="mono">c</td><td>\(\frac{-9}{3}\)</td><td><strong>a number</strong></td><td class="vf">stop, that is the answer</td></tr>
+      <tr><td class="mono">d</td><td>\(x\to\infty\)</td><td>leading terms</td><td>degree 3 over degree 2</td></tr>
+      <tr><td class="mono">e</td><td>\(\frac{\tan(-2\pi/3)}{0}=\frac{\sqrt3}{0}\)</td><td>nonzero\(/0\)</td><td>sign check, linear denominator</td></tr>
+      <tr><td class="mono">f</td><td>\(\frac{\cos2\pi}{0}=\frac{1}{0}\)</td><td>nonzero\(/0\)</td><td>sign check, squared denominator</td></tr>
+    </tbody>
+  </table></div>
+  <p><strong>Four of the six are decided before you write a single line of algebra.</strong></p>
+</section>
+
+<section id="s4">
+  <span class="snum">SECTION 04</span>
+  <h2>Worked, part by part, with the routes compared</h2>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">a</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to1}\frac{x^2-1}{x^3-1}\)</span>
+      <span class="part-v" style="color:var(--good)">= 2/3</span>
+    </div>
+    <div class="part-body">
+      <p>Substituting gives \(\frac00\), so this is indeterminate and cancelling is legal.</p>
+      <div class="routes">
+        <div class="route pick">
+          <h4>Route A &middot; factor both &middot; use this</h4>
+          <p>Both are differences of powers, so both carry a factor of \((x-1)\).</p>
+          $$\frac{x^2-1}{x^3-1}=\frac{(x-1)(x+1)}{(x-1)(x^2+x+1)}=\frac{x+1}{x^2+x+1}
+          \;\xrightarrow[x\to1]{}\;\frac{2}{3}$$
+          <p>The cancelled form is continuous at \(x=1\), which is <em>why</em> you may now
+          substitute. The two factorisations to memorise as a pair:
+          \(x^2-a^2=(x-a)(x+a)\) and \(x^3-a^3=(x-a)(x^2+ax+a^2)\).</p>
+        </div>
+        <div class="route">
+          <h4>Route B &middot; the difference-of-powers shortcut</h4>
+          $$\lim_{x\to a}\frac{x^n-a^n}{x^m-a^m}=\frac{n}{m}\,a^{\,n-m}$$
+          <p>Here \(n=2\), \(m=3\), \(a=1\), so the limit is \(\frac23\cdot1^{-1}=\frac23\)
+          instantly. Safe whenever \(a\neq0\) and both really are differences of \(n\)th powers.</p>
+        </div>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Route</th><th>Cost</th><th>Risk</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>A, factor both</td><td class="mono">~20 s</td><td>must recall the cubic factorisation</td><td><strong>use under pressure</strong></td></tr>
+          <tr><td>B, shortcut</td><td class="mono">~5 s</td><td>only for a pure difference of powers</td><td>use as the check</td></tr>
+          <tr><td>C, L'H&ocirc;pital</td><td class="mono">~10 s</td><td>may be out of syllabus, no justification</td><td>avoid as primary</td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">b</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to0}\frac{x^2}{1-\cos(2x)}\)</span>
+      <span class="part-v" style="color:var(--good)">= 1/2</span>
+    </div>
+    <div class="part-body">
+      <p>Substituting gives \(\frac{0}{1-1}=\frac00\).</p>
+      <div class="routes">
+        <div class="route pick">
+          <h4>Route A &middot; half-angle identity &middot; use this</h4>
+          <p>Use \(1-\cos(2x)=2\sin^2x\):</p>
+          $$\frac{x^2}{1-\cos2x}=\frac{x^2}{2\sin^2x}=\frac12\left(\frac{x}{\sin x}\right)^2
+          \;\xrightarrow[x\to0]{}\;\frac12(1)^2=\frac12$$
+        </div>
+        <div class="route">
+          <h4>Route C &middot; the conjugate</h4>
+          <p>Multiply above and below by \(1+\cos2x\):</p>
+          $$\frac{x^2(1+\cos2x)}{\sin^2 2x}
+          =\left(\frac{x}{\sin2x}\right)^{2}(1+\cos2x)
+          \;\xrightarrow[x\to0]{}\;\left(\frac12\right)^2\cdot 2=\frac12$$
+          <p>Correct, and three times the work.</p>
+        </div>
+      </div>
+      <div class="tw"><table>
+        <thead><tr><th>Route</th><th>Cost</th><th>Risk</th><th>Verdict</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>A, half-angle identity</td><td class="mono">~15 s</td><td>recalling \(1-\cos2x=2\sin^2x\)</td><td><strong>use under pressure</strong></td></tr>
+          <tr><td>B, memorised \(k^2/2\)</td><td class="mono">~5 s</td><td>inverting the fraction the wrong way</td><td>best if you trust the form</td></tr>
+          <tr><td>C, conjugate</td><td class="mono">~45 s</td><td>\(\sin^2 2x\) then needs a second \(\sin u/u\)</td><td>fallback</td></tr>
+          <tr><td>D, L'H&ocirc;pital twice</td><td class="mono">~30 s</td><td>must re-check it is still \(0/0\)</td><td>avoid</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap">
+        <span class="tag">The only trap here is a reciprocal</span>
+        <p>The answer is \(\frac12\), not \(2\). Read the fraction one more time before you commit.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">c</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to0}\frac{6x-9}{x^3-12x+3}\)</span>
+      <span class="part-v" style="color:var(--good)">= &minus;3</span>
+    </div>
+    <div class="part-body">
+      <p><strong>Substitute first.</strong></p>
+      $$\frac{6(0)-9}{0-0+3}=\frac{-9}{3}=-3$$
+      <p>The denominator at \(x=0\) is \(3\), not \(0\). There is no indeterminate form, the function
+      is continuous at \(0\), and the limit is the value. <strong>The answer is \(-3\) and the work is
+      finished in about four seconds.</strong> The justification is one word: continuity.</p>
+
+      <h4>Why this part is on the paper</h4>
+      <p>It is placed among five hard limits to catch pattern-matching. It <em>looks</em> like the
+      others, so a student in a hurry reaches for a tool. Watch what the two most tempting tools
+      produce.</p>
+      <div class="tw"><table>
+        <thead><tr><th>What you might do</th><th>Result</th><th>Right?</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>Substitute (correct)</td><td class="mono">\(-9/3=-3\)</td><td class="vf">yes</td></tr>
+          <tr><td>Apply L'H&ocirc;pital because it "looks like a limit problem"</td><td class="mono">\(\frac{6}{3x^2-12}\) at \(0=-\frac12\)</td><td class="vd">no</td></tr>
+          <tr><td>Try to factor and cancel</td><td class="mono">nothing cancels, minutes wasted</td><td class="vd">no</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap">
+        <span class="tag">The most expensive four points on the paper</span>
+        <p>That \(-\frac12\) is not a near miss, it is a different number, and it is what you get for
+        using a tool whose precondition you never checked. L'H&ocirc;pital's rule requires
+        \(\frac00\) or \(\frac{\infty}{\infty}\). This is \(\frac{-9}{3}\).</p>
+        <p>This is the single most valuable habit in the whole question:
+        <strong>substitute before you reach.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">d</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to\infty}\frac{5-2x^3}{x^2+2}\)</span>
+      <span class="part-v" style="color:var(--accent)">= &minus;&infin;</span>
+    </div>
+    <div class="part-body">
+      <p>Numerator degree 3, denominator degree 2, so \(3>2\) and the ratio grows without bound. The
+      leading behaviour is \(\frac{-2x^3}{x^2}=-2x\), which tends to \(-\infty\).</p>
+      <p><strong>The version that shows your work</strong>, dividing by the highest power in the
+      denominator:</p>
+      $$\frac{5-2x^3}{x^2+2}
+      =\frac{\frac{5}{x^2}-2x}{1+\frac{2}{x^2}}
+      \;\xrightarrow[x\to\infty]{}\;\frac{0-2x}{1+0}=-2x\to-\infty$$
+      <p>Every term with an \(x\) in a denominator dies, and what survives is \(-2x\).</p>
+      <div class="note good">
+        <span class="tag">The sign is the only thing that can go wrong</span>
+        <p>The leading coefficient is \(-2\) and \(x\to+\infty\), so the answer is \(-\infty\).
+        Numerical check: at \(x=1000\) the expression is about \(-2000\), which is large and
+        negative. Verified.</p>
+      </div>
+      <p><strong>How to write it.</strong> "The limit does not exist; the expression decreases without
+      bound, so \(\lim = -\infty\)." Saying \(-\infty\) <em>is</em> the explanation of why it does not
+      exist, so give both.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">e</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to-\pi/3}\frac{\tan(2x)}{3x+\pi}\)</span>
+      <span class="part-v" style="color:var(--trap)">= DNE</span>
+    </div>
+    <div class="part-body">
+      <p>This is the hardest part of the question and the one to slow down on.</p>
+
+      <h4>Step 1 &middot; substitute</h4>
+      <p>The denominator is \(3(-\frac\pi3)+\pi=0\). Now the numerator, which is where people go
+      wrong. \(2x\to-\frac{2\pi}{3}\), and \(\tan\) has period \(\pi\), so</p>
+      $$\tan\!\left(-\frac{2\pi}{3}\right)=\tan\!\left(-\frac{2\pi}{3}+\pi\right)=\tan\frac{\pi}{3}=\sqrt3$$
+      <p>\(-\frac{2\pi}{3}\) sits strictly between the tangent asymptotes at \(-\frac{\pi}{2}\) and
+      \(-\frac{3\pi}{2}\), so \(\tan(2x)\) is perfectly well behaved and continuous there. The
+      numerator tends to \(\sqrt3\approx1.732\), which is <strong>not zero</strong>.</p>
+
+      <h4>Step 2 &middot; classify</h4>
+      <p>\(\frac{\sqrt3}{0}\) is nonzero over zero. This is <em>not</em> \(\frac00\), so there is no
+      algebra to do and nothing to cancel. It is infinite. The only remaining question is the sign.</p>
+
+      <h4>Step 3 &middot; sign check</h4>
+      <p>The numerator is positive and roughly constant at \(\sqrt3\) near the point, so the sign of
+      the whole expression is the sign of \(3x+\pi\).</p>
+      <div class="tw"><table>
+        <thead><tr><th>Side</th><th>\(x\)</th><th>\(3x+\pi\)</th><th>Quotient</th></tr></thead>
+        <tbody>
+          <tr><td>from the left, \(x\to-\frac\pi3^-\)</td><td>slightly less than \(-\frac\pi3\)</td><td>slightly <strong>negative</strong></td><td class="vd">\(\frac{+}{-}\to-\infty\)</td></tr>
+          <tr><td>from the right, \(x\to-\frac\pi3^+\)</td><td>slightly more than \(-\frac\pi3\)</td><td>slightly <strong>positive</strong></td><td class="vi">\(\frac{+}{+}\to+\infty\)</td></tr>
+        </tbody>
+      </table></div>
+
+      <h4>Step 4 &middot; verdict</h4>
+      $$\lim_{x\to-\pi/3^-}\frac{\tan 2x}{3x+\pi}=-\infty
+      \qquad
+      \lim_{x\to-\pi/3^+}\frac{\tan 2x}{3x+\pi}=+\infty$$
+      <p>The one-sided limits differ, so the two-sided limit <strong>does not exist</strong>. Here you
+      must write <strong>DNE</strong>, and not an infinity: no single symbol describes the behaviour.
+      This is the difference between (e) and (f), and it is the whole point of having both on the
+      paper.</p>
+
+      <div class="note trap">
+        <span class="tag">The two traps, in the order they bite</span>
+        <p><strong>1. Assuming the numerator is zero.</strong> Many students see \(\tan\) of something
+        near \(-2\pi/3\), panic, and guess \(0/0\). Evaluate it: it is \(\sqrt3\). Had you assumed
+        \(\frac00\) you would have gone looking for a cancellation that does not exist, and lost the
+        time as well as the marks.</p>
+        <p><strong>2. Answering \(+\infty\) because the right side does.</strong> Check both sides.
+        The denominator is linear, so the sign flips, so it cannot be a single infinity.</p>
+      </div>
+
+      <h4>Alternative route &middot; the shift substitution</h4>
+      <p>Put \(u=3x+\pi\), so \(x=\frac{u-\pi}{3}\) and \(2x=\frac{2u}{3}-\frac{2\pi}{3}\). The limit
+      becomes \(\lim_{u\to0}\frac{\tan\!\left(\frac{2u}{3}-\frac{2\pi}{3}\right)}{u}\), whose numerator
+      tends to \(\sqrt3\) while the denominator tends to \(0\) and changes sign. Same conclusion, and
+      it makes the "nonzero over zero" structure impossible to misread. This substitution is the
+      workhorse of Family 8 below.</p>
+    </div>
+  </div>
+
+  <div class="part">
+    <div class="part-head">
+      <span class="part-n">f</span>
+      <span class="part-m">\(\displaystyle\lim_{x\to2}\frac{\cos(\pi x)}{(x-2)^2}\)</span>
+      <span class="part-v" style="color:var(--accent)">= +&infin;</span>
+    </div>
+    <div class="part-body">
+      <p><strong>Step 1, substitute.</strong> The numerator is \(\cos(2\pi)=1\), and the denominator
+      is \(0\). Again \(\frac{1}{0}\): nonzero over zero, so infinite, so the only question is the
+      sign.</p>
+      <p><strong>Step 2, sign check.</strong> The numerator is positive near \(x=2\). The denominator
+      is a <strong>square</strong>, so it is positive on <em>both</em> sides. The sign never flips.</p>
+      $$\lim_{x\to2^-}=+\infty,\qquad
+      \lim_{x\to2^+}=+\infty,\qquad
+      \text{so}\quad \lim_{x\to2}\frac{\cos(\pi x)}{(x-2)^2}=+\infty$$
+      <p><strong>Step 3, how to say it.</strong> Both sides agree, so you are entitled to write
+      \(+\infty\). Strictly the limit still fails to exist as a real number, so the complete sentence
+      is: "The limit does not exist. The expression increases without bound from both sides, so
+      \(\lim_{x\to2}f(x)=+\infty\)." Write both halves and you cannot be marked down on either
+      convention.</p>
+      <div class="note key">
+        <span class="tag">Why (e) and (f) are both here</span>
+        <p>They are the same classification, \(\frac{\text{nonzero}}{0}\), with opposite outcomes,
+        and the <em>only</em> thing separating them is the parity of the denominator's power. Even
+        power, no flip, one signed infinity. Odd or linear, flip, DNE.</p>
+        <p>Nail this pair and you have Family 5, the most common limit family on the whole course.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="s5">
+  <span class="snum">SECTION 05</span>
+  <h2>The exam-ready write-up</h2>
+  <p class="sub">If the sitting is hand-marked, "no credit for unjustified answers" is enforced
+  literally. Each part needs one line naming the reason. These are the sentences, short on purpose.</p>
+
+  <div class="tw"><table>
+    <thead><tr><th>Part</th><th>The sentence that earns the method marks</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">a</td><td>Substituting gives \(\frac00\), an indeterminate form. Factoring, \(\frac{x^2-1}{x^3-1}=\frac{(x-1)(x+1)}{(x-1)(x^2+x+1)}=\frac{x+1}{x^2+x+1}\) for \(x\neq1\). This is continuous at \(x=1\), so the limit is \(\frac{2}{3}\).</td></tr>
+      <tr><td class="mono">b</td><td>Substituting gives \(\frac00\). Using \(1-\cos2x=2\sin^2x\), the expression is \(\frac12\left(\frac{x}{\sin x}\right)^2\). Since \(\frac{\sin x}{x}\to1\), the limit is \(\frac12\).</td></tr>
+      <tr><td class="mono">c</td><td>The denominator at \(x=0\) is \(3\neq0\), so the form is not indeterminate. The function is continuous at \(0\), so the limit is the value there, \(\frac{-9}{3}=-3\).</td></tr>
+      <tr><td class="mono">d</td><td>Dividing numerator and denominator by \(x^2\) gives \(\frac{5/x^2-2x}{1+2/x^2}\). As \(x\to\infty\) the terms \(5/x^2\) and \(2/x^2\) tend to \(0\) and the numerator behaves like \(-2x\), which decreases without bound. The limit does not exist; \(\lim=-\infty\).</td></tr>
+      <tr><td class="mono">e</td><td>As \(x\to-\frac\pi3\), \(\tan(2x)\to\tan(-\frac{2\pi}{3})=\sqrt3\neq0\) while \(3x+\pi\to0\). Since \(3x+\pi&lt;0\) for \(x&lt;-\frac\pi3\) and \(3x+\pi&gt;0\) for \(x&gt;-\frac\pi3\), the left limit is \(-\infty\) and the right limit is \(+\infty\). The one-sided limits differ, so the limit does not exist.</td></tr>
+      <tr><td class="mono">f</td><td>As \(x\to2\), \(\cos(\pi x)\to\cos2\pi=1\neq0\) while \((x-2)^2\to0^+\). The denominator is positive on both sides, so the expression increases without bound from both sides. The limit does not exist as a real number; \(\lim=+\infty\).</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note good">
+    <span class="tag">Four features make these earn the marks</span>
+    <p>Each one names the form found on substitution. Each one names the theorem or identity used.
+    Each one that cancels says "for \(x\neq a\)", which is the step being tested. Each infinite one
+    states the sign from <strong>each</strong> side before drawing a conclusion.</p>
+  </div>
+</section>
+
+<section id="s6">
+  <span class="snum">SECTION 06</span>
+  <h2>Verify before you commit</h2>
+  <p class="sub">Six answers, about forty seconds to check all six.</p>
+
+  <h3>Check 1 &middot; the magnitude check</h3>
+  <p>Substitute a number close to the point into the <strong>original</strong> expression, and see if
+  it is near your answer.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Part</th><th>Try</th><th>Original gives</th><th>Claimed</th><th>Agrees</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">a</td><td class="mono">\(x=1.001\)</td><td class="mono">0.66667</td><td class="mono">2/3</td><td class="vf">yes</td></tr>
+      <tr><td class="mono">b</td><td class="mono">\(x=0.01\)</td><td class="mono">0.50002</td><td class="mono">1/2</td><td class="vf">yes</td></tr>
+      <tr><td class="mono">c</td><td class="mono">\(x=0.001\)</td><td class="mono">-2.999</td><td class="mono">-3</td><td class="vf">yes</td></tr>
+      <tr><td class="mono">d</td><td class="mono">\(x=1000\)</td><td class="mono">-2000.0</td><td class="mono">&minus;&infin;</td><td class="vf">large and negative</td></tr>
+      <tr><td class="mono">e</td><td class="mono">\(-\pi/3\pm10^{-6}\)</td><td class="mono">-5.8e5 and +5.8e5</td><td class="mono">DNE</td><td class="vf">opposite signs</td></tr>
+      <tr><td class="mono">f</td><td class="mono">\(2\pm10^{-6}\)</td><td class="mono">+1e12 both sides</td><td class="mono">+&infin;</td><td class="vf">same sign</td></tr>
+    </tbody>
+  </table></div>
+  <p>This one habit catches nearly every sign error, and a sign error is the most common way to lose
+  marks on (d), (e) and (f).</p>
+
+  <h3>Check 2 &middot; the cheap invariants</h3>
+  <ul class="plain">
+    <li>A cancelled fraction must agree with the original at some third point. If
+    \(\frac{x+1}{x^2+x+1}\) is right, then at \(x=2\) it should equal \(\frac{4-1}{8-1}=\frac37\), and
+    it does.</li>
+    <li>A trig limit answer should be a simple rational or a multiple of \(\pi\). Anything stranger
+    and you probably lost a factor of \(k\).</li>
+    <li>For \(x\to\infty\) on a rational function the answer is \(0\), a ratio of coefficients, or
+    \(\pm\infty\). Never anything else. A different-looking number means recount the degrees.</li>
+    <li><strong>Nonzero\(/0\) can never come out finite.</strong> If you have "simplified" such a
+    limit to a number, you did algebra in the wrong row of the classification table.</li>
+  </ul>
+
+  <h3>Check 3 &middot; the numbers worth memorising</h3>
+  <p>\(\frac23\approx0.6667\), \(\frac12=0.5\), \(\sqrt3\approx1.7321\), \(\cos2\pi=1\),
+  \(\tan\left(-\frac{2\pi}{3}\right)=\sqrt3\). Knowing that last one by sight removes the only
+  genuinely hard step in the paper.</p>
+</section>
+
+<section id="s7">
+  <span class="snum">SECTION 07</span>
+  <h2>Answer-entry rules</h2>
+  <p class="sub">M&ouml;bius is answer-only and machine-marked, so a right method with a bad keystroke
+  scores zero. Grading is by mathematical equivalence, so a correct answer is never rejected for its
+  <em>form</em>, only for being <strong>parsed</strong> differently than you intended.</p>
+  <div class="tw"><table>
+    <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+    <tbody>
+      <tr><td>Multiplication</td><td class="mono vf">2*x</td><td class="mono vd">2x</td></tr>
+      <tr><td>Fractions</td><td class="mono vf">2/3</td><td class="mono vd">0.667</td></tr>
+      <tr><td>Negative fractions</td><td class="mono vf">-1/2</td><td class="mono vd">- 1/2</td></tr>
+      <tr><td>Roots</td><td class="mono vf">sqrt(3)</td><td class="mono vd">3^.5</td></tr>
+      <tr><td>Whole numerators</td><td class="mono vf">(sqrt(6)+sqrt(2))/4</td><td class="mono vd">sqrt(6)+sqrt(2)/4</td></tr>
+      <tr><td>Natural log</td><td class="mono vf">ln(x)</td><td class="mono vd">log(x)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note">
+    <span class="tag">The three limit-specific answers, and the honest state of what is known</span>
+    <p>The finite answers are unambiguous: type <code>2/3</code>, <code>1/2</code>, <code>-3</code>.</p>
+    <p>For the other three, the usual M&ouml;bius/Maple tokens are <code>infinity</code>,
+    <code>-infinity</code> and <code>DNE</code>, and <code>INF</code> / <code>-INF</code> are also
+    accepted in some question types. This is a <strong>platform convention, not
+    mathematics</strong>, and it is set per question by whoever authored it: some limit questions
+    present a dropdown or a "does not exist" checkbox instead of a free-text box, in which case you
+    type nothing at all. Confirm it once on a practice question rather than discovering it in the
+    exam, and if the box is free text, click preview and read what came back.</p>
+  </div>
+
+  <div class="note trap">
+    <span class="tag">The single most expensive mistake available here</span>
+    <p>Answering (f) with <code>DNE</code> when the box wanted <code>infinity</code>, or answering
+    (e) with <code>infinity</code> when the sign flips and the truth is <code>DNE</code>. Those are 8
+    of the 24 points and the mathematics behind them is two sign checks.</p>
+    <p><strong>(e) is DNE because the sides disagree. (f) is \(+\infty\) because they agree.</strong></p>
+  </div>
+  <p><strong>Always click the preview icon.</strong> An empty preview modal means broken syntax, not
+  wrong mathematics.</p>
+</section>
+
+<section id="s8">
+  <span class="snum">SECTION 08</span>
+  <h2>The variation catalog</h2>
+  <p class="sub">This is the part that makes the question repeatable. Everything below has been
+  recomputed independently and checked against the original function.</p>
+
+  <div class="note key">
+    <span class="tag">Read each family as a structure, not a list of facts</span>
+    <p>There are only thirteen families, and every limit on this course lands in one of them. The
+    trigger tells you which family you are in, and the family names the tool.</p>
+    <p>Notice how few <em>tools</em> there actually are: substitute, factor, conjugate, common
+    denominator, trig identity, sign check, leading terms, shift, squeeze.
+    <strong>Nine tools, thirteen triggers.</strong></p>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 0</span><span class="fam-t">Not indeterminate, so substitute</span><span class="fam-tool">this is 3.2c</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; you substituted and got a number, including \(\frac{0}{\text{nonzero}}\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; none, that number is the answer</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to0}\frac{6x-9}{x^3-12x+3}\)</td><td class="mono">\(-3\)</td></tr>
+          <tr><td>\(\lim_{x\to2}(3x^2-2x+1)\)</td><td class="mono">\(9\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x^2+3}{x+4}\)</td><td class="mono">\(\frac45\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\cos x}{x+1}\)</td><td class="mono">\(1\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi}\frac{\sin x+2}{x^2}\)</td><td class="mono">\(\frac{2}{\pi^2}\)</td></tr>
+          <tr><td>\(\lim_{x\to3}\frac{x^2-9}{x+3}\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{x^2-4}{x^2+4}\)</td><td class="mono">\(-1\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row six is the mirror trap. \(\frac{0}{6}\) <em>is</em> determinate and the answer is \(0\).
+      Only \(\frac00\) licenses algebra, so do not cancel here.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 1</span><span class="fam-t">\(0/0\) polynomial, factor and cancel</span><span class="fam-tool">this is 3.2a</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(\frac00\) and everything in sight is a polynomial &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; factor both, cancel \((x-a)\), substitute</p>
+      <p>Shortcut: \(\lim_{x\to a}\frac{x^n-a^n}{x^m-a^m}=\frac{n}{m}a^{\,n-m}\).</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th><th class="mono">Shortcut check</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to1}\frac{x^2-1}{x^3-1}\)</td><td class="mono">\(\frac23\)</td><td class="mono">\(\frac23\cdot1^{-1}\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x^3-1}{x^2-1}\)</td><td class="mono">\(\frac32\)</td><td class="mono">\(\frac32\cdot1^{1}\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x^5-1}{x^3-1}\)</td><td class="mono">\(\frac53\)</td><td class="mono">\(\frac53\cdot1^{2}\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x^2-1}{x^4-1}\)</td><td class="mono">\(\frac12\)</td><td class="mono">\(\frac24\cdot1^{-2}\)</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{x^5-32}{x^3-8}\)</td><td class="mono">\(\frac{20}{3}\)</td><td class="mono">\(\frac53\cdot2^{2}\)</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{x^2-4}{x^2-x-2}\)</td><td class="mono">\(\frac43\)</td><td class="mono">not a pure power pair</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{x^3-8}{x-2}\)</td><td class="mono">\(12\)</td><td class="mono">\(\frac31\cdot2^{2}\)</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{x^4-16}{x-2}\)</td><td class="mono">\(32\)</td><td class="mono">\(\frac41\cdot2^{3}\)</td></tr>
+          <tr><td>\(\lim_{x\to-1}\frac{x^3+1}{x+1}\)</td><td class="mono">\(3\)</td><td class="mono">via \(x^3-(-1)^3\)</td></tr>
+          <tr><td>\(\lim_{x\to3}\frac{x^2-x-6}{x-3}\)</td><td class="mono">\(5\)</td><td class="mono">ordinary factoring</td></tr>
+        </tbody>
+      </table></div>
+      <p><strong>How the numbers are generated.</strong> In the pure-power rows only three things
+      move: \(n\), \(m\), and \(a\). One formula, no memorised answers.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 2</span><span class="fam-t">\(0/0\) with a root, multiply by the conjugate</span><span class="fam-tool">Q3.1d</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(\frac00\) and a square root in the numerator or denominator &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; multiply by the conjugate of the part with the root</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to2}\frac{\sqrt{6-x}-2}{\sqrt{3-x}-1}\)</td><td class="mono">\(\frac12\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\sqrt{x+4}-2}{x}\)</td><td class="mono">\(\frac14\)</td></tr>
+          <tr><td>\(\lim_{x\to9}\frac{\sqrt{x}-3}{x-9}\)</td><td class="mono">\(\frac16\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\sqrt{x+1}-1}{\sqrt{x+4}-2}\)</td><td class="mono">\(2\)</td></tr>
+          <tr><td>\(\lim_{x\to4}\frac{x-4}{\sqrt{x}-2}\)</td><td class="mono">\(4\)</td></tr>
+          <tr><td>\(\lim_{x\to8}\frac{\sqrt[3]{x}-2}{x-8}\)</td><td class="mono">\(\frac{1}{12}\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The worked shape, verified as an identity rather than only at the point:</p>
+      $$\frac{\sqrt{x+4}-2}{x}=\frac{(x+4)-4}{x\left(\sqrt{x+4}+2\right)}=\frac{1}{\sqrt{x+4}+2}
+      \;\xrightarrow[x\to0]{}\;\frac14$$
+      <p>The last row needs the cube-root version, \(a^3-b^3=(a-b)(a^2+ab+b^2)\), or the observation
+      that it is the derivative of \(x^{1/3}\) at \(8\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 3</span><span class="fam-t">\(0/0\) with a stacked fraction</span><span class="fam-tool">one denominator first</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(\frac00\) and there is a fraction inside the fraction &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; combine over a common denominator, then cancel</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to3}\frac{\frac1x-\frac13}{x-3}\)</td><td class="mono">\(-\frac19\)</td></tr>
+          <tr><td>\(\lim_{h\to0}\frac{\frac{1}{2+h}-\frac12}{h}\)</td><td class="mono">\(-\frac14\)</td></tr>
+          <tr><td>\(\lim_{x\to4}\frac{\frac{1}{\sqrt x}-\frac12}{x-4}\)</td><td class="mono">\(-\frac{1}{16}\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The shape: \(\frac{\frac1x-\frac13}{x-3}=\frac{3-x}{3x(x-3)}=-\frac{1}{3x}\to-\frac19\).</p>
+      <div class="note good">
+        <span class="tag">A free sign check</span>
+        <p><strong>Every answer in this family is negative</strong>, because \(\frac1x\) is
+        decreasing.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 4</span><span class="fam-t">\(0/0\) trigonometric, identity then \(\sin u / u\)</span><span class="fam-tool">this is 3.2b</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(\frac00\) with \(\sin\), \(\cos\) or \(\tan\), and \(x\to0\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; rewrite until every trig piece is \(\frac{\sin(\text{something})}{\text{that same thing}}\)</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to0}\frac{x^2}{1-\cos2x}\)</td><td class="mono">\(\frac12\)</td><td>\(\lim_{x\to0}\frac{\sin5x}{\sin3x}\)</td><td class="mono">\(\frac53\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{1-\cos2x}{x^2}\)</td><td class="mono">\(2\)</td><td>\(\lim_{x\to0}\frac{\tan2x}{3x}\)</td><td class="mono">\(\frac23\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{1-\cos3x}{x^2}\)</td><td class="mono">\(\frac92\)</td><td>\(\lim_{x\to0}\frac{x}{\sin4x}\)</td><td class="mono">\(\frac14\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{1-\cos x}{x^2}\)</td><td class="mono">\(\frac12\)</td><td>\(\lim_{x\to0}\frac{\sin^2 3x}{x^2}\)</td><td class="mono">\(9\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\cos x-1}{x^2}\)</td><td class="mono">\(-\frac12\)</td><td>\(\lim_{x\to0}\frac{1-\cos4x}{x\sin x}\)</td><td class="mono">\(8\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\sin3x}{x^2-x}\)</td><td class="mono">\(-3\)</td><td>\(\lim_{x\to0}\frac{\sin x-\tan x}{x^3}\)</td><td class="mono">\(-\frac12\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note key">
+        <span class="tag">Read this as one fact, not twelve</span>
+        <p>Only two patterns appear: \(\frac{\sin kx}{x}\to k\), and
+        \(\frac{1-\cos kx}{x^2}\to\frac{k^2}{2}\). Every entry is one of those, possibly inverted,
+        possibly with an extra factor tagged on.</p>
+        <p>The two negative entries show where signs come from: a flipped subtraction, and a leftover
+        \(\frac{1}{x-1}\) tending to \(-1\).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 5</span><span class="fam-t">nonzero\(/0\), decide by the sign from each side</span><span class="fam-tool">this is 3.2e and 3.2f</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; you substituted and got a nonzero number over \(0\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; no algebra: sign of numerator, then sign of denominator from each side</p>
+
+      <h4>5A &middot; even power, so no flip, so one signed infinity</h4>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to2}\frac{\cos\pi x}{(x-2)^2}\)</td><td class="mono vi">\(+\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{1}{(x-1)^2}\)</td><td class="mono vi">\(+\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{-1}{(x-1)^2}\)</td><td class="mono vi">\(-\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x+1}{(x-1)^2}\)</td><td class="mono vi">\(+\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to1}\frac{x-3}{(x-1)^2}\)</td><td class="mono vi">\(-\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\lvert x\rvert}{x^2}\)</td><td class="mono vi">\(+\infty\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The sign of the answer is just the sign of the numerator at the point. Rows four and five
+      differ only in that: \(x+1\to2>0\), and \(x-3\to-2&lt;0\).</p>
+
+      <h4>5B &middot; sign flips, so DNE</h4>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Left</th><th class="mono">Right</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to-\pi/3}\frac{\tan2x}{3x+\pi}\)</td><td class="mono">\(-\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{\cos\pi x}{x-2}\)</td><td class="mono">\(-\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to3}\frac{2x^2-x+1}{x-3}\)</td><td class="mono">\(-\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{1}{x^3}\)</td><td class="mono">\(-\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{x^2+1}{x^2-4}\)</td><td class="mono">\(-\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to\pi/2}\sec x\)</td><td class="mono">\(+\infty\)</td><td class="mono">\(-\infty\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to5\pi/2}\tan x\)</td><td class="mono">\(+\infty\)</td><td class="mono">\(-\infty\)</td><td class="mono vd">DNE</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note key">
+        <span class="tag">The distinction the examiner is testing</span>
+        <p>Compare row one of 5A with row two of 5B: identical numerator, and the only change is
+        \((x-2)^2\) versus \((x-2)\). One is \(+\infty\) and the other is DNE.</p>
+      </div>
+
+      <h4>5C &middot; the two-stage trap</h4>
+      <p>This one looks like \(\frac00\), cancels <strong>once</strong>, and then turns out to be
+      nonzero\(/0\).</p>
+      $$\lim_{x\to-2}\frac{3x^2-2x-16}{(x+2)^2}$$
+      <p>At \(x=-2\) the numerator is \(12+4-16=0\), so it really is \(\frac00\) and you really may
+      factor: \(3x^2-2x-16=(x+2)(3x-8)\), giving \(\frac{3x-8}{x+2}\). Now substitute again:
+      \(\frac{-14}{0}\). The form <strong>changed</strong> after cancelling, so re-classify: nonzero
+      over zero, denominator linear, sign flips, left limit \(+\infty\), right limit \(-\infty\), so
+      the answer is <strong>DNE</strong>.</p>
+      <div class="note trap">
+        <span class="tag">The lesson generalises</span>
+        <p><strong>After every cancellation, substitute again and re-classify.</strong> One round of
+        algebra does not mean one round of classification.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 6</span><span class="fam-t">\(x\to\pm\infty\) on a rational function</span><span class="fam-tool">this is 3.2d</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(x\to\infty\) or \(x\to-\infty\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; leading terms only</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Degrees</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to\infty}\frac{5-2x^3}{x^2+2}\)</td><td class="mono">\(3>2\)</td><td class="mono vi">\(-\infty\)</td></tr>
+          <tr class="hl"><td>\(\lim_{x\to-\infty}\frac{5-2x^3}{x^2+2}\)</td><td class="mono">\(3>2\)</td><td class="mono vi">\(+\infty\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{5-2x^3}{x^3+2}\)</td><td class="mono">\(3=3\)</td><td class="mono">\(-2\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{5-2x^2}{x^3+2}\)</td><td class="mono">\(2&lt;3\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{3x^2-4}{4+2x+2x^4}\)</td><td class="mono">\(2&lt;4\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{4x^2-3}{2x^2+x}\)</td><td class="mono">\(2=2\)</td><td class="mono">\(2\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{\sqrt{x^2+1}}{x}\)</td><td class="mono">-</td><td class="mono">\(1\)</td></tr>
+          <tr><td>\(\lim_{x\to-\infty}\frac{\sqrt{x^2+1}}{x}\)</td><td class="mono">-</td><td class="mono">\(-1\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Rows one and two are the <em>same expression</em> with opposite answers, which is why
+      "as \(x\to\) what" must be read before anything else.</p>
+      <div class="note trap">
+        <span class="tag">The absolute-value trap</span>
+        <p>Rows seven and eight: \(\sqrt{x^2}=\lvert x\rvert\), not \(x\). At \(x=-1000\),
+        \(\sqrt{x^2}=+1000\), so the quotient is \(-1\). Any time a root of an even power meets
+        \(x\to-\infty\), a minus sign appears.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 7</span><span class="fam-t">\(x\to\infty\) with a root, conjugate at infinity</span><span class="fam-tool">\(\infty-\infty\)</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; \(x\to\infty\) and a difference of two growing things, or a root over a polynomial &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; conjugate, or divide by the highest power remembering the power halves inside a root</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+3x}-x\right)\)</td><td class="mono">\(\frac32\)</td><td>\(\lim_{x\to\infty}\frac{\sqrt{4x^2+1}}{x+3}\)</td><td class="mono">\(2\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+x}-\sqrt{x^2-x}\right)\)</td><td class="mono">\(1\)</td><td>\(\lim_{x\to-\infty}\frac{\sqrt{4x^2+1}}{x+3}\)</td><td class="mono">\(-2\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\left(x-\sqrt{x^2-4x}\right)\)</td><td class="mono">\(2\)</td><td>\(\lim_{x\to\infty}\frac{3x+2}{\sqrt{4x^2+1}}\)</td><td class="mono">\(\frac32\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\left(\sqrt{x^2+1}-x\right)\)</td><td class="mono">\(0\)</td><td>\(\lim_{x\to-\infty}\frac{3x+2}{\sqrt{4x^2+1}}\)</td><td class="mono">\(-\frac32\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>\(\infty-\infty\) is indeterminate, so the left column cannot be answered by inspection.
+      The pattern for \(\sqrt{x^2+bx}-x\) is \(\frac{b}{2}\), which covers three of those four rows at
+      a glance (\(b=3\), \(b=-4\), \(b=0\)).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 8</span><span class="fam-t">A trig limit at a point that is not \(0\)</span><span class="fam-tool">shift \(u=x-a\)</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; trig, \(\frac00\), and \(x\to a\) with \(a\neq0\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; substitute \(u=x-a\), then use angle addition to turn shifted trig into plain trig</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th>Identity used</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to2}\frac{\sin\pi x}{x-2}\)</td><td>\(\sin(\pi u+2\pi)=\sin\pi u\)</td><td class="mono">\(\pi\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi/2}\frac{\cos x}{x-\pi/2}\)</td><td>\(\cos(u+\frac\pi2)=-\sin u\)</td><td class="mono">\(-1\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi/2}\frac{1-\sin x}{(x-\pi/2)^2}\)</td><td>\(1-\sin(u+\frac\pi2)=1-\cos u\)</td><td class="mono">\(\frac12\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi}\frac{1+\cos x}{(x-\pi)^2}\)</td><td>\(1+\cos(u+\pi)=1-\cos u\)</td><td class="mono">\(\frac12\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi/6}\frac{\sin x-\frac12}{x-\pi/6}\)</td><td>difference quotient</td><td class="mono">\(\frac{\sqrt3}{2}\)</td></tr>
+          <tr><td>\(\lim_{x\to\pi/4}\frac{\tan(x-\pi/4)}{x-\pi/4}\)</td><td>already shifted</td><td class="mono">\(1\)</td></tr>
+          <tr><td>\(\lim_{x\to1/2}\frac{\cos\pi x}{x-1/2}\)</td><td>\(\cos(\pi u+\frac\pi2)=-\sin\pi u\)</td><td class="mono">\(-\pi\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note trap">
+        <span class="tag">3.2e's honest cousin, and telling them apart is a marks question</span>
+        <p>Family 8 is \(\frac00\) and has a finite answer. 3.2e substitutes to \(\frac{\sqrt3}{0}\)
+        and has no limit at all. The <em>only</em> way to know which one you are looking at is to
+        evaluate the numerator.</p>
+        <p>Compare rows one and seven with 3.2e: same flavour, different form, completely different
+        verdict.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 9</span><span class="fam-t">Bounded times something that dies</span><span class="fam-tool">squeeze theorem &middot; Q3.3a</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; a factor that oscillates forever and never settles, times something tending to \(0\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; bound the oscillating factor by \(1\)</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>\(\lim_{x\to\infty}\left(\frac{3x^2-4}{4+2x+2x^4}\right)\sin x\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to0}x^2\sin\frac1x\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to0}x\sin\frac1x\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to\infty}\frac{\sin x}{x}\)</td><td class="mono">\(0\)</td></tr>
+          <tr><td>\(\lim_{x\to0}\sin\frac1x\)</td><td class="mono vd">DNE</td></tr>
+        </tbody>
+      </table></div>
+      <p>The write-up is always the same:
+      \(\left\lvert f(x)\right\rvert \le \left\lvert g(x)\right\rvert \to 0\), therefore
+      \(f(x)\to0\).</p>
+      <div class="note key">
+        <span class="tag">The boundary case is the one worth understanding</span>
+        <p>In the last row there is nothing tending to \(0\) multiplying it, so there is nothing to
+        squeeze against. \(\sin\frac1x\) keeps taking every value in \([-1,1]\) arbitrarily close to
+        \(0\), so the limit does not exist. Verified: on a sample of points approaching \(0\), the
+        values still span \(-1.000\) to \(1.000\).</p>
+        <p><strong>"Bounded" alone never gives a limit. Bounded times vanishing does.</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 10</span><span class="fam-t">One-sided by necessity</span><span class="fam-tool">\(\lvert x\rvert\) and piecewise</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; an absolute value, or a piecewise definition, at the joining point &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; split into cases, take both one-sided limits</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th class="mono">Left</th><th class="mono">Right</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{x\to0}\frac{\lvert x\rvert}{x}\)</td><td class="mono">\(-1\)</td><td class="mono">\(1\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to3}\frac{\lvert x-3\rvert}{x-3}\)</td><td class="mono">\(-1\)</td><td class="mono">\(1\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\lvert x\rvert-x}{x}\)</td><td class="mono">\(-2\)</td><td class="mono">\(0\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to2}\frac{\lvert x^2-4\rvert}{x-2}\)</td><td class="mono">\(-4\)</td><td class="mono">\(4\)</td><td class="mono vd">DNE</td></tr>
+          <tr><td>\(\lim_{x\to0}\frac{\lvert x\rvert}{x^2}\)</td><td class="mono">\(+\infty\)</td><td class="mono">\(+\infty\)</td><td class="mono vi">\(+\infty\)</td></tr>
+        </tbody>
+      </table></div>
+      <div class="note key">
+        <span class="tag">There are three distinct ways a limit can fail</span>
+        <p>The sides disagree <strong>finitely</strong> (Family 10), the sides disagree
+        <strong>infinitely</strong> (Family 5B), or it <strong>oscillates</strong> (Family 9, last
+        row). A written answer should say which.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 11</span><span class="fam-t">Continuity, solve for the constant</span><span class="fam-tool">set value = limit</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; "find \(k\) so that \(f\) is continuous", or a piecewise function with an unknown &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; compute the limit, then set the function value equal to it</p>
+      <div class="tw"><table>
+        <thead><tr><th>Problem</th><th>Requirement</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(f(x)=\frac{x^2-1}{x-1}\) for \(x\neq1\), \(f(1)=k\)</td><td>\(k=\lim_{x\to1}f\)</td><td class="mono">\(k=2\)</td></tr>
+          <tr><td>\(f(x)=\frac{x^2-9}{x-3}\) for \(x\neq3\), \(f(3)=k\)</td><td>\(k=\lim_{x\to3}f\)</td><td class="mono">\(k=6\)</td></tr>
+          <tr><td>\(f(x)=cx+1\) for \(x\le2\), \(x^2\) for \(x>2\)</td><td>\(2c+1=4\)</td><td class="mono">\(c=\frac32\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Continuity at \(a\) has three requirements, and a question can attack any of them:
+      \(f(a)\) is defined, \(\lim_{x\to a}f(x)\) exists, and the two are equal.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fam-n">Family 12</span><span class="fam-t">The difference quotient in disguise</span><span class="fam-tool">it is a derivative</span></div>
+    <div class="fam-body">
+      <p class="trig"><b>trigger</b> &nbsp; the shape \(\frac{f(x)-f(a)}{x-a}\), or \(\frac{f(a+h)-f(a)}{h}\) with \(h\to0\) &nbsp;&middot;&nbsp; <b>tool</b> &nbsp; recognise it as \(f'(a)\)</p>
+      <div class="tw"><table>
+        <thead><tr><th>Limit</th><th>Recognise as</th><th class="mono">Answer</th></tr></thead>
+        <tbody>
+          <tr><td>\(\lim_{h\to0}\frac{(2+h)^3-8}{h}\)</td><td>\(\frac{d}{dx}x^3\) at \(2\)</td><td class="mono">\(12\)</td></tr>
+          <tr><td>\(\lim_{h\to0}\frac{\sqrt{4+h}-2}{h}\)</td><td>\(\frac{d}{dx}\sqrt x\) at \(4\)</td><td class="mono">\(\frac14\)</td></tr>
+          <tr><td>\(\lim_{x\to3}\frac{x^4-81}{x-3}\)</td><td>\(\frac{d}{dx}x^4\) at \(3\)</td><td class="mono">\(108\)</td></tr>
+          <tr><td>\(\lim_{h\to0}\frac{\cot(\frac\pi4+h)-1}{h}\)</td><td>\(\frac{d}{dx}\cot x\) at \(\frac\pi4\)</td><td class="mono">\(-2\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>The last row is the link to Final Exam 1 Q3, "use the definition of the derivative to
+      compute the derivative of \(\cot x\)", where \(-\csc^2\frac\pi4=-2\). Family 12 also re-derives
+      Family 1's shortcut: \(\lim_{x\to a}\frac{x^n-a^n}{x-a}=na^{n-1}\) is just the power rule.</p>
+    </div>
+  </div>
+</section>
+
+<section id="s9">
+  <span class="snum">SECTION 09</span>
+  <h2>The trap list</h2>
+  <p class="sub">Ranked by how often each one actually costs marks.</p>
+  <ol class="traps">
+    <li><strong>Reaching for a tool without substituting first.</strong> This is part (c), 4 points,
+    and the wrong answer \(-\frac12\) is what a confident student produces. Substitute, always,
+    before anything.</li>
+    <li><strong>Getting the sign wrong on an infinite limit.</strong> Parts (d), (e) and (f) are 12 of
+    the 24 points and every one turns on a sign. Check the sign from <strong>each</strong> side, in
+    writing.</li>
+    <li><strong>Saying \(+\infty\) when the answer is DNE, or DNE when a signed infinity is
+    wanted.</strong> Even power, no flip, so a signed infinity. Odd or linear, flip, so DNE.</li>
+    <li><strong>Assuming a trig numerator is \(0\) because the point is not \(0\).</strong> In (e),
+    \(\tan(-\frac{2\pi}{3})\) is \(\sqrt3\), not \(0\). Evaluate it, do not assume it.</li>
+    <li><strong>Not re-classifying after a cancellation.</strong> Family 5C looks like \(\frac00\),
+    cancels once, and becomes nonzero\(/0\). One round of algebra, two rounds of classification.</li>
+    <li><strong>Inverting a trig limit the wrong way.</strong> Part (b) is \(\frac12\); the limit of
+    the upside-down version is \(2\).</li>
+    <li><strong>Forgetting \(\sqrt{x^2}=\lvert x\rvert\) when \(x\to-\infty\).</strong> A missing
+    minus sign, every time.</li>
+    <li><strong>Cancelling in a non-\(\frac00\) form.</strong> Illegal, and it produces a finite
+    answer where the truth is infinite.</li>
+    <li><strong>Using L'H&ocirc;pital where the syllabus wants algebra.</strong> It may not be
+    examinable at this point in the course, and on a hand-marked paper it may not earn the
+    justification marks even when the number is right.</li>
+    <li><strong>Answering a bare number on a paper that says "no credit for unjustified
+    answers".</strong> One line per part is all it takes.</li>
+  </ol>
+</section>
+
+<section id="s10">
+  <span class="snum">SECTION 10</span>
+  <h2>Drill set</h2>
+  <p class="sub">Twelve problems, mixed families, no order. Do them in one sitting and aim for eight
+  minutes.</p>
+  <ol class="drills">
+    <li>\(\displaystyle\lim_{x\to5}\frac{x^2-25}{x-5}\)</li>
+    <li>\(\displaystyle\lim_{x\to0}\frac{1-\cos5x}{x^2}\)</li>
+    <li>\(\displaystyle\lim_{x\to\infty}\frac{4-3x^2}{2x^2+x-1}\)</li>
+    <li>\(\displaystyle\lim_{x\to4}\frac{x+4}{x^2-16}\)</li>
+    <li>\(\displaystyle\lim_{x\to0}\frac{\sqrt{x+9}-3}{x}\)</li>
+    <li>\(\displaystyle\lim_{x\to0}\frac{\tan3x}{\sin5x}\)</li>
+    <li>\(\displaystyle\lim_{x\to-3}\frac{x^3+27}{x+3}\)</li>
+    <li>\(\displaystyle\lim_{x\to\infty}\frac{2x^4+1}{x^3-x}\)</li>
+    <li>\(\displaystyle\lim_{x\to5}\frac{\frac1x-\frac15}{x-5}\)</li>
+    <li>\(\displaystyle\lim_{x\to1}\frac{\sin(2x-2)}{x-1}\)</li>
+    <li>\(\displaystyle\lim_{x\to\infty}\frac{\sqrt{9x^2+2}}{1-3x}\)</li>
+    <li>\(\displaystyle\lim_{x\to2}\frac{x^2-2x}{x^2-4x+4}\)</li>
+  </ol>
+
+  <details class="key">
+    <summary>Answer key &middot; open only after all twelve</summary>
+    <div class="tw"><table>
+      <thead><tr><th class="mono">#</th><th class="mono">Exact</th><th class="mono">Decimal</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td class="mono">\(10\)</td><td class="mono">10</td><td>F1, factor \((x-5)(x+5)\) and cancel</td></tr>
+        <tr><td class="mono">2</td><td class="mono">\(\frac{25}{2}\)</td><td class="mono">12.5</td><td>F4, \(\frac{1-\cos kx}{x^2}\to\frac{k^2}{2}\) with \(k=5\)</td></tr>
+        <tr><td class="mono">3</td><td class="mono">\(-\frac32\)</td><td class="mono">-1.5</td><td>F6, equal degrees, ratio of leading coefficients \(\frac{-3}{2}\)</td></tr>
+        <tr><td class="mono">4</td><td class="mono vd">DNE</td><td class="mono">-</td><td>F5B, \(\frac{8}{0}\), denominator \((x-4)(x+4)\) flips sign</td></tr>
+        <tr><td class="mono">5</td><td class="mono">\(\frac16\)</td><td class="mono">0.1667</td><td>F2, conjugate \(\sqrt{x+9}+3\)</td></tr>
+        <tr><td class="mono">6</td><td class="mono">\(\frac35\)</td><td class="mono">0.6</td><td>F4, \(\frac{\tan3x}{x}\to3\) over \(\frac{\sin5x}{x}\to5\)</td></tr>
+        <tr><td class="mono">7</td><td class="mono">\(27\)</td><td class="mono">27</td><td>F1, sum of cubes, or shortcut \(\frac31(-3)^2\)</td></tr>
+        <tr><td class="mono">8</td><td class="mono vi">\(+\infty\)</td><td class="mono">-</td><td>F6, degree \(4>3\), positive leading coefficient</td></tr>
+        <tr><td class="mono">9</td><td class="mono">\(-\frac{1}{25}\)</td><td class="mono">-0.04</td><td>F3, common denominator, result \(-\frac{1}{5x}\)</td></tr>
+        <tr><td class="mono">10</td><td class="mono">\(2\)</td><td class="mono">2</td><td>F8, shift \(u=x-1\), giving \(\frac{\sin2u}{u}\to2\)</td></tr>
+        <tr><td class="mono">11</td><td class="mono">\(-1\)</td><td class="mono">-1</td><td>F7, \(\sqrt{9x^2}=3x\) for \(x>0\), over \(-3x\)</td></tr>
+        <tr><td class="mono">12</td><td class="mono vd">DNE</td><td class="mono">-</td><td>F5C, cancels once to \(\frac{x}{x-2}\), then \(\frac{2}{0}\) flips</td></tr>
+      </tbody>
+    </table></div>
+  </details>
+
+  <div class="note good">
+    <span class="tag">Score sign and magnitude separately</span>
+    <p>They are different failures and they need different fixes. A wrong <strong>magnitude</strong>
+    means you picked the wrong tool, so reread the family. A wrong <strong>sign</strong> means your
+    method was right and your bookkeeping was not, so add the "substitute a nearby number" check from
+    Section 6 to every infinite limit.</p>
+    <p>Item 12 is the one to check twice: it is the only drill that needs two rounds of
+    classification.</p>
+  </div>
+</section>
+
+<section id="s11">
+  <span class="snum">SECTION 11</span>
+  <h2>The one-page decision tree</h2>
+<pre class="chain tree">                       lim f(x) as x -> a
+                              |
+                    SUBSTITUTE a, unsimplified
+                              |
+        +---------------------+---------------------+------------------+
+        |                     |                     |                  |
+   a NUMBER             0 / 0  (indeterminate)  NONZERO / 0        a -> +/- inf
+        |                     |                     |                  |
+   THAT IS THE               |              NO ALGEBRA.            leading
+   ANSWER  [F0]              |              Sign check.            terms only
+   (0/nonzero = 0)           |                     |                  |
+                             |          +----------+---------+     deg&lt; -> 0
+              +--------------+-------+  |                    |     deg= -> ratio
+              |       |       |      |  even power       odd/linear   deg&gt; -> +/-inf
+         polynomial  root  stacked  trig    |                 |          [F6]
+            [F1]     [F2]   frac   [F4]   no flip          flips     root? -> [F7]
+          factor  conjugate [F3]  identity   |                 |      sqrt(x^2)=|x|
+              |       |    common    |    ONE SIGNED       sides differ
+              +-------+----+---------+     INFINITY          -> DNE
+                           |               [F5A]              [F5B]
+                    <b>CANCEL, then
+                    SUBSTITUTE AGAIN
+                    and RE-CLASSIFY</b>  &lt;-- [F5C] lives here
+                           |
+                  a != 0 and trig? -> shift u = x-a  [F8]
+                  oscillating factor? -> squeeze     [F9]
+                  |x| or piecewise? -> one-sided     [F10]
+                  looks like f'(a)? -> derivative    [F12]
+                           |
+                    <b>STATE THE VERDICT
+                    + NAME THE REASON</b>        (unjustified = 0)
+                           |
+                    <b>CHECK</b>: put a nearby number into the ORIGINAL
+                           |
+                    <b>PREVIEW</b> before submitting</pre>
+</section>
+
+<section id="s12" class="prov">
+  <span class="snum">SECTION 12</span>
+  <h2>Sources and verification</h2>
+
+  <div class="counts">
+    <div class="count"><span class="n">198</span><span class="k">checks run</span></div>
+    <div class="count ok"><span class="n">0</span><span class="k">failures</span></div>
+    <div class="count"><span class="n">10</span><span class="k">negative controls, all failed as designed</span></div>
+  </div>
+
+  <p>All 198 checks are appended as permanent assertions to
+  <code>Work\knowledge\topics\math265-answer-verification.py</code>, in a section that prints its own
+  count as <code>== Q3.2 TOTAL: 198 checks, 0 failures ==</code>. Re-run that file to re-check every
+  number on this page.</p>
+
+  <h3>How a limit claim was checked, since a limit is not a single number</h3>
+  <div class="tw"><table>
+    <thead><tr><th>Check</th><th>What it asserts</th><th class="mono">Tolerance</th></tr></thead>
+    <tbody>
+      <tr><td>identity</td><td>the simplified form is the <em>same function</em> as the original near the point, sampled at 80 points</td><td class="mono">\(10^{-11}\) rel.</td></tr>
+      <tr><td>probe</td><td>the original really approaches the claimed value, and the error <strong>shrinks</strong> as \(h\) shrinks</td><td class="mono">\(3\times10^{-3}\) rel.</td></tr>
+      <tr><td>verdict</td><td>for an infinite answer: growth by a factor \(\ge3\) per decade over five decades, with a constant sign</td><td class="mono">-</td></tr>
+      <tr><td>DNE</td><td>the two one-sided values genuinely disagree</td><td class="mono">-</td></tr>
+      <tr><td>squeeze</td><td>\(\lvert f\rvert\) stays under the claimed bound at 400 sampled points, and the bound dies</td><td class="mono">-</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="note key">
+    <span class="tag">Why the tolerance is relative, not absolute</span>
+    <p>An absolute bar is meaningless here: an error of \(5\times10^{-3}\) refutes a claimed limit of
+    \(0.5\) and says nothing whatever about a claimed limit of \(108\).</p>
+    <p>Every assertion type was first pointed at a deliberately <strong>wrong</strong> claim to prove
+    it can fail: 10 negative controls (a is \(\frac32\), b is \(1\), c is \(-\frac12\), d is
+    \(+\infty\), e's sides agree, f's left side is \(-\infty\), and four more), and all 10 reported
+    FAIL. <strong>A check that cannot fail is not a check.</strong></p>
+  </div>
+
+  <h3>Sources</h3>
+  <ul class="srclist">
+    <li>Question text: <code>notes\MATH265.md</code> (Q3.2), and <code>notes\MATH265\MATH265.md</code> (Midterm Exam 2, item 7).</li>
+    <li>Point value: the <code>**(24 points)**</code> marker immediately <em>preceding</em> item 7. Point markers on that paper precede their question, confirmed by walking items 1 through 8. Midterm 2 totals 94 points across 11 questions, so Q3.2 is 25.5% of the paper and its largest single question.</li>
+    <li>Grading clause, verbatim: "No credit will be given for unjustified answers."</li>
+    <li>Related questions used to build the families: Q3.1 (a to e), Q3.3 (a and b), Q4.1, and Final Exam 1 Q3, all from the same bank.</li>
+    <li>Variation families: derived here. <code>MATH265_Categorized.md</code> pools all eleven limits from Q3.1/Q3.2/Q3.3 under one "Evaluation of limits" heading with no family structure, so the thirteen families in Section 8 are new, and are cut by the tool each variation forces.</li>
+    <li>Method notes cross-checked against <code>MATH265_Review.md</code>: the degree rule, the special trig limits, and the one-sided rule.</li>
+    <li>Answer-entry rules: the M&ouml;bius conventions already verified for Q1.1. The <code>infinity</code> / <code>-infinity</code> / <code>DNE</code> tokens are flagged as <strong>unconfirmed for this course</strong> in Section 7 rather than asserted, because no file in the notes records them and they are set per question by the author.</li>
+  </ul>
+
+  <div class="note">
+    <span class="tag">Two notes on the shared harness</span>
+    <p>Running the whole file reports <strong>1592 PASS and 2 FAIL</strong>. The 2 failures are
+    pre-existing, unrelated to Q3.2, and are a known tolerance artifact in the linear-approximation
+    section (<code>sin62</code>, <code>cos62</code>), where a linearization is compared against the
+    true value at a tolerance tighter than the approximation error. Any <em>other</em> failure is
+    real.</p>
+    <p>Two further pre-existing failures were found and <strong>fixed</strong> during this run:
+    <code>F1-6</code> and <code>F2-4</code> in the squeeze sections asserted
+    <code>envelope final &lt; 1e-3</code>, a fixed absolute floor that an envelope decaying like
+    \(\frac{1}{\sqrt x}\) cannot clear on a ladder ending at \(10^5\)
+    (\(\frac{\sqrt2}{\sqrt{10^5}}=0.0045\), and \(\sqrt{10^{-4}}=0.01\)). The mathematics was right
+    and the check was wrong: a fixed floor tests the decay <em>rate</em>, which was never the claim.
+    Both now assert what is actually claimed. A permanently red assertion trains you to ignore FAIL
+    lines, which is worse than having no assertion at all.</p>
+  </div>
+</section>
+
+</div>

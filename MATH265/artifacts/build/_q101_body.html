@@ -1,0 +1,187 @@
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm 1, item 8 &middot; 5 points</div>
+  <h1>The y-prime Ledger</h1>
+  <p class="deck">Implicit differentiation is not a new rule. It is the chain rule applied to a function nobody gave you a formula for, and every mark on this question is won or lost by whether four terms in a row remember that.</p>
+  <p class="stem">Find \(y'\) using implicit differentiation: &nbsp; \(x^3 y + x y^2 = 4xy + 7\)</p>
+  <div class="verdict">
+    <div>
+      <div class="vlab">The answer</div>
+      <div class="big">\(y' = \dfrac{4y - 3x^2 y - y^2}{x^3 + 2xy - 4x}\)</div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">It contains both \(x\) and \(y\), and that is <b>correct, not unfinished</b>. Factored, it is \(\dfrac{y(4-3x^2-y)}{x(x^2+2y-4)}\).</p>
+    </div>
+    <div>
+      <div class="vlab">Type into M&ouml;bius</div>
+      <div class="big"><code style="font-size:14.5px">(4*y-3*x^2*y-y^2)/(x^3+2*x*y-4*x)</code></div>
+      <p style="margin:12px 0 0;font-size:13.5px;color:var(--ink2)">Bracket the <b>whole</b> numerator and the <b>whole</b> denominator. Leave <code>y</code> in as a variable. Preview before submitting.</p>
+    </div>
+  </div>
+</header>
+
+<section>
+  <h2><span class="snum">01</span>The one idea</h2>
+  <p class="lede">If you take away one sentence, take this one.</p>
+  <p><b>\(y\) is secretly \(y(x)\).</b> So differentiating a \(y\) is a composite-function problem, and the \(y'\) that appears is nothing more exotic than the inner derivative.</p>
+  <p>You already do this without noticing. When you write \(\frac{d}{dx}\sin(x^2) = \cos(x^2)\cdot 2x\), the \(2x\) is the derivative of the inside. When you write \(\frac{d}{dx}[y^2] = 2y\cdot y'\), the \(y'\) is the derivative of the inside. Same rule, same reason, same line of your own notes from six weeks ago.</p>
+  <div class="note">
+    <div class="nl">Why this matters more than five marks</div>
+    <p>MT1 item 7, the gravel cone, asks you to get \(\frac{dV}{dt} = \frac{\pi}{4}h^2\frac{dh}{dt}\). That \(\frac{dh}{dt}\) is the same object as this \(y'\), arriving for the same reason. Two items on the same paper, five points each, one idea. Related rates is this question wearing a hat.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">02</span>The term ledger</h2>
+  <p class="lede">This is the whole method as a bookkeeping exercise. Each term of the equation produces one or two pieces, and each piece either carries a \(y'\) or it does not.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>term</th><th>rule it needs</th><th class="ypn">piece without \(y'\)</th><th class="ypy">piece with \(y'\)</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">x^3 y</td><td>Product Rule, then \(\frac{d}{dx}[y]=y'\)</td><td class="ypn">\(3x^2 y\)</td><td class="ypy">\(x^3\,y'\)</td></tr>
+        <tr><td class="mono">x y^2</td><td>Product Rule, then Chain Rule on \(y^2\)</td><td class="ypn">\(y^2\)</td><td class="ypy">\(2xy\,y'\)</td></tr>
+        <tr><td class="mono">4 x y</td><td>Constant Multiple, then Product Rule</td><td class="ypn">\(4y\)</td><td class="ypy">\(4x\,y'\)</td></tr>
+        <tr><td class="mono">7</td><td>constant</td><td class="ypn">\(0\)</td><td class="ypy">none</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px">Read the two right-hand columns as the two sides of the answer. The <span class="mark rul">\(y'\) column</span> becomes the denominator. The <span class="mark chn">no-\(y'\) column</span> becomes the numerator, with its signs flipped as it crosses the equals sign.</p>
+
+  <div class="pipe steps">
+    <div><p class="st">Step 1 &middot; differentiate</p><p class="sv">\(3x^2y + x^3y' + y^2 + 2xy\,y' = 4y + 4xy'\)</p><p class="sn">Both sides, term by term, exactly as printed. Move nothing first.</p></div>
+    <div><p class="st">Step 2 &middot; split</p><p class="sv">\(x^3y' + 2xy\,y' - 4xy' = 4y - 3x^2y - y^2\)</p><p class="sn">Every \(y'\) piece left, everything else right. Flip signs as they cross.</p></div>
+    <div><p class="st">Step 3 &middot; factor</p><p class="sv">\(y'\left(x^3+2xy-4x\right) = 4y - 3x^2y - y^2\)</p><p class="sn">The bracket is the \(y'\) column of the ledger, verbatim.</p></div>
+    <div class="hot"><p class="st">Step 4 &middot; divide, then STOP</p><p class="sv">\(y' = \dfrac{4y-3x^2y-y^2}{x^3+2xy-4x}\)</p><p class="sn">Do not try to eliminate \(y\). It cannot be done and it is not wanted.</p></div>
+  </div>
+
+  <div class="note">
+    <div class="nl">The two-second audit that catches almost everything</div>
+    <p>Three of the four terms are <b>mixed</b>: they hold an \(x\) and a \(y\) at once. A mixed term always produces <b>exactly two</b> pieces. So after differentiating you must have \(3\times 2 = 6\) terms. Count them: \(3x^2y,\; x^3y',\; y^2,\; 2xy\,y',\; 4y,\; 4xy'\). Six. If you have five, you dropped a \(y'\), and that is the single most common way this question is failed.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">03</span>Why the answer contains \(y\)</h2>
+  <p class="lede">Students delete the \(y\) because the answer looks unfinished. Here is the picture that shows why it cannot be deleted.</p>
+  <p>An implicit equation usually defines <b>more than one</b> function of \(x\). This one is a quadratic in \(y\), namely \(xy^2 + (x^3-4x)y - 7 = 0\), so above almost every \(x\) there are two points on the curve, with two different slopes. No formula in \(x\) alone could report both. The \(y\) is what tells them apart.</p>
+  <div class="fscroll figbox">
+FIGURE_SVG
+  </div>
+  <p class="cap">At \(x = 2\) the \(x^3y\) and \(4xy\) terms cancel exactly, leaving \(2y^2 = 7\), so \(y = \pm\frac{\sqrt{14}}{2}\). Feed each into the answer and the general formula collapses to \(y' = \frac{-8-y}{4}\), giving \(-2-\frac{\sqrt{14}}{8}\) and \(-2+\frac{\sqrt{14}}{8}\). Both slopes were confirmed three independent ways.</p>
+  <div class="note calm">
+    <div class="nl">The same fact, run backwards, is your fastest check</div>
+    <p>\(x=2\) is the easy point on this curve because two terms annihilate each other there. Substitute \(x=2\) into your denominator before simplifying: \(8 + 4y - 8\) must collapse to \(4y\). If it does not, you have mis-transcribed a coefficient, and you know that in about four seconds without a calculator.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">04</span>What the denominator is telling you</h2>
+  <p class="lede">A vanishing denominator is a fact about the curve, not a mistake in your algebra. Knowing which is which is worth a whole variation family.</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>you want</th><th>set this to zero</th><th>and check this is <b>not</b> zero</th><th>on this curve</th></tr></thead>
+      <tbody>
+        <tr><td>horizontal tangent</td><td>the numerator</td><td>the denominator</td><td class="n">\(x = 1.346011,\; y = -1.435234\)</td></tr>
+        <tr><td>vertical tangent</td><td>the denominator</td><td>the numerator</td><td class="n">\(x = -2.688358,\; y = -1.613635\)</td></tr>
+        <tr><td>singular point</td><td>both</td><td>nothing; the test is inconclusive</td><td class="n">none exist here</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>The second column alone proves nothing.</b> A vertical-tangent proof is "the denominator is zero <i>and</i> the numerator is not", because \(0/0\) is not a vertical tangent, it is no information at all. <code>MATH265_Categorized.md</code> sets exactly this as a question on the cardioid \(x^2+y^2=(2x^2+2y^2-x)^2\) at \((1,0)\), and the two-part test is what answers it.</p>
+</section>
+
+<section>
+  <h2><span class="snum">05</span>Answer-entry rules</h2>
+  <p class="lede">M&ouml;bius is answer-only and machine-marked, so a right derivative with a bad keystroke scores zero.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>do</th><th>do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">(4*y-3*x^2*y-y^2)/(x^3+2*x*y-4*x)</td><td class="mono">4*y-3*x^2*y-y^2/(x^3+2*x*y-4*x)</td></tr>
+        <tr><td>bracket the <b>whole</b> numerator and the <b>whole</b> denominator</td><td>bracket only part of either, which silently changes the expression</td></tr>
+        <tr><td>type every multiplication with <code>*</code>, including <code>2*x*y</code></td><td><code>2xy</code>, which one of the two M&ouml;bius parsers rejects</td></tr>
+        <tr><td>leave <code>y</code> in as a variable</td><td>substitute anything for it, or try to eliminate it</td></tr>
+        <tr><td>enter the <b>unsimplified</b> form when unsure of a cancellation</td><td>guess at a factorisation you have not checked</td></tr>
+        <tr><td><b>preview the rendered expression</b> before submitting</td><td>submit unpreviewed</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>The most expensive typo here is the missing bracket around the numerator.</b> <code>4*y-3*x^2*y-y^2/(...)</code> renders as \(4y-3x^2y-\frac{y^2}{\,\cdots\,}\), which looks plausible and is wrong. <b>The second most expensive</b> is entering the factored form as <code>y*(4-3*x^2-y)/x*(x^2+2*y-4)</code>, where the trailing bracket multiplies instead of dividing. M&ouml;bius grades by algebraic equivalence, not string match, so the expanded form is always a safe choice and it has fewer brackets to get wrong.</p>
+</section>
+
+<section>
+  <h2><span class="snum">06</span>The variation catalog</h2>
+  <p class="lede">Read this as structure, not as fifteen facts. Every family below is the same four steps. What changes is only <b>which rule step 1 needs</b>, and there are exactly five possibilities: power, product, quotient, chain, and a nesting of those. Every derivative shown was checked numerically at a point first confirmed to lie on its curve.</p>
+  <div class="cards">
+    <div class="card"><div class="fno">Family 1</div><h4>Pure powers, no mixed term</h4><p class="trig">Trigger: \(x\) and \(y\) never multiply each other.</p><p>\(x^2+y^2=25 \Rightarrow y' = -\frac{x}{y}\). Also \(\sqrt{x}+\sqrt{y}=4 \Rightarrow y'=-\frac{\sqrt y}{\sqrt x}\), and \(y^2=x^3(2-x) \Rightarrow y' = \frac{6x^2-4x^3}{2y}\).</p><p>The circle is the cheapest proof that a \(y\) in the answer is normal.</p></div>
+    <div class="card"><div class="fno">Family 2</div><h4>A mixed product term: this is Q10.1</h4><p class="trig">Trigger: \(x\) and \(y\) side by side.</p><p>\(xy=1 \Rightarrow -\frac{y}{x}\). &nbsp; \(x^2+xy+y^2=7 \Rightarrow -\frac{2x+y}{x+2y}\). &nbsp; \(x^3+y^3=6xy \Rightarrow \frac{6y-3x^2}{3y^2-6x}\). &nbsp; \(x^2y^3-x=6 \Rightarrow \frac{1-2xy^3}{3x^2y^2}\).</p><p>The folium is the classic exam version: it is symmetric, so swapping \(x\) and \(y\) must turn \(y'\) into \(1/y'\). That is a free check.</p></div>
+    <div class="card"><div class="fno">Family 3</div><h4>A quotient containing \(y\)</h4><p class="trig">Trigger: a \(y\) in a denominator.</p><p>\(\frac{x}{y}+\frac{y}{x}=3 \Rightarrow y' = \frac{y}{x}\), which is startlingly simple until you notice the relation is homogeneous: with \(t=y/x\) it reads \(t+1/t=3\), so \(t\) is constant and the "curve" is a pair of straight lines through the origin.</p><p><b>Do not use the quotient rule here.</b> Multiply through by the denominator first, then differentiate. It is faster every time.</p></div>
+    <div class="card"><div class="fno">Family 4</div><h4>\(y\) inside a named function</h4><p class="trig">Trigger: \(\sin y\), \(\cos y\), \(\tan y\), \(e^y\), \(\ln y\).</p><p>\(\sin y + x = y \Rightarrow y' = \frac{1}{1-\cos y}\). &nbsp; \(x\sin y = y \Rightarrow y' = -\frac{\sin y}{x\cos y - 1}\).</p><p>The second is Family 4 and Family 2 at once, which is the commonest way an examiner raises difficulty without changing topic.</p></div>
+    <div class="card danger"><div class="fno">Family 5</div><h4>\(x\) and \(y\) inside the same bracket</h4><p class="trig">Trigger: \((x+y)^n\), \(\sin(xy)\), \(\tan(xy)\).</p><p>\((x+y)^3=x \Rightarrow y' = \frac{1-3(x+y)^2}{3(x+y)^2}\), because the inner derivative is \(1+y'\). &nbsp; \(\tan(xy)=x \Rightarrow y' = \frac{1-y\sec^2(xy)}{x\sec^2(xy)}\).</p><p><b>The most-failed family.</b> The \(y'\) arrives one level down and is easy to lose. Write the inner derivative on its own line before you multiply.</p></div>
+    <div class="card"><div class="fno">Family 6</div><h4>The slope at a given point</h4><p class="trig">Trigger: "find \(y'\) at \((a,b)\)".</p><p>Q10.1 unchanged, then substitute <b>both</b> coordinates. Collect first, substitute last.</p><p>Check the point is actually on the curve before you use it. On Q10.1, \((1,\,4.5413813)\) is on the curve and gives \(-2.6439899\); \((1,4)\) is not, and any slope you compute there is meaningless.</p></div>
+    <div class="card"><div class="fno">Family 7</div><h4>The tangent line: this is Q10.2</h4><p class="trig">Trigger: "find the equation of the tangent line".</p><p>\(y^3+yx^2+x^2=3y^2\) at \((1,1)\) gives \(y' = \frac{-(2xy+2x)}{3y^2+x^2-6y} = \frac{-4}{-2} = 2\), so the tangent is \(y = 2x-1\).</p><p><b>Answer with the line, not the slope.</b> Answering with the wrong kind of object is the largest single loss on the Q9.1 family too.</p></div>
+    <div class="card"><div class="fno">Family 8</div><h4>Horizontal and vertical tangents</h4><p class="trig">Trigger: "where is the tangent vertical?"</p><p>Numerator zero for horizontal, denominator zero for vertical, and in both cases check the other one is <b>not</b> zero.</p><p>This is section 04's table, and it is the family the course notes never mention despite setting it as a question.</p></div>
+    <div class="card"><div class="fno">Family 9</div><h4>The second derivative</h4><p class="trig">Trigger: "find \(y''\)".</p><p>Quotient-rule your \(y'\), then <b>substitute the expression for \(y'\) back in</b>. That substitution is the entire family.</p><p>On the circle: \(y''=-\frac{y-xy'}{y^2} = -\frac{y^2+x^2}{y^3} = -\frac{r^2}{y^3}\), and the middle step is where the substitution happens.</p></div>
+    <div class="card"><div class="fno">Family 10</div><h4>Swap the roles, or add a third variable</h4><p class="trig">Trigger: "find \(dx/dy\)", or anything with "how fast".</p><p>\(\frac{dx}{dy}\) is just \(1/y'\), and it equals \(0\) at a vertical tangent, which is the clean way to state one without dividing by zero.</p><p>For related rates the chain factor is \(\frac{dh}{dt}\) instead of \(y'\) and nothing else changes. <b>Doing Q10.1 means you have already done the hard half of category 11.</b></p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">07</span>Where the marks actually go</h2>
+  <p class="lede">Ranked by how often each really costs you. The first four are one mistake wearing four coats: a \(y\) got differentiated as though it were a constant, or as though it were \(x\).</p>
+  <ol class="traps">
+    <li><b>Forgetting the \(y'\) on one term</b><span>You have five terms where you should have six. Count them; each mixed term must yield exactly two.</span></li>
+    <li><b>Forgetting the product rule on a mixed term</b><span>\(\frac{d}{dx}[x^3y]\) written as \(3x^2y'\) or as \(3x^2y\). Either way you lost half of it.</span></li>
+    <li><b>Algebra when collecting</b><span>A sign that did not flip crossing the equals sign. Move one term at a time, and re-read the line you just wrote.</span></li>
+    <li><b>Forgetting the chain factor inside \(y^2\)</b><span>\(\frac{d}{dx}[xy^2]\) written as \(y^2+2xy\). \(y^2\) is a composite; its derivative is \(2y\cdot y'\), always.</span></li>
+    <li><b>Treating the answer as unfinished</b><span>Two branches, two slopes, so the \(y\) has to stay. Section 03 is the picture of why.</span></li>
+    <li><b>Losing the \(y'\) one level down</b><span>\((x+y)^3\) differentiated as \(3(x+y)^2\). Write the inner derivative \(1+y'\) on its own line.</span></li>
+    <li><b>Using a check point that is not on the curve</b><span>Your numeric check disagrees and you doubt correct work. Verify the point satisfies the relation before you use it.</span></li>
+    <li><b>Calling a vertical tangent an error</b><span>Denominator zero with numerator non-zero is a real feature of the curve, not a slip.</span></li>
+    <li><b>Solving for \(y\) first</b><span>The stem says <i>using implicit differentiation</i>. Right slope, method mark lost.</span></li>
+    <li><b>Leaving a constant in the answer</b><span>\(\frac{d}{dx}[7]=0\), always. A 7 anywhere in your \(y'\) is a copy error.</span></li>
+  </ol>
+  <div class="note">
+    <div class="nl">Measured, not asserted, and this curve is unusually forgiving</div>
+    <p>Five of those mistakes were built as working formulas and compared against the truth at 44 points on the curve. Worst relative deviations: <b>15.5</b> (no \(y'\) in \(x^3y\)), <b>5.01</b> (no chain factor on \(y^2\)), <b>1.96</b> (no product rule), <b>3.92</b> (sign slip), <b>122</b> (no \(y'\) in \(4xy\)).</p>
+    <p>None of them has a hiding place <b>on this curve</b>. The two "forgot the \(y'\)" errors differ from the truth only by an \(x^3\) or a \(-4x\) in the denominator, so they would agree exactly at \(x=0\), and \(x=0\) is not on this curve, because \(F(0,y) = -7\) for every \(y\). One numeric check anywhere legitimate catches all five.</p>
+    <p><b>That is a property of this curve, not of the topic.</b> Control, verified: on \(x^2+y^2=25\) the analogous mistake gives \(y'=-x\) instead of \(-x/y\), and those agree <b>exactly at \(x=0\)</b>, the top of the circle and the most convenient point on it. The convenient input is the blind spot. Check somewhere awkward.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="snum">08</span>Numbers worth holding</h2>
+  <div class="vgrid">
+    <div class="vcell"><div class="vn">-2.4677072</div><div class="vt">y' AT (2, +ROOT14/2)</div></div>
+    <div class="vcell"><div class="vn">-1.5322928</div><div class="vt">y' AT (2, -ROOT14/2)</div></div>
+    <div class="vcell"><div class="vn">-2.6439899</div><div class="vt">y' AT x = 1, UPPER</div></div>
+    <div class="vcell"><div class="vn">+0.6439899</div><div class="vt">y' AT x = 1, LOWER</div></div>
+    <div class="vcell"><div class="vn">-2.6883584</div><div class="vt">THE VERTICAL TANGENT</div></div>
+    <div class="vcell"><div class="vn">+1.3460106</div><div class="vt">THE HORIZONTAL TANGENT</div></div>
+  </div>
+  <p style="margin-top:16px">Memorise only the first two. Their exact forms are \(-2-\frac{\sqrt{14}}{8}\) and \(-2+\frac{\sqrt{14}}{8}\), at the two points \(\left(2,\;\pm\frac{\sqrt{14}}{2}\right)\). At \(x=1\), where \(y=\frac{3\pm\sqrt{37}}{2}\), the two slopes are \(-1-\frac{10}{\sqrt{37}}\) on the upper branch and \(\frac{10}{\sqrt{37}}-1\) on the lower. The rest are here so a drill answer can be checked.</p>
+</section>
+
+<section>
+  <h2><span class="snum">09</span>How this page was checked</h2>
+  <p class="lede">There is no explicit \(f(x)\) here, so the usual two-arm numeric check does not apply directly. It was replaced by a residual gate plus three arms, none of which ever sees the claimed formula.</p>
+  <div class="tw wide">
+    <table>
+      <thead><tr><th>gate or arm</th><th>what it computes</th><th>independent of the answer?</th></tr></thead>
+      <tbody>
+        <tr><td>residual gate</td><td>\(F(x,y)\) at every test point, to \(10^{-9}\), <b>before</b> any slope is compared</td><td>yes, and it runs first</td></tr>
+        <tr><td>arm 1</td><td>\(-F_x/F_y\) from complex-step partials of \(F\), exact for a polynomial</td><td>yes</td></tr>
+        <tr><td>arm 2</td><td>complex-step \(\frac{d}{dx}\) of the explicit branch \(y_\pm(x)\) at \(h=10^{-60}\)</td><td>yes</td></tr>
+        <tr><td>arm 3</td><td>Richardson centred-difference ladder, with its convergence <b>order</b> measured</td><td>yes</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="margin-top:14px"><b>320 assertions, 0 failures</b>, of which 15 are seeded controls proving the gates can bite. Coverage: 44 on-curve points over 22 values of \(x\), both branches at every \(x\), spanning \(x\in[0.25,\,12]\) on the right component and \(x\in[-25,\,-2.70]\) on the left. The ladder's measured error ratios were 15.94 / 15.98 / 15.99 at \(x=2\) and 16.62 / 16.15 / 16.04 at \(x=-3\), against a theoretical 16 for a fourth-order method.</p>
+  <div class="note calm">
+    <div class="nl">Two defects, both in the checking, neither in the mathematics</div>
+    <p><b>The first draft sampled points that are not on the curve.</b> The discriminant is \(x\left[x(x^2-4)^2+28\right]\), which is <i>negative</i> for \(-2.688 &lt; x &lt; 0\), so the whole initial negative-\(x\) sample was empty and the run died on a square root of a negative number. The curve exists only for \(x&gt;0\) or \(x \le -2.688358\). A slope comparison at a point that is not on the curve measures nothing, which is why the residual gate has to run first and has to be believed.</p>
+    <p><b>A fixed tolerance on a fourth-order ladder is calibrated on the flattest sample point.</b> A \(2\times10^{-7}\) bound passed at \(x=2\) and failed at \(x=-3\) by \(6\times10^{-7}\), purely because the branch is steeper there. The tolerance now scales as \(h^4\), and three seeded \(\pm 0.1\%\) perturbations confirm it can still reject a wrong slope.</p>
+  </div>
+  <p style="margin-top:16px;font-size:13px;color:var(--ink3)">Sources: <code>notes\MATH265.md</code> section 10 &middot; <code>notes\MATH265\MATH265.md</code> Midterm 1 item 8 &middot; <code>MATH265_Categorized.md</code> section 5 &middot; harness section <code>q101</code> in <code>Work\knowledge\topics\math265-answer-verification.py</code>. MT1's ten items print 64 points, not 100, so item 8 is 7.8&#37; of that paper. MT1's single "no credit will be given" clause is on item 3 and does not apply here. Full tutorial: <code>notes\Q10.1 - Find the derivative implicitly.md</code>. Verified 2026-09-01.</p>
+</section>
+
+</div>

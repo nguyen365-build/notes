@@ -1,0 +1,1040 @@
+<title>Four Derivatives, Three Rules</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged from Q1.1 through Q7.1.
+   What is specific to THIS page is what the five accent hues MEAN.  Q7.1 was
+   marked line by line, so its device was a derivation ladder.  Q8.1 is not:
+   it is four independent computations settled by ONE classification, so the
+   device here is a RULE BOARD - four cards, each showing the same four fields
+   in the same order, so the reader sees that the four parts differ in exactly
+   one place.  The hues carry that reading:
+
+     THE RULE you choose, the last-operation test        --rul   amber
+     THE CHAIN factor, the inner derivative that is lost --chn   slate
+     WHERE MARKS GO: simplification, sign, order         --los   terracotta
+     THE FAMILY structure of the variation catalog       --fam   teal
+     NUMERICS: checks, verification, tolerances          --num   mauve
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+/* ---- the verdict ---- */
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.ans{display:grid;gap:11px}
+.ans > div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.ans i{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;color:var(--accent);
+}
+.ans span{min-width:0;overflow-x:auto}
+.entry{display:grid;gap:9px}
+.entry > div{display:grid;grid-template-columns:20px minmax(0,1fr);gap:0 10px;align-items:baseline}
+.entry i{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-style:normal;
+  font-size:11.5px;color:var(--accent);
+}
+@media (max-width:760px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+}
+
+/* ---- THE RULE BOARD: this page's structural thesis ---- */
+.board{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:0 0 20px;
+}
+.card{padding:18px 20px;border-right:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.card:nth-child(2n){border-right:none}
+.card:nth-last-child(-n+2){border-bottom:none}
+.card-h{display:flex;align-items:center;gap:9px;margin-bottom:11px}
+.card-h b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;
+}
+.card-h .mark{margin-left:auto}
+.fld{display:grid;grid-template-columns:88px minmax(0,1fr);gap:3px 12px;margin:0 0 9px;align-items:baseline}
+.fld > b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:500;
+}
+.fld > span{min-width:0;overflow-x:auto;font-size:13.5px;color:var(--ink2)}
+.fld:last-child{margin-bottom:0}
+.fld.key > span{color:var(--ink);font-weight:500}
+@media (max-width:820px){
+  .board{grid-template-columns:1fr}
+  .card{border-right:none}
+  .card:nth-last-child(-n+2):not(:last-child){border-bottom:1px solid var(--line-soft)}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:16px 12px 8px;overflow-x:auto}
+.figbox > svg{display:block;min-width:700px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+svg .conn{stroke:var(--plot);stroke-width:1.6;fill:none}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  letter-spacing:.02em;font-weight:500;fill:var(--ink);text-anchor:middle}
+svg .lab.sm{font-size:10.5px;letter-spacing:.11em;fill:var(--ink3);font-weight:500}
+svg .lab.big{font-size:15px;font-weight:600}
+svg .lab.rl{font-size:12.5px;font-weight:600;letter-spacing:.13em;fill:var(--rul)}
+svg .lab.cn{fill:var(--chn)}
+svg .badge{fill:var(--rul-soft);stroke:var(--rul-line);stroke-width:1}
+svg .badge.c{fill:var(--chn-soft);stroke:var(--chn-line)}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--chn);font-style:normal}
+pre s{color:var(--los);text-decoration:none}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.n,th.n{font-variant-numeric:tabular-nums;text-align:right}
+td.y{color:var(--ok);font-weight:600}
+td.x{color:var(--los);font-weight:600}
+tr.hi td{background:var(--rul-soft)}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--los-line);background:var(--los-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--fam-line);background:var(--fam-soft)}
+.callout.note{border-color:var(--num-line);background:var(--num-soft)}
+.callout.rule{border-color:var(--rul-line);background:var(--rul-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--fam)}
+.callout.note .ch{color:var(--num)}
+.callout.rule .ch{color:var(--rul)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0;max-width:78ch}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+ol.drills{counter-reset:d;list-style:none;padding-left:0;max-width:100%;
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+ol.drills li{
+  counter-increment:d;display:grid;grid-template-columns:26px minmax(0,1fr);gap:0 8px;
+  margin:0;padding:10px 12px;border:1px solid var(--line-soft);border-radius:3px;
+  background:var(--surface);align-items:baseline;
+}
+ol.drills li::before{
+  content:counter(d);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;color:var(--accent);
+}
+ol.drills li > span{min-width:0;overflow-x:auto}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+  .card{padding:15px 14px}
+  .fld{grid-template-columns:1fr}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm Exam 1 &middot; Item 5 &middot; 8 points</div>
+  <h1>Four Derivatives, Three Rules</h1>
+  <p class="deck">Four functions, eight marks, and one decision repeated four times. This is the question that opens the largest computational block in the bank, and everything the other three questions in that block need is settled here: how you pick the rule, how far you simplify, and how you check.</p>
+</header>
+
+<div class="verdict">
+  <div>
+    <div class="vlab">The answers</div>
+    <div class="ans">
+      <div><i>a</i><span>\(y' = 20x^4 + 12x^3 - 18x^2\)</span></div>
+      <div><i>b</i><span>\(y' = \dfrac{38 - 2x}{(x+3)^3}\)</span></div>
+      <div><i>c</i><span>\(y' = (4x-1)\cos\left(2x^2 - x + 1\right)\)</span></div>
+      <div><i>d</i><span>\(y' = 4\left(-4x^3 - x^2 + 3x + 7\right)^3\left(-12x^2 - 2x + 3\right)\)</span></div>
+    </div>
+  </div>
+  <div>
+    <div class="vlab">What to type into M&ouml;bius</div>
+    <div class="entry">
+      <div><i>a</i><code>20*x^4+12*x^3-18*x^2</code></div>
+      <div><i>b</i><code>(38-2*x)/(x+3)^3</code></div>
+      <div><i>c</i><code>(4*x-1)*cos(2*x^2-x+1)</code></div>
+      <div><i>d</i><code>4*(-4*x^3-x^2+3*x+7)^3*(-12*x^2-2*x+3)</code></div>
+    </div>
+    <p style="margin:12px 0 0;font-size:13px;color:var(--ink2)">Every multiplication carries an explicit <code>*</code>, numerator and denominator are each fully bracketed, and every answer is previewed before it is submitted.</p>
+  </div>
+</div>
+
+<div class="callout rule">
+  <div class="ch">The one question that decides all four parts</div>
+  <p><strong>If I substituted a number for \(x\), what is the last arithmetic operation I would perform?</strong> That operation names the rule, and it names it without you having to recognise anything. A division at the top means the quotient rule. A bracket raised to a power means the chain rule. Then you ask the same question again about each piece the rule hands you, and you stop when a piece is \(x^n\) or a constant.</p>
+  <p style="margin-top:9px">Everything else on this question is bookkeeping around that one test.</p>
+</div>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">01</span>The board: four parts, one procedure, four different answers to the same question</h2>
+<p>Each card carries the same four fields in the same order. Reading down the third field is the whole question: the four parts differ in <strong>exactly one place</strong>, which is what the last operation turns out to be.</p>
+
+<div class="board">
+  <div class="card">
+    <div class="card-h"><b>Part a</b><span class="mark">2 points</span></div>
+    <div class="fld"><b>function</b><span>\(y = 4x^5 + 3x^4 - 6x^3 + 6\)</span></div>
+    <div class="fld"><b>last op</b><span>addition between four terms</span></div>
+    <div class="fld key"><b>rule</b><span>sum, then <strong>power</strong> on each term</span></div>
+    <div class="fld"><b>derivative</b><span>\(20x^4 + 12x^3 - 18x^2\)</span></div>
+    <div class="fld"><b>simplify</b><span><strong>No.</strong> There is nothing to do.</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Part b</b><span class="mark los">the only real decision</span></div>
+    <div class="fld"><b>function</b><span>\(y = \dfrac{2x - 16}{(x+3)^2}\)</span></div>
+    <div class="fld"><b>last op</b><span>a division</span></div>
+    <div class="fld key"><b>rule</b><span><strong>quotient</strong>, then <strong>chain</strong> inside \(v\)</span></div>
+    <div class="fld"><b>derivative</b><span>\(\dfrac{2(x+3)^2 - 2(2x-16)(x+3)}{(x+3)^4} = \dfrac{38-2x}{(x+3)^3}\)</span></div>
+    <div class="fld"><b>simplify</b><span><strong>Yes.</strong> One factor of \((x+3)\) cancels.</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Part c</b><span class="mark chn">chain</span></div>
+    <div class="fld"><b>function</b><span>\(y = \sin\left(2x^2 - x + 1\right)\)</span></div>
+    <div class="fld"><b>last op</b><span>apply \(\sin\) to something</span></div>
+    <div class="fld key"><b>rule</b><span><strong>chain</strong>, named-function outer</span></div>
+    <div class="fld"><b>derivative</b><span>\((4x-1)\cos\left(2x^2-x+1\right)\)</span></div>
+    <div class="fld"><b>simplify</b><span><strong>No.</strong> The inner is left untouched.</span></div>
+  </div>
+  <div class="card">
+    <div class="card-h"><b>Part d</b><span class="mark chn">chain</span></div>
+    <div class="fld"><b>function</b><span>\(y = \left(-4x^3 - x^2 + 3x + 7\right)^4\)</span></div>
+    <div class="fld"><b>last op</b><span>raise a bracket to the power 4</span></div>
+    <div class="fld key"><b>rule</b><span><strong>chain</strong>, power outer</span></div>
+    <div class="fld"><b>derivative</b><span>\(4\left(-4x^3-x^2+3x+7\right)^3\left(-12x^2-2x+3\right)\)</span></div>
+    <div class="fld"><b>simplify</b><span><strong>No.</strong> Expanding gives 12 terms and 0 marks.</span></div>
+  </div>
+</div>
+
+<div class="callout good">
+  <div class="ch">What Q8.1 establishes for the other three questions</div>
+  <p>Category 8 is four items across three papers, worth <strong>48 points over 15 sub-parts</strong>, and it is the only category on every paper. Q8.1 is the cheapest of the four and the one that carries the machinery: the rule-selection procedure in section 03, the simplification policy in section 05, and the checking method in section 06. The other three each add exactly one idea on top.</p>
+</div>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>question</th><th>paper</th><th>item</th><th class="n">points</th><th class="n">parts</th><th>what it adds on top of Q8.1</th></tr></thead>
+<tbody>
+<tr class="hi"><td><strong>Q8.1</strong></td><td>Midterm 1</td><td>5</td><td class="n">8</td><td class="n">4</td><td><strong>the decision procedure, the simplification policy, the check</strong></td></tr>
+<tr><td>Q8.2</td><td>Midterm 2</td><td>9</td><td class="n">16</td><td class="n">4</td><td>one idea: run the procedure <strong>twice</strong> for a second derivative</td></tr>
+<tr><td>Q8.3</td><td>Final 1</td><td>1</td><td class="n">20</td><td class="n">5</td><td>one idea: the tree is <strong>three levels</strong> deep, not two</td></tr>
+<tr><td>Q8.4</td><td>Final 2</td><td>2</td><td class="n">4</td><td class="n">2</td><td>one idea: <strong>name</strong> the rule, which the procedure gives free</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">02</span>The last-operation tree</h2>
+<p>Part (b) is the only part whose tree has two levels, and it is the one worth drawing. The point of the picture is that <strong>the rule at the top is decided before you look at anything inside</strong>. The \((x+3)^2\) in the denominator is intimidating only if you try to take in the whole expression at once, and the test never does.</p>
+
+<figure>
+  <div class="figtop">Part b &middot; the rule at each node is named by that node's last operation</div>
+  <div class="figbox">
+    <svg viewBox="0 0 900 436" role="img" aria-label="Decision tree for the derivative of (2x minus 16) over (x plus 3) squared. The root is a division, so the quotient rule applies. Its left child, 2x minus 16, is a sum and uses the power rule. Its right child, (x plus 3) squared, is a power of a non-x base and uses the chain rule.">
+      <text class="lab big" x="442" y="38">y = (2x - 16) / (x + 3)^2</text>
+      <line class="conn" x1="442" y1="52" x2="442" y2="66"></line>
+      <text class="lab sm" x="442" y="80">LAST OPERATION IS A DIVISION</text>
+      <line class="conn" x1="442" y1="92" x2="442" y2="106"></line>
+
+      <rect class="badge" x="330" y="110" width="224" height="56" rx="3"></rect>
+      <text class="lab rl" x="442" y="128">QUOTIENT RULE</text>
+      <text class="lab" x="442" y="155">(u'v - uv') / v^2</text>
+
+      <line class="conn" x1="442" y1="168" x2="442" y2="184"></line>
+      <line class="conn" x1="195" y1="184" x2="690" y2="184"></line>
+      <line class="conn" x1="195" y1="184" x2="195" y2="196"></line>
+      <line class="conn" x1="690" y1="184" x2="690" y2="196"></line>
+
+      <text class="lab" x="195" y="216">u = 2x - 16</text>
+      <text class="lab" x="690" y="216">v = (x + 3)^2</text>
+      <line class="conn" x1="195" y1="226" x2="195" y2="238"></line>
+      <line class="conn" x1="690" y1="226" x2="690" y2="238"></line>
+
+      <text class="lab sm" x="195" y="254">LAST OP IS A SUM</text>
+      <text class="lab sm" x="690" y="254">LAST OP IS A POWER OF A NON-X BASE</text>
+      <line class="conn" x1="195" y1="264" x2="195" y2="278"></line>
+      <line class="conn" x1="690" y1="264" x2="690" y2="278"></line>
+
+      <rect class="badge" x="112" y="284" width="166" height="32" rx="3"></rect>
+      <text class="lab rl" x="195" y="304">POWER RULE</text>
+      <rect class="badge c" x="607" y="284" width="166" height="32" rx="3"></rect>
+      <text class="lab rl cn" x="690" y="304">CHAIN RULE</text>
+
+      <line class="conn" x1="195" y1="318" x2="195" y2="332"></line>
+      <line class="conn" x1="690" y1="318" x2="690" y2="332"></line>
+
+      <text class="lab" x="195" y="350">u' = 2</text>
+      <text class="lab sm" x="690" y="348">OUTER ( )^2 GIVES 2( )^1</text>
+      <text class="lab sm" x="690" y="370">INNER x + 3 GIVES 1</text>
+      <line class="conn" x1="690" y1="382" x2="690" y2="396"></line>
+      <text class="lab" x="690" y="416">v' = 2(x + 3)</text>
+    </svg>
+  </div>
+  <figcaption>The right branch is one level deeper than the left, and that asymmetry is the entire content of part (b). Trap 4 in section 09 is taking \(v' = 1\), which is what happens when you never ask the question at the second node. Every rule node in this figure was checked to hang off a connector rather than float, and every label box was measured in a real browser to confirm no connector passes through it.</figcaption>
+</figure>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">03</span>The procedure, in six steps</h2>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>what you would do last</th><th>the rule</th><th>what it leaves you</th><th>Q8.1</th></tr></thead>
+<tbody>
+<tr><td>add or subtract terms</td><td>sum</td><td>one smaller problem per term</td><td>a</td></tr>
+<tr><td>multiply by a constant</td><td>constant multiple</td><td>the constant, times one smaller problem</td><td>a</td></tr>
+<tr><td>multiply two \(x\)-dependent factors</td><td><strong>product</strong>, \(u'v + uv'\)</td><td>two smaller problems</td><td class="x">absent</td></tr>
+<tr class="hi"><td>divide</td><td><strong>quotient</strong>, \(\dfrac{u'v-uv'}{v^2}\)</td><td>two smaller problems</td><td>b</td></tr>
+<tr class="hi"><td>raise a bracket to a constant power</td><td><strong>chain</strong>, power outer</td><td>one smaller problem, the base</td><td>b, d</td></tr>
+<tr class="hi"><td>apply \(\sin\), \(\cos\), \(\tan\), \(\sqrt{\ }\), \(\sec\)</td><td><strong>chain</strong>, named outer</td><td>one smaller problem, the argument</td><td>c</td></tr>
+<tr><td>nothing; it is \(x^n\) or a constant</td><td>power, or 0</td><td>done</td><td>a</td></tr>
+</tbody>
+</table>
+</div>
+
+<blockquote>
+<p><strong>Step 1.</strong> Ask what the last operation is. Read the rule off the table above.</p>
+<p><strong>Step 2.</strong> Write the rule down <em>with blanks</em>, before you fill anything in. For part (b), put \(\frac{u'v - uv'}{v^2}\) on the page first, then name \(u\) and \(v\). Committing to the order before the algebra distracts you is what stops the quotient rule coming out backwards.</p>
+<p><strong>Step 3.</strong> Recurse. Ask step 1 again about each piece the rule handed you, and stop when a piece is \(x^n\) or a constant.</p>
+<p><strong>Step 4.</strong> Assemble, and do not touch the algebra. At this point the question is answered and the marks are earned.</p>
+<p><strong>Step 5.</strong> Simplify only if one factor obviously cancels. Section 05 gives the policy.</p>
+<p><strong>Step 6.</strong> Check with a difference quotient. Eight seconds, section 06.</p>
+</blockquote>
+
+<div class="callout">
+  <div class="ch">The product rule is the one gap, and it is worth noticing</div>
+  <p>Q8.1 tests the power, sum, quotient and chain rules and <strong>not</strong> the product rule. It appears instead in Q8.3a, Q8.4a and the review question \(\frac{d}{dx}\,x\cos\sqrt{x-3}\). So drilling only from Q8.1 drills three quarters of the rule set. Family 6 in section 08 closes that gap deliberately.</p>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">04</span>Part b, four ways</h2>
+<p>This is the only part with a real decision in it, so it is the one worth working several ways. All four routes were evaluated numerically at 14 points and agree with each other and with the true derivative to better than \(5\times10^{-16}\) relative.</p>
+
+<h3>Route A &middot; the quotient rule, straight</h3>
+<p>Last operation is a division, so \(\frac{u'v - uv'}{v^2}\) with \(u = 2x-16\) and \(v = (x+3)^2\). Then \(u'=2\), and \(v' = 2(x+3)\) <strong>by the chain rule</strong>.</p>
+$$y' = \frac{2(x+3)^2 - (2x-16)\cdot 2(x+3)}{(x+3)^4}$$
+<p>That line is the answer and it is worth full marks. Now the one simplification worth doing: both numerator terms carry a factor \((x+3)\), so it cancels against the denominator.</p>
+$$y' = \frac{2(x+3)-2(2x-16)}{(x+3)^3} = \frac{2x+6-4x+32}{(x+3)^3} = \frac{38-2x}{(x+3)^3}$$
+
+<h3>Route B &middot; the product rule on a negative power</h3>
+<p>Rewrite \(y = (2x-16)(x+3)^{-2}\), turning the division into a multiplication.</p>
+$$y' = 2(x+3)^{-2} - 2(2x-16)(x+3)^{-3} = (x+3)^{-3}\big[2(x+3)-2(2x-16)\big] = \frac{38-2x}{(x+3)^3}$$
+
+<h3>Route C &middot; split the fraction first</h3>
+<p>Since \(2x-16 = 2(x+3) - 22\), the whole quotient collapses into two power-rule terms.</p>
+$$y = 2(x+3)^{-1} - 22(x+3)^{-2} \;\Longrightarrow\; y' = -2(x+3)^{-2} + 44(x+3)^{-3} = \frac{38-2x}{(x+3)^3}$$
+
+<h3>Route D &middot; the one formula worth memorising</h3>
+<p>For any quotient over a power, the cancellation is structural rather than lucky, because both numerator terms carry \(w^{n-1}\):</p>
+$$\frac{d}{dx}\,\frac{u}{w^{\,n}} = \frac{u'w^{\,n} - u\cdot n\,w^{\,n-1}w'}{w^{2n}} = \frac{u'w - n\,u\,w'}{w^{\,n+1}}$$
+<p>With \(u = 2x-16\), \(w = x+3\), \(n=2\), that is \(\dfrac{2(x+3)-2(2x-16)}{(x+3)^3}\) in one line. The formula was verified over <strong>144 combinations of \((a,b,c,n)\)</strong> at five points each, so it is a family fact and not one coincidence.</p>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>route</th><th class="n">lines</th><th>where it goes wrong</th><th>needs</th></tr></thead>
+<tbody>
+<tr class="hi"><td><strong>A, quotient rule</strong></td><td class="n">3</td><td>the \(u'v - uv'\) order; taking \(v'=1\)</td><td>nothing you do not already have</td></tr>
+<tr><td>B, product rule</td><td class="n">3</td><td>the sign on the \(-2\) exponent step</td><td>comfort with negative exponents</td></tr>
+<tr><td>C, split first</td><td class="n">4</td><td>the split \(2x-16 = 2(x+3)-22\) itself</td><td>seeing the split</td></tr>
+<tr><td>D, the formula</td><td class="n">1</td><td>misremembering it</td><td>having memorised it in advance</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>Under exam pressure, use Route A.</strong> It is the route the question is testing, it needs nothing prepared in advance, and both its failure modes are caught by the check in section 06. Route D is faster and worth learning, but a formula you half-remember is worse than a rule you can derive, so treat D as a check on A rather than a replacement. Route C is the interesting one to understand and the wrong one to use here: its real value is on integrals, where splitting is not optional.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">05</span>How much simplification a marker expects</h2>
+
+<div class="callout rule">
+  <div class="ch">The policy, and it is the category's policy not this question's</div>
+  <p><strong>Simplifying has zero marginal reward and non-zero marginal risk.</strong> A correct unsimplified derivative is worth full marks, because <em>"you may not need to simplify your answers"</em> is printed on the paper. A correct derivative that you then simplify incorrectly is worth fewer. So the default is to stop the moment the derivative is written.</p>
+  <p style="margin-top:9px">All four Q8 items print that same clause, which is why this is a property of the whole block.</p>
+</div>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>simplify when</th><th>why</th><th>where in Q8.1</th></tr></thead>
+<tbody>
+<tr><td class="y">one factor cancels top and bottom</td><td>one step, hard to get wrong, and it makes the answer checkable</td><td>b, and only b</td></tr>
+<tr><td class="y">a later part needs the zeros</td><td>you cannot read a critical point off an uncancelled quotient</td><td>not here; Q11, Q12</td></tr>
+<tr><td class="y">you are taking a second derivative</td><td>differentiating an untidy \(f'\) doubles the work and the error rate</td><td>not here; Q8.2a</td></tr>
+<tr><td class="x">expanding a bracket to a high power</td><td>four minutes, twelve terms, no marks</td><td>d</td></tr>
+<tr><td class="x">distributing a trig factor over a sum</td><td>it makes the expression longer, not shorter</td><td>c</td></tr>
+<tr><td class="x">combining unlike surds</td><td>the marker is reading the derivative, not the algebra</td><td>not here; Q8.3 c, d</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><strong>The one number that settles it.</strong> Part (b) simplifies from a degree-4 denominator to a degree-3 one, and the whole step is three lines. Part (d) "simplifies" from two factors into a degree-11 polynomial with twelve terms. The difference is not taste: it is the direction the expression's length moves.</p>
+
+<h3>The full-credit write-up</h3>
+<blockquote>
+<p><strong>a.</strong> By the sum and constant-multiple rules, differentiating term by term with \(\frac{d}{dx}x^n = nx^{n-1}\), and noting the constant \(6\) differentiates to \(0\): \(\;y' = 20x^4 + 12x^3 - 18x^2\).</p>
+<p><strong>b.</strong> The outermost operation is a division, so this is the <strong>quotient rule</strong> with \(u = 2x-16\) and \(v = (x+3)^2\). Then \(u'=2\), and \(v' = 2(x+3)\) <strong>by the chain rule</strong>, since \(v\) is a bracket raised to a constant power with inner derivative \(1\). So \(y' = \frac{2(x+3)^2 - (2x-16)\cdot2(x+3)}{(x+3)^4}\). Both numerator terms share a factor \((x+3)\), so one power cancels: \(y' = \frac{38-2x}{(x+3)^3}\), for \(x\neq-3\).</p>
+<p><strong>c.</strong> The outermost operation is \(\sin\) applied to a polynomial, so this is the <strong>chain rule</strong> with \(f=\sin\) and \(g(x)=2x^2-x+1\). The outer derivative is \(\cos\), evaluated at the unchanged inner, and \(g'(x)=4x-1\): \(\;y' = (4x-1)\cos\left(2x^2-x+1\right)\).</p>
+<p><strong>d.</strong> The outermost operation is a fourth power of a polynomial, so this is the <strong>chain rule</strong> in its generalized-power form \(\frac{d}{dx}[g]^n = n[g]^{n-1}g'\), with \(g' = -12x^2-2x+3\): \(\;y' = 4\left(-4x^3-x^2+3x+7\right)^3\left(-12x^2-2x+3\right)\).</p>
+</blockquote>
+<p>Naming the rule in each part costs one clause, and it is exactly what Q8.4 asks for explicitly. Getting into the habit here means Q8.4 needs no extra work at all.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">06</span>The eight-second check</h2>
+
+<blockquote>
+<p>Pick \(x=1\), or any value that is easy and not near a pole. Compute \(\dfrac{f(1.001)-f(0.999)}{0.002}\) on the calculator and compare it with your \(y'(1)\). Agreement to three or four significant figures means your derivative is right.</p>
+</blockquote>
+
+<p>Because the quotient is <strong>centred</strong>, its error falls like \(h^2\) rather than \(h\), so \(h=0.001\) already gives five good digits. Here is what it produces on all four parts, every row verified.</p>
+
+<div class="tscroll">
+<table>
+<thead><tr><th>part</th><th class="n">\(y(1)\)</th><th class="n">your \(y'(1)\)</th><th class="n">what the calculator shows</th><th>agrees to</th></tr></thead>
+<tbody>
+<tr><td>a</td><td class="n">7</td><td class="n">14</td><td class="n">14.000046</td><td>6 figures</td></tr>
+<tr><td>b</td><td class="n">-0.875</td><td class="n">0.5625</td><td class="n">0.562500</td><td>7 figures</td></tr>
+<tr><td>c</td><td class="n">0.909297</td><td class="n">-1.248441</td><td class="n">-1.248444</td><td>6 figures</td></tr>
+<tr><td>d</td><td class="n">625</td><td class="n">-5500</td><td class="n">-5499.99</td><td>6 figures</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="ch">What it catches, seeded and confirmed</div>
+  <p>Drop the inner derivative in part (d) and you get \(4\cdot5^3 = 500\) instead of \(-5500\). Write the quotient rule backwards in part (b) and you get \(-0.5625\) instead of \(+0.5625\). Leave the calculator in degrees on part (c) and you are wrong by a factor of about 6.6. Each of those three failures was seeded into the verification and confirmed to be rejected.</p>
+  <p style="margin-top:9px">What it does <strong>not</strong> catch is method. It confirms the answer, not the route, so on a question that says "show your work" it is a filter and not a proof.</p>
+</div>
+
+<h3>The structural invariants, which cost nothing</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th>part</th><th>invariant</th><th>why it holds</th></tr></thead>
+<tbody>
+<tr><td>a</td><td>degree drops by exactly 1; the constant disappears</td><td>the power rule lowers each exponent by one</td></tr>
+<tr class="hi"><td>b</td><td>the pole order <strong>rises</strong> by 1, from 2 to 3</td><td>differentiating a pole makes it worse, never better. \((x+3)^4\) in a final answer is the signature of a job left half done.</td></tr>
+<tr><td>b</td><td>the numerator's degree is 1, not 2</td><td>a factor of \((x+3)\) came out</td></tr>
+<tr class="hi"><td>c</td><td>\(|y'|\) is <strong>not</strong> bounded by 1</td><td>the inner derivative \(4x-1\) scales it. At \(x=5.2\), \(|y'| = 18.35\). A bounded answer means the chain factor is missing.</td></tr>
+<tr><td>c, d</td><td>the inside of the bracket is <strong>unchanged</strong></td><td>the outer derivative never touches the inner</td></tr>
+<tr><td>d</td><td>the second factor is a quadratic</td><td>it is the derivative of a cubic</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">07</span>Answer entry</h2>
+<div class="tscroll">
+<table>
+<thead><tr><th>do</th><th>do not</th></tr></thead>
+<tbody>
+<tr><td>type every multiplication: <code>4*x^3</code></td><td><code>4x^3</code>, which one of the two parsers rejects</td></tr>
+<tr><td>bracket numerator and denominator: <code>(38-2*x)/(x+3)^3</code></td><td><code>38-2*x/(x+3)^3</code>, which is \(38 - \frac{2x}{(x+3)^3}\)</td></tr>
+<tr><td>bracket a negative base: <code>(-12*x^2-2*x+3)</code></td><td>leaving it bare beside another factor</td></tr>
+<tr><td>keep part d's base exactly as printed</td><td>reordering or tidying it, which invites a typo</td></tr>
+<tr><td><strong>preview every answer</strong></td><td>trusting that what you typed is what it read</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+  <div class="ch">The single most expensive typo on this question</div>
+  <p><code>(38-2*x)/(x+3)^3</code> is right. <code>(38-2*x)/(x+3^3)</code> cubes the 3 instead of the bracket and is silently a completely different function. The preview shows the difference immediately, which is the entire reason to use it.</p>
+</div>
+
+<div class="callout good">
+  <div class="ch">A genuine safety valve</div>
+  <p>M&ouml;bius grades by <strong>algebraic equivalence</strong>, not by string match, so unsimplified answers are accepted. If you are unsure of your cancellation on part (b), enter the raw form <code>(2*(x+3)^2-(2*x-16)*2*(x+3))/(x+3)^4</code> and it marks correct.</p>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">08</span>The variation catalog</h2>
+<p>Organised by <strong>the tool the variation forces</strong>, not by what the function looks like. Read each table as structure rather than as a list of facts: in almost every family the entries differ in only one place, and naming that place is the point.</p>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 1</span><span class="fname">Rewrite to a power, and use no rule at all</span><span class="mark fam">9 instances</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>a quotient or root whose <em>whole</em> structure is \(x\) to some power</div>
+      <div><b>tool</b>\(x^{-n}\) and \(x^{p/q}\); no quotient rule and no chain rule are needed</div>
+    </div>
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>rewrite as</th><th>\(f'\)</th></tr></thead>
+    <tbody>
+    <tr><td>\(1/x^3\)</td><td>\(x^{-3}\)</td><td>\(-3/x^4\)</td></tr>
+    <tr><td>\(5/x^2\)</td><td>\(5x^{-2}\)</td><td>\(-10/x^3\)</td></tr>
+    <tr><td>\(\sqrt x\)</td><td>\(x^{1/2}\)</td><td>\(\dfrac{1}{2\sqrt x}\)</td></tr>
+    <tr><td>\(1/\sqrt x\)</td><td>\(x^{-1/2}\)</td><td>\(-\dfrac{1}{2x^{3/2}}\)</td></tr>
+    <tr><td>\(\dfrac{3x^4-2x}{x^2}\)</td><td>\(3x^2-2x^{-1}\)</td><td>\(6x + \dfrac{2}{x^2}\)</td></tr>
+    <tr><td>\(x^2\sqrt x\)</td><td>\(x^{5/2}\)</td><td>\(\tfrac52 x^{3/2}\)</td></tr>
+    <tr><td>\((x^2+1)^2\)</td><td>\(x^4+2x^2+1\)</td><td>\(4x^3+4x\)</td></tr>
+    </tbody></table></div>
+    <p><strong>The cue is that the denominator contains only \(x\) raised to a power, with no additive term.</strong> \(\frac{1}{x^3}\) qualifies; \(\frac{1}{(x+3)^3}\) does not, and that one belongs to Family 3.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 2</span><span class="fname">The plain quotient rule, denominator not composite</span><span class="mark fam">6 instances</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>the numerator's shape</th></tr></thead>
+    <tbody>
+    <tr><td>\(\dfrac{2x-16}{x+3}\)</td><td>\(\dfrac{22}{(x+3)^2}\)</td><td>constant</td></tr>
+    <tr><td>\(\dfrac{3x+1}{2x-5}\)</td><td>\(-\dfrac{17}{(2x-5)^2}\)</td><td>constant</td></tr>
+    <tr><td>\(\dfrac{x}{x^2+1}\)</td><td>\(\dfrac{1-x^2}{(x^2+1)^2}\)</td><td>quadratic</td></tr>
+    <tr><td>\(\dfrac{x^2-1}{x^2+1}\)</td><td>\(\dfrac{4x}{(x^2+1)^2}\)</td><td>linear, after a big cancellation</td></tr>
+    <tr><td>\(\dfrac{\sin x}{x}\)</td><td>\(\dfrac{x\cos x-\sin x}{x^2}\)</td><td>the shape you always get when \(v=x\)</td></tr>
+    <tr><td>\(\dfrac{\sin x-\cos x}{x^3}\)</td><td>\(\dfrac{x(\cos x+\sin x)-3(\sin x-\cos x)}{x^4}\)</td><td>one power of \(x\) cancelled</td></tr>
+    </tbody></table></div>
+    <p><strong>The first two rows are the same row.</strong> Any ratio of two linear functions has a <em>constant</em> numerator in its derivative, because the \(x\) terms in \(u'v - uv'\) always cancel. If you differentiate \(\frac{3x+1}{2x-5}\) and get an \(x\) upstairs, you made an arithmetic slip.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 3</span><span class="fname">A quotient with a composite denominator, which is Q8.1b</span><span class="mark rul">the question's own family</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>denominator power \(2n \to n+1\)</th></tr></thead>
+    <tbody>
+    <tr class="hi"><td>\(\dfrac{2x-16}{(x+3)^2}\)</td><td>\(\dfrac{38-2x}{(x+3)^3}\)</td><td>4 to 3</td></tr>
+    <tr><td>\(\dfrac{x+1}{(x-2)^3}\)</td><td>\(\dfrac{-2x-5}{(x-2)^4}\)</td><td>6 to 4</td></tr>
+    <tr><td>\(\dfrac{x}{(x^2+1)^2}\)</td><td>\(\dfrac{1-3x^2}{(x^2+1)^3}\)</td><td>4 to 3</td></tr>
+    <tr><td>\(\dfrac{3x}{(2x-1)^2}\)</td><td>\(-\dfrac{3(2x+1)}{(2x-1)^3}\)</td><td>4 to 3</td></tr>
+    <tr><td>\(\dfrac{x-4}{(x+1)^2}\)</td><td>\(\dfrac{9-x}{(x+1)^3}\)</td><td>4 to 3</td></tr>
+    <tr><td>\(\dfrac{1}{(x^2+4)^3}\)</td><td>\(-\dfrac{6x}{(x^2+4)^4}\)</td><td>no quotient rule needed at all</td></tr>
+    </tbody></table></div>
+    <p><strong>Five rows and one formula, plus one exception.</strong> The first five are Route D's formula with different letters. The last row has a <em>constant</em> numerator, so \(u'=0\) kills the first term of the quotient rule entirely: rewrite it as \((x^2+4)^{-3}\) and use the chain rule, one step instead of three.</p>
+    <p><strong>The most common reword of Q8.1b is a change of \(n\).</strong> If you memorise "the answer has a cube on the bottom" you will get \(n=3\) wrong. The rule is \(n+1\), always.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 4</span><span class="fname">Chain rule, named-function outer, which is Q8.1c</span><span class="mark chn">Q8.2a, Q8.2b, Q8.4a</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>where</th></tr></thead>
+    <tbody>
+    <tr class="hi"><td>\(\sin\left(2x^2-x+1\right)\)</td><td>\((4x-1)\cos\left(2x^2-x+1\right)\)</td><td>Q8.1c</td></tr>
+    <tr><td>\(\cos\left(3x^2+5\right)\)</td><td>\(-6x\sin\left(3x^2+5\right)\)</td><td></td></tr>
+    <tr><td>\(\tan\left(x^3\right)\)</td><td>\(3x^2\sec^2\left(x^3\right)\)</td><td></td></tr>
+    <tr><td>\(\sec\left(x^2-3x\right)\)</td><td>\((2x-3)\sec\left(x^2-3x\right)\tan\left(x^2-3x\right)\)</td><td>Q8.2b</td></tr>
+    <tr><td>\(\cot(2x)\)</td><td>\(-2\csc^2(2x)\)</td><td>Q8.2a</td></tr>
+    <tr><td>\(\csc\sqrt x\)</td><td>\(-\dfrac{\csc\sqrt x\,\cot\sqrt x}{2\sqrt x}\)</td><td></td></tr>
+    <tr><td>\(\tan(2x)\)</td><td>\(2\sec^2(2x)\)</td><td>Q8.4a</td></tr>
+    </tbody></table></div>
+    <p><strong>Seven rows, one idea, and three minus signs.</strong> Every row is the outer derivative evaluated at the untouched inner, times the inner derivative. The signs are not seven facts either: they are the three minus signs belonging to \(\cos\), \(\cot\) and \(\csc\), because the "co-" functions differentiate to something negative.</p>
+    <p>The row that catches people is \(\cot(2x)\), whose factor of 2 comes from the chain rule and nothing else. That factor is what makes Q8.2a's second derivative \(8\csc^2(2x)\cot(2x)\) rather than \(2\csc^2(2x)\cot(2x)\).</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 5</span><span class="fname">Chain rule, power outer, which is Q8.1d</span><span class="mark chn">Q8.3 b, c, d and Q8.4b</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>where</th></tr></thead>
+    <tbody>
+    <tr class="hi"><td>\(\left(-4x^3-x^2+3x+7\right)^4\)</td><td>\(4\left(-4x^3-x^2+3x+7\right)^3\left(-12x^2-2x+3\right)\)</td><td>Q8.1d</td></tr>
+    <tr><td>\(\left(3x^2+1\right)^5\)</td><td>\(30x\left(3x^2+1\right)^4\)</td><td></td></tr>
+    <tr><td>\(\sqrt{x^2-1}\)</td><td>\(\dfrac{x}{\sqrt{x^2-1}}\)</td><td>Q8.3d</td></tr>
+    <tr><td>\((2x+1)^{-3}\)</td><td>\(-6(2x+1)^{-4}\)</td><td></td></tr>
+    <tr><td>\(\sin^3 x\)</td><td>\(3\sin^2 x\cos x\)</td><td></td></tr>
+    <tr><td>\(\cos^3\left(x^2\right)\)</td><td>\(-6x\cos^2\left(x^2\right)\sin\left(x^2\right)\)</td><td>Q8.4b</td></tr>
+    <tr><td>\(\sec^2 x\)</td><td>\(2\sec^2 x\tan x\)</td><td>Q8.3e</td></tr>
+    </tbody></table></div>
+    <p><strong>The rows to look at twice are \(\sin^3 x\) and \(\cos^3(x^2)\).</strong> The notation \(\sin^3 x\) <em>means</em> \((\sin x)^3\), so the last operation is the cubing and the outer function is the power, not the sine.</p>
+    <p><strong>The row people over-work is \(\sqrt{x^2-1}\).</strong> As \((x^2-1)^{1/2}\) it gives \(\frac12(x^2-1)^{-1/2}\cdot2x\), and the twos cancel. That happens every time the outer power is \(\frac12\) and the inner is a quadratic.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 6</span><span class="fname">The product rule, which Q8.1 does not test</span><span class="mark los">the gap to drill separately</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>where</th></tr></thead>
+    <tbody>
+    <tr><td>\(x\cos\sqrt{x-3}\)</td><td>\(\cos\sqrt{x-3} - \dfrac{x\sin\sqrt{x-3}}{2\sqrt{x-3}}\)</td><td>review 1</td></tr>
+    <tr><td>\(x^2\tan x\)</td><td>\(2x\tan x + x^2\sec^2 x\)</td><td>review 2</td></tr>
+    <tr><td>\((x^2+1)(x^3-2)\)</td><td>\(5x^4+3x^2-4x\)</td><td>expanding first is faster</td></tr>
+    <tr><td>\(x^3\sin 2x\)</td><td>\(3x^2\sin 2x + 2x^3\cos 2x\)</td><td></td></tr>
+    <tr><td>\(\sin x\cos\left(\sin x^2\right)\)</td><td>\(\cos x\cos\left(\sin x^2\right) - 2x\sin x\sin\left(\sin x^2\right)\cos\left(x^2\right)\)</td><td>Q8.3a</td></tr>
+    </tbody></table></div>
+    <p><strong>Row 3 is the cautionary one.</strong> \((x^2+1)(x^3-2)\) <em>can</em> be done by the product rule, and it is faster to expand and differentiate term by term. The product rule is for factors you cannot expand, which in practice means at least one is trigonometric or a root.</p>
+    <p><strong>Row 5 is Q8.3a and it is the hardest derivative in the category</strong>, because its second factor is a three-layer composite. It is still just \(u'v + uv'\); the difficulty lives entirely inside \(v'\), which is Family 7.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 7</span><span class="fname">The nested chain, two or more layers, which is Q8.3</span><span class="mark chn">nothing new happens here</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th class="n">layers</th></tr></thead>
+    <tbody>
+    <tr><td>\(\sqrt{1+\sqrt{1+x}}\)</td><td>\(\dfrac{1}{4\sqrt{1+\sqrt{1+x}}\,\sqrt{1+x}}\)</td><td class="n">3</td></tr>
+    <tr><td>\(\cos\left(\sin x^2\right)\)</td><td>\(-2x\cos\left(x^2\right)\sin\left(\sin x^2\right)\)</td><td class="n">3</td></tr>
+    <tr><td>\(\sec^2\left(\frac{x+1}{x-2}\right)\)</td><td>\(-\dfrac{6\sec^2 u\,\tan u}{(x-2)^2}\), \(u=\frac{x+1}{x-2}\)</td><td class="n">3</td></tr>
+    <tr><td>\(\left(\frac{1+x^3}{1-x^2}\right)^{1/3}\)</td><td>\(\frac13\left(\frac{1+x^3}{1-x^2}\right)^{-2/3}\cdot\dfrac{2x+3x^2-x^4}{(1-x^2)^2}\)</td><td class="n">2</td></tr>
+    </tbody></table></div>
+    <p><strong>The procedure recurses, so a three-layer function just runs step 3 three times.</strong> The only practical change is bookkeeping: write each layer's derivative on its own line rather than assembling the product in your head. Row 1 is the cleanest illustration, and the 4 in its denominator is \(2\times2\), one from each square root.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 8</span><span class="fname">A quotient whose parts are themselves composites</span><span class="mark rul">where the permission pays</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>where</th></tr></thead>
+    <tbody>
+    <tr><td>\(\dfrac{\sqrt{x^2-1}}{x^2-2x-8}\)</td><td>\(\dfrac{\frac{x}{\sqrt{x^2-1}}\left(x^2-2x-8\right)-\sqrt{x^2-1}\,(2x-2)}{\left(x^2-2x-8\right)^2}\)</td><td>Q8.3d</td></tr>
+    <tr><td>\(\dfrac{x^2-\cos 3x}{x\sin 2x}\)</td><td>\(\dfrac{(2x+3\sin 3x)(x\sin 2x)-\left(x^2-\cos 3x\right)(\sin 2x+2x\cos 2x)}{(x\sin 2x)^2}\)</td><td>Q8.2c</td></tr>
+    <tr><td>\(\dfrac{\tan 2x}{\sqrt x}\)</td><td>\(\dfrac{2\sec^2(2x)\sqrt x - \frac{\tan 2x}{2\sqrt x}}{x}\)</td><td>Q8.4a</td></tr>
+    </tbody></table></div>
+    <p><strong>Every one of those three is final as written.</strong> Q8.4a is the one worth a second look: multiplying numerator and denominator by \(2\sqrt x\) clears the fraction-inside-a-fraction to \(\frac{4x\sec^2(2x)-\tan 2x}{2x^{3/2}}\), which is tidier and, per section 05, entirely optional.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 9</span><span class="fname">A derivative at a single named point</span><span class="mark num">differentiate first, substitute last</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>asked</th><th>answer</th><th>the trap</th></tr></thead>
+    <tbody>
+    <tr><td>\(\left.\frac{d}{dx}\frac fg\right|_{x=1}\), \(f(1)=3\), \(g(1)=6\), \(f'=\sqrt x\), \(g'=3\sin\frac{\pi x}{3}\)</td><td>\(\dfrac{4-3\sqrt3}{24}\approx-0.04984\)</td><td>\(g'(1)=\frac{3\sqrt3}{2}\), in <strong>radians</strong></td></tr>
+    <tr><td>\(\left.\frac{d}{dx}\cos^3\left(x^2\right)\right|_{x=\sqrt\pi/2}\)</td><td>\(-\dfrac{3\sqrt{2\pi}}{4}\approx-1.87998\)</td><td>the point is chosen so \(x^2=\frac\pi4\)</td></tr>
+    <tr><td>\(\left.\frac{d}{dx}\frac{f-x^2g}{f+g}\right|_{x=0}\), \(f(0)=1,f'(0)=2,g(0)=0,g'(0)=-1\)</td><td>\(1\)</td><td>\(x^2g\) needs the product rule first</td></tr>
+    <tr><td>Q8.1 at \(x=1\)</td><td>\(14\), \(\frac9{16}\), \(3\cos2\), \(-5500\)</td><td></td></tr>
+    <tr><td>Q8.1 at \(x=0\)</td><td>\(0\), \(\frac{38}{27}\), \(-\cos1\), \(4116\)</td><td></td></tr>
+    </tbody></table></div>
+    <p><strong>The one rule here is the order of operations.</strong> Substituting \(x=1\) before you differentiate turns \(f(x)\) into the constant 3 and gives you 0, which is the classic zero-mark answer.</p>
+    <p>Row 2 shows how these are built: \(\sqrt\pi/2\) looks arbitrary until you square it and get \(\pi/4\). Whenever an evaluation point looks strange, square it or double it and see what it was designed to become.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 10</span><span class="fname">The second derivative, which is Q8.2a</span><span class="mark rul">the one place simplifying is mandatory</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>\(f\)</th><th>\(f'\)</th><th>\(f''\)</th></tr></thead>
+    <tbody>
+    <tr><td>\(\cot(2x)\)</td><td>\(-2\csc^2(2x)\)</td><td>\(8\csc^2(2x)\cot(2x)\)</td></tr>
+    <tr><td>\(4x^5+3x^4-6x^3+6\)</td><td>\(20x^4+12x^3-18x^2\)</td><td>\(80x^3+36x^2-36x\)</td></tr>
+    <tr class="hi"><td>\(\dfrac{2x-16}{(x+3)^2}\)</td><td>\(\dfrac{38-2x}{(x+3)^3}\)</td><td>\(\dfrac{4(x-30)}{(x+3)^4}\)</td></tr>
+    <tr><td>\(x^2\tan x\)</td><td>\(2x\tan x+x^2\sec^2x\)</td><td>\(2\tan x+4x\sec^2x+2x^2\sec^2x\tan x\), which is \(4\pi\) at \(x=\pi\)</td></tr>
+    </tbody></table></div>
+    <p><strong>Here the policy in section 05 flips.</strong> Differentiating \(\frac{38-2x}{(x+3)^3}\) is one quotient rule; differentiating the uncancelled \(\frac{2(x+3)^2-2(2x-16)(x+3)}{(x+3)^4}\) is a much worse afternoon. For a second derivative, tidy \(f'\) first.</p>
+    <p>Row 3 pays a bonus: \(f''(19) &lt; 0\), which confirms by the second-derivative test that the critical point at \(x=19\) is a maximum.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 12</span><span class="fname">The simplification step, as a source of lost marks</span><span class="mark los">where the marks actually go</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+    <thead><tr><th>the raw form</th><th>the simplified form</th><th>the step that can go wrong</th></tr></thead>
+    <tbody>
+    <tr class="hi"><td>\(\dfrac{2(x+3)^2-2(2x-16)(x+3)}{(x+3)^4}\)</td><td>\(\dfrac{38-2x}{(x+3)^3}\)</td><td>distributing the \(-2\) across \((2x-16)\)</td></tr>
+    <tr><td>\(4u^3\left(-12x^2-2x+3\right)\)</td><td>\(-4\left(12x^2+2x-3\right)u^3\)</td><td>flipping every sign inside</td></tr>
+    <tr><td>\(\dfrac{(x-2)^3-3(x+1)(x-2)^2}{(x-2)^6}\)</td><td>\(\dfrac{-2x-5}{(x-2)^4}\)</td><td>cancelling \((x-2)^2\), not \((x-2)^3\)</td></tr>
+    <tr><td>\(\dfrac{(x^2+1)^2-4x^2(x^2+1)}{(x^2+1)^4}\)</td><td>\(\dfrac{1-3x^2}{(x^2+1)^3}\)</td><td>the same</td></tr>
+    <tr><td>\(\tfrac12(x^2-1)^{-1/2}\cdot2x\)</td><td>\(\dfrac{x}{\sqrt{x^2-1}}\)</td><td>nothing</td></tr>
+    </tbody></table></div>
+    <p><strong>Every entry here was checked as an identity over 14 sample points</strong>, not at one value, because two expressions can agree at a single point by accident. Two seeded wrong versions, a sign slip in the numerator and an off-by-one in the denominator power, were both confirmed to be rejected.</p>
+    <p><strong>Row 1 is the single most common way to lose a mark on Q8.1.</strong> \(-2(2x-16)\) is \(-4x+32\); the plausible wrong answer is \(-4x-32\), giving \(\frac{-2x-26}{(x+3)^3}\), which looks entirely reasonable. The check at \(x=1\) settles it: \(+0.5625\) right, \(-0.4375\) wrong.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Families 11, 13, 14</span><span class="fname">Naming the rule, rewriting it away, and using the answer</span><span class="mark fam">the three short ones</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>Family 11</b>Q8.4 asks you to <em>state</em> the rules. The last-operation test produces the names as a by-product, in the order a marker wants them, so if you wrote the tree the answer is already on the page. \(\frac{\tan 2x}{\sqrt x}\) is quotient, then chain, then power.</div>
+      <div><b>Family 13</b>An algebraic collapse removes the need for a rule: \(\sqrt x\sqrt{x^3}=x^2\), \(\tan x\cos x=\sin x\), \(\frac{\sin 2x}{2\sin x}=\cos x\). Spend three seconds looking before you start. Q8.1 contains no such collapse, and confirming that is itself worth the three seconds.</div>
+      <div><b>Family 14</b>The derivative is often not the answer. Q9.1 wants \(f'=6x+4=-\frac16\), giving \(x=-\frac{25}{36}\), and the trap there is not calculus: perpendicular means the slopes multiply to \(-1\), so the target is \(-\frac16\) and not \(-6\). Q8.1(b)'s own critical point is \(x=19\), where \(y=\frac{1}{22}\).</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">09</span>The trap list</h2>
+<p>Ranked by how often each one actually costs marks in this family.</p>
+<ol class="traps">
+<li><span><strong>Dropping the inner derivative in the chain rule.</strong> Writing \(\cos(2x^2-x+1)\) for part (c), or \(4(-4x^3-x^2+3x+7)^3\) for part (d). This is the number one mark-loser in the whole course, and the check in section 06 catches it in one second.</span></li>
+<li><span><strong>The quotient rule written backwards.</strong> \(uv'-u'v\) instead of \(u'v-uv'\). It flips the sign of the whole answer and looks completely plausible. The guard is step 2: write the rule with blanks before you fill it in.</span></li>
+<li><span><strong>A sign slip distributing the minus.</strong> \(-2(2x-16) = -4x+32\), not \(-4x-32\).</span></li>
+<li><span><strong>Taking \(v'=1\) instead of \(2(x+3)\).</strong> This is trap 1 wearing a different hat: the denominator is a composite and it needs the chain rule too.</span></li>
+<li><span><strong>Expanding part (d).</strong> Not wrong, just expensive. Four minutes, twelve terms, no marks, and every term is a chance to slip.</span></li>
+<li><span><strong>Leaving \((x+3)^4\) after cancelling the numerator.</strong> Half a cancellation is worse than none, because the two halves no longer describe the same function.</span></li>
+<li><span><strong>Differentiating the base inside the bracket in part (d).</strong> The outer derivative leaves the inner completely untouched. This is trap 1 seen from the other side.</span></li>
+<li><span><strong>Calculator in degrees on part (c).</strong> The error factor is about 6.6 and the check catches it immediately.</span></li>
+<li><span><strong>Writing \(\frac{d}{dx}\sin = -\cos\).</strong> The minus belongs to \(\cos\), not to \(\sin\). The "co-functions get the minus" rule generates all six signs correctly.</span></li>
+<li><span><strong>Missing brackets on entry.</strong> <code>(38-2*x)/(x+3)^3</code> versus <code>(38-2*x)/(x+3^3)</code>. Preview catches this and nothing else will.</span></li>
+<li><span><strong>Reaching for the product rule on \((x+3)(x+3)\).</strong> It works and it wastes thirty seconds.</span></li>
+<li><span><strong>Simplifying part (c) or part (d) at all.</strong> There is nothing there to simplify, so any algebra you do is pure risk.</span></li>
+</ol>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">10</span>Drill set</h2>
+<p>Twelve on paper in under twenty minutes, then check. Score <strong>rule choice</strong>, <strong>execution</strong> and <strong>simplification</strong> as three separate columns, because they need three different fixes: a wrong rule is a reading problem and section 03 fixes it, a right rule executed wrongly is a memory problem, and a right derivative simplified wrongly is an algebra problem and Family 12 fixes it. The third is the most common.</p>
+
+<ol class="drills">
+<li><span>\(y = 7x^6-5x^4+2x-9\)</span></li>
+<li><span>\(y = \dfrac{3x-5}{(x+2)^2}\)</span></li>
+<li><span>\(y = \cos\left(5x^3+2x\right)\)</span></li>
+<li><span>\(y = \left(2x^2-5x+1\right)^6\)</span></li>
+<li><span>\(y = \dfrac{4}{x^3}+3\sqrt x\)</span></li>
+<li><span>\(y = x^2\sin(3x)\)</span></li>
+<li><span>\(y = \sqrt{4x^2+1}\)</span></li>
+<li><span>\(y = \tan^2 x\)</span></li>
+<li><span>\(y = \dfrac{x+1}{x^2+1}\)</span></li>
+<li><span>\(y = \sin(\cos x)\)</span></li>
+<li><span>\(y = \dfrac{x^3-2x}{x^2}\)</span></li>
+<li><span>\(y = \dfrac{x}{(3x-1)^3}\)</span></li>
+</ol>
+
+<h3>Answer key</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th class="n">#</th><th>answer</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td>\(42x^5-20x^3+2\)</td><td>0, sum and power only; the \(-9\) vanishes</td></tr>
+<tr><td class="n">2</td><td>\(\dfrac{16-3x}{(x+2)^3}\)</td><td>3, numerator is \(3(x+2)-2(3x-5)\), so the constant is \(6+10=16\)</td></tr>
+<tr><td class="n">3</td><td>\(-\left(15x^2+2\right)\sin\left(5x^3+2x\right)\)</td><td>4, chain with a cosine outer; the minus is the cosine's</td></tr>
+<tr><td class="n">4</td><td>\(6\left(2x^2-5x+1\right)^5(4x-5)\)</td><td>5, generalized power rule; do <strong>not</strong> expand</td></tr>
+<tr><td class="n">5</td><td>\(-\dfrac{12}{x^4}+\dfrac{3}{2\sqrt x}\)</td><td>1, rewrite as \(4x^{-3}+3x^{1/2}\) first</td></tr>
+<tr><td class="n">6</td><td>\(2x\sin 3x+3x^2\cos 3x\)</td><td>6, product rule with a chain inside the second term</td></tr>
+<tr><td class="n">7</td><td>\(\dfrac{4x}{\sqrt{4x^2+1}}\)</td><td>5, and the \(\frac12\) cancels against the inner's \(8x\)</td></tr>
+<tr><td class="n">8</td><td>\(2\tan x\sec^2 x\)</td><td>5, since \(\tan^2 x\) means \((\tan x)^2\)</td></tr>
+<tr><td class="n">9</td><td>\(\dfrac{1-2x-x^2}{\left(x^2+1\right)^2}\)</td><td>2, plain quotient rule; a full quadratic numerator</td></tr>
+<tr><td class="n">10</td><td>\(-\sin x\cos(\cos x)\)</td><td>4, chain; the minus comes from the <strong>inner</strong> \(\cos\)</td></tr>
+<tr><td class="n">11</td><td>\(1+\dfrac{2}{x^2}\)</td><td>13, split to \(x-2x^{-1}\) first and no rule is needed</td></tr>
+<tr><td class="n">12</td><td>\(-\dfrac{6x+1}{(3x-1)^4}\)</td><td>3, denominator power is \(n+1=4\), not 6</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout note">
+  <div class="ch">Three of the twelve are mis-shaped on purpose</div>
+  <p>Number 5 looks like it needs the quotient rule and does not. Number 8 looks like a trigonometric derivative and is actually a power. Number 11 looks like a quotient and collapses to two terms. If you reached for a rule on any of those three, step 1 of section 03 is the part to redo. Every answer in this key was recomputed by two independent numerical methods before it was written down.</p>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">11</span>The one-page decision tree</h2>
+<pre>
+"Compute the derivative of y = &lt;expression&gt;."
+|
++-- STEP 1.  If I substituted a number, what would I do <b>LAST</b>?
+|      + or -            -&gt; do each term separately, then ask again
+|      x by a constant   -&gt; pull the constant out, then ask again
+|      x between two     -&gt; <b>PRODUCT</b>   u'v + uv'    (symmetric, no order risk)
+|         x-factors
+|      /                 -&gt; <b>QUOTIENT</b>  (u'v - uv')/v^2   <s>ORDER MATTERS</s>
+|      ( )^n             -&gt; <b>CHAIN</b>     n( )^(n-1) * (inner)'
+|      sin/cos/tan/sqrt  -&gt; <b>CHAIN</b>     outer'(inner) * (inner)'
+|      nothing left      -&gt; <b>POWER</b>     n x^(n-1)   or   0
+|
++-- STEP 2.  Write the rule with <b>BLANKS</b> first.  Then name u and v.
+|            This is what stops the quotient rule coming out backwards.
+|
++-- STEP 3.  Ask step 1 again about each piece.  Stop at x^n or a constant.
+|
++-- STEP 4.  Assemble.  The question is now answered and the marks are earned.
+|
++-- STEP 5.  Simplify <b>ONLY</b> if one factor cancels top and bottom.
+|      quotient over a power  -&gt; <i>YES</i>, one power of the base comes out,
+|                               and the denominator goes 2n -&gt; n+1
+|      a bracket to a power   -&gt; <s>NO.  Never expand.</s>
+|      a trig chain result    -&gt; <s>NO.  There is nothing to do.</s>
+|      a SECOND derivative    -&gt; <i>YES</i>, always tidy f' before differentiating
+|
++-- STEP 6.  <b>CHECK</b>.  On the calculator:  [f(1.001) - f(0.999)] / 0.002
+             Compare with your y'(1).  Three matching figures is enough.
+
+      <b>SHAPE</b>     a polynomial's degree drops by exactly 1
+      <b>POLES</b>     a pole's order RISES by exactly 1
+      <b>INNER</b>     the inside of a bracket or trig function is UNCHANGED
+      <b>CHAIN</b>     is the inner derivative actually written down?  Look.
+      <b>ORDER</b>     quotient rule numerator starts with u', not u
+      <b>RADIANS</b>   check the calculator mode before trusting any number
+      <b>TYPE IT</b>   every * explicit, numerator and denominator bracketed
+      <b>PREVIEW</b>   always
+</pre>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">12</span>Provenance and verification</h2>
+
+<h3>Where the question comes from</h3>
+<ul>
+<li><strong>Midterm Exam 1, item 5, 8 points</strong>, printed <strong>inline at the end of the stem</strong>, so the attribution is unambiguous. Midterm 1's ten values are 5, 6, 5, 16, 8, 4, 5, 5, 5, 5, summing to <strong>64</strong> rather than 100, so item 5 is 12.5 percent of the paper.</li>
+<li><strong>The four papers print their point values three different ways.</strong> Midterm 1 and Final 1 put them inline at the end of the stem. Midterm 2 puts them on their own line <em>before</em> the item. Final 2 puts them on their own line <em>after</em> it. So on the two papers where the value stands alone, the two papers disagree about which item it belongs to, and reading the document boundary is mandatory rather than optional.</li>
+<li><strong>None of the four sums to 100</strong>: Midterm 1 is 64 over 10 items, Midterm 2 is 94 over 11, Final 1 is 124 over 14, Final 2 is 81 over 12.</li>
+<li>The "no credit" clauses on this course are on Midterm 1 item 3, Midterm 2 items 4 and 7, and Final 2 item 1. <strong>Q8.1 carries none</strong>, which is why section 04 says the route is genuinely free rather than inventing a restriction.</li>
+<li>Question text cross-checked across three files after whitespace normalisation: the bank, the papers, and the categorised transcription. All three agree.</li>
+</ul>
+
+<h3>How every number here was checked</h3>
+<div class="callout good">
+  <div class="ch">276 checks, 0 failures, 20 of them seeded controls</div>
+  <p>Every derivative was checked by <strong>two independent numerical methods</strong>: a complex-step derivative \(\operatorname{Im}f(x+ih)/h\) at \(h=10^{-30}\), which has no subtractive cancellation, and a Richardson-extrapolated central difference over a ladder in \(h\). Agreement is better than \(10^{-9}\) relative on the first and \(10^{-7}\) on the second, at 6 to 14 sample points per function.</p>
+  <p style="margin-top:9px">Every <strong>simplification</strong> was separately checked as an identity, raw form against tidy form at \(10^{-12}\) relative, because in this family most lost marks come from the algebra after the differentiation. The Family 3 formula was checked over 144 combinations of \((a,b,c,n)\) rather than at one instance.</p>
+  <p style="margin-top:9px"><strong>20 seeded controls are required to fail and do</strong>, including a missing inner derivative in (c) and in (d), the quotient rule reversed, \((x+3)^4\) kept after cancelling, \(v'=1\), a degrees-mode evaluation, a sign slip in a simplified numerator, an off-by-one denominator power, and the section 06 calculator check shown rejecting both the (d) chain slip and the (b) sign flip. A gate never seen to bite is indistinguishable from a gate that is not there.</p>
+</div>
+
+<h3>Three checks failed first, and in all three the check was wrong</h3>
+<div class="tscroll">
+<table>
+<thead><tr><th>the check</th><th>why it failed</th><th>the fix</th></tr></thead>
+<tbody>
+<tr><td>the difference quotient at a fixed \(h=10^{-3}\), reporting <strong>five</strong> failures</td><td>a truncation error is an <strong>asymptotic</strong> statement, so pinning it to one \(h\) measures the next term instead. At \(x=0.05\) the function \(1/x^3\) changes by 6 percent across that step, and \(\cos(5x^3+2x)\) at \(x=7.9\) has local wavenumber 938, making \(h=10^{-3}\) a 0.94 radian phase step.</td><td>test along a <strong>ladder</strong> from \(10^{-2}\) to \(10^{-7}\) and report the best rung; the errors fall from \(10^{-3}\) to \(10^{-13}\). A control confirms the ladder does not rescue a genuinely wrong derivative.</td></tr>
+<tr><td>the Family 7 entry \(\left(\frac{1+x^3}{1-x^2}\right)^{1/3}\), failing at a relative error of exactly <strong>1.00</strong></td><td>an error of exactly 1 is the signature of a <strong>branch</strong> problem, not an algebra problem. Three sample points put the base below zero, where Python returns the principal <em>complex</em> cube root, so the two sides sat on different branches.</td><td>move the sample points inside \(-1&lt;x&lt;1\) where the base is positive. A control confirms the trap is real by checking that the base at \(x=2.2\) really does produce a complex value.</td></tr>
+<tr><td>the figure gate demanding at least 8 lines carry a vertical connector</td><td>the tree has 7, and <strong>the threshold 8 was invented rather than measured</strong>. A gate asserting a number nobody derived tells you nothing when it passes and lies when it fails.</td><td>replace it with the property the figure actually has to satisfy: no rule node may be <strong>orphaned</strong>. Two controls confirm the new gate bites on a seeded orphan and clears when a connector is added.</td></tr>
+</tbody>
+</table>
+</div>
+<p>The first two are the same failure in two costumes: a numerical method used outside the regime where it is valid. The third is the more insidious one, because it would have passed a source-level review. A fourth defect was caught before it could be counted: a bisection for the base's real root was bracketed on \([-2,0]\), where the polynomial is \(+29\) and \(+7\) at the ends and has no root at all. The fix was to sweep for sign changes over \([-4,4]\) first, which finds exactly one, in \([1.32, 1.33]\), and to assert that count as its own check.</p>
+
+<h3>Conflicts found in the course files</h3>
+<p>The course files are study aids, not authorities. For this topic no false statement was found: the four rules in <code>MATH265_Review.md</code> are stated correctly in three separate places. Three things work against this question anyway.</p>
+<div class="tscroll">
+<table>
+<thead><tr><th>where</th><th>what it says</th><th>why it works against Q8.1</th></tr></thead>
+<tbody>
+<tr><td>the trig derivative list in section 9</td><td>gives \(\sin\), \(\cos\), \(\tan\), \(\cot\), \(\sec\) and <strong>omits \(\csc\) entirely</strong></td><td>the same file's other list has all six. Revising from section 9 alone leaves you unable to do the \(\csc\) variation in Family 4, and hides the "co-functions get the minus" pattern, because one of its three minus signs is missing.</td></tr>
+<tr><td>section 9 as a whole</td><td>states the four rules with <strong>no guidance on which to use when</strong></td><td>the rules are the easy half. Every mark in category 8 turns on rule <em>selection</em> and on how far to simplify, and the file addresses neither. Section 03 exists to fill that gap.</td></tr>
+<tr><td>the "common exam traps" list</td><td>lists "missing chain rule" and "not simplifying before limits"</td><td>the first is right and is trap 1 here. The second is advice for the limits topic that reads as general advice in a shared list, and it is the <strong>opposite</strong> of what category 8 wants: all four Q8 items print a permission not to simplify.</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<footer>
+<p>MATH 265 &middot; Introduction to Calculus I &middot; Q8.1, Midterm Exam 1 item 5, 8 points. Numerical verification run 2026-09-01: 276 checks, 0 failures, 20 seeded controls, appended to <code>Work\knowledge\topics\math265-answer-verification.py</code>. Re-run that file to re-check every number on this page; expect exactly 2 unrelated pre-existing failures elsewhere in it, which are a tolerance artifact of a linear-approximation check and not a wrong answer.</p>
+<p style="margin-top:10px">Companion pages in this series: <em>Cotangent From The Definition</em> (Q7.1) derives from first principles what this page computes with rules, and reading the two together is the fastest way to see why the rules are worth having.</p>
+</footer>
+
+</div>

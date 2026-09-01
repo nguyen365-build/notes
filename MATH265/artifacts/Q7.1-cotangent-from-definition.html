@@ -1,0 +1,883 @@
+<title>Cotangent From The Definition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged from Q1.1 through Q6.1.
+   What is specific to THIS page is what the five accent hues MEAN, and that
+   mapping is the content of the question:
+
+     THE DEFINITION, the limit, the thing demanded   --def   amber
+     IDENTITIES you are allowed to use               --idn   slate
+     NO CREDIT: the rules you are forbidden          --no    terracotta
+     ALGEBRA families: polynomial, quotient, root    --alg   teal
+     NUMERICS: order, roundoff, estimation           --num   mauve
+
+   The structural thesis of the page is the DERIVATION LADDER in section 2.
+   On a from-the-definition question the marks are not in the algebra column,
+   they are in the JUSTIFICATION column beside it, so the ladder gives that
+   column equal width and equal weight.  The numbering is legitimate here:
+   the seven lines really are a sequence, and a marker walks them in order.
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --def:#8F5A06;  --def-soft:rgba(217,138,31,.11);  --def-line:rgba(217,138,31,.42);
+  --idn:#3F6493;  --idn-soft:rgba(63,100,147,.09);  --idn-line:rgba(63,100,147,.38);
+  --no:#A8492F;   --no-soft:rgba(168,73,47,.09);    --no-line:rgba(168,73,47,.38);
+  --alg:#2E6B63;  --alg-soft:rgba(46,107,99,.10);   --alg-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --def:#F2A53C;  --def-soft:rgba(242,165,60,.13);  --def-line:rgba(242,165,60,.42);
+    --idn:#7E9BC4;  --idn-soft:rgba(126,155,196,.12); --idn-line:rgba(126,155,196,.42);
+    --no:#D2765C;   --no-soft:rgba(210,118,92,.13);   --no-line:rgba(210,118,92,.42);
+    --alg:#6FA8A0;  --alg-soft:rgba(111,168,160,.13); --alg-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --def:#F2A53C;  --def-soft:rgba(242,165,60,.13);  --def-line:rgba(242,165,60,.42);
+  --idn:#7E9BC4;  --idn-soft:rgba(126,155,196,.12); --idn-line:rgba(126,155,196,.42);
+  --no:#D2765C;   --no-soft:rgba(210,118,92,.13);   --no-line:rgba(210,118,92,.42);
+  --alg:#6FA8A0;  --alg-soft:rgba(111,168,160,.13); --alg-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --def:#8F5A06;  --def-soft:rgba(217,138,31,.11);  --def-line:rgba(217,138,31,.42);
+  --idn:#3F6493;  --idn-soft:rgba(63,100,147,.09);  --idn-line:rgba(63,100,147,.38);
+  --no:#A8492F;   --no-soft:rgba(168,73,47,.09);    --no-line:rgba(168,73,47,.38);
+  --alg:#2E6B63;  --alg-soft:rgba(46,107,99,.10);   --alg-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.def{border-color:var(--def-line);color:var(--def);background:var(--def-soft)}
+.mark.idn{border-color:var(--idn-line);color:var(--idn);background:var(--idn-soft)}
+.mark.no {border-color:var(--no-line); color:var(--no);  background:var(--no-soft)}
+.mark.alg{border-color:var(--alg-line);color:var(--alg);background:var(--alg-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.slab{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:26px 0}
+.slab-top{
+  padding:10px 20px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+  display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+}
+.slab-top .mark{margin-left:auto}
+.slab-body{padding:22px 20px}
+.slab-body p{margin:0 0 10px}
+.slab-body p:last-child{margin-bottom:0}
+
+/* ---- the verdict: answer, entry string, and the warning ---- */
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:0;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.entry{display:grid;gap:9px}
+.entry div{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;font-size:13.5px;color:var(--ink2)}
+.entry div span{flex:1;min-width:120px}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:none;border-bottom:1px solid var(--line)}
+}
+
+/* ---- THE DERIVATION LADDER: the page's structural thesis ---- */
+.ladder{
+  counter-reset:rung;display:grid;gap:0;margin:0 0 20px;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+}
+.rung{
+  display:grid;grid-template-columns:34px minmax(0,1.55fr) minmax(0,1fr);
+  gap:0 16px;padding:14px 18px;border-bottom:1px solid var(--line-soft);align-items:start;
+}
+.rung:last-child{border-bottom:none}
+.rung::before{
+  counter-increment:rung;content:counter(rung);
+  grid-column:1;grid-row:1;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  color:var(--accent);padding-top:5px;
+}
+.rung > .alg{grid-column:2;grid-row:1;min-width:0;overflow-x:auto}
+.rung > .why{grid-column:3;grid-row:1;min-width:0;font-size:13px;color:var(--ink2)}
+.rung > .why b{
+  display:block;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10px;letter-spacing:.13em;text-transform:uppercase;
+  margin-bottom:4px;font-weight:600;
+}
+.rung.d > .why b{color:var(--def)}
+.rung.i > .why b{color:var(--idn)}
+.rung.a > .why b{color:var(--alg)}
+.rung.key{background:var(--idn-soft)}
+.rung.key > .why b{color:var(--idn)}
+.ladder-head{
+  display:grid;grid-template-columns:34px minmax(0,1.55fr) minmax(0,1fr);gap:0 16px;
+  padding:10px 18px;background:var(--sunk);border-bottom:1px solid var(--line);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.13em;text-transform:uppercase;color:var(--ink3);
+}
+.ladder-head span:nth-child(1){grid-column:2}
+.ladder-head span:nth-child(2){grid-column:3;color:var(--accent)}
+@media (max-width:760px){
+  .rung,.ladder-head{grid-template-columns:34px minmax(0,1fr)}
+  .rung > .why{grid-column:2;grid-row:2;padding-top:9px}
+  .ladder-head span:nth-child(2){display:none}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:14px 10px 4px;overflow-x:auto}
+.figbox > svg{display:block;min-width:660px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+.swatches{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:9px}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.swatch i{width:14px;height:3px;border-radius:2px;display:inline-block;flex:none}
+
+svg .axis{stroke:var(--plot);stroke-width:1.1}
+svg .gridline{stroke:var(--line-soft);stroke-width:1}
+svg .tick{fill:var(--plotlab);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px}
+svg .axname{fill:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em}
+svg .curve{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+svg .sec{stroke:var(--idn);stroke-width:2;stroke-dasharray:7 5}
+svg .tan{stroke:var(--def);stroke-width:2.4}
+svg .pt{fill:var(--idn);stroke:var(--surface);stroke-width:1.6}
+svg .ptA{fill:var(--def);stroke:var(--surface);stroke-width:2}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.03em;font-weight:600;fill:var(--ink2)}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--idn);font-style:normal}
+pre s{color:var(--no);text-decoration:none}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.num,th.num{font-variant-numeric:tabular-nums;text-align:right}
+td.y{color:var(--ok);font-weight:600}
+td.n{color:var(--no);font-weight:600}
+tr.hi td{background:var(--def-soft)}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--no-line);background:var(--no-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--alg-line);background:var(--alg-soft)}
+.callout.note{border-color:var(--num-line);background:var(--num-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--no);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--alg)}
+.callout.note .ch{color:var(--num)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+  .rung{padding:12px 13px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 1 &middot; Item 3 &middot; 6 points</div>
+  <h1>Cotangent From The Definition</h1>
+  <p class="deck">The only question on the paper that asks where the differentiation rules come from. It is a proof, not a computation, so the answer is worth almost nothing and the six marks sit in six lines of algebra with a limit in front of them.</p>
+</header>
+
+<div class="verdict">
+  <div>
+    <div class="vlab">The answer</div>
+    $$\frac{d}{dx}\cot x=\lim_{h\to0}\frac{\cot(x+h)-\cot x}{h}=-\frac{1}{\sin^2x}=-\csc^2x$$
+    <p style="margin:8px 0 0;font-size:13.5px;color:var(--ink2)">Valid for every \(x\) with \(\sin x\neq0\), that is for \(x\neq k\pi\). Stating that domain is part of a complete answer.</p>
+  </div>
+  <div>
+    <div class="vlab">What to type into M&ouml;bius</div>
+    <div class="entry">
+      <div><span>the derivative</span><code>-1/(sin(x))^2</code></div>
+      <div><span>\(\cot'(\pi/6)\)</span><code>-4</code></div>
+      <div><span>\(\cot'(\pi/4)\)</span><code>-2</code></div>
+      <div><span>\(\cot'(\pi/3)\)</span><code>-4/3</code></div>
+      <div><span>the second derivative</span><code>2*(csc(x))^2*cot(x)</code></div>
+      <div><span>where it is valid</span><code>x != k*pi</code></div>
+    </div>
+  </div>
+</div>
+
+<div class="callout">
+  <div class="ch">Read this before anything else</div>
+  <p><strong>Writing \(-\csc^2 x\) on a blank page scores the same as writing nothing.</strong> The instruction is "use the definition of the derivative as a limit", and that is an imperative about method. Quoting the memorised table entry answers a question nobody asked, and differentiating \(\cos x/\sin x\) by the quotient rule assumes exactly the result you were told to establish.</p>
+  <p style="margin-top:9px">The tell is one symbol: <strong>if \(\lim\) never appears in your work, you did not use the definition.</strong></p>
+</div>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">01</span>The seven lines, and what each one is worth</h2>
+<p>This is the whole question. The left column is the algebra and the right column is the justification, and on a from-the-definition question <strong>the right column is where the marks are</strong>. A marker reads down the right column; the algebra is just what fills the space between the reasons.</p>
+
+<div class="ladder">
+  <div class="ladder-head"><span>the algebra</span><span>what earns the mark</span></div>
+
+  <div class="rung d">
+    <div class="alg">$$\frac{d}{dx}\cot x=\lim_{h\to0}\frac{\cot(x+h)-\cot x}{h}$$</div>
+    <div class="why"><b>the definition</b>Write it first, before you think about anything. It is a free mark and it is the one most often lost, by students who open with the algebra.</div>
+  </div>
+
+  <div class="rung a">
+    <div class="alg">$$\cot t=\frac{\cos t}{\sin t}$$</div>
+    <div class="why"><b>the only thing you may assume about cot</b>Its definition, not its derivative.</div>
+  </div>
+
+  <div class="rung a">
+    <div class="alg">$$\frac{\cos(x+h)}{\sin(x+h)}-\frac{\cos x}{\sin x}=\frac{\cos(x+h)\sin x-\cos x\sin(x+h)}{\sin(x+h)\sin x}$$</div>
+    <div class="why"><b>one denominator</b>You cannot simplify a difference of two fractions until they are one fraction. This is ordinary cross-multiplying, and it is the same first move as \(1/x\).</div>
+  </div>
+
+  <div class="rung key i">
+    <div class="alg">$$\cos(x+h)\sin x-\cos x\sin(x+h)=\sin\big(x-(x+h)\big)=\sin(-h)=-\sin h$$</div>
+    <div class="why"><b>the sine subtraction formula, run backwards</b>This is the whole question, and it is worth about two of the six marks. \(\sin(A-B)=\sin A\cos B-\cos A\sin B\) with \(A=x\) and \(B=x+h\). Then sine is odd, so \(\sin(-h)=-\sin h\). Notice the \(x\) is gone.</div>
+  </div>
+
+  <div class="rung a">
+    <div class="alg">$$\frac{\cot(x+h)-\cot x}{h}=-\frac{\sin h}{h}\cdot\frac{1}{\sin(x+h)\sin x}$$</div>
+    <div class="why"><b>separate the h part from the x part</b>One factor is a standard limit, the other is ordinary substitution. Splitting them is what makes the last line legal.</div>
+  </div>
+
+  <div class="rung d">
+    <div class="alg">$$\lim_{h\to0}\frac{\sin h}{h}=1,\qquad \sin(x+h)\to\sin x$$</div>
+    <div class="why"><b>the standard limit, plus continuity</b>Name them both. The first is the only non-algebraic fact in the proof. The second is the continuity of sine, and saying so is free credit.</div>
+  </div>
+
+  <div class="rung d">
+    <div class="alg">$$\frac{d}{dx}\cot x=-1\cdot\frac{1}{\sin^2x}=-\csc^2x,\qquad x\neq k\pi$$</div>
+    <div class="why"><b>finish, and state the domain</b>Because both factors have limits, the limit of the product is the product of the limits. One clause, and it closes the argument.</div>
+  </div>
+</div>
+
+<div class="callout good">
+  <div class="ch">Verified line by line, not end to end</div>
+  <p>A from-the-definition question is marked line by line, so it was checked line by line. The identity on rung 4 was tested as an identity <strong>in two free variables</strong>, at 91 different \((x,h)\) pairs: thirteen values of \(x\) spread across four quadrants, crossed with seven values of \(h\) including negative ones. It holds at every single pair. So does every other step of all four routes below. Checking only that the chain ends at \(-\csc^2x\) would verify the one line a marker gives no credit for.</p>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">02</span>What "no credit" looks like</h2>
+<p>There are exactly four ways to write a correct final answer and still score close to zero, and every one of them is something a well-prepared student does by reflex.</p>
+
+<div class="tscroll"><table>
+<thead><tr><th>What gets written</th><th>Why it earns no method marks</th></tr></thead>
+<tbody>
+<tr><td>\(\dfrac{d}{dx}\cot x=-\csc^2x\), and stop</td><td>The memorised table entry. You were asked to <em>derive</em> it.</td></tr>
+<tr><td>The quotient rule on \(\dfrac{\cos x}{\sin x}\)</td><td>Correct, elegant, and circular. The quotient rule is a <em>consequence</em> of the definition, and it also assumes \(\sin'=\cos\) and \(\cos'=-\sin\), which are themselves definition results.</td></tr>
+<tr><td>\(\cot x=\dfrac{1}{\tan x}\), then the reciprocal or chain rule</td><td>The same objection, one layer further out, and it now also assumes \(\tan'=\sec^2x\).</td></tr>
+<tr><td>Evaluating \(\dfrac{\cot(x+h)-\cot x}{h}\) at \(h=10^{-6}\) on a calculator</td><td>Arithmetic, not a proof. Section 07 shows how badly it can mislead.</td></tr>
+</tbody></table></div>
+
+<p>Item 3 of this paper does <strong>not</strong> print a "no credit will be given" note. Four other items across the course's four papers do: Midterm 1 item 3, Midterm 2 items 4 and 7, and Final 2 item 1. That is a course which has demonstrated four times that it will zero a right answer reached the wrong way, so the safe reading of the imperative verb here is the strict one.</p>
+
+<h3>The line between allowed and forbidden</h3>
+<div class="tscroll"><table>
+<thead><tr><th>Allowed</th><th>Not allowed</th></tr></thead>
+<tbody>
+<tr><td class="y">\(\cot x=\cos x/\sin x\)</td><td class="n">the derivative of \(\cot\), in any form</td></tr>
+<tr><td class="y">any trigonometric <strong>identity</strong></td><td class="n">the quotient, product, chain or reciprocal rule</td></tr>
+<tr><td class="y">the two standard trig limits</td><td class="n">\(\sin'=\cos\) and \(\cos'=-\sin\), quoted as facts</td></tr>
+<tr><td class="y">the algebra of limits</td><td class="n">L'Hopital's rule</td></tr>
+<tr><td class="y">the continuity of \(\sin\)</td><td class="n">anything with \(\frac{d}{dx}\) already applied to a trig function</td></tr>
+</tbody></table></div>
+<p>Everything in the right-hand column has one thing in common: it is a <em>result about derivatives</em>. The left column is identities and limits. That is the line.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">03</span>The two things to have cold</h2>
+
+<h3>The identity, and why it is the only one that matters</h3>
+<p>You will use the sine subtraction formula <strong>backwards</strong>, and that is the move students miss.</p>
+$$\sin(A-B)=\sin A\cos B-\cos A\sin B \qquad\xrightarrow{\ A=x,\ B=x+h\ }\qquad \cos(x+h)\sin x-\cos x\sin(x+h)=-\sin h$$
+<p>Two things about it deserve a moment. The right-hand side has <strong>no \(x\) in it at all</strong>: an expression in two variables collapsed to one in a single variable, which is what a subtraction formula does and is why this question is six marks rather than sixteen.</p>
+<p>And <strong>the sign is the entire difference between \(\cot\) and \(\tan\)</strong>. Run the same move on \(\tan\) and the numerator is \(\sin(x+h)\cos x-\sin x\cos(x+h)=+\sin h\). Same identity, arguments swapped, opposite sign. That one sign is why \(\tan'=+\sec^2x\) and \(\cot'=-\csc^2x\). Both are verified.</p>
+
+<h3>The limits, and which one you actually need</h3>
+$$\lim_{h\to0}\frac{\sin h}{h}=1\qquad\qquad\lim_{h\to0}\frac{\cos h-1}{h}=0$$
+<div class="callout note">
+  <div class="ch">The structural fact worth more than any single answer</div>
+  <p>Which of the two standard limits you need is a fact about the <strong>function</strong>, not about you. For \(\cot\) and \(\tan\) you need <strong>only</strong> \(\frac{\sin h}{h}\to1\), because every \(\cos h\) term cancels identically before any limit is taken. For \(\sin\) and \(\cos\) you need both, because a \(\cos h\) survives to the very end. That is the whole shape of section 06, family 1.</p>
+</div>
+
+<h3>Two more you will need for the rewords</h3>
+<div class="tscroll"><table>
+<thead><tr><th>limit</th><th class="num">value</th><th>where it comes from</th></tr></thead>
+<tbody>
+<tr><td>\(\lim_{h\to0}\frac{\tan h}{h}\)</td><td class="num">\(1\)</td><td>\(\frac{\sin h}{h}\cdot\frac{1}{\cos h}\), and \(\cos h\to1\)</td></tr>
+<tr><td>\(\lim_{h\to0}\frac{1-\cos h}{h^2}\)</td><td class="num">\(\tfrac12\)</td><td>multiply by \(\frac{1+\cos h}{1+\cos h}\), then use \(\sin^2\)</td></tr>
+<tr><td>\(\lim_{h\to0}\frac{\sin (kh)}{h}\)</td><td class="num">\(k\)</td><td>write it as \(k\cdot\frac{\sin kh}{kh}\)</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">04</span>The picture: the definition, drawn</h2>
+<p>The definition says the tangent slope is the limit of the secant slopes. Here is that sentence drawn for \(\cot\) at \(x=1\). Each dashed line joins \(A=(1,\cot 1)\) to a point a step \(h\) to its right, and <strong>its slope is exactly the difference quotient at that \(h\)</strong>. As \(h\) shrinks the dashed lines rotate into the solid one.</p>
+
+<figure>
+  <div class="figtop">Secants rotating into the tangent &middot; y = cot x, near x = 1</div>
+  <div class="figbox"><svg viewBox="0 0 760 430" role="img" aria-label="The cotangent curve between x=0.6 and x=2.0, with three secant lines drawn from the point A at x=1 to points a step h to its right. As h shrinks from 0.9 to 0.45 to 0.2 the secants rotate toward the tangent line at A, whose slope is minus csc squared of 1."><g class="gridgroup"><line class="gridline" x1="66.00" y1="375.48" x2="738.00" y2="375.48"/><text class="tick" x="58.00" y="379.48" text-anchor="end">-0.5</text><line class="gridline" x1="66.00" y1="290.24" x2="738.00" y2="290.24"/><text class="tick" x="58.00" y="294.24" text-anchor="end">0</text><line class="gridline" x1="66.00" y1="205.00" x2="738.00" y2="205.00"/><text class="tick" x="58.00" y="209.00" text-anchor="end">0.5</text><line class="gridline" x1="66.00" y1="119.76" x2="738.00" y2="119.76"/><text class="tick" x="58.00" y="123.76" text-anchor="end">1</text><line class="gridline" x1="66.00" y1="34.52" x2="738.00" y2="34.52"/><text class="tick" x="58.00" y="38.52" text-anchor="end">1.5</text><line class="gridline" x1="138.00" y1="26.00" x2="138.00" y2="384.00"/><text class="tick" x="138.00" y="404.00" text-anchor="middle">0.75</text><line class="gridline" x1="258.00" y1="26.00" x2="258.00" y2="384.00"/><text class="tick" x="258.00" y="404.00" text-anchor="middle">1</text><line class="gridline" x1="378.00" y1="26.00" x2="378.00" y2="384.00"/><text class="tick" x="378.00" y="404.00" text-anchor="middle">1.25</text><line class="gridline" x1="498.00" y1="26.00" x2="498.00" y2="384.00"/><text class="tick" x="498.00" y="404.00" text-anchor="middle">1.5</text><line class="gridline" x1="618.00" y1="26.00" x2="618.00" y2="384.00"/><text class="tick" x="618.00" y="404.00" text-anchor="middle">1.75</text><line class="gridline" x1="738.00" y1="26.00" x2="738.00" y2="384.00"/><text class="tick" x="738.00" y="404.00" text-anchor="middle">2</text></g><line class="axis" x1="66.00" y1="290.24" x2="738.00" y2="290.24"/><polyline class="curve" points="66.00,41.05 66.75,41.88 67.49,42.71 68.24,43.53 68.99,44.35 69.73,45.17 70.48,45.98 71.23,46.79 71.97,47.59 72.72,48.39 73.47,49.19 74.21,49.98 74.96,50.77 75.71,51.56 76.45,52.34 77.20,53.12 77.95,53.90 78.69,54.67 79.44,55.44 80.19,56.21 80.93,56.97 81.68,57.73 82.43,58.49 83.17,59.24 83.92,59.99 84.67,60.74 85.41,61.48 86.16,62.22 86.91,62.96 87.65,63.70 88.40,64.43 89.15,65.16 89.89,65.88 90.64,66.61 91.39,67.33 92.13,68.04 92.88,68.76 93.63,69.47 94.37,70.18 95.12,70.88 95.87,71.59 96.61,72.29 97.36,72.98 98.11,73.68 98.85,74.37 99.60,75.06 100.35,75.75 101.09,76.43 101.84,77.11 102.59,77.79 103.33,78.46 104.08,79.14 104.83,79.81 105.57,80.48 106.32,81.14 107.07,81.80 107.81,82.46 108.56,83.12 109.31,83.78 110.05,84.43 110.80,85.08 111.55,85.73 112.29,86.37 113.04,87.02 113.79,87.66 114.53,88.30 115.28,88.93 116.03,89.57 116.77,90.20 117.52,90.83 118.27,91.45 119.01,92.08 119.76,92.70 120.51,93.32 121.25,93.94 122.00,94.56 122.75,95.17 123.49,95.78 124.24,96.39 124.99,97.00 125.73,97.60 126.48,98.20 127.23,98.80 127.97,99.40 128.72,100.00 129.47,100.59 130.21,101.19 130.96,101.78 131.71,102.36 132.45,102.95 133.20,103.54 133.95,104.12 134.69,104.70 135.44,105.28 136.19,105.85 136.93,106.43 137.68,107.00 138.43,107.57 139.17,108.14 139.92,108.71 140.67,109.27 141.41,109.83 142.16,110.40 142.91,110.95 143.65,111.51 144.40,112.07 145.15,112.62 145.89,113.17 146.64,113.72 147.39,114.27 148.13,114.82 148.88,115.36 149.63,115.91 150.37,116.45 151.12,116.99 151.87,117.53 152.61,118.06 153.36,118.60 154.11,119.13 154.85,119.66 155.60,120.19 156.35,120.72 157.09,121.25 157.84,121.77 158.59,122.30 159.33,122.82 160.08,123.34 160.83,123.86 161.57,124.37 162.32,124.89 163.07,125.40 163.81,125.92 164.56,126.43 165.31,126.94 166.05,127.44 166.80,127.95 167.55,128.45 168.29,128.96 169.04,129.46 169.79,129.96 170.53,130.46 171.28,130.96 172.03,131.45 172.77,131.95 173.52,132.44 174.27,132.93 175.01,133.42 175.76,133.91 176.51,134.40 177.25,134.88 178.00,135.37 178.75,135.85 179.49,136.33 180.24,136.82 180.99,137.29 181.73,137.77 182.48,138.25 183.23,138.72 183.97,139.20 184.72,139.67 185.47,140.14 186.21,140.61 186.96,141.08 187.71,141.55 188.45,142.02 189.20,142.48 189.95,142.94 190.69,143.41 191.44,143.87 192.19,144.33 192.93,144.79 193.68,145.24 194.43,145.70 195.17,146.16 195.92,146.61 196.67,147.06 197.41,147.51 198.16,147.97 198.91,148.41 199.65,148.86 200.40,149.31 201.15,149.76 201.89,150.20 202.64,150.64 203.39,151.09 204.13,151.53 204.88,151.97 205.63,152.41 206.37,152.84 207.12,153.28 207.87,153.72 208.61,154.15 209.36,154.59 210.11,155.02 210.85,155.45 211.60,155.88 212.35,156.31 213.09,156.74 213.84,157.17 214.59,157.59 215.33,158.02 216.08,158.44 216.83,158.86 217.57,159.29 218.32,159.71 219.07,160.13 219.81,160.55 220.56,160.96 221.31,161.38 222.05,161.80 222.80,162.21 223.55,162.63 224.29,163.04 225.04,163.45 225.79,163.86 226.53,164.28 227.28,164.68 228.03,165.09 228.77,165.50 229.52,165.91 230.27,166.31 231.01,166.72 231.76,167.12 232.51,167.53 233.25,167.93 234.00,168.33 234.75,168.73 235.49,169.13 236.24,169.53 236.99,169.92 237.73,170.32 238.48,170.72 239.23,171.11 239.97,171.51 240.72,171.90 241.47,172.29 242.21,172.68 242.96,173.08 243.71,173.47 244.45,173.85 245.20,174.24 245.95,174.63 246.69,175.02 247.44,175.40 248.19,175.79 248.93,176.17 249.68,176.56 250.43,176.94 251.17,177.32 251.92,177.70 252.67,178.08 253.41,178.46 254.16,178.84 254.91,179.22 255.65,179.60 256.40,179.97 257.15,180.35 257.89,180.72 258.64,181.10 259.39,181.47 260.13,181.84 260.88,182.22 261.63,182.59 262.37,182.96 263.12,183.33 263.87,183.70 264.61,184.06 265.36,184.43 266.11,184.80 266.85,185.17 267.60,185.53 268.35,185.90 269.09,186.26 269.84,186.62 270.59,186.99 271.33,187.35 272.08,187.71 272.83,188.07 273.57,188.43 274.32,188.79 275.07,189.15 275.81,189.51 276.56,189.86 277.31,190.22 278.05,190.58 278.80,190.93 279.55,191.29 280.29,191.64 281.04,192.00 281.79,192.35 282.53,192.70 283.28,193.05 284.03,193.40 284.77,193.75 285.52,194.10 286.27,194.45 287.01,194.80 287.76,195.15 288.51,195.50 289.25,195.84 290.00,196.19 290.75,196.54 291.49,196.88 292.24,197.23 292.99,197.57 293.73,197.91 294.48,198.26 295.23,198.60 295.97,198.94 296.72,199.28 297.47,199.62 298.21,199.96 298.96,200.30 299.71,200.64 300.45,200.98 301.20,201.31 301.95,201.65 302.69,201.99 303.44,202.32 304.19,202.66 304.93,202.99 305.68,203.33 306.43,203.66 307.17,204.00 307.92,204.33 308.67,204.66 309.41,204.99 310.16,205.32 310.91,205.65 311.65,205.98 312.40,206.31 313.15,206.64 313.89,206.97 314.64,207.30 315.39,207.63 316.13,207.95 316.88,208.28 317.63,208.61 318.37,208.93 319.12,209.26 319.87,209.58 320.61,209.91 321.36,210.23 322.11,210.56 322.85,210.88 323.60,211.20 324.35,211.52 325.09,211.84 325.84,212.16 326.59,212.49 327.33,212.81 328.08,213.13 328.83,213.44 329.57,213.76 330.32,214.08 331.07,214.40 331.81,214.72 332.56,215.03 333.31,215.35 334.05,215.67 334.80,215.98 335.55,216.30 336.29,216.61 337.04,216.93 337.79,217.24 338.53,217.55 339.28,217.87 340.03,218.18 340.77,218.49 341.52,218.80 342.27,219.12 343.01,219.43 343.76,219.74 344.51,220.05 345.25,220.36 346.00,220.67 346.75,220.98 347.49,221.29 348.24,221.59 348.99,221.90 349.73,222.21 350.48,222.52 351.23,222.82 351.97,223.13 352.72,223.44 353.47,223.74 354.21,224.05 354.96,224.35 355.71,224.66 356.45,224.96 357.20,225.27 357.95,225.57 358.69,225.87 359.44,226.17 360.19,226.48 360.93,226.78 361.68,227.08 362.43,227.38 363.17,227.68 363.92,227.98 364.67,228.28 365.41,228.58 366.16,228.88 366.91,229.18 367.65,229.48 368.40,229.78 369.15,230.08 369.89,230.38 370.64,230.68 371.39,230.97 372.13,231.27 372.88,231.57 373.63,231.86 374.37,232.16 375.12,232.46 375.87,232.75 376.61,233.05 377.36,233.34 378.11,233.64 378.85,233.93 379.60,234.22 380.35,234.52 381.09,234.81 381.84,235.10 382.59,235.40 383.33,235.69 384.08,235.98 384.83,236.27 385.57,236.56 386.32,236.86 387.07,237.15 387.81,237.44 388.56,237.73 389.31,238.02 390.05,238.31 390.80,238.60 391.55,238.89 392.29,239.18 393.04,239.47 393.79,239.75 394.53,240.04 395.28,240.33 396.03,240.62 396.77,240.91 397.52,241.19 398.27,241.48 399.01,241.77 399.76,242.05 400.51,242.34 401.25,242.63 402.00,242.91 402.75,243.20 403.49,243.48 404.24,243.77 404.99,244.05 405.73,244.34 406.48,244.62 407.23,244.90 407.97,245.19 408.72,245.47 409.47,245.76 410.21,246.04 410.96,246.32 411.71,246.60 412.45,246.89 413.20,247.17 413.95,247.45 414.69,247.73 415.44,248.01 416.19,248.30 416.93,248.58 417.68,248.86 418.43,249.14 419.17,249.42 419.92,249.70 420.67,249.98 421.41,250.26 422.16,250.54 422.91,250.82 423.65,251.10 424.40,251.38 425.15,251.66 425.89,251.93 426.64,252.21 427.39,252.49 428.13,252.77 428.88,253.05 429.63,253.32 430.37,253.60 431.12,253.88 431.87,254.16 432.61,254.43 433.36,254.71 434.11,254.99 434.85,255.26 435.60,255.54 436.35,255.82 437.09,256.09 437.84,256.37 438.59,256.64 439.33,256.92 440.08,257.19 440.83,257.47 441.57,257.74 442.32,258.02 443.07,258.29 443.81,258.57 444.56,258.84 445.31,259.12 446.05,259.39 446.80,259.66 447.55,259.94 448.29,260.21 449.04,260.48 449.79,260.76 450.53,261.03 451.28,261.30 452.03,261.58 452.77,261.85 453.52,262.12 454.27,262.39 455.01,262.67 455.76,262.94 456.51,263.21 457.25,263.48 458.00,263.75 458.75,264.02 459.49,264.30 460.24,264.57 460.99,264.84 461.73,265.11 462.48,265.38 463.23,265.65 463.97,265.92 464.72,266.19 465.47,266.46 466.21,266.73 466.96,267.00 467.71,267.27 468.45,267.54 469.20,267.81 469.95,268.08 470.69,268.35 471.44,268.62 472.19,268.89 472.93,269.16 473.68,269.43 474.43,269.70 475.17,269.97 475.92,270.24 476.67,270.50 477.41,270.77 478.16,271.04 478.91,271.31 479.65,271.58 480.40,271.85 481.15,272.12 481.89,272.38 482.64,272.65 483.39,272.92 484.13,273.19 484.88,273.46 485.63,273.72 486.37,273.99 487.12,274.26 487.87,274.53 488.61,274.79 489.36,275.06 490.11,275.33 490.85,275.59 491.60,275.86 492.35,276.13 493.09,276.40 493.84,276.66 494.59,276.93 495.33,277.20 496.08,277.46 496.83,277.73 497.57,278.00 498.32,278.26 499.07,278.53 499.81,278.80 500.56,279.06 501.31,279.33 502.05,279.59 502.80,279.86 503.55,280.13 504.29,280.39 505.04,280.66 505.79,280.93 506.53,281.19 507.28,281.46 508.03,281.72 508.77,281.99 509.52,282.25 510.27,282.52 511.01,282.79 511.76,283.05 512.51,283.32 513.25,283.58 514.00,283.85 514.75,284.11 515.49,284.38 516.24,284.65 516.99,284.91 517.73,285.18 518.48,285.44 519.23,285.71 519.97,285.97 520.72,286.24 521.47,286.50 522.21,286.77 522.96,287.03 523.71,287.30 524.45,287.56 525.20,287.83 525.95,288.09 526.69,288.36 527.44,288.62 528.19,288.89 528.93,289.16 529.68,289.42 530.43,289.69 531.17,289.95 531.92,290.22 532.67,290.48 533.41,290.75 534.16,291.01 534.91,291.28 535.65,291.54 536.40,291.81 537.15,292.07 537.89,292.34 538.64,292.60 539.39,292.87 540.13,293.13 540.88,293.40 541.63,293.66 542.37,293.93 543.12,294.19 543.87,294.46 544.61,294.73 545.36,294.99 546.11,295.26 546.85,295.52 547.60,295.79 548.35,296.05 549.09,296.32 549.84,296.58 550.59,296.85 551.33,297.11 552.08,297.38 552.83,297.65 553.57,297.91 554.32,298.18 555.07,298.44 555.81,298.71 556.56,298.97 557.31,299.24 558.05,299.51 558.80,299.77 559.55,300.04 560.29,300.30 561.04,300.57 561.79,300.84 562.53,301.10 563.28,301.37 564.03,301.64 564.77,301.90 565.52,302.17 566.27,302.44 567.01,302.70 567.76,302.97 568.51,303.24 569.25,303.50 570.00,303.77 570.75,304.04 571.49,304.30 572.24,304.57 572.99,304.84 573.73,305.10 574.48,305.37 575.23,305.64 575.97,305.91 576.72,306.17 577.47,306.44 578.21,306.71 578.96,306.98 579.71,307.24 580.45,307.51 581.20,307.78 581.95,308.05 582.69,308.32 583.44,308.58 584.19,308.85 584.93,309.12 585.68,309.39 586.43,309.66 587.17,309.93 587.92,310.20 588.67,310.46 589.41,310.73 590.16,311.00 590.91,311.27 591.65,311.54 592.40,311.81 593.15,312.08 593.89,312.35 594.64,312.62 595.39,312.89 596.13,313.16 596.88,313.43 597.63,313.70 598.37,313.97 599.12,314.24 599.87,314.51 600.61,314.78 601.36,315.05 602.11,315.32 602.85,315.59 603.60,315.86 604.35,316.14 605.09,316.41 605.84,316.68 606.59,316.95 607.33,317.22 608.08,317.49 608.83,317.77 609.57,318.04 610.32,318.31 611.07,318.58 611.81,318.86 612.56,319.13 613.31,319.40 614.05,319.67 614.80,319.95 615.55,320.22 616.29,320.49 617.04,320.77 617.79,321.04 618.53,321.32 619.28,321.59 620.03,321.86 620.77,322.14 621.52,322.41 622.27,322.69 623.01,322.96 623.76,323.24 624.51,323.51 625.25,323.79 626.00,324.06 626.75,324.34 627.49,324.61 628.24,324.89 628.99,325.17 629.73,325.44 630.48,325.72 631.23,326.00 631.97,326.27 632.72,326.55 633.47,326.83 634.21,327.11 634.96,327.38 635.71,327.66 636.45,327.94 637.20,328.22 637.95,328.50 638.69,328.77 639.44,329.05 640.19,329.33 640.93,329.61 641.68,329.89 642.43,330.17 643.17,330.45 643.92,330.73 644.67,331.01 645.41,331.29 646.16,331.57 646.91,331.85 647.65,332.13 648.40,332.42 649.15,332.70 649.89,332.98 650.64,333.26 651.39,333.54 652.13,333.82 652.88,334.11 653.63,334.39 654.37,334.67 655.12,334.96 655.87,335.24 656.61,335.52 657.36,335.81 658.11,336.09 658.85,336.38 659.60,336.66 660.35,336.95 661.09,337.23 661.84,337.52 662.59,337.80 663.33,338.09 664.08,338.38 664.83,338.66 665.57,338.95 666.32,339.24 667.07,339.52 667.81,339.81 668.56,340.10 669.31,340.39 670.05,340.67 670.80,340.96 671.55,341.25 672.29,341.54 673.04,341.83 673.79,342.12 674.53,342.41 675.28,342.70 676.03,342.99 676.77,343.28 677.52,343.57 678.27,343.86 679.01,344.15 679.76,344.45 680.51,344.74 681.25,345.03 682.00,345.32 682.75,345.62 683.49,345.91 684.24,346.20 684.99,346.50 685.73,346.79 686.48,347.09 687.23,347.38 687.97,347.68 688.72,347.97 689.47,348.27 690.21,348.56 690.96,348.86 691.71,349.16 692.45,349.45 693.20,349.75 693.95,350.05 694.69,350.35 695.44,350.64 696.19,350.94 696.93,351.24 697.68,351.54 698.43,351.84 699.17,352.14 699.92,352.44 700.67,352.74 701.41,353.04 702.16,353.34 702.91,353.65 703.65,353.95 704.40,354.25 705.15,354.55 705.89,354.86 706.64,355.16 707.39,355.46 708.13,355.77 708.88,356.07 709.63,356.38 710.37,356.68 711.12,356.99 711.87,357.29 712.61,357.60 713.36,357.91 714.11,358.21 714.85,358.52 715.60,358.83 716.35,359.14 717.09,359.45 717.84,359.76 718.59,360.07 719.33,360.38 720.08,360.69 720.83,361.00 721.57,361.31 722.32,361.62 723.07,361.93 723.81,362.24 724.56,362.56 725.31,362.87 726.05,363.18 726.80,363.50 727.55,363.81 728.29,364.13 729.04,364.44 729.79,364.76 730.53,365.07 731.28,365.39 732.03,365.71 732.77,366.02 733.52,366.34 734.27,366.66 735.01,366.98 735.76,367.30 736.51,367.62 737.25,367.94 738.00,368.26"/><line class="sec" x1="258.00" y1="180.78" x2="690.00" y2="348.48"/><circle class="pt" cx="690.00" cy="348.48" r="3.6"/><line class="sec" x1="258.00" y1="180.78" x2="474.00" y2="269.54"/><circle class="pt" cx="474.00" cy="269.54" r="3.6"/><line class="sec" x1="258.00" y1="180.78" x2="354.00" y2="223.96"/><circle class="pt" cx="354.00" cy="223.96" r="3.6"/><line class="tan" x1="94.80" y1="98.92" x2="642.00" y2="373.39"/><circle class="ptA" cx="258.00" cy="180.78" r="5"/><text class="lab" x="267.60" y="143.63" text-anchor="start">A = (1, cot 1)</text><text class="lab" x="469.20" y="41.34" text-anchor="start">each secant slope IS a difference</text><text class="lab" x="469.20" y="65.21" text-anchor="start">quotient; the tangent slope is the</text><text class="lab" x="469.20" y="89.08" text-anchor="start">LIMIT of those slopes</text><text class="lab" x="82.80" y="293.65" text-anchor="start">y = cot x</text><text class="lab" x="82.80" y="317.51" text-anchor="start">tangent at A: slope -csc&#178;(1) = -1.4123</text><text class="lab" x="82.80" y="341.38" text-anchor="start">secant h = 0.90: slope -1.0930</text><text class="lab" x="82.80" y="365.25" text-anchor="start">h = 0.45: slope -1.1571   h = 0.20: slope -1.2666</text><text class="axname" x="402.00" y="422.00" text-anchor="middle">x</text></svg></div>
+  <figcaption>
+    <div class="swatches">
+      <span class="swatch"><i style="background:var(--ink)"></i>y = cot x</span>
+      <span class="swatch"><i style="background:var(--idn)"></i>secants, slope = the difference quotient</span>
+      <span class="swatch"><i style="background:var(--def)"></i>tangent at A, slope = the limit</span>
+    </div>
+    <p style="margin:10px 0 0">Every coordinate here was computed from \(\cot\) itself, so the drawn secants carry the stated slopes by construction rather than by hand-placement. Note how <em>slowly</em> they converge: at \(h=0.2\) the secant slope is still ten percent short of the answer. That is why nobody computes a derivative by trying small numbers.</p>
+  </figcaption>
+</figure>
+
+<div class="tscroll"><table>
+<thead><tr><th class="num">h</th><th>far endpoint</th><th class="num">secant slope, which IS the difference quotient</th><th class="num">short of the answer by</th></tr></thead>
+<tbody>
+<tr><td class="num">0.90</td><td>\((1.90,\ -0.3416)\)</td><td class="num">-1.0930</td><td class="num">22.6%</td></tr>
+<tr><td class="num">0.45</td><td>\((1.45,\ +0.1214)\)</td><td class="num">-1.1571</td><td class="num">18.1%</td></tr>
+<tr><td class="num">0.20</td><td>\((1.20,\ +0.3888)\)</td><td class="num">-1.2666</td><td class="num">10.3%</td></tr>
+<tr class="hi"><td class="num">\(\to 0\)</td><td>the tangent at \(A\)</td><td class="num">-1.4123</td><td class="num">0</td></tr>
+</tbody></table></div>
+<p>The secant slopes <strong>decrease</strong> toward the tangent slope and stay above it throughout, so on this ladder the forward quotient approaches \(-\csc^2(1)=-1.4123\) from above and never crosses it.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">05</span>Four routes, and which one to write</h2>
+<p>All four are legitimate uses of the definition and all four give \(-\csc^2x\). Seeing the same answer arrive by four roads is the strongest check available that the answer is right.</p>
+
+<h3>Route B, expand both angles</h3>
+<p>The course's own review notes point here. It works, it is one line longer, and it has one more place to slip. Expand \(\cot(x+h)\) top and bottom, subtract \(\cot x\), and the numerator is</p>
+$$\sin x(\cos x\cos h-\sin x\sin h)-\cos x(\sin x\cos h+\cos x\sin h)=-\sin h(\sin^2x+\cos^2x)=-\sin h$$
+<p>The two \(\cos h\) terms cancel against each other and the Pythagorean identity collapses the rest. The denominator \(\sin x(\sin x\cos h+\cos x\sin h)\) is just \(\sin x\sin(x+h)\), so Routes A and B meet at the identical expression. <strong>The instructive part is what does not happen:</strong> the \(\cos h\) terms die before any limit, so this route never needs the second standard limit either.</p>
+
+<h3>Route C, the cotangent addition formula</h3>
+<p>Shorter than either, if you happen to know \(\cot(A+B)=\dfrac{\cot A\cot B-1}{\cot A+\cot B}\).</p>
+$$\cot(x+h)-\cot x=\frac{-(1+\cot^2x)}{\cot x+\cot h}=\frac{-\csc^2x}{\cot x+\cot h}$$
+<p>The answer has appeared before any limit is taken. Divide by \(h\), and since \(h\cot x\to0\) while \(h\cot h\to1\), the denominator tends to 1. Elegant, and a bad exam choice for one reason: almost nobody has that formula memorised, and rebuilding it under pressure costs more than Route A costs in total.</p>
+
+<h3>Route D, the \(x\to a\) form</h3>
+$$\cot'(a)=\lim_{x\to a}\frac{\cot x-\cot a}{x-a}=\lim_{x\to a}\left(-\frac{\sin(x-a)}{x-a}\cdot\frac{1}{\sin x\sin a}\right)=-\frac{1}{\sin^2a}$$
+<p>Same mathematics, different bookkeeping. Use it when the question hands you a specific point, or when a limit is disguised as something else, which is family 9 below.</p>
+
+<h3>The comparison</h3>
+<div class="tscroll"><table>
+<thead><tr><th></th><th>A: one denominator</th><th>B: expand both</th><th>C: cot addition</th><th>D: \(x\to a\)</th></tr></thead>
+<tbody>
+<tr><td>Lines of work</td><td class="num">5</td><td class="num">7</td><td class="num">4</td><td class="num">5</td></tr>
+<tr><td>Identities you must recall</td><td>sine subtraction</td><td>sine and cosine addition</td><td>cot addition, \(1+\cot^2=\csc^2\)</td><td>sine subtraction</td></tr>
+<tr><td>Standard limits used</td><td>one</td><td>one</td><td>one</td><td>one</td></tr>
+<tr><td>Where errors hide</td><td>the direction of the subtraction, hence the sign</td><td>four terms to cancel, two of them signed</td><td>recalling the formula at all</td><td>writing \(\sin(a-x)\) for \(\sin(x-a)\)</td></tr>
+<tr><td>Also teaches you</td><td>\(\tan\), free, by swapping arguments</td><td>why \(\sin\) and \(\cos\) need the other limit</td><td>that \(\csc^2\) was there all along</td><td>how to answer a disguised limit</td></tr>
+<tr class="hi"><td><strong>Verdict</strong></td><td><strong>use this under pressure</strong></td><td>your fallback if you blank on the identity</td><td>admire it, do not rely on it</td><td>use it when given a point</td></tr>
+</tbody></table></div>
+<p><strong>Under exam pressure, use Route A.</strong> It is the shortest route that needs only an identity most students actually have, and if you cannot recall that identity, Route B still gets there, because the cancellation happens whether or not you saw it coming.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">06</span>The variation catalog</h2>
+<p>Read each table as a <strong>structure</strong>, not as a list of facts. Nearly every variation is the same five-step procedure with one element swapped, and the tables are arranged so you can see which element moved.</p>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 0</span><span class="fname">The shape of every from-the-definition question</span><span class="mark alg">four openings</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>the words "use the definition"</div>
+      <div><b>tool</b>the shape of \(f\) picks one of four algebraic openings, and nothing else</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\) is</th><th>opening move</th><th>what disposes of the \(h\)</th><th>examples</th></tr></thead>
+      <tbody>
+      <tr><td>a polynomial</td><td>expand \(f(x+h)\)</td><td>\(h\) <strong>cancels</strong></td><td>\(x^2,\ x^3,\ 3x^2-5x+2\)</td></tr>
+      <tr><td>a quotient</td><td>one denominator</td><td>\(h\) <strong>cancels</strong></td><td>\(1/x,\ 1/(x+1)\)</td></tr>
+      <tr><td>a root</td><td>multiply by the conjugate</td><td>\(h\) <strong>cancels</strong></td><td>\(\sqrt x,\ \sqrt{x+2}\)</td></tr>
+      <tr class="hi"><td>trigonometric</td><td>an identity</td><td>\(h\) does <strong>not</strong> cancel; it pairs with \(\sin h\) and dies in a limit</td><td>all six trig functions</td></tr>
+      </tbody></table></div>
+    <p>The fourth row is the odd one out, and it is the whole reason this question is on the paper. In the first three the limit is decorative: once \(h\) has cancelled you just substitute \(h=0\). In the fourth the limit is doing real work and no algebra will remove it. <strong>\(\cot\) sits in rows two and four, which is why it takes two moves in order.</strong></p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 1</span><span class="fname">The other five trigonometric functions</span><span class="mark idn">two groups, not six rows</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>\(f\)</th><th>first move</th><th>numerator collapses to</th><th>limits needed</th><th>\(f'\)</th></tr></thead>
+      <tbody>
+      <tr><td>\(\sin x\)</td><td>expand \(\sin(x+h)\)</td><td>\(\sin x(\cos h-1)+\cos x\sin h\)</td><td class="n">both</td><td>\(\cos x\)</td></tr>
+      <tr><td>\(\cos x\)</td><td>expand \(\cos(x+h)\)</td><td>\(\cos x(\cos h-1)-\sin x\sin h\)</td><td class="n">both</td><td>\(-\sin x\)</td></tr>
+      <tr><td>\(\tan x\)</td><td>one denominator</td><td>\(+\sin h\)</td><td class="y">\(\frac{\sin h}{h}\) only</td><td>\(\sec^2x\)</td></tr>
+      <tr class="hi"><td>\(\cot x\)</td><td>one denominator</td><td>\(-\sin h\)</td><td class="y">\(\frac{\sin h}{h}\) only</td><td>\(-\csc^2x\)</td></tr>
+      <tr><td>\(\sec x\)</td><td>one denominator</td><td>\(2\sin(x+\tfrac h2)\sin\tfrac h2\)</td><td class="y">\(\frac{\sin(h/2)}{h/2}\) only</td><td>\(\sec x\tan x\)</td></tr>
+      <tr><td>\(\csc x\)</td><td>one denominator</td><td>\(-2\cos(x+\tfrac h2)\sin\tfrac h2\)</td><td class="y">\(\frac{\sin(h/2)}{h/2}\) only</td><td>\(-\csc x\cot x\)</td></tr>
+      </tbody></table></div>
+    <p><strong>\(\sin\) and \(\cos\) are the hard pair</strong>, because they are the primitives: nothing simpler exists to write them in terms of, the addition formula is all you have, a \(\cos h\) survives the algebra, and you are forced into both standard limits.</p>
+    <p><strong>The other four are all quotients of \(\sin\) and \(\cos\)</strong>, so they all open with a common denominator, and a subtraction or sum-to-product formula collapses each numerator. Take \(\sec\) or \(\csc\) by the addition formula instead and you will need both limits again; the sum-to-product route is what saves you.</p>
+    <p>And the four signs in the last column are not four facts. <strong>The "co-" functions get the minus sign:</strong> \(\cos\), \(\cot\) and \(\csc\) all differentiate to something negative. Every entry verified at six values of \(x\) across three quadrants.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 2</span><span class="fname">A constant inside: cot(kx)</span><span class="mark def">no chain rule</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>\(\cot(kx)\) or \(\cot(x+c)\) instead of \(\cot x\)</div>
+      <div><b>tool</b>\(\frac{\sin kh}{h}\to k\). The chain rule is not needed and not permitted.</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>Asked</th><th>the one line that changes</th><th>answer</th></tr></thead>
+      <tbody>
+      <tr><td>\(\frac{d}{dx}\cot(2x)\)</td><td>numerator becomes \(-\sin 2h\), and \(\frac{\sin 2h}{h}\to2\)</td><td>\(-2\csc^2(2x)\)</td></tr>
+      <tr><td>\(\frac{d}{dx}\cot(kx)\)</td><td>\(\frac{\sin kh}{h}\to k\)</td><td>\(-k\csc^2(kx)\)</td></tr>
+      <tr><td>\(\frac{d}{dx}\cot(x+c)\)</td><td>nothing changes; \(c\) rides along</td><td>\(-\csc^2(x+c)\)</td></tr>
+      <tr><td>\(\frac{d}{dx}\,3\cot x\)</td><td>the constant pulls out in front of the limit</td><td>\(-3\csc^2x\)</td></tr>
+      <tr><td>\(\frac{d}{dx}\cot(x/2)\)</td><td>\(\frac{\sin(h/2)}{h}\to\frac12\)</td><td>\(-\frac12\csc^2(x/2)\)</td></tr>
+      </tbody></table></div>
+    <p>Worth working the \(\cot(2x)\) case once in full, because Midterm 2 item 9(a) asks for \(\frac{d^2}{dx^2}\cot(2x)\) by the ordinary rules, and knowing where that factor of 2 comes from makes it mechanical instead of memorised.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 3</span><span class="fname">The derivative at a named point</span><span class="mark def">three values only</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>asked</th><th class="num">exact</th><th class="num">decimal</th><th>asked</th><th class="num">exact</th></tr></thead>
+      <tbody>
+      <tr><td>\(\cot'(\pi/6)\)</td><td class="num">\(-4\)</td><td class="num">-4</td><td>\(\cot'(5\pi/6)\)</td><td class="num">\(-4\)</td></tr>
+      <tr><td>\(\cot'(\pi/4)\)</td><td class="num">\(-2\)</td><td class="num">-2</td><td>\(\cot'(3\pi/4)\)</td><td class="num">\(-2\)</td></tr>
+      <tr><td>\(\cot'(\pi/3)\)</td><td class="num">\(-4/3\)</td><td class="num">-1.3333</td><td>\(\cot'(2\pi/3)\)</td><td class="num">\(-4/3\)</td></tr>
+      <tr><td>\(\cot'(\pi/2)\)</td><td class="num">\(-1\)</td><td class="num">-1</td><td colspan="2">the largest value \(\cot'\) ever takes</td></tr>
+      </tbody></table></div>
+    <p>Read that as structure: <strong>only three distinct values appear.</strong> \(-\csc^2\) depends on \(x\) only through \(\sin^2 x\), and \(\sin^2\) is symmetric about \(\pi/2\), so the pairs share values. And every value is negative, because \(-\csc^2\) has no sign to vary.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Families 4 to 6</span><span class="fname">The non-trigonometric openings</span><span class="mark alg">h really does cancel</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>family</th><th>\(f\)</th><th>the move, in full</th><th>\(f'\)</th></tr></thead>
+      <tbody>
+      <tr><td>4, polynomial</td><td>\(x^2\)</td><td>numerator \(2xh+h^2\), divide to get \(2x+h\)</td><td>\(2x\)</td></tr>
+      <tr><td>4, polynomial</td><td>\(3x^2-5x+2\)</td><td>numerator \(6xh+3h^2-5h\)</td><td>\(6x-5\)</td></tr>
+      <tr><td>4, polynomial</td><td>\(ax^2+bx+c\)</td><td>numerator \(2axh+ah^2+bh\)</td><td>\(2ax+b\)</td></tr>
+      <tr class="hi"><td>5, quotient</td><td>\(1/x\)</td><td>\(\frac{1}{h}\cdot\frac{x-(x+h)}{(x+h)x}=\frac{-1}{(x+h)x}\)</td><td>\(-1/x^2\)</td></tr>
+      <tr><td>5, quotient</td><td>\(1/(x+1)\)</td><td>identical, shifted</td><td>\(-1/(x+1)^2\)</td></tr>
+      <tr><td>6, root</td><td>\(\sqrt x\)</td><td>times \(\frac{\sqrt{x+h}+\sqrt x}{\sqrt{x+h}+\sqrt x}\), giving \(\frac{1}{\sqrt{x+h}+\sqrt x}\)</td><td>\(\frac{1}{2\sqrt x}\)</td></tr>
+      <tr><td>6, root</td><td>\(\sqrt{x+2}\)</td><td>identical, shifted</td><td>\(\frac{1}{2\sqrt{x+2}}\)</td></tr>
+      </tbody></table></div>
+    <p>The highlighted row is worth doing <em>specifically because it is Route A's first move with the trigonometry removed.</em> Both combine over one denominator, both get a numerator that nearly cancels, both finish by substitution. The only difference is that \(1/x\) produces \(-h\), which cancels, and \(\cot\) produces \(-\sin h\), which does not.</p>
+    <p>In family 4 every surviving term carries at least one \(h\), which is why the constant term vanishes and why the division is legal. The conjugate step in family 6 was verified as an identity for every \(h\), before any limit is taken, not just as an endpoint.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 7</span><span class="fname">The standard limits asked on their own</span><span class="mark idn">all one limit in disguise</span></div>
+  <div class="fam-body">
+    <div class="tscroll"><table>
+      <thead><tr><th>limit</th><th class="num">value</th><th>the move</th></tr></thead>
+      <tbody>
+      <tr><td>\(\lim_{h\to0}\frac{\sin 5h}{3h}\)</td><td class="num">\(5/3\)</td><td>write it as \(\frac53\cdot\frac{\sin 5h}{5h}\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\sin 2h}{\sin 7h}\)</td><td class="num">\(2/7\)</td><td>divide top and bottom by \(h\), then use the limit twice</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\tan h}{h}\)</td><td class="num">\(1\)</td><td>\(\frac{\sin h}{h}\cdot\frac{1}{\cos h}\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\sin(-3h)}{h}\)</td><td class="num">\(-3\)</td><td>\(k=-3\) in \(\frac{\sin kh}{h}\to k\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\cos h-1}{h}\)</td><td class="num">\(0\)</td><td>the second standard limit</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{1-\cos h}{h^2}\)</td><td class="num">\(1/2\)</td><td>multiply by \(\frac{1+\cos h}{1+\cos h}\)</td></tr>
+      </tbody></table></div>
+    <p><strong>Every one of these is \(\frac{\sin kh}{h}\to k\) in disguise, except the last two, which are the cosine limit.</strong> The recognition cue is that the argument of the sine and the denominator have to be <em>made the same</em> before the standard limit applies, and multiplying by \(\frac kk\) is how you make them the same.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Family 9</span><span class="fname">The definition read backwards</span><span class="mark def">here the rules ARE allowed</span></div>
+  <div class="fam-body">
+    <div class="tt">
+      <div><b>trigger</b>a limit that looks unrelated to derivatives</div>
+      <div><b>tool</b>recognise \(\frac{f(a+h)-f(a)}{h}\), read off \(f\) and \(a\), then differentiate by rule</div>
+    </div>
+    <div class="tscroll"><table>
+      <thead><tr><th>limit</th><th>it is</th><th class="num">value</th></tr></thead>
+      <tbody>
+      <tr class="hi"><td>\(\lim_{h\to0}\frac{\cot(\frac\pi6+h)-\sqrt3}{h}\)</td><td>\(\cot'(\pi/6)\), since \(\cot\frac\pi6=\sqrt3\)</td><td class="num">\(-4\)</td></tr>
+      <tr><td>\(\lim_{x\to\pi/4}\frac{\cot x-1}{x-\frac\pi4}\)</td><td>\(\cot'(\pi/4)\), since \(\cot\frac\pi4=1\)</td><td class="num">\(-2\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\tan h}{h}\)</td><td>\(\tan'(0)=\sec^2 0\)</td><td class="num">\(1\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\sqrt{9+h}-3}{h}\)</td><td>the derivative of \(\sqrt x\) at 9</td><td class="num">\(1/6\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{(2+h)^{10}-2^{10}}{h}\)</td><td>the derivative of \(x^{10}\) at 2, so \(10\cdot2^9\)</td><td class="num">\(5120\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\cos(\frac\pi3+h)-\frac12}{h}\)</td><td>\(\cos'(\pi/3)=-\sin\frac\pi3\)</td><td class="num">\(-\frac{\sqrt3}{2}\)</td></tr>
+      <tr><td>\(\lim_{h\to0}\frac{\sec h-1}{h}\)</td><td>\(\sec'(0)=\sec 0\tan 0\)</td><td class="num">\(0\)</td></tr>
+      </tbody></table></div>
+    <p>The cue is always the same: <strong>a subtraction on top, a lone \(h\) or \((x-a)\) on the bottom, and the subtracted constant equal to the function's value at the base point.</strong> Check that last condition before you commit; if the constant is not \(f(a)\), it is not a derivative and you have a different limit on your hands. Row two is written in the \(x\to a\) form, which is why Route D is worth knowing.</p>
+  </div>
+</div>
+
+<div class="fam">
+  <div class="fam-head"><span class="fno">Families 10 to 12</span><span class="fname">Second derivative, domain, and the other spellings</span><span class="mark num">now the rules are allowed</span></div>
+  <div class="fam-body">
+    <p>Only the <em>first</em> derivative was demanded from the definition, so \(\cot''\) may be found by the chain and product rules: \(\frac{d}{dx}(-\csc^2x)=-2\csc x\cdot(-\csc x\cot x)=2\csc^2x\cot x\). And \(\frac{d^2}{dx^2}\cot(2x)=8\csc^2(2x)\cot(2x)\), where the 8 is \(2^3\). Both verified with a second-difference quotient.</p>
+    <div class="tscroll"><table>
+      <thead><tr><th>statement about where \(\cot'\) lives</th><th>verdict</th></tr></thead>
+      <tbody>
+      <tr><td>\(\cot\) has a derivative everywhere</td><td class="n">false, not at \(x=k\pi\)</td></tr>
+      <tr><td>\(\cot\) has a <strong>corner</strong> at \(x=0\)</td><td class="n">false, it has a vertical asymptote, which is a different failure</td></tr>
+      <tr><td>\(\cot'\) is negative wherever it exists</td><td class="y">true, and it is the shape check</td></tr>
+      <tr><td>\(\cot'\) is bounded</td><td class="n">false, it runs to \(-\infty\) near \(x=k\pi\)</td></tr>
+      <tr><td>\(|\cot'|\ge1\) everywhere</td><td class="y">true, since \(\sin^2x\le1\)</td></tr>
+      <tr><td>\(\cot\) has critical points</td><td class="n">false, \(-\csc^2x\) is never zero</td></tr>
+      </tbody></table></div>
+    <p>A <strong>corner</strong>, like \(|x|\) at 0, has a function value and two different one-sided slopes. A <strong>pole</strong>, like \(\cot\) at 0, has no function value at all. Both are failures of differentiability and they need completely different sentences to explain why.</p>
+    <p>Finally, \(-\csc^2x\), \(-\frac{1}{\sin^2x}\) and \(-(1+\cot^2x)\) are one number written three ways, verified equal at all thirteen sample points. Route A produces the second, Route C produces the third, and a textbook prints the first. None is more correct.</p>
+  </div>
+</div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">07</span>Why you cannot check a proof with a calculator</h2>
+<p>The temptation, once the algebra is done, is to punch \(h=10^{-6}\) into a calculator and see whether \(-1.4123\) comes out. That checks the <em>answer</em>. It does not touch the <em>derivation</em>, which is what is being marked. And it is a much weaker check than it looks, in three ways that are worth knowing on their own terms.</p>
+
+<h3>The convergence is real, and it is slow</h3>
+<div class="tscroll"><table>
+<thead><tr><th class="num">h</th><th class="num">forward error</th><th class="num">ratio to next row</th><th class="num">centred error</th><th class="num">ratio to next row</th></tr></thead>
+<tbody>
+<tr><td class="num">\(10^{-2}\)</td><td class="num">8.964e-3</td><td class="num">1.9885</td><td class="num">1.053e-4</td><td class="num">4.0003</td></tr>
+<tr><td class="num">\(5\times10^{-3}\)</td><td class="num">4.508e-3</td><td class="num">1.9942</td><td class="num">2.633e-5</td><td class="num">4.0001</td></tr>
+<tr><td class="num">\(2.5\times10^{-3}\)</td><td class="num">2.260e-3</td><td class="num">1.9971</td><td class="num">6.581e-6</td><td class="num">4.0000</td></tr>
+<tr><td class="num">\(1.25\times10^{-3}\)</td><td class="num">1.132e-3</td><td class="num">1.9985</td><td class="num">1.645e-6</td><td class="num">4.0000</td></tr>
+<tr><td class="num">\(6.25\times10^{-4}\)</td><td class="num">5.663e-4</td><td class="num"></td><td class="num">4.113e-7</td><td class="num"></td></tr>
+</tbody></table></div>
+<p>Halving \(h\) halves the forward error and quarters the centred one, so the forward quotient is <strong>first order</strong> and the centred one is <strong>second order</strong>. Both claims are made over a five-rung ladder chosen inside the asymptotic regime, because <strong>a single value proves nothing about a method</strong>; both were tested against seeded controls that swap the two and correctly fail.</p>
+
+<div class="callout note">
+  <div class="ch">Smaller h is not better past a point</div>
+  <p>The centred error at \(h=10^{-6}\) is \(2.77\times10^{-13}\). At \(h=10^{-12}\) it is \(3.18\times10^{-5}\), which is <strong>a hundred million times worse</strong>. Subtracting two nearly equal numbers and dividing by a tiny one loses more to floating-point rounding than it gains in truncation. A numerical check has a sweet spot, and driving \(h\) to zero walks straight past it.</p>
+</div>
+
+<p><strong>And here is the number that matters for this question.</strong> You need \(h\) below \(4.9\times10^{-4}\) before the forward quotient gives even three correct significant figures. Someone "checking" their derivation at \(h=0.01\) sees \(-1.4033\) against a true \(-1.4123\), and could not tell a correct answer from one wrong in the third digit.</p>
+
+<h3>What to check instead, in ten seconds</h3>
+<div class="tscroll"><table>
+<thead><tr><th>check</th><th>what it catches</th></tr></thead>
+<tbody>
+<tr><td><strong>Sign.</strong> \(\cot\) decreases on every branch, so \(\cot'&lt;0\) everywhere, always.</td><td>a reversed subtraction inside the sine formula, which produces \(+\csc^2x\)</td></tr>
+<tr><td><strong>The numerator lost its \(x\).</strong> After the identity it is \(-\sin h\), with no \(x\) anywhere.</td><td>the identity never actually being applied</td></tr>
+<tr><td><strong>Size.</strong> \(\sin^2x\le1\), so \(|\cot'|\ge1\) and the largest value it ever takes is \(-1\).</td><td>a dropped factor or a stray reciprocal</td></tr>
+<tr><td><strong>A whole number.</strong> \(\cot'(\pi/4)=-2\).</td><td>almost any arithmetic slip, and it is easy to hold in your head</td></tr>
+<tr><td><strong>The quotient rule as a cross-check.</strong> It gives \(\frac{-\sin^2x-\cos^2x}{\sin^2x}=-\frac{1}{\sin^2x}\).</td><td>everything, and it is <em>not</em> circular as a check. It is only forbidden as the answer.</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">08</span>The write-up, and typing it</h2>
+
+<h3>What to write if the paper wants method</h3>
+<p>There is no published rubric for this paper, so the allocation below is <strong>proposed</strong>, inferred from where the mathematical content actually sits. Treat it as a guide to what must appear on the page, not as a quotation.</p>
+<div class="tscroll"><table>
+<thead><tr><th class="num">marks</th><th>for</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>writing the definition with \(\cot\) substituted in</td></tr>
+<tr><td class="num">1</td><td>rewriting \(\cot\) as \(\cos/\sin\) and combining over one denominator</td></tr>
+<tr class="hi"><td class="num">2</td><td>recognising the numerator as \(\sin(x-(x+h))=-\sin h\), and <strong>naming</strong> the identity</td></tr>
+<tr><td class="num">1</td><td>separating \(\frac{\sin h}{h}\) and <strong>citing</strong> \(\lim_{h\to0}\frac{\sin h}{h}=1\)</td></tr>
+<tr><td class="num">1</td><td>finishing to \(-\csc^2x\), using the continuity of \(\sin\)</td></tr>
+</tbody></table></div>
+
+<blockquote>
+<p>By definition, \(\displaystyle\frac{d}{dx}\cot x=\lim_{h\to0}\frac{\cot(x+h)-\cot x}{h}\). Using \(\cot t=\frac{\cos t}{\sin t}\) and combining over the common denominator \(\sin(x+h)\sin x\) gives \(\displaystyle\lim_{h\to0}\frac{\cos(x+h)\sin x-\cos x\sin(x+h)}{h\,\sin(x+h)\sin x}\).</p>
+<p>By the sine subtraction formula \(\sin(A-B)=\sin A\cos B-\cos A\sin B\), taken with \(A=x\) and \(B=x+h\), the numerator is \(\sin\big(x-(x+h)\big)=\sin(-h)=-\sin h\), using that sine is odd. So the quotient is \(\displaystyle-\frac{\sin h}{h}\cdot\frac{1}{\sin(x+h)\sin x}\).</p>
+<p>Each factor has a limit: the first tends to 1 by \(\lim_{h\to0}\frac{\sin h}{h}=1\), and the second tends to \(\frac{1}{\sin^2x}\) since \(\sin\) is continuous. Because both limits exist, the limit of the product is the product of the limits, and \(\frac{d}{dx}\cot x=-\frac{1}{\sin^2x}=-\csc^2x\), valid for all \(x\neq k\pi\).</p>
+</blockquote>
+
+<p><strong>One thing to be careful not to write:</strong> do not say "cancel \(h\)". Nothing cancels here. The \(h\) pairs up with \(\sin h\) and is disposed of by a limit, not by algebra, and that distinction is exactly what separates the trigonometric cases from the polynomial ones.</p>
+
+<h3>Answer entry</h3>
+<div class="tscroll"><table>
+<thead><tr><th>rule</th><th>do</th><th>not</th></tr></thead>
+<tbody>
+<tr><td>The whole expression negated</td><td><code>-1/(sin(x))^2</code></td><td><code>(-1/sin(x))^2</code>, which is positive</td></tr>
+<tr class="hi"><td>Squaring a function</td><td><code>(csc(x))^2</code></td><td><code>csc^2(x)</code>, which is a syntax error, not a wrong answer</td></tr>
+<tr><td>Multiplication</td><td><code>2*(csc(x))^2*cot(x)</code></td><td><code>2csc^2xcotx</code></td></tr>
+<tr><td>Bracketing a denominator</td><td><code>-1/(sin(x))^2</code></td><td><code>-1/sin(x)^2</code>, ambiguous across parsers</td></tr>
+<tr><td>A fractional value</td><td><code>-4/3</code></td><td><code>-1.333</code></td></tr>
+</tbody></table></div>
+<p>The most expensive mistake available here is <strong>losing the minus sign inside a power</strong>: <code>(-csc(x))^2</code> is \(+\csc^2x\), the sign-flipped wrong answer, and on screen it looks almost identical to the right one. Write the minus outside everything. The second most expensive is <code>csc^2(x)</code>, which every parser reads as "csc raised to the power 2" with nothing to raise, and which therefore produces a blank preview rather than a red cross. <strong>Always click preview.</strong> An empty preview modal means broken syntax, not wrong mathematics.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">09</span>The trap list</h2>
+<p>Ranked by how often each one actually costs marks.</p>
+<ol class="traps">
+<li><span><strong>Using the quotient rule.</strong> It gets the right answer and answers a question nobody asked. This is the number one way to score zero while writing correct mathematics.</span></li>
+<li><span><strong>Quoting \(-\csc^2x\) with no working.</strong> The same failure, in a shorter form.</span></li>
+<li><span><strong>The direction of the subtraction, which flips the sign.</strong> You need \(\sin(x-(x+h))\), not \(\sin((x+h)-x)\). Backwards gives \(+\csc^2x\), which is wrong by a sign and looks completely plausible. The guard is that \(\cot\) decreases, so \(\cot'\) is negative.</span></li>
+<li><span><strong>Saying "cancel the \(h\)".</strong> Nothing cancels in a trigonometric case, and this is the trigonometric case. The course's own review notes give exactly this advice; see the footer.</span></li>
+<li><span><strong>Never naming the identity.</strong> Letting \(-\sin h\) appear from nowhere throws away the two marks that step is worth.</span></li>
+<li><span><strong>Never citing \(\lim_{h\to0}\frac{\sin h}{h}=1\).</strong> It is the only non-algebraic fact in the whole proof.</span></li>
+<li><span><strong>Losing the minus sign inside the power on entry.</strong> <code>(-csc(x))^2</code> is positive.</span></li>
+<li><span><strong>Dropping the domain.</strong> \(-\csc^2x\) holds only where \(\sin x\neq0\). One clause completes the answer.</span></li>
+<li><span><strong>Splitting the limit without saying why it is allowed.</strong> A limit of a product is the product of the limits only when both exist.</span></li>
+<li><span><strong>Reaching for \(\frac{\cos h-1}{h}\to0\) here.</strong> A correct fact, not needed on either route, and using it signals you ground through Route B without noticing the cancellation.</span></li>
+<li><span><strong>Confusing the pole at \(x=k\pi\) with a corner.</strong> Different failures, different explanations.</span></li>
+<li><span><strong>Trying to check the derivation with a calculator.</strong> At any plausible \(h\) it does not even check the answer to three digits.</span></li>
+</ol>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">10</span>Drill set</h2>
+<p>Twelve problems, under twenty-five minutes, on paper. Mark yourself on <strong>method</strong> separately from <strong>answer</strong>: a right answer by the wrong route is a reading problem, and a wrong answer by the right route is an algebra problem, and the two need different fixes.</p>
+<div class="tscroll"><table>
+<thead><tr><th class="num">#</th><th>problem</th><th>answer</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td class="num">1</td><td>From the definition, \(\frac{d}{dx}\tan x\)</td><td>\(\sec^2x\)</td><td>1, one denominator; numerator collapses to \(+\sin h\)</td></tr>
+<tr><td class="num">2</td><td>From the definition, \(\frac{d}{dx}\sec x\)</td><td>\(\sec x\tan x\)</td><td>1, then \(\cos x-\cos(x+h)=2\sin(x+\frac h2)\sin\frac h2\)</td></tr>
+<tr><td class="num">3</td><td>From the definition, \(\frac{d}{dx}\frac1x\)</td><td>\(-1/x^2\)</td><td>5, one denominator; the \(h\) <strong>cancels</strong> here</td></tr>
+<tr><td class="num">4</td><td>From the definition, \(\frac{d}{dx}\sqrt x\)</td><td>\(\frac{1}{2\sqrt x}\)</td><td>6, multiply by the conjugate</td></tr>
+<tr><td class="num">5</td><td>From the definition, \(f'\) for \(f(x)=3x^2-5x+2\)</td><td>\(6x-5\)</td><td>4, expand and cancel \(h\)</td></tr>
+<tr><td class="num">6</td><td>\(\cot'(\pi/6)\) from the definition</td><td>\(-4\)</td><td>3, then \(-1/\sin^2(\pi/6)\)</td></tr>
+<tr><td class="num">7</td><td>\(\lim_{h\to0}\frac{\cot(\frac\pi3+h)-\cot\frac\pi3}{h}\)</td><td>\(-4/3\)</td><td>3 and 9, it is \(\cot'(\pi/3)\) written as a limit</td></tr>
+<tr><td class="num">8</td><td>\(\lim_{h\to0}\frac{\sin 5h}{3h}\)</td><td>\(5/3\)</td><td>7, rewrite as \(\frac53\cdot\frac{\sin5h}{5h}\)</td></tr>
+<tr><td class="num">9</td><td>\(\lim_{h\to0}\frac{1-\cos h}{h^2}\)</td><td>\(1/2\)</td><td>7, multiply by \(\frac{1+\cos h}{1+\cos h}\)</td></tr>
+<tr><td class="num">10</td><td>\(\lim_{x\to\pi/4}\frac{\cot x-1}{x-\frac\pi4}\), and whose derivative is it?</td><td>\(-2\); it is \(\cot'(\pi/4)\)</td><td>9, the \(x\to a\) form, and \(\cot\frac\pi4=1\)</td></tr>
+<tr><td class="num">11</td><td>From the definition, \(\frac{d}{dx}\cot(2x)\)</td><td>\(-2\csc^2(2x)\)</td><td>2, the 2 comes from \(\frac{\sin2h}{h}\to2\), not the chain rule</td></tr>
+<tr><td class="num">12</td><td>Write \(-\csc^2x\) two other ways, with the domain</td><td>\(-\frac{1}{\sin^2x}\), \(-(1+\cot^2x)\), for \(x\neq k\pi\)</td><td>12, and the domain clause is part of the answer</td></tr>
+</tbody></table></div>
+<p>If your answers are right but your <strong>method</strong> keeps drifting into the quotient rule, the fix is mechanical: write the word "definition" and the \(\lim\) sign before anything else, every time, until it stops being a decision. If the method is right but the <strong>sign</strong> keeps coming out wrong, the problem is the direction of the subtraction, and section 03 is the one to redo, not section 05.</p>
+</section>
+
+<!-- ===================================================================== -->
+<section>
+<h2><span class="num">11</span>The one-page decision tree</h2>
+<pre><b>"Use the DEFINITION to find the derivative of f."</b>
+|
++-- FIRST, before anything: write
+|      f'(x) = lim (h-&gt;0) [ f(x+h) - f(x) ] / h
+|    with your f substituted in.  That is a mark, and it is free.
+|    <s>If the symbol lim never appears in your work, you did not use
+|    the definition, whatever else you wrote.</s>
+|
++-- What SHAPE is f?  This picks the opening move.
+|     <i>POLYNOMIAL</i>    -&gt; expand f(x+h), cancel h, substitute h = 0.
+|     <i>A QUOTIENT</i>    -&gt; put it over ONE denominator.
+|     <i>A ROOT</i>        -&gt; multiply top and bottom by the CONJUGATE.
+|     <i>TRIGONOMETRIC</i> -&gt; an IDENTITY.  h will NOT cancel.
+|
++-- Trigonometric?  Which identity is decided by which function:
+|     sin, cos   -&gt; ADDITION formula.  You will need BOTH standard
+|                   limits, because a cos h survives to the end.
+|     tan, cot   -&gt; ONE DENOMINATOR, then SINE SUBTRACTION.
+|                   Numerator becomes +sin h (tan) or -sin h (cot).
+|                   You need only sin(h)/h -&gt; 1.
+|     sec, csc   -&gt; ONE DENOMINATOR, then SUM-TO-PRODUCT.
+|                   Numerator carries sin(h/2).
+|
++-- <b>For cot, the four lines that matter:</b>
+|     1. cot(x+h) - cot x   over   sin(x+h) sin x
+|     2. numerator = sin( x - (x+h) ) = sin(-h) = -sin h
+|        (the SUBTRACTION runs x MINUS x+h.  Backwards flips the sign.)
+|     3. split:  -(sin h / h) * 1/( sin(x+h) sin x )
+|     4. limit:  -(1) * 1/sin^2 x  =  -csc^2 x,   for x != k*pi
+|
++-- Before you stop, NAME three things.  Two marks live here.
+|     the identity you used;  the standard limit you used;
+|     why the limit splits (both factors have limits).
+|
++-- CHECK, in this order:
+      SIGN      cot DECREASES on every branch, so cot' &lt; 0 everywhere.
+      NUMERATOR after the identity it must contain NO x.
+      SIZE      |cot'| &gt;= 1 always; the largest value it takes is -1.
+      POINT     cot'(pi/4) = -2.  A whole number, easy to hold.
+      DOMAIN    say "for x != k*pi".  One clause, and it finishes it.
+      TYPE IT   -1/(sin(x))^2, minus OUTSIDE the square.  Then PREVIEW.</pre>
+</section>
+
+<!-- ===================================================================== -->
+<footer>
+<p><strong>Provenance.</strong> Question text from <code>notes\MATH265.md</code> (Q7.1) and <code>notes\MATH265\MATH265.md</code> ("Final Exam 1", item 3), with a third identical transcription in <code>MATH265_Categorized.md</code>. The three agree word for word. Final Exam 1 prints its point values <em>after</em> each item, unlike Midterm 2 which prints them before; its fourteen values are 20, 8, 6, 20, 11, 6, 5, 20, 5, 8, 4, 3, 5 and 3, summing to <strong>124</strong> rather than 100, so item 3 is 6 points, about 4.84 percent of the paper.</p>
+
+<p style="margin-top:12px"><strong>Verification.</strong> Run 2026-09-01: <strong>202 checks, 0 failures</strong>, comprising 167 in the Q7.1 section and 35 in its figure section, all appended to <code>Work\knowledge\topics\math265-answer-verification.py</code>. Re-run that file to re-check every number on this page. Expect exactly 2 unrelated pre-existing failures elsewhere in it (<code>sin62</code>, <code>cos62</code>), a tolerance artifact of a linear-approximation check and not a wrong answer. <strong>Ten of the 202 are seeded controls that are required to fail and do</strong>: a wrong answer \(+\csc^2x\), a wrong numerator \(+\sin h\), the wrong direction of the sine subtraction, a wrong \(\cot'(\pi/6)\), the forward quotient passing a second-order test, the centred quotient passing a first-order test, a convergence ladder started outside the asymptotic regime, a wrong point-value sum, a sign-flipped \(\tan'\), and a degrees-mode evaluation. A gate that has never been seen to bite is indistinguishable from a gate that is not there.</p>
+
+<p style="margin-top:12px"><strong>Four checks failed on first run, and in all four cases the check was wrong rather than the mathematics.</strong> A leading-order error term was pinned to a fixed tolerance at one \(h\), which measures the size of the <em>next</em> term instead; a radian-to-degree ratio was written from a printed value (3283.14) instead of computed (2324.70); a figure gate demanded the four slopes be far apart, which contradicts the convergence the picture exists to show; and an ASCII figure gate found almost no separation between the tangent and the secants, not because the lines coincide but because the plotting code painted one over the other. The last is the interesting one: a source-level review would have passed that figure.</p>
+
+<p style="margin-top:12px"><strong>Course-file conflicts.</strong> The course files are study aids, not authorities. No false statement was found on this topic: <code>MATH265_Review.md</code> section 3's strategy for \(\cot\) is correct. Three places are imprecise in ways that work against this question. It lists \(\lim_{h\to0}\frac{\cos h-1}{h}=0\) among the "key identities needed" here, which is an over-listing that hides the most useful structural fact in the topic. Its general strategy for the definition reads "Expand numerator, Simplify, <strong>Cancel h</strong>, Evaluate limit", which is right for the polynomial family and wrong for the family this question belongs to, with no note saying which is which. And its quick-reference card carries only \(\lim \sin x/x=1\), omitting the second standard limit entirely, so a student revising from that card alone cannot do the \(\sin\) and \(\cos\) variations at all.</p>
+
+<p style="margin-top:12px"><strong>Figure.</strong> Generated from \(\cot\) itself in the verification file, so the three drawn secants have slopes \(-1.0930\), \(-1.1571\) and \(-1.2666\) by construction and the tangent has slope \(-\csc^2(1)\) exactly. Its labels were checked with an in-browser probe that measures every SVG text bounding box with a real <code>getBBox()</code> and samples every drawn line against it, and the page layout was linted in headless Chrome at 1280px and 430px in both themes.</p>
+
+<p style="margin-top:12px"><strong>Companion pages.</strong> This one covers the difference quotient as a <em>definition</em>. Its closest relative, <em>Average Versus Instantaneous</em> (Q6.1), covers the same quotient read as a <em>rate</em>. Together they are the two halves of what \(\frac{f(x+h)-f(x)}{h}\) is for.</p>
+</footer>
+
+</div>

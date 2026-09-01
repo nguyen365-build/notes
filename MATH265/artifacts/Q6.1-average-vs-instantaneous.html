@@ -1,0 +1,876 @@
+<title>Average Versus Instantaneous</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are identical to the Q1.1 through Q5.3 pages, because the
+   series is one system.  What is specific to THIS page is the SEMANTICS the
+   five accent hues carry, and that mapping is the content:
+
+     AVERAGE / secant / an interval        --lvl    slate
+     INSTANTANEOUS / tangent / an instant  --pt     amber
+     NET CHANGE and the other traps        --brk    terracotta
+     ESTIMATING a rate from data           --dir    teal
+     SECOND DERIVATIVE and relative rate   --bend   mauve
+
+   The two-column split panel in section 2 is the page's structural thesis:
+   every row is one axis on which an average rate and an instantaneous rate
+   differ, and the only row where they agree is the last one, units.
+   ========================================================================= */
+:root{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+  --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+  --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+  --dir:#2E6B63;  --dir-soft:rgba(46,107,99,.10);   --dir-line:rgba(46,107,99,.40);
+  --bend:#7A3F63; --bend-soft:rgba(122,63,99,.10);  --bend-line:rgba(122,63,99,.40);
+  --ok:#2E6B63; --no:#A8492F;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+    --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+    --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+    --dir:#6FA8A0;  --dir-soft:rgba(111,168,160,.13); --dir-line:rgba(111,168,160,.44);
+    --bend:#B98BA6; --bend-soft:rgba(185,139,166,.13);--bend-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0; --no:#D2765C;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+  --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+  --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+  --dir:#6FA8A0;  --dir-soft:rgba(111,168,160,.13); --dir-line:rgba(111,168,160,.44);
+  --bend:#B98BA6; --bend-soft:rgba(185,139,166,.13);--bend-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0; --no:#D2765C;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+  --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+  --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+  --dir:#2E6B63;  --dir-soft:rgba(46,107,99,.10);   --dir-line:rgba(46,107,99,.40);
+  --bend:#7A3F63; --bend-soft:rgba(122,63,99,.10);  --bend-line:rgba(122,63,99,.40);
+  --ok:#2E6B63; --no:#A8492F;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.brk {border-color:var(--brk-line); color:var(--brk);  background:var(--brk-soft)}
+.mark.pt  {border-color:var(--pt-line);  color:var(--pt);   background:var(--pt-soft)}
+.mark.lvl {border-color:var(--lvl-line); color:var(--lvl);  background:var(--lvl-soft)}
+.mark.dir {border-color:var(--dir-line); color:var(--dir);  background:var(--dir-soft)}
+.mark.bend{border-color:var(--bend-line);color:var(--bend); background:var(--bend-soft)}
+
+.slab{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:26px 0}
+.slab-top{
+  padding:10px 20px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.slab-body{padding:22px 20px}
+.slab-body p{margin:0 0 10px}
+.slab-body p:last-child{margin-bottom:0}
+
+/* ---- the two given expressions, one row each ---- */
+.ledger{display:grid;gap:10px;margin:24px 0}
+.lrow{
+  display:grid;grid-template-columns:60px minmax(150px,.9fr) minmax(210px,1.5fr);
+  gap:6px 18px;align-items:start;
+  border:1px solid var(--line);border-left-width:3px;background:var(--surface);
+  border-radius:3px;padding:13px 16px;
+}
+.lrow.a{border-left-color:var(--lvl)}
+.lrow.b{border-left-color:var(--pt)}
+.lrow .lid{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);padding-top:4px;
+}
+.lrow .lnot{font-size:14px;color:var(--ink);overflow-wrap:anywhere;min-width:0}
+.lrow .lsay{font-size:13.5px;color:var(--ink2);min-width:0}
+.lrow .lsay b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;margin-bottom:3px;font-weight:600}
+.lrow.a .lsay b{color:var(--lvl)}
+.lrow.b .lsay b{color:var(--pt)}
+@media (max-width:720px){ .lrow{grid-template-columns:1fr} }
+
+/* ---- THE SPLIT: the page's structural thesis ---- */
+.split{
+  display:grid;grid-template-columns:minmax(96px,132px) 1fr 1fr;
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:0 0 18px;font-size:13.5px;
+}
+.split > div{padding:11px 15px;border-bottom:1px solid var(--line-soft);min-width:0}
+.split > div:nth-child(3n+1){
+  background:var(--sunk);color:var(--ink3);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;
+}
+.split > div:nth-child(3n+2){border-right:1px solid var(--line-soft)}
+.split .hd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;font-weight:600;
+  background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.split .hd.l{color:var(--lvl)}
+.split .hd.r{color:var(--pt)}
+.split .same{background:var(--dir-soft);color:var(--ink);font-weight:600}
+.split > div:nth-last-child(-n+3){border-bottom:none}
+@media (max-width:700px){
+  .split{grid-template-columns:1fr 1fr}
+  .split > div:nth-child(3n+1){grid-column:1 / -1;border-right:none}
+  .split > div:nth-child(3n+2){border-right:1px solid var(--line-soft)}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:14px 10px 4px;overflow-x:auto}
+.figbox > svg{display:block;min-width:640px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+.swatches{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:9px}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.swatch i{width:11px;height:11px;border-radius:2px;display:inline-block;flex:none}
+
+svg .axis{stroke:var(--plot);stroke-width:1.1}
+svg .grid{stroke:var(--line-soft);stroke-width:1}
+svg .tl{fill:var(--plotlab);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px}
+svg .tl.dim{fill:var(--ink3);font-size:11px}
+svg .curve{fill:none;stroke:var(--ink);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+svg .secline{stroke:var(--lvl);stroke-width:2;stroke-dasharray:7 5}
+svg .tanline{stroke:var(--pt);stroke-width:2.2}
+svg .leader{stroke-width:1;opacity:.7}
+svg .leader.lvl{stroke:var(--lvl)}
+svg .leader.dim{stroke:var(--ink3)}
+svg .dot{fill:var(--ink);stroke:var(--surface);stroke-width:1.8}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  letter-spacing:.04em;font-weight:600}
+svg .lab.lvl{fill:var(--lvl)}
+svg .lab.pt{fill:var(--pt)}
+svg .lab.dim{fill:var(--ink3);font-weight:400}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre .g1{color:var(--brk)} pre .g2{color:var(--pt)}
+pre .g3{color:var(--lvl)} pre .g4{color:var(--dir)} pre .g5{color:var(--bend)}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px;background:var(--surface)}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.num,th.num{font-variant-numeric:tabular-nums;text-align:right}
+td.y{color:var(--ok);font-weight:600}
+td.n{color:var(--no);font-weight:600}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--brk-line);background:var(--brk-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--dir-line);background:var(--dir-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brk);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--dir)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Midterm Exam 2 &middot; Item 3 &middot; 4 points</div>
+  <h1>Average Versus Instantaneous</h1>
+  <p class="deck">The only question on either midterm that asks you to compute nothing at all. There is no algebra to hide behind, so a vague sentence is the whole answer, and the marks live almost entirely in two words and a pair of units.</p>
+</header>
+
+<section>
+  <h2><span class="num">Q</span>The question, as printed</h2>
+  <div class="slab">
+    <div class="slab-top">The population \(P\) of a city in the year \(y\) is \(P(y)\). Write a sentence (in layman's terms) that explains the meaning of the expressions</div>
+    <div class="slab-body">
+      <div class="ledger" style="margin:0">
+        <div class="lrow a"><div class="lid">a</div><div class="lnot">\(\dfrac{P(15) - P(2)}{13} = 1{,}431\)</div><div class="lsay"><b>Average</b>a difference over a difference, so a rate across a whole interval</div></div>
+        <div class="lrow b"><div class="lid">b</div><div class="lnot">\(P'(10) = 14{,}000\)</div><div class="lsay"><b>Instantaneous</b>a prime on a single input, so a rate at one instant</div></div>
+      </div>
+    </div>
+  </div>
+
+  <blockquote>
+    <p><strong>The one sentence that decides this question.</strong> A <strong>difference</strong> divided by a <strong>difference</strong> is an <strong>average</strong> rate over an <strong>interval</strong>; a <strong>prime</strong> attached to a single number is an <strong>instantaneous</strong> rate at an <strong>instant</strong>, and both of them are measured in output units per input unit. Everything else on this question is bookkeeping around those two readings.</p>
+  </blockquote>
+</section>
+
+<section>
+  <h2><span class="num">A</span>The answer</h2>
+  <div class="slab">
+    <div class="slab-top">What to write &middot; two sentences, two marks each</div>
+    <div class="slab-body">
+      <p><strong>(a)</strong> Between year 2 and year 15, the city's population grew by an average of <strong>1,431 people per year</strong>.</p>
+      <p><strong>(b)</strong> In year 10, the city's population was growing at an instantaneous rate of <strong>14,000 people per year</strong>.</p>
+    </div>
+  </div>
+
+  <p>Three things a marker looks for that students routinely skip: the word <strong>average</strong> in (a) and <strong>instantaneous</strong> in (b), because those two words are the entire distinction being examined; the <strong>units</strong>, written out as "people per year" rather than left implied; and the <strong>interval</strong> named in (a), which is the only thing that shows you noticed that \(13 = 15 - 2\).</p>
+
+  <p>M&ouml;bius cannot mark a sentence, so on the live platform this question comes back as its numeric skeleton. Every value below was recomputed and checked.</p>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>What is being asked</th><th>What you type</th></tr></thead>
+    <tbody>
+      <tr><td>the average rate of change of \(P\) on \([2,15]\)</td><td><code>1431</code></td></tr>
+      <tr><td>its units</td><td><code>people per year</code></td></tr>
+      <tr><td>\(P(15)-P(2)\), the net change</td><td><code>18603</code></td></tr>
+      <tr><td>the interval, and its width</td><td><code>[2,15]</code> and <code>13</code></td></tr>
+      <tr><td>the instantaneous rate at \(y=10\)</td><td><code>14000</code></td></tr>
+      <tr><td>the units of \(P''(10)\)</td><td><code>people per year per year</code></td></tr>
+      <tr><td>estimate \(P(11)\) from (b), given \(P(10)\)</td><td><code>P(10)+14000</code></td></tr>
+      <tr><td>is \(P\) increasing on all of \([2,15]\)?</td><td><code>cannot be determined</code></td></tr>
+      <tr><td>does some year \(c\) in \((2,15)\) have \(P'(c)=1431\)?</td><td><code>yes</code></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="callout">
+    <div class="ch">The most expensive keystroke available here</div>
+    <p>Answering <code>18603</code> where <code>1431</code> was asked for, or the reverse. They are the same fact divided by 13, and a machine marks them as different answers. Before typing, say which one has the word "per" in its units. Only the rate does.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">1</span>The two objects, side by side</h2>
+  <p>Read this down the columns, not across the rows. Every row is one axis on which the two differ, and there is exactly one row where they agree.</p>
+
+  <div class="split">
+    <div class="hd"></div>
+    <div class="hd l">Average rate of change</div>
+    <div class="hd r">Instantaneous rate of change</div>
+
+    <div>written</div>
+    <div>\(\dfrac{P(b)-P(a)}{b-a}\)</div>
+    <div>\(P'(a)\), or \(\dfrac{dP}{dy}\Big\vert_{y=a}\)</div>
+
+    <div>lives on</div>
+    <div>an <strong>interval</strong> \([a,b]\)</div>
+    <div>a single <strong>instant</strong> \(y=a\)</div>
+
+    <div>geometry</div>
+    <div>the slope of the <strong>secant</strong> through the two endpoints</div>
+    <div>the slope of the <strong>tangent</strong> at the one point</div>
+
+    <div>needs</div>
+    <div>only the two endpoint values</div>
+    <div>the function near \(a\), and a limit</div>
+
+    <div>plain verb</div>
+    <div>"grew <strong>by an average of</strong>"</div>
+    <div>"<strong>was growing at</strong>"</div>
+
+    <div>hides</div>
+    <div>everything that happened in between</div>
+    <div>everything outside that instant</div>
+
+    <div>exists when</div>
+    <div>\(P(a)\) and \(P(b)\) both exist</div>
+    <div>\(P\) is differentiable at \(a\)</div>
+
+    <div>units</div>
+    <div class="same">output units per input unit</div>
+    <div class="same">output units per input unit</div>
+  </div>
+
+  <p>That last row is the one students throw away. Both are rates, so both carry the same units, and both need those units stated.</p>
+
+  <h3>They are not two topics. One is the other, squeezed.</h3>
+  $$P'(a)=\lim_{h\to 0}\frac{P(a+h)-P(a)}{h}$$
+  <p>Part (b) is part (a) with the interval shrunk to a point. Saying that out loud in your answer is free credit, and it is the sentence that shows you understand rather than recognise.</p>
+</section>
+
+<section>
+  <h2><span class="num">2</span>The picture: a secant and a tangent on one city</h2>
+  <p>Part (a) is the slope of the line joining the two endpoints. Part (b) is the slope of the line that just touches at year 10. Here is one city that satisfies both given facts exactly, with both lines drawn on it.</p>
+
+  <figure>
+    <div class="figtop">Plotted from the model, not drawn &middot; the two slopes are 1,431 and 14,000 by construction</div>
+    <div class="figbox">
+<svg viewBox="0 0 760 470" role="img" aria-label="Population of a city plotted against year from 1 to 16. The curve is flat near 50,000 people until about year 8, rises steeply through year 10 to about 68,600 by year 12, then flattens. A dashed slate line is the secant joining the points at year 2 and year 15, with slope 1,431 people per year. A steeper amber line is the tangent at year 10, with slope 14,000 people per year."><title>Secant and tangent on one population curve</title>
+<line class="grid" x1="86.00" y1="361.11" x2="734.00" y2="361.11"></line>
+<text class="tl" x="77.00" y="365.11" text-anchor="end">50,000</text>
+<line class="grid" x1="86.00" y1="290.00" x2="734.00" y2="290.00"></line>
+<text class="tl" x="77.00" y="294.00" text-anchor="end">55,000</text>
+<line class="grid" x1="86.00" y1="218.89" x2="734.00" y2="218.89"></line>
+<text class="tl" x="77.00" y="222.89" text-anchor="end">60,000</text>
+<line class="grid" x1="86.00" y1="147.78" x2="734.00" y2="147.78"></line>
+<text class="tl" x="77.00" y="151.78" text-anchor="end">65,000</text>
+<line class="grid" x1="86.00" y1="76.67" x2="734.00" y2="76.67"></line>
+<text class="tl" x="77.00" y="80.67" text-anchor="end">70,000</text>
+<line class="grid" x1="129.20" y1="34.00" x2="129.20" y2="418.00"></line>
+<text class="tl" x="129.20" y="437.00" text-anchor="middle">2</text>
+<line class="grid" x1="215.60" y1="34.00" x2="215.60" y2="418.00"></line>
+<text class="tl" x="215.60" y="437.00" text-anchor="middle">4</text>
+<line class="grid" x1="302.00" y1="34.00" x2="302.00" y2="418.00"></line>
+<text class="tl" x="302.00" y="437.00" text-anchor="middle">6</text>
+<line class="grid" x1="388.40" y1="34.00" x2="388.40" y2="418.00"></line>
+<text class="tl" x="388.40" y="437.00" text-anchor="middle">8</text>
+<line class="grid" x1="474.80" y1="34.00" x2="474.80" y2="418.00"></line>
+<text class="tl" x="474.80" y="437.00" text-anchor="middle">10</text>
+<line class="grid" x1="561.20" y1="34.00" x2="561.20" y2="418.00"></line>
+<text class="tl" x="561.20" y="437.00" text-anchor="middle">12</text>
+<line class="grid" x1="690.80" y1="34.00" x2="690.80" y2="418.00"></line>
+<text class="tl" x="690.80" y="437.00" text-anchor="middle">15</text>
+<line class="axis" x1="86.00" y1="418.00" x2="734.00" y2="418.00"></line>
+<line class="axis" x1="86.00" y1="34.00" x2="86.00" y2="418.00"></line>
+<text class="tl dim" x="410.00" y="460.00" text-anchor="middle">year y</text>
+<text class="tl dim" x="18" y="226.00" text-anchor="middle" transform="rotate(-90 18 226.00)">population P</text>
+<line class="secline" x1="109.76" y1="370.27" x2="731.84" y2="77.20"></line>
+<line class="tanline" x1="433.76" y1="417.98" x2="516.92" y2="34.69"></line>
+<polyline class="curve" points="86.00,361.11 86.93,361.11 87.85,361.11 88.78,361.11 89.70,361.11 90.63,361.11 91.55,361.11 92.48,361.11 93.41,361.11 94.33,361.11 95.26,361.11 96.18,361.11 97.11,361.11 98.03,361.11 98.96,361.11 99.89,361.11 100.81,361.11 101.74,361.11 102.66,361.11 103.59,361.11 104.51,361.11 105.44,361.11 106.37,361.11 107.29,361.11 108.22,361.11 109.14,361.11 110.07,361.11 110.99,361.11 111.92,361.11 112.85,361.11 113.77,361.11 114.70,361.11 115.62,361.11 116.55,361.11 117.47,361.11 118.40,361.11 119.33,361.11 120.25,361.11 121.18,361.11 122.10,361.11 123.03,361.11 123.95,361.11 124.88,361.11 125.81,361.11 126.73,361.11 127.66,361.11 128.58,361.11 129.51,361.11 130.43,361.11 131.36,361.11 132.29,361.11 133.21,361.11 134.14,361.11 135.06,361.11 135.99,361.11 136.91,361.11 137.84,361.11 138.77,361.11 139.69,361.11 140.62,361.11 141.54,361.11 142.47,361.11 143.39,361.11 144.32,361.11 145.25,361.11 146.17,361.11 147.10,361.11 148.02,361.11 148.95,361.11 149.87,361.11 150.80,361.11 151.73,361.11 152.65,361.11 153.58,361.11 154.50,361.11 155.43,361.11 156.35,361.11 157.28,361.11 158.21,361.11 159.13,361.11 160.06,361.11 160.98,361.11 161.91,361.11 162.83,361.11 163.76,361.11 164.69,361.11 165.61,361.11 166.54,361.11 167.46,361.11 168.39,361.11 169.31,361.11 170.24,361.11 171.17,361.11 172.09,361.11 173.02,361.11 173.94,361.11 174.87,361.11 175.79,361.11 176.72,361.11 177.65,361.11 178.57,361.11 179.50,361.11 180.42,361.11 181.35,361.11 182.27,361.11 183.20,361.11 184.13,361.11 185.05,361.11 185.98,361.11 186.90,361.11 187.83,361.11 188.75,361.11 189.68,361.11 190.61,361.11 191.53,361.11 192.46,361.11 193.38,361.11 194.31,361.11 195.23,361.11 196.16,361.11 197.09,361.11 198.01,361.11 198.94,361.11 199.86,361.11 200.79,361.11 201.71,361.11 202.64,361.11 203.57,361.11 204.49,361.11 205.42,361.11 206.34,361.11 207.27,361.11 208.19,361.11 209.12,361.11 210.05,361.11 210.97,361.11 211.90,361.11 212.82,361.11 213.75,361.11 214.67,361.11 215.60,361.11 216.53,361.11 217.45,361.11 218.38,361.11 219.30,361.11 220.23,361.11 221.15,361.11 222.08,361.11 223.01,361.11 223.93,361.11 224.86,361.11 225.78,361.11 226.71,361.11 227.63,361.11 228.56,361.11 229.49,361.11 230.41,361.11 231.34,361.11 232.26,361.11 233.19,361.11 234.11,361.11 235.04,361.11 235.97,361.11 236.89,361.11 237.82,361.11 238.74,361.11 239.67,361.11 240.59,361.11 241.52,361.11 242.45,361.11 243.37,361.11 244.30,361.11 245.22,361.11 246.15,361.11 247.07,361.11 248.00,361.11 248.93,361.11 249.85,361.11 250.78,361.11 251.70,361.11 252.63,361.11 253.55,361.11 254.48,361.11 255.41,361.11 256.33,361.11 257.26,361.11 258.18,361.11 259.11,361.11 260.03,361.11 260.96,361.11 261.89,361.11 262.81,361.11 263.74,361.11 264.66,361.11 265.59,361.11 266.51,361.11 267.44,361.11 268.37,361.11 269.29,361.11 270.22,361.11 271.14,361.11 272.07,361.11 272.99,361.11 273.92,361.11 274.85,361.11 275.77,361.11 276.70,361.11 277.62,361.11 278.55,361.11 279.47,361.11 280.40,361.11 281.33,361.11 282.25,361.11 283.18,361.11 284.10,361.11 285.03,361.11 285.95,361.11 286.88,361.11 287.81,361.11 288.73,361.11 289.66,361.11 290.58,361.11 291.51,361.11 292.43,361.11 293.36,361.11 294.29,361.11 295.21,361.11 296.14,361.11 297.06,361.11 297.99,361.11 298.91,361.11 299.84,361.11 300.77,361.11 301.69,361.11 302.62,361.11 303.54,361.11 304.47,361.11 305.39,361.11 306.32,361.11 307.25,361.11 308.17,361.11 309.10,361.11 310.02,361.11 310.95,361.11 311.87,361.11 312.80,361.11 313.73,361.11 314.65,361.11 315.58,361.11 316.50,361.11 317.43,361.11 318.35,361.11 319.28,361.11 320.21,361.11 321.13,361.11 322.06,361.10 322.98,361.10 323.91,361.10 324.83,361.10 325.76,361.10 326.69,361.10 327.61,361.10 328.54,361.10 329.46,361.10 330.39,361.10 331.31,361.10 332.24,361.10 333.17,361.10 334.09,361.10 335.02,361.10 335.94,361.09 336.87,361.09 337.79,361.09 338.72,361.09 339.65,361.09 340.57,361.09 341.50,361.09 342.42,361.09 343.35,361.08 344.27,361.08 345.20,361.08 346.13,361.08 347.05,361.08 347.98,361.07 348.90,361.07 349.83,361.07 350.75,361.06 351.68,361.06 352.61,361.06 353.53,361.05 354.46,361.05 355.38,361.05 356.31,361.04 357.23,361.04 358.16,361.03 359.09,361.03 360.01,361.02 360.94,361.02 361.86,361.01 362.79,361.00 363.71,361.00 364.64,360.99 365.57,360.98 366.49,360.97 367.42,360.96 368.34,360.95 369.27,360.94 370.19,360.93 371.12,360.92 372.05,360.91 372.97,360.89 373.90,360.88 374.82,360.86 375.75,360.85 376.67,360.83 377.60,360.81 378.53,360.79 379.45,360.77 380.38,360.74 381.30,360.72 382.23,360.69 383.15,360.67 384.08,360.64 385.01,360.60 385.93,360.57 386.86,360.54 387.78,360.50 388.71,360.46 389.63,360.41 390.56,360.37 391.49,360.32 392.41,360.26 393.34,360.21 394.26,360.15 395.19,360.08 396.11,360.02 397.04,359.94 397.97,359.87 398.89,359.78 399.82,359.70 400.74,359.60 401.67,359.50 402.59,359.39 403.52,359.28 404.45,359.16 405.37,359.03 406.30,358.89 407.22,358.75 408.15,358.59 409.07,358.43 410.00,358.25 410.93,358.06 411.85,357.86 412.78,357.64 413.70,357.42 414.63,357.17 415.55,356.92 416.48,356.64 417.41,356.35 418.33,356.04 419.26,355.71 420.18,355.35 421.11,354.98 422.03,354.58 422.96,354.16 423.89,353.71 424.81,353.23 425.74,352.72 426.66,352.18 427.59,351.61 428.51,351.00 429.44,350.35 430.37,349.67 431.29,348.94 432.22,348.17 433.14,347.35 434.07,346.48 434.99,345.56 435.92,344.59 436.85,343.57 437.77,342.48 438.70,341.33 439.62,340.12 440.55,338.84 441.47,337.48 442.40,336.06 443.33,334.56 444.25,332.98 445.18,331.31 446.10,329.56 447.03,327.73 447.95,325.80 448.88,323.78 449.81,321.66 450.73,319.45 451.66,317.13 452.58,314.72 453.51,312.20 454.43,309.57 455.36,306.84 456.29,304.01 457.21,301.07 458.14,298.02 459.06,294.87 459.99,291.61 460.91,288.26 461.84,284.80 462.77,281.25 463.69,277.61 464.62,273.88 465.54,270.07 466.47,266.18 467.39,262.22 468.32,258.19 469.25,254.11 470.17,249.97 471.10,245.80 472.02,241.58 472.95,237.34 473.87,233.09 474.80,228.82 475.73,224.56 476.65,220.30 477.58,216.06 478.50,211.85 479.43,207.67 480.35,203.54 481.28,199.45 482.21,195.43 483.13,191.47 484.06,187.58 484.98,183.76 485.91,180.04 486.83,176.39 487.76,172.84 488.69,169.39 489.61,166.03 490.54,162.78 491.46,159.63 492.39,156.58 493.31,153.64 494.24,150.80 495.17,148.07 496.09,145.45 497.02,142.93 497.94,140.51 498.87,138.20 499.79,135.98 500.72,133.87 501.65,131.85 502.57,129.92 503.50,128.08 504.42,126.33 505.35,124.67 506.27,123.09 507.20,121.59 508.13,120.16 509.05,118.81 509.98,117.53 510.90,116.32 511.83,115.17 512.75,114.08 513.68,113.05 514.61,112.08 515.53,111.16 516.46,110.30 517.38,109.48 518.31,108.71 519.23,107.98 520.16,107.29 521.09,106.65 522.01,106.04 522.94,105.47 523.86,104.93 524.79,104.42 525.71,103.94 526.64,103.49 527.57,103.06 528.49,102.67 529.42,102.29 530.34,101.94 531.27,101.61 532.19,101.30 533.12,101.00 534.05,100.73 534.97,100.47 535.90,100.23 536.82,100.00 537.75,99.79 538.67,99.59 539.60,99.40 540.53,99.22 541.45,99.05 542.38,98.90 543.30,98.75 544.23,98.61 545.15,98.49 546.08,98.36 547.01,98.25 547.93,98.14 548.86,98.04 549.78,97.95 550.71,97.86 551.63,97.78 552.56,97.70 553.49,97.63 554.41,97.56 555.34,97.50 556.26,97.44 557.19,97.38 558.11,97.33 559.04,97.28 559.97,97.23 560.89,97.19 561.82,97.15 562.74,97.11 563.67,97.07 564.59,97.04 565.52,97.01 566.45,96.98 567.37,96.95 568.30,96.93 569.22,96.90 570.15,96.88 571.07,96.86 572.00,96.84 572.93,96.82 573.85,96.80 574.78,96.78 575.70,96.77 576.63,96.75 577.55,96.74 578.48,96.73 579.41,96.72 580.33,96.70 581.26,96.69 582.18,96.68 583.11,96.67 584.03,96.67 584.96,96.66 585.89,96.65 586.81,96.64 587.74,96.64 588.66,96.63 589.59,96.62 590.51,96.62 591.44,96.61 592.37,96.61 593.29,96.60 594.22,96.60 595.14,96.60 596.07,96.59 596.99,96.59 597.92,96.58 598.85,96.58 599.77,96.58 600.70,96.58 601.62,96.57 602.55,96.57 603.47,96.57 604.40,96.57 605.33,96.56 606.25,96.56 607.18,96.56 608.10,96.56 609.03,96.56 609.95,96.56 610.88,96.56 611.81,96.55 612.73,96.55 613.66,96.55 614.58,96.55 615.51,96.55 616.43,96.55 617.36,96.55 618.29,96.55 619.21,96.55 620.14,96.55 621.06,96.54 621.99,96.54 622.91,96.54 623.84,96.54 624.77,96.54 625.69,96.54 626.62,96.54 627.54,96.54 628.47,96.54 629.39,96.54 630.32,96.54 631.25,96.54 632.17,96.54 633.10,96.54 634.02,96.54 634.95,96.54 635.87,96.54 636.80,96.54 637.73,96.54 638.65,96.54 639.58,96.54 640.50,96.54 641.43,96.54 642.35,96.54 643.28,96.54 644.21,96.54 645.13,96.54 646.06,96.54 646.98,96.54 647.91,96.54 648.83,96.54 649.76,96.54 650.69,96.54 651.61,96.54 652.54,96.54 653.46,96.54 654.39,96.54 655.31,96.54 656.24,96.54 657.17,96.54 658.09,96.54 659.02,96.54 659.94,96.54 660.87,96.54 661.79,96.54 662.72,96.54 663.65,96.54 664.57,96.54 665.50,96.54 666.42,96.54 667.35,96.54 668.27,96.54 669.20,96.54 670.13,96.54 671.05,96.54 671.98,96.54 672.90,96.54 673.83,96.54 674.75,96.54 675.68,96.54 676.61,96.54 677.53,96.54 678.46,96.54 679.38,96.54 680.31,96.54 681.23,96.54 682.16,96.54 683.09,96.54 684.01,96.54 684.94,96.54 685.86,96.54 686.79,96.54 687.71,96.54 688.64,96.54 689.57,96.54 690.49,96.54 691.42,96.54 692.34,96.54 693.27,96.54 694.19,96.54 695.12,96.54 696.05,96.54 696.97,96.54 697.90,96.54 698.82,96.54 699.75,96.54 700.67,96.54 701.60,96.54 702.53,96.54 703.45,96.54 704.38,96.54 705.30,96.54 706.23,96.54 707.15,96.54 708.08,96.54 709.01,96.54 709.93,96.54 710.86,96.54 711.78,96.54 712.71,96.54 713.63,96.54 714.56,96.54 715.49,96.54 716.41,96.54 717.34,96.54 718.26,96.54 719.19,96.54 720.11,96.54 721.04,96.54 721.97,96.54 722.89,96.54 723.82,96.54 724.74,96.54 725.67,96.54 726.59,96.54 727.52,96.54 728.45,96.54 729.37,96.54 730.30,96.54 731.22,96.54 732.15,96.54 733.07,96.54 734.00,96.54"></polyline>
+<line class="leader lvl" x1="354" y1="163" x2="388.40" y2="239.00"></line>
+<line class="leader dim" x1="693" y1="112" x2="700" y2="182"></line>
+<circle class="dot" cx="129.20" cy="361.11" r="5.2"></circle>
+<circle class="dot" cx="474.80" cy="228.82" r="5.2"></circle>
+<circle class="dot" cx="690.80" cy="96.54" r="5.2"></circle>
+<text class="lab lvl" x="174.56" y="169">secant: 1,431 people/yr</text>
+<text class="lab pt" x="730.00" y="50" text-anchor="end">tangent: 14,000 people/yr</text>
+<text class="lab dim" x="138.20" y="380.11">(2, 50000)</text>
+<text class="lab dim" x="485.80" y="251.82">(10, 59302)</text>
+<text class="lab dim" x="730.00" y="200" text-anchor="end">(15, 68603)</text>
+</svg>
+    </div>
+    <figcaption>
+      The curve sits near 50,000 people for six years, adds nearly 19,000 in a boom around year 10, then flattens. The secant only sees the two endpoints, so it reports 1,431 people per year. The tangent sees the boom, and reports 14,000.
+      <div class="swatches">
+        <span class="swatch"><i style="background:var(--lvl)"></i>secant, average rate, 1,431/yr</span>
+        <span class="swatch"><i style="background:var(--pt)"></i>tangent, instantaneous rate, 14,000/yr</span>
+        <span class="swatch"><i style="background:var(--ink)"></i>the population itself</span>
+      </div>
+    </figcaption>
+  </figure>
+
+  <div class="callout good">
+    <div class="ch">Why 14,000 and 1,431 are not in conflict</div>
+    <p>The tangent is 9.78 times steeper than the secant, and that feels wrong until you look at the shape. A curve can be nearly flat for years and then very steep for one of them. An average over thirteen years and a rate at one instant are different quantities, and nothing forces them to be close.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>The procedure, and the units rule that carries the marks</h2>
+  <pre>Look at the SHAPE of the expression.
+
+  <span class="g3">[ P(b) - P(a) ] / (b - a)</span>   ->  <span class="g3">AVERAGE</span> rate, over the <span class="g3">INTERVAL</span> [a,b]
+  <span class="g2">P'(a)</span>                       ->  <span class="g2">INSTANTANEOUS</span> rate, at the <span class="g2">INSTANT</span> y = a
+
+Then fill in one template, in this order:
+
+  1. WHEN      "Between year 2 and year 15"     or  "In year 10"
+  2. WHAT      "the city's population"
+  3. HOW       "grew by an average of"          or  "was growing at a rate of"
+  4. NUMBER    "1,431"                          or  "14,000"
+  5. UNITS     "people per year"                <b>&lt;- this is where the marks are</b></pre>
+
+  <blockquote>
+    <p><strong>The units of any rate of change are (units of the output) per (one unit of the input).</strong> That is the whole rule, and it never has an exception.</p>
+  </blockquote>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>The function</th><th>Output unit</th><th>Input unit</th><th>Units of BOTH rates</th></tr></thead>
+    <tbody>
+      <tr><td>\(P(y)\), population in year \(y\)</td><td>people</td><td>years</td><td>people per year</td></tr>
+      <tr><td>\(C(x)\), cost of \(x\) chairs</td><td>dollars</td><td>chairs</td><td><strong>dollars per chair</strong></td></tr>
+      <tr><td>\(V(t)\), litres in a tank at minute \(t\)</td><td>litres</td><td>minutes</td><td>litres per minute</td></tr>
+      <tr><td>\(T(t)\), temperature at hour \(t\)</td><td>degrees C</td><td>hours</td><td>degrees C per hour</td></tr>
+      <tr><td>\(s(t)\), distance at second \(t\)</td><td>metres</td><td>seconds</td><td>metres per second</td></tr>
+      <tr><td>\(N(t)\), bacteria at hour \(t\)</td><td>cells</td><td>hours</td><td>cells per hour</td></tr>
+      <tr><td>\(R(x)\), revenue from \(x\) units</td><td>dollars</td><td>units</td><td>dollars per unit</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Look at row two: <strong>dollars per chair</strong>, not dollars per year. The input variable does not have to be time. If you write "per year" out of habit when the input is chairs, you have shown the marker that you memorised a sentence instead of a rule. The second derivative applies the rule twice, so \(P''\) is measured in <strong>people per year, per year</strong>.</p>
+
+  <h3>Which expression is which</h3>
+  <div class="tscroll"><table>
+    <thead><tr><th>The expression looks like</th><th>It is</th><th>The sentence starts</th></tr></thead>
+    <tbody>
+      <tr><td>\(\frac{f(b)-f(a)}{b-a}\)</td><td>average rate on \([a,b]\)</td><td>"Between ... and ..., on average, ..."</td></tr>
+      <tr><td>\(\frac{f(a+h)-f(a)}{h}\)</td><td>average rate on \([a,a+h]\)</td><td>same, with the interval reconstructed</td></tr>
+      <tr><td>\(f'(a)\)</td><td>instantaneous rate at \(a\)</td><td>"At ..., ... was changing at ..."</td></tr>
+      <tr><td>\(f(b)-f(a)\)</td><td><strong>a net change, not a rate</strong></td><td>"it changed by ..." with <strong>no</strong> "per"</td></tr>
+      <tr><td>\(f''(a)\)</td><td>rate of change of the rate</td><td>"the rate itself was changing at ..."</td></tr>
+      <tr><td>\(\frac{f'(a)}{f(a)}\)</td><td>relative rate, a percentage</td><td>"it was growing by ...% per ..."</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Row four is the sharpest distinction on the table. \(P(15)-P(2)=18{,}603\) is a number of people. \(\frac{P(15)-P(2)}{13}=1{,}431\) is a number of people <em>per year</em>. Dividing by the width is what turns a count into a rate, and that is the only difference between the two.</p>
+</section>
+
+<section>
+  <h2><span class="num">4</span>What the two facts do NOT force</h2>
+  <p>This is the deepest reword available, and it usually arrives as "is this possible?" or "must the population have grown every year?". Here are two cities. Both satisfy \(\frac{P(15)-P(2)}{13}=1{,}431\) exactly and \(P'(10)=14{,}000\) exactly, and both were built and checked numerically.</p>
+
+  <div class="tscroll"><table>
+    <thead><tr><th class="num">Year</th><th class="num">City B, the boom</th><th class="num">City D, the dip</th></tr></thead>
+    <tbody>
+      <tr><td class="num">2</td><td class="num">50,000</td><td class="num">58,400</td></tr>
+      <tr><td class="num">8</td><td class="num">50,045</td><td class="num">54,081</td></tr>
+      <tr><td class="num">10</td><td class="num">59,302</td><td class="num">66,502</td></tr>
+      <tr><td class="num">12</td><td class="num">68,558</td><td class="num">78,923</td></tr>
+      <tr><td class="num">15</td><td class="num">68,603</td><td class="num">77,003</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>City B <strong>never shrinks</strong>. City D <strong>shrinks for six years</strong>, bottoming out near 54,074 people around year 7.9, booms past year 10, and is falling again by year 15.</p>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Claim</th><th>Verdict</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>the population grew in every year from 2 to 15</td><td class="n">not forced</td><td>City D refutes it</td></tr>
+      <tr><td>the population shrank at some point</td><td class="n">not forced</td><td>City B refutes it</td></tr>
+      <tr><td>\(P(15) &gt; P(2)\)</td><td class="y">forced</td><td>the average rate is positive</td></tr>
+      <tr><td>the population was still growing at year 15</td><td class="n">not forced</td><td>City D was falling</td></tr>
+      <tr><td>some year had a growth rate of exactly 1,431</td><td class="y">forced</td><td>the Mean Value Theorem</td></tr>
+      <tr><td>the two given facts contradict each other</td><td class="n">false</td><td>both cities satisfy both</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>The Mean Value Theorem row is worth stating properly, because it is the one consequence you can assert. If \(P\) is continuous on \([2,15]\) and differentiable on \((2,15)\), then there is at least one year \(c\) strictly between 2 and 15 with \(P'(c)=1{,}431\). In plain words: <strong>at some moment during those thirteen years the city really was growing at exactly the average pace.</strong> The theorem gives existence, never a location, so "at year 8.5" is not an answer.</p>
+</section>
+
+<section>
+  <h2><span class="num">5</span>The variation catalog</h2>
+  <p>Read each table as a <strong>structure</strong>, not as a list of facts. Nearly every variation below is the same two readings with one element swapped, and the tables are arranged so you can see which element moved.</p>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 1</span><span class="fname">The same question in a different costume</span><span class="mark lvl">Units rule</span></div>
+    <div class="fam-body">
+      <div class="tt">
+        <div><b>Trigger</b>the story changed and the mathematics did not</div>
+        <div><b>Tool</b>output unit, the word "per", one input unit</div>
+      </div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Given</th><th>Reading</th><th>Units</th></tr></thead>
+        <tbody>
+          <tr><td>\(\frac{C(80)-C(50)}{30}=42\)</td><td>between 50 and 80 chairs, each extra chair added about $42 on average</td><td>dollars per chair</td></tr>
+          <tr><td>\(C'(80)=35\)</td><td>at 80 chairs the cost is rising by about $35 per extra chair - <strong>marginal cost</strong></td><td>dollars per chair</td></tr>
+          <tr><td>\(\frac{V(20)-V(5)}{15}=-12\)</td><td>between minute 5 and minute 20 the tank lost an average of 12 litres per minute</td><td>litres per minute</td></tr>
+          <tr><td>\(T'(6)=-1.5\)</td><td>at 6 a.m. the temperature was falling at 1.5 degrees C per hour</td><td>degrees C per hour</td></tr>
+          <tr><td>\(R'(200)=18\)</td><td>at 200 units, each extra unit brings in about $18 - <strong>marginal revenue</strong></td><td>dollars per unit</td></tr>
+        </tbody>
+      </table></div>
+      <p>Two of those have a <strong>non-time</strong> input. Write "per year" on either and you have applied a memorised sentence rather than the rule.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 2</span><span class="fname">The quotient written some other way</span><span class="mark lvl">Rebuild the interval</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Given</th><th>The interval it describes</th><th>Sentence</th></tr></thead>
+        <tbody>
+          <tr><td>\(\frac{P(15)-P(2)}{13}\)</td><td>\([2,15]\), width 13</td><td>the question itself</td></tr>
+          <tr><td>\(\frac{P(2+h)-P(2)}{h}\), \(h=13\)</td><td>\([2,15]\) again</td><td>the identical statement</td></tr>
+          <tr><td>\(\frac{P(10+h)-P(10)}{h}\) as \(h\to0\)</td><td>shrinks to the instant \(y=10\)</td><td>this <em>is</em> \(P'(10)\)</td></tr>
+          <tr><td>\(\frac{P(9)-P(4)}{5}\)</td><td>\([4,9]\), width <strong>5</strong>, not 9</td><td>the width is \(9-4\)</td></tr>
+          <tr><td>\(P(15)-P(2)=18603\)</td><td>not a rate at all</td><td>"grew by 18,603 people", no "per"</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row four is the reword that catches people: "between year 4 and year 9" has width 5, and writing 9 in the denominator is the commonest arithmetic slip in this family.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 3</span><span class="fname">Negative rates, and a rate of zero</span><span class="mark brk">Read the verb</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Given</th><th>Sentence</th></tr></thead>
+        <tbody>
+          <tr><td>\(\frac{P(15)-P(2)}{13}=-1431\)</td><td>between year 2 and year 15 the city lost an average of 1,431 people per year</td></tr>
+          <tr><td>\(P'(10)=-14000\)</td><td>in year 10 the population was falling at 14,000 people per year</td></tr>
+          <tr><td>\(P'(10)=0\)</td><td>in year 10 the population was momentarily neither growing nor shrinking</td></tr>
+        </tbody>
+      </table></div>
+      <p>The third row is worth practising. \(P'(10)=0\) does <strong>not</strong> mean the population was zero, and it does not mean the population was constant. It means the graph had a horizontal tangent at that instant.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 4</span><span class="fname">The second derivative</span><span class="mark bend">Units twice</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Given</th><th>Sentence</th></tr></thead>
+        <tbody>
+          <tr><td>\(P''(10)=900\)</td><td>in year 10 the growth rate itself was rising by 900 people per year, each year</td></tr>
+          <tr><td>\(P''(10)=-900\)</td><td>the population was still growing, but the growth was slowing</td></tr>
+          <tr><td>\(P'&gt;0\) and \(P''&lt;0\)</td><td>growing but decelerating: rising and concave down</td></tr>
+          <tr><td>\(P'&lt;0\) and \(P''&lt;0\)</td><td>shrinking, and the decline is accelerating</td></tr>
+        </tbody>
+      </table></div>
+      <p>That sign table is the same one used on item 5 of this paper for sketching, so this family is the bridge to Q5.2 and Q5.3.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 5</span><span class="fname">Estimate the rate from a table</span><span class="mark dir">A tool, not a sentence</span></div>
+    <div class="fam-body">
+      <p>Here the difference quotient is used as an <strong>approximation</strong>, which is a genuinely different job from reading one as a sentence. The table below comes from \(Q(y)=40{,}000+900y+60y^2\), whose true \(Q'(10)=2{,}100\).</p>
+      <div class="tscroll"><table>
+        <thead><tr><th class="num">Year</th><th class="num">8</th><th class="num">9</th><th class="num">10</th><th class="num">11</th><th class="num">12</th></tr></thead>
+        <tbody><tr><td class="num">\(Q(y)\)</td><td class="num">51,040</td><td class="num">52,960</td><td class="num">55,000</td><td class="num">57,160</td><td class="num">59,440</td></tr></tbody>
+      </table></div>
+      <div class="tscroll"><table>
+        <thead><tr><th>Estimate</th><th>Formula</th><th class="num">Value</th><th class="num">Error</th></tr></thead>
+        <tbody>
+          <tr><td>forward</td><td>\(\frac{Q(11)-Q(10)}{1}\)</td><td class="num">2,160</td><td class="num">+60</td></tr>
+          <tr><td>backward</td><td>\(\frac{Q(10)-Q(9)}{1}\)</td><td class="num">2,040</td><td class="num">-60</td></tr>
+          <tr><td><strong>centred</strong></td><td>\(\frac{Q(11)-Q(9)}{2}\)</td><td class="num"><strong>2,100</strong></td><td class="num y">0</td></tr>
+          <tr><td>average on \([8,12]\)</td><td>\(\frac{Q(12)-Q(8)}{4}\)</td><td class="num">2,100</td><td class="num y">0</td></tr>
+        </tbody>
+      </table></div>
+      <p>Read the structure, not the four numbers. The forward and backward errors are \(+60\) and \(-60\), <strong>equal and opposite</strong>, which is exactly why averaging them is exact here. The fourth row is exact for a related reason: on a quadratic, the average rate over an interval equals the derivative at its <strong>midpoint</strong>, and 10 is the midpoint of \([8,12]\).</p>
+      <div class="callout">
+        <div class="ch">Both of those exactnesses are quadratic-only accidents</div>
+        <p>On City B from section 4, the average rate over \([8,12]\) is 4,628 while \(P'(10)\) is 14,000. Do not carry the midpoint identity into a general question.</p>
+      </div>
+
+      <h3>Annual data can miss the answer badly</h3>
+      <p>City B, tabulated year by year, reads 50,045 / 50,874 / 59,302 / 67,729 / 68,558 at years 8 through 12. Its centred estimate of \(P'(10)\) is \(\frac{67{,}729-50{,}874}{2}=8{,}427.5\), which <strong>understates the true 14,000 by 39.8 percent</strong>, because the whole boom is narrower than the one-year sampling step. A difference quotient can only see what the sampling interval resolves.</p>
+
+      <h3>Which estimate is better is a question about ORDER, not about one number</h3>
+      <div class="tscroll"><table>
+        <thead><tr><th>Method</th><th>Errors as \(h\) halves</th><th class="num">Ratio</th><th>Order</th></tr></thead>
+        <tbody>
+          <tr><td>forward \(\frac{f(x+h)-f(x)}{h}\)</td><td>31, 15.25, 7.56, 3.77</td><td class="num">\(\approx 2\)</td><td>first order</td></tr>
+          <tr><td>centred \(\frac{f(x+h)-f(x-h)}{2h}\)</td><td>1, 0.25, 0.0625, 0.0156</td><td class="num">\(\approx 4\)</td><td>second order</td></tr>
+        </tbody>
+      </table></div>
+      <p>Errors halving means first order; errors quartering means second order. <strong>A single accurate estimate proves nothing</strong>, and here is the proof: on City B the forward estimate at year 9 has ratios 2.08, 2.04, 2.02, while at year 10 the <em>same method on the same function</em> has ratios 3.97, 3.99, 4.00. Year 10 is that model's inflection point, where \(P''(10)=0\) kills the first-order error term, and the model is odd-symmetric about it, so the forward quotient is literally equal to the centred quotient there. Test only at year 10 and you would conclude that forward differences are second order.</p>
+
+      <div class="callout">
+        <div class="ch">And smaller h is not always better</div>
+        <p>For that same centred estimate at year 10, the error is \(2.5\times10^{-3}\) at \(h=10^{-6}\) but \(2.6\) at \(h=10^{-12}\). Past a point, subtracting two nearly equal large numbers and dividing by a tiny one loses more to rounding than it gains in truncation. Test convergence on a <strong>bounded</strong> ladder, and stop before the arithmetic falls apart.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 6</span><span class="fname">A formula is given, compute both</span><span class="mark pt">One derivative rule</span></div>
+    <div class="fam-body">
+      <p>Take \(P(y)=40y^{2}+500y+30{,}000\). Then \(P(2)=31{,}160\) and \(P(15)=46{,}500\), so the average rate on \([2,15]\) is \(\frac{15{,}340}{13}=1{,}180\), and \(P'(y)=80y+500\) gives \(P'(10)=1{,}300\).</p>
+      <p>There is a shortcut worth knowing for a quadratic \(Ay^{2}+By+C\): the average rate over \([a,b]\) is exactly \(A(a+b)+B\), because the \(y^2\) difference factors as \((b-a)(b+a)\). Here \(40(2+15)+500=1{,}180\), with no evaluation of \(P\) at all. Notice that the instantaneous rate exceeds the average, which always happens past the interval's midpoint when the rate is increasing, and \(10 &gt; 8.5\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 7</span><span class="fname">Use the derivative as a forecast</span><span class="mark pt">Linearization</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+        <tbody>
+          <tr><td>estimate \(P(11)\) from \(P(10)\)</td><td>\(P(10)+14{,}000\)</td></tr>
+          <tr><td>estimate \(P(10.5)\)</td><td>\(P(10)+7{,}000\)</td></tr>
+          <tr><td>estimate \(P(10.25)\)</td><td>\(P(10)+3{,}500\)</td></tr>
+          <tr><td>estimate \(P(9)\)</td><td>\(P(10)-14{,}000\)</td></tr>
+          <tr><td>how long to add 3,500 people at the year-10 pace</td><td>about a quarter of a year</td></tr>
+        </tbody>
+      </table></div>
+      <p>Every one is the same multiplication, and every one is an <strong>estimate</strong>. On City B the one-year forecast overshoots by 5,573 people and the quarter-year forecast overshoots by about 156: a 36-fold smaller error for a 4-fold shorter step. That ratio is not a coincidence, because the error of a linear forecast grows like the square of the step.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 8</span><span class="fname">Relative, or percentage, rate</span><span class="mark bend">The units cancel</span></div>
+    <div class="fam-body">
+      $$\text{relative rate at } y=a \;=\; \frac{P'(a)}{P(a)}$$
+      <p>For City B, \(\frac{14{,}000}{59{,}302}=0.2361\), so the population was growing at about <strong>23.6 percent per year</strong> at year 10. The average rate as a percentage of the starting population is \(\frac{1{,}431}{50{,}000}=2.862\) percent per year. A relative rate is a <strong>pure number per year</strong>, because the people cancel, and that is why demographers quote percentages: 14,000 people a year means something very different for a city of 50,000 than for one of 5,000,000.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 9</span><span class="fname">When the derivative does not exist</span><span class="mark brk">Check both sides</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Situation</th><th>Average rate on an interval</th><th>\(P'\) at the bad point</th></tr></thead>
+        <tbody>
+          <tr><td>a corner, \(P(y)=\lvert y-10\rvert\)</td><td class="y">fine: \(\frac{P(15)-P(8)}{7}=\frac37\)</td><td class="n">does not exist; slopes \(-1\) and \(+1\)</td></tr>
+          <tr><td>a jump: an annexation of 9,000 people</td><td class="y">fine: \(\frac{9{,}000}{13}\approx 692.3\)</td><td class="n">does not exist; \(P\) is not continuous</td></tr>
+          <tr><td>a vertical tangent</td><td class="y">fine</td><td class="n">does not exist; the slope is infinite</td></tr>
+        </tbody>
+      </table></div>
+      <p>Part (a) can be perfectly meaningful where part (b) is meaningless, because an average rate needs only two values while a derivative needs a limit.</p>
+      <div class="callout">
+        <div class="ch">The trap a numerical check will not catch</div>
+        <p>For the corner \(P(y)=\lvert y-10\rvert\), the centred difference quotient at year 10 is \(\frac{h-h}{2h}=0\) for <strong>every</strong> \(h\). It reports a derivative of zero where none exists, and it does so no matter how small you make \(h\), so no amount of refining will reveal the problem. The one-sided quotients, \(+1\) from the right and \(-1\) from the left, are the only ones that see the corner. When existence is the question, check the two sides separately and never rely on a symmetric estimate.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 10</span><span class="fname">The question run backwards</span><span class="mark lvl">Same table, right to left</span></div>
+    <div class="fam-body">
+      <div class="tscroll"><table>
+        <thead><tr><th>Sentence</th><th>Expression</th></tr></thead>
+        <tbody>
+          <tr><td>between year 4 and year 9 the population grew on average by 2,000 people per year</td><td>\(\frac{P(9)-P(4)}{5}=2000\)</td></tr>
+          <tr><td>in year 7 the population was falling at 300 people per year</td><td>\(P'(7)=-300\)</td></tr>
+          <tr><td>the population rose by 18,603 people between years 2 and 15</td><td>\(P(15)-P(2)=18603\)</td></tr>
+          <tr><td>at 50 chairs the cost is rising by $40 per chair</td><td>\(C'(50)=40\)</td></tr>
+          <tr><td>the growth rate was itself increasing in year 6</td><td>\(P''(6)&gt;0\)</td></tr>
+        </tbody>
+      </table></div>
+      <p>Row one is the one to get right: the denominator is \(9-4=5\). Row three has no denominator at all, because "rose by" with no "per" is a net change.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 11</span><span class="fname">The average of the rate</span><span class="mark dir">Same fact, other side</span></div>
+    <div class="fam-body">
+      <p>Wording like "on average, how fast was the population growing" is the same question as (a), not a new one. The average <em>value</em> of \(P'\) over \([2,15]\) equals the average <em>rate</em> of \(P\) over \([2,15]\):</p>
+      $$\frac{1}{15-2}\int_{2}^{15}P'(y)\,dy=\frac{P(15)-P(2)}{13}=1{,}431$$
+      <p>Both cities in section 4 were checked against this numerically and both give exactly 1,431. This is why an average rate deserves the word "average" at all: it is the mean of the instantaneous rates.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">6</span>The traps, ranked by what they actually cost</h2>
+  <ol class="traps">
+    <li><span><strong>Dropping the units.</strong> "Grew by an average of 1,431" is not an answer; "1,431 people per year" is. This costs more marks here than everything else combined.</span></li>
+    <li><span><strong>Turning a rate into a count.</strong> "The population grew by 1,431 people" describes \(P(15)-P(2)\) divided by nothing. The division by 13 is what makes it a rate.</span></li>
+    <li><span><strong>Losing "average" in (a) or "instantaneous" in (b).</strong> Those two words are what the question is examining.</span></li>
+    <li><span><strong>Not naming the interval.</strong> "Over 13 years" is weaker than "between year 2 and year 15", and only the second shows you spotted \(13=15-2\).</span></li>
+    <li><span><strong>Treating an average as a guarantee.</strong> "The population grew by 1,431 every year" is refuted outright by City D.</span></li>
+    <li><span><strong>Reading \(P'(10)=14{,}000\) as "the population rose by 14,000 during year 10".</strong> An instantaneous rate is not a year's worth of change.</span></li>
+    <li><span><strong>Restating the symbols.</strong> "The derivative of \(P\) at \(y=10\) equals 14,000" is a translation into the same language, and "in layman's terms" is an explicit instruction against it.</span></li>
+    <li><span><strong>Assuming "per year" when the input is not time.</strong> \(C'(80)\) is dollars per <em>chair</em>.</span></li>
+    <li><span><strong>Getting the interval width wrong on a reword.</strong> "Between year 4 and year 9" has width 5.</span></li>
+    <li><span><strong>Declaring the two numbers inconsistent.</strong> They are not, and section 4 exhibits two cities that satisfy both.</span></li>
+    <li><span><strong>Trusting a centred difference at a corner.</strong> It returns 0 for every \(h\) and hides the non-differentiability completely.</span></li>
+    <li><span><strong>Concluding a method is accurate from one good estimate.</strong> Order is a statement about how the error behaves as \(h\) shrinks, not about a single value.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">7</span>The decision tree</h2>
+  <pre>An expression about a changing quantity. What does it MEAN?
+|
++-- Does it DIVIDE by a difference of two inputs?
+|     YES -> <span class="g3">AVERAGE RATE over an INTERVAL</span>.
+|            1. Recover a and b. Confirm the denominator is b - a.
+|               (13 here is 15 - 2, not "per 13 years".)
+|            2. "Between &lt;a&gt; and &lt;b&gt;, &lt;thing&gt; changed by an average of
+|                &lt;value&gt; &lt;output unit&gt; per &lt;input unit&gt;."
+|            3. Geometry: the SECANT slope through the two endpoints.
+|
++-- Does it have a PRIME, a d/dy, or the word "instantaneous"?
+|     ONE prime  -> <span class="g2">INSTANTANEOUS RATE at an INSTANT</span>.
+|            1. Name the single input value.
+|            2. "In/at &lt;a&gt;, &lt;thing&gt; was changing at &lt;value&gt;
+|                &lt;output unit&gt; per &lt;input unit&gt;."
+|            3. Geometry: the TANGENT slope at that one point.
+|            4. Optional gloss: "if that pace held, about &lt;value&gt; over
+|               the next &lt;one input unit&gt;."  Keep BOTH hedges.
+|     TWO primes -> <span class="g5">the rate OF THE RATE</span>. Units take "per &lt;input unit&gt;" twice.
+|
++-- Is there a difference with NO division?
+|     YES -> <span class="g1">a NET CHANGE, not a rate</span>. No "per" in the sentence.
+|            f(b) - f(a) = (average rate) x (b - a).
+|
++-- Is the rate divided by the LEVEL, f'(a)/f(a)?
+|     YES -> <span class="g5">a RELATIVE rate</span>: a percentage per input unit. The units cancel.
+|
++-- Estimating a derivative from a table?
+|     -> <span class="g4">centred</span> (f(a+h) - f(a-h)) / 2h beats one-sided, normally.
+|     -> BUT at a corner the centred quotient is 0 for every h and lies.
+|        Check the two sides SEPARATELY when existence is the question.
+|     -> Judge a method by the ORDER: halve h and see whether the error
+|        halves (first order) or quarters (second order).
+|     -> Do NOT shrink h without limit. Past about 1e-6 the rounding
+|        error grows faster than the truncation error shrinks.
+|
++-- Asked "must there be a moment when ..."?
+      -> MEAN VALUE THEOREM. State continuity on [a,b] and
+         differentiability on (a,b), then conclude existence only.
+         It never tells you WHERE.
+
+Before the final sentence, check three things:
+  <b>UNITS</b>    output unit "per" one input unit, written out in full.
+  <b>SIGN</b>     positive -> grew/rose;  negative -> fell/shrank.
+  <b>SCOPE</b>    (a) names an interval;  (b) names one instant. Never swap them.</pre>
+</section>
+
+<section>
+  <h2><span class="num">8</span>Provenance, and where the course files are imprecise</h2>
+  <p>Every arithmetic value, model landmark, table entry, estimate and order-of-convergence claim on this page was recomputed independently in Python: <strong>114 checks, zero failures</strong>, appended to the shared MATH 265 verification harness so they are re-checked every time any question in the series is verified. Ten of those 114 are <strong>seeded controls</strong> that are required to fail and do: a wrong net change, a wrong interval width, a wrong order claim, a figure label deliberately laid across the secant. A gate that has never been seen to bite is indistinguishable from a gate that is not there.</p>
+
+  <p>Midterm Exam 2 prints each point value on the line <em>before</em> its question, unlike Midterm Exam 1 which prints them after. Its eleven values are 4, 4, 4, 6, 10, 10, 24, 6, 16, 4 and 6, summing to 94, so item 3 is worth 4 points, just over four percent of the paper. Item 3 carries no "no credit for unjustified answers" clause; that clause belongs to item 7.</p>
+
+  <p>The three transcriptions of this question, in the bank, the exam paper and the categorized file, agree exactly, so unlike Q5.3 there is no wording conflict to resolve here. The course files do carry three imprecisions that work directly against this particular question.</p>
+
+  <div class="tscroll"><table>
+    <thead><tr><th>Where</th><th>What it says</th><th>Why it works against this question</th></tr></thead>
+    <tbody>
+      <tr><td><code>MATH265_Review.md</code> line 2042</td><td>"\(P'(a)\) is the rate at which the population is changing <strong>in the year</strong> \(a\)"</td><td>"in the year \(a\)" names an interval a year long, which is precisely the conflation being examined. It should read "at the instant \(y=a\)".</td></tr>
+      <tr><td><code>MATH265_Review.md</code> lines 851 to 852</td><td>the quick-reference card lists "DIFFERENCE QUOTIENT" and "DERIVATIVE DEFINITION" as two separate entries</td><td>they are the same expression, one with a limit in front. Presenting them as two formulas hides the single most important fact in the topic.</td></tr>
+      <tr><td><code>MATH265_Review.md</code> lines 674 and 681</td><td>a units template is given for the average rate but none for the derivative</td><td>units are where most of the marks are lost, and the study aid teaches them for only one of the two objects.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<footer>
+  <p>MATH 265, Introduction to Calculus I. Midterm Exam 2, item 3, 4 points. Verified 2026-09-01: 114 checks, 0 failures, 10 of them seeded controls that are required to fail. The figure is generated from the City B model rather than drawn, so the secant and tangent carry the given slopes of 1,431 and 14,000 by construction. The full tutorial, with its drill set and answer key, is kept alongside this page in the MATH 265 notes.</p>
+</footer>
+
+</div>

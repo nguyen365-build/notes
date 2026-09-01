@@ -1,0 +1,1228 @@
+<title>Six Conditions, One Sketch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== dark-first ops console, third page in the MATH 265 sketch family ====
+   The palette and type are deliberately identical to the Q5.1 and Q5.2 pages,
+   because the three are one system.  What changes is the SEMANTICS of the
+   marks, and that change IS the content of this page:
+
+     POINT      --pt    amber        (a) f(0) = -3
+     LEVEL      --lvl   slate        (b) the horizontal asymptote
+     POLE       --brk   terracotta   (c) the vertical asymptote
+     DIRECTION  --dir   teal         (d) and (e), the two f' conditions   NEW
+     BEND       --bend  mauve        (f), the f'' condition               NEW
+
+   Q5.1 and Q5.2 needed only the first three families of mark, because their
+   conditions all lived at POINTS.  Q5.3 is the first whose conditions govern
+   INTERVALS, so it needs two marks the earlier pages never used.  --dir and
+   --bend carry the hues those pages spent on KINK and APPROACH; the palette
+   is unchanged and only the meaning moves.
+   ========================================================================= */
+:root{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+  --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+  --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+  --dir:#6FA8A0;  --dir-soft:rgba(111,168,160,.13); --dir-line:rgba(111,168,160,.44);
+  --bend:#B98BA6; --bend-soft:rgba(185,139,166,.13);--bend-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0; --no:#D2765C;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+    --line:#D6DAE3; --line-soft:#E6E9EF;
+    --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+    --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+    --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+    --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+    --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+    --dir:#2E6B63;  --dir-soft:rgba(46,107,99,.10);   --dir-line:rgba(46,107,99,.40);
+    --bend:#7A3F63; --bend-soft:rgba(122,63,99,.10);  --bend-line:rgba(122,63,99,.40);
+    --ok:#2E6B63; --no:#A8492F;
+    --grid:rgba(23,27,34,.042);
+    --plot:#BCC3CE; --plotlab:#6C7583;
+    --mj:#171B22;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --brk:#D2765C;  --brk-soft:rgba(210,118,92,.13);  --brk-line:rgba(210,118,92,.42);
+  --pt:#F2A53C;   --pt-soft:rgba(242,165,60,.13);   --pt-line:rgba(242,165,60,.42);
+  --lvl:#7E9BC4;  --lvl-soft:rgba(126,155,196,.12); --lvl-line:rgba(126,155,196,.42);
+  --dir:#6FA8A0;  --dir-soft:rgba(111,168,160,.13); --dir-line:rgba(111,168,160,.44);
+  --bend:#B98BA6; --bend-soft:rgba(185,139,166,.13);--bend-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0; --no:#D2765C;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --brk:#A8492F;  --brk-soft:rgba(168,73,47,.09);   --brk-line:rgba(168,73,47,.38);
+  --pt:#8F5A06;   --pt-soft:rgba(217,138,31,.11);   --pt-line:rgba(217,138,31,.42);
+  --lvl:#3F6493;  --lvl-soft:rgba(63,100,147,.09);  --lvl-line:rgba(63,100,147,.38);
+  --dir:#2E6B63;  --dir-soft:rgba(46,107,99,.10);   --dir-line:rgba(46,107,99,.40);
+  --bend:#7A3F63; --bend-soft:rgba(122,63,99,.10);  --bend-line:rgba(122,63,99,.40);
+  --ok:#2E6B63; --no:#A8492F;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.brk {border-color:var(--brk-line); color:var(--brk);  background:var(--brk-soft)}
+.mark.pt  {border-color:var(--pt-line);  color:var(--pt);   background:var(--pt-soft)}
+.mark.lvl {border-color:var(--lvl-line); color:var(--lvl);  background:var(--lvl-soft)}
+.mark.dir {border-color:var(--dir-line); color:var(--dir);  background:var(--dir-soft)}
+.mark.bend{border-color:var(--bend-line);color:var(--bend); background:var(--bend-soft)}
+
+.slab{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:26px 0}
+.slab-top{
+  padding:10px 20px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.slab-body{padding:22px 20px}
+.slab-body p{margin:0 0 10px}
+.slab-body p:last-child{margin-bottom:0}
+
+/* ---- the condition ledger: the interpretation half, one row each ---- */
+.ledger{display:grid;gap:10px;margin:24px 0}
+.lrow{
+  display:grid;grid-template-columns:96px minmax(140px,.82fr) minmax(210px,1.7fr);
+  gap:6px 18px;align-items:start;
+  border:1px solid var(--line);border-left-width:3px;background:var(--surface);
+  border-radius:3px;padding:13px 16px;
+}
+.lrow.a{border-left-color:var(--pt)}
+.lrow.b{border-left-color:var(--lvl)}
+.lrow.c{border-left-color:var(--brk)}
+.lrow.d{border-left-color:var(--dir)}
+.lrow.e{border-left-color:var(--dir)}
+.lrow.f{border-left-color:var(--bend)}
+.lrow .lid{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;
+  letter-spacing:.15em;text-transform:uppercase;color:var(--ink3);padding-top:4px;
+}
+.lrow .lnot{font-size:14px;color:var(--ink);overflow-wrap:anywhere;min-width:0}
+.lrow .lsay{font-size:13.5px;color:var(--ink2);min-width:0}
+.lrow .lsay b{display:block;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  font-family:"IBM Plex Mono",ui-monospace,monospace;margin-bottom:3px;font-weight:600}
+.lrow.a .lsay b{color:var(--pt)}
+.lrow.b .lsay b{color:var(--lvl)}
+.lrow.c .lsay b{color:var(--brk)}
+.lrow.d .lsay b,.lrow.e .lsay b{color:var(--dir)}
+.lrow.f .lsay b{color:var(--bend)}
+.lrow .lfree{grid-column:2 / -1;font-size:13px;color:var(--ink3);border-top:1px dashed var(--line);
+  padding-top:8px;margin-top:2px}
+@media (max-width:720px){
+  .lrow{grid-template-columns:1fr}
+  .lrow .lfree{grid-column:1}
+}
+
+figure{margin:26px 0;border:1px solid var(--line);background:var(--surface);border-radius:3px;overflow:hidden}
+.figtop{
+  padding:10px 16px;border-bottom:1px solid var(--line);background:var(--sunk);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);
+}
+.figbox{padding:14px 10px 4px;overflow-x:auto}
+.figbox > svg{display:block;min-width:640px;width:100%;height:auto}
+figcaption{
+  padding:12px 16px 15px;border-top:1px solid var(--line-soft);
+  color:var(--ink2);font-size:13.5px;
+}
+.swatches{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;margin-top:9px}
+.swatch{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;color:var(--ink2)}
+.swatch i{width:11px;height:11px;border-radius:2px;display:inline-block;flex:none}
+
+svg .axis{stroke:var(--plot);stroke-width:1.1}
+svg .tick{stroke:var(--plot);stroke-width:1}
+svg .tbg{fill:var(--surface)}
+svg .tl{fill:var(--plotlab);font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px}
+svg .asym{stroke-width:1.4;stroke-dasharray:7 5}
+svg .asym.lvl{stroke:var(--lvl)}
+svg .asym.brk{stroke:var(--brk)}
+svg .curve{fill:none;stroke:var(--ink);stroke-width:2.2;stroke-linejoin:round;stroke-linecap:round}
+svg .dot{stroke:var(--ground);stroke-width:1.6}
+svg .dot.pt{fill:var(--pt)}
+svg .dot.lvl{fill:var(--lvl)}
+svg .crossdot{fill:none;stroke:var(--lvl);stroke-width:1.4}
+svg .lab{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.06em}
+svg .lab.lvl{fill:var(--lvl)}
+svg .lab.brk{fill:var(--brk)}
+svg .lab.dir{fill:var(--dir)}
+svg .lab.bend{fill:var(--bend)}
+svg .lab.pt{fill:var(--pt)}
+svg .lab.dim{fill:var(--ink3);font-size:10px}
+
+/* ---- the four shape glyphs ---- */
+.shapes{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin:0 0 18px}
+.shape{border:1px solid var(--line);background:var(--surface);border-radius:3px;padding:12px 14px}
+.shape > svg{display:block;width:100%;height:52px;margin-bottom:8px}
+.shape .sg{fill:none;stroke:var(--ink2);stroke-width:2;stroke-linecap:round}
+.shape .sl{stroke:var(--line);stroke-width:1;stroke-dasharray:4 4}
+.shape .sig{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.09em;color:var(--ink3);margin-bottom:3px}
+.shape .txt{font-size:13px;color:var(--ink2)}
+.shape.yes{border-color:var(--dir-line)}
+.shape.yes .sg{stroke:var(--dir)}
+.shape.no .sg{stroke:var(--brk)}
+
+/* ---- the axis-coverage strip ---- */
+.cov{display:grid;gap:4px;margin:0 0 18px;font-size:12.5px}
+.covrow{display:grid;grid-template-columns:118px minmax(0,1fr);gap:12px;align-items:center}
+.covrow .cl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);text-align:right}
+.covbar{display:grid;grid-template-columns:repeat(18,1fr);height:16px;
+  border:1px solid var(--line);border-radius:2px;overflow:hidden;background:var(--sunk)}
+.covbar span{display:block}
+.covbar .on-pt  {background:var(--pt)}
+.covbar .on-lvl {background:var(--lvl)}
+.covbar .on-brk {background:var(--brk)}
+.covbar .on-dir {background:var(--dir)}
+.covbar .on-bend{background:var(--bend)}
+.covbar .off{background:transparent}
+.covaxis{display:grid;grid-template-columns:repeat(18,1fr);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;color:var(--ink3)}
+.covaxis span{text-align:left}
+@media (max-width:560px){.covrow{grid-template-columns:1fr}.covrow .cl{text-align:left}}
+
+section{margin:52px 0 0;scroll-margin-top:16px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:clamp(21px,3vw,27px);
+  margin:0 0 6px;line-height:1.24;letter-spacing:-.01em;text-wrap:balance;
+}
+h2 .num{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--accent);
+  letter-spacing:.14em;margin-right:11px;vertical-align:2px;
+}
+h3{font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:16px;margin:26px 0 8px;color:var(--ink)}
+p{margin:0 0 12px;max-width:74ch}
+ul,ol{margin:0 0 14px;padding-left:22px;max-width:74ch}
+li{margin:0 0 7px}
+strong{font-weight:600;color:var(--ink)}
+em{font-style:italic;color:var(--ink2)}
+code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.9em;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;
+  padding:1px 5px;color:var(--accent);overflow-wrap:anywhere;
+}
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.58;
+  background:var(--sunk);border:1px solid var(--line);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:0 0 16px;color:var(--ink2);
+  overflow-wrap:normal;
+}
+pre b{color:var(--accent);font-weight:600}
+pre .g1{color:var(--brk)} pre .g2{color:var(--pt)}
+pre .g3{color:var(--lvl)} pre .g4{color:var(--dir)} pre .g5{color:var(--bend)}
+
+blockquote{
+  margin:0 0 18px;padding:15px 18px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--accent);border-radius:3px;
+}
+blockquote p:last-child{margin-bottom:0}
+
+.tscroll{overflow-x:auto;max-width:100%;margin:0 0 18px;border:1px solid var(--line);border-radius:3px}
+.tscroll > table{width:max-content;min-width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  background:var(--sunk);color:var(--ink3);font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;font-weight:500;
+  border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--surface2)}
+td.num,th.num{font-variant-numeric:tabular-nums}
+td.y{color:var(--ok);font-weight:600}
+td.n{color:var(--no);font-weight:600}
+
+.fam{border:1px solid var(--line);background:var(--surface);border-radius:3px;margin:0 0 16px;overflow:hidden}
+.fam-head{
+  display:flex;flex-wrap:wrap;align-items:center;gap:10px;
+  padding:11px 16px;background:var(--sunk);border-bottom:1px solid var(--line);
+}
+.fam-head .fno{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.14em;
+  color:var(--accent);text-transform:uppercase;
+}
+.fam-head .fname{font-weight:600;font-size:14.5px}
+.fam-head .mark{margin-left:auto}
+.fam-body{padding:15px 16px 4px}
+.fam-body .tscroll{margin-bottom:14px}
+.tt{display:grid;gap:6px;margin:0 0 13px}
+.tt div{font-size:13.5px;color:var(--ink2)}
+.tt b{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.11em;text-transform:uppercase;color:var(--ink3);
+  margin-right:8px;font-weight:500;
+}
+
+.callout{
+  border:1px solid var(--brk-line);background:var(--brk-soft);border-radius:3px;
+  padding:14px 16px;margin:0 0 18px;
+}
+.callout.good{border-color:var(--dir-line);background:var(--dir-soft)}
+.callout .ch{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brk);margin-bottom:7px;
+}
+.callout.good .ch{color:var(--dir)}
+.callout p:last-child{margin-bottom:0}
+
+ol.traps{counter-reset:t;list-style:none;padding-left:0}
+ol.traps li{
+  counter-increment:t;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:0 12px;margin:0 0 11px;
+}
+ol.traps li::before{
+  grid-column:1;grid-row:1;content:counter(t);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  color:var(--accent);padding-top:3px;
+}
+ol.traps li > span{grid-column:2;grid-row:1}
+
+footer{margin-top:56px;padding-top:22px;border-top:1px solid var(--line);color:var(--ink3);font-size:13px}
+footer p{max-width:80ch}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:560px){
+  .wrap{padding:0 15px 80px}
+  .mast{padding:38px 0 20px}
+  th,td{padding:8px 10px}
+}
+</style>
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 2 &middot; Item 4 &middot; 10 points</div>
+  <h1>Six Conditions, One Sketch</h1>
+  <p class="deck">Three of them pin single points. Three of them govern whole intervals, and those three are the ones that decide the picture: a branch that falls all the way onto a horizontal asymptote can only sit above it.</p>
+</header>
+
+<section>
+  <h2><span class="num">Q</span>The question, as printed</h2>
+  <div class="slab">
+    <div class="slab-top">Give the interpretation in terms of the graph of \(f(x)\) if</div>
+    <div class="slab-body">
+      <div class="ledger" style="margin:0">
+        <div class="lrow a"><div class="lid">a</div><div class="lnot">\(f(0) = -3\)</div><div class="lsay"><b>Point</b>one height, at one place</div></div>
+        <div class="lrow b"><div class="lid">b</div><div class="lnot">\(\displaystyle\lim_{x\to\infty} f(x) = -2\)</div><div class="lsay"><b>Level</b>one tail, one height</div></div>
+        <div class="lrow c"><div class="lid">c</div><div class="lnot">\(\displaystyle\lim_{x\to 3^-} f(x) = \infty\)</div><div class="lsay"><b>Pole</b>one branch runs up</div></div>
+        <div class="lrow d"><div class="lid">d</div><div class="lnot">\(f'(x) &lt; 0\) on \([3,\infty)\)</div><div class="lsay"><b>Direction</b>falling across the interval</div></div>
+        <div class="lrow e"><div class="lid">e</div><div class="lnot">\(f'(x) &lt; 0\) on \((-\infty,-2)\)</div><div class="lsay"><b>Direction</b>falling across the interval</div></div>
+        <div class="lrow f"><div class="lid">f</div><div class="lnot">\(f''(x) &gt; 0\) on \([4,\infty)\)</div><div class="lsay"><b>Bend</b>concave up: a cup</div></div>
+      </div>
+      <p style="margin-top:16px">Give a sketch of the graph of \(f(x)\).</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <div class="ch">Two transcription conflicts, found before anything was drawn</div>
+    <p><strong>Condition (c) is one-sided on the paper and two-sided in the question bank.</strong> Both copies of the exam write \(\lim_{x\to 3^-}\), with a minus superscript. <code>notes\MATH265.md</code> and <code>MATH265_Review.md</code> both drop it. The difference is real: route F below satisfies the paper exactly as printed, has a <em>finite</em> right-hand limit at 3, and fails the two-sided version.</p>
+    <p><strong>Condition (d)'s closed bracket is unsatisfiable.</strong> \([3,\infty)\) includes a point where \(f\) is undefined by (c), so \(f'(3)\) cannot exist for any candidate at all. Read it as \((3,\infty)\), say so in one clause, and move on.</p>
+  </div>
+
+  <blockquote>
+    <p><strong>The one sentence that decides this question.</strong> Conditions (b) and (d) are not two facts about the right-hand tail, they are one: a branch that <strong>falls</strong> all the way onto a horizontal asymptote must be <strong>above</strong> it, so the side of approach is forced rather than chosen. Q5.2's tail had no \(f'\) condition and could arrive from either side. Every interval condition here works like that, by removing a freedom a limit condition alone would have left you.</p>
+  </blockquote>
+</section>
+
+<section>
+  <h2><span class="num">A</span>The answer, and the picture</h2>
+  <p>There is no unique answer, and that is the point. Any function with these six features scores full marks. This one is shipped because both branches are single rational expressions and every landmark is a whole number or a small fraction.</p>
+
+  $$f(x)=\begin{cases}-3+\dfrac{x^{2}}{3-x}, & x<3\\[10pt] -2+\dfrac{6}{x-3}, & x>3\end{cases}$$
+
+  <figure>
+    <div class="figtop">Plotted from the function, not drawn &middot; every coordinate written by the verification harness</div>
+    <div class="figbox">
+      <svg viewBox="0 0 760 520" role="img" aria-label="The graph of f. A cup on the left with its minimum at the point (0, -3), rising to a vertical asymptote at x = 3; on the right of that asymptote a second branch descends from the top of the frame, crosses the x-axis at (6, 0), and flattens onto the horizontal asymptote y = -2 from above.">
+        <line class="asym lvl" x1="46" y1="408" x2="742" y2="408"></line>
+        <line class="asym brk" x1="455.41" y1="18" x2="455.41" y2="486"></line>
+        <line class="axis" x1="46" y1="330" x2="742" y2="330"></line>
+        <line class="axis" x1="332.59" y1="18" x2="332.59" y2="486"></line>
+
+        <g class="tick">
+          <line x1="86.94" y1="326" x2="86.94" y2="334"></line>
+          <line x1="168.82" y1="326" x2="168.82" y2="334"></line>
+          <line x1="250.71" y1="326" x2="250.71" y2="334"></line>
+          <line x1="414.47" y1="326" x2="414.47" y2="334"></line>
+          <line x1="496.35" y1="326" x2="496.35" y2="334"></line>
+          <line x1="660.12" y1="326" x2="660.12" y2="334"></line>
+          <line x1="742" y1="326" x2="742" y2="334"></line>
+          <line x1="328.59" y1="252" x2="336.59" y2="252"></line>
+          <line x1="328.59" y1="174" x2="336.59" y2="174"></line>
+          <line x1="328.59" y1="96" x2="336.59" y2="96"></line>
+        </g>
+
+        <polyline class="curve" points="46.00,255.90 46.89,256.67 47.78,257.44 48.67,258.21 49.56,258.98 50.45,259.75 51.34,260.52 52.23,261.29 53.12,262.06 54.01,262.83 54.90,263.60 55.79,264.37 56.68,265.13 57.57,265.90 58.46,266.67 59.35,267.43 60.24,268.20 61.13,268.97 62.02,269.73 62.91,270.50 63.80,271.26 64.69,272.03 65.58,272.79 66.47,273.55 67.36,274.32 68.25,275.08 69.14,275.84 70.03,276.60 70.92,277.36 71.81,278.13 72.70,278.89 73.59,279.65 74.48,280.41 75.37,281.17 76.26,281.92 77.15,282.68 78.04,283.44 78.93,284.20 79.82,284.96 80.71,285.71 81.60,286.47 82.49,287.23 83.38,287.98 84.27,288.74 85.16,289.49 86.05,290.25 86.94,291.00 87.83,291.75 88.72,292.51 89.61,293.26 90.50,294.01 91.39,294.76 92.28,295.51 93.17,296.26 94.06,297.01 94.95,297.76 95.84,298.51 96.73,299.26 97.62,300.01 98.51,300.76 99.40,301.50 100.29,302.25 101.18,303.00 102.07,303.74 102.96,304.49 103.85,305.23 104.74,305.98 105.63,306.72 106.52,307.46 107.41,308.21 108.30,308.95 109.19,309.69 110.08,310.43 110.97,311.17 111.86,311.91 112.75,312.65 113.64,313.39 114.53,314.13 115.42,314.86 116.31,315.60 117.20,316.34 118.09,317.07 118.98,317.81 119.87,318.54 120.76,319.28 121.65,320.01 122.54,320.74 123.43,321.47 124.32,322.21 125.21,322.94 126.10,323.67 126.99,324.40 127.88,325.12 128.77,325.85 129.66,326.58 130.55,327.31 131.44,328.03 132.33,328.76 133.22,329.48 134.11,330.21 135.00,330.93 135.89,331.66 136.78,332.38 137.67,333.10 138.56,333.82 139.45,334.54 140.34,335.26 141.23,335.98 142.12,336.70 143.01,337.41 143.90,338.13 144.79,338.85 145.68,339.56 146.57,340.27 147.46,340.99 148.35,341.70 149.24,342.41 150.13,343.12 151.02,343.83 151.91,344.54 152.80,345.25 153.69,345.96 154.58,346.67 155.47,347.37 156.36,348.08 157.25,348.78 158.14,349.48 159.03,350.19 159.92,350.89 160.81,351.59 161.70,352.29 162.59,352.99 163.48,353.69 164.37,354.38 165.26,355.08 166.15,355.78 167.04,356.47 167.93,357.16 168.82,357.86 169.71,358.55 170.60,359.24 171.49,359.93 172.38,360.62 173.27,361.31 174.16,361.99 175.05,362.68 175.94,363.36 176.83,364.05 177.72,364.73 178.61,365.41 179.50,366.09 180.39,366.77 181.28,367.45 182.17,368.12 183.06,368.80 183.95,369.48 184.84,370.15 185.73,370.82 186.62,371.49 187.51,372.16 188.40,372.83 189.29,373.50 190.18,374.17 191.07,374.83 191.96,375.50 192.85,376.16 193.74,376.82 194.63,377.48 195.52,378.14 196.41,378.80 197.30,379.45 198.19,380.11 199.08,380.76 199.97,381.42 200.86,382.07 201.75,382.72 202.64,383.37 203.53,384.01 204.42,384.66 205.31,385.30 206.20,385.94 207.09,386.59 207.98,387.23 208.87,387.86 209.76,388.50 210.65,389.14 211.54,389.77 212.43,390.40 213.32,391.03 214.21,391.66 215.10,392.29 215.99,392.91 216.88,393.54 217.77,394.16 218.66,394.78 219.55,395.40 220.45,396.01 221.34,396.63 222.23,397.24 223.12,397.86 224.01,398.47 224.90,399.07 225.79,399.68 226.68,400.28 227.57,400.89 228.46,401.49 229.35,402.09 230.24,402.68 231.13,403.28 232.02,403.87 232.91,404.46 233.80,405.05 234.69,405.63 235.58,406.22 236.47,406.80 237.36,407.38 238.25,407.96 239.14,408.53 240.03,409.11 240.92,409.68 241.81,410.25 242.70,410.81 243.59,411.38 244.48,411.94 245.37,412.50 246.26,413.05 247.15,413.61 248.04,414.16 248.93,414.71 249.82,415.26 250.71,415.80 251.60,416.34 252.49,416.88 253.38,417.42 254.27,417.95 255.16,418.48 256.05,419.01 256.94,419.53 257.83,420.05 258.72,420.57 259.61,421.09 260.50,421.60 261.39,422.11 262.28,422.62 263.17,423.12 264.06,423.62 264.95,424.12 265.84,424.61 266.73,425.10 267.62,425.59 268.51,426.07 269.40,426.55 270.29,427.03 271.18,427.50 272.07,427.97 272.96,428.43 273.85,428.90 274.74,429.35 275.63,429.81 276.52,430.26 277.41,430.70 278.30,431.15 279.19,431.58 280.08,432.02 280.97,432.45 281.86,432.87 282.75,433.29 283.64,433.71 284.53,434.12 285.42,434.53 286.31,434.93 287.20,435.33 288.09,435.73 288.98,436.11 289.87,436.50 290.76,436.88 291.65,437.25 292.54,437.62 293.43,437.98 294.32,438.34 295.21,438.69 296.10,439.04 296.99,439.38 297.88,439.71 298.77,440.04 299.66,440.37 300.55,440.69 301.44,441.00 302.33,441.30 303.22,441.60 304.11,441.89 305.00,442.18 305.89,442.46 306.78,442.73 307.67,443.00 308.56,443.25 309.45,443.51 310.34,443.75 311.23,443.99 312.12,444.21 313.01,444.44 313.90,444.65 314.79,444.85 315.68,445.05 316.57,445.24 317.46,445.42 318.35,445.59 319.24,445.75 320.13,445.91 321.02,446.05 321.91,446.19 322.80,446.31 323.69,446.43 324.58,446.53 325.47,446.63 326.36,446.71 327.25,446.79 328.14,446.85 329.03,446.90 329.92,446.95 330.81,446.98 331.70,446.99 332.59,447.00 333.48,446.99 334.37,446.98 335.26,446.94 336.15,446.90 337.04,446.84 337.93,446.77 338.82,446.68 339.71,446.58 340.60,446.47 341.49,446.34 342.38,446.19 343.27,446.03 344.16,445.85 345.05,445.66 345.94,445.45 346.83,445.22 347.72,444.98 348.61,444.71 349.50,444.43 350.39,444.13 351.28,443.80 352.17,443.46 353.06,443.10 353.95,442.72 354.84,442.31 355.73,441.88 356.62,441.43 357.51,440.96 358.40,440.46 359.29,439.93 360.18,439.39 361.07,438.81 361.96,438.21 362.85,437.58 363.74,436.92 364.63,436.23 365.52,435.51 366.41,434.76 367.30,433.97 368.19,433.16 369.08,432.31 369.97,431.42 370.86,430.50 371.75,429.54 372.64,428.54 373.53,427.50 374.42,426.42 375.31,425.30 376.20,424.13 377.09,422.91 377.98,421.65 378.87,420.34 379.76,418.98 380.65,417.57 381.54,416.10 382.43,414.58 383.32,412.99 384.21,411.35 385.10,409.64 385.99,407.87 386.88,406.03 387.77,404.12 388.66,402.13 389.55,400.07 390.44,397.93 391.33,395.71 392.22,393.40 393.11,391.00 394.00,388.50 394.89,385.91 395.78,383.21 396.67,380.41 397.56,377.49 398.45,374.46 399.34,371.30 400.23,368.02 401.12,364.59 402.01,361.03 402.90,357.32 403.79,353.45 404.68,349.41 405.57,345.20 406.46,340.81 407.35,336.22 408.24,331.42 409.13,326.41 410.02,321.17 410.91,315.69 411.80,309.95 412.69,303.93 413.58,297.62 414.47,291.00 415.36,284.05 416.25,276.74 417.14,269.06 418.03,260.96 418.92,252.43 419.81,243.44 420.70,233.93 421.59,223.89 422.48,213.25 423.37,201.98 424.26,190.01 425.15,177.29 426.04,163.75 426.93,149.31 427.82,133.88 428.71,117.37 429.60,99.65 430.49,80.62 431.38,60.11 432.27,37.96 433.02,18.00"></polyline>
+        <polyline class="curve" points="479.98,18.00 480.33,23.57 480.96,32.95 481.58,41.88 482.20,50.39 482.82,58.52 483.45,66.29 484.07,73.71 484.69,80.83 485.32,87.64 485.94,94.18 486.56,100.46 487.19,106.49 487.81,112.29 488.43,117.87 489.05,123.24 489.68,128.42 490.30,133.41 490.92,138.23 491.55,142.88 492.17,147.37 492.79,151.71 493.42,155.92 494.04,159.98 494.66,163.92 495.28,167.73 495.91,171.43 496.53,175.01 497.15,178.49 497.78,181.87 498.40,185.14 499.02,188.33 499.65,191.42 500.27,194.43 500.89,197.35 501.52,200.20 502.14,202.97 502.76,205.67 503.38,208.30 504.01,210.86 504.63,213.35 505.25,215.79 505.88,218.16 506.50,220.47 507.12,222.73 507.75,224.94 508.37,227.09 508.99,229.20 509.61,231.25 510.24,233.26 510.86,235.22 511.48,237.14 512.11,239.02 512.73,240.86 513.35,242.65 513.98,244.41 514.60,246.14 515.22,247.82 515.84,249.47 516.47,251.09 517.09,252.68 517.71,254.23 518.34,255.75 518.96,257.24 519.58,258.71 520.21,260.14 520.83,261.55 521.45,262.93 522.07,264.29 522.70,265.62 523.32,266.93 523.94,268.21 524.57,269.47 525.19,270.70 525.81,271.92 526.44,273.11 527.06,274.29 527.68,275.44 528.30,276.57 528.93,277.69 529.55,278.78 530.17,279.86 530.80,280.92 531.42,281.96 532.04,282.98 532.67,283.99 533.29,284.98 533.91,285.96 534.54,286.92 535.16,287.87 535.78,288.80 536.40,289.71 537.03,290.62 537.65,291.51 538.27,292.38 538.90,293.25 539.52,294.10 540.14,294.93 540.77,295.76 541.39,296.57 542.01,297.37 542.63,298.16 543.26,298.94 543.88,299.71 544.50,300.47 545.13,301.21 545.75,301.95 546.37,302.68 547.00,303.39 547.62,304.10 548.24,304.80 548.86,305.49 549.49,306.16 550.11,306.83 550.73,307.50 551.36,308.15 551.98,308.79 552.60,309.43 553.23,310.06 553.85,310.68 554.47,311.29 555.09,311.89 555.72,312.49 556.34,313.08 556.96,313.66 557.59,314.24 558.21,314.81 558.83,315.37 559.46,315.92 560.08,316.47 560.70,317.01 561.32,317.55 561.95,318.08 562.57,318.60 563.19,319.11 563.82,319.63 564.44,320.13 565.06,320.63 565.69,321.12 566.31,321.61 566.93,322.09 567.55,322.57 568.18,323.04 568.80,323.51 569.42,323.97 570.05,324.43 570.67,324.88 571.29,325.33 571.92,325.77 572.54,326.21 573.16,326.64 573.79,327.07 574.41,327.49 575.03,327.91 575.65,328.33 576.28,328.74 576.90,329.14 577.52,329.55 578.15,329.94 578.77,330.34 579.39,330.73 580.02,331.11 580.64,331.50 581.26,331.88 581.88,332.25 582.51,332.62 583.13,332.99 583.75,333.35 584.38,333.71 585.00,334.07 585.62,334.43 586.25,334.78 586.87,335.12 587.49,335.47 588.11,335.81 588.74,336.14 589.36,336.48 589.98,336.81 590.61,337.14 591.23,337.46 591.85,337.78 592.48,338.10 593.10,338.42 593.72,338.73 594.34,339.04 594.97,339.35 595.59,339.66 596.21,339.96 596.84,340.26 597.46,340.56 598.08,340.85 598.71,341.14 599.33,341.43 599.95,341.72 600.57,342.00 601.20,342.29 601.82,342.57 602.44,342.84 603.07,343.12 603.69,343.39 604.31,343.66 604.94,343.93 605.56,344.19 606.18,344.46 606.81,344.72 607.43,344.98 608.05,345.24 608.67,345.49 609.30,345.74 609.92,346.00 610.54,346.24 611.17,346.49 611.79,346.74 612.41,346.98 613.04,347.22 613.66,347.46 614.28,347.70 614.90,347.93 615.53,348.17 616.15,348.40 616.77,348.63 617.40,348.86 618.02,349.08 618.64,349.31 619.27,349.53 619.89,349.75 620.51,349.97 621.13,350.19 621.76,350.41 622.38,350.62 623.00,350.84 623.63,351.05 624.25,351.26 624.87,351.47 625.50,351.67 626.12,351.88 626.74,352.08 627.36,352.29 627.99,352.49 628.61,352.69 629.23,352.88 629.86,353.08 630.48,353.28 631.10,353.47 631.73,353.66 632.35,353.86 632.97,354.05 633.59,354.23 634.22,354.42 634.84,354.61 635.46,354.79 636.09,354.98 636.71,355.16 637.33,355.34 637.96,355.52 638.58,355.70 639.20,355.87 639.83,356.05 640.45,356.23 641.07,356.40 641.69,356.57 642.32,356.74 642.94,356.91 643.56,357.08 644.19,357.25 644.81,357.42 645.43,357.58 646.06,357.75 646.68,357.91 647.30,358.07 647.92,358.24 648.55,358.40 649.17,358.56 649.79,358.71 650.42,358.87 651.04,359.03 651.66,359.18 652.29,359.34 652.91,359.49 653.53,359.64 654.15,359.80 654.78,359.95 655.40,360.10 656.02,360.24 656.65,360.39 657.27,360.54 657.89,360.69 658.52,360.83 659.14,360.98 659.76,361.12 660.38,361.26 661.01,361.40 661.63,361.54 662.25,361.68 662.88,361.82 663.50,361.96 664.12,362.10 664.75,362.23 665.37,362.37 665.99,362.51 666.61,362.64 667.24,362.77 667.86,362.91 668.48,363.04 669.11,363.17 669.73,363.30 670.35,363.43 670.98,363.56 671.60,363.69 672.22,363.81 672.85,363.94 673.47,364.07 674.09,364.19 674.71,364.31 675.34,364.44 675.96,364.56 676.58,364.68 677.21,364.81 677.83,364.93 678.45,365.05 679.08,365.17 679.70,365.29 680.32,365.40 680.94,365.52 681.57,365.64 682.19,365.76 682.81,365.87 683.44,365.99 684.06,366.10 684.68,366.21 685.31,366.33 685.93,366.44 686.55,366.55 687.17,366.66 687.80,366.77 688.42,366.88 689.04,366.99 689.67,367.10 690.29,367.21 690.91,367.32 691.54,367.43 692.16,367.53 692.78,367.64 693.40,367.75 694.03,367.85 694.65,367.96 695.27,368.06 695.90,368.16 696.52,368.27 697.14,368.37 697.77,368.47 698.39,368.57 699.01,368.67 699.63,368.77 700.26,368.87 700.88,368.97 701.50,369.07 702.13,369.17 702.75,369.27 703.37,369.36 704.00,369.46 704.62,369.56 705.24,369.65 705.86,369.75 706.49,369.84 707.11,369.94 707.73,370.03 708.36,370.13 708.98,370.22 709.60,370.31 710.23,370.40 710.85,370.49 711.47,370.59 712.10,370.68 712.72,370.77 713.34,370.86 713.96,370.95 714.59,371.04 715.21,371.12 715.83,371.21 716.46,371.30 717.08,371.39 717.70,371.47 718.33,371.56 718.95,371.65 719.57,371.73 720.19,371.82 720.82,371.90 721.44,371.99 722.06,372.07 722.69,372.16 723.31,372.24 723.93,372.32 724.56,372.40 725.18,372.49 725.80,372.57 726.42,372.65 727.05,372.73 727.67,372.81 728.29,372.89 728.92,372.97 729.54,373.05 730.16,373.13 730.79,373.21 731.41,373.29 732.03,373.37 732.65,373.44 733.28,373.52 733.90,373.60 734.52,373.68 735.15,373.75 735.77,373.83 736.39,373.90 737.02,373.98 737.64,374.05 738.26,374.13 738.88,374.20 739.51,374.28 740.13,374.35 740.75,374.43 741.38,374.50 742.00,374.57"></polyline>
+
+        <circle class="crossdot" cx="238.31" cy="408" r="4.6"></circle>
+        <circle class="crossdot" cx="385.92" cy="408" r="4.6"></circle>
+        <circle class="dot pt" cx="332.59" cy="447" r="5.4"></circle>
+        <circle class="dot lvl" cx="578.24" cy="330" r="4.6"></circle>
+        <circle cx="496.35" cy="174" r="3.8" fill="none" stroke="currentColor" stroke-width="1.4" style="color:var(--ink3)"></circle>
+
+        <g>
+          <rect class="tbg" x="76" y="335" width="22" height="14"></rect><text class="tl" x="86.94" y="345.5" text-anchor="middle">-6</text>
+          <rect class="tbg" x="158" y="335" width="22" height="14"></rect><text class="tl" x="168.82" y="345.5" text-anchor="middle">-4</text>
+          <rect class="tbg" x="240" y="335" width="22" height="14"></rect><text class="tl" x="250.71" y="345.5" text-anchor="middle">-2</text>
+          <rect class="tbg" x="418" y="335" width="15" height="14"></rect><text class="tl" x="425.5" y="345.5" text-anchor="middle">2</text>
+          <rect class="tbg" x="489" y="335" width="15" height="14"></rect><text class="tl" x="496.35" y="345.5" text-anchor="middle">4</text>
+          <rect class="tbg" x="653" y="335" width="15" height="14"></rect><text class="tl" x="660.12" y="345.5" text-anchor="middle">8</text>
+          <rect class="tbg" x="718" y="335" width="24" height="14"></rect><text class="tl" x="742" y="345.5" text-anchor="end">10</text>
+          <rect class="tbg" x="310" y="245" width="15" height="14"></rect><text class="tl" x="324" y="255.5" text-anchor="end">2</text>
+          <rect class="tbg" x="310" y="167" width="15" height="14"></rect><text class="tl" x="324" y="177.5" text-anchor="end">4</text>
+          <rect class="tbg" x="310" y="89" width="15" height="14"></rect><text class="tl" x="324" y="99.5" text-anchor="end">6</text>
+        </g>
+
+        <text class="lab dir"  x="56"  y="236">(e)  f&#8242; &lt; 0  here</text>
+        <text class="lab lvl"  x="56"  y="400">y = -2</text>
+        <text class="lab brk"  x="462" y="466">x = 3</text>
+        <text class="lab pt"   x="322" y="474" text-anchor="end">(0, -3)  the minimum</text>
+        <text class="lab dim"  x="506" y="170">(4, 4)</text>
+        <text class="lab dim"  x="586" y="318">(6, 0)</text>
+        <text class="lab" x="736" y="232" text-anchor="end"><tspan fill="var(--dir)">(d) f&#8242; &lt; 0</tspan><tspan fill="var(--ink3)"> and </tspan><tspan fill="var(--bend)">(f) f&#8243; &gt; 0</tspan></text>
+        <text class="lab lvl"  x="736" y="386" text-anchor="end">(b) the tail stays ABOVE y = -2</text>
+      </svg>
+    </div>
+    <figcaption>
+      The two slate rings on the dashed line are where the left branch crosses \(y=-2\), at \(x=\tfrac{-1\pm\sqrt{13}}2\). A graph is allowed to cross its own horizontal asymptote, and here the crossing on \((0,3)\) is <em>forced</em>: \(f(0)=-3\) sits below the line and the branch runs to \(+\infty\).
+      <div class="swatches">
+        <span class="swatch"><i style="background:var(--pt)"></i>point &middot; (a)</span>
+        <span class="swatch"><i style="background:var(--lvl)"></i>level &middot; (b)</span>
+        <span class="swatch"><i style="background:var(--brk)"></i>pole &middot; (c)</span>
+        <span class="swatch"><i style="background:var(--dir)"></i>direction &middot; (d), (e)</span>
+        <span class="swatch"><i style="background:var(--bend)"></i>bend &middot; (f)</span>
+      </div>
+    </figcaption>
+  </figure>
+
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>What is asked for</th><th>What you produce</th></tr></thead>
+      <tbody>
+        <tr><td>the <strong>interpretation</strong> half</td><td>six sentences, one per condition, each naming a <em>feature</em></td></tr>
+        <tr><td>the <strong>sketch</strong> half</td><td>the labelled graph above, both asymptotes dashed and named</td></tr>
+        <tr><td>a formula</td><td><code>-3+x^2/(3-x)</code> for <code>x&lt;3</code>, <code>-2+6/(x-3)</code> for <code>x&gt;3</code></td></tr>
+        <tr><td>the horizontal asymptote</td><td><code>y=-2</code></td></tr>
+        <tr><td>the vertical asymptote</td><td><code>x=3</code></td></tr>
+        <tr><td>\(\lim_{x\to3^-}f\) and \(\lim_{x\to3^+}f\)</td><td><code>infinity</code> and <code>infinity</code></td></tr>
+        <tr><td>where \(f\) is decreasing</td><td><code>(-infinity,0)U(3,infinity)</code>; the conditions only require \((-\infty,-2)\) and \((3,\infty)\)</td></tr>
+        <tr><td>where \(f\) is concave up</td><td><code>(3,infinity)</code> at minimum; this answer is concave up everywhere</td></tr>
+        <tr><td>is \(f\) continuous at 3?</td><td><code>no</code>, and not differentiable there either</td></tr>
+        <tr><td>which side is the tail approached from?</td><td><code>above</code>, and that is forced, not chosen</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">0</span>The 30-second version</h2>
+  <p>Q5.1 was translation: four conditions at three isolated points. Q5.2 was translation plus routing: five conditions, two colliding at one point. Q5.3 is translation plus <strong>shape</strong>, because for the first time the conditions govern whole stretches of the axis.</p>
+<pre><b>STEP 1  SPLIT THE LIST IN TWO.   POINTS vs INTERVALS.</b>
+          <span class="g2">POINTS</span>:     (a) at x=0    (c) at x=3    (b) at the right tail
+          <span class="g4">INTERVALS</span>:  (d) on (3,inf)  (e) on (-inf,-2)  (f) on [4,inf)
+        Draw the POINTS first.  The intervals then say how to JOIN them.
+
+<b>STEP 2  THE FRAME.</b>  Dashed VERTICAL line   x = 3     &lt;- from (c)
+                    Dashed HORIZONTAL line y = -2    &lt;- from (b), RIGHT END ONLY
+                    Solid dot at (0, -3)             &lt;- from (a)
+
+<b>STEP 3  x = 3.</b>  "= inf" on the LEFT.  Left branch runs UP the dashed line.
+        The right branch is settled by (d)+(b) anyway, so draw it UP too:
+        that satisfies both the paper and every transcription of it.
+
+<b>STEP 4  THE RIGHT TAIL, which is where the marks are.</b>
+          (d) f' &lt; 0   -&gt; falling
+          (b) -&gt; -2    -&gt; so it is ALWAYS ABOVE -2.  Falling onto a level
+                          means arriving from ABOVE.  <span class="g3">This is FORCED.</span>
+          (f) f'' &gt; 0  -&gt; concave up: the cup that lets it flatten out.
+        Picture: comes DOWN from +infinity, flattens, hugs y = -2 from above.
+
+<b>STEP 5  THE FAR LEFT.</b>  (e) says falling on (-inf,-2).  Read it BACKWARDS:
+        going LEFT the curve RISES.  Nothing pins where it ends up.
+
+<b>STEP 6  THE MIDDLE (-2, 3) IS NOT MENTIONED, and is still not free:</b>
+        the curve arrives FALLING and must leave RISING to reach +infinity
+        at 3^-, so it TURNS AROUND at least once, and on the way up from
+        f(0) = -3 it must CROSS y = -2.
+
+<b>CHECK</b>   Right of 3: does it fall?  yes.  Stay above -2?  yes.  Cup?  yes.
+        Left of -2: does it fall left-to-right?  yes.
+        Is there exactly ONE dot on the line x=0, at height -3?  yes.
+        Is anything drawn AT x = 3?  no - f is undefined there.</pre>
+  <p>The two steps that carry the marks are step 4 and step 6, because both are places where a condition says more than it appears to.</p>
+</section>
+
+<section>
+  <h2><span class="num">1</span>An interval condition is about shape, never about height</h2>
+  <p>This is the single idea behind (d), (e) and (f), and it is where most of the lost marks are.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Notation</th><th>What it constrains</th><th>What it does NOT constrain</th></tr></thead>
+      <tbody>
+        <tr><td>\(f'(x)&lt;0\) on \(I\)</td><td>the <strong>direction</strong> of travel across \(I\)</td><td>any value of \(f\), the sign of \(f\), the steepness</td></tr>
+        <tr><td>\(f'(x)&gt;0\) on \(I\)</td><td>the direction, the other way</td><td>the same list</td></tr>
+        <tr><td>\(f''(x)&gt;0\) on \(I\)</td><td>the <strong>bend</strong>: the slope is increasing</td><td>whether \(f\) rises or falls, and where \(f\) sits</td></tr>
+        <tr><td>\(f''(x)&lt;0\) on \(I\)</td><td>the bend, the other way</td><td>the same list</td></tr>
+        <tr><td>\(f(a)=b\)</td><td>one <strong>height</strong>, at one place</td><td>the direction, the bend, or anything nearby</td></tr>
+        <tr><td>\(\lim_{x\to\infty}f=L\)</td><td>the <strong>end behaviour</strong> of one tail</td><td>any finite part of the graph</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="ch">The confusion that actually happens</div>
+    <p>\(f'&lt;0\) gets read as \(f&lt;0\), and the branch is drawn below the \(x\)-axis. The shipped answer's right branch is <em>above</em> the axis from \(x=3\) to \(x=6\) and below it after that, and both halves satisfy (d) equally, because (d) never mentions height.</p>
+  </div>
+
+  <h3>The four shapes, and which two can settle onto a level</h3>
+  <div class="shapes">
+    <div class="shape yes">
+      <svg viewBox="0 0 180 52" aria-hidden="true"><line class="sl" x1="4" y1="42" x2="176" y2="42"></line><path class="sg" d="M8 8 C 60 34, 100 40, 172 41"></path></svg>
+      <div class="sig">f&#8242; &lt; 0 &nbsp; f&#8243; &gt; 0</div>
+      <div class="txt">Falling, flattening. Settles onto \(y=L\) <strong>from above</strong>. This is Q5.3's right branch.</div>
+    </div>
+    <div class="shape yes">
+      <svg viewBox="0 0 180 52" aria-hidden="true"><line class="sl" x1="4" y1="10" x2="176" y2="10"></line><path class="sg" d="M8 44 C 60 18, 100 12, 172 11"></path></svg>
+      <div class="sig">f&#8242; &gt; 0 &nbsp; f&#8243; &lt; 0</div>
+      <div class="txt">Rising, flattening. Settles onto \(y=L\) <strong>from below</strong>. This is what Q5.2's tail was free to do.</div>
+    </div>
+    <div class="shape no">
+      <svg viewBox="0 0 180 52" aria-hidden="true"><line class="sl" x1="4" y1="26" x2="176" y2="26"></line><path class="sg" d="M8 8 C 70 18, 120 34, 172 48"></path></svg>
+      <div class="sig">f&#8242; &lt; 0 &nbsp; f&#8243; &lt; 0</div>
+      <div class="txt">Falling and steepening. <strong>Cannot</strong> settle: it runs away to \(-\infty\).</div>
+    </div>
+    <div class="shape no">
+      <svg viewBox="0 0 180 52" aria-hidden="true"><line class="sl" x1="4" y1="26" x2="176" y2="26"></line><path class="sg" d="M8 44 C 70 34, 120 18, 172 4"></path></svg>
+      <div class="sig">f&#8242; &gt; 0 &nbsp; f&#8243; &gt; 0</div>
+      <div class="txt">Rising and steepening. <strong>Cannot</strong> settle: it runs away to \(+\infty\).</div>
+    </div>
+  </div>
+
+  <h3>Why "falling onto \(L\)" forces "above \(L\)"</h3>
+  <p>Suppose \(f\) is decreasing on \((3,\infty)\) and \(f(x_0)\le L\) for some \(x_0&gt;3\). Then \(f(x)&lt;f(x_0)\le L\) for every \(x&gt;x_0\), so the limit is at most \(f(x_1)\) for any \(x_1&gt;x_0\), which is strictly below \(L\). That contradicts \(\lim_{x\to\infty}f=L\). So \(f(x)&gt;L\) everywhere on \((3,\infty)\). Checked on all six legal routes below, at \(x\) up to \(10^{6}\).</p>
+
+  <h3>Why the bottom two cannot settle</h3>
+  <p>If \(f'&lt;0\) and \(f''\le0\) on the whole of \([c,\infty)\) then \(f'\) is decreasing, so \(f'(x)\le f'(c)&lt;0\), and therefore \(f(x)\le f(c)+f'(c)(x-c)\), which runs to \(-\infty\). The consequence for Q5.3: given (b) and (d), it is <strong>impossible</strong> for \(f''\) to be negative on the whole of \([4,\infty)\). Condition (f) states the strongest version of something the other conditions had already half-forced.</p>
+  <div class="callout good">
+    <div class="ch">The qualifier that keeps this honest</div>
+    <p>"Concave down" alone is not banned near a horizontal asymptote. \(f(x)=-2-\tfrac1x\) is increasing, concave down, and settles onto \(y=-2\) from below: that is the second glyph. What is banned is the <strong>pair</strong> \(f'&lt;0\) and \(f''&lt;0\) on an entire tail. Q5.2's tutorial compresses this to "a tail must be concave the opposite way from its direction of travel", which is right in spirit and slightly too strong as written: a tail may be concave the same way on <em>part</em> of itself, just never on all of it.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">2</span>Which parts of the axis the conditions actually reach</h2>
+  <p>Shade every interval a condition mentions and look at what is left white. Three of the six conditions cover almost nothing, and the widest white stretch in the middle is where students either over-draw or freeze.</p>
+  <div class="cov">
+    <div class="covrow"><div class="cl">(a) point</div><div class="covbar"><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="on-pt"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span></div></div>
+    <div class="covrow"><div class="cl">(b) level</div><div class="covbar"><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="on-lvl"></span><span class="on-lvl"></span></div></div>
+    <div class="covrow"><div class="cl">(c) pole</div><div class="covbar"><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="on-brk"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span></div></div>
+    <div class="covrow"><div class="cl">(d) direction</div><div class="covbar"><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span></div></div>
+    <div class="covrow"><div class="cl">(e) direction</div><div class="covbar"><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="on-dir"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span></div></div>
+    <div class="covrow"><div class="cl">(f) bend</div><div class="covbar"><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="off"></span><span class="on-bend"></span><span class="on-bend"></span><span class="on-bend"></span><span class="on-bend"></span><span class="on-bend"></span><span class="on-bend"></span><span class="on-bend"></span></div></div>
+    <div class="covrow"><div class="cl">x</div><div class="covaxis"><span>-7</span><span></span><span>-5</span><span></span><span>-3</span><span></span><span>-1</span><span></span><span>1</span><span></span><span>3</span><span></span><span>5</span><span></span><span>7</span><span></span><span>9</span><span></span></div></div>
+  </div>
+  <p>Each cell is one unit of \(x\) wide and is labelled at its left edge. The white band from \(-2\) to \(3\) is the one nothing mentions. It is still not free.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>What is forced on \((-2,3)\)</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>the curve <strong>turns around</strong> at least once</td><td>it arrives falling, from (e), and must leave rising to reach \(+\infty\) at \(3^-\)</td></tr>
+        <tr><td>it <strong>crosses</strong> \(y=-2\)</td><td>\(f(0)=-3\) is below that line and the branch runs to \(+\infty\), so the Intermediate Value Theorem forces every height above \(-3\)</td></tr>
+        <tr><td>it takes <strong>every</strong> height above \(-3\) on \([0,3)\)</td><td>the same theorem, in full</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>All three assume that stretch is drawn <strong>without lifting the pen</strong>. A graph that jumps there escapes all three, which is exactly why the forcing is stated for an unbroken branch. What is genuinely free: where the turning point sits, whether it is smooth or a corner, and how many times the curve wiggles.</p>
+  <div class="callout good">
+    <div class="ch">Q5.3 is the first in this family with no differentiability condition at all</div>
+    <p>Q5.1 required a non-differentiable point. Q5.2 required a continuous non-differentiable point. Q5.3 requires neither, so a smooth curve is the safe default here and a corner is merely allowed.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">3</span>The one-sided limit, and the bracket that cannot be literal</h2>
+
+  <h3>What (c) leaves free</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Written condition</th><th>Left branch at 3</th><th>Right branch at 3</th></tr></thead>
+      <tbody>
+        <tr><td>\(\lim_{x\to3}f=+\infty\)</td><td>up</td><td>up</td></tr>
+        <tr><td>\(\lim_{x\to3^-}f=+\infty\) &nbsp;<strong>the paper</strong></td><td>up</td><td><strong>free</strong></td></tr>
+        <tr><td>\(\lim_{x\to3^+}f=+\infty\)</td><td>free</td><td>up</td></tr>
+        <tr><td>\(\lim_{x\to3}f\) DNE, with a pole</td><td colspan="2">the two disagree</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Something else in the list does most of the right side's work anyway. \(f\) falls on \((3,\infty)\) and tends to \(-2\), so as \(x\) comes down towards 3 the function <em>rises</em>: \(\lim_{x\to3^+}f\) is either \(+\infty\) or some finite number above \(-2\). It cannot be \(-\infty\) and it cannot be at or below \(-2\).</p>
+  <div class="callout good">
+    <div class="ch">What to draw</div>
+    <p>Draw both branches going up. That satisfies the one-sided reading, the two-sided reading, and any marker's expectation, and it costs nothing.</p>
+  </div>
+
+  <h3>Why \([3,\infty)\) has to be read open</h3>
+  <p>\(f'(3)\) requires \(\lim_{h\to0}\frac{f(3+h)-f(3)}{h}\) to exist as a single finite number. Condition (c) makes \(f\) unbounded just left of 3, so whatever value you assign to \(f(3)\), the numerator runs to \(+\infty\) while \(h\) is negative and the quotient runs to \(-\infty\). No finite slope exists, so \(f'(3)&lt;0\) is false for <em>every</em> function satisfying (c).</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Condition</th><th>Endpoint</th><th>Is \(f\) defined there?</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>(d) \(f'&lt;0\) on \([3,\infty)\)</td><td>\(x=3\)</td><td class="n">no, it is a pole</td><td>read as \((3,\infty)\)</td></tr>
+        <tr><td>(f) \(f''&gt;0\) on \([4,\infty)\)</td><td>\(x=4\)</td><td class="y">yes</td><td>leave the bracket alone</td></tr>
+        <tr><td>(e) \(f'&lt;0\) on \((-\infty,-2)\)</td><td>none</td><td>not applicable</td><td>already open</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>In the exam: read (d) as \((3,\infty)\), draw the picture, and add one clause, "on \((3,\infty)\), since \(f\) is not defined at 3 and so has no derivative there". Four seconds, and it is the difference between reading the condition and copying it. Do not spend time arguing that the question is wrong.</p>
+</section>
+
+<section>
+  <h2><span class="num">4</span>Seven ways to answer it</h2>
+  <p>Every function below was audited against all six conditions. A monotonicity claim is tested both by the sign of a numerical derivative on an 800-point grid <em>and</em> by whether the values actually decrease, never by one lucky sample.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Route</th><th>The function</th><th>At the marked point</th><th>At \(3^+\)</th><th>Buys</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>A</strong> two rationals</td>
+          <td>\(-3+\frac{x^{2}}{3-x}\) / \(-2+\frac{6}{x-3}\)</td>
+          <td>smooth minimum</td><td>\(+\infty\)</td>
+          <td class="y">satisfies both readings of (c); every landmark is round. <strong>Use this one.</strong></td>
+        </tr>
+        <tr>
+          <td>B three pieces</td>
+          <td>\(-x-3\) / \(-3+\frac{3x}{3-x}\) / \(-2+\frac{6}{x-3}\)</td>
+          <td>corner, \(-1\) and \(+1\)</td><td>\(+\infty\)</td>
+          <td>proves a corner is legal here. Landmarks \(f(-3)=0\), \(f(-2)=-1\), \(f(2)=3\)</td>
+        </tr>
+        <tr>
+          <td>C one formula</td>
+          <td>\(-2+\frac{6x-9}{(x-3)^{2}}\)</td>
+          <td>smooth minimum</td><td>\(+\infty\)</td>
+          <td>shows how the conditions fix the coefficients; \(y=-2\) at both ends; meets it at \(x=\tfrac32\)</td>
+        </tr>
+        <tr>
+          <td>D min moved</td>
+          <td>\(-3+\frac{x(x+2)}{3-x}\) / same right branch</td>
+          <td>on the rising side</td><td>\(+\infty\)</td>
+          <td>proves \(f'(0)=0\) is not required; its minimum is at \(3-\sqrt{15}\approx-0.873\)</td>
+        </tr>
+        <tr>
+          <td>E left asymptote</td>
+          <td>\(-3+\frac{5x}{x-1}\) / \(-3+\frac{x^{2}}{3-x}\) / \(-2+\frac{6}{x-3}\)</td>
+          <td>corner, \(-5\) and \(0\)</td><td>\(+\infty\)</td>
+          <td>a second horizontal asymptote, \(y=2\) on the left, is legal</td>
+        </tr>
+        <tr>
+          <td>F one-sided</td>
+          <td>\(-3+\frac{x^{2}}{3-x}\) / \(-2+\frac{5}{x-2}\)</td>
+          <td>smooth minimum</td><td class="n">finite, \(3\)</td>
+          <td>satisfies the paper exactly as printed and fails the bank's two-sided (c). The whole reason to notice the superscript</td>
+        </tr>
+        <tr>
+          <td>W wrong reading</td>
+          <td>\(-x-3\) / \(-3-\frac{3x}{3-x}\) / \(-2+\frac{6}{x-3}\)</td>
+          <td>corner</td><td>\(+\infty\)</td>
+          <td class="n">left branch dives to \(-\infty\): breaks (c), and only (c). The counterexample, never the answer</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p><strong>Under exam pressure: a cup on the left with its bottom at \((0,-3)\), both branches climbing the dashed line \(x=3\), and a right branch that comes down, flattens, and lies on top of the dashed line \(y=-2\) without touching it.</strong></p>
+
+  <h3>How route C's coefficients are pinned</h3>
+  <p>Write \(f(x)=-2+\dfrac{ax+b}{(x-3)^{2}}\). The \(-2\) comes from (b), and the numerator's degree is at most 1 or the limit would not be \(-2\). Then \(f(0)=-2+\tfrac b9=-3\) gives \(b=-9\). The squared denominator makes the pole \(+\infty\) on both sides provided \(3a-9&gt;0\), so \(a&gt;3\); working out \(f'\) shows (d) needs \(a&gt;3\) again and (e) needs \(a&lt;18\). Any \(a\) strictly between 3 and 18 works, and 6 was chosen.</p>
+</section>
+
+<section>
+  <h2><span class="num">5</span>The interpretation half, verbatim</h2>
+  <p>These are the six sentences, worth writing out in full because the question asked for them by name. Each one names the feature, says what the curve does, and says what the condition leaves free.</p>
+  <div class="ledger">
+    <div class="lrow a">
+      <div class="lid">a</div>
+      <div class="lnot">\(f(0)=-3\)</div>
+      <div class="lsay"><b>Point</b>\(f\) is defined at \(x=0\) and its value there is \(-3\), so \((0,-3)\) lies on the graph and is the \(y\)-intercept.</div>
+      <div class="lfree">Places a single dot. Says nothing about the curve on either side, and does not make it a turning point.</div>
+    </div>
+    <div class="lrow b">
+      <div class="lid">b</div>
+      <div class="lnot">\(\displaystyle\lim_{x\to\infty}f(x)=-2\)</div>
+      <div class="lsay"><b>Level</b>\(y=-2\) is a horizontal asymptote at the right-hand end; as \(x\) grows the curve settles onto it and the vertical gap tends to zero.</div>
+      <div class="lfree">Nothing is claimed about \(x\to-\infty\), and the graph may cross \(y=-2\) anywhere other than in the tail.</div>
+    </div>
+    <div class="lrow c">
+      <div class="lid">c</div>
+      <div class="lnot">\(\displaystyle\lim_{x\to3^-}f(x)=\infty\)</div>
+      <div class="lsay"><b>Pole</b>\(x=3\) is a vertical asymptote; as \(x\) approaches 3 from the <strong>left</strong> the curve rises without bound, and \(f\) is not defined at 3.</div>
+      <div class="lfree">One-sided, so on its own it says nothing about the branch to the right of 3. Conditions (b) and (d) settle that branch instead.</div>
+    </div>
+    <div class="lrow d">
+      <div class="lid">d</div>
+      <div class="lnot">\(f'(x)&lt;0\) on \([3,\infty)\)</div>
+      <div class="lsay"><b>Direction</b>the graph is decreasing across that interval: read left to right, it falls. Strictly this must be read on \((3,\infty)\), because \(f\) has no derivative at a pole.</div>
+      <div class="lfree">Combined with (b): a branch that falls all the way onto \(y=-2\) must lie <strong>above</strong> it throughout, so the asymptote is approached from above.</div>
+    </div>
+    <div class="lrow e">
+      <div class="lid">e</div>
+      <div class="lnot">\(f'(x)&lt;0\) on \((-\infty,-2)\)</div>
+      <div class="lsay"><b>Direction</b>the graph is decreasing there too, so far out on the left the curve comes down as \(x\) increases. Read the other way, it rises as \(x\to-\infty\).</div>
+      <div class="lfree">Constrains only the direction, not the height, and nothing at all is said about \(f\) on \((-2,3)\).</div>
+    </div>
+    <div class="lrow f">
+      <div class="lid">f</div>
+      <div class="lnot">\(f''(x)&gt;0\) on \([4,\infty)\)</div>
+      <div class="lsay"><b>Bend</b>the graph is concave up there: it bends like a cup, and the slope, though negative, is increasing towards zero.</div>
+      <div class="lfree">With (d) this is what lets the branch flatten onto its asymptote. A falling branch concave <em>down</em> on all of \([4,\infty)\) could have no finite limit at all.</div>
+    </div>
+  </div>
+
+  <h3>And then the function, with the justification a ten-point item expects</h3>
+  <blockquote>
+    <p>Take \(f(x)=-3+\dfrac{x^{2}}{3-x}\) for \(x&lt;3\), and \(f(x)=-2+\dfrac{6}{x-3}\) for \(x&gt;3\).</p>
+    <p>\(f(0)=-3\), which is (a). As \(x\to\infty\), \(f(x)+2=\dfrac{6}{x-3}\to0^{+}\), so \(f\to-2\) from above, which is (b). As \(x\to3^-\) the numerator tends to 9 and \(3-x\to0^{+}\), so \(f\to+\infty\); the same happens on the other branch as \(x\to3^{+}\), so \(x=3\) is a vertical asymptote with both branches rising, which is (c) and more.</p>
+    <p>On \((3,\infty)\), \(f'(x)=-\dfrac{6}{(x-3)^{2}}&lt;0\), which is (d). On \(x&lt;3\), \(f'(x)=\dfrac{x(6-x)}{(3-x)^{2}}\), negative for every \(x&lt;0\) and so in particular on \((-\infty,-2)\), which is (e). On \((3,\infty)\), \(f''(x)=\dfrac{12}{(x-3)^{3}}&gt;0\), which gives (f) on \([4,\infty)\) and in fact on the whole branch.</p>
+  </blockquote>
+  <p>Four things students routinely skip: answering the first sentence at all; naming the feature rather than describing the drawing; saying which side the tail is approached from; and saying that the bracket in (d) has to be read open.</p>
+</section>
+
+<section>
+  <h2><span class="num">6</span>Verify before you commit</h2>
+  <p>Go through the conditions one at a time, in the order given, and point at the feature. Budget forty seconds of a four-minute answer.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Condition</th><th>The eight-second check</th></tr></thead>
+      <tbody>
+        <tr><td>(a) the dot</td><td>exactly <strong>one</strong> solid dot on the line \(x=0\), three units below the axis. Two marks in that column means it is not a function.</td></tr>
+        <tr><td>(b) the tail</td><td>read three heights walking right. The gap to \(-2\) must <strong>shrink</strong>, not merely be small, and it must stay <strong>positive</strong>.</td></tr>
+        <tr><td>(c) the pole</td><td>cover the right half with your hand: the branch beside \(x=3\) must run <strong>up</strong>. This is the check that catches route W.</td></tr>
+        <tr><td>(d) the right direction</td><td>put a finger at \(x=3.5\) and drag right along the curve. It must go <strong>down</strong> the whole way, without ever rising.</td></tr>
+        <tr><td>(e) the left direction</td><td>drag from \(x=-6\) to \(x=-2\). Down the whole way. Do not check whether the curve is above or below the axis; that is a different question.</td></tr>
+        <tr><td>(f) the bend</td><td>lay a straight edge across the branch from \(x=4\) to \(x=9\). The curve must sit <strong>below</strong> the chord.</td></tr>
+        <tr><td>is it a function?</td><td>sweep a vertical line across the whole picture. At most one hit everywhere, and no hit at all at \(x=3\).</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tscroll">
+    <table>
+      <thead><tr><th class="num">\(x\)</th><th class="num">\(f(x)\)</th><th class="num">gap to \(y=-2\)</th></tr></thead>
+      <tbody>
+        <tr><td class="num">4</td><td class="num">\(4\)</td><td class="num">\(6\)</td></tr>
+        <tr><td class="num">9</td><td class="num">\(-1\)</td><td class="num">\(1\)</td></tr>
+        <tr><td class="num">15</td><td class="num">\(-\tfrac32\)</td><td class="num">\(\tfrac12\)</td></tr>
+        <tr><td class="num">27</td><td class="num">\(-\tfrac74\)</td><td class="num">\(\tfrac14\)</td></tr>
+        <tr><td class="num">51</td><td class="num">\(-\tfrac{15}8\)</td><td class="num">\(\tfrac18\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>That is one fact rather than five: \(f\!\left(3+\tfrac6g\right)=g-2\), so \(g=6\) gives \((4,4)\), \(g=3\) gives \((5,1)\), \(g=2\) gives \((6,0)\), \(g=1\) gives \((9,-1)\), and halving \(g\) doubles the distance and halves the gap.</p>
+
+  <h3>Three traps in the checking itself</h3>
+  <div class="callout">
+    <div class="ch">A centred difference cannot see a corner</div>
+    <p>\(\frac{f(h)-f(-h)}{2h}\) at route B's corner returns about \(1.7\times10^{-7}\): a stable, plausible zero, which is just the average of \(-1\) and \(+1\). The residue is <strong>truncation</strong> error and scales with the second derivative, not with roundoff, which is why a tolerance calibrated on a straight-armed corner is the wrong tolerance for a curved one. Test one side at a time.</p>
+  </div>
+  <div class="callout">
+    <div class="ch">A sampling grid coarser than the defect reports the defect as clean</div>
+    <p>While building this page a deliberately broken function was constructed with a climb \(0.6\) units wide inside \((3,4)\), and the checking grid, stepping \(0.90\) units at a time, walked straight over it and called the function decreasing. On paper the same mistake is checking three points and concluding a shape. Drag your finger along the whole branch.</p>
+  </div>
+  <div class="callout">
+    <div class="ch">A sign change is not a crossing</div>
+    <p>Looking for the graph to pass from below \(y=-2\) to above it catches a genuine crossing and also catches a <strong>jump</strong> that steps over the line without ever taking the value. If you want to claim the graph crosses, point at where it is actually <em>on</em> the line.</p>
+  </div>
+
+  <h3>The numbers worth memorising</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Quantity</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td>the marked point</td><td>\((0,-3)\), and it is the minimum of the shipped answer</td></tr>
+        <tr><td>\(f(-12),\,f(-9),\,f(-6),\,f(-3)\)</td><td>\(\tfrac{33}5,\ \tfrac{15}4,\ 1,\ -\tfrac32\)</td></tr>
+        <tr><td>\(f(-2),\,f(-1),\,f(0),\,f(1)\)</td><td>\(-\tfrac{11}5,\ -\tfrac{11}4,\ -3,\ -\tfrac52\)</td></tr>
+        <tr><td>\(f(\tfrac32),\,f(2),\,f(\tfrac52)\)</td><td>\(-\tfrac32,\ 1,\ \tfrac{19}2\)</td></tr>
+        <tr><td>\(f(\tfrac72),\,f(4),\,f(5),\,f(6),\,f(7)\)</td><td>\(10,\ 4,\ 1,\ 0,\ -\tfrac12\)</td></tr>
+        <tr><td>the two exact coincidences on the left</td><td>\(f(-6)=f(2)=1\) and \(f(-3)=f(\tfrac32)=-\tfrac32\)</td></tr>
+        <tr><td>\(f'\) on the left branch</td><td>\(\dfrac{x(6-x)}{(3-x)^{2}}\): \(-\tfrac34\) at \(-3\), \(-\tfrac{16}{25}\) at \(-2\), \(0\) at \(0\), \(\tfrac54\) at \(1\)</td></tr>
+        <tr><td>\(f'\) on the right branch</td><td>\(-\dfrac{6}{(x-3)^{2}}\): \(-6\) at 4, \(-\tfrac32\) at 5, \(-\tfrac16\) at 9</td></tr>
+        <tr><td>\(f''\)</td><td>\(\dfrac{18}{(3-x)^{3}}\) on \(x&lt;3\) and \(\dfrac{12}{(x-3)^{3}}\) on \(x&gt;3\): <strong>positive on both</strong></td></tr>
+        <tr><td>the only round \(x\)-intercept</td><td>\(x=6\), on the right branch; the left branch's two are irrational</td></tr>
+        <tr><td>where it crosses \(y=-2\)</td><td>twice on the left branch, at \(\tfrac{-1\pm\sqrt{13}}2\), and never again</td></tr>
+        <tr><td>left end behaviour</td><td>\(f\to+\infty\) as \(x\to-\infty\), and that is unconstrained</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">7</span>Answer entry</h2>
+  <p>The sample paper wants prose and a drawing, and a machine can mark neither, so on M&ouml;bius the same ten points have to be collected as feature boxes, interval boxes, yes/no items or graph selection. Preparing for all four costs nothing, because the content is identical. <em>That expectation is inference, not a verified fact about the platform</em>: what is established is that the platform is answer-only and machine-marked.</p>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th>Rule</th><th>Do</th><th>Not</th></tr></thead>
+      <tbody>
+        <tr><td>An infinite limit</td><td><code>infinity</code></td><td><code>inf</code>, <code>oo</code>, a blank box</td></tr>
+        <tr><td>The horizontal asymptote</td><td><code>y=-2</code></td><td><code>-2</code>, or <code>x=-2</code></td></tr>
+        <tr><td>The vertical asymptote</td><td><code>x=3</code></td><td><code>3</code>, or <code>y=3</code></td></tr>
+        <tr><td>\(\lim_{x\to3^-}f\)</td><td><code>infinity</code></td><td><code>DNE</code>, a weaker and different claim</td></tr>
+        <tr><td>\(f(3)\)</td><td><code>undefined</code> or <code>DNE</code></td><td>any number</td></tr>
+        <tr><td>Where \(f\) is decreasing</td><td><code>(-infinity,0)U(3,infinity)</code></td><td><code>[3,infinity)</code>, which includes a point where \(f'\) does not exist</td></tr>
+        <tr><td>Where \(f\) is concave up</td><td><code>(3,infinity)</code> at minimum</td><td><code>[4,infinity)</code> if the box wants the largest interval</td></tr>
+        <tr><td>Continuity and differentiability at 3</td><td><code>no</code> and <code>no</code></td><td><code>yes</code></td></tr>
+        <tr><td>The side the tail is approached from</td><td><code>above</code></td><td><code>below</code></td></tr>
+        <tr><td>The left branch</td><td><code>-3+x^2/(3-x)</code></td><td><code>-3+x^2/3-x</code>, which parses as \(-3+\frac{x^2}3-x\)</td></tr>
+        <tr><td>The right branch</td><td><code>-2+6/(x-3)</code></td><td><code>-2+6/x-3</code>, which is \(-3.5\) at \(x=4\) instead of \(4\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout">
+    <div class="ch">The four most expensive answers, in order</div>
+    <p><strong>1.</strong> A right branch approaching \(y=-2\) from below. It looks like a textbook hyperbola and it silently contradicts (d), because a branch below \(-2\) that keeps falling can never come back up to it.</p>
+    <p><strong>2.</strong> Drawing the left of \(x=3\) going down. \(\frac1{x-3}\) dives on the left of its pole; use an even power or two pieces, never a bare \(\frac1{x-a}\).</p>
+    <p><strong>3.</strong> Answering <code>[3,infinity)</code> to "where is \(f\) decreasing". An interval of decrease cannot contain a point outside the domain.</p>
+    <p><strong>4.</strong> Reading \(f'&lt;0\) as \(f&lt;0\).</p>
+  </div>
+  <p><strong>If the item is multiple choice, eliminate rather than select</strong>, and not in the printed order: the tail's side of approach first, then the left of \(x=3\), then the far left, then the bend on \([4,\infty)\), and only last the height at \(x=0\).</p>
+</section>
+
+<section>
+  <h2><span class="num">8</span>The variation catalog</h2>
+  <p>Q5.1's tutorial owns the base dictionary and Families 0 to 13 of the general catalog. Q5.2's owns the interpretation half, the same-\(x\) reconciliation matrix, the equality-versus-denial reading of \(\infty\), and routing between marked points. This catalog repeats neither: it covers what can vary in a question whose conditions are stated on <strong>intervals</strong>, which is the axis Q5.3 introduces and the last one in the family.</p>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 0</span><span class="fname">The six-sentence interpretation</span><span class="mark pt">read right to left</span></div>
+    <div class="fam-body">
+      <div class="tt">
+        <div><b>Trigger</b>"give the interpretation", "state what each condition tells you"</div>
+        <div><b>Tool</b>the dictionary, plus one clause naming what the condition leaves free</div>
+        <div><b>Trap</b>describing the picture in ordinary words. "It goes down" is worth less than "\(f\) is decreasing on that interval"</div>
+      </div>
+      <p>A template that always earns the mark: <em>"&lt;feature name&gt; on &lt;where&gt;, which means &lt;what the curve does&gt;, and which does not constrain &lt;what it leaves free&gt;."</em> The third clause is the one nobody writes and it is usually where the mark is.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 1</span><span class="fname">The four \(f'\) and \(f''\) combinations</span><span class="mark dir">shape</span></div>
+    <div class="fam-body">
+      <div class="tt">
+        <div><b>Trigger</b>a sign condition on \(f'\) and one on \(f''\) that overlap</div>
+        <div><b>Tool</b>the four glyphs in section 1. Direction first, then bend</div>
+        <div><b>Trap</b>believing concave up means increasing. It means the <em>slope</em> is increasing</div>
+      </div>
+      <p>Only two of the four are shapes; the other two are the same two reflected. Rows 1 and 4 flatten out and can therefore have a horizontal asymptote; rows 2 and 3 steepen and cannot. The sign of \(f'\) then says which side of the asymptote you are on.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 2</span><span class="fname">The interval endpoint that is not in the domain</span><span class="mark brk">bracket</span></div>
+    <div class="fam-body">
+      <div class="tt">
+        <div><b>Trigger</b>a closed bracket whose endpoint is a pole, a hole, or the edge of the domain</div>
+        <div><b>Tool</b>check whether \(f\) is defined and differentiable there before accepting the bracket</div>
+        <div><b>Trap</b>copying the bracket into your answer and claiming a derivative that does not exist</div>
+      </div>
+      <p>The distinction worth carrying: <strong>monotonicity on a closed interval does not need a derivative at the endpoints, but a condition written as \(f'(x)&lt;0\) does.</strong> Q5.3 (d) is written the second way.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 3</span><span class="fname">Which parts of the graph the conditions reach</span><span class="mark lvl">coverage</span></div>
+    <div class="fam-body">
+      <p>The coverage strip in section 2 is this family. Its last row is the subtle one: <strong>a monotonicity condition on an unbounded interval partially constrains a tail that no limit condition mentions.</strong> Because \(f\) falls on \((-\infty,-2)\), it rises as \(x\to-\infty\), so that limit exists as a number or as \(+\infty\) and can never be below a value \(f\) already takes there. Route A realises \(+\infty\); route E realises the finite value 2.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 4</span><span class="fname">Routing: what the gaps still force</span><span class="mark lvl">IVT</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>On an interval where \(f\) is continuous</th><th>What is forced</th></tr></thead>
+          <tbody>
+            <tr><td>arrives falling, must leave rising</td><td>a <strong>local minimum</strong> in between</td></tr>
+            <tr><td>runs from height \(c\) up to \(+\infty\)</td><td>every height above \(c\), asymptote heights included</td></tr>
+            <tr><td>runs from \(+\infty\) down to \(L\)</td><td>every value above \(L\), and none at or below it</td></tr>
+            <tr><td>\(f'&lt;0\) throughout a tail with \(\lim f=L\)</td><td>\(f&gt;L\) everywhere on that tail</td></tr>
+            <tr><td>\(f'&gt;0\) throughout a tail with \(\lim f=L\)</td><td>\(f&lt;L\) everywhere on that tail</td></tr>
+            <tr><td>\(f''&lt;0\) throughout a tail with \(f'&lt;0\)</td><td>no finite limit exists</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>In Q5.3 this bites three times, and none of the three is written in the question.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 5</span><span class="fname">A seventh condition added on top</span><span class="mark bend">satisfiable?</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Seventh condition</th><th>Verdict</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>\(f(3)=5\)</td><td class="y">satisfiable</td><td>a value at a pole is legal; the limit never looks at the point</td></tr>
+            <tr><td>\(f''&gt;0\) on \((-\infty,3)\) as well</td><td class="y">satisfiable</td><td>the shipped answer already is</td></tr>
+            <tr><td>\(\lim_{x\to-\infty}f=2\)</td><td class="y">satisfiable</td><td>route E</td></tr>
+            <tr><td>\(\lim_{x\to-\infty}f=-5\)</td><td class="y">satisfiable</td><td>nothing constrains \((-2,3)\), so the climb happens there</td></tr>
+            <tr><td>\(f'&gt;0\) on \((-2,3)\)</td><td class="y">satisfiable</td><td>the minimum then sits exactly at \(x=-2\)</td></tr>
+            <tr><td>\(\lim_{x\to3^+}f\) is finite</td><td class="y">satisfiable</td><td>route F, under the paper's one-sided (c)</td></tr>
+            <tr><td>\(f\) is continuous at 3</td><td class="n">impossible</td><td>continuity needs a finite value equal to a finite limit</td></tr>
+            <tr><td>\(f\) is bounded</td><td class="n">impossible</td><td>(c) drives \(f\) above every bound</td></tr>
+            <tr><td>\(f\) is a polynomial</td><td class="n">impossible</td><td>polynomials are defined everywhere, so they have no poles</td></tr>
+            <tr><td>\(f'&lt;0\) on all of \((-\infty,3)\)</td><td class="n">impossible</td><td>\(f\) must rise from \(-3\) to \(+\infty\) somewhere on \((0,3)\)</td></tr>
+            <tr><td>\(f'&gt;0\) on \((3,\infty)\)</td><td class="n">impossible</td><td>an increasing branch cannot start at \(+\infty\)</td></tr>
+            <tr><td>\(f''&lt;0\) on \([4,\infty)\)</td><td class="n">impossible</td><td>a falling concave-down tail has no finite limit</td></tr>
+            <tr><td>the graph never crosses \(y=-2\)</td><td class="n">impossible</td><td>\(f(0)=-3\) is below it and the branch runs to \(+\infty\)</td></tr>
+            <tr><td>\(\lim_{x\to\infty}f=+\infty\)</td><td class="n">impossible</td><td>a limit is unique, and (b) already fixed it</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <div class="ch">The first row contradicts a claim in the course notes</div>
+        <p><code>MATH265\MATH265.md</code> states that "since \(f(0)=0\) is defined, a vertical asymptote is ruled out". That is false. Defining \(f(3)=5\) puts one isolated solid dot on the asymptote's own column and changes nothing about the limits, because a limit never looks at the point itself. Q5.3 is where a student is most likely to be tempted by that claim, since (c) and (d) both mention \(x=3\).</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 6</span><span class="fname">The reverse question: read the sign conditions off a formula</span><span class="mark dir">sign chart</span></div>
+    <div class="fam-body">
+      <p>Worked on route C, \(f(x)=-2+\dfrac{6x-9}{(x-3)^{2}}\):</p>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Reading</th><th>Answer</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>\(\lim_{x\to\pm\infty}f\)</td><td>\(-2\) at both ends</td><td>degree 1 over degree 2</td></tr>
+            <tr><td>at \(x=3\)</td><td>\(+\infty\) on both sides</td><td>squared denominator, numerator \(9&gt;0\) there</td></tr>
+            <tr><td>where \(f\) is decreasing</td><td>\((-\infty,0)\) and \((3,\infty)\)</td><td>\(f'=-\dfrac{6x}{(x-3)^{3}}\), whose sign is \(\operatorname{sign}(x)\) for \(x&lt;3\)</td></tr>
+            <tr><td>where \(f\) is concave up</td><td>\(\left(-\tfrac32,3\right)\) and \((3,\infty)\)</td><td>\(f''=\dfrac{12x+18}{(x-3)^{4}}\), positive when \(x&gt;-\tfrac32\)</td></tr>
+            <tr><td>where it meets its own asymptote</td><td>exactly \(x=\tfrac32\)</td><td>\(6x-9=0\)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>A squared denominator alone does not decide the sign of \(f'\) or \(f''\); the numerator does.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 7</span><span class="fname">Given \(f\), sketch \(f'\), or the reverse</span><span class="mark dir">one derivative apart</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Feature of \(f\)</th><th>Corresponding feature of \(f'\)</th></tr></thead>
+          <tbody>
+            <tr><td>local minimum</td><td>\(f'\) crosses zero from negative to positive</td></tr>
+            <tr><td>local maximum</td><td>\(f'\) crosses zero from positive to negative</td></tr>
+            <tr><td>inflection point</td><td>\(f'\) has a local extremum</td></tr>
+            <tr><td>concave up</td><td>\(f'\) is increasing</td></tr>
+            <tr><td>decreasing</td><td>\(f'\) is below the axis</td></tr>
+            <tr><td>corner</td><td>\(f'\) has a jump discontinuity</td></tr>
+            <tr><td>vertical asymptote</td><td>\(f'\) has one too, and a steeper one</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>For the shipped answer: \(f'\) is negative on \((-\infty,0)\), zero at 0, positive on \((0,3)\), has a pole at 3, and is negative and rising towards zero on \((3,\infty)\).</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 8</span><span class="fname">The sign chart stated as a table</span><span class="mark bend">joins</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>\(f'\)</th><th>\(f''\)</th><th>The picture</th></tr></thead>
+          <tbody>
+            <tr><td>\(-\) then \(+\)</td><td>\(+\) throughout</td><td>a smooth minimum at the changeover: \((x-1)^{2}\) shifted</td></tr>
+            <tr><td>\(-\) then \(+\)</td><td>\(+\) then \(-\)</td><td>a minimum, and an inflection later</td></tr>
+            <tr><td>\(+\) throughout</td><td>\(+\) then \(-\)</td><td><strong>an inflection and no turning point at all</strong></td></tr>
+            <tr><td>\(-\) throughout</td><td>\(-\) then \(+\)</td><td><strong>an inflection and no turning point at all</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The last two rows are the ones students get wrong: a sign change in \(f''\) with no sign change in \(f'\) produces an inflection point and no extremum.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 9</span><span class="fname">Impossible interval sets</span><span class="mark brk">say why, draw nothing</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>The set</th><th>Why it is impossible</th></tr></thead>
+          <tbody>
+            <tr><td>\(f'&lt;0\) and \(f'&gt;0\) on overlapping intervals</td><td>a direct contradiction, often disguised by different interval notation</td></tr>
+            <tr><td>\(f'&lt;0\) on \([a,\infty)\) with \(a\) a pole</td><td>no derivative exists at a pole. This is Q5.3 (d) as literally written</td></tr>
+            <tr><td>\(f'&lt;0\) and \(f''&lt;0\) on \([c,\infty)\) with a finite limit</td><td>the branch is below a line running to \(-\infty\)</td></tr>
+            <tr><td>\(f'&gt;0\) on \((a,\infty)\) with \(\lim_{x\to a^+}f=+\infty\)</td><td>an increasing branch cannot start above everything it reaches</td></tr>
+            <tr><td>\(f'&lt;0\) on \((a,\infty)\), \(\lim f=L\), and \(f(x_0)&lt;L\) for some \(x_0&gt;a\)</td><td>a decreasing function stays below \(f(x_0)\) forever</td></tr>
+            <tr><td>\(f''&gt;0\) on \(\mathbb{R}\) with two distinct local minima</td><td>a concave-up function has at most one</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>Rows 3, 4 and 5 are the same idea three times: <strong>a monotone branch is trapped on one side of its own limit.</strong></p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 10</span><span class="fname">Which conditions do the work, and which is nearly redundant</span><span class="mark bend">(f)</span></div>
+    <div class="fam-body">
+      <p>Delete any one condition and ask what survives. (a) to (e) are all independent, and (d) does the most work: without it the tail could arrive at \(y=-2\) from either side and could wiggle. (f) is the interesting one. It is <strong>not</strong> derivable from the others, because a falling tail with a finite limit may alternate its concavity forever. What <em>is</em> derivable is that it cannot be concave down on the whole of \([4,\infty)\). So (f) names the only shape available and pins it everywhere rather than somewhere.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 11</span><span class="fname">The parametric generator for any numeric reword</span><span class="mark pt">substitute</span></div>
+    <div class="fam-body">
+      <p>For <em>"\(f(a)=v\); \(\lim_{x\to\infty}f=H\); \(\lim_{x\to p^-}f=+\infty\) with \(p&gt;a\); \(f'&lt;0\) on \((p,\infty)\); \(f'&lt;0\) on \((-\infty,q)\) with \(q\le a\); \(f''&gt;0\) on \([r,\infty)\) with \(r&gt;p\)"</em>:</p>
+      $$f(x)=\begin{cases} v + \dfrac{k(x-a)^{2}}{p-x}, & x<p\\[10pt] H + \dfrac{m}{x-p}, & x>p \end{cases} \qquad k>0,\ m>0$$
+      <p>The left branch has its minimum at \(x=a\) with value \(v\), and \(f'(x)=\dfrac{k(x-a)(2p-x-a)}{(p-x)^{2}}\), negative for every \(x&lt;a\). The right branch has \(f'=-\dfrac{m}{(x-p)^{2}}\) and \(f''=\dfrac{2m}{(x-p)^{3}}\), so (d) and (f) hold on the whole of \((p,\infty)\).</p>
+      <div class="tscroll">
+        <table>
+          <thead><tr><th class="num">\(a\)</th><th class="num">\(v\)</th><th class="num">\(p\)</th><th class="num">\(H\)</th><th class="num">\(k\)</th><th class="num">\(m\)</th><th>The function</th></tr></thead>
+          <tbody>
+            <tr><td class="num">0</td><td class="num">-3</td><td class="num">3</td><td class="num">-2</td><td class="num">1</td><td class="num">6</td><td>the shipped answer</td></tr>
+            <tr><td class="num">0</td><td class="num">1</td><td class="num">2</td><td class="num">4</td><td class="num">1</td><td class="num">4</td><td>\(1+\frac{x^{2}}{2-x}\) / \(4+\frac{4}{x-2}\)</td></tr>
+            <tr><td class="num">0</td><td class="num">0</td><td class="num">1</td><td class="num">3</td><td class="num">1</td><td class="num">1</td><td>\(\frac{x^{2}}{1-x}\) / \(3+\frac{1}{x-1}\)</td></tr>
+            <tr><td class="num">-1</td><td class="num">2</td><td class="num">4</td><td class="num">0</td><td class="num">1</td><td class="num">8</td><td>\(2+\frac{(x+1)^{2}}{4-x}\) / \(\frac{8}{x-4}\)</td></tr>
+            <tr><td class="num">0</td><td class="num">-3</td><td class="num">3</td><td class="num">-2</td><td class="num">2</td><td class="num">3</td><td>\(-3+\frac{2x^{2}}{3-x}\) / \(-2+\frac{3}{x-3}\)</td></tr>
+            <tr><td class="num">1</td><td class="num">-1</td><td class="num">5</td><td class="num">2</td><td class="num">1</td><td class="num">4</td><td>\(-1+\frac{(x-1)^{2}}{5-x}\) / \(2+\frac{4}{x-5}\)</td></tr>
+            <tr><td class="num">0</td><td class="num">5</td><td class="num">2</td><td class="num">-4</td><td class="num">3</td><td class="num">2</td><td>\(5+\frac{3x^{2}}{2-x}\) / \(-4+\frac{2}{x-2}\)</td></tr>
+            <tr><td class="num">-2</td><td class="num">0</td><td class="num">1</td><td class="num">-1</td><td class="num">1</td><td class="num">3</td><td>\(\frac{(x+2)^{2}}{1-x}\) / \(-1+\frac{3}{x-1}\)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout">
+        <div class="ch">The one restriction, and the only way to get this wrong</div>
+        <p>The generator puts the vertex at \(x=a\), so it decreases only to the <strong>left</strong> of \(a\). If the reword's left interval endpoint \(q\) is greater than \(a\), the generator fails, because \(f\) is increasing on \((a,p)\). Move the vertex by replacing \((x-a)^{2}\) with \((x-a)(x-2q+a)\), which is what route D does.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 12</span><span class="fname">Graph selection, and the order to eliminate in</span><span class="mark lvl">kill rate</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th class="num">Order</th><th>Check</th><th>Typical kill rate</th></tr></thead>
+          <tbody>
+            <tr><td class="num">1</td><td>the right tail lies <strong>above</strong> \(y=-2\) and falls onto it</td><td>half the options</td></tr>
+            <tr><td class="num">2</td><td>the branch <em>left</em> of \(x=3\) goes up, not down</td><td>most of the rest</td></tr>
+            <tr><td class="num">3</td><td>the far left falls as you read left to right</td><td>usually one more</td></tr>
+            <tr><td class="num">4</td><td>the branch on \([4,\infty)\) flattens rather than steepens</td><td>tie-breaker</td></tr>
+            <tr><td class="num">5</td><td>the marked point is at the right height</td><td>last</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>The six near-miss functions used to test this page's own checker are exactly the six distractors an examiner would build: a value at the wrong height, a tail at the wrong height, a finite limit where the pole should be, a right branch that climbs somewhere, a far left that rises, and a concave-down stretch inside \([4,\infty)\). Each fails one condition and passes the other five.</p>
+    </div>
+  </div>
+
+  <div class="fam">
+    <div class="fam-head"><span class="fno">Family 13</span><span class="fname">The same content as a curve-sketching question</span><span class="mark pt">withheld conditions</span></div>
+    <div class="fam-body">
+      <div class="tscroll">
+        <table>
+          <thead><tr><th>Q5.3 gives you</th><th>The curve-sketching version makes you find it</th></tr></thead>
+          <tbody>
+            <tr><td>\(f(0)=-3\)</td><td>substitute \(x=0\)</td></tr>
+            <tr><td>\(\lim_{x\to\infty}f=-2\)</td><td>compare degrees, or divide by the highest power</td></tr>
+            <tr><td>\(\lim_{x\to3^-}f=\infty\)</td><td>set the denominator to zero <strong>after simplification</strong></td></tr>
+            <tr><td>\(f'&lt;0\) on an interval</td><td>build a sign chart for \(f'\)</td></tr>
+            <tr><td>\(f''&gt;0\) on an interval</td><td>build a sign chart for \(f''\)</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><code>MATH265_Categorized.md</code> files Q5.3 under "Sketch the graph" alongside "state all critical points, cusps, vertical asymptotes and points of inflection". That is not a coincidence: one skill, two directions, and the direction Q5.3 asks for is the cheaper half.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">9</span>The trap list</h2>
+  <ol class="traps">
+    <li><span><strong>Drawing the right branch arriving at \(y=-2\) from below.</strong> Conditions (b) and (d) forbid it: a decreasing branch that ever dips to or below \(-2\) can never come back up. The most heavily signalled fact on the item, and the one a hyperbola drawn from memory gets wrong.</span></li>
+    <li><span><strong>Skipping the interpretation half.</strong> The question opens with "Give the interpretation in terms of the graph". A perfect sketch and no sentences is at best half of ten points.</span></li>
+    <li><span><strong>Reading \(f'&lt;0\) as \(f&lt;0\).</strong> The shipped right branch is above the axis on \((3,6)\) and below it after \(x=6\), and (d) holds on all of it.</span></li>
+    <li><span><strong>Drawing the left of \(x=3\) going down.</strong> Condition (c) names \(+\infty\). That is route W, which breaks (c) and nothing else.</span></li>
+    <li><span><strong>Copying the bracket \([3,\infty)\) into the answer.</strong> \(f\) is undefined at 3, so no interval of decrease can contain it.</span></li>
+    <li><span><strong>Believing concave up means increasing.</strong> The shipped right branch is concave up and decreasing at the same time, everywhere.</span></li>
+    <li><span><strong>Believing the graph cannot cross \(y=-2\).</strong> It must, on \((0,3)\), and it does so twice. Only vertical asymptotes are barriers.</span></li>
+    <li><span><strong>Forcing the left tail onto \(y=-2\) as well.</strong> Only \(x\to+\infty\) was constrained.</span></li>
+    <li><span><strong>Ignoring the superscript minus in (c).</strong> Draw both branches up anyway, but know which version the paper printed.</span></li>
+    <li><span><strong>Assuming \(f'(0)=0\).</strong> Nothing says the marked point is a turning point; route D puts the minimum at \(3-\sqrt{15}\).</span></li>
+    <li><span><strong>Leaving \((-2,3)\) blank or arbitrary.</strong> It is not mentioned and it is not free: an unbroken branch must turn around and must cross \(y=-2\).</span></li>
+    <li><span><strong>Checking a slope with a centred difference,</strong> or <strong>a monotonicity claim at three points.</strong> Both report a defect as clean.</span></li>
+    <li><span><strong>Leaving it unlabelled.</strong> Dash both asymptotes and write their equations, mark the dot, write "decreasing" on each constrained interval and "concave up" on \([4,\infty)\).</span></li>
+    <li><span><strong>Failing the vertical line test.</strong> At most one hit everywhere, and no hit at \(x=3\).</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">10</span>Drill set</h2>
+  <p>Twelve, on paper, in under thirty-five minutes. Give the interpretation sentences <strong>and</strong> a labelled sketch, and for the impossible ones name the two conditions that clash.</p>
+  <ol>
+    <li>Interpret and sketch: \(f(0)=1\); \(\lim_{x\to\infty}f=4\); \(\lim_{x\to2^-}f=\infty\); \(f'&lt;0\) on \((2,\infty)\); \(f'&lt;0\) on \((-\infty,-1)\); \(f''&gt;0\) on \([3,\infty)\).</li>
+    <li>Q5.3's six conditions, but with \(f''(x)&lt;0\) on \([4,\infty)\). Possible or not, and why?</li>
+    <li>Q5.3's six conditions, but with \(\lim_{x\to3^-}f=-\infty\).</li>
+    <li>Q5.3's six conditions, but with \(f'(x)&gt;0\) on \((3,\infty)\). Possible or not, and why?</li>
+    <li>All six, and in addition \(f(3)=5\).</li>
+    <li>All six, and in addition \(f\) is continuous at \(x=3\). Possible or not?</li>
+    <li>All six, and in addition the graph never crosses \(y=-2\). Possible or not?</li>
+    <li>All six, and in addition \(\lim_{x\to-\infty}f=-5\).</li>
+    <li>All six, and in addition \(f'(x)&gt;0\) on \((-2,3)\). Where must the minimum be?</li>
+    <li>Given \(f(x)=-2+\dfrac{6x-9}{(x-3)^{2}}\), state both horizontal asymptotes, the behaviour at \(x=3\) on each side, \(f(0)\), the intervals where \(f\) is decreasing, and where the graph meets \(y=-2\).</li>
+    <li>Sketch a possible \(f\) with \(f'&lt;0\) on \((-\infty,1)\), \(f'&gt;0\) on \((1,\infty)\), \(f''&gt;0\) everywhere, and \(f(1)=-2\).</li>
+    <li>Explain in one sentence why (d)'s interval cannot be taken literally, and state the reading you would write instead.</li>
+  </ol>
+
+  <h3>Answer key</h3>
+  <div class="tscroll">
+    <table>
+      <thead><tr><th class="num">#</th><th>One valid answer</th><th>The key features</th><th>Family</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>\(1+\frac{x^{2}}{2-x}\) / \(4+\frac{4}{x-2}\)</td><td>minimum at \((0,1)\); pole at 2 up both sides; \(y=4\) from above</td><td>11</td></tr>
+        <tr><td class="num">2</td><td class="n">impossible</td><td>a falling, concave-down tail obeys \(f\le f(4)+f'(4)(x-4)\to-\infty\)</td><td>9</td></tr>
+        <tr><td class="num">3</td><td>\(-3-\frac{3x}{3-x}\) / \(-2+\frac{6}{x-3}\)</td><td>the left branch dives; it falls on all of \((-\infty,3)\) and its left tail settles on \(y=0\)</td><td>1, 3</td></tr>
+        <tr><td class="num">4</td><td class="n">impossible</td><td>an increasing branch is bounded above by its own later values, so it cannot begin at \(+\infty\)</td><td>9</td></tr>
+        <tr><td class="num">5</td><td>route A with \(f(3)=5\)</td><td>one isolated solid dot on the column \(x=3\); both limits there are still \(+\infty\)</td><td>5</td></tr>
+        <tr><td class="num">6</td><td class="n">impossible</td><td>continuity needs a finite \(f(3)\) equal to a finite two-sided limit</td><td>5</td></tr>
+        <tr><td class="num">7</td><td class="n">impossible</td><td>\(f(0)=-3\) is below the line and the branch runs to \(+\infty\)</td><td>4</td></tr>
+        <tr><td class="num">8</td><td>\(-5+\frac{3}{x-1}\) / \(-6+\frac{4.5(x+2)}{3-x}\) / \(-2+\frac{6}{x-3}\)</td><td>left tail settles on \(y=-5\) from below; the climb happens on \((-2,3)\)</td><td>3</td></tr>
+        <tr><td class="num">9</td><td>\(-x-6\) / \(-4+\frac{0.75(x+2)^{2}}{3-x}\) / \(-2+\frac{6}{x-3}\)</td><td>the minimum sits exactly at \(x=-2\), as a corner</td><td>4, 5</td></tr>
+        <tr><td class="num">10</td><td>\(y=-2\) both ends; \(+\infty\) both sides at 3; \(f(0)=-3\); decreasing on \((-\infty,0)\) and \((3,\infty)\); meets \(y=-2\) at \(x=\tfrac32\)</td><td>the sign of \(f'\) is \(\operatorname{sign}(x)\) for \(x&lt;3\)</td><td>6</td></tr>
+        <tr><td class="num">11</td><td>\(f(x)=(x-1)^{2}-2\)</td><td>one smooth minimum at \((1,-2)\), concave up everywhere</td><td>8</td></tr>
+        <tr><td class="num">12</td><td>read it as \((3,\infty)\)</td><td>\(f\) is undefined at 3, so \(f'(3)&lt;0\) is false for every candidate</td><td>2</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Mark yourself on <strong>three separate scores</strong>. The <strong>shape</strong> questions (2, 3, 4, 11) fail when you are not combining a sign condition with a limit condition. The <strong>addition</strong> questions (5, 6, 7, 9, 12) fail when you read each condition on its own instead of against the rest of the set. The <strong>construction</strong> questions (1, 8, 10) fail when you can recognise a function but not produce one, and Family 11's generator turns question 1 into pure substitution.</p>
+</section>
+
+<section>
+  <h2><span class="num">11</span>The one-page decision tree</h2>
+<pre>"Interpret the conditions, then sketch a single function satisfying them."
+|
++-- <b>STEP 0.  ANSWER THE FIRST SENTENCE.</b>  For each condition write:
+|            "&lt;FEATURE NAME&gt; on &lt;where&gt;, which means &lt;what the curve does&gt;,
+|             and which does NOT constrain &lt;what it leaves free&gt;."
+|            That is half the marks and it needs no drawing.
+|
++-- <b>STEP 1.  SPLIT THE LIST.</b>   <span class="g2">POINT</span> conditions  vs  <span class="g4">INTERVAL</span> conditions.
+|
++-- <b>STEP 2.  POINTS FIRST.</b>  Sort them onto the axis.  Reconcile any two
+|            that share an x.  Q5.3 has none sharing.
+|              lim = +-infinity AT a   -&gt; VERTICAL ASYMPTOTE at a
+|                  "= +inf" two-sided   -&gt; BOTH branches UP
+|                  "= +inf" ONE-sided   -&gt; that branch UP, other side FREE
+|              lim at +-infinity = L   -&gt; HORIZONTAL ASYMPTOTE, THAT END ONLY
+|              f(a) = b                -&gt; one solid dot, and nothing else
+|
++-- <b>STEP 3.  CHECK EVERY INTERVAL ENDPOINT.</b>
+|              endpoint IN the domain     -&gt; the bracket is fine
+|              endpoint is a POLE or HOLE -&gt; read the bracket OPEN and say so
+|
++-- <b>STEP 4.  DRAW THE FRAME ONLY.</b>  Axes.  Dashed line for each asymptote,
+|            labelled with its equation.  A tick at every constrained x.
+|
++-- <b>STEP 5.  PLACE THE MARKS.</b>  Solid dot where a value exists, hollow
+|            circle where a limit is approached but not attained.
+|            EXACTLY ONE solid dot on any vertical line.
+|
++-- <b>STEP 6.  SHAPE EACH CONSTRAINED INTERVAL.</b>  Direction, then bend:
+|              f' &lt; 0 , f'' &gt; 0  -&gt; falling, flattening -&gt; <span class="g3">settles FROM ABOVE</span>
+|              f' &gt; 0 , f'' &lt; 0  -&gt; rising,  flattening -&gt; <span class="g3">settles FROM BELOW</span>
+|              f' &lt; 0 , f'' &lt; 0  -&gt; falling, steepening -&gt; <span class="g1">CANNOT settle</span>
+|              f' &gt; 0 , f'' &gt; 0  -&gt; rising,  steepening -&gt; <span class="g1">CANNOT settle</span>
+|            A sign condition NEVER says anything about HEIGHT.
+|
++-- <b>STEP 7.  ROUTE THE GAPS.</b>  For each unmentioned stretch ask what is
+|            FORCED on a branch drawn WITHOUT LIFTING THE PEN:
+|              arrives falling, must leave rising -&gt; a MINIMUM in between
+|              mark -&gt; +inf   -&gt; it crosses EVERY height above the mark
+|              +inf -&gt; level L -&gt; the branch must come DOWN and stay above L
+|
++-- <b>STEP 8.  CHECK, condition by condition, in the order given.</b>
+|              f(a) = b        -&gt; exactly one solid dot, at the right height
+|              lim at inf = L  -&gt; read f at 3 growing x.  GAP must SHRINK,
+|                                 and stay on ONE side
+|              lim at a = +inf -&gt; cover each half; the named branch goes UP
+|              f' &lt; 0 on I     -&gt; drag a finger the WHOLE way; never sample
+|              f'' &gt; 0 on I    -&gt; the curve sits BELOW its own chord
+|              is it a function? -&gt; vertical line test, everywhere
+|
++-- <b>STEP 9.  LABEL.</b>  Both asymptote equations, the height at the marked
+             point, "decreasing" on each constrained interval, "concave up"
+             on the concavity interval.  An unlabelled correct sketch and an
+             unlabelled wrong one look the same to a marker.</pre>
+</section>
+
+<footer>
+  <p><strong>Sources.</strong> The question text is <code>notes\MATH265.md</code> (Q5.3) and <code>notes\MATH265\MATH265.md</code> ("Final Exam 2", item 4, 10 points), with an independent second transcription in <code>MATH265_questions.md</code>. That paper prints each point value on the line <em>after</em> its question, fixed by the fact that no value appears between the title and item 1; its twelve items are worth 8, 4, 8, 10, 10, 6, 6, 4, 6, 5, 4 and 10, summing to 81. The "no credit for unjustified answers" clause on that paper belongs to item 1, not item 4.</p>
+  <p><strong>Conflicts in the course files, recorded rather than smoothed over.</strong> <code>MATH265_Review.md</code> carries a six-row table for exactly this question; five rows are correct and terse, the third repeats the bank's dropped superscript, and no row notices that (d)'s bracket includes a point outside the domain. The same file carries a second Q5.3-shaped block that drops the superscript again. Its monotonicity and concavity dictionary appears six times, always in agreement and always correct, but two of those appearances file it under the headings "First Derivative Test" and "Second Derivative Test": those are two other theorems about classifying a critical point, while \(f'&gt;0\Rightarrow f\) increasing is the monotonicity theorem. <code>MATH265\MATH265.md</code> claims a defined value rules out a vertical asymptote, which Family 5's first row disproves. Q5.1's and Q5.2's tutorials record the other two defects in that file: four disagreeing statements of the non-differentiability list, and a vertical-asymptote rule stated three times with the "after simplification" qualifier present in only some of them.</p>
+  <p><strong>Verification.</strong> Run 2026-08-31: <strong>259 checks, 0 failures</strong>, in <code>Work\knowledge\topics\math265-answer-verification.py</code>, reusing the Q5.1 primitives so a fix to a checker re-verifies all three questions. Seven routes audited against all six conditions; a second pass in exact rational arithmetic agreeing with the float pass at 1598 points; the one-sided difference quotients proved as identities rather than sampled; six seeded near-misses each required to break exactly one condition; twenty lies rejected and twelve true claims accepted. <strong>Four verifier defects were found and all four first looked like wrong mathematics</strong>: a monotonicity grid stepping 0.90 units over a 0.6-wide defect; a sign-change scan reporting a jump as a crossing; a \(10^{-9}\) tolerance calibrated on a straight-armed corner applied to a curved one; and a figure that dropped out-of-range samples so the left polyline stopped at \(y=7.49\) and hung below a frame top of \(y=8\). The harness file is shared and grows as other questions are added to it, so its whole-file PASS total is a moving number and not a fact about this page; what is stable is that the only failures anywhere in it are the same 2 pre-existing ones, in an unrelated section, where a linear approximation is compared against the true value at a tolerance tighter than the approximation error.</p>
+  <p><strong>The figure is generated, not drawn.</strong> Every polyline coordinate on this page was written by that harness from evaluations of \(f\), and each branch is sampled separately so no line bridges the pole at \(x=3\). The finished figure is then re-read against the six conditions from its own coordinates: the lowest point of the left polyline is the marked point, it crosses \(y=-2\) exactly twice, every right-branch point is strictly above \(y=-2\) with a gap that shrinks monotonically without reaching zero, and both branches reach the top edge of the frame.</p>
+  <p>Companion pages: <em>Sketch From Four Conditions</em> (Q5.1) owns the base translation dictionary and the non-differentiability list; <em>Five Conditions, One Sketch</em> (Q5.2) owns the interpretation half, the same-\(x\) reconciliation matrix and routing. This page owns the interval axis, and the three of them close the topic. Nothing here is copied from a solution key.</p>
+</footer>
+
+</div>
