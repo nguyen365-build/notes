@@ -10,12 +10,16 @@ Markup contract required by Work\\knowledge\\tools\\artifact-lint\\svg-labels.mj
   - every <text> to be checked carries class "lab"
   - every grid <line> carries class "gridl" (a bare <line> reports tagName
     "line", which does NOT match the gate's /grid|axis/ exemption)
+
+Label placement is MEASURED, not eyeballed.  The curve is concave down, so the
+band below the tangent and right of t* is empty; every callout lives there,
+spaced 20-22px apart so the gate's own bbox padding cannot make two touch.
 """
 import math
 import os
 
 PI = math.pi
-W, H = 760, 306
+W, H = 760, 312
 
 
 def h_of_t(t):
@@ -44,55 +48,42 @@ def build():
     curve = " ".join(
         "%.2f,%.2f" % (sx(T0 + i * (T1 - T0) / 160.0), sy(h_of_t(T0 + i * (T1 - T0) / 160.0)))
         for i in range(161))
-
-    # tangent at t*, drawn as a chord in plot units then mapped
     dt = 21.0
     tan_pts = " ".join("%.2f,%.2f" % (sx(tstar + d), sy(4.0 + slope * d))
                        for d in (-dt, dt))
-
-    grid = []
-    for hv in (2.0, 4.0, 6.0):
-        grid.append('<line class="gridl" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
-                    % (PX0, sy(hv), PX1, sy(hv)))
-    for tv in (20.0, 40.0, 60.0):
-        grid.append('<line class="gridl" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
-                    % (sx(tv), PY0, sx(tv), PY1))
-
-    # ---- left panel: the cone, drawn with base width == height -------------
-    apex = (168.0, 66.0)
-    bl, br = (68.0, 246.0), (268.0, 246.0)          # 200 wide, 180 tall on screen
-    mid = (168.0, 246.0)
 
     parts = []
     parts.append('<svg viewBox="0 0 %d %d" width="100%%" role="img" '
                  'aria-label="Left: the gravel pile in cross-section, with base '
                  'diameter equal to height. Right: the height of the pile against '
-                 'time, with the tangent at four metres.">' % (W, H))
+                 'time, with the tangent at four metres."> ' % (W, H))
 
-    # ---- LEFT --------------------------------------------------------------
+    # ---- LEFT: the pile at one instant -------------------------------------
+    apex = (168.0, 70.0)
+    bl, br = (68.0, 250.0), (268.0, 250.0)
     parts.append('<text class="lab hd" x="18" y="34">THE PILE AT ONE INSTANT</text>')
-    parts.append('<ellipse class="cone" cx="168" cy="246" rx="100" ry="15"/>')
+    parts.append('<ellipse class="cone" cx="168" cy="250" rx="100" ry="15"/>')
     parts.append('<polygon class="cone" points="%.0f,%.0f %.0f,%.0f %.0f,%.0f"/>'
                  % (apex[0], apex[1], bl[0], bl[1], br[0], br[1]))
-    # height marker
-    parts.append('<line class="dim" x1="%.0f" y1="%.0f" x2="%.0f" y2="%.0f" '
-                 'marker-start="url(#a111)" marker-end="url(#a111)"/>'
-                 % (mid[0], apex[1], mid[0], mid[1]))
-    parts.append('<text class="lab" x="176" y="160">h</text>')
-    # diameter marker, below the base
-    parts.append('<line class="dim" x1="%.0f" y1="278" x2="%.0f" y2="278" '
-                 'marker-start="url(#a111)" marker-end="url(#a111)"/>' % (bl[0], br[0]))
-    parts.append('<text class="lab" x="140" y="296">d = h</text>')
-    # radius marker, on the base
-    parts.append('<line class="dim2" x1="%.0f" y1="246" x2="%.0f" y2="246"/>'
-                 % (mid[0], br[0]))
-    parts.append('<text class="lab" x="286" y="240">r = h/2</text>')
-    parts.append('<text class="lab sm" x="18" y="270">always true, so it may be '
-                 'substituted BEFORE differentiating</text>')
+    parts.append('<line class="dim" x1="168" y1="70" x2="168" y2="250" '
+                 'marker-start="url(#a111)" marker-end="url(#a111)"/>')
+    parts.append('<text class="lab" x="178" y="164">h</text>')
+    parts.append('<line class="dim" x1="68" y1="282" x2="268" y2="282" '
+                 'marker-start="url(#a111)" marker-end="url(#a111)"/>')
+    parts.append('<text class="lab" x="142" y="302">d = h</text>')
+    parts.append('<line class="dim2" x1="168" y1="250" x2="268" y2="250"/>')
+    parts.append('<text class="lab" x="286" y="244">r = h/2</text>')
+    parts.append('<text class="lab sm" x="18" y="54">always true, at every size</text>')
 
-    # ---- RIGHT -------------------------------------------------------------
-    parts.append('<text class="lab hd" x="400" y="34">THE PILE OVER TIME</text>')
-    parts.extend(grid)
+    # ---- RIGHT: the pile over time -----------------------------------------
+    parts.append('<text class="lab hd" x="424" y="34">THE PILE OVER TIME'
+                 ' &#183; h IN m, t IN min</text>')
+    for hv in (2.0, 4.0, 6.0):
+        parts.append('<line class="gridl" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
+                     % (PX0, sy(hv), PX1, sy(hv)))
+    for tv in (20.0, 40.0, 60.0):
+        parts.append('<line class="gridl" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
+                     % (sx(tv), PY0, sx(tv), PY1))
     parts.append('<line class="axis" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
                  % (PX0, PY0, PX1, PY0))
     parts.append('<line class="axis" x1="%.1f" y1="%.1f" x2="%.1f" y2="%.1f"/>'
@@ -101,24 +92,19 @@ def build():
     parts.append('<polyline class="tang" points="%s"/>' % tan_pts)
     parts.append('<circle class="dot" cx="%.2f" cy="%.2f" r="4.2"/>'
                  % (sx(tstar), sy(4.0)))
-    parts.append('<text class="lab" x="%.0f" y="%.0f">h = 4 m</text>'
-                 % (sx(tstar) - 62, sy(4.0) - 14))
-    parts.append('<text class="lab sm" x="%.0f" y="%.0f">at t = 33.5 min</text>'
-                 % (sx(tstar) - 62, sy(4.0) + 1))
-    parts.append('<text class="lab am" x="%.0f" y="%.0f">slope = 1/(8 pi)</text>'
-                 % (sx(tstar) + 14, sy(4.0) - 30))
-    parts.append('<text class="lab sm" x="%.0f" y="%.0f">the curve flattens, so the '
-                 'pile rises ever more slowly</text>' % (PX0 + 4, PY1 - 18))
-    parts.append('<text class="lab sm" x="%.1f" y="%.1f">t (min)</text>'
-                 % (PX1 - 46, PY0 + 22))
-    parts.append('<text class="lab sm" x="%.1f" y="%.1f">h (m)</text>'
-                 % (PX0 - 6, PY1 - 4))
+
+    # callouts, in the empty band below-right of the marked point
+    parts.append('<text class="lab" x="596" y="168">h = 4 m</text>')
+    parts.append('<text class="lab sm" x="596" y="190">at t = 33.5 min</text>')
+    parts.append('<text class="lab am" x="596" y="212">slope = 1/(8 pi)</text>')
+    parts.append('<text class="lab sm" x="596" y="234">it keeps flattening</text>')
+
     for hv in (2.0, 4.0, 6.0):
         parts.append('<text class="lab tk" x="%.1f" y="%.1f">%d</text>'
-                     % (PX0 - 16, sy(hv) + 4, int(hv)))
+                     % (PX0 - 18, sy(hv) + 4, int(hv)))
     for tv in (20.0, 40.0, 60.0):
         parts.append('<text class="lab tk" x="%.1f" y="%.1f">%d</text>'
-                     % (sx(tv) - 7, PY0 + 18, int(tv)))
+                     % (sx(tv) - 7, PY0 + 19, int(tv)))
 
     parts.append('<defs><marker id="a111" markerWidth="7" markerHeight="7" '
                  'refX="3.5" refY="3.5" orient="auto">'

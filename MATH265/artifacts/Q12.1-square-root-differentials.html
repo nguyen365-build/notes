@@ -1,0 +1,1358 @@
+<title>The Nearest Exact Point</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q12.1 OPENS the
+   linear-approximation category, and its one idea is that CHOOSING THE ANCHOR
+   is the whole question: the linearization is the tangent line, so both the
+   anchor's quality and the error's sign are geometry rather than arithmetic.
+   The two loudest hues therefore carry that pair - the anchor against the
+   distance from it - and the signature block is the two-column anchor
+   decision in section 03, beside the figure that measures it.
+
+     THE ANCHOR: exact, near, f'(a) clean                          --rul amber
+     THE DISTANCE dx and everything it costs                       --chn slate
+     WHERE MARKS DIE                                               --los terracotta
+     THE VARIATION families                                        --fam teal
+     NUMERICS: bounds, errors, gates, controls                     --num mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar112 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar112 .v112{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar112 .v112.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the eliminate/compute fork: this page's signature block ------------- */
+.ledger112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger112 .col112{background:var(--surface);padding:18px 20px}
+.ledger112 .col112.add112{background:var(--rul-soft)}
+.ledger112 .col112.inh112{background:var(--chn-soft)}
+.ledger112 .colh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger112 .col112.add112 .colh112{color:var(--rul)}
+.ledger112 .col112.inh112 .colh112{color:var(--chn)}
+.ledger112 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger112 li{line-height:1.62}
+.ledger112 .tag112{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger112 .tag112.ok112{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger112 .tag112.no112{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps112 .st112{background:var(--surface);padding:16px 18px}
+.steps112 .sth112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps112 .st112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-move solve board ------------------------------------------- */
+.chain112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain112 .ch112{background:var(--surface);padding:16px 18px}
+.chain112 .chh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain112 .chm112{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks112 .ck112{background:var(--surface);padding:16px 18px}
+.checks112 .ckh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks112 .ck112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam112{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam112 .famh112{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam112 .fk112{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam112 .famt112{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide112 .hd1112{background:var(--los-soft);padding:16px 18px}
+.hide112 .hdh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide112 .hd1112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl112,ol.dr112{list-style:none;counter-reset:t112;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl112 li,ol.dr112 li{counter-increment:t112;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl112 li::before,ol.dr112 li::before{content:counter(t112);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr112 li::before{color:var(--fam)}
+ol.tl112 li > span,ol.dr112 li > span{grid-column:2}
+b.ans112{color:var(--rul);font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov112 .pv112{background:var(--surface);padding:16px 18px}
+.prov112 .pvh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov112 .pv112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar112 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar112 .v112{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict112{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn112{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap112{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree112{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp112{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2112{color:var(--rul)}
+td.no2112{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   Class names are unique to this page (tri2/legf/legv/hypo/rang/stn/roc/
+   varr/sarr/asym/drop/vtr/vsn); lab, hd, sm, tk, am, gridl, axis, curve and dot
+   are DELIBERATELY the series names, because svg-labels.mjs112 selects on
+   text.lab and exempts lines whose class matches /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .tri2{fill:var(--rul-soft);stroke:none}
+.figbox .legf{stroke:var(--rul);stroke-width:3.2;stroke-linecap:round}
+.figbox .legv{stroke:var(--chn);stroke-width:2.4}
+.figbox .hypo{stroke:var(--chn);stroke-width:2.4}
+.figbox .rang{fill:none;stroke:var(--ink3);stroke-width:1.2}
+.figbox .stn{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox .roc{fill:var(--chn);stroke:var(--surface);stroke-width:1.6}
+.figbox .varr{stroke:var(--num);stroke-width:2.4}
+.figbox .varrhd{fill:var(--num);stroke:none}
+.figbox .sarr{stroke:var(--fam);stroke-width:2.4}
+.figbox .sarrhd{fill:var(--fam);stroke:none}
+.figbox .asym{stroke:var(--fam);stroke-width:1.6;stroke-dasharray:5 4}
+.figbox .drop{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.4}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vtr{fill:var(--num);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar121 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar121 .v121{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar121 .v121.mono{font-family:var(--mono);font-size:15px}
+/* MathJax SVG does not inherit the cell's colour on its own, so the
+   typeset answer rendered ink-black beside three amber siblings.  No
+   gate sees this; the screenshot did. */
+.ansbar121 .v121 mjx-container,.ansbar121 .v121 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the anchor decision: this page's signature block --------------------- */
+.ledger121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger121 .col121{background:var(--surface);padding:18px 20px}
+.ledger121 .col121.add121{background:var(--rul-soft)}
+.ledger121 .col121.inh121{background:var(--chn-soft)}
+.ledger121 .colh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger121 .col121.add121 .colh121{color:var(--rul)}
+.ledger121 .col121.inh121 .colh121{color:var(--chn)}
+.ledger121 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger121 li{line-height:1.62}
+.ledger121 .tag121{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger121 .tag121.ok121{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger121 .tag121.no121{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup steps ------------------------------------------------ */
+.steps121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps121 .st121{background:var(--surface);padding:16px 18px}
+.steps121 .sth121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps121 .st121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain121 .ch121{background:var(--surface);padding:16px 18px}
+.chain121 .chh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks121 .ck121{background:var(--surface);padding:16px 18px}
+.checks121 .ckh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks121 .ck121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam121{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam121 .famh121{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam121 .fk121{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam121 .famt121{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov121 .pv121{background:var(--surface);padding:16px 18px}
+.prov121 .pvh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov121 .pv121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar121 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar121 .v121{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl121,ol.dr121{list-style:none;counter-reset:t121;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl121 li,ol.dr121 li{counter-increment:t121;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl121 li::before,ol.dr121 li::before{content:counter(t121);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr121 li::before{color:var(--fam)}
+ol.tl121 li > span,ol.dr121 li > span{grid-column:2}
+b.ans121{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption, decision tree ------------------------------- */
+.verdict121{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn121{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap121{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree121{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp121{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2121{color:var(--rul)}
+td.no2121{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   gapfill/tang/gapline/gdot/leadr/bar/barbest are unique to this page; lab,
+   hd, sm, tk, am, vsn, gridl, axis, curve and dot are DELIBERATELY the series
+   names, because svg-labels.mjs121 selects text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .gapfill{fill:var(--chn-soft);stroke:none}
+.figbox .tanl{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapline{stroke:var(--fam);stroke-width:2.2}
+.figbox .gdot{fill:var(--fam);stroke:none}
+.figbox .leadr{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar{fill:var(--chn)}
+.figbox .barbest{fill:var(--rul)}
+.figbox .tansw{fill:var(--rul)}
+.figbox .cursw{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+</style>
+<main class="wrap">
+
+<header class="hdr wrap">
+  <p class="eyebrow">MATH 265 &middot; MT1 ITEM 9 &middot; 5 POINTS &middot; CATEGORY 12</p>
+  <h1>Approximate a square root with differentials</h1>
+  <p class="stand">"Use differentials to find the approximate value of \(\sqrt{9.2}\)." One derivative, one well-chosen anchor, and one sentence about which way the answer leans. The anchor is the whole question.</p>
+
+  <div class="ansbar121">
+    <div><span class="k121">The answer</span><span class="v121">\(3 + \tfrac{1}{30} = \tfrac{91}{30}\)</span></div>
+    <div><span class="k121">As a decimal</span><span class="v121 mono">3.0333</span></div>
+    <div><span class="k121">Type into Mobius</span><span class="v121 mono">91/30</span></div>
+    <div><span class="k121">Which way it leans</span><span class="v121">too big, by 0.00018</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>01 &middot; The thirty-second version</h2>
+  <p>Everything in this question is one line of setup and one derivative. If your route needs a lookup, you chose the wrong anchor.</p>
+
+  <div class="steps121">
+    <div class="st121"><p class="sth121">1 &middot; Name f</p><p>You are asked for a number that is \(f\) of something. \(\sqrt{9.2}\) means \(f(x) = \sqrt{x}\).</p></div>
+    <div class="st121"><p class="sth121">2 &middot; Choose the anchor</p><p>The nearest \(a\) where \(f(a)\) is exact and you know it cold. \(9\) is a perfect square, so \(\sqrt{9} = 3\). Then \(dx = 0.2\).</p></div>
+    <div class="st121"><p class="sth121">3 &middot; Differentiate once</p><p>\(f'(x) = \dfrac{1}{2\sqrt{x}}\), so \(f'(9) = \dfrac{1}{6}\). Evaluate at the <em>anchor</em>, never at the target.</p></div>
+    <div class="st121"><p class="sth121">4 &middot; Build dy and add</p><p>\(dy = f'(9)\,dx = \dfrac{1}{30}\), so \(\sqrt{9.2} \approx 3 + \dfrac{1}{30} = \dfrac{91}{30}\).</p></div>
+  </div>
+
+  <p class="verdict121"><strong>Then say which way it leans.</strong> \(f''(x) = -\dfrac{1}{4x^{3/2}} < 0\), so \(\sqrt{x}\) is concave down, so the tangent line sits above the curve, so the estimate is too big. It is, by \(0.00018\). That sentence costs eight seconds and is the only part of the answer that shows you know what an approximation is.</p>
+</section>
+
+<section>
+  <h2>02 &middot; One formula, three costumes</h2>
+  <p>The exam asks for this in three different wordings across three different papers. They are the same object.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Written as</th><th>What it says</th><th>Reach for it when</th></tr></thead>
+      <tbody>
+        <tr><td>\(L(x) = f(a) + f'(a)(x-a)\)</td><td>the tangent line at \(a\), as a function</td><td>you want the <strong>line</strong>, or \(f\) at several nearby points</td></tr>
+        <tr><td>\(f(a + dx) \approx f(a) + f'(a)\,dx\)</td><td>the same line, evaluated once</td><td>you want <strong>one number</strong>  -  this question</td></tr>
+        <tr><td>\(dy = f'(a)\,dx\), with \(\Delta y \approx dy\)</td><td>just the <strong>change</strong>, not the value</td><td>you want an <strong>error</strong> or a change</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>These are not three formulas to memorise. \(dy\) is the second one with \(f(a)\) moved across. Q12.1 says "use differentials", Q12.2 says "use linearization", Q12.3 says "the method of differentials"  -  all three want the same five lines.</p>
+
+  <p class="warn121"><strong>Category 12 is worth 19 points across three separate papers.</strong> Q12.1 is MT1 item 9 (5 points), Q12.2 is MT2 item 8 (6 points, estimate \(\sin 62^{\circ}\)), Q12.3 is Final Exam 1 item 2 (8 points, "to four decimal places"). Learning this once pays three times.</p>
+</section>
+
+<section>
+  <h2>03 &middot; Choosing the anchor is the whole craft</h2>
+  <p>Step 2 is where the marks are, and it is the only step with a decision in it. The test is not "is \(a\) a tidy number". The test is <strong>do I know \(f(a)\) exactly, without a calculator</strong>.</p>
+
+  <div class="figbox"><svg viewBox="0 0 720 600" width="720" height="600" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Panel A: the tangent line to the square-root curve at x = 9 lies above the curve everywhere, and the shaded wedge between them is the approximation error, which widens with the square of the distance from 9. Panel B: a bar chart on a logarithmic scale of the error in estimating the square root of 9.2 from six candidate anchors, in which the anchor 9 gives by far the smallest error."><text class="lab hd" x="70.0" y="26">PANEL A - THE TANGENT AT a = 9 SITS ABOVE THE CURVE</text><text class="lab sm" x="70.0" y="48">the shaded wedge is the error, at every x</text><line class="gridl" x1="70.0" y1="86.0" x2="70.0" y2="306.0"/><line class="gridl" x1="168.3" y1="86.0" x2="168.3" y2="306.0"/><line class="gridl" x1="266.7" y1="86.0" x2="266.7" y2="306.0"/><line class="gridl" x1="365.0" y1="86.0" x2="365.0" y2="306.0"/><line class="gridl" x1="463.3" y1="86.0" x2="463.3" y2="306.0"/><line class="gridl" x1="561.7" y1="86.0" x2="561.7" y2="306.0"/><line class="gridl" x1="660.0" y1="86.0" x2="660.0" y2="306.0"/><line class="gridl" x1="70.0" y1="306.0" x2="660.0" y2="306.0"/><line class="gridl" x1="70.0" y1="269.3" x2="660.0" y2="269.3"/><line class="gridl" x1="70.0" y1="232.7" x2="660.0" y2="232.7"/><line class="gridl" x1="70.0" y1="196.0" x2="660.0" y2="196.0"/><line class="gridl" x1="70.0" y1="159.3" x2="660.0" y2="159.3"/><line class="gridl" x1="70.0" y1="122.7" x2="660.0" y2="122.7"/><line class="gridl" x1="70.0" y1="86.0" x2="660.0" y2="86.0"/><polygon class="gapfill" points="70.00,251.00 72.21,250.31 74.42,249.62 76.64,248.94 78.85,248.25 81.06,247.56 83.28,246.88 85.49,246.19 87.70,245.50 89.91,244.81 92.12,244.12 94.34,243.44 96.55,242.75 98.76,242.06 100.97,241.38 103.19,240.69 105.40,240.00 107.61,239.31 109.83,238.62 112.04,237.94 114.25,237.25 116.46,236.56 118.67,235.88 120.89,235.19 123.10,234.50 125.31,233.81 127.53,233.12 129.74,232.44 131.95,231.75 134.16,231.06 136.38,230.38 138.59,229.69 140.80,229.00 143.01,228.31 145.22,227.62 147.44,226.94 149.65,226.25 151.86,225.56 154.07,224.88 156.29,224.19 158.50,223.50 160.71,222.81 162.93,222.12 165.14,221.44 167.35,220.75 169.56,220.06 171.78,219.38 173.99,218.69 176.20,218.00 178.41,217.31 180.62,216.62 182.84,215.94 185.05,215.25 187.26,214.56 189.47,213.88 191.69,213.19 193.90,212.50 196.11,211.81 198.32,211.12 200.54,210.44 202.75,209.75 204.96,209.06 207.18,208.38 209.39,207.69 211.60,207.00 213.81,206.31 216.03,205.62 218.24,204.94 220.45,204.25 222.66,203.56 224.88,202.88 227.09,202.19 229.30,201.50 231.51,200.81 233.72,200.12 235.94,199.44 238.15,198.75 240.36,198.06 242.57,197.38 244.79,196.69 247.00,196.00 249.21,195.31 251.43,194.62 253.64,193.94 255.85,193.25 258.06,192.56 260.27,191.88 262.49,191.19 264.70,190.50 266.91,189.81 269.12,189.12 271.34,188.44 273.55,187.75 275.76,187.06 277.98,186.38 280.19,185.69 282.40,185.00 284.61,184.31 286.82,183.62 289.04,182.94 291.25,182.25 293.46,181.56 295.68,180.88 297.89,180.19 300.10,179.50 302.31,178.81 304.52,178.12 306.74,177.44 308.95,176.75 311.16,176.06 313.38,175.38 315.59,174.69 317.80,174.00 320.01,173.31 322.23,172.63 324.44,171.94 326.65,171.25 328.86,170.56 331.07,169.88 333.29,169.19 335.50,168.50 337.71,167.81 339.93,167.12 342.14,166.44 344.35,165.75 346.56,165.06 348.77,164.37 350.99,163.69 353.20,163.00 355.41,162.31 357.62,161.62 359.84,160.94 362.05,160.25 364.26,159.56 366.48,158.88 368.69,158.19 370.90,157.50 373.11,156.81 375.32,156.12 377.54,155.44 379.75,154.75 381.96,154.06 384.18,153.38 386.39,152.69 388.60,152.00 390.81,151.31 393.02,150.62 395.24,149.94 397.45,149.25 399.66,148.56 401.88,147.88 404.09,147.19 406.30,146.50 408.51,145.81 410.73,145.12 412.94,144.44 415.15,143.75 417.36,143.06 419.57,142.38 421.79,141.69 424.00,141.00 426.21,140.31 428.43,139.62 430.64,138.94 432.85,138.25 435.06,137.56 437.27,136.88 439.49,136.19 441.70,135.50 443.91,134.81 446.12,134.12 448.34,133.44 450.55,132.75 452.76,132.06 454.98,131.38 457.19,130.69 459.40,130.00 461.61,129.31 463.82,128.63 466.04,127.94 468.25,127.25 470.46,126.56 472.68,125.87 474.89,125.19 477.10,124.50 479.31,123.81 481.52,123.12 483.74,122.44 485.95,121.75 488.16,121.06 490.38,120.38 492.59,119.69 494.80,119.00 497.01,118.31 499.23,117.63 501.44,116.94 503.65,116.25 505.86,115.56 508.07,114.88 510.29,114.19 512.50,113.50 514.71,112.81 516.92,112.12 519.14,111.44 521.35,110.75 523.56,110.06 525.77,109.37 527.99,108.69 530.20,108.00 532.41,107.31 534.62,106.62 536.84,105.94 539.05,105.25 541.26,104.56 543.48,103.88 545.69,103.19 547.90,102.50 550.11,101.81 552.33,101.12 554.54,100.44 556.75,99.75 558.96,99.06 561.17,98.38 563.39,97.69 565.60,97.00 567.81,96.31 570.02,95.62 572.24,94.94 574.45,94.25 576.66,93.56 578.88,92.88 581.09,92.19 583.30,91.50 585.51,90.81 587.73,90.13 589.94,89.44 592.15,88.75 594.36,88.06 596.58,87.38 598.79,86.69 601.00,86.00 601.00,115.47 598.79,115.87 596.58,116.27 594.36,116.67 592.15,117.07 589.94,117.47 587.73,117.87 585.51,118.27 583.30,118.68 581.09,119.08 578.88,119.49 576.66,119.89 574.45,120.30 572.24,120.71 570.02,121.11 567.81,121.52 565.60,121.93 563.39,122.35 561.17,122.76 558.96,123.17 556.75,123.59 554.54,124.00 552.33,124.42 550.11,124.83 547.90,125.25 545.69,125.67 543.48,126.09 541.26,126.51 539.05,126.93 536.84,127.36 534.62,127.78 532.41,128.20 530.20,128.63 527.99,129.06 525.77,129.49 523.56,129.91 521.35,130.34 519.14,130.78 516.92,131.21 514.71,131.64 512.50,132.07 510.29,132.51 508.07,132.95 505.86,133.38 503.65,133.82 501.44,134.26 499.23,134.70 497.01,135.15 494.80,135.59 492.59,136.03 490.38,136.48 488.16,136.93 485.95,137.37 483.74,137.82 481.52,138.27 479.31,138.72 477.10,139.18 474.89,139.63 472.68,140.09 470.46,140.54 468.25,141.00 466.04,141.46 463.82,141.92 461.61,142.38 459.40,142.84 457.19,143.31 454.98,143.77 452.76,144.24 450.55,144.71 448.34,145.18 446.12,145.65 443.91,146.12 441.70,146.59 439.49,147.07 437.27,147.55 435.06,148.02 432.85,148.50 430.64,148.98 428.43,149.47 426.21,149.95 424.00,150.44 421.79,150.92 419.57,151.41 417.36,151.90 415.15,152.39 412.94,152.89 410.73,153.38 408.51,153.88 406.30,154.38 404.09,154.88 401.88,155.38 399.66,155.88 397.45,156.38 395.24,156.89 393.02,157.40 390.81,157.91 388.60,158.42 386.39,158.93 384.18,159.45 381.96,159.96 379.75,160.48 377.54,161.00 375.32,161.53 373.11,162.05 370.90,162.58 368.69,163.11 366.48,163.64 364.26,164.17 362.05,164.70 359.84,165.24 357.62,165.78 355.41,166.32 353.20,166.86 350.99,167.40 348.77,167.95 346.56,168.50 344.35,169.05 342.14,169.60 339.93,170.16 337.71,170.72 335.50,171.28 333.29,171.84 331.07,172.41 328.86,172.97 326.65,173.54 324.44,174.11 322.23,174.69 320.01,175.27 317.80,175.85 315.59,176.43 313.38,177.01 311.16,177.60 308.95,178.19 306.74,178.78 304.52,179.38 302.31,179.98 300.10,180.58 297.89,181.19 295.68,181.79 293.46,182.40 291.25,183.02 289.04,183.63 286.82,184.25 284.61,184.88 282.40,185.50 280.19,186.13 277.98,186.76 275.76,187.40 273.55,188.04 271.34,188.68 269.12,189.33 266.91,189.98 264.70,190.63 262.49,191.29 260.27,191.95 258.06,192.61 255.85,193.28 253.64,193.96 251.43,194.63 249.21,195.31 247.00,196.00 244.79,196.69 242.57,197.38 240.36,198.08 238.15,198.79 235.94,199.49 233.72,200.21 231.51,200.92 229.30,201.64 227.09,202.37 224.88,203.10 222.66,203.84 220.45,204.59 218.24,205.33 216.03,206.09 213.81,206.85 211.60,207.61 209.39,208.38 207.18,209.16 204.96,209.95 202.75,210.74 200.54,211.53 198.32,212.34 196.11,213.15 193.90,213.97 191.69,214.79 189.47,215.63 187.26,216.47 185.05,217.32 182.84,218.17 180.62,219.04 178.41,219.91 176.20,220.79 173.99,221.69 171.78,222.59 169.56,223.50 167.35,224.42 165.14,225.35 162.93,226.30 160.71,227.25 158.50,228.22 156.29,229.20 154.07,230.19 151.86,231.19 149.65,232.21 147.44,233.24 145.22,234.29 143.01,235.35 140.80,236.43 138.59,237.53 136.38,238.64 134.16,239.77 131.95,240.92 129.74,242.10 127.53,243.29 125.31,244.51 123.10,245.75 120.89,247.02 118.67,248.32 116.46,249.64 114.25,251.00 112.04,252.39 109.83,253.82 107.61,255.29 105.40,256.81 103.19,258.37 100.97,259.98 98.76,261.66 96.55,263.40 94.34,265.21 92.12,267.11 89.91,269.10 87.70,271.21 85.49,273.46 83.28,275.88 81.06,278.50 78.85,281.40 76.64,284.70 74.42,288.61 72.21,293.70 70.00,306.00"/><line class="axis" x1="70.0" y1="306.0" x2="660.0" y2="306.0"/><line class="axis" x1="70.0" y1="86.0" x2="70.0" y2="306.0"/><polyline class="curve" points="70.00,306.00 71.64,295.42 73.28,291.03 74.92,287.67 76.56,284.83 78.19,282.33 79.83,280.07 81.47,278.00 83.11,276.06 84.75,274.25 86.39,272.53 88.03,270.89 89.67,269.33 91.31,267.84 92.94,266.40 94.58,265.01 96.22,263.66 97.86,262.36 99.50,261.09 101.14,259.86 102.78,258.66 104.42,257.49 106.06,256.35 107.69,255.24 109.33,254.15 110.97,253.08 112.61,252.03 114.25,251.00 115.89,249.99 117.53,249.00 119.17,248.02 120.81,247.07 122.44,246.12 124.08,245.20 125.72,244.28 127.36,243.38 129.00,242.49 130.64,241.62 132.28,240.75 133.92,239.90 135.56,239.06 137.19,238.22 138.83,237.40 140.47,236.59 142.11,235.79 143.75,235.00 145.39,234.21 147.03,233.43 148.67,232.67 150.31,231.91 151.94,231.15 153.58,230.41 155.22,229.67 156.86,228.94 158.50,228.22 160.14,227.50 161.78,226.79 163.42,226.09 165.06,225.39 166.69,224.70 168.33,224.01 169.97,223.33 171.61,222.66 173.25,221.99 174.89,221.32 176.53,220.66 178.17,220.01 179.81,219.36 181.44,218.72 183.08,218.08 184.72,217.44 186.36,216.81 188.00,216.19 189.64,215.56 191.28,214.95 192.92,214.33 194.56,213.72 196.19,213.12 197.83,212.52 199.47,211.92 201.11,211.33 202.75,210.74 204.39,210.15 206.03,209.57 207.67,208.99 209.31,208.41 210.94,207.84 212.58,207.27 214.22,206.71 215.86,206.14 217.50,205.58 219.14,205.03 220.78,204.47 222.42,203.92 224.06,203.38 225.69,202.83 227.33,202.29 228.97,201.75 230.61,201.22 232.25,200.68 233.89,200.15 235.53,199.62 237.17,199.10 238.81,198.58 240.44,198.06 242.08,197.54 243.72,197.02 245.36,196.51 247.00,196.00 248.64,195.49 250.28,194.99 251.92,194.48 253.56,193.98 255.19,193.48 256.83,192.99 258.47,192.49 260.11,192.00 261.75,191.51 263.39,191.02 265.03,190.53 266.67,190.05 268.31,189.57 269.94,189.09 271.58,188.61 273.22,188.13 274.86,187.66 276.50,187.19 278.14,186.72 279.78,186.25 281.42,185.78 283.06,185.32 284.69,184.85 286.33,184.39 287.97,183.93 289.61,183.47 291.25,183.02 292.89,182.56 294.53,182.11 296.17,181.66 297.81,181.21 299.44,180.76 301.08,180.31 302.72,179.87 304.36,179.42 306.00,178.98 307.64,178.54 309.28,178.10 310.92,177.67 312.56,177.23 314.19,176.80 315.83,176.36 317.47,175.93 319.11,175.50 320.75,175.07 322.39,174.65 324.03,174.22 325.67,173.80 327.31,173.37 328.94,172.95 330.58,172.53 332.22,172.11 333.86,171.69 335.50,171.28 337.14,170.86 338.78,170.45 340.42,170.04 342.06,169.62 343.69,169.21 345.33,168.81 346.97,168.40 348.61,167.99 350.25,167.59 351.89,167.18 353.53,166.78 355.17,166.38 356.81,165.98 358.44,165.58 360.08,165.18 361.72,164.78 363.36,164.39 365.00,163.99 366.64,163.60 368.28,163.20 369.92,162.81 371.56,162.42 373.19,162.03 374.83,161.64 376.47,161.26 378.11,160.87 379.75,160.48 381.39,160.10 383.03,159.72 384.67,159.33 386.31,158.95 387.94,158.57 389.58,158.19 391.22,157.81 392.86,157.44 394.50,157.06 396.14,156.68 397.78,156.31 399.42,155.94 401.06,155.56 402.69,155.19 404.33,154.82 405.97,154.45 407.61,154.08 409.25,153.71 410.89,153.34 412.53,152.98 414.17,152.61 415.81,152.25 417.44,151.88 419.08,151.52 420.72,151.16 422.36,150.80 424.00,150.44 425.64,150.08 427.28,149.72 428.92,149.36 430.56,149.00 432.19,148.65 433.83,148.29 435.47,147.94 437.11,147.58 438.75,147.23 440.39,146.88 442.03,146.52 443.67,146.17 445.31,145.82 446.94,145.47 448.58,145.13 450.22,144.78 451.86,144.43 453.50,144.08 455.14,143.74 456.78,143.39 458.42,143.05 460.06,142.71 461.69,142.36 463.33,142.02 464.97,141.68 466.61,141.34 468.25,141.00 469.89,140.66 471.53,140.32 473.17,139.98 474.81,139.65 476.44,139.31 478.08,138.98 479.72,138.64 481.36,138.31 483.00,137.97 484.64,137.64 486.28,137.31 487.92,136.98 489.56,136.64 491.19,136.31 492.83,135.98 494.47,135.65 496.11,135.33 497.75,135.00 499.39,134.67 501.03,134.34 502.67,134.02 504.31,133.69 505.94,133.37 507.58,133.04 509.22,132.72 510.86,132.40 512.50,132.07 514.14,131.75 515.78,131.43 517.42,131.11 519.06,130.79 520.69,130.47 522.33,130.15 523.97,129.83 525.61,129.52 527.25,129.20 528.89,128.88 530.53,128.57 532.17,128.25 533.81,127.94 535.44,127.62 537.08,127.31 538.72,127.00 540.36,126.68 542.00,126.37 543.64,126.06 545.28,125.75 546.92,125.44 548.56,125.13 550.19,124.82 551.83,124.51 553.47,124.20 555.11,123.89 556.75,123.59 558.39,123.28 560.03,122.97 561.67,122.67 563.31,122.36 564.94,122.06 566.58,121.75 568.22,121.45 569.86,121.15 571.50,120.84 573.14,120.54 574.78,120.24 576.42,119.94 578.06,119.64 579.69,119.34 581.33,119.04 582.97,118.74 584.61,118.44 586.25,118.14 587.89,117.84 589.53,117.54 591.17,117.25 592.81,116.95 594.44,116.65 596.08,116.36 597.72,116.06 599.36,115.77 601.00,115.47 602.64,115.18 604.28,114.89 605.92,114.59 607.56,114.30 609.19,114.01 610.83,113.72 612.47,113.43 614.11,113.14 615.75,112.85 617.39,112.56 619.03,112.27 620.67,111.98 622.31,111.69 623.94,111.40 625.58,111.11 627.22,110.83 628.86,110.54 630.50,110.25 632.14,109.97 633.78,109.68 635.42,109.40 637.06,109.11 638.69,108.83 640.33,108.54 641.97,108.26 643.61,107.98 645.25,107.69 646.89,107.41 648.53,107.13 650.17,106.85 651.81,106.57 653.44,106.29 655.08,106.01 656.72,105.73 658.36,105.45 660.00,105.17"/><line class="tanl" x1="70.0" y1="251.0" x2="601.0" y2="86.0"/><line class="gapline" x1="561.7" y1="122.7" x2="561.7" y2="98.2"/><circle class="gdot" cx="561.7" cy="122.7" r="3"/><circle class="gdot" cx="561.7" cy="98.2" r="3"/><circle class="dot" cx="247.0" cy="196.0" r="5.5"/><text class="lab tk" x="70.0" y="322.0" text-anchor="middle">0</text><text class="lab tk" x="168.3" y="322.0" text-anchor="middle">5</text><text class="lab tk" x="266.7" y="322.0" text-anchor="middle">10</text><text class="lab tk" x="365.0" y="322.0" text-anchor="middle">15</text><text class="lab tk" x="463.3" y="322.0" text-anchor="middle">20</text><text class="lab tk" x="561.7" y="322.0" text-anchor="middle">25</text><text class="lab tk" x="660.0" y="322.0" text-anchor="middle">30</text><text class="lab tk" x="62.0" y="236.7" text-anchor="end">2</text><text class="lab tk" x="62.0" y="163.3" text-anchor="end">4</text><text class="lab tk" x="62.0" y="90.0" text-anchor="end">6</text><line class="leadr" x1="250.9" y1="193.1" x2="197.8" y2="162.0"/><text class="lab" x="81.8" y="118.0">at x = 9.2 the wedge is 0.00018</text><text class="lab sm" x="81.8" y="140.0">too thin to draw; at x = 25 it is 0.667</text><text class="lab am" x="247.0" y="250.0" text-anchor="middle">anchor (9, 3)</text><rect class="tansw" x="376.8" y="240.2" width="26" height="4" rx="2"/><text class="lab am" x="412.8" y="247.2">L(x) = 3 + (x - 9)/6, the tangent at a = 9</text><rect class="cursw" x="376.8" y="262.2" width="26" height="4" rx="2"/><text class="lab" x="412.8" y="269.2">y = sqrt(x)</text><text class="lab hd" x="70.0" y="366.0">PANEL B - ERROR IN sqrt(9.2) BY CHOICE OF ANCHOR</text><text class="lab sm" x="70.0" y="388.0">log scale; all six anchors are exact, only one is near</text><line class="gridl" x1="210.0" y1="400.0" x2="210.0" y2="566.0"/><text class="lab tk" x="210.0" y="584.0" text-anchor="middle">1e-4</text><line class="gridl" x1="307.5" y1="400.0" x2="307.5" y2="566.0"/><text class="lab tk" x="307.5" y="584.0" text-anchor="middle">1e-3</text><line class="gridl" x1="405.0" y1="400.0" x2="405.0" y2="566.0"/><text class="lab tk" x="405.0" y="584.0" text-anchor="middle">1e-2</text><line class="gridl" x1="502.5" y1="400.0" x2="502.5" y2="566.0"/><text class="lab tk" x="502.5" y="584.0" text-anchor="middle">1e-1</text><line class="gridl" x1="600.0" y1="400.0" x2="600.0" y2="566.0"/><text class="lab tk" x="600.0" y="584.0" text-anchor="middle">1e0</text><rect class="bar" x="210.0" y="403.0" width="334.1" height="14" rx="2"/><text class="lab sm" x="198.0" y="414.0" text-anchor="end">a = 4</text><text class="lab tk" x="554.1" y="414.0">0.266850</text><rect class="bar" x="210.0" y="430.0" width="144.8" height="14" rx="2"/><text class="lab sm" x="198.0" y="441.0" text-anchor="end">a = 8.41 (2.9 squared)</text><text class="lab tk" x="364.8" y="441.0">0.003057</text><rect class="barbest" x="210.0" y="457.0" width="25.6" height="14" rx="2"/><text class="lab am" x="198.0" y="468.0" text-anchor="end">a = 9</text><text class="lab am" x="245.6" y="468.0">0.000183</text><rect class="bar" x="210.0" y="484.0" width="83.6" height="14" rx="2"/><text class="lab sm" x="198.0" y="495.0" text-anchor="end">a = 9.61 (3.1 squared)</text><text class="lab tk" x="303.6" y="495.0">0.000721</text><rect class="bar" x="210.0" y="511.0" width="243.1" height="14" rx="2"/><text class="lab sm" x="198.0" y="522.0" text-anchor="end">a = 12.25 (3.5 squared)</text><text class="lab tk" x="463.1" y="522.0">0.031136</text><rect class="bar" x="210.0" y="538.0" width="299.1" height="14" rx="2"/><text class="lab sm" x="198.0" y="549.0" text-anchor="end">a = 16</text><text class="lab tk" x="519.1" y="549.0">0.116850</text></svg></div>
+
+  <p class="cap121">Panel A is the geometric content of the whole topic: the linearization <em>is</em> the tangent line, and because \(\sqrt{x}\) is concave down that line never dips below the curve. The vertical gap is the error. It is invisible at \(x = 9.2\) and obvious at \(x = 25\), because the error is second order  -  double the distance and the gap quadruples. Panel B turns that into a measurement. All six anchors are perfect squares, so all six are legal; \(a = 9\) wins by three orders of magnitude over \(a = 16\), purely because it is near.</p>
+
+  <div class="ledger121">
+    <div class="col121 add121">
+      <p class="colh121">Choose the nearest exact point</p>
+      <ul>
+        <li>\(a = 9\) for \(\sqrt{9.2}\), because \(\sqrt{9} = 3\) and \(9\) is closest.</li>
+        <li>\(a = 27\) for \(\sqrt[3]{26.8}\), stepping <em>down</em>  -  a negative \(dx\) is perfectly normal.</li>
+        <li>\(a = \pi/3\) for \(\sin 62^{\circ}\), in radians.</li>
+        <li>\(a = 2\) for \((2.01)^5\), because \(2^5 = 32\).</li>
+      </ul>
+      <p class="tag121 ok121"><strong>The tell that you chose well:</strong> \(f'(a)\) comes out a unit fraction or a small integer. Every anchor in the catalog below does. If \(f'(a)\) is ugly, look again.</p>
+    </div>
+    <div class="col121 inh121">
+      <p class="colh121">Do not choose the prettier one</p>
+      <ul>
+        <li>\(a = 9.61 = 3.1^2\) is genuinely exact  -  and <strong>3.94 times worse</strong>, because it is twice as far.</li>
+        <li>\(a = 16\) is exact and <strong>638 times worse</strong>.</li>
+        <li>\(a = 10\) is nearest of all and <strong>unusable</strong>, because \(\sqrt{10}\) is not a number you know.</li>
+      </ul>
+      <p class="tag121 no121"><strong>Nearest wins, always.</strong> The error goes as \((dx)^2\), so distance is punished twice over. Exactness is the entry requirement; nearness is the tie-break.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>04 &middot; Four routes, and which to use under pressure</h2>
+
+  <div class="chain121">
+    <div class="ch121">
+      <p class="chh121">A &middot; Differentials  -  the wording the exam uses</p>
+      <p class="disp121">$$f(9) = 3,\quad f'(9) = \tfrac16,\quad dy = \tfrac16(0.2) = \tfrac{1}{30},\quad \sqrt{9.2} \approx \tfrac{91}{30}$$</p>
+    </div>
+    <div class="ch121">
+      <p class="chh121">B &middot; Linearization  -  the wording Q12.2 uses</p>
+      <p class="disp121">$$L(x) = 3 + \tfrac16(x-9),\qquad L(9.2) = 3 + \tfrac{1}{30}$$</p>
+    </div>
+    <div class="ch121">
+      <p class="chh121">C &middot; Factor out the anchor</p>
+      <p class="disp121">$$\sqrt{9.2} = 3\sqrt{1 + \tfrac{1}{45}} \approx 3\left(1 + \tfrac{1}{90}\right) = 3 + \tfrac{1}{30}$$</p>
+    </div>
+    <div class="ch121">
+      <p class="chh121">D &middot; One Newton step  -  the same arithmetic</p>
+      <p class="disp121">$$x_1 = \tfrac12\left(3 + \tfrac{9.2}{3}\right) = \tfrac{91}{30}$$</p>
+    </div>
+  </div>
+
+  <p>Route D is not a coincidence. Linearizing \(\sqrt{x}\) at \(a\) gives \(\tfrac12\!\left(\sqrt a + \tfrac{N}{\sqrt a}\right)\), which is exactly one Babylonian step  -  verified identical to machine precision at ten separate \((a, N)\) pairs. That makes Q13.1, Newton's method, this question's neighbour, and it makes route D the best self-check available: it shares none of route A's algebra.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Route</th><th>Steps</th><th>Where it goes wrong</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>A &middot; differentials</td><td class="mono">4</td><td>nothing  -  shortest path</td><td class="ok2121"><strong>use this one</strong></td></tr>
+        <tr><td>B &middot; linearization</td><td class="mono">5</td><td>an extra \((x-9)\) to carry and mis-sign</td><td>several targets, one anchor</td></tr>
+        <tr><td>C &middot; binomial</td><td class="mono">5</td><td>needs \(\sqrt{1+u} \approx 1 + \tfrac{u}{2}\) recalled</td><td>percentage-change wording</td></tr>
+        <tr><td>D &middot; Newton step</td><td class="mono">4</td><td>you must invert to \(x^2 = 9.2\)</td><td>use as a <strong>check</strong></td></tr>
+        <tr><td>Calculator</td><td class="mono">1</td><td>the stem names the method</td><td class="no2121">scores zero</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>05 &middot; Checking yourself in eight seconds</h2>
+
+  <div class="checks121">
+    <div class="ck121"><p class="ckh121">Bracket it</p><p>\(3^2 = 9\) and \(3.1^2 = 9.61\), so the answer lives in \((3,\,3.1)\). Kills every gross slip.</p></div>
+    <div class="ck121"><p class="ckh121">Square it back</p><p>\(\left(\tfrac{91}{30}\right)^2 = 9.2011\), a little <em>above</em> 9.2  -  which confirms the value and the overshoot at once.</p></div>
+    <div class="ck121"><p class="ckh121">Newton cross-check</p><p>\(\tfrac12\!\left(3 + \tfrac{9.2}{3}\right) = 3.0\overline{3}\). Different algebra, same answer.</p></div>
+    <div class="ck121"><p class="ckh121">Is f'(a) clean?</p><p>\(\tfrac16\) is a unit fraction. If yours is not, the anchor is wrong.</p></div>
+  </div>
+
+  <p class="warn121"><strong>Never spot-check this method at the anchor itself.</strong> Setting \(dx = 0\) makes five of the eight standard wrong answers agree with the truth exactly, because they all differ from it only by a factor multiplying \(dy\)  -  and \(dy\) is zero there. Verified over a 64-point sweep with the degenerate rows deliberately left in; removing them reports no blind spot at all. This is the same trap as the zero-rate blind spot in related rates, where a stationary pile makes every wrong cone formula give zero.</p>
+</section>
+
+<section>
+  <h2>06 &middot; What the estimate is actually worth</h2>
+  <p>The error is second order in \(dx\), and both its sign and its size are available without knowing the true value.</p>
+
+  <p class="disp121">$$\text{true} - \text{estimate} = \frac{f''(\xi)}{2}(dx)^2 \quad\text{for some }\xi\text{ between }a\text{ and }a+dx$$</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Quantity</th><th>Value</th><th>How it was checked</th></tr></thead>
+      <tbody>
+        <tr><td>the estimate</td><td class="mono">3.0333333</td><td>exact rational arithmetic, \(91/30\)</td></tr>
+        <tr><td>the true value</td><td class="mono">3.0331502</td><td>60-digit decimal, squared back to 9.2</td></tr>
+        <tr><td>the error</td><td class="mono">-0.00018316</td><td>the difference of those two</td></tr>
+        <tr><td>the bound \(\tfrac{(dx)^2}{8a^{3/2}}\)</td><td class="mono">0.00018519</td><td>from \(f''(9) = -\tfrac1{108}\)</td></tr>
+        <tr><td>bound vs actual</td><td class="mono">98.9%</td><td>the bound is tight, so it is worth quoting</td></tr>
+        <tr><td>relative error</td><td class="mono">0.0060%</td><td>error divided by the true value</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Halve \(dx\) and the error drops by four.</strong> Measured at \(dx = 0.4,\ 0.2,\ 0.1,\ 0.05\): the ratio came out \(4.00\) every time. And the direction comes from concavity alone, never from the sign of \(dx\)  -  verified at 72 anchor-and-offset pairs in both directions, all 72 above the curve, with four convex functions seeded as controls to prove the test can report the opposite.</p>
+
+  <p class="warn121"><strong>The bound uses the endpoint where \(|f''|\) is largest, which is not always the anchor.</strong> For a root \(|f''|\) falls as \(x\) grows, so an anchor-based bound is valid when \(dx > 0\) and <em>invalid</em> when \(dx &lt; 0\). Worked instance: estimating \(\sqrt{48.6}\) from \(a = 49\), the anchor bound is \(5.8309 \times 10^{-5}\) and the actual error is \(5.8548 \times 10^{-5}\)  -  the bound is violated. Using the far endpoint \(48.6\) gives \(5.9030 \times 10^{-5}\), which holds.</p>
+</section>
+
+<section>
+  <h2>07 &middot; "To four decimal places" does not mean four correct ones</h2>
+  <p>Final Exam 1 item 2 is worth 8 points and says: estimate each value <em>to four decimal places</em>. That phrase needs reading carefully, because on its own two parts the method cannot deliver four correct places.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Target</th><th>Differential estimate</th><th>True value</th><th>At 4 dp</th></tr></thead>
+      <tbody>
+        <tr><td>\(\sqrt{9.2}\)  -  this question</td><td class="mono">3.0333333</td><td class="mono">3.0331502</td><td class="mono no2121">3.0333 vs 3.0332</td></tr>
+        <tr><td>\(\sqrt{16.4}\)  -  Q12.3(b)</td><td class="mono">4.0500000</td><td class="mono">4.0496913</td><td class="mono no2121">4.0500 vs 4.0497</td></tr>
+        <tr><td>\(\cos 62^{\circ}\)  -  Q12.3(a)</td><td class="mono">0.4697700</td><td class="mono">0.4694716</td><td class="mono no2121">0.4698 vs 0.4695</td></tr>
+        <tr><td>\(\sqrt[3]{26.8}\)</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td class="mono ok2121">2.9926 vs 2.9926</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Across all 21 entries in Families 0 and 1 below, <strong>only 5 give four correct decimal places</strong> and 17 give three. All three of the values category 12 actually asks about miss the fourth place.</p>
+
+  <p class="verdict121"><strong>So write the estimate to four decimals and stop.</strong> For this question that is <span class="mono">3.0333</span>, not <span class="mono">3.0332</span>. The question asked for the differential estimate, and the marker's own answer is the differential value. Do not "improve" your answer toward the true one.</p>
+
+  <p class="warn121">One subtlety that looks like a contradiction: \((32.2)^{1/5}\) agrees with its true value at <em>four</em> places and disagrees at <em>three</em>, because \(2.0025\) sits exactly on a three-place rounding tie. Rounding boundaries are not nested, so four-place agreement does not imply three-place agreement.</p>
+</section>
+
+<section>
+  <h2>08 &middot; The variation catalog</h2>
+  <p>Eight families, grouped by <strong>the tool the variation forces</strong> rather than by how the question looks. Every estimate below was built from a closed form <em>and</em> recovered by a complex-step derivative that never sees the formula; every true value comes from an independent evaluation.</p>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 0</span>A root of a nearby perfect power</p>
+    <p class="famt121"><strong>Trigger:</strong> a root of a number just off a perfect square, cube or \(n\)-th power. <strong>Tool:</strong> \(f = x^{1/n}\), anchor at the nearest perfect \(n\)-th power. If \(a = m^n\) then \(f'(a) = \dfrac{1}{n\,m^{n-1}}\), always a unit fraction. <strong>This is Q12.1 itself, and Q12.3(b).</strong></p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>\(a\)</th><th>\(f(a)\)</th><th>\(f'(a)\)</th><th>\(dx\)</th><th>Estimate</th><th>Decimal</th><th>True</th><th>Error</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{9.2}\)</td><td class="mono">9</td><td class="mono">3</td><td class="mono">1/6</td><td class="mono">+0.2</td><td class="mono">91/30</td><td class="mono">3.0333333</td><td class="mono">3.0331502</td><td class="mono">-1.832e-4</td></tr>
+          <tr><td>\(\sqrt{16.4}\)</td><td class="mono">16</td><td class="mono">4</td><td class="mono">1/8</td><td class="mono">+0.4</td><td class="mono">81/20</td><td class="mono">4.0500000</td><td class="mono">4.0496913</td><td class="mono">-3.087e-4</td></tr>
+          <tr><td>\(\sqrt{4.1}\)</td><td class="mono">4</td><td class="mono">2</td><td class="mono">1/4</td><td class="mono">+0.1</td><td class="mono">81/40</td><td class="mono">2.0250000</td><td class="mono">2.0248457</td><td class="mono">-1.543e-4</td></tr>
+          <tr><td>\(\sqrt{101}\)</td><td class="mono">100</td><td class="mono">10</td><td class="mono">1/20</td><td class="mono">+1</td><td class="mono">201/20</td><td class="mono">10.0500000</td><td class="mono">10.0498756</td><td class="mono">-1.244e-4</td></tr>
+          <tr><td>\(\sqrt{24.6}\)</td><td class="mono">25</td><td class="mono">5</td><td class="mono">1/10</td><td class="mono">-0.4</td><td class="mono">124/25</td><td class="mono">4.9600000</td><td class="mono">4.9598387</td><td class="mono">-1.613e-4</td></tr>
+          <tr><td>\(\sqrt{0.26}\)</td><td class="mono">1/4</td><td class="mono">1/2</td><td class="mono">1</td><td class="mono">+0.01</td><td class="mono">51/100</td><td class="mono">0.5100000</td><td class="mono">0.5099020</td><td class="mono">-9.805e-5</td></tr>
+          <tr><td>\(\sqrt{37}\)</td><td class="mono">36</td><td class="mono">6</td><td class="mono">1/12</td><td class="mono">+1</td><td class="mono">73/12</td><td class="mono">6.0833333</td><td class="mono">6.0827625</td><td class="mono">-5.708e-4</td></tr>
+          <tr><td>\(\sqrt{48.6}\)</td><td class="mono">49</td><td class="mono">7</td><td class="mono">1/14</td><td class="mono">-0.4</td><td class="mono">244/35</td><td class="mono">6.9714286</td><td class="mono">6.9713700</td><td class="mono">-5.855e-5</td></tr>
+          <tr><td>\(\sqrt[3]{8.3}\)</td><td class="mono">8</td><td class="mono">2</td><td class="mono">1/12</td><td class="mono">+0.3</td><td class="mono">81/40</td><td class="mono">2.0250000</td><td class="mono">2.0246939</td><td class="mono">-3.061e-4</td></tr>
+          <tr><td>\(\sqrt[3]{26.8}\)</td><td class="mono">27</td><td class="mono">3</td><td class="mono">1/27</td><td class="mono">-0.2</td><td class="mono">404/135</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td class="mono">-1.837e-5</td></tr>
+          <tr><td>\(\sqrt[3]{63.5}\)</td><td class="mono">64</td><td class="mono">4</td><td class="mono">1/48</td><td class="mono">-0.5</td><td class="mono">1915/480</td><td class="mono">3.9895833</td><td class="mono">3.9895561</td><td class="mono">-2.725e-5</td></tr>
+          <tr><td>\((32.2)^{1/5}\)</td><td class="mono">32</td><td class="mono">2</td><td class="mono">1/80</td><td class="mono">+0.2</td><td class="mono">801/400</td><td class="mono">2.0025000</td><td class="mono">2.0024938</td><td class="mono">-6.227e-6</td></tr>
+          <tr><td>\((15.9)^{1/4}\)</td><td class="mono">16</td><td class="mono">2</td><td class="mono">1/32</td><td class="mono">-0.1</td><td class="mono">639/320</td><td class="mono">1.9968750</td><td class="mono">1.9968676</td><td class="mono">-7.351e-6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">Read this as <strong>structure, not thirteen facts</strong>. Every \(f'(a)\) is a unit fraction. Every error is negative, in both directions of travel, because a root is concave down. The errors sort exactly by \((dx)^2 / a^{3/2}\), so big steps off small anchors are the bad ones.</p>
+    <p class="warn121"><strong>\(\sqrt{0.26}\) is the trap row.</strong> At \(a = 1/4\) the derivative is exactly \(1\), so a student who forgets to multiply by \(f'(a)\) still gets \(0.5 + 0.01 = 0.51\)  -  the right answer for the wrong reason, confirmed bit-identical. The general rule, which recurs all over this course: a mistake hides wherever the factor it touches equals one.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 1</span>A trig value near a special angle, in degrees</p>
+    <p class="famt121"><strong>Trigger:</strong> \(\sin\), \(\cos\) or \(\tan\) of an angle a degree or two from \(30^{\circ}\), \(45^{\circ}\) or \(60^{\circ}\). <strong>Tool:</strong> anchor at the special angle in radians, and convert \(dx\) to radians too. <strong>This is Q12.2 and Q12.3(a).</strong></p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>\(a\)</th><th>\(dx\) (rad)</th><th>Estimate</th><th>True</th><th>Error</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sin 62^{\circ}\)</td><td class="mono">\(\pi/3\)</td><td class="mono">+0.0349066</td><td class="mono">0.8834787</td><td class="mono">0.8829476</td><td class="mono">-5.311e-4</td><td>over</td></tr>
+          <tr><td>\(\cos 62^{\circ}\)</td><td class="mono">\(\pi/3\)</td><td class="mono">+0.0349066</td><td class="mono">0.4697700</td><td class="mono">0.4694716</td><td class="mono">-2.984e-4</td><td>over</td></tr>
+          <tr><td>\(\sin 29^{\circ}\)</td><td class="mono">\(\pi/6\)</td><td class="mono">-0.0174533</td><td class="mono">0.4848850</td><td class="mono">0.4848096</td><td class="mono">-7.539e-5</td><td>over</td></tr>
+          <tr><td>\(\cos 31^{\circ}\)</td><td class="mono">\(\pi/6\)</td><td class="mono">+0.0174533</td><td class="mono">0.8572988</td><td class="mono">0.8571673</td><td class="mono">-1.315e-4</td><td>over</td></tr>
+          <tr><td>\(\tan 44^{\circ}\)</td><td class="mono">\(\pi/4\)</td><td class="mono">-0.0174533</td><td class="mono">0.9650934</td><td class="mono">0.9656888</td><td class="mono">+5.954e-4</td><td class="no2121"><strong>under</strong></td></tr>
+          <tr><td>\(\sin 46^{\circ}\)</td><td class="mono">\(\pi/4\)</td><td class="mono">+0.0174533</td><td class="mono">0.7194481</td><td class="mono">0.7193398</td><td class="mono">-1.083e-4</td><td>over</td></tr>
+          <tr><td>\(\cos 59^{\circ}\)</td><td class="mono">\(\pi/3\)</td><td class="mono">-0.0174533</td><td class="mono">0.5151150</td><td class="mono">0.5150381</td><td class="mono">-7.692e-5</td><td>over</td></tr>
+          <tr><td>\(\tan 61^{\circ}\)</td><td class="mono">\(\pi/3\)</td><td class="mono">+0.0174533</td><td class="mono">1.8018640</td><td class="mono">1.8040478</td><td class="mono">+2.184e-3</td><td class="no2121"><strong>under</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">Only <strong>two distinct increments</strong> appear in the whole family: \(\pi/180 \approx 0.0174533\) and \(\pi/90 \approx 0.0349066\). Learn those two and the family costs nothing. The signs are generated by concavity: on \((0, \pi/2)\) both \(\sin\) and \(\cos\) are concave down and overshoot, while \(\tan\) is convex and undershoots  -  so "trig always overestimates" is false, and the two tan rows prove it.</p>
+    <p class="warn121"><strong>The catastrophic slip is \(dx = 2\) instead of \(2^{\circ}\).</strong> That gives \(\sin 62^{\circ} \approx 1.866\), which is not even in \([-1,1]\) and sits \(0.98\) from the truth. If a trig estimate leaves \([-1,1]\), you forgot to convert.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 2</span>Powers, reciprocals and mixed exponents</p>
+    <p class="famt121"><strong>Trigger:</strong> \((2.01)^5\), \(1/1.002\), \((8.06)^{2/3}\)  -  a power of a number near a round base. <strong>Tool:</strong> \(f = x^p\), \(f'(a) = p\,a^{p-1}\), and the direction is decided entirely by the sign of \(p(p-1)\).</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>\(a\)</th><th>\(f(a)\)</th><th>\(f'(a)\)</th><th>Estimate</th><th>True</th><th>Error</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>\((2.01)^5\)</td><td class="mono">2</td><td class="mono">32</td><td class="mono">80</td><td class="mono">32.8</td><td class="mono">32.8080401</td><td class="mono">+8.040e-3</td><td>under</td></tr>
+          <tr><td>\((1.97)^3\)</td><td class="mono">2</td><td class="mono">8</td><td class="mono">12</td><td class="mono">7.64</td><td class="mono">7.6453730</td><td class="mono">+5.373e-3</td><td>under</td></tr>
+          <tr><td>\((1.02)^{10}\)</td><td class="mono">1</td><td class="mono">1</td><td class="mono">10</td><td class="mono">1.2</td><td class="mono">1.2189944</td><td class="mono">+1.899e-2</td><td>under</td></tr>
+          <tr><td>\(1/1.002\)</td><td class="mono">1</td><td class="mono">1</td><td class="mono">-1</td><td class="mono">0.998</td><td class="mono">0.9980040</td><td class="mono">+3.992e-6</td><td>under</td></tr>
+          <tr><td>\(1/\sqrt{4.02}\)</td><td class="mono">4</td><td class="mono">0.5</td><td class="mono">-1/16</td><td class="mono">0.49875</td><td class="mono">0.4987547</td><td class="mono">+4.668e-6</td><td>under</td></tr>
+          <tr><td>\((8.06)^{2/3}\)</td><td class="mono">8</td><td class="mono">4</td><td class="mono">1/3</td><td class="mono">4.02</td><td class="mono">4.0199751</td><td class="mono">-2.492e-5</td><td class="ok2121"><strong>over</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">One rule generates every direction in that table: \(x^p\) is convex for \(p > 1\) or \(p &lt; 0\) and concave for \(0 &lt; p &lt; 1\). So every root overshoots and every whole power and reciprocal undershoots. \((8.06)^{2/3}\) is the only concave row, and the only "over".</p>
+    <p class="warn121"><strong>\((1.02)^{10}\) is this family's warning.</strong> \(dx = 0.02\) is tiny and the estimate is still 1.6 percent low, because \(f''(1) = 90\). A small \(dx\) does not by itself make a good estimate  -  the error is \(\tfrac12 f''(dx)^2\), and \(f''\) gets a vote.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 3</span>A named f with the anchor supplied</p>
+    <p class="famt121"><strong>Trigger:</strong> "Let \(f(x) = \dfrac{x-1}{\sqrt{x}}\). (a) Find the tangent line at \((4, f(4))\). (b) Use differentials to estimate \(f(4.02)\)." <strong>Tool:</strong> nothing new  -  but notice that (a) and (b) are the same computation asked twice.</p>
+    <p class="disp121">$$f = x^{1/2} - x^{-1/2},\quad f'(4) = \tfrac14 + \tfrac1{16} = \tfrac5{16},\quad f(4.02) \approx \tfrac32 + \tfrac1{160} = \tfrac{241}{160} = 1.50625$$</p>
+    <p class="famt121">The tangent line is \(y = \tfrac{5}{16}x + \tfrac14\), and evaluating it at \(4.02\) gives the part-(b) answer exactly. True value \(1.5062391\), so the estimate overshoots by \(1.09 \times 10^{-5}\), as \(f'' &lt; 0\) predicts. Rewriting the quotient as \(x^{1/2} - x^{-1/2}\) before differentiating is the only real work in the question  -  it avoids the quotient rule entirely.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 4</span>Propagating a measurement error</p>
+    <p class="famt121"><strong>Trigger:</strong> "One side is 25 cm exactly. The opposite angle is \(60^{\circ}\) with a possible error of \(\pm 0.5^{\circ}\). Estimate the errors in the adjacent side and the hypotenuse, and the percentage errors." <strong>Tool:</strong> \(dy = f'(a)\,dx\) used as a <em>change</em>. Here \(d\theta = 0.5^{\circ} = \pi/360 = 0.0087266\) rad.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Quantity</th><th>Formula</th><th>Value</th><th>Differential</th><th>\(\approx\)</th><th>True change</th><th>Percentage</th></tr></thead>
+        <tbody>
+          <tr><td>adjacent</td><td>\(25\cot\theta\)</td><td class="mono">14.4338</td><td>\(-25\csc^2\theta\,d\theta = -\tfrac{5\pi}{54}\)</td><td class="mono">-0.29089</td><td class="mono">-0.28944</td><td class="mono">2.0153%</td></tr>
+          <tr><td>hypotenuse</td><td>\(25\csc\theta\)</td><td class="mono">28.8675</td><td>\(-25\csc\theta\cot\theta\,d\theta = -\tfrac{5\pi}{108}\)</td><td class="mono">-0.14544</td><td class="mono">-0.14362</td><td class="mono">0.5038%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">The ratio of the two percentage errors is exactly \(\sec^2 60^{\circ} = 4\). That is an identity rather than a coincidence of these numbers  -  \(\text{pct}_{\text{adj}} / \text{pct}_{\text{hyp}} = \sec^2\theta\) for every \(\theta\), verified at \(\pi/6\), \(\pi/4\), \(0.9\) and \(1.3\) as well. <strong>The adjacent side is always the more sensitive of the two,</strong> and past \(45^{\circ}\) dramatically so. Note also that the 25 cm never appears in either percentage: a relative error is dimensionless and the constant cancels.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 5</span>Relative and percentage error for a power</p>
+    <p class="famt121"><strong>Trigger:</strong> "A sphere's radius is measured as 10 cm with a possible error of 0.05 cm. Estimate the error in the volume, and the percentage error." <strong>Tool:</strong> divide \(dy\) by \(y\). For \(f = x^n\) every constant cancels and you are left with one line.</p>
+    <p class="disp121">$$\frac{dy}{y} = n\,\frac{dx}{x}$$</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Situation</th><th>\(n\)</th><th>Absolute</th><th>Relative</th></tr></thead>
+        <tbody>
+          <tr><td>sphere \(V = \tfrac43\pi r^3\), \(r = 10 \pm 0.05\)</td><td class="mono">3</td><td>\(dV = 4\pi r^2 dr = 20\pi = 62.832\)</td><td class="mono">1.5%</td></tr>
+          <tr><td>cube \(V = s^3\), \(s = 12 \pm 0.1\)</td><td class="mono">3</td><td>\(dV = 3s^2 ds = 43.2\)</td><td class="mono">2.5%</td></tr>
+          <tr><td>circle \(A = \pi r^2\)</td><td class="mono">2</td><td>\(dA = 2\pi r\,dr\)</td><td class="mono">\(2\,dr/r\)</td></tr>
+          <tr><td>\(\sqrt{x}\)</td><td class="mono">1/2</td><td></td><td class="mono">\(\tfrac12\,dx/x\)</td></tr>
+          <tr><td>\(1/x\)</td><td class="mono">-1</td><td></td><td class="mono">\(-dx/x\)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">A relative error is multiplied by the exponent, and <strong>the constant in front is irrelevant</strong>: a sphere and a cube both give \(3\,ds/s\) though their volume formulas differ by a factor of \(\tfrac{4\pi}{3}\). That is the one sentence this family tests. The law is a property of powers only  -  for \(\sin\), \(dy/y = \cot(a)\,da\), which is not a constant multiple of \(da/a\).</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 6</span>"Is your estimate too big or too small? Justify"</p>
+    <p class="famt121"><strong>Trigger:</strong> the question asks for the direction, with or without the number. <strong>Tool:</strong> the sign of \(f''\) on the interval, and one sentence about where the tangent line sits.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>\(f\)</th><th>\(f''\)</th><th>Concavity</th><th>Tangent line sits</th><th>Estimate is</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{x}\), \(\sqrt[3]{x}\), \(x^p\) for \(0 &lt; p &lt; 1\)</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2121">too big</td></tr>
+          <tr><td>\(x^n\) for \(n &gt; 1\), \(e^x\)</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2121">too small</td></tr>
+          <tr><td>\(1/x\), \(x^{-1/2}\) for \(x &gt; 0\)</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2121">too small</td></tr>
+          <tr><td>\(\sin x\), \(\cos x\) on \((0, \pi/2)\)</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2121">too big</td></tr>
+          <tr><td>\(\tan x\) on \((0, \pi/2)\)</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2121">too small</td></tr>
+          <tr><td>\(\ln x\)</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2121">too big</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">Answer it with the tangent line, not with the arithmetic: <em>"\(f'' &lt; 0\) here, so \(f\) is concave down, so the tangent line lies above the graph, so the estimate exceeds the true value."</em> That works without computing anything, and it works for negative \(dx\) too. <strong>The direction is not decided by the sign of \(dx\)</strong>  -  both \(\sqrt{9.2}\) (stepping up) and \(\sqrt{24.6}\) (stepping down) overestimate.</p>
+  </div>
+
+  <div class="fam121">
+    <p class="famh121"><span class="fk121">Family 7</span>The error bound, and how many places you may claim</p>
+    <p class="famt121"><strong>Trigger:</strong> "estimate to four decimal places", "how accurate is your estimate", "bound the error". <strong>Tool:</strong> \(|\text{error}| \le \tfrac{M}{2}(dx)^2\) where \(M\) is the largest \(|f''|\) on the interval between \(a\) and the target. See section 06 for the endpoint trap and section 07 for the four-decimal census.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>Bound</th><th>Actual error</th><th>Ratio</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sqrt{9.2}\)</td><td class="mono">1.852e-4</td><td class="mono">1.832e-4</td><td class="mono">0.989</td></tr>
+          <tr><td>\(\sqrt{16.4}\)</td><td class="mono">3.125e-4</td><td class="mono">3.087e-4</td><td class="mono">0.988</td></tr>
+          <tr><td>\(\sqrt{4.1}\)</td><td class="mono">1.563e-4</td><td class="mono">1.543e-4</td><td class="mono">0.988</td></tr>
+          <tr><td>\(\sqrt{101}\)</td><td class="mono">1.250e-4</td><td class="mono">1.244e-4</td><td class="mono">0.995</td></tr>
+          <tr><td>\(\sqrt[3]{8.3}\)</td><td class="mono">3.125e-4</td><td class="mono">3.061e-4</td><td class="mono">0.980</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt121">The bound is tight  -  within 2 percent of the observed error every time  -  so it is worth quoting rather than hand-waving.</p>
+  </div>
+</section>
+
+<section>
+  <h2>09 &middot; The trap list, ranked by what it actually costs</h2>
+  <ol class="tl121">
+    <li><span><b>Evaluating \(f'\) at the target instead of the anchor.</b> \(f'(9.2)\) gives \(3.0329690\), off by \(+1.8\times10^{-4}\)  -  the same size as the correct answer's error, in the opposite direction, so it looks entirely plausible. Worse, it becomes invisible as \(dx \to 0\), so shrinking the step cannot expose it. The anchor is where you know things; the target is where you want an answer, and <em>both</em> \(f\) and \(f'\) are evaluated at the anchor.</span></li>
+    <li><span><b>Forgetting the \(\tfrac12\) in \(\tfrac{d}{dx}\sqrt{x}\).</b> Gives \(3.0667\), inside the plausible band and exactly twice the correct \(dy\). Squaring back gives \(9.404\), which kills it.</span></li>
+    <li><span><b>Using degrees where the formula needs radians.</b> \(\sin 62^{\circ} \approx 1.866\). The tell is an answer outside \([-1,1]\).</span></li>
+    <li><span><b>Choosing a prettier anchor rather than a nearer one.</b> \(a = 9.61 = 3.1^2\) is exact and 3.94 times worse; \(a = 16\) is exact and 638 times worse. The error goes as \((dx)^2\), so distance is punished twice.</span></li>
+    <li><span><b>Spot-checking at the anchor.</b> \(dx = 0\) hides five of the eight standard wrong answers.</span></li>
+    <li><span><b>Reporting \(dy\) instead of \(f(a) + dy\).</b> Answer \(0.0333\). The bracket check catches it instantly.</span></li>
+    <li><span><b>Sign slip on a negative \(dx\).</b> For \(\sqrt{24.6}\) from 25, \(dx = -0.4\); adding \(+0.04\) gives \(5.04\) instead of \(4.96\). Write \(dx = \text{target} - a\) and let the sign fall out.</span></li>
+    <li><span><b>Claiming the true value</b> because you checked on a calculator. The question asked for the estimate. Write \(3.0333\).</span></li>
+    <li><span><b>Getting the over/under backwards</b> by reasoning from the sign of \(dx\) instead of the sign of \(f''\).</span></li>
+    <li><span><b>The invisible one: \(f'(a) = 1\).</b> At \(a = 1/4\) for \(\sqrt{x}\), forgetting to multiply by \(f'(a)\) is undetectable. Nothing catches this except doing it right.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>10 &middot; Drill set</h2>
+  <p>Twelve problems, fifteen minutes, closed book, no calculator. Leave every answer as an exact fraction, then say <strong>over or under</strong>. Eight of the twelve overshoot and four undershoot, so a run of twelve "overs" means you guessed.</p>
+  <ol class="dr121">
+    <li><span>Use differentials to approximate \(\sqrt{4.1}\).</span></li>
+    <li><span>Use differentials to approximate \(\sqrt{101}\).</span></li>
+    <li><span>Use differentials to approximate \(\sqrt[3]{26.8}\).</span></li>
+    <li><span>Use differentials to approximate \(\sqrt{0.26}\).</span></li>
+    <li><span>Use linearization to estimate \(\sin 29^{\circ}\).</span></li>
+    <li><span>Use linearization to estimate \(\tan 44^{\circ}\).</span></li>
+    <li><span>Estimate \((2.01)^5\).</span></li>
+    <li><span>Estimate \(1/1.002\).</span></li>
+    <li><span>Let \(f(x) = \dfrac{x-1}{\sqrt{x}}\). Estimate \(f(4.02)\).</span></li>
+    <li><span>Estimate \(\sqrt{48.6}\), and bound the error.</span></li>
+    <li><span>Estimate \((1.97)^3\).</span></li>
+    <li><span>Estimate \((8.06)^{2/3}\).</span></li>
+  </ol>
+
+  <p class="famt121">Answer key. The family column names the section that fixes a wrong answer, so a miss points at its own remedy.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>#</th><th>Exact</th><th>Decimal</th><th>True value</th><th>Leans</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>\(2 + \tfrac1{40} = \tfrac{81}{40}\)</td><td class="mono">2.025</td><td class="mono">2.0248457</td><td>over</td><td>F0, \(a=4\), \(f'=\tfrac14\)</td></tr>
+        <tr><td class="mono">2</td><td>\(10 + \tfrac1{20} = \tfrac{201}{20}\)</td><td class="mono">10.05</td><td class="mono">10.0498756</td><td>over</td><td>F0, \(a=100\), \(f'=\tfrac1{20}\)</td></tr>
+        <tr><td class="mono">3</td><td>\(3 - \tfrac1{135} = \tfrac{404}{135}\)</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td>over</td><td>F0, \(a=27\), \(dx&lt;0\)</td></tr>
+        <tr><td class="mono">4</td><td>\(\tfrac12 + \tfrac1{100} = \tfrac{51}{100}\)</td><td class="mono">0.51</td><td class="mono">0.5099020</td><td>over</td><td>F0 trap, \(f'(a)=1\)</td></tr>
+        <tr><td class="mono">5</td><td>\(\tfrac12 - \tfrac{\sqrt3\,\pi}{360}\)</td><td class="mono">0.4848850</td><td class="mono">0.4848096</td><td>over</td><td>F1, \(a=\pi/6\), \(dx=-\pi/180\)</td></tr>
+        <tr><td class="mono">6</td><td>\(1 - \tfrac{\pi}{90}\)</td><td class="mono">0.9650934</td><td class="mono">0.9656888</td><td class="no2121"><strong>under</strong></td><td>F1, \(a=\pi/4\), \(f'=\sec^2=2\)</td></tr>
+        <tr><td class="mono">7</td><td>\(32 + \tfrac45 = \tfrac{164}{5}\)</td><td class="mono">32.8</td><td class="mono">32.8080401</td><td class="no2121"><strong>under</strong></td><td>F2, \(a=2\), \(f'=80\)</td></tr>
+        <tr><td class="mono">8</td><td>\(1 - \tfrac1{500} = \tfrac{499}{500}\)</td><td class="mono">0.998</td><td class="mono">0.9980040</td><td class="no2121"><strong>under</strong></td><td>F2, \(a=1\), \(f'=-1\)</td></tr>
+        <tr><td class="mono">9</td><td>\(\tfrac32 + \tfrac1{160} = \tfrac{241}{160}\)</td><td class="mono">1.50625</td><td class="mono">1.5062391</td><td>over</td><td>F3, \(f'(4)=\tfrac5{16}\)</td></tr>
+        <tr><td class="mono">10</td><td>\(7 - \tfrac1{35} = \tfrac{244}{35}\)</td><td class="mono">6.9714286</td><td class="mono">6.9713700</td><td>over</td><td>F0/F7, bound \(5.90\times10^{-5}\)</td></tr>
+        <tr><td class="mono">11</td><td>\(8 - \tfrac9{25} = \tfrac{191}{25}\)</td><td class="mono">7.64</td><td class="mono">7.6453730</td><td class="no2121"><strong>under</strong></td><td>F2, \(a=2\), \(f'=12\), \(dx&lt;0\)</td></tr>
+        <tr><td class="mono">12</td><td>\(4 + \tfrac1{50} = \tfrac{201}{50}\)</td><td class="mono">4.02</td><td class="mono">4.0199751</td><td>over</td><td>F2, \(a=8\), \(f'=\tfrac13\)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="verdict121"><strong>Score magnitude and direction separately.</strong> They are different failure modes needing different fixes. A wrong magnitude means you mis-differentiated or mis-anchored, so go back to Family 0 or 2. A wrong direction means you reasoned from the sign of \(dx\) instead of the sign of \(f''\), so go back to Family 6  -  that is a five-minute fix.</p>
+</section>
+
+<section>
+  <h2>11 &middot; The one-page decision tree</h2>
+<pre class="tree121">"approximate / estimate / use differentials / use linearization"
+    |
+    +-- Is a NUMBER wanted, or a CHANGE / ERROR?
+    |     |
+    |     +-- a NUMBER  ->  f(a+dx) ~ f(a) + f'(a) dx          (families 0,1,2,3)
+    |     +-- a CHANGE  ->  dy = f'(a) dx alone                (family 4)
+    |     +-- a PERCENT ->  dy/y = n dx/x for a power          (family 5)
+    |
+    +-- CHOOSE a: nearest point where f(a) is EXACT
+    |     root         -> nearest perfect square / cube / n-th power
+    |     trig         -> nearest special angle, IN RADIANS
+    |     power / 1/x  -> nearest round base, usually 1 or 2
+    |     named f      -> the question already gave you f(a)
+    |     CHECK: is f'(a) a unit fraction or a small integer?
+    |            if not, you probably picked the wrong a
+    |
+    +-- dx = target - a     KEEP THE SIGN.  degrees -> radians HERE.
+    |
+    +-- f'(a), evaluated AT THE ANCHOR (never at the target)
+    |
+    +-- answer = f(a) + f'(a) dx        leave it as an exact fraction
+    |
+    +-- DIRECTION from f''(a):   f'' &lt; 0 -> too big     f'' &gt; 0 -> too small
+    |                            (NOT from the sign of dx)
+    |
+    +-- SIZE, if asked:  |error| &lt;= (max |f''| on the interval)/2 * dx^2
+    |                    for a root with dx &lt; 0 use the FAR endpoint
+    |
+    +-- check:  square it back / one Newton step / is it in the obvious bracket?
+    +-- preview: 91/30 , brackets round every denominator</pre>
+</section>
+
+<section>
+  <h2>12 &middot; Answer entry, and what was verified</h2>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono ok2121">91/30</td><td class="mono no2121">91/3 0  -  a stray space</td></tr>
+        <tr><td class="mono ok2121">3+1/30</td><td class="mono no2121">3+1/2*sqrt(9)  -  this is \(3 + 1.5\)</td></tr>
+        <tr><td class="mono ok2121">3+0.2/6</td><td class="mono no2121">3+0.2/2*3  -  parses as \(3.3\)</td></tr>
+        <tr><td class="mono ok2121">3.0333 if a decimal is demanded</td><td class="mono no2121">3.0332  -  that is the true value, not the estimate</td></tr>
+        <tr><td>Type <span class="mono">*</span> between every factor, then <strong>Preview</strong></td><td>assume the box knows what you meant</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn121"><strong>The single most expensive typo is <span class="mono">1/2*sqrt(9)</span> for \(f'(9)\).</strong> It evaluates to \(1.5\) rather than \(0.1\overline{6}\)  -  a factor of nine  -  and yields \(3.3\), which is still inside the plausible range for a square root and so will not look wrong. Write \(f'(9)\) as <span class="mono">1/6</span> and the typo cannot happen.</p>
+
+  <div class="prov121">
+    <div class="pv121"><p class="pvh121">Provenance</p><p>Parsed from the paper file, not typed. MT1's ten inline values (5, 6, 5, 16, 8, 4, 5, 5, 5, 5) sum to 64; item 9 is 5 of them, or 7.8125 percent. MT1's single "no credit" clause is on item 3  -  capitalised in the paper, so a case-sensitive search misses it entirely  -  and its single "You may not need to simplify" permission is on item 5. Item 9 carries neither, and prints no hint and no formula.</p></div>
+    <div class="pv121"><p class="pvh121">The neighbours</p><p>MT1 items 7, 8 and 9 are related rates, implicit differentiation and this question  -  the same idea three times. In all three the marks live on a factor a careless student drops: \(dh/dt\), \(y'\), and \(f'(a)\). Fifteen of MT1's 64 points sit on that one habit.</p></div>
+    <div class="pv121"><p class="pvh121">What the course files omit</p><p>The linearization is stated correctly in five places across the course notes, and the Problem 9 walkthrough is right on all four of its claims. What no course file contains anywhere in 168 KB: any statement of the <em>direction</em> of the error, any error bound, and any demonstration that one anchor beats another. There is also no marking scheme anywhere  -  zero occurrences of "rubric", "marking scheme" or "part marks"  -  so every claim here about which sentences earn marks is inference, and is flagged as such.</p></div>
+  </div>
+
+  <div class="vbar121">
+    <div><span class="k121">Assertions</span><span class="v121">440</span></div>
+    <div><span class="k121">Failures</span><span class="v121">0</span></div>
+    <div><span class="k121">Seeded controls</span><span class="v121">68</span></div>
+    <div><span class="k121">Check defects found</span><span class="v121">30</span></div>
+    <div><span class="k121">Maths defects found</span><span class="v121">0</span></div>
+  </div>
+
+  <p>The verification did not merely re-evaluate the answer. It parsed the provenance from the paper; proved \(f(9) = 3\), \(f'(9) = \tfrac16\) and \(91/30\) in exact rational arithmetic; recovered \(f'(9)\) formula-blind by a complex-step derivative and by a Richardson ladder with its convergence order measured on a curved control; computed \(\sqrt{9.2}\) to 60 digits and squared it back; located the mean-value \(\xi = 9.0997\) and the Lagrange \(\xi = 9.0664\) by root-finding and confirmed both lie strictly inside \((9,\,9.2)\); proved the tangent line lies above \(\sqrt{x}\) at 72 anchor-and-offset pairs in both directions, with four convex functions seeded as controls to prove the test can report the opposite; ranked ten competing anchors by measured error; and swept eight plausible wrong answers over a 64-point grid <strong>with the degenerate rows left in</strong>, which is what found the \(dx = 0\) and \(a = 1/4\) blind spots.</p>
+
+  <p>All 30 apparent errors during the run turned out to be defects in the <em>check</em> rather than in the mathematics  -  eighteen of them decimal literals whose tails had been extended past what the source printout actually showed.</p>
+
+  <p class="warn121"><strong>Two long-standing harness failures were diagnosed along the way.</strong> The <span class="mono">sin62</span> and <span class="mono">cos62</span> checks near the top of the shared verification file have been failing for the whole life of this series, recorded as "a linearization compared against the true value at too tight a tolerance". That diagnosis is wrong. Both compare a <em>correct</em> linearization against a typed decimal literal that is neither the linearization nor the true value; the gaps are \(3.20\times10^{-6}\) and \(1.03\times10^{-5}\), both just over the harness's \(10^{-6}\) default. The correct literals pass the same tolerance, and both are now asserted as controls so the next reader does not re-diagnose them.</p>
+
+  <p class="cap121">Sources: <span class="mono">notes\MATH265\MATH265.md</span> (Midterm Exam 1 item 9, Midterm Exam 2 item 8, Final Exam 1 item 2), <span class="mono">notes\MATH265.md</span> section 12, <span class="mono">MATH265_Review.md</span>, <span class="mono">MATH265_Categorized.md</span>. Verification in <span class="mono">math265-answer-verification.py</span>, sections <span class="mono">q121</span> and <span class="mono">q121d</span>. Verified 2026-09-01.</p>
+</section>
+
+</main>
+

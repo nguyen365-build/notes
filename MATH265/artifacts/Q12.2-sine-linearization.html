@@ -1,0 +1,1356 @@
+<title>Radians Or Nothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q12.2 is the
+   MIDDLE question of the linear-approximation category, and where Q12.1's one
+   idea was choosing the anchor, this page's one idea is choosing the UNIT.
+   The two loudest hues therefore carry the converted step against the
+   unconverted one, and the signature block is the two-column comparison in
+   section 02 beside the panel that draws both steps to scale.
+
+     THE CONVERTED STEP and everything that follows from it   --rul amber
+     THE UNCONVERTED STEP, the curve, the truth               --chn slate
+     WHERE MARKS DIE                                          --los terracotta
+     THE VARIATION families                                   --fam teal
+     NUMERICS: bounds, errors, gates, controls                --num mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar112 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar112 .v112{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar112 .v112.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the eliminate/compute fork: this page's signature block ------------- */
+.ledger112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger112 .col112{background:var(--surface);padding:18px 20px}
+.ledger112 .col112.add112{background:var(--rul-soft)}
+.ledger112 .col112.inh112{background:var(--chn-soft)}
+.ledger112 .colh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger112 .col112.add112 .colh112{color:var(--rul)}
+.ledger112 .col112.inh112 .colh112{color:var(--chn)}
+.ledger112 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger112 li{line-height:1.62}
+.ledger112 .tag112{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger112 .tag112.ok112{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger112 .tag112.no112{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps112 .st112{background:var(--surface);padding:16px 18px}
+.steps112 .sth112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps112 .st112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-move solve board ------------------------------------------- */
+.chain112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain112 .ch112{background:var(--surface);padding:16px 18px}
+.chain112 .chh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain112 .chm112{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks112 .ck112{background:var(--surface);padding:16px 18px}
+.checks112 .ckh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks112 .ck112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam112{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam112 .famh112{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam112 .fk112{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam112 .famt112{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide112 .hd1112{background:var(--los-soft);padding:16px 18px}
+.hide112 .hdh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide112 .hd1112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl112,ol.dr112{list-style:none;counter-reset:t112;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl112 li,ol.dr112 li{counter-increment:t112;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl112 li::before,ol.dr112 li::before{content:counter(t112);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr112 li::before{color:var(--fam)}
+ol.tl112 li > span,ol.dr112 li > span{grid-column:2}
+b.ans112{color:var(--rul);font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov112 .pv112{background:var(--surface);padding:16px 18px}
+.prov112 .pvh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov112 .pv112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar112 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar112 .v112{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict112{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn112{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap112{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree112{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp112{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2112{color:var(--rul)}
+td.no2112{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   Class names are unique to this page (tri2/legf/legv/hypo/rang/stn/roc/
+   varr/sarr/asym/drop/vtr/vsn); lab, hd, sm, tk, am, gridl, axis, curve and dot
+   are DELIBERATELY the series names, because svg-labels.mjs112 selects on
+   text.lab and exempts lines whose class matches /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .tri2{fill:var(--rul-soft);stroke:none}
+.figbox .legf{stroke:var(--rul);stroke-width:3.2;stroke-linecap:round}
+.figbox .legv{stroke:var(--chn);stroke-width:2.4}
+.figbox .hypo{stroke:var(--chn);stroke-width:2.4}
+.figbox .rang{fill:none;stroke:var(--ink3);stroke-width:1.2}
+.figbox .stn{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox .roc{fill:var(--chn);stroke:var(--surface);stroke-width:1.6}
+.figbox .varr{stroke:var(--num);stroke-width:2.4}
+.figbox .varrhd{fill:var(--num);stroke:none}
+.figbox .sarr{stroke:var(--fam);stroke-width:2.4}
+.figbox .sarrhd{fill:var(--fam);stroke:none}
+.figbox .asym{stroke:var(--fam);stroke-width:1.6;stroke-dasharray:5 4}
+.figbox .drop{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.4}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vtr{fill:var(--num);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar121 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar121 .v121{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar121 .v121.mono{font-family:var(--mono);font-size:15px}
+/* MathJax SVG does not inherit the cell's colour on its own, so the
+   typeset answer rendered ink-black beside three amber siblings.  No
+   gate sees this; the screenshot did. */
+.ansbar121 .v121 mjx-container,.ansbar121 .v121 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the anchor decision: this page's signature block --------------------- */
+.ledger121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger121 .col121{background:var(--surface);padding:18px 20px}
+.ledger121 .col121.add121{background:var(--rul-soft)}
+.ledger121 .col121.inh121{background:var(--chn-soft)}
+.ledger121 .colh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger121 .col121.add121 .colh121{color:var(--rul)}
+.ledger121 .col121.inh121 .colh121{color:var(--chn)}
+.ledger121 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger121 li{line-height:1.62}
+.ledger121 .tag121{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger121 .tag121.ok121{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger121 .tag121.no121{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup steps ------------------------------------------------ */
+.steps121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps121 .st121{background:var(--surface);padding:16px 18px}
+.steps121 .sth121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps121 .st121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain121 .ch121{background:var(--surface);padding:16px 18px}
+.chain121 .chh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks121 .ck121{background:var(--surface);padding:16px 18px}
+.checks121 .ckh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks121 .ck121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam121{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam121 .famh121{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam121 .fk121{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam121 .famt121{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov121 .pv121{background:var(--surface);padding:16px 18px}
+.prov121 .pvh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov121 .pv121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar121 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar121 .v121{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl121,ol.dr121{list-style:none;counter-reset:t121;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl121 li,ol.dr121 li{counter-increment:t121;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl121 li::before,ol.dr121 li::before{content:counter(t121);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr121 li::before{color:var(--fam)}
+ol.tl121 li > span,ol.dr121 li > span{grid-column:2}
+b.ans121{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption, decision tree ------------------------------- */
+.verdict121{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn121{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap121{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree121{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp121{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2121{color:var(--rul)}
+td.no2121{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   gapfill/tang/gapline/gdot/leadr/bar/barbest are unique to this page; lab,
+   hd, sm, tk, am, vsn, gridl, axis, curve and dot are DELIBERATELY the series
+   names, because svg-labels.mjs121 selects text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .gapfill{fill:var(--chn-soft);stroke:none}
+.figbox .tanl{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapline{stroke:var(--fam);stroke-width:2.2}
+.figbox .gdot{fill:var(--fam);stroke:none}
+.figbox .leadr{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar{fill:var(--chn)}
+.figbox .barbest{fill:var(--rul)}
+.figbox .tansw{fill:var(--rul)}
+.figbox .cursw{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar122 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar122 .v122{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar122 .v122.mono{font-family:var(--mono);font-size:14px}
+.ansbar122 .v122 mjx-container,.ansbar122 .v122 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-column comparison: this page's signature block --------------- */
+.ledger122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger122 .col122{background:var(--surface);padding:18px 20px}
+.ledger122 .col122.add122{background:var(--rul-soft)}
+.ledger122 .col122.inh122{background:var(--chn-soft)}
+.ledger122 .colh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger122 .col122.add122 .colh122{color:var(--rul)}
+.ledger122 .col122.inh122 .colh122{color:var(--chn)}
+.ledger122 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger122 li{line-height:1.62}
+.ledger122 .tag122{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger122 .tag122.ok122{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger122 .tag122.no122{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the five setup steps ------------------------------------------------ */
+.steps122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps122 .st122{background:var(--surface);padding:16px 18px}
+.steps122 .sth122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps122 .st122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain122 .ch122{background:var(--surface);padding:16px 18px}
+.chain122 .ch122 p{overflow-x:auto}
+.chain122 .chh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the verification checks --------------------------------------------- */
+.checks122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks122 .ck122{background:var(--surface);padding:16px 18px}
+.checks122 .ckh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks122 .ck122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam122{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam122 .famh122{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam122 .fk122{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam122 .famt122{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov122 .pv122{background:var(--surface);padding:16px 18px}
+.prov122 .pvh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov122 .pv122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar122 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar122 .v122{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl122,ol.dr122{list-style:none;counter-reset:t122;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl122 li,ol.dr122 li{counter-increment:t122;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl122 li::before,ol.dr122 li::before{content:counter(t122);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr122 li::before{color:var(--fam)}
+ol.tl122 li > span,ol.dr122 li > span{grid-column:2}
+b.ans122{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict122{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.62}
+p.warn122{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.64}
+p.cap122{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2122{color:var(--rul)}
+td.no2122{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   tanl122/gdot122/bdot122/leadr122/gapfill122/gapline122/bar122/barbest122
+   are unique to this page; lab, hd, sm, tk, am, vsn, gridl, axis, curve and
+   dot are DELIBERATELY the series names, because svg-labels.mjs122 selects
+   text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:780px;margin:0 auto}
+.figbox .tanl122{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapfill122{fill:var(--chn-soft);stroke:none}
+.figbox .gapline122{stroke:var(--fam);stroke-width:2.4}
+.figbox .gdot122{fill:var(--chn);stroke:none}
+.figbox .bdot122{fill:var(--los);stroke:var(--surface);stroke-width:1.4}
+.figbox .leadr122{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar122{fill:var(--chn)}
+.figbox .barbest122{fill:var(--rul)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--chn);font-size:11.5px}
+
+</style>
+<main class="wrap">
+
+<header class="hdr wrap">
+  <p class="eyebrow">MATH 265 &middot; MT2 ITEM 8 &middot; 6 POINTS &middot; CATEGORY 12</p>
+  <h1>Estimate a sine with linearization</h1>
+  <p class="stand">"Use linearization to estimate the value of \(\sin(62^{\circ})\)." Q12.1 asked whether you can choose an anchor. This one asks whether you can choose a unit, and it is worth one more mark for exactly that reason.</p>
+
+  <div class="ansbar122">
+    <div><span class="k122">The answer</span><span class="v122">\(\tfrac{\sqrt{3}}{2} + \tfrac{\pi}{180}\)</span></div>
+    <div><span class="k122">As a decimal</span><span class="v122 mono">0.8835</span></div>
+    <div><span class="k122">Type into Mobius</span><span class="v122 mono">sqrt(3)/2+pi/180</span></div>
+    <div><span class="k122">Which way it leans</span><span class="v122">too big, by 0.00053</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>01 &middot; The thirty-second version</h2>
+  <p>Five moves, one derivative, no calculator. The middle move is the one this question was set to test, and it is the one students skip.</p>
+
+  <div class="steps122">
+    <div class="st122"><p class="sth122">1 &middot; Name f</p><p>You are asked for a number that is \(f\) of something. \(\sin 62^{\circ}\) means \(f(x) = \sin x\).</p></div>
+    <div class="st122"><p class="sth122">2 &middot; Choose the anchor</p><p>The nearest angle whose sine <em>and</em> cosine are exact. \(60^{\circ}\) is a 30-60-90 angle, so \(a = \dfrac{\pi}{3}\), \(f(a) = \dfrac{\sqrt{3}}{2}\), \(f'(a) = \dfrac{1}{2}\).</p></div>
+    <div class="st122"><p class="sth122">3 &middot; Convert the step</p><p>\(dx = 2^{\circ} = 2 \cdot \dfrac{\pi}{180} = \dfrac{\pi}{90}\) radians. Write this line on its own, before differentiating.</p></div>
+    <div class="st122"><p class="sth122">4 &middot; Build dy and add</p><p>\(dy = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180}\), so \(\sin 62^{\circ} \approx \dfrac{\sqrt{3}}{2} + \dfrac{\pi}{180}\).</p></div>
+  </div>
+
+  <p class="verdict122"><strong>Then say which way it leans.</strong> \(f''(x) = -\sin x < 0\) on \((0, \pi)\), so \(\sin\) is concave down there, so the tangent line sits above the curve, so the estimate is too big. It is, by \(0.00053\). There is also a free sanity check that no other question in this category offers: <strong>a sine can never exceed 1</strong>, so an answer of \(1.87\) is refuted before you have looked at anything else.</p>
+</section>
+
+<section>
+  <h2>02 &middot; The unit is the question</h2>
+  <p>Every trigonometric derivative in this course is written for radians. \(\dfrac{d}{dx}\sin x = \cos x\) is true when \(x\) is in radians and false when it is in degrees, where the derivative picks up a factor of \(\dfrac{\pi}{180}\). So the step must be converted before it is multiplied by anything.</p>
+
+  <div class="figbox"><svg viewBox="0 0 780 518" width="780" height="518" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two panels: the correct radian step and the unconverted degree step drawn to scale, and the overestimate gap at 62 degrees"><text class="lab hd" x="46.0" y="30.0" text-anchor="start">A / THE TWO STEPS, TO SCALE</text><text class="lab sm" x="46.0" y="52.0" text-anchor="start">sin x over 0 to 180 degrees, one tangent</text><line class="gridl" x1="46.0" y1="353.6" x2="366.0" y2="353.6"/><line class="gridl" x1="46.0" y1="214.1" x2="366.0" y2="214.1"/><line class="axis" x1="46.0" y1="353.6" x2="366.0" y2="353.6"/><line class="axis" x1="46.0" y1="76.0" x2="46.0" y2="362.0"/><polyline class="curve" points="46.00,353.63 46.89,352.41 47.78,351.19 48.67,349.98 49.56,348.76 50.44,347.54 51.33,346.33 52.22,345.11 53.11,343.90 54.00,342.68 54.89,341.47 55.78,340.26 56.67,339.05 57.56,337.84 58.44,336.63 59.33,335.42 60.22,334.21 61.11,333.01 62.00,331.80 62.89,330.60 63.78,329.40 64.67,328.21 65.56,327.01 66.44,325.82 67.33,324.62 68.22,323.43 69.11,322.25 70.00,321.06 70.89,319.88 71.78,318.70 72.67,317.52 73.56,316.35 74.44,315.17 75.33,314.01 76.22,312.84 77.11,311.68 78.00,310.52 78.89,309.36 79.78,308.21 80.67,307.06 81.56,305.91 82.44,304.77 83.33,303.63 84.22,302.50 85.11,301.37 86.00,300.24 86.89,299.12 87.78,298.00 88.67,296.88 89.56,295.77 90.44,294.67 91.33,293.57 92.22,292.47 93.11,291.38 94.00,290.29 94.89,289.21 95.78,288.13 96.67,287.06 97.56,285.99 98.44,284.93 99.33,283.87 100.22,282.82 101.11,281.78 102.00,280.73 102.89,279.70 103.78,278.67 104.67,277.65 105.56,276.63 106.44,275.62 107.33,274.61 108.22,273.61 109.11,272.61 110.00,271.63 110.89,270.64 111.78,269.67 112.67,268.70 113.56,267.74 114.44,266.78 115.33,265.83 116.22,264.89 117.11,263.95 118.00,263.02 118.89,262.10 119.78,261.19 120.67,260.28 121.56,259.38 122.44,258.48 123.33,257.60 124.22,256.72 125.11,255.84 126.00,254.98 126.89,254.12 127.78,253.27 128.67,252.43 129.56,251.60 130.44,250.77 131.33,249.95 132.22,249.14 133.11,248.34 134.00,247.54 134.89,246.76 135.78,245.98 136.67,245.21 137.56,244.45 138.44,243.69 139.33,242.95 140.22,242.21 141.11,241.48 142.00,240.76 142.89,240.05 143.78,239.35 144.67,238.65 145.56,237.97 146.44,237.29 147.33,236.62 148.22,235.97 149.11,235.32 150.00,234.68 150.89,234.04 151.78,233.42 152.67,232.81 153.56,232.20 154.44,231.61 155.33,231.02 156.22,230.45 157.11,229.88 158.00,229.32 158.89,228.78 159.78,228.24 160.67,227.71 161.56,227.19 162.44,226.68 163.33,226.18 164.22,225.69 165.11,225.21 166.00,224.74 166.89,224.28 167.78,223.82 168.67,223.38 169.56,222.95 170.44,222.53 171.33,222.12 172.22,221.72 173.11,221.33 174.00,220.95 174.89,220.57 175.78,220.21 176.67,219.86 177.56,219.52 178.44,219.19 179.33,218.87 180.22,218.56 181.11,218.26 182.00,217.97 182.89,217.69 183.78,217.42 184.67,217.17 185.56,216.92 186.44,216.68 187.33,216.45 188.22,216.24 189.11,216.03 190.00,215.83 190.89,215.65 191.78,215.47 192.67,215.31 193.56,215.16 194.44,215.01 195.33,214.88 196.22,214.76 197.11,214.65 198.00,214.55 198.89,214.46 199.78,214.38 200.67,214.31 201.56,214.25 202.44,214.20 203.33,214.16 204.22,214.14 205.11,214.12 206.00,214.12 206.89,214.12 207.78,214.14 208.67,214.16 209.56,214.20 210.44,214.25 211.33,214.31 212.22,214.38 213.11,214.46 214.00,214.55 214.89,214.65 215.78,214.76 216.67,214.88 217.56,215.01 218.44,215.16 219.33,215.31 220.22,215.47 221.11,215.65 222.00,215.83 222.89,216.03 223.78,216.24 224.67,216.45 225.56,216.68 226.44,216.92 227.33,217.17 228.22,217.42 229.11,217.69 230.00,217.97 230.89,218.26 231.78,218.56 232.67,218.87 233.56,219.19 234.44,219.52 235.33,219.86 236.22,220.21 237.11,220.57 238.00,220.95 238.89,221.33 239.78,221.72 240.67,222.12 241.56,222.53 242.44,222.95 243.33,223.38 244.22,223.82 245.11,224.28 246.00,224.74 246.89,225.21 247.78,225.69 248.67,226.18 249.56,226.68 250.44,227.19 251.33,227.71 252.22,228.24 253.11,228.78 254.00,229.32 254.89,229.88 255.78,230.45 256.67,231.02 257.56,231.61 258.44,232.20 259.33,232.81 260.22,233.42 261.11,234.04 262.00,234.68 262.89,235.32 263.78,235.97 264.67,236.62 265.56,237.29 266.44,237.97 267.33,238.65 268.22,239.35 269.11,240.05 270.00,240.76 270.89,241.48 271.78,242.21 272.67,242.95 273.56,243.69 274.44,244.45 275.33,245.21 276.22,245.98 277.11,246.76 278.00,247.54 278.89,248.34 279.78,249.14 280.67,249.95 281.56,250.77 282.44,251.60 283.33,252.43 284.22,253.27 285.11,254.12 286.00,254.98 286.89,255.84 287.78,256.72 288.67,257.60 289.56,258.48 290.44,259.38 291.33,260.28 292.22,261.19 293.11,262.10 294.00,263.02 294.89,263.95 295.78,264.89 296.67,265.83 297.56,266.78 298.44,267.74 299.33,268.70 300.22,269.67 301.11,270.64 302.00,271.63 302.89,272.61 303.78,273.61 304.67,274.61 305.56,275.62 306.44,276.63 307.33,277.65 308.22,278.67 309.11,279.70 310.00,280.73 310.89,281.78 311.78,282.82 312.67,283.87 313.56,284.93 314.44,285.99 315.33,287.06 316.22,288.13 317.11,289.21 318.00,290.29 318.89,291.38 319.78,292.47 320.67,293.57 321.56,294.67 322.44,295.77 323.33,296.88 324.22,298.00 325.11,299.12 326.00,300.24 326.89,301.37 327.78,302.50 328.67,303.63 329.56,304.77 330.44,305.91 331.33,307.06 332.22,308.21 333.11,309.36 334.00,310.52 334.89,311.68 335.78,312.84 336.67,314.01 337.56,315.17 338.44,316.35 339.33,317.52 340.22,318.70 341.11,319.88 342.00,321.06 342.89,322.25 343.78,323.43 344.67,324.62 345.56,325.82 346.44,327.01 347.33,328.21 348.22,329.40 349.11,330.60 350.00,331.80 350.89,333.01 351.78,334.21 352.67,335.42 353.56,336.63 354.44,337.84 355.33,339.05 356.22,340.26 357.11,341.47 358.00,342.68 358.89,343.90 359.78,345.11 360.67,346.33 361.56,347.54 362.44,348.76 363.33,349.98 364.22,351.19 365.11,352.41 366.00,353.63"/><line class="tanl122" x1="85.1" y1="279.1" x2="362.4" y2="89.1"/><text class="lab tk" x="38.0" y="78.6" text-anchor="end">2</text><text class="lab tk" x="38.0" y="218.1" text-anchor="end">1</text><text class="lab tk" x="38.0" y="357.6" text-anchor="end">0</text><text class="lab tk" x="46.0" y="382.0" text-anchor="middle">0</text><text class="lab tk" x="152.7" y="382.0" text-anchor="middle">60</text><text class="lab tk" x="259.3" y="382.0" text-anchor="middle">120</text><text class="lab tk" x="366.0" y="382.0" text-anchor="middle">180</text><text class="lab hd" x="206.0" y="404.0" text-anchor="middle">x IN DEGREES</text><circle class="dot" cx="152.7" cy="232.8" r="4.6"/><circle class="gdot122" cx="156.2" cy="230.4" r="3.2"/><line class="leadr122" x1="356.4" y1="93.3" x2="356.4" y2="340.5"/><circle class="gdot122" cx="356.4" cy="340.5" r="3.2"/><circle class="bdot122" cx="356.4" cy="93.3" r="5.4"/><text class="lab hd" x="452.0" y="30.0" text-anchor="start">B / THE ERROR ITSELF, PLOTTED</text><text class="lab sm" x="452.0" y="52.0" text-anchor="start">tangent minus curve, in units of 1e-4</text><line class="axis" x1="452.0" y1="76.0" x2="452.0" y2="362.0"/><line class="axis" x1="452.0" y1="336.0" x2="748.0" y2="336.0"/><line class="gridl" x1="452.0" y1="76.0" x2="452.0" y2="362.0"/><text class="lab tk" x="452.0" y="382.0" text-anchor="middle">59</text><line class="gridl" x1="526.0" y1="76.0" x2="526.0" y2="362.0"/><text class="lab tk" x="526.0" y="382.0" text-anchor="middle">60</text><line class="gridl" x1="600.0" y1="76.0" x2="600.0" y2="362.0"/><text class="lab tk" x="600.0" y="382.0" text-anchor="middle">61</text><line class="gridl" x1="674.0" y1="76.0" x2="674.0" y2="362.0"/><text class="lab tk" x="674.0" y="382.0" text-anchor="middle">62</text><line class="gridl" x1="748.0" y1="76.0" x2="748.0" y2="362.0"/><text class="lab tk" x="748.0" y="382.0" text-anchor="middle">63</text><text class="lab hd" x="600.0" y="404.0" text-anchor="middle">x IN DEGREES</text><line class="gridl" x1="452.0" y1="336.0" x2="748.0" y2="336.0"/><text class="lab tk" x="444.0" y="340.0" text-anchor="end">0</text><line class="gridl" x1="452.0" y1="237.4" x2="748.0" y2="237.4"/><text class="lab tk" x="444.0" y="241.4" text-anchor="end">5</text><line class="gridl" x1="452.0" y1="138.8" x2="748.0" y2="138.8"/><text class="lab tk" x="444.0" y="142.8" text-anchor="end">10</text><polygon class="gapfill122" points="452.00,310.08 453.48,311.11 454.96,312.11 456.44,313.09 457.92,314.06 459.40,315.00 460.88,315.92 462.36,316.82 463.84,317.70 465.32,318.56 466.80,319.40 468.28,320.22 469.76,321.02 471.24,321.79 472.72,322.55 474.20,323.29 475.68,324.00 477.16,324.70 478.64,325.37 480.12,326.02 481.60,326.66 483.08,327.27 484.56,327.86 486.04,328.43 487.52,328.98 489.00,329.51 490.48,330.02 491.96,330.51 493.44,330.97 494.92,331.42 496.40,331.84 497.88,332.25 499.36,332.63 500.84,333.00 502.32,333.34 503.80,333.66 505.28,333.96 506.76,334.24 508.24,334.50 509.72,334.74 511.20,334.96 512.68,335.16 514.16,335.33 515.64,335.49 517.12,335.63 518.60,335.74 520.08,335.83 521.56,335.91 523.04,335.96 524.52,335.99 526.00,336.00 527.48,335.99 528.96,335.96 530.44,335.91 531.92,335.83 533.40,335.74 534.88,335.63 536.36,335.49 537.84,335.33 539.32,335.16 540.80,334.96 542.28,334.74 543.76,334.50 545.24,334.24 546.72,333.96 548.20,333.66 549.68,333.33 551.16,332.99 552.64,332.63 554.12,332.24 555.60,331.83 557.08,331.41 558.56,330.96 560.04,330.49 561.52,330.00 563.00,329.49 564.48,328.96 565.96,328.40 567.44,327.83 568.92,327.23 570.40,326.62 571.88,325.98 573.36,325.32 574.84,324.65 576.32,323.95 577.80,323.23 579.28,322.49 580.76,321.72 582.24,320.94 583.72,320.14 585.20,319.31 586.68,318.47 588.16,317.60 589.64,316.71 591.12,315.80 592.60,314.87 594.08,313.92 595.56,312.95 597.04,311.96 598.52,310.94 600.00,309.91 601.48,308.85 602.96,307.77 604.44,306.68 605.92,305.56 607.40,304.42 608.88,303.26 610.36,302.07 611.84,300.87 613.32,299.65 614.80,298.40 616.28,297.13 617.76,295.85 619.24,294.54 620.72,293.21 622.20,291.86 623.68,290.49 625.16,289.09 626.64,287.68 628.12,286.25 629.60,284.79 631.08,283.31 632.56,281.81 634.04,280.30 635.52,278.76 637.00,277.19 638.48,275.61 639.96,274.01 641.44,272.38 642.92,270.74 644.40,269.07 645.88,267.38 647.36,265.67 648.84,263.94 650.32,262.19 651.80,260.42 653.28,258.62 654.76,256.81 656.24,254.97 657.72,253.11 659.20,251.24 660.68,249.34 662.16,247.42 663.64,245.47 665.12,243.51 666.60,241.53 668.08,239.52 669.56,237.49 671.04,235.45 672.52,233.38 674.00,231.29 675.48,229.17 676.96,227.04 678.44,224.89 679.92,222.71 681.40,220.52 682.88,218.30 684.36,216.06 685.84,213.80 687.32,211.52 688.80,209.21 690.28,206.89 691.76,204.54 693.24,202.18 694.72,199.79 696.20,197.38 697.68,194.95 699.16,192.50 700.64,190.03 702.12,187.53 703.60,185.02 705.08,182.48 706.56,179.92 708.04,177.34 709.52,174.74 711.00,172.12 712.48,169.48 713.96,166.81 715.44,164.13 716.92,161.42 718.40,158.69 719.88,155.94 721.36,153.17 722.84,150.38 724.32,147.56 725.80,144.73 727.28,141.87 728.76,138.99 730.24,136.09 731.72,133.17 733.20,130.23 734.68,127.27 736.16,124.28 737.64,121.28 739.12,118.25 740.60,115.20 742.08,112.13 743.56,109.04 745.04,105.93 746.52,102.79 748.00,99.64 748.00,336.00 452.00,336.00"/><polyline class="curve" points="452.00,310.08 453.48,311.11 454.96,312.11 456.44,313.09 457.92,314.06 459.40,315.00 460.88,315.92 462.36,316.82 463.84,317.70 465.32,318.56 466.80,319.40 468.28,320.22 469.76,321.02 471.24,321.79 472.72,322.55 474.20,323.29 475.68,324.00 477.16,324.70 478.64,325.37 480.12,326.02 481.60,326.66 483.08,327.27 484.56,327.86 486.04,328.43 487.52,328.98 489.00,329.51 490.48,330.02 491.96,330.51 493.44,330.97 494.92,331.42 496.40,331.84 497.88,332.25 499.36,332.63 500.84,333.00 502.32,333.34 503.80,333.66 505.28,333.96 506.76,334.24 508.24,334.50 509.72,334.74 511.20,334.96 512.68,335.16 514.16,335.33 515.64,335.49 517.12,335.63 518.60,335.74 520.08,335.83 521.56,335.91 523.04,335.96 524.52,335.99 526.00,336.00 527.48,335.99 528.96,335.96 530.44,335.91 531.92,335.83 533.40,335.74 534.88,335.63 536.36,335.49 537.84,335.33 539.32,335.16 540.80,334.96 542.28,334.74 543.76,334.50 545.24,334.24 546.72,333.96 548.20,333.66 549.68,333.33 551.16,332.99 552.64,332.63 554.12,332.24 555.60,331.83 557.08,331.41 558.56,330.96 560.04,330.49 561.52,330.00 563.00,329.49 564.48,328.96 565.96,328.40 567.44,327.83 568.92,327.23 570.40,326.62 571.88,325.98 573.36,325.32 574.84,324.65 576.32,323.95 577.80,323.23 579.28,322.49 580.76,321.72 582.24,320.94 583.72,320.14 585.20,319.31 586.68,318.47 588.16,317.60 589.64,316.71 591.12,315.80 592.60,314.87 594.08,313.92 595.56,312.95 597.04,311.96 598.52,310.94 600.00,309.91 601.48,308.85 602.96,307.77 604.44,306.68 605.92,305.56 607.40,304.42 608.88,303.26 610.36,302.07 611.84,300.87 613.32,299.65 614.80,298.40 616.28,297.13 617.76,295.85 619.24,294.54 620.72,293.21 622.20,291.86 623.68,290.49 625.16,289.09 626.64,287.68 628.12,286.25 629.60,284.79 631.08,283.31 632.56,281.81 634.04,280.30 635.52,278.76 637.00,277.19 638.48,275.61 639.96,274.01 641.44,272.38 642.92,270.74 644.40,269.07 645.88,267.38 647.36,265.67 648.84,263.94 650.32,262.19 651.80,260.42 653.28,258.62 654.76,256.81 656.24,254.97 657.72,253.11 659.20,251.24 660.68,249.34 662.16,247.42 663.64,245.47 665.12,243.51 666.60,241.53 668.08,239.52 669.56,237.49 671.04,235.45 672.52,233.38 674.00,231.29 675.48,229.17 676.96,227.04 678.44,224.89 679.92,222.71 681.40,220.52 682.88,218.30 684.36,216.06 685.84,213.80 687.32,211.52 688.80,209.21 690.28,206.89 691.76,204.54 693.24,202.18 694.72,199.79 696.20,197.38 697.68,194.95 699.16,192.50 700.64,190.03 702.12,187.53 703.60,185.02 705.08,182.48 706.56,179.92 708.04,177.34 709.52,174.74 711.00,172.12 712.48,169.48 713.96,166.81 715.44,164.13 716.92,161.42 718.40,158.69 719.88,155.94 721.36,153.17 722.84,150.38 724.32,147.56 725.80,144.73 727.28,141.87 728.76,138.99 730.24,136.09 731.72,133.17 733.20,130.23 734.68,127.27 736.16,124.28 737.64,121.28 739.12,118.25 740.60,115.20 742.08,112.13 743.56,109.04 745.04,105.93 746.52,102.79 748.00,99.64"/><line class="gapline122" x1="674.0" y1="336.0" x2="674.0" y2="231.3"/><circle class="bdot122" cx="674.0" cy="231.3" r="4.4"/><circle class="dot" cx="526.0" cy="336.0" r="4.6"/><line class="gridl" x1="46.0" y1="424.0" x2="748.0" y2="424.0"/><line class="tanl122" x1="46.0" y1="444.0" x2="62.0" y2="444.0"/><text class="lab sm" x="70.0" y="448.0" text-anchor="start">the tangent at 60 degrees, i.e. the estimate</text><line class="curve" x1="46.0" y1="466.0" x2="62.0" y2="466.0"/><text class="lab sm" x="70.0" y="470.0" text-anchor="start">sin x, the truth</text><circle class="dot" cx="54.0" cy="488.0" r="4.4"/><text class="lab sm" x="70.0" y="492.0" text-anchor="start">the anchor, and the correct step of pi/90 rad</text><circle class="bdot122" cx="460.0" cy="444.0" r="4.4"/><text class="lab sm" x="476.0" y="448.0" text-anchor="start">a step of 2 rad lands at y = 1.866</text><rect class="gapfill122" x="452.0" y="461.0" width="16" height="10"/><text class="lab sm" x="476.0" y="470.0" text-anchor="start">the error at 62 deg is 5.31e-04</text><text class="lab sm" x="476.0" y="492.0" text-anchor="start">zero at the anchor, positive both ways</text></svg></div>
+
+  <p class="cap122">Panel A draws both candidate steps at true scale from the same anchor. The correct step, \(\pi/90\) radians, is two degrees wide and lands so close to the anchor that the two markers overlap. The blunder uses the bare number 2, which is 2 <em>radians</em>, and walks \(114.6^{\circ}\) along the tangent to land at a height of \(1.866\)  -  above the top of a sine's range, where the curve itself has already come back down to \(0.094\). Panel B plots the error itself, \(L(x) - \sin x\), because at any zoom that keeps both curves on screen the gap between them is thinner than the lines are drawn. Read three things off it: the error is <em>zero at the anchor</em>, it is <em>positive on both sides</em> so the overestimate does not depend on which way you step, and it grows <em>quadratically</em> so doubling the step quadruples the error.</p>
+
+  <div class="ledger122">
+    <div class="col122 add122">
+      <p class="colh122">The converted step, pi/90</p>
+      <ul>
+        <li>\(dx = 0.0349\), about one thirtieth of a radian.</li>
+        <li>\(dy = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180} = 0.01745\).</li>
+        <li>Estimate \(0.8834787\) against a true \(0.8829476\).</li>
+        <li>Error \(+5.31 \times 10^{-4}\), or \(0.060\) percent.</li>
+      </ul>
+      <p class="tag122 ok122">This is the answer, and \(dx^2/2 = 6.1\times10^{-4}\) is small precisely because the step is measured in radians.</p>
+    </div>
+    <div class="col122 inh122">
+      <p class="colh122">The bare step, 2</p>
+      <ul>
+        <li>\(dx = 2\), which is \(114.6^{\circ}\).</li>
+        <li>\(dy = \dfrac{1}{2}\cdot 2 = 1\).</li>
+        <li>Estimate \(\dfrac{\sqrt{3}}{2} + 1 = 1.8660\).</li>
+        <li>Error \(+0.983\), or \(111\) percent.</li>
+      </ul>
+      <p class="tag122 no122">1851 times the correct method's error, and impossible on sight. Worse, a <em>smaller</em> step makes it relatively worse: on a one-degree step the ratio is 3713, because this error is linear in the step while the method's is quadratic.</p>
+    </div>
+  </div>
+
+  <p class="warn122"><strong>You may work in degrees, provided you differentiate the degree function.</strong> Put \(g(t) = \sin\left(\dfrac{\pi t}{180}\right)\) with \(t\) in degrees. Then \(g'(t) = \dfrac{\pi}{180}\cos\left(\dfrac{\pi t}{180}\right)\), and \(g(62) \approx g(60) + 2g'(60) = \dfrac{\sqrt{3}}{2} + \dfrac{\pi}{180}\), bit for bit the same double. The \(\pi/180\) does not disappear. It moves from the step into the derivative, and it is still paid.</p>
+</section>
+
+<section>
+  <h2>03 &middot; Four routes to the same number</h2>
+  <p>All four were evaluated and all four land on the identical floating-point value \(0.8834786963043819\). Choose by what the stem asks for and by how many lines you want to write.</p>
+
+  <div class="chain122">
+    <div class="ch122">
+      <p class="chh122">Route 1 &middot; differentials</p>
+      <p>\(dy = f'(a)\,dx = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180}\), then add \(f(a)\).</p>
+      <p>$$\sin 62^{\circ} \approx \frac{\sqrt{3}}{2} + \frac{\pi}{180}$$</p>
+      <p>Four lines. The \(\cos(\pi/3) = \tfrac12\) halves the \(\pi/90\) into \(\pi/180\), so the correction is exactly "one degree in radians". <strong>Use this one under pressure.</strong></p>
+    </div>
+    <div class="ch122">
+      <p class="chh122">Route 2 &middot; the linearization</p>
+      <p>$$L(x) = \frac{\sqrt{3}}{2} + \frac{1}{2}\left(x - \frac{\pi}{3}\right)$$</p>
+      <p>Evaluate at \(x = \dfrac{31\pi}{90}\). Identical answer, but you now have to convert the <em>target</em> as well as the step, which doubles your exposure to the one error this question is built around.</p>
+    </div>
+    <div class="ch122">
+      <p class="chh122">Route 3 &middot; the angle sum</p>
+      <p>\(\sin(60^{\circ} + 2^{\circ}) = \sin 60^{\circ}\cos 2^{\circ} + \cos 60^{\circ}\sin 2^{\circ}\), then take \(\cos 2^{\circ} \approx 1\) and \(\sin 2^{\circ} \approx \dfrac{\pi}{90}\).</p>
+      <p>This is not a different method. It is the linearization with its two approximations made visible, and it tells you exactly what you threw away: \(\cos 2^{\circ}\) is really \(0.99939\).</p>
+    </div>
+    <div class="ch122">
+      <p class="chh122">Route 4 &middot; the degree function</p>
+      <p>\(g(t) = \sin\left(\dfrac{\pi t}{180}\right)\), \(g'(t) = \dfrac{\pi}{180}\cos\left(\dfrac{\pi t}{180}\right)\), then \(g(62) \approx g(60) + 2g'(60)\).</p>
+      <p>The honest way to stay in degrees. Safe, but the \(\pi/180\) is now hiding inside \(g'\) where it is easier to drop.</p>
+    </div>
+  </div>
+
+  <p>The stem says "use linearization", so write the words \(L(x) = f(a) + f'(a)(x-a)\) somewhere even if you compute by route 1. It costs one line and it is the phrase the marker is looking for.</p>
+</section>
+
+<section>
+  <h2>04 &middot; Nearest is almost always best, and it is worth knowing when it is not</h2>
+  <p>Q12.1 established that the anchor must be chosen by measurement rather than by instinct. Nine legal exact angles were ranked here by the error each actually produces.</p>
+
+  <div class="figbox"><svg viewBox="0 0 780 244" width="780" height="244" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bar chart of the linearization error from nine exact anchors, ordered by distance from 62 degrees"><text class="lab hd" x="46.0" y="30.0" text-anchor="start">THE ANCHOR CENSUS / ERROR ON A LOG SCALE</text><text class="lab sm" x="46.0" y="52.0" text-anchor="start">ordered by distance from 62 degrees, shown above each bar</text><line class="axis" x1="98.0" y1="174.0" x2="732.0" y2="174.0"/><rect class="barbest122" x="123.9" y="167.0" width="37.4" height="7.0" rx="1.5"/><text class="lab sm" x="142.7" y="157.0" text-anchor="middle">2</text><text class="lab tk" x="142.7" y="194.0" text-anchor="middle">60</text><text class="lab tk" x="142.7" y="216.0" text-anchor="middle">best</text><rect class="bar122" x="193.3" y="119.0" width="37.4" height="55.0" rx="1.5"/><text class="lab sm" x="212.0" y="109.0" text-anchor="middle">17</text><text class="lab tk" x="212.0" y="194.0" text-anchor="middle">45</text><text class="lab tk" x="212.0" y="216.0" text-anchor="middle">64x</text><rect class="bar122" x="262.6" y="104.7" width="37.4" height="69.3" rx="1.5"/><text class="lab sm" x="281.3" y="94.7" text-anchor="middle">28</text><text class="lab tk" x="281.3" y="194.0" text-anchor="middle">90</text><text class="lab tk" x="281.3" y="216.0" text-anchor="middle">220x</text><rect class="bar122" x="331.9" y="106.4" width="37.4" height="67.6" rx="1.5"/><text class="lab sm" x="350.7" y="96.4" text-anchor="middle">32</text><text class="lab tk" x="350.7" y="194.0" text-anchor="middle">30</text><text class="lab tk" x="350.7" y="216.0" text-anchor="middle">190x</text><rect class="bar122" x="401.3" y="88.1" width="37.4" height="85.9" rx="1.5"/><text class="lab sm" x="420.0" y="78.1" text-anchor="middle">58</text><text class="lab tk" x="420.0" y="194.0" text-anchor="middle">120</text><text class="lab tk" x="420.0" y="216.0" text-anchor="middle">921x</text><rect class="bar122" x="470.6" y="98.5" width="37.4" height="75.5" rx="1.5"/><text class="lab sm" x="489.3" y="88.5" text-anchor="middle">62</text><text class="lab tk" x="489.3" y="194.0" text-anchor="middle">0</text><text class="lab tk" x="489.3" y="216.0" text-anchor="middle">375x</text><rect class="bar122" x="539.9" y="83.6" width="37.4" height="90.4" rx="1.5"/><text class="lab sm" x="558.7" y="73.6" text-anchor="middle">73</text><text class="lab tk" x="558.7" y="194.0" text-anchor="middle">135</text><text class="lab tk" x="558.7" y="216.0" text-anchor="middle">1365x</text><rect class="bar122" x="609.3" y="80.5" width="37.4" height="93.5" rx="1.5"/><text class="lab sm" x="628.0" y="70.5" text-anchor="middle">88</text><text class="lab tk" x="628.0" y="194.0" text-anchor="middle">150</text><text class="lab tk" x="628.0" y="216.0" text-anchor="middle">1783x</text><rect class="bar122" x="678.6" y="78.0" width="37.4" height="96.0" rx="1.5"/><text class="lab sm" x="697.3" y="68.0" text-anchor="middle">118</text><text class="lab tk" x="697.3" y="194.0" text-anchor="middle">180</text><text class="lab tk" x="697.3" y="216.0" text-anchor="middle">2215x</text><text class="lab hd" x="88.0" y="194.0" text-anchor="end">ANCHOR</text><text class="lab hd" x="88.0" y="216.0" text-anchor="end">COST</text></svg></div>
+
+  <p class="cap122">The bars are ordered by distance from \(62^{\circ}\), so a bar that is taller than the one to its right is an inversion of the obvious rule. There are two. The \(30^{\circ}\) anchor is four degrees further from the target than \(90^{\circ}\) and still costs 1.16 times less, and \(0^{\circ}\) is four degrees further than \(120^{\circ}\) and costs less again.</p>
+
+  <p>The reason is that the error is \(\dfrac{|f''(a)|}{2}dx^2 = \dfrac{|\sin a|}{2}dx^2\), so the second derivative gets a vote alongside the distance. \(\sin 30^{\circ} = \tfrac12\) against \(\sin 90^{\circ} = 1\), and that halving buys back the extra four degrees. At \(0^{\circ}\) the effect is total: \(\sin 0 = 0\), the quadratic term vanishes, and the error there is third order rather than second.</p>
+
+  <div class="ledger122">
+    <div class="col122 add122">
+      <p class="colh122">The working rule</p>
+      <ul>
+        <li>Take the <strong>nearest exact angle</strong>: \(0, 30, 45, 60, 90, 120, 135, 150, 180\).</li>
+        <li>You need <strong>both</strong> \(\sin a\) and \(\cos a\), because one gives \(f(a)\) and the other \(f'(a)\).</li>
+        <li>Right almost always, and right here: \(60^{\circ}\) is both nearest and best.</li>
+      </ul>
+      <p class="tag122 ok122">Under exam pressure this is the rule to use. It takes two seconds.</p>
+    </div>
+    <div class="col122 inh122">
+      <p class="colh122">The honest rule</p>
+      <ul>
+        <li>Take the smallest \(|f''(a)|\,dx^2\).</li>
+        <li>Use it only to break a tie between two nearly equidistant anchors.</li>
+        <li>"Exact" alone is not the criterion: \(180^{\circ}\) is perfectly legal and 2215 times worse.</li>
+        <li>"Nearest" means nearest among the anchors that <em>exist</em>. A hypothetical exact angle at \(61^{\circ}\) would be four times better, so \(60^{\circ}\) is not magic, only best available.</li>
+      </ul>
+      <p class="tag122 no122">The quadratic model also has limits: it predicts the 30-versus-90 comparison in the right direction but off by a third in size, because at a 30-degree step \(dx\) is no longer small.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>05 &middot; What the estimate is actually worth</h2>
+  <p>Do not assert that the method works. Measure it.</p>
+
+  <div class="vbar122">
+    <div><span class="k122">Estimate</span><span class="v122">0.8834787</span></div>
+    <div><span class="k122">True value</span><span class="v122">0.8829476</span></div>
+    <div><span class="k122">Error</span><span class="v122">+5.31e-4</span></div>
+    <div><span class="k122">Relative</span><span class="v122">0.060%</span></div>
+    <div><span class="k122">Correct places</span><span class="v122">3</span></div>
+  </div>
+
+  <p>The estimate rounds to \(0.8835\); the truth rounds to \(0.8829\). <strong>Three correct decimal places, not four.</strong> Across a twelve-entry trigonometric catalog, the correct-place counts are \(3, 3, 3, 2, 3, 1, 2, 3, 2, 3, 3, 3\), and <em>not one of the twelve reaches four</em>. Q12.1 found the same for roots, where only 5 of 21 managed it.</p>
+
+  <p class="warn122"><strong>This settles what Q12.3 means.</strong> When Final Exam 1 item 2 says "estimate each of the values below to four decimal places", it can only mean <em>write</em> four decimal places. The marker's answer is the differential value, so \(0.4698\) is correct for \(\cos 62^{\circ}\) even though the true value is \(0.4695\). Say so on the page if you have room.</p>
+
+  <div class="checks122">
+    <div class="ck122"><p class="ckh122">The two-second check</p><p>Is the answer inside \([-1, 1]\)? It is a sine. This one line alone kills the degrees blunder, and nothing else in category 12 offers a check this cheap.</p></div>
+    <div class="ck122"><p class="ckh122">The magnitude check</p><p>Is it a little above \(\dfrac{\sqrt{3}}{2} = 0.866\)? You stepped up from \(60^{\circ}\) by a little. Is the correction about \(0.017\)? That is \(\pi/180\), one degree in radians.</p></div>
+    <div class="ck122"><p class="ckh122">The bound, and where to take it</p><p>The remainder is \(\dfrac{|f''(\xi)|}{2}dx^2\) over the interval. The anchor bound \(5.2761\times10^{-4}\) is <strong>violated</strong> by the actual error \(5.3110\times10^{-4}\); the target bound \(5.3792\times10^{-4}\) holds. Take the maximum of \(|f''|\) over the whole interval, never at the anchor.</p></div>
+    <div class="ck122"><p class="ckh122">If you want it better</p><p>One more Taylor term, \(-\dfrac{\sqrt{3}}{2}\cdot\dfrac{(\pi/90)^2}{2}\), gives \(0.8829511\) and is <strong>152 times</strong> more accurate. It is not what this question asks for, but the extra accuracy costs one line.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>06 &middot; The variation catalog</h2>
+  <p>Read these as structure, not as a list of facts. Every entry is the same five moves; what changes is only which of \(f\), \(a\) or \(dx\) the examiner made awkward. Every value was recomputed from its closed form and independently re-derived formula-blind, and every direction was taken from the sign of \(f''\) rather than from the comparison itself.</p>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 0</span>A sine at a special angle</p>
+    <p class="famt122">Trigger: \(\sin\) of a whole number of degrees within a few degrees of \(0, 30, 45, 60, 90\). Tool: convert \(dx\), then \(L = \sin a + \cos a\,dx\).</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Question</th><th>Anchor</th><th>Exact estimate</th><th>Decimal</th><th>Error</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sin 62^{\circ}\)</td><td>\(60^{\circ}\)</td><td>\(\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}\)</td><td class="mono">0.8834787</td><td class="mono ok2122">+5.311e-4</td></tr>
+          <tr><td>\(\sin 59^{\circ}\)</td><td>\(60^{\circ}\)</td><td>\(\tfrac{\sqrt3}{2} - \tfrac{\pi}{360}\)</td><td class="mono">0.8572988</td><td class="mono ok2122">+1.315e-4</td></tr>
+          <tr><td>\(\sin 31^{\circ}\)</td><td>\(30^{\circ}\)</td><td>\(\tfrac12 + \tfrac{\sqrt3}{2}\cdot\tfrac{\pi}{180}\)</td><td class="mono">0.5151150</td><td class="mono ok2122">+7.692e-5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 1</span>The other trigonometric functions</p>
+    <p class="famt122">Trigger: \(\cos\), \(\tan\), \(\sec\) instead of \(\sin\). Tool: the right derivative, and a fresh look at the concavity, which is <strong>not</strong> always the same direction.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Question</th><th>Anchor</th><th>\(f'(a)\)</th><th>Exact estimate</th><th>Decimal</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>\(\cos 62^{\circ}\)</td><td>\(60^{\circ}\)</td><td>\(-\tfrac{\sqrt3}{2}\)</td><td>\(\tfrac12 - \tfrac{\sqrt3}{2}\cdot\tfrac{\pi}{90}\)</td><td class="mono">0.4697700</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\cos 28^{\circ}\)</td><td>\(30^{\circ}\)</td><td>\(-\tfrac12\)</td><td>\(\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}\)</td><td class="mono">0.8834787</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\tan 46^{\circ}\)</td><td>\(45^{\circ}\)</td><td>\(2\)</td><td>\(1 + \tfrac{\pi}{90}\)</td><td class="mono">1.0349066</td><td class="no2122">under</td></tr>
+          <tr><td>\(\sec 61^{\circ}\)</td><td>\(60^{\circ}\)</td><td>\(2\sqrt3\)</td><td>\(2 + 2\sqrt3\cdot\tfrac{\pi}{180}\)</td><td class="mono">2.0604600</td><td class="no2122">under</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="verdict122"><strong>Look at rows one and two together.</strong> \(\cos 28^{\circ}\) from \(30^{\circ}\) produces the identical double to \(\sin 62^{\circ}\) from \(60^{\circ}\), because reflecting through \(45^{\circ}\) maps one problem onto the other. That is the sharpest self-check in this document. And the direction flips for \(\tan\) and \(\sec\), both concave up at their anchors, so a student who learned "linearization overestimates" from three sine problems gets both wrong.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 2</span>The argument is already in radians</p>
+    <p class="famt122">Trigger: no degree sign. Tool: no conversion, and often a <em>flat</em> anchor where \(f'(a) = 0\), which makes the linearization a constant. \(\sin 1.6\) from \(\pi/2\) estimates as exactly \(1\); \(\cos 0.05\) from \(0\) estimates as exactly \(1\). That is not an error, it is what a horizontal tangent means  -  but it is also why those two are among the least accurate entries, since the whole error then sits in the quadratic term.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 3</span>The anchor is zero, and the answer is a small-angle rule</p>
+    <p class="famt122">Linearizing at \(0\) gives \(\sin x \approx x\), \(\tan x \approx x\), and \(\cos x \approx 1\). These <em>are</em> the small-angle formulas. Note carefully that \(\cos\) gives \(1\), <strong>not</strong> \(1 - x^2/2\): the familiar quadratic rule is a second-order Taylor result and is not what this method produces. \(\sin\) and \(\tan\) do unusually well here because \(f''(0) = 0\) makes their error cubic  -  shrink the step by 10 and the error falls by about 1000, not 100.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 4</span>A trigonometric function inside a composite</p>
+    <p class="famt122">Trigger: \(x\sin x\), \(\sin 2x\), \(\sin(x^2)\). Tool: product or chain rule for \(f'\), then the identical five moves. Worth staring at: \(\sin(2x)\) at \(x = 31^{\circ}\) <em>is</em> \(\sin 62^{\circ}\), and the method reproduces the same double from the other side, because the chain factor 2 doubles the correction while the halved step halves it back. Drop the chain factor and you halve the answer's correction, which is the error MT1 items 7, 8 and 9 all test in a row.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 5</span>Inverse trigonometric functions</p>
+    <p class="famt122">\(\arctan 1.02\) from \(1\) gives \(\dfrac{\pi}{4} + 0.01 = 0.7953982\), with \(f'(a) = \dfrac{1}{1+x^2} = \dfrac12\)  -  the same slope as the headline question by a completely unrelated route. \(\arcsin 0.51\) from \(0.5\) gives \(\dfrac{\pi}{6} + \dfrac{0.02}{\sqrt3} = 0.5351458\), and is an <strong>underestimate</strong>. The argument of an inverse trig function is a number, not an angle, so there is nothing to convert; the answer, however, comes out in radians.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 6</span>Error propagation from a measured angle</p>
+    <p class="famt122">The bank's companion question: one leg of a right triangle is exactly 25 cm and the opposite angle is measured as \(60^{\circ} \pm 0.5^{\circ}\). Here you want \(dy\) <strong>alone</strong>, not \(f(a) + dy\), with \(d\theta = 0.0087266\) radians.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Side</th><th>Formula</th><th>Value (cm)</th><th>Differential</th><th>Error (cm)</th><th>Percent</th></tr></thead>
+        <tbody>
+          <tr><td>adjacent</td><td>\(25\cot\theta\)</td><td class="mono">14.4338</td><td>\(-\tfrac{100}{3}\,d\theta\)</td><td class="mono">-0.29089</td><td class="mono">2.0153</td></tr>
+          <tr><td>hypotenuse</td><td>\(25\csc\theta\)</td><td class="mono">28.8675</td><td>\(-\tfrac{50}{3}\,d\theta\)</td><td class="mono">-0.14544</td><td class="mono">0.5038</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt122">The percentage errors differ by a factor of <strong>exactly 4</strong>, and \(4 = \sec^2 60^{\circ}\): the same half-degree of uncertainty costs four times as much on the adjacent side, and the ratio is a clean trigonometric quantity rather than an accident. The conversion matters here too, and more visibly  -  using \(0.5\) raw gives an "error" of \(16.67\) cm on a side that is only \(14.43\) cm long.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 7</span>The direction of the error, asked directly</p>
+    <p class="famt122">Tool: the sign of \(f''\) on the interval. Nothing else.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>\(f\) at the anchor</th><th>\(f''\)</th><th>Tangent</th><th>Estimate</th></tr></thead>
+        <tbody>
+          <tr><td>\(\sin\) at \(60^{\circ}\)</td><td class="mono">-0.866</td><td>above</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\cos\) at \(60^{\circ}\)</td><td class="mono">-0.500</td><td>above</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\cos\) at \(30^{\circ}\)</td><td class="mono">-0.866</td><td>above</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\tan\) at \(45^{\circ}\)</td><td class="mono">+4.000</td><td>below</td><td class="no2122">under</td></tr>
+          <tr><td>\(\sec\) at \(60^{\circ}\)</td><td class="mono">+14.000</td><td>below</td><td class="no2122">under</td></tr>
+          <tr><td>\(\arctan\) at \(1\)</td><td class="mono">-0.500</td><td>above</td><td class="ok2122">over</td></tr>
+          <tr><td>\(\arcsin\) at \(0.5\)</td><td class="mono">+0.770</td><td>below</td><td class="no2122">under</td></tr>
+          <tr><td>\(\sqrt{\phantom{x}}\) at \(9\) (Q12.1)</td><td class="mono">-0.0046</td><td>above</td><td class="ok2122">over</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt122">Five over, three under. The direction is a property of \(f\) and the anchor, never of the method. The exception that proves it: at an inflection \(f''(a) = 0\) and the concavity changes, so linearizing \(\sin\) at \(0\) overestimates for \(dx > 0\) and underestimates for \(dx < 0\). If the anchor is \(0\) or \(180^{\circ}\), check the side.</p>
+  </div>
+
+  <div class="fam122">
+    <p class="famh122"><span class="fk122">Family 8</span>How good is it</p>
+    <p class="famt122">Trigger: "to four decimal places", "estimate the error in your estimate". Tool: \(\dfrac{\max|f''|}{2}dx^2\) over the interval, plus honesty about rounding. The place ordering is not simply by \(|f''|\), because rounding boundaries interfere: \(\sqrt{16.4} \approx 4.05\) agrees with the truth to \(3\times10^{-4}\) and yet reports <strong>zero</strong> correct decimal places, because \(4.05\) rounds to \(4.1\) where the truth rounds to \(4.0\). Quantize before claiming a place count; never infer it from the size of the error.</p>
+  </div>
+</section>
+
+<section>
+  <h2>07 &middot; The trap list, ranked</h2>
+  <ol class="tl122">
+    <li><span><b>Not converting degrees to radians.</b> Produces \(\dfrac{\sqrt3}{2} + 1 = 1.8660\), an error of \(0.983\), which is 1851 times the correct method's and \(111\) percent in relative terms. It is the only error here that a free check catches, because no sine exceeds 1. It has essentially no hiding place: across the whole first quadrant it never coincides with the truth, except at \(90^{\circ}\) where \(\cos a = 0\) kills the term it corrupted.</span></li>
+    <li><span><b>Spot-checking at the anchor.</b> Of eight plausible wrong formulas, <b>six agree with the truth exactly when \(dx = 0\)</b>, because they differ from it only in the \(dy\) term. Setting \(dx = 0\) to "check the setup" is a test that cannot fail. The two survivors are the two that corrupt the \(f(a)\) term instead.</span></li>
+    <li><span><b>Dropping \(f'(a)\), or using the wrong slope.</b> Each classic slip hides exactly where the factor it touches equals 1: forgetting \(f'(a)\) is invisible at \(a = 0\) where \(\cos a = 1\); using \(\sin a\) as the slope is invisible at \(45^{\circ}\) where \(\sin a = \cos a\); a wrong sign on \(dy\) is invisible at \(90^{\circ}\) where \(\cos a = 0\). At \(60^{\circ}\) with \(dx = 2^{\circ}\) none of the eight hides, so the exam's own numbers are a safe place to check.</span></li>
+    <li><span><b>Evaluating \(f'\) at the target instead of the anchor.</b> Nastier than the rest because it is <b>asymptotically invisible</b>: its error shrinks with \(dx\) exactly as the correct answer's does, so a smaller step cannot expose it. Pleasant consequence: the two choices bracket the true value and their average is within \(10^{-5}\).</span></li>
+    <li><span><b>Reporting the true value instead of the estimate.</b> If you check yourself with a calculator, resist "correcting" \(0.8835\) to \(0.8829\). The question asked for the linearization.</span></li>
+    <li><span><b>Answering an error question with \(f(a) + dy\).</b> In Family 6, "estimate the error" wants \(dy\) alone.</span></li>
+    <li><span><b>Assuming linearization always overestimates.</b> True for \(\sin\) and \(\cos\) near \(60^{\circ}\); false for \(\tan\), \(\sec\) and \(\arcsin\). Look at \(f''\) every time.</span></li>
+    <li><span><b>Choosing an exact anchor that is not the nearest.</b> \(180^{\circ}\) is perfectly legal and 2215 times worse than \(60^{\circ}\).</span></li>
+    <li><span><b>Claiming four correct decimal places.</b> Not one of the twelve trigonometric catalog entries delivers four.</span></li>
+    <li><span><b>Using a bound taken only at the anchor.</b> For this very question the anchor bound is \(5.2761\times10^{-4}\) and the actual error is \(5.3110\times10^{-4}\), so the bound is violated.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>08 &middot; Drill set</h2>
+  <p>On paper, in radians, no calculator until the end. <strong>Score sign separately from magnitude.</strong> A wrong magnitude is an arithmetic slip and sends you back to section 03; a wrong sign means you did not look at \(f''\) and sends you back to Family 7. Different failures, different fixes.</p>
+
+  <ol class="dr122">
+    <li><span>Estimate \(\sin 61^{\circ}\). &nbsp; <b class="ans122">sqrt(3)/2 + pi/360 = 0.8747521</b>, over by \(1.323\times10^{-4}\) &middot; F0</span></li>
+    <li><span>Estimate \(\cos 31^{\circ}\). &nbsp; <b class="ans122">sqrt(3)/2 - pi/360 = 0.8572988</b>, over by \(1.315\times10^{-4}\) &middot; F1</span></li>
+    <li><span>Estimate \(\sin 44^{\circ}\). &nbsp; <b class="ans122">(sqrt(2)/2)(1 - pi/180) = 0.6947654</b>, over by \(1.071\times10^{-4}\) &middot; F0, negative step</span></li>
+    <li><span>Estimate \(\tan 46^{\circ}\), over or under? &nbsp; <b class="ans122">1 + pi/90 = 1.0349066</b>, <em>under</em> by \(6.237\times10^{-4}\) &middot; F1, \(f'' > 0\)</span></li>
+    <li><span>Estimate \(\cos 89^{\circ}\). &nbsp; <b class="ans122">pi/180 = 0.0174533</b>, over by \(8.861\times10^{-7}\) &middot; F1, \(f(a) = 0\) so the estimate is only the correction. The most accurate entry in the set.</span></li>
+    <li><span>Estimate \(\sin(0.1)\), already in radians. &nbsp; <b class="ans122">0.1</b>, over by \(1.666\times10^{-4}\) &middot; F3, the small-angle rule</span></li>
+    <li><span>Estimate \(\cos(1.6)\). &nbsp; <b class="ans122">-(1.6 - pi/2) = -0.0292037</b>, <em>under</em> by \(4.151\times10^{-6}\) &middot; F2, no conversion</span></li>
+    <li><span>Estimate \(\sec 61^{\circ}\), over or under? &nbsp; <b class="ans122">2 + 2 sqrt(3) pi/180 = 2.0604600</b>, <em>under</em> by \(2.205\times10^{-3}\) &middot; F1, \(\sec' = \sec\tan\)</span></li>
+    <li><span>Estimate \(\arctan(1.02)\). &nbsp; <b class="ans122">pi/4 + 0.01 = 0.7953982</b>, over by \(9.933\times10^{-5}\) &middot; F5</span></li>
+    <li><span>Estimate \(\sin 62^{\circ}\) from an anchor of \(45^{\circ}\). &nbsp; <b class="ans122">(sqrt(2)/2)(1 + 17pi/180) = 0.9169096</b>, over by \(3.396\times10^{-2}\) &middot; F0 with a bad anchor, <b>63.9 times worse</b></span></li>
+    <li><span>Estimate \(\sin(2)\)  -  the argument is 2 <em>radians</em>. &nbsp; <b class="ans122">1</b>, over by \(9.070\times10^{-2}\) &middot; F2, \(f'(\pi/2) = 0\). The least accurate entry in the set: a flat anchor gives a cheap estimate and a poor one.</span></li>
+    <li><span>Estimate \(\cos 28^{\circ}\), then compare with the headline. &nbsp; <b class="ans122">sqrt(3)/2 + pi/180 = 0.8834787</b>, over by \(5.311\times10^{-4}\) &middot; F1, <b>the same answer as Q12.2 itself</b></span></li>
+  </ol>
+
+  <p>Nine over and three under, so answering "overestimate" every time scores 9 out of 12 and teaches you nothing. The errors span five orders of magnitude between numbers 5 and 11, which is why "linearization is accurate" is not a statement that survives without a step size attached.</p>
+</section>
+
+<section>
+  <h2>09 &middot; Answer entry</h2>
+  <p>Both exams are Mobius, answer-only and machine-marked, so a right method with a bad keystroke scores zero. Mobius runs two grading engines that parse differently, so type every \(*\) and press Preview.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono ok2122">sqrt(3)/2+pi/180</td><td class="mono no2122">sqrt3/2+pi/180</td></tr>
+        <tr><td class="mono ok2122">0.8835</td><td class="mono no2122">0.8829 (the true value, not the estimate)</td></tr>
+        <tr><td class="mono ok2122">pi/180</td><td class="mono no2122">pi/180 degrees</td></tr>
+        <tr><td>type \(*\) between every product</td><td>rely on juxtaposition</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn122"><strong>The most expensive typo here is not a typo at all.</strong> It is entering \(1.8660\), which is what you get if you never converted, and which no amount of careful typing rescues. The second most expensive is entering the true value after checking yourself on a calculator.</p>
+</section>
+
+<section>
+  <h2>10 &middot; Provenance and verification</h2>
+
+  <div class="prov122">
+    <div class="pv122"><p class="pvh122">The paper</p><p>Midterm Exam 2, item 8, <strong>6 points</strong>. MT2's eleven values are 4, 4, 4, 6, 10, 10, 24, 6, 16, 4, 6, summing to 94, so this is 6.38 percent of the paper and ties items 4 and 11 as its fourth-heaviest. Parsed from the paper file, not typed.</p></div>
+    <div class="pv122"><p class="pvh122">Clauses that do not apply</p><p>MT2's two "no credit will be given" clauses sit on items 4 and 7, and its single "You may not need to simplify" permission sits on item 9. Item 8 carries neither, no "Show your work", and no hint formula. Its whole block is one line.</p></div>
+    <div class="pv122"><p class="pvh122">The category</p><p>19 points across three papers: Q12.1 is MT1 item 9 (5 points), this is MT2 item 8 (6), Q12.3 is Final Exam 1 item 2 (8). One idea, examined three times.</p></div>
+    <div class="pv122"><p class="pvh122">What the course notes omit</p><p>They state the linearization correctly in five places and their "convert degrees to radians if trig" is the single most useful sentence in them. They contain <strong>no</strong> statement of the direction of the error, <strong>no</strong> error bound, <strong>no</strong> demonstrated anchor choice, and <strong>no</strong> worked trigonometric instance  -  the value \(\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}\) appears nowhere in any of the four files.</p></div>
+  </div>
+
+  <div class="vbar122">
+    <div><span class="k122">Assertions</span><span class="v122">393</span></div>
+    <div><span class="k122">Failures</span><span class="v122">0</span></div>
+    <div><span class="k122">Seeded controls</span><span class="v122">49</span></div>
+    <div><span class="k122">Catalog entries</span><span class="v122">21</span></div>
+    <div><span class="k122">Anchors ranked</span><span class="v122">9</span></div>
+  </div>
+
+  <p>The true value of \(\sin 62^{\circ}\) was computed in 60-digit decimal arithmetic from a Machin series for \(\pi\) and a Taylor series for \(\sin\), cross-checked against the angle-sum identity and against the library function. \(f'(\pi/3) = \tfrac12\) was recovered three independent ways that never write \(\cos\): complex-step differentiation, a Richardson-extrapolated ladder whose fourth-order convergence was measured on a separate curved control, and the exact value. \(f''\) came from a Richardson-extrapolated <em>second</em> difference, never from re-differentiating the claimed \(f'\). The overestimate claim was checked at 118 anchor-and-offset pairs in both directions, with four convex functions seeded as controls to prove the test can report the opposite. Every drill answer and every catalog entry was verified twice, once from its closed form and once formula-blind. Every printed decimal on this page was printed from the expression beside it; none was typed and none was copied from another tutorial.</p>
+
+  <p class="warn122"><strong>One repair to the shared harness.</strong> For twenty-four runs the verification harness reported two permanent failures, <code>sin62</code> and <code>cos62</code>, waved past as "known tolerance artifacts". They were nothing of the kind: both compared a <em>correct</em> linearization against a mistyped decimal literal that was neither the linearization nor the true value. Since <code>sin62</code> is this question, both literals were replaced with values printed from the expressions themselves. The harness now runs clean end to end for the first time.</p>
+</section>
+
+</main>
+

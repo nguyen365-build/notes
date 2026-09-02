@@ -1,4 +1,6 @@
 """Assemble the Q10.2 artifact from the series head + stylesheet + this page's body."""
+import sys
+sys.dont_write_bytecode = True   # keep __pycache__ out of this content directory
 import io
 import os
 import re

@@ -1,4 +1,6 @@
 """Assemble the Q10.1 artifact from the series head + stylesheet + this page's body."""
+import sys
+sys.dont_write_bytecode = True   # keep __pycache__ out of this content directory
 import io, os, re
 
 HERE = os.path.dirname(os.path.abspath(__file__))

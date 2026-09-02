@@ -1,0 +1,330 @@
+<main class="wrap">
+
+<header class="hdr wrap">
+  <p class="eyebrow">MATH 265 &middot; MT2 ITEM 8 &middot; 6 POINTS &middot; CATEGORY 12</p>
+  <h1>Estimate a sine with linearization</h1>
+  <p class="stand">"Use linearization to estimate the value of $\sin(62^{\circ})$." Q12.1 asked whether you can choose an anchor. This one asks whether you can choose a unit, and it is worth one more mark for exactly that reason.</p>
+
+  <div class="ansbar">
+    <div><span class="k">The answer</span><span class="v">$\tfrac{\sqrt{3}}{2} + \tfrac{\pi}{180}$</span></div>
+    <div><span class="k">As a decimal</span><span class="v mono">0.8835</span></div>
+    <div><span class="k">Type into Mobius</span><span class="v mono">sqrt(3)/2+pi/180</span></div>
+    <div><span class="k">Which way it leans</span><span class="v">too big, by 0.00053</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>01 &middot; The thirty-second version</h2>
+  <p>Five moves, one derivative, no calculator. The middle move is the one this question was set to test, and it is the one students skip.</p>
+
+  <div class="steps">
+    <div class="st"><p class="sth">1 &middot; Name f</p><p>You are asked for a number that is $f$ of something. $\sin 62^{\circ}$ means $f(x) = \sin x$.</p></div>
+    <div class="st"><p class="sth">2 &middot; Choose the anchor</p><p>The nearest angle whose sine <em>and</em> cosine are exact. $60^{\circ}$ is a 30-60-90 angle, so $a = \dfrac{\pi}{3}$, $f(a) = \dfrac{\sqrt{3}}{2}$, $f'(a) = \dfrac{1}{2}$.</p></div>
+    <div class="st"><p class="sth">3 &middot; Convert the step</p><p>$dx = 2^{\circ} = 2 \cdot \dfrac{\pi}{180} = \dfrac{\pi}{90}$ radians. Write this line on its own, before differentiating.</p></div>
+    <div class="st"><p class="sth">4 &middot; Build dy and add</p><p>$dy = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180}$, so $\sin 62^{\circ} \approx \dfrac{\sqrt{3}}{2} + \dfrac{\pi}{180}$.</p></div>
+  </div>
+
+  <p class="verdict"><strong>Then say which way it leans.</strong> $f''(x) = -\sin x < 0$ on $(0, \pi)$, so $\sin$ is concave down there, so the tangent line sits above the curve, so the estimate is too big. It is, by $0.00053$. There is also a free sanity check that no other question in this category offers: <strong>a sine can never exceed 1</strong>, so an answer of $1.87$ is refuted before you have looked at anything else.</p>
+</section>
+
+<section>
+  <h2>02 &middot; The unit is the question</h2>
+  <p>Every trigonometric derivative in this course is written for radians. $\dfrac{d}{dx}\sin x = \cos x$ is true when $x$ is in radians and false when it is in degrees, where the derivative picks up a factor of $\dfrac{\pi}{180}$. So the step must be converted before it is multiplied by anything.</p>
+
+  FIGURE_SVG
+
+  <p class="cap122">Panel A draws both candidate steps at true scale from the same anchor. The correct step, $\pi/90$ radians, is two degrees wide and lands so close to the anchor that the two markers overlap. The blunder uses the bare number 2, which is 2 <em>radians</em>, and walks $114.6^{\circ}$ along the tangent to land at a height of $1.866$ &mdash; above the top of a sine's range, where the curve itself has already come back down to $0.094$. Panel B plots the error itself, $L(x) - \sin x$, because at any zoom that keeps both curves on screen the gap between them is thinner than the lines are drawn. Read three things off it: the error is <em>zero at the anchor</em>, it is <em>positive on both sides</em> so the overestimate does not depend on which way you step, and it grows <em>quadratically</em> so doubling the step quadruples the error.</p>
+
+  <div class="ledger">
+    <div class="col add">
+      <p class="colh">The converted step, pi/90</p>
+      <ul>
+        <li>$dx = 0.0349$, about one thirtieth of a radian.</li>
+        <li>$dy = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180} = 0.01745$.</li>
+        <li>Estimate $0.8834787$ against a true $0.8829476$.</li>
+        <li>Error $+5.31 \times 10^{-4}$, or $0.060$ percent.</li>
+      </ul>
+      <p class="tag ok">This is the answer, and $dx^2/2 = 6.1\times10^{-4}$ is small precisely because the step is measured in radians.</p>
+    </div>
+    <div class="col inh">
+      <p class="colh">The bare step, 2</p>
+      <ul>
+        <li>$dx = 2$, which is $114.6^{\circ}$.</li>
+        <li>$dy = \dfrac{1}{2}\cdot 2 = 1$.</li>
+        <li>Estimate $\dfrac{\sqrt{3}}{2} + 1 = 1.8660$.</li>
+        <li>Error $+0.983$, or $111$ percent.</li>
+      </ul>
+      <p class="tag no">1851 times the correct method's error, and impossible on sight. Worse, a <em>smaller</em> step makes it relatively worse: on a one-degree step the ratio is 3713, because this error is linear in the step while the method's is quadratic.</p>
+    </div>
+  </div>
+
+  <p class="warn"><strong>You may work in degrees, provided you differentiate the degree function.</strong> Put $g(t) = \sin\left(\dfrac{\pi t}{180}\right)$ with $t$ in degrees. Then $g'(t) = \dfrac{\pi}{180}\cos\left(\dfrac{\pi t}{180}\right)$, and $g(62) \approx g(60) + 2g'(60) = \dfrac{\sqrt{3}}{2} + \dfrac{\pi}{180}$, bit for bit the same double. The $\pi/180$ does not disappear. It moves from the step into the derivative, and it is still paid.</p>
+</section>
+
+<section>
+  <h2>03 &middot; Four routes to the same number</h2>
+  <p>All four were evaluated and all four land on the identical floating-point value $0.8834786963043819$. Choose by what the stem asks for and by how many lines you want to write.</p>
+
+  <div class="chain">
+    <div class="ch">
+      <p class="chh">Route 1 &middot; differentials</p>
+      <p>$dy = f'(a)\,dx = \dfrac{1}{2}\cdot\dfrac{\pi}{90} = \dfrac{\pi}{180}$, then add $f(a)$.</p>
+      <p>$$\sin 62^{\circ} \approx \frac{\sqrt{3}}{2} + \frac{\pi}{180}$$</p>
+      <p>Four lines. The $\cos(\pi/3) = \tfrac12$ halves the $\pi/90$ into $\pi/180$, so the correction is exactly "one degree in radians". <strong>Use this one under pressure.</strong></p>
+    </div>
+    <div class="ch">
+      <p class="chh">Route 2 &middot; the linearization</p>
+      <p>$$L(x) = \frac{\sqrt{3}}{2} + \frac{1}{2}\left(x - \frac{\pi}{3}\right)$$</p>
+      <p>Evaluate at $x = \dfrac{31\pi}{90}$. Identical answer, but you now have to convert the <em>target</em> as well as the step, which doubles your exposure to the one error this question is built around.</p>
+    </div>
+    <div class="ch">
+      <p class="chh">Route 3 &middot; the angle sum</p>
+      <p>$\sin(60^{\circ} + 2^{\circ}) = \sin 60^{\circ}\cos 2^{\circ} + \cos 60^{\circ}\sin 2^{\circ}$, then take $\cos 2^{\circ} \approx 1$ and $\sin 2^{\circ} \approx \dfrac{\pi}{90}$.</p>
+      <p>This is not a different method. It is the linearization with its two approximations made visible, and it tells you exactly what you threw away: $\cos 2^{\circ}$ is really $0.99939$.</p>
+    </div>
+    <div class="ch">
+      <p class="chh">Route 4 &middot; the degree function</p>
+      <p>$g(t) = \sin\left(\dfrac{\pi t}{180}\right)$, $g'(t) = \dfrac{\pi}{180}\cos\left(\dfrac{\pi t}{180}\right)$, then $g(62) \approx g(60) + 2g'(60)$.</p>
+      <p>The honest way to stay in degrees. Safe, but the $\pi/180$ is now hiding inside $g'$ where it is easier to drop.</p>
+    </div>
+  </div>
+
+  <p>The stem says "use linearization", so write the words $L(x) = f(a) + f'(a)(x-a)$ somewhere even if you compute by route 1. It costs one line and it is the phrase the marker is looking for.</p>
+</section>
+
+<section>
+  <h2>04 &middot; Nearest is almost always best, and it is worth knowing when it is not</h2>
+  <p>Q12.1 established that the anchor must be chosen by measurement rather than by instinct. Nine legal exact angles were ranked here by the error each actually produces.</p>
+
+  CENSUS_SVG
+
+  <p class="cap122">The bars are ordered by distance from $62^{\circ}$, so a bar that is taller than the one to its right is an inversion of the obvious rule. There are two. The $30^{\circ}$ anchor is four degrees further from the target than $90^{\circ}$ and still costs 1.16 times less, and $0^{\circ}$ is four degrees further than $120^{\circ}$ and costs less again.</p>
+
+  <p>The reason is that the error is $\dfrac{|f''(a)|}{2}dx^2 = \dfrac{|\sin a|}{2}dx^2$, so the second derivative gets a vote alongside the distance. $\sin 30^{\circ} = \tfrac12$ against $\sin 90^{\circ} = 1$, and that halving buys back the extra four degrees. At $0^{\circ}$ the effect is total: $\sin 0 = 0$, the quadratic term vanishes, and the error there is third order rather than second.</p>
+
+  <div class="ledger">
+    <div class="col add">
+      <p class="colh">The working rule</p>
+      <ul>
+        <li>Take the <strong>nearest exact angle</strong>: $0, 30, 45, 60, 90, 120, 135, 150, 180$.</li>
+        <li>You need <strong>both</strong> $\sin a$ and $\cos a$, because one gives $f(a)$ and the other $f'(a)$.</li>
+        <li>Right almost always, and right here: $60^{\circ}$ is both nearest and best.</li>
+      </ul>
+      <p class="tag ok">Under exam pressure this is the rule to use. It takes two seconds.</p>
+    </div>
+    <div class="col inh">
+      <p class="colh">The honest rule</p>
+      <ul>
+        <li>Take the smallest $|f''(a)|\,dx^2$.</li>
+        <li>Use it only to break a tie between two nearly equidistant anchors.</li>
+        <li>"Exact" alone is not the criterion: $180^{\circ}$ is perfectly legal and 2215 times worse.</li>
+        <li>"Nearest" means nearest among the anchors that <em>exist</em>. A hypothetical exact angle at $61^{\circ}$ would be four times better, so $60^{\circ}$ is not magic, only best available.</li>
+      </ul>
+      <p class="tag no">The quadratic model also has limits: it predicts the 30-versus-90 comparison in the right direction but off by a third in size, because at a 30-degree step $dx$ is no longer small.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>05 &middot; What the estimate is actually worth</h2>
+  <p>Do not assert that the method works. Measure it.</p>
+
+  <div class="vbar">
+    <div><span class="k">Estimate</span><span class="v">0.8834787</span></div>
+    <div><span class="k">True value</span><span class="v">0.8829476</span></div>
+    <div><span class="k">Error</span><span class="v">+5.31e-4</span></div>
+    <div><span class="k">Relative</span><span class="v">0.060%</span></div>
+    <div><span class="k">Correct places</span><span class="v">3</span></div>
+  </div>
+
+  <p>The estimate rounds to $0.8835$; the truth rounds to $0.8829$. <strong>Three correct decimal places, not four.</strong> Across a twelve-entry trigonometric catalog, the correct-place counts are $3, 3, 3, 2, 3, 1, 2, 3, 2, 3, 3, 3$, and <em>not one of the twelve reaches four</em>. Q12.1 found the same for roots, where only 5 of 21 managed it.</p>
+
+  <p class="warn"><strong>This settles what Q12.3 means.</strong> When Final Exam 1 item 2 says "estimate each of the values below to four decimal places", it can only mean <em>write</em> four decimal places. The marker's answer is the differential value, so $0.4698$ is correct for $\cos 62^{\circ}$ even though the true value is $0.4695$. Say so on the page if you have room.</p>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">The two-second check</p><p>Is the answer inside $[-1, 1]$? It is a sine. This one line alone kills the degrees blunder, and nothing else in category 12 offers a check this cheap.</p></div>
+    <div class="ck"><p class="ckh">The magnitude check</p><p>Is it a little above $\dfrac{\sqrt{3}}{2} = 0.866$? You stepped up from $60^{\circ}$ by a little. Is the correction about $0.017$? That is $\pi/180$, one degree in radians.</p></div>
+    <div class="ck"><p class="ckh">The bound, and where to take it</p><p>The remainder is $\dfrac{|f''(\xi)|}{2}dx^2$ over the interval. The anchor bound $5.2761\times10^{-4}$ is <strong>violated</strong> by the actual error $5.3110\times10^{-4}$; the target bound $5.3792\times10^{-4}$ holds. Take the maximum of $|f''|$ over the whole interval, never at the anchor.</p></div>
+    <div class="ck"><p class="ckh">If you want it better</p><p>One more Taylor term, $-\dfrac{\sqrt{3}}{2}\cdot\dfrac{(\pi/90)^2}{2}$, gives $0.8829511$ and is <strong>152 times</strong> more accurate. It is not what this question asks for, but the extra accuracy costs one line.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2>06 &middot; The variation catalog</h2>
+  <p>Read these as structure, not as a list of facts. Every entry is the same five moves; what changes is only which of $f$, $a$ or $dx$ the examiner made awkward. Every value was recomputed from its closed form and independently re-derived formula-blind, and every direction was taken from the sign of $f''$ rather than from the comparison itself.</p>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 0</span>A sine at a special angle</p>
+    <p class="famt">Trigger: $\sin$ of a whole number of degrees within a few degrees of $0, 30, 45, 60, 90$. Tool: convert $dx$, then $L = \sin a + \cos a\,dx$.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Question</th><th>Anchor</th><th>Exact estimate</th><th>Decimal</th><th>Error</th></tr></thead>
+        <tbody>
+          <tr><td>$\sin 62^{\circ}$</td><td>$60^{\circ}$</td><td>$\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}$</td><td class="mono">0.8834787</td><td class="mono ok2">+5.311e-4</td></tr>
+          <tr><td>$\sin 59^{\circ}$</td><td>$60^{\circ}$</td><td>$\tfrac{\sqrt3}{2} - \tfrac{\pi}{360}$</td><td class="mono">0.8572988</td><td class="mono ok2">+1.315e-4</td></tr>
+          <tr><td>$\sin 31^{\circ}$</td><td>$30^{\circ}$</td><td>$\tfrac12 + \tfrac{\sqrt3}{2}\cdot\tfrac{\pi}{180}$</td><td class="mono">0.5151150</td><td class="mono ok2">+7.692e-5</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 1</span>The other trigonometric functions</p>
+    <p class="famt">Trigger: $\cos$, $\tan$, $\sec$ instead of $\sin$. Tool: the right derivative, and a fresh look at the concavity, which is <strong>not</strong> always the same direction.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Question</th><th>Anchor</th><th>$f'(a)$</th><th>Exact estimate</th><th>Decimal</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>$\cos 62^{\circ}$</td><td>$60^{\circ}$</td><td>$-\tfrac{\sqrt3}{2}$</td><td>$\tfrac12 - \tfrac{\sqrt3}{2}\cdot\tfrac{\pi}{90}$</td><td class="mono">0.4697700</td><td class="ok2">over</td></tr>
+          <tr><td>$\cos 28^{\circ}$</td><td>$30^{\circ}$</td><td>$-\tfrac12$</td><td>$\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}$</td><td class="mono">0.8834787</td><td class="ok2">over</td></tr>
+          <tr><td>$\tan 46^{\circ}$</td><td>$45^{\circ}$</td><td>$2$</td><td>$1 + \tfrac{\pi}{90}$</td><td class="mono">1.0349066</td><td class="no2">under</td></tr>
+          <tr><td>$\sec 61^{\circ}$</td><td>$60^{\circ}$</td><td>$2\sqrt3$</td><td>$2 + 2\sqrt3\cdot\tfrac{\pi}{180}$</td><td class="mono">2.0604600</td><td class="no2">under</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="verdict"><strong>Look at rows one and two together.</strong> $\cos 28^{\circ}$ from $30^{\circ}$ produces the identical double to $\sin 62^{\circ}$ from $60^{\circ}$, because reflecting through $45^{\circ}$ maps one problem onto the other. That is the sharpest self-check in this document. And the direction flips for $\tan$ and $\sec$, both concave up at their anchors, so a student who learned "linearization overestimates" from three sine problems gets both wrong.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 2</span>The argument is already in radians</p>
+    <p class="famt">Trigger: no degree sign. Tool: no conversion, and often a <em>flat</em> anchor where $f'(a) = 0$, which makes the linearization a constant. $\sin 1.6$ from $\pi/2$ estimates as exactly $1$; $\cos 0.05$ from $0$ estimates as exactly $1$. That is not an error, it is what a horizontal tangent means &mdash; but it is also why those two are among the least accurate entries, since the whole error then sits in the quadratic term.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 3</span>The anchor is zero, and the answer is a small-angle rule</p>
+    <p class="famt">Linearizing at $0$ gives $\sin x \approx x$, $\tan x \approx x$, and $\cos x \approx 1$. These <em>are</em> the small-angle formulas. Note carefully that $\cos$ gives $1$, <strong>not</strong> $1 - x^2/2$: the familiar quadratic rule is a second-order Taylor result and is not what this method produces. $\sin$ and $\tan$ do unusually well here because $f''(0) = 0$ makes their error cubic &mdash; shrink the step by 10 and the error falls by about 1000, not 100.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 4</span>A trigonometric function inside a composite</p>
+    <p class="famt">Trigger: $x\sin x$, $\sin 2x$, $\sin(x^2)$. Tool: product or chain rule for $f'$, then the identical five moves. Worth staring at: $\sin(2x)$ at $x = 31^{\circ}$ <em>is</em> $\sin 62^{\circ}$, and the method reproduces the same double from the other side, because the chain factor 2 doubles the correction while the halved step halves it back. Drop the chain factor and you halve the answer's correction, which is the error MT1 items 7, 8 and 9 all test in a row.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 5</span>Inverse trigonometric functions</p>
+    <p class="famt">$\arctan 1.02$ from $1$ gives $\dfrac{\pi}{4} + 0.01 = 0.7953982$, with $f'(a) = \dfrac{1}{1+x^2} = \dfrac12$ &mdash; the same slope as the headline question by a completely unrelated route. $\arcsin 0.51$ from $0.5$ gives $\dfrac{\pi}{6} + \dfrac{0.02}{\sqrt3} = 0.5351458$, and is an <strong>underestimate</strong>. The argument of an inverse trig function is a number, not an angle, so there is nothing to convert; the answer, however, comes out in radians.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 6</span>Error propagation from a measured angle</p>
+    <p class="famt">The bank's companion question: one leg of a right triangle is exactly 25 cm and the opposite angle is measured as $60^{\circ} \pm 0.5^{\circ}$. Here you want $dy$ <strong>alone</strong>, not $f(a) + dy$, with $d\theta = 0.0087266$ radians.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Side</th><th>Formula</th><th>Value (cm)</th><th>Differential</th><th>Error (cm)</th><th>Percent</th></tr></thead>
+        <tbody>
+          <tr><td>adjacent</td><td>$25\cot\theta$</td><td class="mono">14.4338</td><td>$-\tfrac{100}{3}\,d\theta$</td><td class="mono">-0.29089</td><td class="mono">2.0153</td></tr>
+          <tr><td>hypotenuse</td><td>$25\csc\theta$</td><td class="mono">28.8675</td><td>$-\tfrac{50}{3}\,d\theta$</td><td class="mono">-0.14544</td><td class="mono">0.5038</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">The percentage errors differ by a factor of <strong>exactly 4</strong>, and $4 = \sec^2 60^{\circ}$: the same half-degree of uncertainty costs four times as much on the adjacent side, and the ratio is a clean trigonometric quantity rather than an accident. The conversion matters here too, and more visibly &mdash; using $0.5$ raw gives an "error" of $16.67$ cm on a side that is only $14.43$ cm long.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 7</span>The direction of the error, asked directly</p>
+    <p class="famt">Tool: the sign of $f''$ on the interval. Nothing else.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>$f$ at the anchor</th><th>$f''$</th><th>Tangent</th><th>Estimate</th></tr></thead>
+        <tbody>
+          <tr><td>$\sin$ at $60^{\circ}$</td><td class="mono">-0.866</td><td>above</td><td class="ok2">over</td></tr>
+          <tr><td>$\cos$ at $60^{\circ}$</td><td class="mono">-0.500</td><td>above</td><td class="ok2">over</td></tr>
+          <tr><td>$\cos$ at $30^{\circ}$</td><td class="mono">-0.866</td><td>above</td><td class="ok2">over</td></tr>
+          <tr><td>$\tan$ at $45^{\circ}$</td><td class="mono">+4.000</td><td>below</td><td class="no2">under</td></tr>
+          <tr><td>$\sec$ at $60^{\circ}$</td><td class="mono">+14.000</td><td>below</td><td class="no2">under</td></tr>
+          <tr><td>$\arctan$ at $1$</td><td class="mono">-0.500</td><td>above</td><td class="ok2">over</td></tr>
+          <tr><td>$\arcsin$ at $0.5$</td><td class="mono">+0.770</td><td>below</td><td class="no2">under</td></tr>
+          <tr><td>$\sqrt{\phantom{x}}$ at $9$ (Q12.1)</td><td class="mono">-0.0046</td><td>above</td><td class="ok2">over</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">Five over, three under. The direction is a property of $f$ and the anchor, never of the method. The exception that proves it: at an inflection $f''(a) = 0$ and the concavity changes, so linearizing $\sin$ at $0$ overestimates for $dx > 0$ and underestimates for $dx < 0$. If the anchor is $0$ or $180^{\circ}$, check the side.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 8</span>How good is it</p>
+    <p class="famt">Trigger: "to four decimal places", "estimate the error in your estimate". Tool: $\dfrac{\max|f''|}{2}dx^2$ over the interval, plus honesty about rounding. The place ordering is not simply by $|f''|$, because rounding boundaries interfere: $\sqrt{16.4} \approx 4.05$ agrees with the truth to $3\times10^{-4}$ and yet reports <strong>zero</strong> correct decimal places, because $4.05$ rounds to $4.1$ where the truth rounds to $4.0$. Quantize before claiming a place count; never infer it from the size of the error.</p>
+  </div>
+</section>
+
+<section>
+  <h2>07 &middot; The trap list, ranked</h2>
+  <ol class="tl122">
+    <li><span><b>Not converting degrees to radians.</b> Produces $\dfrac{\sqrt3}{2} + 1 = 1.8660$, an error of $0.983$, which is 1851 times the correct method's and $111$ percent in relative terms. It is the only error here that a free check catches, because no sine exceeds 1. It has essentially no hiding place: across the whole first quadrant it never coincides with the truth, except at $90^{\circ}$ where $\cos a = 0$ kills the term it corrupted.</span></li>
+    <li><span><b>Spot-checking at the anchor.</b> Of eight plausible wrong formulas, <b>six agree with the truth exactly when $dx = 0$</b>, because they differ from it only in the $dy$ term. Setting $dx = 0$ to "check the setup" is a test that cannot fail. The two survivors are the two that corrupt the $f(a)$ term instead.</span></li>
+    <li><span><b>Dropping $f'(a)$, or using the wrong slope.</b> Each classic slip hides exactly where the factor it touches equals 1: forgetting $f'(a)$ is invisible at $a = 0$ where $\cos a = 1$; using $\sin a$ as the slope is invisible at $45^{\circ}$ where $\sin a = \cos a$; a wrong sign on $dy$ is invisible at $90^{\circ}$ where $\cos a = 0$. At $60^{\circ}$ with $dx = 2^{\circ}$ none of the eight hides, so the exam's own numbers are a safe place to check.</span></li>
+    <li><span><b>Evaluating $f'$ at the target instead of the anchor.</b> Nastier than the rest because it is <b>asymptotically invisible</b>: its error shrinks with $dx$ exactly as the correct answer's does, so a smaller step cannot expose it. Pleasant consequence: the two choices bracket the true value and their average is within $10^{-5}$.</span></li>
+    <li><span><b>Reporting the true value instead of the estimate.</b> If you check yourself with a calculator, resist "correcting" $0.8835$ to $0.8829$. The question asked for the linearization.</span></li>
+    <li><span><b>Answering an error question with $f(a) + dy$.</b> In Family 6, "estimate the error" wants $dy$ alone.</span></li>
+    <li><span><b>Assuming linearization always overestimates.</b> True for $\sin$ and $\cos$ near $60^{\circ}$; false for $\tan$, $\sec$ and $\arcsin$. Look at $f''$ every time.</span></li>
+    <li><span><b>Choosing an exact anchor that is not the nearest.</b> $180^{\circ}$ is perfectly legal and 2215 times worse than $60^{\circ}$.</span></li>
+    <li><span><b>Claiming four correct decimal places.</b> Not one of the twelve trigonometric catalog entries delivers four.</span></li>
+    <li><span><b>Using a bound taken only at the anchor.</b> For this very question the anchor bound is $5.2761\times10^{-4}$ and the actual error is $5.3110\times10^{-4}$, so the bound is violated.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>08 &middot; Drill set</h2>
+  <p>On paper, in radians, no calculator until the end. <strong>Score sign separately from magnitude.</strong> A wrong magnitude is an arithmetic slip and sends you back to section 03; a wrong sign means you did not look at $f''$ and sends you back to Family 7. Different failures, different fixes.</p>
+
+  <ol class="dr122">
+    <li><span>Estimate $\sin 61^{\circ}$. &nbsp; <b class="ans122">sqrt(3)/2 + pi/360 = 0.8747521</b>, over by $1.323\times10^{-4}$ &middot; F0</span></li>
+    <li><span>Estimate $\cos 31^{\circ}$. &nbsp; <b class="ans122">sqrt(3)/2 - pi/360 = 0.8572988</b>, over by $1.315\times10^{-4}$ &middot; F1</span></li>
+    <li><span>Estimate $\sin 44^{\circ}$. &nbsp; <b class="ans122">(sqrt(2)/2)(1 - pi/180) = 0.6947654</b>, over by $1.071\times10^{-4}$ &middot; F0, negative step</span></li>
+    <li><span>Estimate $\tan 46^{\circ}$, over or under? &nbsp; <b class="ans122">1 + pi/90 = 1.0349066</b>, <em>under</em> by $6.237\times10^{-4}$ &middot; F1, $f'' > 0$</span></li>
+    <li><span>Estimate $\cos 89^{\circ}$. &nbsp; <b class="ans122">pi/180 = 0.0174533</b>, over by $8.861\times10^{-7}$ &middot; F1, $f(a) = 0$ so the estimate is only the correction. The most accurate entry in the set.</span></li>
+    <li><span>Estimate $\sin(0.1)$, already in radians. &nbsp; <b class="ans122">0.1</b>, over by $1.666\times10^{-4}$ &middot; F3, the small-angle rule</span></li>
+    <li><span>Estimate $\cos(1.6)$. &nbsp; <b class="ans122">-(1.6 - pi/2) = -0.0292037</b>, <em>under</em> by $4.151\times10^{-6}$ &middot; F2, no conversion</span></li>
+    <li><span>Estimate $\sec 61^{\circ}$, over or under? &nbsp; <b class="ans122">2 + 2 sqrt(3) pi/180 = 2.0604600</b>, <em>under</em> by $2.205\times10^{-3}$ &middot; F1, $\sec' = \sec\tan$</span></li>
+    <li><span>Estimate $\arctan(1.02)$. &nbsp; <b class="ans122">pi/4 + 0.01 = 0.7953982</b>, over by $9.933\times10^{-5}$ &middot; F5</span></li>
+    <li><span>Estimate $\sin 62^{\circ}$ from an anchor of $45^{\circ}$. &nbsp; <b class="ans122">(sqrt(2)/2)(1 + 17pi/180) = 0.9169096</b>, over by $3.396\times10^{-2}$ &middot; F0 with a bad anchor, <b>63.9 times worse</b></span></li>
+    <li><span>Estimate $\sin(2)$ &mdash; the argument is 2 <em>radians</em>. &nbsp; <b class="ans122">1</b>, over by $9.070\times10^{-2}$ &middot; F2, $f'(\pi/2) = 0$. The least accurate entry in the set: a flat anchor gives a cheap estimate and a poor one.</span></li>
+    <li><span>Estimate $\cos 28^{\circ}$, then compare with the headline. &nbsp; <b class="ans122">sqrt(3)/2 + pi/180 = 0.8834787</b>, over by $5.311\times10^{-4}$ &middot; F1, <b>the same answer as Q12.2 itself</b></span></li>
+  </ol>
+
+  <p>Nine over and three under, so answering "overestimate" every time scores 9 out of 12 and teaches you nothing. The errors span five orders of magnitude between numbers 5 and 11, which is why "linearization is accurate" is not a statement that survives without a step size attached.</p>
+</section>
+
+<section>
+  <h2>09 &middot; Answer entry</h2>
+  <p>Both exams are Mobius, answer-only and machine-marked, so a right method with a bad keystroke scores zero. Mobius runs two grading engines that parse differently, so type every $*$ and press Preview.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono ok2">sqrt(3)/2+pi/180</td><td class="mono no2">sqrt3/2+pi/180</td></tr>
+        <tr><td class="mono ok2">0.8835</td><td class="mono no2">0.8829 (the true value, not the estimate)</td></tr>
+        <tr><td class="mono ok2">pi/180</td><td class="mono no2">pi/180 degrees</td></tr>
+        <tr><td>type $*$ between every product</td><td>rely on juxtaposition</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn"><strong>The most expensive typo here is not a typo at all.</strong> It is entering $1.8660$, which is what you get if you never converted, and which no amount of careful typing rescues. The second most expensive is entering the true value after checking yourself on a calculator.</p>
+</section>
+
+<section>
+  <h2>10 &middot; Provenance and verification</h2>
+
+  <div class="prov">
+    <div class="pv"><p class="pvh">The paper</p><p>Midterm Exam 2, item 8, <strong>6 points</strong>. MT2's eleven values are 4, 4, 4, 6, 10, 10, 24, 6, 16, 4, 6, summing to 94, so this is 6.38 percent of the paper and ties items 4 and 11 as its fourth-heaviest. Parsed from the paper file, not typed.</p></div>
+    <div class="pv"><p class="pvh">Clauses that do not apply</p><p>MT2's two "no credit will be given" clauses sit on items 4 and 7, and its single "You may not need to simplify" permission sits on item 9. Item 8 carries neither, no "Show your work", and no hint formula. Its whole block is one line.</p></div>
+    <div class="pv"><p class="pvh">The category</p><p>19 points across three papers: Q12.1 is MT1 item 9 (5 points), this is MT2 item 8 (6), Q12.3 is Final Exam 1 item 2 (8). One idea, examined three times.</p></div>
+    <div class="pv"><p class="pvh">What the course notes omit</p><p>They state the linearization correctly in five places and their "convert degrees to radians if trig" is the single most useful sentence in them. They contain <strong>no</strong> statement of the direction of the error, <strong>no</strong> error bound, <strong>no</strong> demonstrated anchor choice, and <strong>no</strong> worked trigonometric instance &mdash; the value $\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}$ appears nowhere in any of the four files.</p></div>
+  </div>
+
+  <div class="vbar">
+    <div><span class="k">Assertions</span><span class="v">393</span></div>
+    <div><span class="k">Failures</span><span class="v">0</span></div>
+    <div><span class="k">Seeded controls</span><span class="v">49</span></div>
+    <div><span class="k">Catalog entries</span><span class="v">21</span></div>
+    <div><span class="k">Anchors ranked</span><span class="v">9</span></div>
+  </div>
+
+  <p>The true value of $\sin 62^{\circ}$ was computed in 60-digit decimal arithmetic from a Machin series for $\pi$ and a Taylor series for $\sin$, cross-checked against the angle-sum identity and against the library function. $f'(\pi/3) = \tfrac12$ was recovered three independent ways that never write $\cos$: complex-step differentiation, a Richardson-extrapolated ladder whose fourth-order convergence was measured on a separate curved control, and the exact value. $f''$ came from a Richardson-extrapolated <em>second</em> difference, never from re-differentiating the claimed $f'$. The overestimate claim was checked at 118 anchor-and-offset pairs in both directions, with four convex functions seeded as controls to prove the test can report the opposite. Every drill answer and every catalog entry was verified twice, once from its closed form and once formula-blind. Every printed decimal on this page was printed from the expression beside it; none was typed and none was copied from another tutorial.</p>
+
+  <p class="warn"><strong>One repair to the shared harness.</strong> For twenty-four runs the verification harness reported two permanent failures, <code>sin62</code> and <code>cos62</code>, waved past as "known tolerance artifacts". They were nothing of the kind: both compared a <em>correct</em> linearization against a mistyped decimal literal that was neither the linearization nor the true value. Since <code>sin62</code> is this question, both literals were replaced with values printed from the expressions themselves. The harness now runs clean end to end for the first time.</p>
+</section>
+
+</main>

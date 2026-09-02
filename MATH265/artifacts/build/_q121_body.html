@@ -1,0 +1,465 @@
+<main class="wrap">
+
+<header class="hdr wrap">
+  <p class="eyebrow">MATH 265 &middot; MT1 ITEM 9 &middot; 5 POINTS &middot; CATEGORY 12</p>
+  <h1>Approximate a square root with differentials</h1>
+  <p class="stand">"Use differentials to find the approximate value of $\sqrt{9.2}$." One derivative, one well-chosen anchor, and one sentence about which way the answer leans. The anchor is the whole question.</p>
+
+  <div class="ansbar">
+    <div><span class="k">The answer</span><span class="v">$3 + \tfrac{1}{30} = \tfrac{91}{30}$</span></div>
+    <div><span class="k">As a decimal</span><span class="v mono">3.0333</span></div>
+    <div><span class="k">Type into Mobius</span><span class="v mono">91/30</span></div>
+    <div><span class="k">Which way it leans</span><span class="v">too big, by 0.00018</span></div>
+  </div>
+</header>
+
+<section>
+  <h2>01 &middot; The thirty-second version</h2>
+  <p>Everything in this question is one line of setup and one derivative. If your route needs a lookup, you chose the wrong anchor.</p>
+
+  <div class="steps">
+    <div class="st"><p class="sth">1 &middot; Name f</p><p>You are asked for a number that is $f$ of something. $\sqrt{9.2}$ means $f(x) = \sqrt{x}$.</p></div>
+    <div class="st"><p class="sth">2 &middot; Choose the anchor</p><p>The nearest $a$ where $f(a)$ is exact and you know it cold. $9$ is a perfect square, so $\sqrt{9} = 3$. Then $dx = 0.2$.</p></div>
+    <div class="st"><p class="sth">3 &middot; Differentiate once</p><p>$f'(x) = \dfrac{1}{2\sqrt{x}}$, so $f'(9) = \dfrac{1}{6}$. Evaluate at the <em>anchor</em>, never at the target.</p></div>
+    <div class="st"><p class="sth">4 &middot; Build dy and add</p><p>$dy = f'(9)\,dx = \dfrac{1}{30}$, so $\sqrt{9.2} \approx 3 + \dfrac{1}{30} = \dfrac{91}{30}$.</p></div>
+  </div>
+
+  <p class="verdict"><strong>Then say which way it leans.</strong> $f''(x) = -\dfrac{1}{4x^{3/2}} < 0$, so $\sqrt{x}$ is concave down, so the tangent line sits above the curve, so the estimate is too big. It is, by $0.00018$. That sentence costs eight seconds and is the only part of the answer that shows you know what an approximation is.</p>
+</section>
+
+<section>
+  <h2>02 &middot; One formula, three costumes</h2>
+  <p>The exam asks for this in three different wordings across three different papers. They are the same object.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Written as</th><th>What it says</th><th>Reach for it when</th></tr></thead>
+      <tbody>
+        <tr><td>$L(x) = f(a) + f'(a)(x-a)$</td><td>the tangent line at $a$, as a function</td><td>you want the <strong>line</strong>, or $f$ at several nearby points</td></tr>
+        <tr><td>$f(a + dx) \approx f(a) + f'(a)\,dx$</td><td>the same line, evaluated once</td><td>you want <strong>one number</strong> &mdash; this question</td></tr>
+        <tr><td>$dy = f'(a)\,dx$, with $\Delta y \approx dy$</td><td>just the <strong>change</strong>, not the value</td><td>you want an <strong>error</strong> or a change</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>These are not three formulas to memorise. $dy$ is the second one with $f(a)$ moved across. Q12.1 says "use differentials", Q12.2 says "use linearization", Q12.3 says "the method of differentials" &mdash; all three want the same five lines.</p>
+
+  <p class="warn"><strong>Category 12 is worth 19 points across three separate papers.</strong> Q12.1 is MT1 item 9 (5 points), Q12.2 is MT2 item 8 (6 points, estimate $\sin 62^{\circ}$), Q12.3 is Final Exam 1 item 2 (8 points, "to four decimal places"). Learning this once pays three times.</p>
+</section>
+
+<section>
+  <h2>03 &middot; Choosing the anchor is the whole craft</h2>
+  <p>Step 2 is where the marks are, and it is the only step with a decision in it. The test is not "is $a$ a tidy number". The test is <strong>do I know $f(a)$ exactly, without a calculator</strong>.</p>
+
+  FIGURE_SVG
+
+  <p class="cap121">Panel A is the geometric content of the whole topic: the linearization <em>is</em> the tangent line, and because $\sqrt{x}$ is concave down that line never dips below the curve. The vertical gap is the error. It is invisible at $x = 9.2$ and obvious at $x = 25$, because the error is second order &mdash; double the distance and the gap quadruples. Panel B turns that into a measurement. All six anchors are perfect squares, so all six are legal; $a = 9$ wins by three orders of magnitude over $a = 16$, purely because it is near.</p>
+
+  <div class="ledger">
+    <div class="col add">
+      <p class="colh">Choose the nearest exact point</p>
+      <ul>
+        <li>$a = 9$ for $\sqrt{9.2}$, because $\sqrt{9} = 3$ and $9$ is closest.</li>
+        <li>$a = 27$ for $\sqrt[3]{26.8}$, stepping <em>down</em> &mdash; a negative $dx$ is perfectly normal.</li>
+        <li>$a = \pi/3$ for $\sin 62^{\circ}$, in radians.</li>
+        <li>$a = 2$ for $(2.01)^5$, because $2^5 = 32$.</li>
+      </ul>
+      <p class="tag ok"><strong>The tell that you chose well:</strong> $f'(a)$ comes out a unit fraction or a small integer. Every anchor in the catalog below does. If $f'(a)$ is ugly, look again.</p>
+    </div>
+    <div class="col inh">
+      <p class="colh">Do not choose the prettier one</p>
+      <ul>
+        <li>$a = 9.61 = 3.1^2$ is genuinely exact &mdash; and <strong>3.94 times worse</strong>, because it is twice as far.</li>
+        <li>$a = 16$ is exact and <strong>638 times worse</strong>.</li>
+        <li>$a = 10$ is nearest of all and <strong>unusable</strong>, because $\sqrt{10}$ is not a number you know.</li>
+      </ul>
+      <p class="tag no"><strong>Nearest wins, always.</strong> The error goes as $(dx)^2$, so distance is punished twice over. Exactness is the entry requirement; nearness is the tie-break.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>04 &middot; Four routes, and which to use under pressure</h2>
+
+  <div class="chain">
+    <div class="ch">
+      <p class="chh">A &middot; Differentials &mdash; the wording the exam uses</p>
+      <p class="disp">$$f(9) = 3,\quad f'(9) = \tfrac16,\quad dy = \tfrac16(0.2) = \tfrac{1}{30},\quad \sqrt{9.2} \approx \tfrac{91}{30}$$</p>
+    </div>
+    <div class="ch">
+      <p class="chh">B &middot; Linearization &mdash; the wording Q12.2 uses</p>
+      <p class="disp">$$L(x) = 3 + \tfrac16(x-9),\qquad L(9.2) = 3 + \tfrac{1}{30}$$</p>
+    </div>
+    <div class="ch">
+      <p class="chh">C &middot; Factor out the anchor</p>
+      <p class="disp">$$\sqrt{9.2} = 3\sqrt{1 + \tfrac{1}{45}} \approx 3\left(1 + \tfrac{1}{90}\right) = 3 + \tfrac{1}{30}$$</p>
+    </div>
+    <div class="ch">
+      <p class="chh">D &middot; One Newton step &mdash; the same arithmetic</p>
+      <p class="disp">$$x_1 = \tfrac12\left(3 + \tfrac{9.2}{3}\right) = \tfrac{91}{30}$$</p>
+    </div>
+  </div>
+
+  <p>Route D is not a coincidence. Linearizing $\sqrt{x}$ at $a$ gives $\tfrac12\!\left(\sqrt a + \tfrac{N}{\sqrt a}\right)$, which is exactly one Babylonian step &mdash; verified identical to machine precision at ten separate $(a, N)$ pairs. That makes Q13.1, Newton's method, this question's neighbour, and it makes route D the best self-check available: it shares none of route A's algebra.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Route</th><th>Steps</th><th>Where it goes wrong</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>A &middot; differentials</td><td class="mono">4</td><td>nothing &mdash; shortest path</td><td class="ok2"><strong>use this one</strong></td></tr>
+        <tr><td>B &middot; linearization</td><td class="mono">5</td><td>an extra $(x-9)$ to carry and mis-sign</td><td>several targets, one anchor</td></tr>
+        <tr><td>C &middot; binomial</td><td class="mono">5</td><td>needs $\sqrt{1+u} \approx 1 + \tfrac{u}{2}$ recalled</td><td>percentage-change wording</td></tr>
+        <tr><td>D &middot; Newton step</td><td class="mono">4</td><td>you must invert to $x^2 = 9.2$</td><td>use as a <strong>check</strong></td></tr>
+        <tr><td>Calculator</td><td class="mono">1</td><td>the stem names the method</td><td class="no2">scores zero</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2>05 &middot; Checking yourself in eight seconds</h2>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">Bracket it</p><p>$3^2 = 9$ and $3.1^2 = 9.61$, so the answer lives in $(3,\,3.1)$. Kills every gross slip.</p></div>
+    <div class="ck"><p class="ckh">Square it back</p><p>$\left(\tfrac{91}{30}\right)^2 = 9.2011$, a little <em>above</em> 9.2 &mdash; which confirms the value and the overshoot at once.</p></div>
+    <div class="ck"><p class="ckh">Newton cross-check</p><p>$\tfrac12\!\left(3 + \tfrac{9.2}{3}\right) = 3.0\overline{3}$. Different algebra, same answer.</p></div>
+    <div class="ck"><p class="ckh">Is f'(a) clean?</p><p>$\tfrac16$ is a unit fraction. If yours is not, the anchor is wrong.</p></div>
+  </div>
+
+  <p class="warn"><strong>Never spot-check this method at the anchor itself.</strong> Setting $dx = 0$ makes five of the eight standard wrong answers agree with the truth exactly, because they all differ from it only by a factor multiplying $dy$ &mdash; and $dy$ is zero there. Verified over a 64-point sweep with the degenerate rows deliberately left in; removing them reports no blind spot at all. This is the same trap as the zero-rate blind spot in related rates, where a stationary pile makes every wrong cone formula give zero.</p>
+</section>
+
+<section>
+  <h2>06 &middot; What the estimate is actually worth</h2>
+  <p>The error is second order in $dx$, and both its sign and its size are available without knowing the true value.</p>
+
+  <p class="disp">$$\text{true} - \text{estimate} = \frac{f''(\xi)}{2}(dx)^2 \quad\text{for some }\xi\text{ between }a\text{ and }a+dx$$</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Quantity</th><th>Value</th><th>How it was checked</th></tr></thead>
+      <tbody>
+        <tr><td>the estimate</td><td class="mono">3.0333333</td><td>exact rational arithmetic, $91/30$</td></tr>
+        <tr><td>the true value</td><td class="mono">3.0331502</td><td>60-digit decimal, squared back to 9.2</td></tr>
+        <tr><td>the error</td><td class="mono">-0.00018316</td><td>the difference of those two</td></tr>
+        <tr><td>the bound $\tfrac{(dx)^2}{8a^{3/2}}$</td><td class="mono">0.00018519</td><td>from $f''(9) = -\tfrac1{108}$</td></tr>
+        <tr><td>bound vs actual</td><td class="mono">98.9%</td><td>the bound is tight, so it is worth quoting</td></tr>
+        <tr><td>relative error</td><td class="mono">0.0060%</td><td>error divided by the true value</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p><strong>Halve $dx$ and the error drops by four.</strong> Measured at $dx = 0.4,\ 0.2,\ 0.1,\ 0.05$: the ratio came out $4.00$ every time. And the direction comes from concavity alone, never from the sign of $dx$ &mdash; verified at 72 anchor-and-offset pairs in both directions, all 72 above the curve, with four convex functions seeded as controls to prove the test can report the opposite.</p>
+
+  <p class="warn"><strong>The bound uses the endpoint where $|f''|$ is largest, which is not always the anchor.</strong> For a root $|f''|$ falls as $x$ grows, so an anchor-based bound is valid when $dx > 0$ and <em>invalid</em> when $dx &lt; 0$. Worked instance: estimating $\sqrt{48.6}$ from $a = 49$, the anchor bound is $5.8309 \times 10^{-5}$ and the actual error is $5.8548 \times 10^{-5}$ &mdash; the bound is violated. Using the far endpoint $48.6$ gives $5.9030 \times 10^{-5}$, which holds.</p>
+</section>
+
+<section>
+  <h2>07 &middot; "To four decimal places" does not mean four correct ones</h2>
+  <p>Final Exam 1 item 2 is worth 8 points and says: estimate each value <em>to four decimal places</em>. That phrase needs reading carefully, because on its own two parts the method cannot deliver four correct places.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Target</th><th>Differential estimate</th><th>True value</th><th>At 4 dp</th></tr></thead>
+      <tbody>
+        <tr><td>$\sqrt{9.2}$ &mdash; this question</td><td class="mono">3.0333333</td><td class="mono">3.0331502</td><td class="mono no2">3.0333 vs 3.0332</td></tr>
+        <tr><td>$\sqrt{16.4}$ &mdash; Q12.3(b)</td><td class="mono">4.0500000</td><td class="mono">4.0496913</td><td class="mono no2">4.0500 vs 4.0497</td></tr>
+        <tr><td>$\cos 62^{\circ}$ &mdash; Q12.3(a)</td><td class="mono">0.4697700</td><td class="mono">0.4694716</td><td class="mono no2">0.4698 vs 0.4695</td></tr>
+        <tr><td>$\sqrt[3]{26.8}$</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td class="mono ok2">2.9926 vs 2.9926</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Across all 21 entries in Families 0 and 1 below, <strong>only 5 give four correct decimal places</strong> and 17 give three. All three of the values category 12 actually asks about miss the fourth place.</p>
+
+  <p class="verdict"><strong>So write the estimate to four decimals and stop.</strong> For this question that is <span class="mono">3.0333</span>, not <span class="mono">3.0332</span>. The question asked for the differential estimate, and the marker's own answer is the differential value. Do not "improve" your answer toward the true one.</p>
+
+  <p class="warn">One subtlety that looks like a contradiction: $(32.2)^{1/5}$ agrees with its true value at <em>four</em> places and disagrees at <em>three</em>, because $2.0025$ sits exactly on a three-place rounding tie. Rounding boundaries are not nested, so four-place agreement does not imply three-place agreement.</p>
+</section>
+
+<section>
+  <h2>08 &middot; The variation catalog</h2>
+  <p>Eight families, grouped by <strong>the tool the variation forces</strong> rather than by how the question looks. Every estimate below was built from a closed form <em>and</em> recovered by a complex-step derivative that never sees the formula; every true value comes from an independent evaluation.</p>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 0</span>A root of a nearby perfect power</p>
+    <p class="famt"><strong>Trigger:</strong> a root of a number just off a perfect square, cube or $n$-th power. <strong>Tool:</strong> $f = x^{1/n}$, anchor at the nearest perfect $n$-th power. If $a = m^n$ then $f'(a) = \dfrac{1}{n\,m^{n-1}}$, always a unit fraction. <strong>This is Q12.1 itself, and Q12.3(b).</strong></p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>$a$</th><th>$f(a)$</th><th>$f'(a)$</th><th>$dx$</th><th>Estimate</th><th>Decimal</th><th>True</th><th>Error</th></tr></thead>
+        <tbody>
+          <tr><td>$\sqrt{9.2}$</td><td class="mono">9</td><td class="mono">3</td><td class="mono">1/6</td><td class="mono">+0.2</td><td class="mono">91/30</td><td class="mono">3.0333333</td><td class="mono">3.0331502</td><td class="mono">-1.832e-4</td></tr>
+          <tr><td>$\sqrt{16.4}$</td><td class="mono">16</td><td class="mono">4</td><td class="mono">1/8</td><td class="mono">+0.4</td><td class="mono">81/20</td><td class="mono">4.0500000</td><td class="mono">4.0496913</td><td class="mono">-3.087e-4</td></tr>
+          <tr><td>$\sqrt{4.1}$</td><td class="mono">4</td><td class="mono">2</td><td class="mono">1/4</td><td class="mono">+0.1</td><td class="mono">81/40</td><td class="mono">2.0250000</td><td class="mono">2.0248457</td><td class="mono">-1.543e-4</td></tr>
+          <tr><td>$\sqrt{101}$</td><td class="mono">100</td><td class="mono">10</td><td class="mono">1/20</td><td class="mono">+1</td><td class="mono">201/20</td><td class="mono">10.0500000</td><td class="mono">10.0498756</td><td class="mono">-1.244e-4</td></tr>
+          <tr><td>$\sqrt{24.6}$</td><td class="mono">25</td><td class="mono">5</td><td class="mono">1/10</td><td class="mono">-0.4</td><td class="mono">124/25</td><td class="mono">4.9600000</td><td class="mono">4.9598387</td><td class="mono">-1.613e-4</td></tr>
+          <tr><td>$\sqrt{0.26}$</td><td class="mono">1/4</td><td class="mono">1/2</td><td class="mono">1</td><td class="mono">+0.01</td><td class="mono">51/100</td><td class="mono">0.5100000</td><td class="mono">0.5099020</td><td class="mono">-9.805e-5</td></tr>
+          <tr><td>$\sqrt{37}$</td><td class="mono">36</td><td class="mono">6</td><td class="mono">1/12</td><td class="mono">+1</td><td class="mono">73/12</td><td class="mono">6.0833333</td><td class="mono">6.0827625</td><td class="mono">-5.708e-4</td></tr>
+          <tr><td>$\sqrt{48.6}$</td><td class="mono">49</td><td class="mono">7</td><td class="mono">1/14</td><td class="mono">-0.4</td><td class="mono">244/35</td><td class="mono">6.9714286</td><td class="mono">6.9713700</td><td class="mono">-5.855e-5</td></tr>
+          <tr><td>$\sqrt[3]{8.3}$</td><td class="mono">8</td><td class="mono">2</td><td class="mono">1/12</td><td class="mono">+0.3</td><td class="mono">81/40</td><td class="mono">2.0250000</td><td class="mono">2.0246939</td><td class="mono">-3.061e-4</td></tr>
+          <tr><td>$\sqrt[3]{26.8}$</td><td class="mono">27</td><td class="mono">3</td><td class="mono">1/27</td><td class="mono">-0.2</td><td class="mono">404/135</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td class="mono">-1.837e-5</td></tr>
+          <tr><td>$\sqrt[3]{63.5}$</td><td class="mono">64</td><td class="mono">4</td><td class="mono">1/48</td><td class="mono">-0.5</td><td class="mono">1915/480</td><td class="mono">3.9895833</td><td class="mono">3.9895561</td><td class="mono">-2.725e-5</td></tr>
+          <tr><td>$(32.2)^{1/5}$</td><td class="mono">32</td><td class="mono">2</td><td class="mono">1/80</td><td class="mono">+0.2</td><td class="mono">801/400</td><td class="mono">2.0025000</td><td class="mono">2.0024938</td><td class="mono">-6.227e-6</td></tr>
+          <tr><td>$(15.9)^{1/4}$</td><td class="mono">16</td><td class="mono">2</td><td class="mono">1/32</td><td class="mono">-0.1</td><td class="mono">639/320</td><td class="mono">1.9968750</td><td class="mono">1.9968676</td><td class="mono">-7.351e-6</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">Read this as <strong>structure, not thirteen facts</strong>. Every $f'(a)$ is a unit fraction. Every error is negative, in both directions of travel, because a root is concave down. The errors sort exactly by $(dx)^2 / a^{3/2}$, so big steps off small anchors are the bad ones.</p>
+    <p class="warn"><strong>$\sqrt{0.26}$ is the trap row.</strong> At $a = 1/4$ the derivative is exactly $1$, so a student who forgets to multiply by $f'(a)$ still gets $0.5 + 0.01 = 0.51$ &mdash; the right answer for the wrong reason, confirmed bit-identical. The general rule, which recurs all over this course: a mistake hides wherever the factor it touches equals one.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 1</span>A trig value near a special angle, in degrees</p>
+    <p class="famt"><strong>Trigger:</strong> $\sin$, $\cos$ or $\tan$ of an angle a degree or two from $30^{\circ}$, $45^{\circ}$ or $60^{\circ}$. <strong>Tool:</strong> anchor at the special angle in radians, and convert $dx$ to radians too. <strong>This is Q12.2 and Q12.3(a).</strong></p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>$a$</th><th>$dx$ (rad)</th><th>Estimate</th><th>True</th><th>Error</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>$\sin 62^{\circ}$</td><td class="mono">$\pi/3$</td><td class="mono">+0.0349066</td><td class="mono">0.8834787</td><td class="mono">0.8829476</td><td class="mono">-5.311e-4</td><td>over</td></tr>
+          <tr><td>$\cos 62^{\circ}$</td><td class="mono">$\pi/3$</td><td class="mono">+0.0349066</td><td class="mono">0.4697700</td><td class="mono">0.4694716</td><td class="mono">-2.984e-4</td><td>over</td></tr>
+          <tr><td>$\sin 29^{\circ}$</td><td class="mono">$\pi/6$</td><td class="mono">-0.0174533</td><td class="mono">0.4848850</td><td class="mono">0.4848096</td><td class="mono">-7.539e-5</td><td>over</td></tr>
+          <tr><td>$\cos 31^{\circ}$</td><td class="mono">$\pi/6$</td><td class="mono">+0.0174533</td><td class="mono">0.8572988</td><td class="mono">0.8571673</td><td class="mono">-1.315e-4</td><td>over</td></tr>
+          <tr><td>$\tan 44^{\circ}$</td><td class="mono">$\pi/4$</td><td class="mono">-0.0174533</td><td class="mono">0.9650934</td><td class="mono">0.9656888</td><td class="mono">+5.954e-4</td><td class="no2"><strong>under</strong></td></tr>
+          <tr><td>$\sin 46^{\circ}$</td><td class="mono">$\pi/4$</td><td class="mono">+0.0174533</td><td class="mono">0.7194481</td><td class="mono">0.7193398</td><td class="mono">-1.083e-4</td><td>over</td></tr>
+          <tr><td>$\cos 59^{\circ}$</td><td class="mono">$\pi/3$</td><td class="mono">-0.0174533</td><td class="mono">0.5151150</td><td class="mono">0.5150381</td><td class="mono">-7.692e-5</td><td>over</td></tr>
+          <tr><td>$\tan 61^{\circ}$</td><td class="mono">$\pi/3$</td><td class="mono">+0.0174533</td><td class="mono">1.8018640</td><td class="mono">1.8040478</td><td class="mono">+2.184e-3</td><td class="no2"><strong>under</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">Only <strong>two distinct increments</strong> appear in the whole family: $\pi/180 \approx 0.0174533$ and $\pi/90 \approx 0.0349066$. Learn those two and the family costs nothing. The signs are generated by concavity: on $(0, \pi/2)$ both $\sin$ and $\cos$ are concave down and overshoot, while $\tan$ is convex and undershoots &mdash; so "trig always overestimates" is false, and the two tan rows prove it.</p>
+    <p class="warn"><strong>The catastrophic slip is $dx = 2$ instead of $2^{\circ}$.</strong> That gives $\sin 62^{\circ} \approx 1.866$, which is not even in $[-1,1]$ and sits $0.98$ from the truth. If a trig estimate leaves $[-1,1]$, you forgot to convert.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 2</span>Powers, reciprocals and mixed exponents</p>
+    <p class="famt"><strong>Trigger:</strong> $(2.01)^5$, $1/1.002$, $(8.06)^{2/3}$ &mdash; a power of a number near a round base. <strong>Tool:</strong> $f = x^p$, $f'(a) = p\,a^{p-1}$, and the direction is decided entirely by the sign of $p(p-1)$.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>$a$</th><th>$f(a)$</th><th>$f'(a)$</th><th>Estimate</th><th>True</th><th>Error</th><th>Leans</th></tr></thead>
+        <tbody>
+          <tr><td>$(2.01)^5$</td><td class="mono">2</td><td class="mono">32</td><td class="mono">80</td><td class="mono">32.8</td><td class="mono">32.8080401</td><td class="mono">+8.040e-3</td><td>under</td></tr>
+          <tr><td>$(1.97)^3$</td><td class="mono">2</td><td class="mono">8</td><td class="mono">12</td><td class="mono">7.64</td><td class="mono">7.6453730</td><td class="mono">+5.373e-3</td><td>under</td></tr>
+          <tr><td>$(1.02)^{10}$</td><td class="mono">1</td><td class="mono">1</td><td class="mono">10</td><td class="mono">1.2</td><td class="mono">1.2189944</td><td class="mono">+1.899e-2</td><td>under</td></tr>
+          <tr><td>$1/1.002$</td><td class="mono">1</td><td class="mono">1</td><td class="mono">-1</td><td class="mono">0.998</td><td class="mono">0.9980040</td><td class="mono">+3.992e-6</td><td>under</td></tr>
+          <tr><td>$1/\sqrt{4.02}$</td><td class="mono">4</td><td class="mono">0.5</td><td class="mono">-1/16</td><td class="mono">0.49875</td><td class="mono">0.4987547</td><td class="mono">+4.668e-6</td><td>under</td></tr>
+          <tr><td>$(8.06)^{2/3}$</td><td class="mono">8</td><td class="mono">4</td><td class="mono">1/3</td><td class="mono">4.02</td><td class="mono">4.0199751</td><td class="mono">-2.492e-5</td><td class="ok2"><strong>over</strong></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">One rule generates every direction in that table: $x^p$ is convex for $p > 1$ or $p &lt; 0$ and concave for $0 &lt; p &lt; 1$. So every root overshoots and every whole power and reciprocal undershoots. $(8.06)^{2/3}$ is the only concave row, and the only "over".</p>
+    <p class="warn"><strong>$(1.02)^{10}$ is this family's warning.</strong> $dx = 0.02$ is tiny and the estimate is still 1.6 percent low, because $f''(1) = 90$. A small $dx$ does not by itself make a good estimate &mdash; the error is $\tfrac12 f''(dx)^2$, and $f''$ gets a vote.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 3</span>A named f with the anchor supplied</p>
+    <p class="famt"><strong>Trigger:</strong> "Let $f(x) = \dfrac{x-1}{\sqrt{x}}$. (a) Find the tangent line at $(4, f(4))$. (b) Use differentials to estimate $f(4.02)$." <strong>Tool:</strong> nothing new &mdash; but notice that (a) and (b) are the same computation asked twice.</p>
+    <p class="disp">$$f = x^{1/2} - x^{-1/2},\quad f'(4) = \tfrac14 + \tfrac1{16} = \tfrac5{16},\quad f(4.02) \approx \tfrac32 + \tfrac1{160} = \tfrac{241}{160} = 1.50625$$</p>
+    <p class="famt">The tangent line is $y = \tfrac{5}{16}x + \tfrac14$, and evaluating it at $4.02$ gives the part-(b) answer exactly. True value $1.5062391$, so the estimate overshoots by $1.09 \times 10^{-5}$, as $f'' &lt; 0$ predicts. Rewriting the quotient as $x^{1/2} - x^{-1/2}$ before differentiating is the only real work in the question &mdash; it avoids the quotient rule entirely.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 4</span>Propagating a measurement error</p>
+    <p class="famt"><strong>Trigger:</strong> "One side is 25 cm exactly. The opposite angle is $60^{\circ}$ with a possible error of $\pm 0.5^{\circ}$. Estimate the errors in the adjacent side and the hypotenuse, and the percentage errors." <strong>Tool:</strong> $dy = f'(a)\,dx$ used as a <em>change</em>. Here $d\theta = 0.5^{\circ} = \pi/360 = 0.0087266$ rad.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Quantity</th><th>Formula</th><th>Value</th><th>Differential</th><th>$\approx$</th><th>True change</th><th>Percentage</th></tr></thead>
+        <tbody>
+          <tr><td>adjacent</td><td>$25\cot\theta$</td><td class="mono">14.4338</td><td>$-25\csc^2\theta\,d\theta = -\tfrac{5\pi}{54}$</td><td class="mono">-0.29089</td><td class="mono">-0.28944</td><td class="mono">2.0153%</td></tr>
+          <tr><td>hypotenuse</td><td>$25\csc\theta$</td><td class="mono">28.8675</td><td>$-25\csc\theta\cot\theta\,d\theta = -\tfrac{5\pi}{108}$</td><td class="mono">-0.14544</td><td class="mono">-0.14362</td><td class="mono">0.5038%</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">The ratio of the two percentage errors is exactly $\sec^2 60^{\circ} = 4$. That is an identity rather than a coincidence of these numbers &mdash; $\text{pct}_{\text{adj}} / \text{pct}_{\text{hyp}} = \sec^2\theta$ for every $\theta$, verified at $\pi/6$, $\pi/4$, $0.9$ and $1.3$ as well. <strong>The adjacent side is always the more sensitive of the two,</strong> and past $45^{\circ}$ dramatically so. Note also that the 25 cm never appears in either percentage: a relative error is dimensionless and the constant cancels.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 5</span>Relative and percentage error for a power</p>
+    <p class="famt"><strong>Trigger:</strong> "A sphere's radius is measured as 10 cm with a possible error of 0.05 cm. Estimate the error in the volume, and the percentage error." <strong>Tool:</strong> divide $dy$ by $y$. For $f = x^n$ every constant cancels and you are left with one line.</p>
+    <p class="disp">$$\frac{dy}{y} = n\,\frac{dx}{x}$$</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Situation</th><th>$n$</th><th>Absolute</th><th>Relative</th></tr></thead>
+        <tbody>
+          <tr><td>sphere $V = \tfrac43\pi r^3$, $r = 10 \pm 0.05$</td><td class="mono">3</td><td>$dV = 4\pi r^2 dr = 20\pi = 62.832$</td><td class="mono">1.5%</td></tr>
+          <tr><td>cube $V = s^3$, $s = 12 \pm 0.1$</td><td class="mono">3</td><td>$dV = 3s^2 ds = 43.2$</td><td class="mono">2.5%</td></tr>
+          <tr><td>circle $A = \pi r^2$</td><td class="mono">2</td><td>$dA = 2\pi r\,dr$</td><td class="mono">$2\,dr/r$</td></tr>
+          <tr><td>$\sqrt{x}$</td><td class="mono">1/2</td><td></td><td class="mono">$\tfrac12\,dx/x$</td></tr>
+          <tr><td>$1/x$</td><td class="mono">-1</td><td></td><td class="mono">$-dx/x$</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">A relative error is multiplied by the exponent, and <strong>the constant in front is irrelevant</strong>: a sphere and a cube both give $3\,ds/s$ though their volume formulas differ by a factor of $\tfrac{4\pi}{3}$. That is the one sentence this family tests. The law is a property of powers only &mdash; for $\sin$, $dy/y = \cot(a)\,da$, which is not a constant multiple of $da/a$.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 6</span>"Is your estimate too big or too small? Justify"</p>
+    <p class="famt"><strong>Trigger:</strong> the question asks for the direction, with or without the number. <strong>Tool:</strong> the sign of $f''$ on the interval, and one sentence about where the tangent line sits.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>$f$</th><th>$f''$</th><th>Concavity</th><th>Tangent line sits</th><th>Estimate is</th></tr></thead>
+        <tbody>
+          <tr><td>$\sqrt{x}$, $\sqrt[3]{x}$, $x^p$ for $0 &lt; p &lt; 1$</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2">too big</td></tr>
+          <tr><td>$x^n$ for $n &gt; 1$, $e^x$</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2">too small</td></tr>
+          <tr><td>$1/x$, $x^{-1/2}$ for $x &gt; 0$</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2">too small</td></tr>
+          <tr><td>$\sin x$, $\cos x$ on $(0, \pi/2)$</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2">too big</td></tr>
+          <tr><td>$\tan x$ on $(0, \pi/2)$</td><td class="mono">&gt; 0</td><td>up</td><td>below</td><td class="ok2">too small</td></tr>
+          <tr><td>$\ln x$</td><td class="mono">&lt; 0</td><td>down</td><td>above</td><td class="no2">too big</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">Answer it with the tangent line, not with the arithmetic: <em>"$f'' &lt; 0$ here, so $f$ is concave down, so the tangent line lies above the graph, so the estimate exceeds the true value."</em> That works without computing anything, and it works for negative $dx$ too. <strong>The direction is not decided by the sign of $dx$</strong> &mdash; both $\sqrt{9.2}$ (stepping up) and $\sqrt{24.6}$ (stepping down) overestimate.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 7</span>The error bound, and how many places you may claim</p>
+    <p class="famt"><strong>Trigger:</strong> "estimate to four decimal places", "how accurate is your estimate", "bound the error". <strong>Tool:</strong> $|\text{error}| \le \tfrac{M}{2}(dx)^2$ where $M$ is the largest $|f''|$ on the interval between $a$ and the target. See section 06 for the endpoint trap and section 07 for the four-decimal census.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>Target</th><th>Bound</th><th>Actual error</th><th>Ratio</th></tr></thead>
+        <tbody>
+          <tr><td>$\sqrt{9.2}$</td><td class="mono">1.852e-4</td><td class="mono">1.832e-4</td><td class="mono">0.989</td></tr>
+          <tr><td>$\sqrt{16.4}$</td><td class="mono">3.125e-4</td><td class="mono">3.087e-4</td><td class="mono">0.988</td></tr>
+          <tr><td>$\sqrt{4.1}$</td><td class="mono">1.563e-4</td><td class="mono">1.543e-4</td><td class="mono">0.988</td></tr>
+          <tr><td>$\sqrt{101}$</td><td class="mono">1.250e-4</td><td class="mono">1.244e-4</td><td class="mono">0.995</td></tr>
+          <tr><td>$\sqrt[3]{8.3}$</td><td class="mono">3.125e-4</td><td class="mono">3.061e-4</td><td class="mono">0.980</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="famt">The bound is tight &mdash; within 2 percent of the observed error every time &mdash; so it is worth quoting rather than hand-waving.</p>
+  </div>
+</section>
+
+<section>
+  <h2>09 &middot; The trap list, ranked by what it actually costs</h2>
+  <ol class="tl121">
+    <li><span><b>Evaluating $f'$ at the target instead of the anchor.</b> $f'(9.2)$ gives $3.0329690$, off by $+1.8\times10^{-4}$ &mdash; the same size as the correct answer's error, in the opposite direction, so it looks entirely plausible. Worse, it becomes invisible as $dx \to 0$, so shrinking the step cannot expose it. The anchor is where you know things; the target is where you want an answer, and <em>both</em> $f$ and $f'$ are evaluated at the anchor.</span></li>
+    <li><span><b>Forgetting the $\tfrac12$ in $\tfrac{d}{dx}\sqrt{x}$.</b> Gives $3.0667$, inside the plausible band and exactly twice the correct $dy$. Squaring back gives $9.404$, which kills it.</span></li>
+    <li><span><b>Using degrees where the formula needs radians.</b> $\sin 62^{\circ} \approx 1.866$. The tell is an answer outside $[-1,1]$.</span></li>
+    <li><span><b>Choosing a prettier anchor rather than a nearer one.</b> $a = 9.61 = 3.1^2$ is exact and 3.94 times worse; $a = 16$ is exact and 638 times worse. The error goes as $(dx)^2$, so distance is punished twice.</span></li>
+    <li><span><b>Spot-checking at the anchor.</b> $dx = 0$ hides five of the eight standard wrong answers.</span></li>
+    <li><span><b>Reporting $dy$ instead of $f(a) + dy$.</b> Answer $0.0333$. The bracket check catches it instantly.</span></li>
+    <li><span><b>Sign slip on a negative $dx$.</b> For $\sqrt{24.6}$ from 25, $dx = -0.4$; adding $+0.04$ gives $5.04$ instead of $4.96$. Write $dx = \text{target} - a$ and let the sign fall out.</span></li>
+    <li><span><b>Claiming the true value</b> because you checked on a calculator. The question asked for the estimate. Write $3.0333$.</span></li>
+    <li><span><b>Getting the over/under backwards</b> by reasoning from the sign of $dx$ instead of the sign of $f''$.</span></li>
+    <li><span><b>The invisible one: $f'(a) = 1$.</b> At $a = 1/4$ for $\sqrt{x}$, forgetting to multiply by $f'(a)$ is undetectable. Nothing catches this except doing it right.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2>10 &middot; Drill set</h2>
+  <p>Twelve problems, fifteen minutes, closed book, no calculator. Leave every answer as an exact fraction, then say <strong>over or under</strong>. Eight of the twelve overshoot and four undershoot, so a run of twelve "overs" means you guessed.</p>
+  <ol class="dr121">
+    <li><span>Use differentials to approximate $\sqrt{4.1}$.</span></li>
+    <li><span>Use differentials to approximate $\sqrt{101}$.</span></li>
+    <li><span>Use differentials to approximate $\sqrt[3]{26.8}$.</span></li>
+    <li><span>Use differentials to approximate $\sqrt{0.26}$.</span></li>
+    <li><span>Use linearization to estimate $\sin 29^{\circ}$.</span></li>
+    <li><span>Use linearization to estimate $\tan 44^{\circ}$.</span></li>
+    <li><span>Estimate $(2.01)^5$.</span></li>
+    <li><span>Estimate $1/1.002$.</span></li>
+    <li><span>Let $f(x) = \dfrac{x-1}{\sqrt{x}}$. Estimate $f(4.02)$.</span></li>
+    <li><span>Estimate $\sqrt{48.6}$, and bound the error.</span></li>
+    <li><span>Estimate $(1.97)^3$.</span></li>
+    <li><span>Estimate $(8.06)^{2/3}$.</span></li>
+  </ol>
+
+  <p class="famt">Answer key. The family column names the section that fixes a wrong answer, so a miss points at its own remedy.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>#</th><th>Exact</th><th>Decimal</th><th>True value</th><th>Leans</th><th>Family and method</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td>$2 + \tfrac1{40} = \tfrac{81}{40}$</td><td class="mono">2.025</td><td class="mono">2.0248457</td><td>over</td><td>F0, $a=4$, $f'=\tfrac14$</td></tr>
+        <tr><td class="mono">2</td><td>$10 + \tfrac1{20} = \tfrac{201}{20}$</td><td class="mono">10.05</td><td class="mono">10.0498756</td><td>over</td><td>F0, $a=100$, $f'=\tfrac1{20}$</td></tr>
+        <tr><td class="mono">3</td><td>$3 - \tfrac1{135} = \tfrac{404}{135}$</td><td class="mono">2.9925926</td><td class="mono">2.9925742</td><td>over</td><td>F0, $a=27$, $dx&lt;0$</td></tr>
+        <tr><td class="mono">4</td><td>$\tfrac12 + \tfrac1{100} = \tfrac{51}{100}$</td><td class="mono">0.51</td><td class="mono">0.5099020</td><td>over</td><td>F0 trap, $f'(a)=1$</td></tr>
+        <tr><td class="mono">5</td><td>$\tfrac12 - \tfrac{\sqrt3\,\pi}{360}$</td><td class="mono">0.4848850</td><td class="mono">0.4848096</td><td>over</td><td>F1, $a=\pi/6$, $dx=-\pi/180$</td></tr>
+        <tr><td class="mono">6</td><td>$1 - \tfrac{\pi}{90}$</td><td class="mono">0.9650934</td><td class="mono">0.9656888</td><td class="no2"><strong>under</strong></td><td>F1, $a=\pi/4$, $f'=\sec^2=2$</td></tr>
+        <tr><td class="mono">7</td><td>$32 + \tfrac45 = \tfrac{164}{5}$</td><td class="mono">32.8</td><td class="mono">32.8080401</td><td class="no2"><strong>under</strong></td><td>F2, $a=2$, $f'=80$</td></tr>
+        <tr><td class="mono">8</td><td>$1 - \tfrac1{500} = \tfrac{499}{500}$</td><td class="mono">0.998</td><td class="mono">0.9980040</td><td class="no2"><strong>under</strong></td><td>F2, $a=1$, $f'=-1$</td></tr>
+        <tr><td class="mono">9</td><td>$\tfrac32 + \tfrac1{160} = \tfrac{241}{160}$</td><td class="mono">1.50625</td><td class="mono">1.5062391</td><td>over</td><td>F3, $f'(4)=\tfrac5{16}$</td></tr>
+        <tr><td class="mono">10</td><td>$7 - \tfrac1{35} = \tfrac{244}{35}$</td><td class="mono">6.9714286</td><td class="mono">6.9713700</td><td>over</td><td>F0/F7, bound $5.90\times10^{-5}$</td></tr>
+        <tr><td class="mono">11</td><td>$8 - \tfrac9{25} = \tfrac{191}{25}$</td><td class="mono">7.64</td><td class="mono">7.6453730</td><td class="no2"><strong>under</strong></td><td>F2, $a=2$, $f'=12$, $dx&lt;0$</td></tr>
+        <tr><td class="mono">12</td><td>$4 + \tfrac1{50} = \tfrac{201}{50}$</td><td class="mono">4.02</td><td class="mono">4.0199751</td><td>over</td><td>F2, $a=8$, $f'=\tfrac13$</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="verdict"><strong>Score magnitude and direction separately.</strong> They are different failure modes needing different fixes. A wrong magnitude means you mis-differentiated or mis-anchored, so go back to Family 0 or 2. A wrong direction means you reasoned from the sign of $dx$ instead of the sign of $f''$, so go back to Family 6 &mdash; that is a five-minute fix.</p>
+</section>
+
+<section>
+  <h2>11 &middot; The one-page decision tree</h2>
+<pre class="tree121">"approximate / estimate / use differentials / use linearization"
+    |
+    +-- Is a NUMBER wanted, or a CHANGE / ERROR?
+    |     |
+    |     +-- a NUMBER  ->  f(a+dx) ~ f(a) + f'(a) dx          (families 0,1,2,3)
+    |     +-- a CHANGE  ->  dy = f'(a) dx alone                (family 4)
+    |     +-- a PERCENT ->  dy/y = n dx/x for a power          (family 5)
+    |
+    +-- CHOOSE a: nearest point where f(a) is EXACT
+    |     root         -> nearest perfect square / cube / n-th power
+    |     trig         -> nearest special angle, IN RADIANS
+    |     power / 1/x  -> nearest round base, usually 1 or 2
+    |     named f      -> the question already gave you f(a)
+    |     CHECK: is f'(a) a unit fraction or a small integer?
+    |            if not, you probably picked the wrong a
+    |
+    +-- dx = target - a     KEEP THE SIGN.  degrees -> radians HERE.
+    |
+    +-- f'(a), evaluated AT THE ANCHOR (never at the target)
+    |
+    +-- answer = f(a) + f'(a) dx        leave it as an exact fraction
+    |
+    +-- DIRECTION from f''(a):   f'' &lt; 0 -> too big     f'' &gt; 0 -> too small
+    |                            (NOT from the sign of dx)
+    |
+    +-- SIZE, if asked:  |error| &lt;= (max |f''| on the interval)/2 * dx^2
+    |                    for a root with dx &lt; 0 use the FAR endpoint
+    |
+    +-- check:  square it back / one Newton step / is it in the obvious bracket?
+    +-- preview: 91/30 , brackets round every denominator</pre>
+</section>
+
+<section>
+  <h2>12 &middot; Answer entry, and what was verified</h2>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono ok2">91/30</td><td class="mono no2">91/3 0 &mdash; a stray space</td></tr>
+        <tr><td class="mono ok2">3+1/30</td><td class="mono no2">3+1/2*sqrt(9) &mdash; this is $3 + 1.5$</td></tr>
+        <tr><td class="mono ok2">3+0.2/6</td><td class="mono no2">3+0.2/2*3 &mdash; parses as $3.3$</td></tr>
+        <tr><td class="mono ok2">3.0333 if a decimal is demanded</td><td class="mono no2">3.0332 &mdash; that is the true value, not the estimate</td></tr>
+        <tr><td>Type <span class="mono">*</span> between every factor, then <strong>Preview</strong></td><td>assume the box knows what you meant</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="warn"><strong>The single most expensive typo is <span class="mono">1/2*sqrt(9)</span> for $f'(9)$.</strong> It evaluates to $1.5$ rather than $0.1\overline{6}$ &mdash; a factor of nine &mdash; and yields $3.3$, which is still inside the plausible range for a square root and so will not look wrong. Write $f'(9)$ as <span class="mono">1/6</span> and the typo cannot happen.</p>
+
+  <div class="prov">
+    <div class="pv"><p class="pvh">Provenance</p><p>Parsed from the paper file, not typed. MT1's ten inline values (5, 6, 5, 16, 8, 4, 5, 5, 5, 5) sum to 64; item 9 is 5 of them, or 7.8125 percent. MT1's single "no credit" clause is on item 3 &mdash; capitalised in the paper, so a case-sensitive search misses it entirely &mdash; and its single "You may not need to simplify" permission is on item 5. Item 9 carries neither, and prints no hint and no formula.</p></div>
+    <div class="pv"><p class="pvh">The neighbours</p><p>MT1 items 7, 8 and 9 are related rates, implicit differentiation and this question &mdash; the same idea three times. In all three the marks live on a factor a careless student drops: $dh/dt$, $y'$, and $f'(a)$. Fifteen of MT1's 64 points sit on that one habit.</p></div>
+    <div class="pv"><p class="pvh">What the course files omit</p><p>The linearization is stated correctly in five places across the course notes, and the Problem 9 walkthrough is right on all four of its claims. What no course file contains anywhere in 168 KB: any statement of the <em>direction</em> of the error, any error bound, and any demonstration that one anchor beats another. There is also no marking scheme anywhere &mdash; zero occurrences of "rubric", "marking scheme" or "part marks" &mdash; so every claim here about which sentences earn marks is inference, and is flagged as such.</p></div>
+  </div>
+
+  <div class="vbar">
+    <div><span class="k">Assertions</span><span class="v">440</span></div>
+    <div><span class="k">Failures</span><span class="v">0</span></div>
+    <div><span class="k">Seeded controls</span><span class="v">68</span></div>
+    <div><span class="k">Check defects found</span><span class="v">30</span></div>
+    <div><span class="k">Maths defects found</span><span class="v">0</span></div>
+  </div>
+
+  <p>The verification did not merely re-evaluate the answer. It parsed the provenance from the paper; proved $f(9) = 3$, $f'(9) = \tfrac16$ and $91/30$ in exact rational arithmetic; recovered $f'(9)$ formula-blind by a complex-step derivative and by a Richardson ladder with its convergence order measured on a curved control; computed $\sqrt{9.2}$ to 60 digits and squared it back; located the mean-value $\xi = 9.0997$ and the Lagrange $\xi = 9.0664$ by root-finding and confirmed both lie strictly inside $(9,\,9.2)$; proved the tangent line lies above $\sqrt{x}$ at 72 anchor-and-offset pairs in both directions, with four convex functions seeded as controls to prove the test can report the opposite; ranked ten competing anchors by measured error; and swept eight plausible wrong answers over a 64-point grid <strong>with the degenerate rows left in</strong>, which is what found the $dx = 0$ and $a = 1/4$ blind spots.</p>
+
+  <p>All 30 apparent errors during the run turned out to be defects in the <em>check</em> rather than in the mathematics &mdash; eighteen of them decimal literals whose tails had been extended past what the source printout actually showed.</p>
+
+  <p class="warn"><strong>Two long-standing harness failures were diagnosed along the way.</strong> The <span class="mono">sin62</span> and <span class="mono">cos62</span> checks near the top of the shared verification file have been failing for the whole life of this series, recorded as "a linearization compared against the true value at too tight a tolerance". That diagnosis is wrong. Both compare a <em>correct</em> linearization against a typed decimal literal that is neither the linearization nor the true value; the gaps are $3.20\times10^{-6}$ and $1.03\times10^{-5}$, both just over the harness's $10^{-6}$ default. The correct literals pass the same tolerance, and both are now asserted as controls so the next reader does not re-diagnose them.</p>
+
+  <p class="cap121">Sources: <span class="mono">notes\MATH265\MATH265.md</span> (Midterm Exam 1 item 9, Midterm Exam 2 item 8, Final Exam 1 item 2), <span class="mono">notes\MATH265.md</span> section 12, <span class="mono">MATH265_Review.md</span>, <span class="mono">MATH265_Categorized.md</span>. Verification in <span class="mono">math265-answer-verification.py</span>, sections <span class="mono">q121</span> and <span class="mono">q121d</span>. Verified 2026-09-01.</p>
+</section>
+
+</main>

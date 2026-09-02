@@ -1,0 +1,1157 @@
+<title>Eliminate Or Compute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q11.2 CLOSES the
+   related-rates category, and it exists to contrast with Q11.1: the same
+   procedure, a different geometry, and the opposite verdict on whether to
+   remove the unwanted variable before differentiating.  So the two loudest
+   hues carry that fork - ELIMINATE against COMPUTE - and the signature block
+   is the two-column decision in section 01.
+
+     ELIMINATE EARLY: true always, so it survives the derivative   --rul amber
+     COMPUTE AT THE INSTANT: derived, so it must wait              --chn slate
+     WHERE MARKS DIE                                               --los terracotta
+     THE VARIATION families                                        --fam teal
+     NUMERICS: gates, arms, tolerances, controls                   --num mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar112 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar112 .v112{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar112 .v112.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the eliminate/compute fork: this page's signature block ------------- */
+.ledger112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger112 .col112{background:var(--surface);padding:18px 20px}
+.ledger112 .col112.add112{background:var(--rul-soft)}
+.ledger112 .col112.inh112{background:var(--chn-soft)}
+.ledger112 .colh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger112 .col112.add112 .colh112{color:var(--rul)}
+.ledger112 .col112.inh112 .colh112{color:var(--chn)}
+.ledger112 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger112 li{line-height:1.62}
+.ledger112 .tag112{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger112 .tag112.ok112{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger112 .tag112.no112{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps112 .st112{background:var(--surface);padding:16px 18px}
+.steps112 .sth112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps112 .st112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-move solve board ------------------------------------------- */
+.chain112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain112 .ch112{background:var(--surface);padding:16px 18px}
+.chain112 .chh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain112 .chm112{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks112 .ck112{background:var(--surface);padding:16px 18px}
+.checks112 .ckh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks112 .ck112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam112{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam112 .famh112{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam112 .fk112{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam112 .famt112{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide112 .hd1112{background:var(--los-soft);padding:16px 18px}
+.hide112 .hdh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide112 .hd1112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl112,ol.dr112{list-style:none;counter-reset:t112;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl112 li,ol.dr112 li{counter-increment:t112;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl112 li::before,ol.dr112 li::before{content:counter(t112);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr112 li::before{color:var(--fam)}
+ol.tl112 li > span,ol.dr112 li > span{grid-column:2}
+b.ans112{color:var(--rul);font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov112 .pv112{background:var(--surface);padding:16px 18px}
+.prov112 .pvh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov112 .pv112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar112 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar112 .v112{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict112{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn112{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap112{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree112{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp112{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2112{color:var(--rul)}
+td.no2112{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   Class names are unique to this page (tri2/legf/legv/hypo/rang/stn/roc/
+   varr/sarr/asym/drop/vtr/vsn); lab, hd, sm, tk, am, gridl, axis, curve and dot
+   are DELIBERATELY the series names, because svg-labels.mjs112 selects on
+   text.lab and exempts lines whose class matches /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .tri2{fill:var(--rul-soft);stroke:none}
+.figbox .legf{stroke:var(--rul);stroke-width:3.2;stroke-linecap:round}
+.figbox .legv{stroke:var(--chn);stroke-width:2.4}
+.figbox .hypo{stroke:var(--chn);stroke-width:2.4}
+.figbox .rang{fill:none;stroke:var(--ink3);stroke-width:1.2}
+.figbox .stn{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox .roc{fill:var(--chn);stroke:var(--surface);stroke-width:1.6}
+.figbox .varr{stroke:var(--num);stroke-width:2.4}
+.figbox .varrhd{fill:var(--num);stroke:none}
+.figbox .sarr{stroke:var(--fam);stroke-width:2.4}
+.figbox .sarrhd{fill:var(--fam);stroke:none}
+.figbox .asym{stroke:var(--fam);stroke-width:1.6;stroke-dasharray:5 4}
+.figbox .drop{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.4}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vtr{fill:var(--num);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+</style>
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; Q11.2 &middot; MT2 item 11 &middot; 6 points &middot; closes category 11</p>
+  <h1>Eliminate Or Compute</h1>
+  <p class="stand">A rocket rises vertically. A radar station sits on the ground 5 mi from the pad. How fast is the rocket rising when it is 4 mi high and its distance from the station is growing at 2000 mi/h? Q11.1 taught you to get rid of the unwanted variable <i>before</i> differentiating. This question is built to teach you when not to.</p>
+  <div class="ansbar112">
+    <div><span class="k112">The answer</span><span class="v112">\(\dfrac{dy}{dt} = 500\sqrt{41}\ \mathrm{mi/h}\)</span></div>
+    <div><span class="k112">Decimal</span><span class="v112">3201.5621 mi/h</span></div>
+    <div><span class="k112">Type into M&ouml;bius</span><span class="v112 mono">500*sqrt(41)</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="num">01</span> The fork this question exists to teach</h2>
+  <p>Both related-rates questions in the bank give you one equation and one variable too many. Q11.1 removes the extra variable <b>symbolically, before differentiating</b>, using a ratio the stem says holds &ldquo;always&rdquo;. Q11.2 keeps it, differentiates, and then <b>computes its value at the instant</b>. Knowing which move a question wants is the whole of this page.</p>
+
+  <div class="ledger112">
+    <div class="col112 add112">
+      <p class="colh112">Eliminate early &middot; Q11.1</p>
+      <ul>
+        <li>The stem says the shape holds <b>at all times</b>: &ldquo;base diameter and height are always equal&rdquo;, so \(r = h/2\).</li>
+        <li>A relation true at every instant <b>survives differentiation</b>, so it may go in first.</li>
+        <li>Doing so makes the equation <i>simpler</i>: \(V = \frac{1}{3}\pi r^2 h\) collapses to \(V = \frac{\pi h^3}{12}\).</li>
+      </ul>
+      <p class="tag112 ok112">Eliminate when eliminating makes the equation simpler.</p>
+    </div>
+    <div class="col112 inh112">
+      <p class="colh112">Compute at the instant &middot; Q11.2</p>
+      <ul>
+        <li>There is <b>no fixed ratio</b> between \(z\) and \(y\). The angle changes at every height.</li>
+        <li>You could still write \(z = \sqrt{25+y^2}\) - but then you must differentiate a radical.</li>
+        <li>Keeping the implicit form \(z^2 = 25 + y^2\) differentiates in one clean line, and \(z=\sqrt{41}\) is found afterwards.</li>
+      </ul>
+      <p class="tag112 no112">Compute at the instant when eliminating would introduce a square root.</p>
+    </div>
+  </div>
+
+  <p class="note"><b>The substitution licence, sharpened.</b> Q11.1 split the stem's numbers into two boxes: things true <i>always</i>, and things true only <i>when</i>. Q11.2 needs four. The cruelty of this question is that two of them look identical on the page.</p>
+
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>The quantity</th><th>Example here</th><th>Substitute it</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>A constant <b>value</b></td><td class="mono">x = 5</td><td class="ok2112">before differentiating</td><td>its rate is zero, so nothing is lost</td></tr>
+      <tr><td>A constant <b>relation</b></td><td class="mono">r = h/2 (Q11.1)</td><td class="ok2112">before differentiating</td><td>it holds at every instant</td></tr>
+      <tr><td>An <b>instantaneous value</b></td><td class="mono">y = 4</td><td class="no2112">only after</td><td>its rate is what you are solving for</td></tr>
+      <tr><td>A <b>derived</b> instantaneous value</td><td class="mono">z = &#8730;41</td><td class="no2112">only after</td><td>it inherits the restriction from \(y\)</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="warn112"><b>Both \(x = 5\) and \(y = 4\) are bare numbers.</b> One may go in before you differentiate and the other destroys the problem, and nothing about how they look on the page tells you which. Only the sentence each came from does. Substitute \(y = 4\) early and \(z^2 = 41\) becomes a constant, so \(dz/dt = 0\), and you have written \(0 = 2000\).</p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Read the geometry before you read the numbers</h2>
+  <p>The station is <b>on the ground</b>, 5 mi from the <b>launch pad</b>, and the rocket rises <b>vertically</b>. Those three phrases put the right angle at the pad. So the 5 and the 4 are both <b>legs</b>, and the radar-to-rocket line is the hypotenuse.</p>
+
+  <div class="figbox"><svg viewBox="0 0 760 352" width="760" height="352" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Left: the right triangle at the instant, with the rocket velocity resolved along the radar line of sight. Right: the rocket speed against height, falling toward the given 2000 mi per hour and never reaching it."><text class="lab hd" x="24" y="30">THE TRIANGLE AT THE INSTANT</text><line class="axis" x1="24" y1="286.0" x2="330" y2="286.0" /><polygon class="tri2" points="52.0,286.0 262.0,286.0 262.0,118.0" /><line class="legf" x1="52.0" y1="286.0" x2="262.0" y2="286.0" /><line class="legv" x1="262.0" y1="286.0" x2="262.0" y2="118.0" /><line class="hypo" x1="52.0" y1="286.0" x2="262.0" y2="118.0" /><polyline class="rang" points="249.0,286.0 249.0,273.0 262.0,273.0" /><circle class="stn" cx="52.0" cy="286.0" r="5" /><circle class="roc" cx="262.0" cy="118.0" r="5" /><line class="varr" x1="262.00" y1="118.00" x2="262.00" y2="65.00" /><polygon class="varrhd" points="262.00,56.00 266.20,65.00 257.80,65.00" /><line class="sarr" x1="262.00" y1="118.00" x2="285.22" y2="99.43" /><polygon class="sarrhd" points="292.24,93.80 287.84,102.71 282.59,96.15" /><text class="lab" x="157.0" y="308.0" text-anchor="middle">x = 5 mi</text><text class="lab sm" x="32.0" y="308.0">radar</text><text class="lab sm am" x="157.0" y="330.0" text-anchor="middle">FIXED - substitute it early</text><text class="lab" x="276.0" y="220.0">y = 4 mi</text><text class="lab sm" x="276.0" y="242.0">one instant only</text><text class="lab am" x="175" y="138" text-anchor="end">z = &#8730;41</text><text class="lab sm" x="175" y="160" text-anchor="end">not 3, not 5</text><text class="lab vtr" x="248.0" y="58.0" text-anchor="end">3201.56</text><text class="lab sm" x="248.0" y="80.0" text-anchor="end">true speed</text><text class="lab vsn" x="304.2" y="85.8">2000</text><text class="lab sm" x="304.2" y="107.8">what the radar sees</text><text class="lab hd" x="424" y="30">SPEED AGAINST HEIGHT - dy/dt IN mi/h, y IN mi</text><line class="gridl" x1="470.0" y1="274.4" x2="738.0" y2="274.4" /><line class="gridl" x1="470.0" y1="216.5" x2="738.0" y2="216.5" /><line class="gridl" x1="470.0" y1="158.6" x2="738.0" y2="158.6" /><line class="gridl" x1="470.0" y1="100.7" x2="738.0" y2="100.7" /><line class="gridl" x1="514.7" y1="286.0" x2="514.7" y2="66.0" /><line class="gridl" x1="589.1" y1="286.0" x2="589.1" y2="66.0" /><line class="gridl" x1="663.6" y1="286.0" x2="663.6" y2="66.0" /><line class="gridl" x1="738.0" y1="286.0" x2="738.0" y2="66.0" /><line class="axis" x1="470.0" y1="286.0" x2="738.0" y2="286.0" /><line class="axis" x1="470.0" y1="286.0" x2="470.0" y2="66.0" /><line class="asym" x1="470.0" y1="274.4" x2="738.0" y2="274.4" /><polyline class="curve" points="470.00,78.44 471.12,88.13 472.23,97.09 473.35,105.41 474.47,113.14 475.58,120.34 476.70,127.06 477.82,133.35 478.93,139.23 480.05,144.75 481.17,149.94 482.28,154.82 483.40,159.42 484.52,163.76 485.63,167.86 486.75,171.74 487.87,175.41 488.98,178.89 490.10,182.19 491.22,185.32 492.33,188.30 493.45,191.13 494.57,193.83 495.68,196.40 496.80,198.85 497.92,201.19 499.03,203.42 500.15,205.56 501.27,207.60 502.38,209.55 503.50,211.43 504.62,213.22 505.73,214.94 506.85,216.59 507.97,218.17 509.08,219.69 510.20,221.15 511.32,222.56 512.43,223.91 513.55,225.21 514.67,226.46 515.78,227.66 516.90,228.83 518.02,229.95 519.13,231.03 520.25,232.07 521.37,233.07 522.48,234.05 523.60,234.98 524.72,235.89 525.83,236.77 526.95,237.61 528.07,238.43 529.18,239.23 530.30,240.00 531.42,240.74 532.53,241.46 533.65,242.16 534.77,242.83 535.88,243.49 537.00,244.13 538.12,244.74 539.23,245.34 540.35,245.92 541.47,246.49 542.58,247.04 543.70,247.57 544.82,248.09 545.93,248.59 547.05,249.08 548.17,249.55 549.28,250.02 550.40,250.47 551.52,250.91 552.63,251.33 553.75,251.75 554.87,252.15 555.98,252.54 557.10,252.93 558.22,253.30 559.33,253.67 560.45,254.02 561.57,254.37 562.68,254.70 563.80,255.03 564.92,255.36 566.03,255.67 567.15,255.97 568.27,256.27 569.38,256.57 570.50,256.85 571.62,257.13 572.73,257.40 573.85,257.67 574.97,257.92 576.08,258.18 577.20,258.43 578.32,258.67 579.43,258.90 580.55,259.14 581.67,259.36 582.78,259.58 583.90,259.80 585.02,260.01 586.13,260.22 587.25,260.42 588.37,260.62 589.48,260.82 590.60,261.01 591.72,261.20 592.83,261.38 593.95,261.56 595.07,261.73 596.18,261.91 597.30,262.08 598.42,262.24 599.53,262.40 600.65,262.56 601.77,262.72 602.88,262.87 604.00,263.02 605.12,263.17 606.23,263.31 607.35,263.45 608.47,263.59 609.58,263.73 610.70,263.86 611.82,263.99 612.93,264.12 614.05,264.25 615.17,264.37 616.28,264.50 617.40,264.62 618.52,264.73 619.63,264.85 620.75,264.96 621.87,265.07 622.98,265.18 624.10,265.29 625.22,265.40 626.33,265.50 627.45,265.60 628.57,265.70 629.68,265.80 630.80,265.90 631.92,266.00 633.03,266.09 634.15,266.18 635.27,266.27 636.38,266.36 637.50,266.45 638.62,266.54 639.73,266.62 640.85,266.71 641.97,266.79 643.08,266.87 644.20,266.95 645.32,267.03 646.43,267.11 647.55,267.18 648.67,267.26 649.78,267.33 650.90,267.40 652.02,267.48 653.13,267.55 654.25,267.62 655.37,267.69 656.48,267.75 657.60,267.82 658.72,267.88 659.83,267.95 660.95,268.01 662.07,268.08 663.18,268.14 664.30,268.20 665.42,268.26 666.53,268.32 667.65,268.38 668.77,268.43 669.88,268.49 671.00,268.55 672.12,268.60 673.23,268.66 674.35,268.71 675.47,268.76 676.58,268.81 677.70,268.87 678.82,268.92 679.93,268.97 681.05,269.02 682.17,269.06 683.28,269.11 684.40,269.16 685.52,269.21 686.63,269.25 687.75,269.30 688.87,269.34 689.98,269.39 691.10,269.43 692.22,269.47 693.33,269.52 694.45,269.56 695.57,269.60 696.68,269.64 697.80,269.68 698.92,269.72 700.03,269.76 701.15,269.80 702.27,269.84 703.38,269.88 704.50,269.91 705.62,269.95 706.73,269.99 707.85,270.02 708.97,270.06 710.08,270.10 711.20,270.13 712.32,270.17 713.43,270.20 714.55,270.23 715.67,270.27 716.78,270.30 717.90,270.33 719.02,270.36 720.13,270.40 721.25,270.43 722.37,270.46 723.48,270.49 724.60,270.52 725.72,270.55 726.83,270.58 727.95,270.61 729.07,270.64 730.18,270.67 731.30,270.69 732.42,270.72 733.53,270.75 734.65,270.78 735.77,270.80 736.88,270.83 738.00,270.86" /><line class="drop" x1="499.8" y1="204.9" x2="499.8" y2="286.0" /><circle class="dot" cx="499.8" cy="204.9" r="5.2" /><text class="lab tk" x="462.0" y="278.4" text-anchor="end">2000</text><text class="lab tk" x="462.0" y="220.5" text-anchor="end">3000</text><text class="lab tk" x="462.0" y="162.6" text-anchor="end">4000</text><text class="lab tk" x="462.0" y="104.7" text-anchor="end">5000</text><text class="lab tk" x="514.7" y="303.0" text-anchor="middle">5</text><text class="lab tk" x="589.1" y="303.0" text-anchor="middle">10</text><text class="lab tk" x="663.6" y="303.0" text-anchor="middle">15</text><text class="lab tk" x="738.0" y="303.0" text-anchor="middle">20</text><text class="lab am" x="515.8" y="174.9">4 mi, 3201.56</text><text class="lab sm" x="515.8" y="196.9">the exam instant</text></svg></div>
+
+  <p class="cap112"><b>Left.</b> The two arrows are drawn at their true relative lengths. The radar measures only the part of the rocket's velocity that points along its own line of sight, and that line is slanted, so the radar always reads <i>less</i> than the true speed - here by a factor of \(4/\sqrt{41} = 0.6247\). <b>Right.</b> The same fact as a curve: for a fixed 2000 mi/h radar reading, the rocket's speed falls toward 2000 as it climbs and never gets there.</p>
+
+  <p class="warn112"><b>The 3-4-5 decoy.</b> The stem prints a 5 and a 4, and every student has 3-4-5 burned in. But 3-4-5 needs the 5 to be the <i>hypotenuse</i>, and here it is a leg. The third side is \(\sqrt{41} \approx 6.403\), not 3. Writing \(z=3\) gives 1500 mi/h, 53 percent low. Had the radar been 3 mi away the answer really would have been 2500, so this is a reachable mistake rather than an absurd one.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span> Four lines before you touch calculus</h2>
+  <p>Unchanged from Q11.1. If you cannot fill these in, you have not finished reading the question.</p>
+
+  <div class="steps112">
+    <div class="st112"><p class="sth112">1 &middot; Name</p><p>\(y\) = height in mi, \(z\) = radar-to-rocket distance in mi, \(x = 5\) mi fixed. Each a function of time \(t\) in hours.</p></div>
+    <div class="st112"><p class="sth112">2 &middot; Given</p><p>\(\dfrac{dz}{dt} = 2000\ \mathrm{mi/h}\). Note it belongs to the <b>radar distance</b>, not the rocket.</p></div>
+    <div class="st112"><p class="sth112">3 &middot; Want</p><p>\(\dfrac{dy}{dt}\) in mi/h, at the instant \(y = 4\) mi.</p></div>
+    <div class="st112"><p class="sth112">4 &middot; Relate</p><p>\(z^2 = x^2 + y^2 = 25 + y^2\). Pythagoras, not a volume formula.</p></div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">04</span> The solve, in four moves</h2>
+
+  <div class="chain112">
+    <div class="ch112"><p class="chh112">Relate</p><p class="chm112">\(z^{2} = 5^{2} + y^{2} = 25 + y^{2}\)</p></div>
+    <div class="ch112"><p class="chh112">Differentiate in \(t\)</p><p class="chm112">\(2z\dfrac{dz}{dt} = 2y\dfrac{dy}{dt} \;\Longrightarrow\; z\dfrac{dz}{dt} = y\dfrac{dy}{dt}\)</p></div>
+    <div class="ch112"><p class="chh112">Now compute \(z\)</p><p class="chm112">\(z = \sqrt{25 + 4^{2}} = \sqrt{41}\)</p></div>
+    <div class="ch112"><p class="chh112">Substitute and solve</p><p class="chm112">\(\sqrt{41}\,(2000) = 4\dfrac{dy}{dt} \;\Longrightarrow\; \dfrac{dy}{dt} = 500\sqrt{41}\)</p></div>
+  </div>
+
+  <p>The 25 contributed nothing to the second line, because the derivative of a constant is zero. That is not a licence to ignore the 5 - it is the chain rule applied to \(x^2\), giving \(2x\,\frac{dx}{dt}\) with \(\frac{dx}{dt} = 0\). Writing it out once is worth four seconds, because it is the same reasoning that tells you \(y = 4\) may <i>not</i> go in early: there the rate is \(dy/dt\), which is exactly what you are solving for and is certainly not zero.</p>
+
+  <p class="verdict112"><b>The rocket is rising at \(500\sqrt{41} \approx 3201.56\) miles per hour.</b> Answer in a sentence, with units. The units were checked dimensionally rather than by eye: \([z][\dot z][y]^{-1} = \mathrm{mi}\cdot\mathrm{mi\,h^{-1}}\cdot\mathrm{mi^{-1}} = \mathrm{mi\,h^{-1}}\), and the same gate explicitly rejects mi, mi/h\(^2\), h/mi and mi\(^2\)/h.</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Why the answer must be bigger than 2000</h2>
+  <p>This question has an unusually strong sanity check, and it is physical rather than algebraic. The radar sees only the component of the velocity along its line of sight. The rocket goes straight up; the line of sight is slanted. So the radar always reads low.</p>
+
+  <p class="disp112">$$\frac{dy/dt}{dz/dt} = \frac{z}{y} = \sqrt{1 + \frac{25}{y^{2}}} > 1 \quad\text{at every finite height}$$</p>
+
+  <div class="checks112">
+    <div class="ck112"><p class="ckh112">The floor</p><p>Any answer at or below 2000 mi/h is wrong before you check the algebra. Here the factor is \(\sqrt{41}/4 \approx 1.6008\).</p></div>
+    <div class="ck112"><p class="ckh112">The round trip</p><p>Multiply your answer by \(y/z = 4/\sqrt{41}\). You must land back on the given 2000. Eight seconds, and it catches every inverted ratio.</p></div>
+    <div class="ck112"><p class="ckh112">Is \(z\) the longest side?</p><p>\(\sqrt{41} \approx 6.403\) exceeds both 4 and 5. If your hypotenuse is shorter than a leg, your triangle is wrong.</p></div>
+    <div class="ck112"><p class="ckh112">Is the instant reachable?</p><p>Do not assume it. With \(\dot z = 2000\) from launch, \(y = 4\) arrives at \(t = (\sqrt{41}-5)/2000 \approx 2.53\) s. Finite and positive.</p></div>
+  </div>
+
+  <p>That single check kills four of the eight plausible wrong answers outright.</p>
+
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>Wrong answer</th><th>Value</th><th>Killed by &ldquo;must exceed 2000&rdquo;?</th></tr></thead>
+    <tbody>
+      <tr><td>Ratio inverted, \(\frac{y}{z}\dot z\)</td><td class="mono">1249.39</td><td class="ok2112">yes</td></tr>
+      <tr><td>The 3-4-5 decoy, \(z=3\)</td><td class="mono">1500</td><td class="ok2112">yes</td></tr>
+      <tr><td>A stray factor of 2</td><td class="mono">1600.78</td><td class="ok2112">yes</td></tr>
+      <tr><td>Answered the given rate</td><td class="mono">2000</td><td class="ok2112">yes</td></tr>
+      <tr><td>Read 5 as the hypotenuse</td><td class="mono">2500</td><td class="no2112">no</td></tr>
+      <tr><td>Divided by \(x\) instead of \(y\)</td><td class="mono">2561.25</td><td class="no2112">no</td></tr>
+      <tr><td>Forgot to divide by \(y\)</td><td class="mono">12806.25</td><td class="no2112">no</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section>
+  <h2><span class="num">06</span> The variation catalog</h2>
+  <p>Read each table as <b>structure</b>, not as a list of facts. For a right triangle with a fixed leg there is only one formula, and only the <i>ratio</i> \(x/y\) enters it - which is why \((5,4)\) and \((50,40)\) give the same amplification.</p>
+
+  <p class="disp112">$$\frac{dy}{dt} = \frac{dz}{dt}\cdot\frac{\sqrt{x^{2}+y^{2}}}{y} = \frac{dz}{dt}\sqrt{1 + \left(\frac{x}{y}\right)^{2}}$$</p>
+
+  <p>Every value below was verified twice: once from the closed form, and once formula-blind, by building an explicit time parametrisation and taking a complex-step derivative of it.</p>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 1</span>A fixed leg, the hypotenuse rate given</p>
+    <p class="famt112"><b>Trigger:</b> something fixed on the ground, something moving perpendicular to it, and a rate given for the straight-line distance. <b>Tool:</b> compute the hypotenuse at the instant, then \(\dot y = \dot z\,\frac{z}{y}\).</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>\(z\) at the instant</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(x=5,\ y=4,\ \dot z=2000\) &middot; <b>the exam</b></td><td class="mono">&#8730;41</td><td class="mono">500&#8730;41 &asymp; 3201.5621</td></tr>
+        <tr><td>\(x=4,\ y=5,\ \dot z=2000\) &middot; numbers swapped</td><td class="mono">&#8730;41</td><td class="mono">400&#8730;41 &asymp; 2561.2497</td></tr>
+        <tr><td>\(x=3,\ y=4,\ \dot z=2000\) &middot; a <b>real</b> 3-4-5</td><td class="mono">5</td><td class="mono">2500 exactly</td></tr>
+        <tr><td>\(x=5,\ y=12,\ \dot z=2000\)</td><td class="mono">13</td><td class="mono">6500/3 &asymp; 2166.6667</td></tr>
+        <tr><td>\(x=5,\ y=8,\ \dot z=2000\)</td><td class="mono">&#8730;89</td><td class="mono">250&#8730;89 &asymp; 2358.4953</td></tr>
+        <tr><td>\(x=5,\ y=1,\ \dot z=2000\)</td><td class="mono">&#8730;26</td><td class="mono">2000&#8730;26 &asymp; 10198.0390</td></tr>
+        <tr><td>\(x=5,\ y=100,\ \dot z=2000\)</td><td class="mono">&#8730;10025</td><td class="mono">&asymp; 2002.4984</td></tr>
+        <tr><td>Winch 5 ft above the bow, boat 12 ft out, rope in at 2 ft/s</td><td class="mono">13</td><td class="mono">-13/6 &asymp; -2.1667 ft/s</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">The <b>swapped</b> row matters: 5 and 4 are not interchangeable. Swapping them turns 3201.56 into 2561.25, a 20 percent difference, even though \(z=\sqrt{41}\) both times. The <b>winch</b> row is the same formula with a negative rate.</p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 2</span>A fixed leg, the LEG rate given</p>
+    <p class="famt112"><b>Trigger:</b> the same picture with the question and the given swapped. <b>Tool:</b> \(\dot z = \dot y\,\frac{y}{z}\). The answer is now always <i>smaller</i> than the given rate.</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Softball diamond 18 m, runner 3 m from second at 7.5 m/s, distance from <b>home</b></td><td class="mono">112.5/&#8730;549 &asymp; 4.8014 m/s</td></tr>
+        <tr><td>The rocket rising at 3000 at \(y=4\): how fast does \(z\) grow?</td><td class="mono">12000/&#8730;41 &asymp; 1874.0851 mi/h</td></tr>
+        <tr><td>Kite 40 m out, 30 m up, rising at 5 m/s</td><td class="mono">3 m/s exactly</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">Families 1 and 2 are the same picture run in opposite directions, and they undo each other: feed Family 1's answer into Family 2 and the original given comes back.</p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 3</span>A fixed HYPOTENUSE &middot; the ladder &middot; the sign flips</p>
+    <p class="famt112"><b>Trigger:</b> a ladder, a rod, a rope that cannot stretch. <b>Tool:</b> \(x^2+y^2=L^2\) with \(L\) constant, so \(x\dot x + y\dot y = 0\) and \(\dot y = -\frac{x\dot x}{y}\).</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(L=10\) ft, foot 6 ft out, moving out at 1 ft/s</td><td class="mono">-0.75 ft/s</td></tr>
+        <tr><td>\(L=13\) ft, foot 5 ft out, moving out at 2 ft/s</td><td class="mono">-5/6 &asymp; -0.8333 ft/s</td></tr>
+        <tr><td>\(L=13\) ft, foot 12 ft out, moving out at 2 ft/s</td><td class="mono">-24/5 = -4.8 ft/s</td></tr>
+        <tr><td>\(L=25\) ft, foot 15 ft out, moving out at 3 ft/s</td><td class="mono">-2.25 ft/s</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112"><b>This is the family most often confused with Q11.2.</b> Both are right triangles and both use Pythagoras. But here the <b>hypotenuse</b> is fixed and both legs vary, whereas in Q11.2 a <b>leg</b> is fixed and the hypotenuse varies. Different equation shapes, opposite signs. Ask which side cannot change; that one question sorts them every time.</p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 4</span>Nothing fixed &middot; both legs vary</p>
+    <p class="famt112"><b>Trigger:</b> two things leaving one point in perpendicular directions, each with its own rate. <b>Tool:</b> do not eliminate. \(z\dot z = x\dot x + y\dot y\), both terms kept.</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>One car east at 60 mph, one north at 80 mph, one hour later</td><td class="mono">100 mph exactly</td></tr>
+        <tr><td>Ships 16 km east and 12 km south, at 20 and 15 km/h</td><td class="mono">25 km/h exactly</td></tr>
+        <tr><td>\(x=9,\ y=12,\ \dot x=3,\ \dot y=-4\)</td><td class="mono">-1.4 units/s</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">The third row is the point: the separation <b>shrinks</b> even though one leg is growing. When two rates fight, the sign of the answer is not the sign of either input and you cannot guess it.</p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 5</span>A trig relation on the same triangle</p>
+    <p class="famt112"><b>Trigger:</b> an angle of elevation, a rotating camera. <b>Tool:</b> \(\tan\theta = y/x\), so \(\dot\theta = \frac{x\dot y}{x^2+y^2}\).</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>The rocket's elevation angle at the exam instant</td><td class="mono">2500/&#8730;41 &asymp; 390.4344 rad/h</td></tr>
+        <tr><td>Balloon rising 2 m/s, observer 50 m away, at height 50 m</td><td class="mono">0.02 rad/s exactly</td></tr>
+        <tr><td>Satellite, \(h=r(\csc\theta-1)\), \(r=6378\), at \(\theta=\pi/6\)</td><td class="mono">-12756&#8730;3 &asymp; -22094.04 km/rad</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">The first row is the most likely reworded version of this exam question, because it uses the identical triangle at the identical instant. Its answer is in <b>radians per hour</b>, so the dimensional check has to be redone from scratch rather than reused.</p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 6</span>The Q11.1 contrast &middot; elimination by a fixed ratio</p>
+    <p class="famt112"><b>Trigger:</b> the stem contains &ldquo;always&rdquo;, &ldquo;at all times&rdquo;, or a tank whose walls fix the shape. <b>Tool:</b> eliminate symbolically, before differentiating.</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>Gravel cone, diameter equals height, \(\dot V=0.5\), \(h=4\)</td><td class="mono">1/(8&pi;) &asymp; 0.0397887 m/min</td></tr>
+        <tr><td>Same cone with \(r=h\)</td><td class="mono">1/(32&pi;) &asymp; 0.0099472 m/min</td></tr>
+        <tr><td>Lamp post 5 m, person 2 m walking away at 1.5 m/s, <b>tip</b> of shadow</td><td class="mono">2.5 m/s exactly</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">This family marks the boundary rather than being re-taught - it is Q11.1's whole content. Put its trigger beside Family 1's and read them together: <b>&ldquo;always&rdquo; means eliminate, a fixed number means compute at the instant.</b></p>
+  </div>
+
+  <div class="fam112">
+    <p class="famh112"><span class="fk112">Family 7</span>Inverse and asymptotic questions on the same rocket</p>
+    <div class="tscroll vtab"><table>
+      <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>At what height is the rocket rising at 2500 mi/h?</td><td class="mono">20/3 &asymp; 6.6667 mi</td></tr>
+        <tr><td>At what height is it rising twice as fast as \(z\) grows?</td><td class="mono">5/&#8730;3 &asymp; 2.8868 mi</td></tr>
+        <tr><td>\(dy/dt\) at \(y=8\)</td><td class="mono">250&#8730;89 &asymp; 2358.4953 mi/h</td></tr>
+        <tr><td>Doubling the height from 4 to 8 divides the answer by</td><td class="mono">&asymp; 1.3575, <b>not</b> 4</td></tr>
+        <tr><td>As \(y \to \infty\)</td><td class="mono">falls toward 2000, never reaches it</td></tr>
+      </tbody>
+    </table></div>
+    <p class="famt112">The doubling row is a deliberate trap for anyone who memorised Q11.1. There, doubling the height divided the answer by exactly 4, because the relationship was a clean power law. Here it divides it by about 1.36, because \(\sqrt{1+25/y^2}\) is not a power of \(y\) at all. <b>Q11.1's scaling intuition does not transfer.</b></p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span> Where marks actually die</h2>
+
+  <ol class="tl112">
+    <li><span><b>Reading 5 as the hypotenuse.</b> The radar is 5 mi from the <i>launch pad</i>, not from the rocket. Using \(z=5\) gives 2500 mi/h, about 22 percent low. The most common wrong answer, and it survives every check except &ldquo;is \(z\) longer than both legs&rdquo;.</span></li>
+    <li><span><b>The 3-4-5 decoy.</b> 4 and 5 are both legs here, so the third side is \(\sqrt{41}\), not 3. Gives 1500, which is 53 percent low.</span></li>
+    <li><span><b>Substituting \(y=4\) before differentiating.</b> The defining error of the whole category, carried over unchanged from Q11.1. It makes \(z^2=41\) constant, so \(dz/dt=0\), and you have written \(0=2000\).</span></li>
+    <li><span><b>Inverting the ratio.</b> \(\frac{y}{z}\dot z\) instead of \(\frac{z}{y}\dot z\) gives 1249.39. The physical check kills it instantly: the answer must be <i>larger</i> than 2000.</span></li>
+    <li><span><b>Dividing by \(x\) instead of \(y\).</b> Gives \(400\sqrt{41} \approx 2561.25\), exactly 20 percent low. This one has a hiding point, below, and is the most under-detected slip on the question.</span></li>
+    <li><span><b>Answering the given rate.</b> &ldquo;How fast is the rocket rising&rdquo; is \(dy/dt\). It is not the 2000 you were handed, and it is not \(d\theta/dt\).</span></li>
+    <li><span><b>Dropping the chain factor.</b> Writing \(2z\dot z = 2y\) leaves an equation with no unknown in it. If the rate you want is not in your differentiated equation, re-differentiate.</span></li>
+    <li><span><b>Reporting the wrong units.</b> The answer is a length per time, mi/h. No numerical check catches a unit error, which is why units get their own gate.</span></li>
+  </ol>
+
+  <h3>Where a wrong answer hides</h3>
+  <p>Eight wrong formulas were scanned across a grid of eleven heights and five rates, deliberately <b>including</b> the degenerate points rather than excluding them.</p>
+
+  <div class="hide112">
+    <div class="hd1112"><p class="hdh112">A zero rate hides everything</p><p>At \(\dot z = 0\), all eight wrong formulas agree with the truth, because every one of them differs by a multiplicative factor. A spot-check on a stationary rocket <b>cannot fail</b>, so it proves nothing.</p></div>
+    <div class="hd1112"><p class="hdh112">\(y = 5\) hides one slip exactly</p><p>Dividing by \(x\) instead of \(y\) is invisible at \(y=5\), the one height where they are the same number. And 5 is the number printed in the stem, so it is the most tempting height to spot-check at.</p></div>
+    <div class="hd1112"><p class="hdh112">\(y = 1\) hides another</p><p>Forgetting to divide by \(y\) is invisible at \(y=1\), for the same reason it was at \(h=1\) in Q11.1: the hiding point sits wherever the erroneous factor equals 1.</p></div>
+    <div class="hd1112"><p class="hdh112">Near the pad, the hypotenuse slip vanishes</p><p>As \(y\to 0\), \(\sqrt{25+y^2}\to 5\). At \(y=0.001\) the wrong and right answers agree to one part in a million. Four miles up they differ by 22 percent.</p></div>
+  </div>
+
+  <p class="note">The other six slips have no height-dependent hiding point at all - six of eight, measured rather than assumed. The general rule, now confirmed on both questions in this category: <b>a hiding point exists wherever the factor your error touches happens to equal 1, or wherever two of the stem's own numbers coincide.</b> Compute where that is before choosing a check point.</p>
+</section>
+
+<section>
+  <h2><span class="num">08</span> Answer entry</h2>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+    <tbody>
+      <tr><td class="mono ok2112">500*sqrt(41)</td><td class="mono no2112">500sqrt(41) &middot; implicit multiplication is not guaranteed</td></tr>
+      <tr><td class="mono ok2112">2000*sqrt(41)/4</td><td class="mono no2112">2000*sqrt(41/4) &middot; this is 6403.12, exactly twice</td></tr>
+      <tr><td class="mono ok2112">sqrt(41)*2000/4</td><td class="mono no2112">sqrt41*2000/4 &middot; the bracket is not optional</td></tr>
+      <tr><td class="mono ok2112">500*41^(1/2)</td><td class="mono no2112">500*41^1/2 &middot; parses as (500&middot;41)/2 = 10250</td></tr>
+      <tr><td class="mono ok2112">3201.5621</td><td class="mono no2112">3201.6 &middot; 0.0379 away, outside a 1e-4 tolerance</td></tr>
+    </tbody>
+  </table></div>
+  <p class="warn112"><b>The single most expensive typo is <span class="mono">sqrt(41/4)</span> in place of <span class="mono">sqrt(41)/4</span>.</b> It returns 6403.12, exactly double the right answer, and 6403 looks every bit as plausible as 3201 for a rocket. Nothing about the number will warn you. Type <span class="mono">*</span> between every factor, then <b>Preview</b>.</p>
+</section>
+
+<section>
+  <h2><span class="num">09</span> Drill set</h2>
+  <p>Score <b>sign</b> and <b>magnitude</b> separately. A wrong sign means you mis-read which side was fixed, which is a reading problem. A wrong magnitude means you dropped or inverted a factor, which is an algebra problem. They need different remediation.</p>
+
+  <ol class="dr112">
+    <li><span>The same rocket and radar: how fast is it rising at 12 mi high? <b class="ans112">6500/3 &asymp; 2166.6667 mi/h</b> &middot; F1</span></li>
+    <li><span>The same rocket at 4 mi, radar distance growing at only 500 mi/h. <b class="ans112">125&#8730;41 &asymp; 800.3905 mi/h</b> &middot; F1</span></li>
+    <li><span>At the exam instant, how fast is the <b>angle of elevation</b> changing? <b class="ans112">2500/&#8730;41 &asymp; 390.4344 rad/h</b> &middot; F5, note the units</span></li>
+    <li><span>Radar 12 mi from the pad, rocket at 5 mi, \(\dot z = 2000\). <b class="ans112">5200 mi/h exactly</b> &middot; F1</span></li>
+    <li><span>Radar 3 mi from the pad, rocket at 4 mi, \(\dot z = 2000\). <b class="ans112">2500 mi/h exactly</b> &middot; F1, the genuine 3-4-5</span></li>
+    <li><span>Rocket at 4 mi rising at 3000 mi/h: how fast is \(z\) growing? <b class="ans112">12000/&#8730;41 &asymp; 1874.0851 mi/h</b> &middot; F2, must be <i>less</i> than 3000</span></li>
+    <li><span>A 13 ft ladder, foot pulled out at 2 ft/s, foot 5 ft from the wall. <b class="ans112">-5/6 &asymp; -0.8333 ft/s</b> &middot; F3, fixed hypotenuse</span></li>
+    <li><span>A winch 5 ft above a boat's bow hauls rope at 2 ft/s, boat 12 ft out. <b class="ans112">-13/6 &asymp; -2.1667 ft/s</b> &middot; F1, fixed leg</span></li>
+    <li><span>Softball diamond 18 m; runner 3 m from second at 7.5 m/s; rate of change of her distance from home. <b class="ans112">112.5/&#8730;549 &asymp; 4.8014 m/s</b> &middot; F2</span></li>
+    <li><span>One car east at 60 mph, one north at 80 mph, from the same point. How fast do they separate after 1 h? <b class="ans112">100 mph exactly</b> &middot; F4</span></li>
+    <li><span>At what height is the rocket rising exactly twice as fast as \(z\) grows? <b class="ans112">5/&#8730;3 &asymp; 2.8868 mi</b> &middot; F7</span></li>
+    <li><span>Gravel at 0.5 m\(^3\)/min, cone with diameter equal to height, \(h=4\). <b class="ans112">1/(8&pi;) &asymp; 0.0397887 m/min</b> &middot; F6, eliminate early</span></li>
+  </ol>
+
+  <p class="note"><b>Drills 7 and 8 are the discrimination pair, and the most valuable two minutes here.</b> Both are right triangles with a 5, a 12 and a 13. In drill 7 the <b>13 is fixed</b> and the answer is \(-5/6\); in drill 8 the <b>5 is fixed</b> and the answer is \(-13/6\). Same numbers, different fixed side, answers differing by a factor of 2.6. If you can sort those two on sight, you have the family.</p>
+</section>
+
+<section>
+  <h2><span class="num">10</span> Closing the category</h2>
+  <p>Category 11 is now complete, and its two questions divide the work cleanly. Neither is redundant.</p>
+
+  <div class="tscroll vtab"><table>
+    <thead><tr><th></th><th>Q11.1 &middot; gravel cone</th><th>Q11.2 &middot; rocket and radar</th></tr></thead>
+    <tbody>
+      <tr><td>Paper, item, points</td><td>MT1 item 7, 5 pts</td><td>MT2 item 11, 6 pts</td></tr>
+      <tr><td>Relating equation</td><td>\(V=\frac13\pi r^2h\) &middot; must be <b>memorised</b></td><td>\(z^2=x^2+y^2\) &middot; must be <b>recognised</b></td></tr>
+      <tr><td>The hard reading</td><td>&ldquo;diameter equals height&rdquo; \(\to r=h/2\)</td><td>5 and 4 are both legs</td></tr>
+      <tr><td>The extra variable</td><td>\(r\), removed <b>symbolically</b></td><td>\(z\), <b>computed</b> at the instant</td></tr>
+      <tr><td>Fatal substitution</td><td class="no2112">\(h=4\) early</td><td class="no2112">\(y=4\) early</td></tr>
+      <tr><td>Safe substitution</td><td class="ok2112">\(r=h/2\), a relation holding always</td><td class="ok2112">\(x=5\), a constant</td></tr>
+      <tr><td>How the answer scales</td><td>a power law; doubling \(h\) divides by 4</td><td>not a power law; doubling \(y\) divides by 1.36</td></tr>
+      <tr><td>Sanity anchor</td><td>\(\dot h = \dot V/(\text{base area})\)</td><td>the answer must <b>exceed</b> the given rate</td></tr>
+      <tr><td>It teaches</td><td><b>when you may substitute early</b></td><td><b>what to do when you may not</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>The single procedure covering both, and every family in section 06:</p>
+  <pre class="tree112">READ THE STEM
+   |
+   +-- underline every RATE    ("at a rate of", "how fast")
+   +-- circle every VALUE      ("when", "at the instant")
+   +-- box every FIXED LENGTH  ("on the ground 5 mi from", "a 13 ft ladder")
+   |
+   v
+WRITE FOUR LINES BEFORE ANY CALCULUS
+   NAME  every changing quantity, with units
+   GIVEN d?/dt = ____ units
+   WANT  d?/dt = ?    at the instant ____ = ____
+   RELATE one equation, from geometry
+   |
+   v
+FOR EACH QUANTITY YOU DO NOT WANT, ASK: CAN ITS RATE BE ZERO?
+   |
+   +-- a CONSTANT NUMBER (the radar's 5, the ladder's 13)
+   |      ==> substitute NOW.  Its rate is 0 and its term vanishes.
+   |
+   +-- a FIXED RATIO the stem calls "always"  (r = h/2)
+   |      ==> substitute NOW, symbolically.  It holds at every instant.
+   |
+   +-- an INSTANTANEOUS VALUE  ("when y = 4")
+   |      ==> DO NOT.  Its rate is what you are solving for.
+   |
+   +-- DERIVED from an instantaneous value  (z at that moment)
+          ==> differentiate first, THEN compute it from the relation.
+   |
+   v
+   IF you could eliminate but it would create a SQUARE ROOT, don't.
+   Keep the implicit form.  z^2 = 25 + y^2  beats  z = sqrt(25 + y^2).
+   |
+   v
+DIFFERENTIATE WITH RESPECT TO t
+   every variable gains its own rate as a trailing factor
+   constants contribute nothing, because their rate is zero
+   |
+   v
+IS THE RATE YOU WANT ACTUALLY IN THE EQUATION?
+   no  -> you dropped a chain factor.  Go back.
+   |
+   v
+COMPUTE THE MISSING SIDE AT THE INSTANT, SUBSTITUTE, SOLVE
+   |
+   v
+CHECK
+   which side was fixed?  a fixed LEG  -> z zdot = y ydot,  answer > given
+                          a fixed HYP  -> x xdot + y ydot = 0, answer NEGATIVE
+                          nothing fixed-> z zdot = x xdot + y ydot
+   round trip: multiply your answer by y/z - do you get the given back?
+   units     : work them out, do not guess
+   not at y = 5, not at y = 1, not at a zero rate - wrong answers hide there
+   |
+   v
+PREVIEW THE MOBIUS BOX
+   sqrt(41)/4  not  sqrt(41/4)        500*sqrt(41)  not  500sqrt(41)</pre>
+
+  <p class="verdict112"><b>Step 4 is the whole category.</b> Q11.1 teaches its first two boxes and Q11.2 teaches its last two, which is why doing only one of them leaves you half-prepared.</p>
+</section>
+
+<section>
+  <h2><span class="num">11</span> Provenance and verification</h2>
+
+  <div class="prov112">
+    <div class="pv112"><p class="pvh112">Point value</p><p>MT2 prints eleven values - 4, 4, 4, 6, 10, 10, 24, 6, 16, 4, 6 - summing to <b>94</b>. Per the MT2 convention the value sits on its own line <i>before</i> its item, so the 6 between items 10 and 11 belongs to item 11. That is 6.38 percent of the paper.</p></div>
+    <div class="pv112"><p class="pvh112">Grading clauses</p><p>MT2's two &ldquo;no credit will be given&rdquo; clauses are on items 4 and 7; neither applies. Its single &ldquo;You may not need to simplify&rdquo; permission is on item 9, so item 11 gets <b>no</b> licence to leave an answer unsimplified.</p></div>
+    <div class="pv112"><p class="pvh112">No hint printed</p><p>Item 11 prints no formula and no &ldquo;Show your work&rdquo; instruction, unlike MT2 item 2 which prints the cone volume. Pythagoras has to come from memory.</p></div>
+    <div class="pv112"><p class="pvh112">Course-file accuracy</p><p><span class="mono">MATH265_Review.md</span> section 11 walks through this exact question and is <b>correct on all six steps</b>. But it never finishes the arithmetic - it stops at \(\frac{\sqrt{41}}{4}\cdot 2000\) and never states 3201.56 - and it never explains why \(z\) is computed at the instant while Q11.1's \(r\) is eliminated symbolically, so its two worked examples read as unrelated recipes rather than one procedure with a fork in it.</p></div>
+  </div>
+
+  <div class="vbar112">
+    <div><span class="k112">Assertions</span><span class="v112">443</span></div>
+    <div><span class="k112">Failures</span><span class="v112">0</span></div>
+    <div><span class="k112">Seeded controls</span><span class="v112">54</span></div>
+    <div><span class="k112">Formula-blind arms</span><span class="v112">4</span></div>
+    <div><span class="k112">Wrong formulas scanned</span><span class="v112">8</span></div>
+  </div>
+
+  <p>The relating equation was derived from three-dimensional coordinates at seven heights rather than assumed, with seeded controls rejecting a radar sited at the pad, a subtractive Pythagoras, and 5 taken as the hypotenuse. The value \(z=\sqrt{41}\) was confirmed three independent ways - from coordinates, from Pythagoras, and from a separate hypotenuse routine - before any derivative was taken.</p>
+
+  <p>The headline answer was then checked four ways that never see the claimed value: a complex-step derivative of the constant-\(\dot z\) parametrisation; a bounded centred-difference ladder whose convergence order was <i>measured</i> rather than assumed, with a perturbed target seeded to prove the order test still bites; a <b>bisection that recovers the rocket's speed from the given radar rate alone</b>, with no formula involved; and the differentiated relation \(z\dot z = y\dot y\) tested against an arbitrary non-constant path at 32 instants across four different fixed legs. The formula was re-derived at 40 separate heights along the real trajectory, and the three routes checked against each other over a 40-point grid.</p>
+
+  <p class="note">Nothing in the four course files states a marking scheme - zero occurrences of &ldquo;rubric&rdquo;, &ldquo;marking scheme&rdquo; or &ldquo;part marks&rdquo; across all of them, re-verified this run - so every statement here about which sentences earn marks is <b>inference, not fact</b>.</p>
+</section>
+
+</main>
+

@@ -1,0 +1,1667 @@
+<title>Three Steps, Four Digits</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q13.1 OPENS
+   category 13, and it is the sequel to category 12: Newton's method is the
+   linearization fed back into itself.  Category 12's pages were about what one
+   estimate is WORTH; this page is about what changes when you ITERATE, so the
+   two loudest hues carry THE ITERATE against THE TRUE ROOT, and the signature
+   block is the digit ladder in section 03, where the correct-digit count
+   doubles every step but the digits you may REPORT do not.
+
+     THE ITERATE, what the method produces                   --rul amber
+     THE TRUE ROOT, established WITHOUT Newton               --chn slate
+     WHERE MARKS DIE, and the four failure modes             --los terracotta
+     THE VARIATION families                                  --fam teal
+     NUMERICS: orders, digit counts, constants, gates        --num mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar112 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar112 .v112{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar112 .v112.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the eliminate/compute fork: this page's signature block ------------- */
+.ledger112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger112 .col112{background:var(--surface);padding:18px 20px}
+.ledger112 .col112.add112{background:var(--rul-soft)}
+.ledger112 .col112.inh112{background:var(--chn-soft)}
+.ledger112 .colh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger112 .col112.add112 .colh112{color:var(--rul)}
+.ledger112 .col112.inh112 .colh112{color:var(--chn)}
+.ledger112 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger112 li{line-height:1.62}
+.ledger112 .tag112{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger112 .tag112.ok112{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger112 .tag112.no112{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps112 .st112{background:var(--surface);padding:16px 18px}
+.steps112 .sth112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps112 .st112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-move solve board ------------------------------------------- */
+.chain112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain112 .ch112{background:var(--surface);padding:16px 18px}
+.chain112 .chh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain112 .chm112{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks112 .ck112{background:var(--surface);padding:16px 18px}
+.checks112 .ckh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks112 .ck112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam112{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam112 .famh112{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam112 .fk112{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam112 .famt112{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide112 .hd1112{background:var(--los-soft);padding:16px 18px}
+.hide112 .hdh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide112 .hd1112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl112,ol.dr112{list-style:none;counter-reset:t112;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl112 li,ol.dr112 li{counter-increment:t112;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl112 li::before,ol.dr112 li::before{content:counter(t112);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr112 li::before{color:var(--fam)}
+ol.tl112 li > span,ol.dr112 li > span{grid-column:2}
+b.ans112{color:var(--rul);font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov112 .pv112{background:var(--surface);padding:16px 18px}
+.prov112 .pvh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov112 .pv112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar112 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar112 .v112{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict112{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn112{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap112{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree112{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp112{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2112{color:var(--rul)}
+td.no2112{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   Class names are unique to this page (tri2/legf/legv/hypo/rang/stn/roc/
+   varr/sarr/asym/drop/vtr/vsn); lab, hd, sm, tk, am, gridl, axis, curve and dot
+   are DELIBERATELY the series names, because svg-labels.mjs112 selects on
+   text.lab and exempts lines whose class matches /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .tri2{fill:var(--rul-soft);stroke:none}
+.figbox .legf{stroke:var(--rul);stroke-width:3.2;stroke-linecap:round}
+.figbox .legv{stroke:var(--chn);stroke-width:2.4}
+.figbox .hypo{stroke:var(--chn);stroke-width:2.4}
+.figbox .rang{fill:none;stroke:var(--ink3);stroke-width:1.2}
+.figbox .stn{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox .roc{fill:var(--chn);stroke:var(--surface);stroke-width:1.6}
+.figbox .varr{stroke:var(--num);stroke-width:2.4}
+.figbox .varrhd{fill:var(--num);stroke:none}
+.figbox .sarr{stroke:var(--fam);stroke-width:2.4}
+.figbox .sarrhd{fill:var(--fam);stroke:none}
+.figbox .asym{stroke:var(--fam);stroke-width:1.6;stroke-dasharray:5 4}
+.figbox .drop{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.4}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vtr{fill:var(--num);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar121 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar121 .v121{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar121 .v121.mono{font-family:var(--mono);font-size:15px}
+/* MathJax SVG does not inherit the cell's colour on its own, so the
+   typeset answer rendered ink-black beside three amber siblings.  No
+   gate sees this; the screenshot did. */
+.ansbar121 .v121 mjx-container,.ansbar121 .v121 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the anchor decision: this page's signature block --------------------- */
+.ledger121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger121 .col121{background:var(--surface);padding:18px 20px}
+.ledger121 .col121.add121{background:var(--rul-soft)}
+.ledger121 .col121.inh121{background:var(--chn-soft)}
+.ledger121 .colh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger121 .col121.add121 .colh121{color:var(--rul)}
+.ledger121 .col121.inh121 .colh121{color:var(--chn)}
+.ledger121 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger121 li{line-height:1.62}
+.ledger121 .tag121{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger121 .tag121.ok121{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger121 .tag121.no121{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup steps ------------------------------------------------ */
+.steps121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps121 .st121{background:var(--surface);padding:16px 18px}
+.steps121 .sth121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps121 .st121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain121 .ch121{background:var(--surface);padding:16px 18px}
+.chain121 .chh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks121 .ck121{background:var(--surface);padding:16px 18px}
+.checks121 .ckh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks121 .ck121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam121{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam121 .famh121{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam121 .fk121{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam121 .famt121{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov121 .pv121{background:var(--surface);padding:16px 18px}
+.prov121 .pvh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov121 .pv121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar121 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar121 .v121{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl121,ol.dr121{list-style:none;counter-reset:t121;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl121 li,ol.dr121 li{counter-increment:t121;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl121 li::before,ol.dr121 li::before{content:counter(t121);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr121 li::before{color:var(--fam)}
+ol.tl121 li > span,ol.dr121 li > span{grid-column:2}
+b.ans121{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption, decision tree ------------------------------- */
+.verdict121{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn121{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap121{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree121{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp121{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2121{color:var(--rul)}
+td.no2121{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   gapfill/tang/gapline/gdot/leadr/bar/barbest are unique to this page; lab,
+   hd, sm, tk, am, vsn, gridl, axis, curve and dot are DELIBERATELY the series
+   names, because svg-labels.mjs121 selects text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .gapfill{fill:var(--chn-soft);stroke:none}
+.figbox .tanl{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapline{stroke:var(--fam);stroke-width:2.2}
+.figbox .gdot{fill:var(--fam);stroke:none}
+.figbox .leadr{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar{fill:var(--chn)}
+.figbox .barbest{fill:var(--rul)}
+.figbox .tansw{fill:var(--rul)}
+.figbox .cursw{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar122 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar122 .v122{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar122 .v122.mono{font-family:var(--mono);font-size:14px}
+.ansbar122 .v122 mjx-container,.ansbar122 .v122 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-column comparison: this page's signature block --------------- */
+.ledger122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger122 .col122{background:var(--surface);padding:18px 20px}
+.ledger122 .col122.add122{background:var(--rul-soft)}
+.ledger122 .col122.inh122{background:var(--chn-soft)}
+.ledger122 .colh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger122 .col122.add122 .colh122{color:var(--rul)}
+.ledger122 .col122.inh122 .colh122{color:var(--chn)}
+.ledger122 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger122 li{line-height:1.62}
+.ledger122 .tag122{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger122 .tag122.ok122{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger122 .tag122.no122{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the five setup steps ------------------------------------------------ */
+.steps122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps122 .st122{background:var(--surface);padding:16px 18px}
+.steps122 .sth122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps122 .st122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain122 .ch122{background:var(--surface);padding:16px 18px}
+.chain122 .ch122 p{overflow-x:auto}
+.chain122 .chh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the verification checks --------------------------------------------- */
+.checks122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks122 .ck122{background:var(--surface);padding:16px 18px}
+.checks122 .ckh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks122 .ck122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam122{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam122 .famh122{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam122 .fk122{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam122 .famt122{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov122 .pv122{background:var(--surface);padding:16px 18px}
+.prov122 .pvh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov122 .pv122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar122 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar122 .v122{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl122,ol.dr122{list-style:none;counter-reset:t122;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl122 li,ol.dr122 li{counter-increment:t122;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl122 li::before,ol.dr122 li::before{content:counter(t122);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr122 li::before{color:var(--fam)}
+ol.tl122 li > span,ol.dr122 li > span{grid-column:2}
+b.ans122{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict122{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.62}
+p.warn122{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.64}
+p.cap122{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2122{color:var(--rul)}
+td.no2122{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   tanl122/gdot122/bdot122/leadr122/gapfill122/gapline122/bar122/barbest122
+   are unique to this page; lab, hd, sm, tk, am, vsn, gridl, axis, curve and
+   dot are DELIBERATELY the series names, because svg-labels.mjs122 selects
+   text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:780px;margin:0 auto}
+.figbox .tanl122{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapfill122{fill:var(--chn-soft);stroke:none}
+.figbox .gapline122{stroke:var(--fam);stroke-width:2.4}
+.figbox .gdot122{fill:var(--chn);stroke:none}
+.figbox .bdot122{fill:var(--los);stroke:var(--surface);stroke-width:1.4}
+.figbox .leadr122{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar122{fill:var(--chn)}
+.figbox .barbest122{fill:var(--rul)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--chn);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar123 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar123 .k123{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar123 .v123{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar123 .v123.mono{font-family:var(--mono);font-size:14px}
+.ansbar123 .v123 mjx-container,.ansbar123 .v123 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-part ledger: this page runs the method twice ----------------- */
+.ledger123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger123 .col123{background:var(--surface);padding:18px 20px;overflow-x:auto}
+.ledger123 .col123.add123{background:var(--rul-soft)}
+.ledger123 .col123.inh123{background:var(--chn-soft)}
+.ledger123 .colh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger123 .col123.add123 .colh123{color:var(--rul)}
+.ledger123 .col123.inh123 .colh123{color:var(--chn)}
+.ledger123 .tag123{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger123 .tag123.ok123{background:var(--surface);border-left:3px solid var(--rul)}
+
+/* --- the five moves ------------------------------------------------------ */
+.steps123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps123 .st123{background:var(--surface);padding:16px 18px}
+.steps123 .sth123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps123 .st123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the verification / discrimination checks ---------------------------- */
+.checks123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks123 .ck123{background:var(--surface);padding:16px 18px}
+.checks123 .ckh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks123 .ck123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- variation families -------------------------------------------------- */
+.fam123{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam123 .famh123{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam123 .fk123{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam123 .famt123{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov123 .pv123{background:var(--surface);padding:16px 18px}
+.prov123 .pvh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov123 .pv123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar123 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar123 .k123{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar123 .v123{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- the verbatim stem --------------------------------------------------- */
+blockquote.quote123{margin:20px 0;padding:16px 20px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--chn);border-radius:3px;
+  font-size:15px;line-height:1.72;max-width:none}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it.
+   max-width is redeclared because the inherited bare `ul,ol` rule clamps to
+   70ch, which renders these panels 628px wide inside a 1034px column. */
+ol.tl123,ol.dr123{list-style:none;counter-reset:t123;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl123 li,ol.dr123 li{counter-increment:t123;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl123 li::before,ol.dr123 li::before{content:counter(t123);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr123 li::before{color:var(--fam)}
+ol.tl123 li > span,ol.dr123 li > span{grid-column:2}
+b.ans123{color:var(--rul);font-family:var(--mono);font-size:12.5px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict123{margin:18px 0;padding:14px 17px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.66;max-width:none}
+p.warn123{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;
+  line-height:1.64;max-width:none}
+p.cap123{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2123{color:var(--rul)}
+td.no2123{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   cell123/hit123/miss123/vsn123/los123/track123/fill123/mark123 are unique to
+   this page; lab, hd, sm, tk, am and gridl are DELIBERATELY the series names,
+   because svg-labels.mjs123 selects text.lab and exempts /grid|axis/.
+   Both figures are built from RECTS, so no diagonal line bounding box can be
+   reported as crossing a label. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:800px;margin:0 auto}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .cell123{fill:var(--surface);stroke:none}
+.figbox .hit123{fill:var(--rul-soft)}
+.figbox .miss123{fill:var(--los-soft)}
+.figbox .track123{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.figbox .fill123{fill:var(--num-soft)}
+.figbox .mark123{fill:var(--rul)}
+.figbox text.lab{font-family:var(--mono);font-size:12.5px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:11.5px;fill:var(--ink2);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3);letter-spacing:.06em}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn123{fill:var(--los)}
+.figbox text.lab.los123{fill:var(--los)}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar131 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar131 .k131{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar131 .v131{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar131 .v131.mono{font-family:var(--mono);font-size:14px}
+.ansbar131 .v131 mjx-container,.ansbar131 .v131 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-part ledger: this page runs the method twice ----------------- */
+.ledger131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger131 .col131{background:var(--surface);padding:18px 20px;overflow-x:auto}
+.ledger131 .col131.add131{background:var(--rul-soft)}
+.ledger131 .col131.inh131{background:var(--chn-soft)}
+.ledger131 .colh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger131 .col131.add131 .colh131{color:var(--rul)}
+.ledger131 .col131.inh131 .colh131{color:var(--chn)}
+.ledger131 .tag131{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger131 .tag131.ok131{background:var(--surface);border-left:3px solid var(--rul)}
+
+/* --- the three moves -----------------------------------------------------
+   THREE cells, so the only track counts that divide it are 3 and 1. An
+   auto-fit floor resolves to TWO between roughly 620px and 900px, which leaves
+   one cell of the second row painted as a bare divider block. Found by
+   grid-fill.mjs131 sweeping nine viewports; it is clean at 1280 and at 430, which
+   is why every previous page in this series shipped with it. */
+.steps131{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:940px){.steps131{grid-template-columns:minmax(0,1fr)}}
+.steps131 .st131{background:var(--surface);padding:16px 18px}
+.steps131 .sth131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps131 .st131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the verification / discrimination checks ----------------------------
+   Same three-cell arithmetic as .steps131 above, same fix. */
+.checks131{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:940px){.checks131{grid-template-columns:minmax(0,1fr)}}
+.checks131 .ck131{background:var(--surface);padding:16px 18px}
+.checks131 .ckh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks131 .ck131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- variation families -------------------------------------------------- */
+.fam131{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam131 .famh131{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam131 .fk131{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam131 .famt131{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ----------------------------------------------------------
+   The 300px floor resolves to THREE tracks in this column, and this grid has
+   FOUR cells, so the last row left two cells empty and they painted as bare
+   blocks of divider colour. auto-fit collapses an empty TRACK, never an empty
+   CELL. Raising the floor to 430px forces TWO tracks, so four cells fill two
+   rows exactly. Caught by grid-fill.mjs131; no other gate sees it. */
+.prov131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov131 .pv131{background:var(--surface);padding:16px 18px}
+.prov131 .pvh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov131 .pv131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- verification bar ----------------------------------------------------
+   FIXED track counts, not auto-fit. This bar has FIVE cells, and an auto-fit
+   floor of 150px resolves to TWO tracks at a 430px viewport, leaving one cell
+   of the last row painted as a bare block of divider colour. 5 and 1 are the
+   only track counts that divide 5, so they are the only two this grid uses.
+   Caught by grid-fill.mjs131 at the narrow viewport; every other gate is clean at
+   both widths. */
+.vbar131{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:900px){.vbar131{grid-template-columns:minmax(0,1fr)}}
+.vbar131 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar131 .k131{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar131 .v131{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- the verbatim stem --------------------------------------------------- */
+blockquote.quote131{margin:20px 0;padding:16px 20px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--chn);border-radius:3px;
+  font-size:15px;line-height:1.72;max-width:none}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it.
+   max-width is redeclared because the inherited bare `ul,ol` rule clamps to
+   70ch, which renders these panels 628px wide inside a 1034px column. */
+ol.tl131,ol.dr131{list-style:none;counter-reset:t131;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl131 li,ol.dr131 li{counter-increment:t131;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl131 li::before,ol.dr131 li::before{content:counter(t131);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr131 li::before{color:var(--fam)}
+ol.tl131 li > span,ol.dr131 li > span{grid-column:2}
+b.ans131{color:var(--rul);font-family:var(--mono);font-size:12.5px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict131{margin:18px 0;padding:14px 17px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.66;max-width:none}
+p.warn131{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;
+  line-height:1.64;max-width:none}
+p.cap131{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2131{color:var(--rul)}
+td.no2131{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   band131/need131/sug131/s1_131/s2_131/s3_131/neg131/pos131/stem131/tick131/
+   mark131/crit131/keep131/miss131/vsn131/los131 are unique to this page;
+   lab, hd, sm, tk, am and gridl are DELIBERATELY the series names, because
+   svg-labels.mjs131 selects text.lab and exempts /grid|axis/.
+   Both figures are built from RECTS, so no diagonal line bounding box can be
+   reported as crossing a label.
+   The three series fills and the two threshold rules take FIVE DISTINCT
+   tokens: a fill and its track sharing one token renders as a uniform bar and
+   no gate compares them (found on Q12.3's gauge). */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:820px;margin:0 auto}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .band131{fill:var(--los-soft)}
+.figbox .need131{fill:var(--rul)}
+.figbox .sug131{fill:var(--ink3)}
+.figbox .s1_131{fill:var(--chn)}
+.figbox .s2_131{fill:var(--rul)}
+.figbox .s3_131{fill:var(--num)}
+.figbox .neg131{fill:var(--los-soft)}
+.figbox .pos131{fill:var(--chn-soft)}
+.figbox .stem131{fill:var(--rul-soft)}
+.figbox .keep131{fill:var(--chn-soft)}
+.figbox .miss131{fill:var(--los-soft)}
+.figbox .tick131{fill:var(--ink3)}
+.figbox .mark131{fill:var(--rul)}
+.figbox .negr131{fill:var(--los)}
+.figbox .posr131{fill:var(--chn)}
+.figbox .stemr131{fill:var(--rul)}
+.figbox .crit131{fill:var(--los)}
+.figbox .vsn131{fill:var(--los)}
+.figbox text.lab{font-family:var(--mono);font-size:12.5px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:11.5px;fill:var(--ink2);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3);letter-spacing:.06em}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.los131{fill:var(--los);font-size:11.5px}
+
+</style>
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 7 &middot; 5 POINTS &middot; CATEGORY 13</p>
+  <h1>Three Steps, Four Digits</h1>
+  <p class="stand">Newton's method is the Q12 tangent-line estimate fed back into itself. Iterating squares the error, so the digits you have correct roughly double every step. What does <em>not</em> double is the number of digits you are entitled to write down, and this question is built on the gap between the two.</p>
+</header>
+
+<main class="wrap">
+
+<div class="ansbar131">
+  <div><span class="k131">THE ROOT</span><span class="v131 mono">1.2559375481679234</span></div>
+  <div><span class="k131">WHAT TO TYPE</span><span class="v131 mono">1.2559</span></div>
+  <div><span class="k131">STEPS FROM \(x_0 = 1.5\)</span><span class="v131">3</span></div>
+  <div><span class="k131">THE ITERATION</span><span class="v131">\(\dfrac{3x_n^4+5}{4x_n^3+2}\)</span></div>
+  <div><span class="k131">MEASURED ORDER</span><span class="v131 mono">2.0003</span></div>
+  <div><span class="k131">ASSERTIONS</span><span class="v131 mono">460 / 0 FAIL</span></div>
+</div>
+
+<h2><span class="num">01</span> The question</h2>
+
+<blockquote class="quote131">Use Newton's method to approximate the solution of the equation \(x^4 + 2x - 5 = 0\) in the interval \([1, 2]\). <b>(5 points)</b></blockquote>
+
+<p>Five points, printed inline at the end of the stem in the Final Exam 1 style. The paper's fourteen items sum to 124, so this is 4.0323 percent of it. Item 7 carries no hint, no "show your work", and <b>no precision demand at all</b> - which is the first thing that separates it from its neighbour, item 2, where "to four decimal places" is the whole difficulty.</p>
+
+<p>So the first decision is yours: how many digits to report. The rest of this page is about earning them.</p>
+
+<div class="steps131">
+  <div class="st131"><p class="sth131">WHAT IS GIVEN</p><p>An equation, and a bracket. The bracket is not decoration - it is an existence proof, and it is also a guarantee that nothing can go wrong.</p></div>
+  <div class="st131"><p class="sth131">WHAT IS ASKED</p><p>A number. There is no method mark for elegance here and no printed marking scheme anywhere in the course files.</p></div>
+  <div class="st131"><p class="sth131">WHAT IS TESTED</p><p>Whether you can differentiate, iterate without rounding, and stop at the right place.</p></div>
+</div>
+
+<h2><span class="num">02</span> The iteration, derived rather than recalled</h2>
+
+<p>Do not memorise the formula. Derive it, because the derivation is also the reason the method works. The tangent line to \(f\) at \(x_n\) is</p>
+
+$$y = f(x_n) + f'(x_n)\,(x - x_n)$$
+
+<p>Set \(y = 0\) and solve for \(x\). That \(x\) is the next iterate:</p>
+
+$$x_{n+1} = x_n - \frac{f(x_n)}{f'(x_n)}$$
+
+<div class="verdict131"><b>That single line is the whole relationship to category 12.</b> Q12 built a tangent line and evaluated it. Q13 builds a tangent line and finds <em>its</em> root. Solving a linearization for zero is exactly one Newton step, so the entire linear-approximation category is Newton's method stopped after one iteration.</div>
+
+<p>Here \(f(x) = x^4 + 2x - 5\) and \(f'(x) = 4x^3 + 2\). Clearing the fraction once, before starting, turns two evaluations and a subtraction into a single quotient:</p>
+
+$$x_{n+1} \;=\; \frac{3x_n^4 + 5}{4x_n^3 + 2}$$
+
+<div class="ledger131">
+  <div class="col131 add131">
+    <p class="colh131">THE BRACKET IS AN EXISTENCE PROOF</p>
+    <p>\(f(1) = -2\) and \(f(2) = 15\). The signs differ and \(f\) is continuous, so the Intermediate Value Theorem puts a root strictly inside \((1,2)\). Two arithmetic evaluations, no calculus.</p>
+    <p class="tag131 ok131">The examiner has already done the hardest part of a real root-finding problem for you: locating the root roughly.</p>
+  </div>
+  <div class="col131 inh131">
+    <p class="colh131">AND A SAFETY GUARANTEE</p>
+    <p>\(f''(x) = 12x^2 \ge 0\) everywhere, so \(f\) is convex on the whole real line. And \(f'(x) = 4x^3 + 2\) is at least \(6\) on \([1,2]\).</p>
+    <p class="tag131 ok131">A steep, convex, increasing function on the given interval. Section 06 shows that every way Newton can fail needs one of those three to break.</p>
+  </div>
+</div>
+
+<h2><span class="num">03</span> Worked three ways, and why the midpoint wins</h2>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>\(n\)</th><th>\(x_0 = 1.5\)</th><th>\(|x_n - r|\)</th><th>\(x_0 = 1\)</th><th>exact</th><th>rounds to</th></tr></thead>
+<tbody>
+<tr><td class="mono">0</td><td class="mono">1.5</td><td class="mono">2.4406e-01</td><td class="mono">1</td><td class="mono">1</td><td class="mono">1.0000</td></tr>
+<tr><td class="mono">1</td><td class="mono">1.3024193548</td><td class="mono">4.6482e-02</td><td class="mono">1.3333333333</td><td class="mono">4/3</td><td class="mono">1.3333</td></tr>
+<tr><td class="mono">2</td><td class="mono">1.2579188022</td><td class="mono">1.9813e-03</td><td class="mono">1.2612903226</td><td class="mono">391/310</td><td class="mono">1.2613</td></tr>
+<tr><td class="mono">3</td><td class="mono ok2131">1.2559412853</td><td class="mono">3.7371e-06</td><td class="mono">1.2559647487</td><td class="mono">&nbsp;</td><td class="mono no2131">1.2560</td></tr>
+<tr><td class="mono">4</td><td class="mono">1.2559375482</td><td class="mono">1.3319e-11</td><td class="mono ok2131">1.2559375489</td><td class="mono">&nbsp;</td><td class="mono ok2131">1.2559</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="cap131">Left: from the interval midpoint, three steps. Right: from the left endpoint, four - and its third iterate rounds to <b>1.2560</b>, which section 04 is about. From \(x_0 = 2\) it takes five.</p>
+
+<div class="figbox"><svg viewBox="0 0 880 496" width="880" height="496" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Correct decimal digits per Newton step for three starting points, against the two four-decimal thresholds"><text class="lab hd" x="74.0" y="30.0">CORRECT DECIMAL DIGITS AFTER n NEWTON STEPS</text><text class="lab sm" x="74.0" y="52.0">three legal starting points, same equation, same root</text><line class="gridl" x1="74.0" y1="322.0" x2="856.0" y2="322.0"/><text class="lab tk" x="60.0" y="326.0">0</text><line class="gridl" x1="74.0" y1="268.7" x2="856.0" y2="268.7"/><text class="lab tk" x="60.0" y="272.7">5</text><line class="gridl" x1="74.0" y1="215.3" x2="856.0" y2="215.3"/><text class="lab tk" x="60.0" y="219.3">10</text><line class="gridl" x1="74.0" y1="162.0" x2="856.0" y2="162.0"/><text class="lab tk" x="60.0" y="166.0">15</text><line class="gridl" x1="74.0" y1="108.7" x2="856.0" y2="108.7"/><text class="lab tk" x="60.0" y="112.7">20</text><rect class="band131" x="74.0" y="269.7" width="782.0" height="6.4"/><rect class="s1_131" x="87.0" y="315.7" width="25.8" height="6.3"/><rect class="s2_131" x="117.0" y="315.5" width="25.8" height="6.5"/><rect class="s3_131" x="147.0" y="320.6" width="25.8" height="1.4"/><text class="lab tk" x="125.2" y="342.0">n = 0</text><rect class="s1_131" x="217.4" y="310.1" width="25.8" height="11.9"/><rect class="s2_131" x="247.3" y="307.8" width="25.8" height="14.2"/><rect class="s3_131" x="277.3" y="316.5" width="25.8" height="5.5"/><text class="lab tk" x="255.5" y="342.0">n = 1</text><rect class="s1_131" x="347.7" y="297.8" width="25.8" height="24.2"/><rect class="s2_131" x="377.7" y="293.2" width="25.8" height="28.8"/><rect class="s3_131" x="407.6" y="309.6" width="25.8" height="12.4"/><text class="lab tk" x="385.8" y="342.0">n = 2</text><rect class="s1_131" x="478.0" y="273.3" width="25.8" height="48.7"/><rect class="s2_131" x="508.0" y="264.1" width="25.8" height="57.9"/><rect class="s3_131" x="538.0" y="296.7" width="25.8" height="25.3"/><text class="lab tk" x="516.2" y="342.0">n = 3</text><rect class="s1_131" x="608.4" y="224.4" width="25.8" height="97.6"/><rect class="s2_131" x="638.3" y="206.0" width="25.8" height="116.0"/><rect class="s3_131" x="668.3" y="271.1" width="25.8" height="50.9"/><text class="lab tk" x="646.5" y="342.0">n = 4</text><rect class="s1_131" x="738.7" y="126.5" width="25.8" height="195.5"/><rect class="s2_131" x="768.7" y="89.8" width="25.8" height="232.2"/><rect class="s3_131" x="798.6" y="219.9" width="25.8" height="102.1"/><text class="lab tk" x="776.8" y="342.0">n = 5</text><line class="gridl" x1="74.0" y1="322.0" x2="856.0" y2="322.0"/><rect class="sug131" x="74.0" y="275.1" width="782.0" height="2.0"/><rect class="need131" x="74.0" y="268.7" width="782.0" height="2.0"/><line class="gridl" x1="74.0" y1="360.0" x2="856.0" y2="360.0"/><rect class="s1_131" x="74.0" y="374.0" width="13.0" height="13.0"/><text class="lab sm" x="95.0" y="385.0">x0 = 1</text><rect class="s2_131" x="264.0" y="374.0" width="13.0" height="13.0"/><text class="lab sm" x="285.0" y="385.0">x0 = 1.5</text><rect class="s3_131" x="454.0" y="374.0" width="13.0" height="13.0"/><text class="lab sm" x="475.0" y="385.0">x0 = 2</text><rect class="sug131" x="74.0" y="406.0" width="13.0" height="3.0"/><text class="lab sm" x="95.0" y="415.0">4.30  the digits an error below 0.5e-4 buys</text><rect class="need131" x="74.0" y="428.0" width="13.0" height="3.0"/><text class="lab am" x="95.0" y="437.0">4.90  the digits THIS root actually needs, because it sits 1.2e-5 from its tie point</text><rect class="band131" x="74.0" y="449.0" width="13.0" height="13.0"/><text class="lab los131" x="95.0" y="459.0">the trap band: more than four correct digits, and still the wrong fourth decimal</text></svg></div>
+
+<p class="cap131">The bars are correct decimal digits, and the doubling is visible without any algebra: 0.61, 1.33, 2.70, 5.43, 10.88, 21.77 for the midpoint start. The shaded band is where an iterate has beaten the obvious error tolerance and still rounds wrong.</p>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>route</th><th>steps to 1.2559</th><th>arithmetic</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td><b>\(x_0 = 1.5\), the midpoint</b></td><td class="mono ok2131">3</td><td>one decimal division per step</td><td><b>use this under pressure</b></td></tr>
+<tr><td>\(x_0 = 1\)</td><td class="mono">4</td><td>cleanest fractions: \(4/3\), \(391/310\)</td><td>fine, one step slower</td></tr>
+<tr><td>\(x_0 = 2\)</td><td class="mono no2131">5</td><td>worst fractions: \(53/34\), then \(30353123/22919944\)</td><td>the trap choice</td></tr>
+<tr><td>\(x_0 = 1.3\), after one sign test</td><td class="mono ok2131">2</td><td>two extra evaluations of a quartic</td><td>fastest overall</td></tr>
+<tr><td>bisection on \([1,2]\)</td><td class="mono">14 halvings</td><td>trivial per step</td><td>correct, far too slow</td></tr>
+<tr><td>secant from \(1, 2\)</td><td class="mono">about 6</td><td>no derivative needed</td><td>order 1.62, not what was asked</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="verdict131"><b>Thirty seconds of arithmetic beats a Newton step.</b> \(f(1.2) = -329/625 < 0\) and \(f(1.3) = 4561/10000 > 0\), so the root lies in \([1.2, 1.3]\) and starting there needs only two steps. Two evaluations of a quartic are cheaper than one Newton step, which costs a quartic <em>and</em> a cubic <em>and</em> a division.</div>
+
+<h2><span class="num">04</span> What "four decimal places" actually costs</h2>
+
+<p>The root is \(1.25593754\ldots\), and the four-decimal rounding tie point nearest above it is \(1.25595\). The distance between them is <b>1.2452e-05</b>.</p>
+
+<p>So an iterate approaching from above has to beat 1.2452e-05, not the 5e-05 that "four decimal places" appears to ask for. The two differ by a factor of four, and one iterate lands squarely between them.</p>
+
+<div class="checks131">
+  <div class="ck131"><p class="ckh131">THE ITERATE</p><p>\(x_3\) from \(x_0 = 1\) is \(1.2559647487\), with an error of <b>2.7201e-05</b>.</p></div>
+  <div class="ck131"><p class="ckh131">THE OBVIOUS TEST</p><p>2.72e-05 is comfortably inside 5e-05. By the error criterion this iterate is good to four decimal places.</p></div>
+  <div class="ck131"><p class="ckh131">THE TRUTH</p><p>It rounds to <b>1.2560</b>. The true root rounds to <b>1.2559</b>. The iterate is on the wrong side of the tie point and the answer is wrong.</p></div>
+</div>
+
+<p class="warn131"><b>Never infer a digit count from the size of an error.</b> Q12.3 found this from the other direction, where \(\sqrt{16.4}\) agreed with its estimate to 3e-04 and scored zero correct places. The same fact, arriving here as a live trap rather than a curiosity.</p>
+
+<h3>Rounding the intermediate iterates destroys the method</h3>
+
+<p>This is the most expensive habit in the topic and it looks like carefulness. Newton can only square an error it is actually given, so rounding each iterate caps the accuracy the method can ever reach, no matter how many steps you take.</p>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>rounded each step to</th><th>the chain stalls at</th><th>final error</th></tr></thead>
+<tbody>
+<tr><td>2 decimals</td><td class="mono">1.26</td><td class="mono no2131">4.06e-03</td></tr>
+<tr><td>3 decimals</td><td class="mono">1.256</td><td class="mono no2131">6.25e-05</td></tr>
+<tr><td>4 decimals</td><td class="mono">1.2559</td><td class="mono no2131">3.75e-05</td></tr>
+<tr><td>5 decimals</td><td class="mono">1.25594</td><td class="mono">2.45e-06</td></tr>
+<tr><td>6 decimals</td><td class="mono">1.255938</td><td class="mono">4.52e-07</td></tr>
+<tr><td><b>full precision, \(x_4\)</b></td><td class="mono ok2131">1.2559375489</td><td class="mono ok2131">7.06e-10</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="cap131">The 4-decimal chain does reach 1.2559 on this question. But its residual error of 3.75e-05 is <b>three times</b> the 1.2452e-05 margin to the boundary, so it survived by luck rather than by design. A root sitting nearer its tie point would have broken it.</p>
+
+<h2><span class="num">05</span> The convergence order, measured</h2>
+
+<p>"Newton's method is second order" is a claim, and a claim can be measured. Taking \(\log e_{n+1} / \log e_n\) along the run from \(x_0 = 1\):</p>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>from</th><th>\(e_2, e_1\)</th><th>\(e_3, e_2\)</th><th>\(e_4, e_3\)</th><th>\(e_5, e_4\)</th><th>\(e_6, e_5\)</th><th>\(e_7, e_6\)</th><th>\(e_8, e_7\)</th></tr></thead>
+<tbody><tr><td>measured order</td><td class="mono">2.0440</td><td class="mono">2.0099</td><td class="mono">2.0045</td><td class="mono">2.0023</td><td class="mono">2.0011</td><td class="mono">2.0006</td><td class="mono ok2131">2.0003</td></tr></tbody>
+</table>
+</div>
+
+<p>The order is 2, approached from above, halving its excess every step. Two cautions come out of the measurement itself.</p>
+
+<div class="checks131">
+  <div class="ck131"><p class="ckh131">THE LADDER MUST BE BOUNDED</p><p>Run at 220 digits, the ninth ratio reads <b>1.4925</b> and the tenth reads <b>1.0000</b>, because the errors have hit the arithmetic's precision floor and stopped being errors. An unbounded ladder reports that Newton's method is first order.</p></div>
+  <div class="ck131"><p class="ckh131">THE CONSTANT MATTERS TOO</p><p>\(e_{n+1}/e_n^2\) converges to <b>0.9536409406443394</b>, which is \(f''(r)/2f'(r)\) computed independently. Because it is close to 1, the digit count simply doubles. A large \(f''\) would delay the doubling by several steps.</p></div>
+  <div class="ck131"><p class="ckh131">AND IT GIVES YOU AN ERROR BAR</p><p>Once inside the regime, \(\text{err}(x_{n+1}) \approx C\,|x_{n+1} - x_n|^2\). Measured accuracy: 99.79 percent at \(x_3\), 99.9996 at \(x_4\), 100.0000 at \(x_5\). At \(x_1\) it is only 80 percent, so the estimate needs one good step first.</p></div>
+</div>
+
+<h3>What the step size does and does not tell you</h3>
+
+<p>After computing \(x_{n+1}\), the quantity \(|x_{n+1} - x_n|\) is an excellent estimate of the error in \(x_n\) - 99.81 percent accurate at \(x_2\), 99.9996 at \(x_3\). It is a terrible estimate of the error in \(x_{n+1}\):</p>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>after</th><th>\(x_2\)</th><th>\(x_3\)</th><th>\(x_4\)</th><th>\(x_5\)</th></tr></thead>
+<tbody><tr><td>the step over-states err\((x_n)\) by</td><td class="mono">22.5x</td><td class="mono">529x</td><td class="mono">280,593x</td><td class="mono">7.87e10</td></tr></tbody>
+</table>
+</div>
+
+<p>That is a safe bound and a useless one. Use the step to grade the <em>previous</em> iterate; use \(|f(x_n)|/|f'(x_n)|\), the size of the step you are about to take, to grade the current one.</p>
+
+<h2><span class="num">06</span> The four ways Newton fails, and why none of them can happen here</h2>
+
+<p>Category 12 has no analogue for this section. A single linearization is always defined; an iteration can run away, land on the wrong answer, or never settle at all.</p>
+
+<div class="figbox"><svg viewBox="0 0 880 560" width="880" height="560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Two number lines: the basin split at the critical point, and a zoom on the four-decimal rounding boundary"><text class="lab hd" x="74.0" y="30.0">PANEL 1   WHICH ROOT DOES x0 REACH</text><text class="lab sm" x="74.0" y="52.0">the whole real line splits in two, at f's own critical point</text><rect class="neg131" x="74.0" y="78.0" width="287.6" height="34.0"/><rect class="pos131" x="361.6" y="78.0" width="494.4" height="34.0"/><rect class="stem131" x="595.3" y="78.0" width="130.3" height="34.0"/><rect class="negr131" x="74.0" y="78.0" width="287.6" height="5.0"/><rect class="posr131" x="361.6" y="78.0" width="494.4" height="5.0"/><rect class="stemr131" x="595.3" y="78.0" width="130.3" height="5.0"/><line class="gridl" x1="74.0" y1="112.0" x2="856.0" y2="112.0"/><rect class="tick131" x="73.5" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="70.0" y="132.0">-3</text><rect class="tick131" x="203.8" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="200.3" y="132.0">-2</text><rect class="tick131" x="334.2" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="330.7" y="132.0">-1</text><rect class="tick131" x="464.5" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="461.0" y="132.0">0</text><rect class="tick131" x="594.8" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="591.3" y="132.0">1</text><rect class="tick131" x="725.2" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="721.7" y="132.0">2</text><rect class="tick131" x="855.5" y="112.0" width="1.0" height="6.0"/><text class="lab tk" x="852.0" y="132.0">3</text><rect class="mark131" x="240.6" y="71.0" width="5.0" height="41.0"/><rect class="mark131" x="626.2" y="71.0" width="5.0" height="41.0"/><rect class="crit131" x="359.1" y="71.0" width="5.0" height="41.0"/><rect class="neg131" x="74.0" y="155.0" width="13.0" height="13.0"/><rect class="negr131" x="74.0" y="155.0" width="13.0" height="4.0"/><text class="lab sm" x="95.0" y="165.0">every x0 LEFT of x_c reaches the other root, -1.7027</text><rect class="pos131" x="74.0" y="177.0" width="13.0" height="13.0"/><rect class="posr131" x="74.0" y="177.0" width="13.0" height="4.0"/><text class="lab sm" x="95.0" y="187.0">every x0 RIGHT of x_c reaches the root asked for, 1.2559</text><rect class="stem131" x="74.0" y="199.0" width="13.0" height="13.0"/><rect class="stemr131" x="74.0" y="199.0" width="13.0" height="4.0"/><text class="lab am" x="95.0" y="209.0">the stem's own interval [1, 2], safely inside the right basin</text><rect class="crit131" x="74.0" y="221.0" width="5.0" height="13.0"/><text class="lab los131" x="95.0" y="231.0">x_c = -0.7937, where f' vanishes: the ONLY basin boundary over [-20, 20]</text><line class="gridl" x1="74.0" y1="300.0" x2="856.0" y2="300.0"/><text class="lab hd" x="74.0" y="330.0">PANEL 2   THE FOUR-DECIMAL ROUNDING BOUNDARY</text><text class="lab sm" x="74.0" y="352.0">a 1.0e-4 wide window on the root</text><rect class="keep131" x="74.0" y="378.0" width="391.0" height="34.0"/><rect class="miss131" x="465.0" y="378.0" width="391.0" height="34.0"/><rect class="posr131" x="74.0" y="378.0" width="391.0" height="5.0"/><rect class="negr131" x="465.0" y="378.0" width="391.0" height="5.0"/><line class="gridl" x1="74.0" y1="412.0" x2="856.0" y2="412.0"/><text class="lab sm" x="88.0" y="400.0">rounds to 1.2559</text><text class="lab los131" x="726.0" y="400.0">rounds to 1.2560</text><rect class="crit131" x="464.0" y="371.0" width="2.0" height="41.0"/><rect class="mark131" x="365.1" y="371.0" width="5.0" height="41.0"/><rect class="vsn131" x="577.8" y="371.0" width="5.0" height="41.0"/><rect class="tick131" x="73.5" y="412.0" width="1.0" height="6.0"/><rect class="tick131" x="229.9" y="412.0" width="1.0" height="6.0"/><rect class="tick131" x="386.3" y="412.0" width="1.0" height="6.0"/><rect class="tick131" x="542.7" y="412.0" width="1.0" height="6.0"/><rect class="tick131" x="699.1" y="412.0" width="1.0" height="6.0"/><rect class="tick131" x="855.5" y="412.0" width="1.0" height="6.0"/><rect class="mark131" x="74.0" y="443.0" width="5.0" height="13.0"/><text class="lab am" x="95.0" y="453.0">the true root, 1.25593755  -  rounds to 1.2559</text><rect class="vsn131" x="74.0" y="465.0" width="5.0" height="13.0"/><text class="lab los131" x="95.0" y="475.0">x3 from x0 = 1, 1.25596475  -  error 2.7e-5, inside the 5e-5 tolerance</text><rect class="crit131" x="74.0" y="487.0" width="2.0" height="13.0"/><text class="lab sm" x="95.0" y="497.0">the tie point 1.25595, only 1.2e-5 above the root: x3 is on the wrong side of it</text></svg></div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">MODE 1</span>A flat \(f'(x_n)\) throws the iterate away</p>
+  <p class="famt131">The step is \(f(x_n)/f'(x_n)\), so a small denominator means a large jump, and the damage scales as \(1/f'\).</p>
+</div>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>\(x_0\)</th><th>\(f'(x_0)\)</th><th>\(x_1\)</th></tr></thead>
+<tbody>
+<tr><td class="mono">-0.79</td><td class="mono">0.0278</td><td class="mono no2131">221.54</td></tr>
+<tr><td class="mono">-0.7937005</td><td class="mono">1.964e-07</td><td class="mono no2131">3.15e+07</td></tr>
+<tr><td class="mono">-0.7937005259840997</td><td class="mono">4.44e-16</td><td class="mono no2131">1.39e+16</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Why it cannot happen here.</b> \(f'(x) = 4x^3 + 2\) has exactly one zero, at \(x_c = -\sqrt[3]{1/2} = -0.7937005259840998\). On \([1,2]\) the derivative never falls below 6.</p>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">MODE 2</span>Convergence to a different root</p>
+  <p class="famt131">\(f\) has a second real root at \(-1.7027063709099214\). Scanning starting points across \([-20, 20]\) finds <b>exactly one basin boundary</b>, and it is \(x_c\) itself: every start to the right reaches 1.2559, every start to the left reaches -1.7027. That is unusually clean, and it is a consequence of \(f\) being convex everywhere with only two real roots. Panel 1 above is that split. \(x_0 = -0.8\) looks harmless and lands on the wrong root.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">MODE 3</span>Oscillation between two points</p>
+  <p class="famt131">The famous failure is \(f(x) = x^3 - 2x + 2\) from \(x_0 = 0\), which cycles \(0, 1, 0, 1, \ldots\) exactly and never approaches its real root at \(-1.7693\).</p>
+</div>
+
+<div class="verdict131"><b>For \(x^4 + 2x - 5\) oscillation is impossible, and that is proved rather than merely unobserved.</b> Setting \(N(N(x)) = x\) and clearing denominators gives a polynomial of degree 16. Every root of \(f\) is a fixed point of \(N\), so \(f\) divides it exactly, leaving a cofactor of degree 12 - and <b>all twelve of its roots are complex</b>, in six conjugate pairs. Run on \(x^3 - 2x + 2\), the same machinery returns a degree-6 cofactor with <b>four</b> real roots, which are two genuine 2-cycles: the famous \(\{0, 1\}\) and a second at \(\{0.133346,\; 1.024967\}\). A census that finds two cycles where cycles exist, and none here, is a measurement. One that always returned none would look identical.</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">MODE 4</span>Outright divergence</p>
+  <p class="famt131">Not available for this \(f\) either. The standard exhibit is \(f(x) = x^{1/3}\), where the iteration collapses to \(N(x) = -2x\), so the iterate doubles and flips sign for ever: 0.1, -0.2, 0.4, -0.8, 1.6, -3.2, 6.4.</p>
+</div>
+
+<p><b>The positive statement.</b> For a convex increasing function, starting anywhere with \(f(x_0) > 0\) gives monotone convergence, guaranteed. \(f(2) = 15 > 0\), so \(x_0 = 2\) is the provably safe start and its iterates do descend to the root without crossing it. \(f(1) = -2 < 0\), so \(x_0 = 1\) fails that condition and overshoots to \(4/3\) on its first step - after which it is monotone. Both converge; the theorem is what lets you promise it in advance.</p>
+
+<h2><span class="num">07</span> The blind spot: checking your answer cannot catch a wrong formula</h2>
+
+<p>The natural self-check is to put the answer back into the iteration and see whether it moves. It does not work here, and the reason is structural.</p>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>corruption of Newton's formula</th><th>does it fix the true root?</th></tr></thead>
+<tbody>
+<tr><td class="mono">\(x + f/f'\) &nbsp; sign flipped</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(x - f/f''\) &nbsp; wrong derivative below</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(f' = 4x^3\) &nbsp; lost the \(+2\)</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(f' = 4x^4+2\) &nbsp; power not dropped</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(x - f\cdot f'\) &nbsp; multiplied</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(x - f(x)\) &nbsp; forgot to divide</td><td class="no2131"><b>yes</b></td></tr>
+<tr><td class="mono">\(x - f'/f\) &nbsp; inverted</td><td class="ok2131">no</td></tr>
+<tr><td class="mono">\(f/f'\) &nbsp; dropped the \(x\) term</td><td class="ok2131">no</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn131"><b>Six of the eight leave the true root exactly where it is.</b> The mechanism: \(f(r) = 0\), so any correction term that <em>multiplies</em> \(f\) vanishes at the root whatever else is wrong with it. The two survivors are precisely the two that do not multiply \(f\). So substitute into \(f\), never into the iteration.</p>
+
+<p>This is category 13's version of Q12's zero-increment blind spot and Q11's zero-rate blind spot, and it is worse than both: those hide at a degenerate input you can avoid, while this one hides <b>at the answer</b>, the one place you would naturally look. One consolation - at \(x_0 = 1.5\) and at \(x_0 = 2\) none of the eight corruptions agrees with the truth, so either is a safe place to sanity-check the formula itself. Only \(x = 1\) is poisoned, because \(x^4 = x^3\) there.</p>
+
+<h2><span class="num">08</span> The variation catalog</h2>
+
+<p>Every family below is the same three moves - write \(f = 0\), differentiate, iterate. What changes is only where \(f\) comes from and what can go wrong.</p>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 0</span>A polynomial root inside a stated bracket</p>
+  <p class="famt131">The headline shape. Six worked instances, and <b>not one needs more than four steps</b> from the bracket midpoint - four of the six need three. If you are on step six, you have made an arithmetic error, not a bad choice of \(x_0\).</p>
+</div>
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>equation</th><th>bracket</th><th>root</th><th>steps from the midpoint</th></tr></thead>
+<tbody>
+<tr><td class="mono">\(x^4+2x-5=0\)</td><td class="mono">[1,2]</td><td class="mono ok2131">1.2559</td><td class="mono">3</td></tr>
+<tr><td class="mono">\(x^3-x-1=0\)</td><td class="mono">[1,2]</td><td class="mono">1.3247</td><td class="mono">3</td></tr>
+<tr><td class="mono">\(x^5+x-1=0\)</td><td class="mono">[0,1]</td><td class="mono">0.7549</td><td class="mono">4</td></tr>
+<tr><td class="mono">\(x^3-2x-5=0\)</td><td class="mono">[2,3]</td><td class="mono">2.0946</td><td class="mono">3</td></tr>
+<tr><td class="mono">\(x^4-x-10=0\)</td><td class="mono">[1,2]</td><td class="mono">1.8556</td><td class="mono">4</td></tr>
+<tr><td class="mono">\(x^3+x^2-3=0\)</td><td class="mono">[1,2]</td><td class="mono">1.1746</td><td class="mono">3</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="cap131">\(x^3 - 2x - 5 = 0\) is worth recognising: it is the equation Newton himself used, and 2.0946 is a number examiners like.</p>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 1</span>Choosing \(x_0\)</p>
+  <p class="famt131">Steps to 1.2559 by starting point: \(x_0=1\) needs 4, \(x_0=1.2\) needs 2, \(x_0=1.25\) needs 2, \(x_0=1.3\) needs 2, \(x_0=1.5\) needs 3, \(x_0=2\) needs 5. The spread is <b>three whole steps</b> on a question that only needs three, and the payoff saturates - getting inside \([1.2, 1.3]\) is worth two steps and getting closer is worth nothing. With no bracket given, evaluate \(f\) at consecutive integers until the sign flips.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 2</span>A transcendental equation</p>
+  <p class="famt131">Subtract to make \(f\), then proceed unchanged. \(\cos x = x\) gives 0.7391; \(xe^x = 1\) gives 0.5671; \(\ln x = 1/x\) gives 1.7632; \(e^x = 3x\) gives 0.6191; \(\sin x = x/2\) gives 1.8955; \(x = \cos^2 x\) gives 0.6417. Every one reaches four decimals within four steps.</p>
+  <p class="famt131"><b>Two traps live only here.</b> \(\sin x = x/2\) also has \(x = 0\) as a root, and Newton from 0.5 collapses onto it, so rewriting as \(f = 0\) can hand you a root the question did not want. And \(e^x = 3x\) has a second intersection at 1.5121, so the bracket is not optional even when it looks like decoration.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 3</span>A number defined as a root</p>
+  <p class="famt131">You build \(f\) yourself. Newton on \(f(x) = x^2 - a\) simplifies to the Babylonian mean, two thousand years older than Newton:</p>
+</div>
+
+$$x_{n+1} = x_n - \frac{x_n^2 - a}{2x_n} = \frac{1}{2}\left(x_n + \frac{a}{x_n}\right)$$
+
+<div class="tscroll vtab">
+<table>
+<thead><tr><th>target</th><th>\(x_0\)</th><th>the exact iterates</th></tr></thead>
+<tbody>
+<tr><td class="mono">\(\sqrt2\)</td><td class="mono">1</td><td class="mono">\(1,\; 3/2,\; 17/12,\; 577/408\)</td></tr>
+<tr><td class="mono">\(\sqrt5\)</td><td class="mono">2</td><td class="mono">\(2,\; 9/4,\; 161/72,\; 51841/23184\)</td></tr>
+<tr><td class="mono">\(\sqrt{10}\)</td><td class="mono">3</td><td class="mono">\(3,\; 19/6,\; 721/228,\; 1039681/328776\)</td></tr>
+<tr><td class="mono">\(\sqrt[3]{7}\)</td><td class="mono">2</td><td class="mono">\(2,\; 23/12,\; 18215/9522\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="verdict131"><b>This is where categories 12 and 13 meet, and the meeting is exact.</b> Q12.1 estimated \(\sqrt{9.2}\) from \(a = 9\) with differentials and got \(91/30\). Newton on \(x^2 - 9.2\) from \(x_0 = 3\) gives \(\tfrac12\left(3 + \tfrac{9.2}{3}\right) = \tfrac{91}{30}\). The same rational number, by two routes that look nothing alike. The <em>second</em> Babylonian step gives \(16561/5460\), correct to <b>5.5e-09</b> against Q12.1's error of <b>1.83e-04</b>. One more step buys four orders of magnitude, and that comparison is the best argument for iterating this course contains.</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 4</span>A reciprocal with no division</p>
+  <p class="famt131">\(f(x) = 1/x - a\) gives \(x_{n+1} = x_n(2 - a x_n)\), which contains no division at all - this is how computers actually divide. From \(x_0 = 0.1\), \(1/7\) runs 0.13, 0.1417, 0.14284777, 0.1428571422, and the run of correct digits doubles visibly. <b>This family has a convergence window the others do not</b>: it converges only for \(0 < x_0 < 2/a\), diverges immediately from 0.5 when \(a = 7\), and maps \(x_0 = 2/a\) to zero, where it sticks.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 5</span>The intersection of two curves</p>
+  <p class="famt131">Identical to Family 2 - subtract, then find a root. \(x^3\) meets \(x+1\) at 1.3247; \(e^x\) meets \(3x\) at 0.6191; \(\cos x\) meets \(x\) at 0.7391; \(x^2\) meets \(\cos x\) at 0.8241. The only new thing is remembering to report the \(y\) value too if the question asks for the point.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 6</span>"Carry out exactly \(N\) iterations"</p>
+  <p class="famt131">The answer is \(x_2\), not the root. From \(x_0 = 1\), \(x_2 = 391/310 = 1.2612903226\); from 1.5, \(x_2 = 1.2579188022\); from 2, \(x_2 = 1.3243105219\). <b>Those three disagree in the second decimal place</b>, so "give \(x_2\)" has no answer without the stem's \(x_0\), and a remembered iterate from a different start is a guaranteed zero.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 7</span>Diagnose a failure</p>
+  <p class="famt131">Name which of section 06's four modes it is. The answer is a sentence, not a number.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 8</span>A multiple root, where quadratic convergence dies</p>
+  <p class="famt131">When \(f\) and \(f'\) vanish together, convergence drops from quadratic to <b>linear</b>, at rate exactly \(1 - 1/m\). Measured on \((x-1)^m(x+3)\): ratio 0.50000000 at \(m=2\), 0.66666667 at \(m=3\), 0.75000000 at \(m=4\), 0.80000000 at \(m=5\). Four decimal places then takes about fourteen steps instead of three.</p>
+  <p class="famt131"><b>This is the sharpest caveat in the topic.</b> "Correct digits double each step" holds only when \(f'(r) \ne 0\). Here \(f'(r) = 9.92\), comfortably nonzero, which is <em>why</em> the headline question behaves. Say that when you claim quadratic convergence and the claim becomes a statement instead of a slogan.</p>
+</div>
+
+<div class="fam131">
+  <p class="famh131"><span class="fk131">FAMILY 9</span>How many steps for a stated accuracy</p>
+  <p class="famt131">Count digits, not iterations. Find how many correct digits \(x_0\) has, then double until you pass the target. From 0.61 digits, four decimals needs three steps and six needs four. The doubling is the constant \(C = 0.9536\) being close to 1; when \(C\) is large the doubling starts later, and when \(f'(r) = 0\) it never starts.</p>
+</div>
+
+<h2><span class="num">09</span> The trap list</h2>
+
+<ol class="tl131">
+<li><span><b>Rounding the intermediate iterates.</b> The single most expensive habit here, and it looks like carefulness. Rounding to 2 decimals caps the answer at an error of 4.06e-03 for ever, against 7.06e-10 at the same step in full precision.</span></li>
+<li><span><b>Stopping at the wrong iterate.</b> \(x_3\) from \(x_0 = 1\) is inside 5e-05 and still rounds to 1.2560. The root sits 1.2452e-05 below its own tie point, so that is the number to beat.</span></li>
+<li><span><b>Reporting more digits than the iteration has earned.</b> \(x_2\) from the midpoint prints as 1.2579188021959602 and exactly two of those digits are correct. Report only the digits two successive iterates agree on.</span></li>
+<li><span><b>Getting \(f'\) wrong.</b> Every iterate inherits it, so a slip is not a small error - it is a different method converging somewhere else. Check \(f'\) once, before iterating.</span></li>
+<li><span><b>Trusting the "iterate again and it does not move" check.</b> Six of eight corrupted formulas fix the true root. Substitute into \(f\), not into \(N\).</span></li>
+<li><span><b>Choosing \(x_0\) carelessly.</b> Costs up to two steps here, and the whole question in Family 7.</span></li>
+<li><span><b>Answering the wrong question.</b> "Two iterations" means report \(x_2\). "Approximate the solution" means report the root.</span></li>
+<li><span><b>Checking at \(x = 1\).</b> Writing \(f' = 4x^4+2\) instead of \(4x^3+2\) is bit-identical to the truth there, because \(x^4 = x^3\). Check at 1.5 or 2 instead, where none of the eight corruptions hides.</span></li>
+</ol>
+
+<h2><span class="num">10</span> Provenance and verification</h2>
+
+<div class="prov131">
+  <div class="pv131"><p class="pvh131">THE PAPER</p><p>Final Exam 1 item 7, 5 points, printed inline at the end of the stem per the F1 convention. The paper's fourteen values sum to 124.</p></div>
+  <div class="pv131"><p class="pvh131">CLAUSES</p><p>F1 carries <b>zero</b> "no credit" clauses, searched case-blind. Its single "you may not need to simplify" permission is on item 1, and "show the process" occurs once on the whole paper, on item 2 - not on this one.</p></div>
+  <div class="pv131"><p class="pvh131">TWO PARSER TRAPS, BOTH ASSERTED</p><p>A parser reading only numbered lines undercounts F1 to 119. A heading scan that does not strip the file's byte-order mark finds four of the five exam headings.</p></div>
+  <div class="pv131"><p class="pvh131">THE COURSE FILES</p><p>The Review file states the iteration correctly and gives it a section, but never finishes a worked example to a number, never says what quadratic convergence means, and never mentions a failure mode. No marking scheme exists in any of the four files, so every claim about where marks sit is inference.</p></div>
+</div>
+
+<div class="vbar131">
+  <div><span class="k131">ASSERTIONS</span><span class="v131">460</span></div>
+  <div><span class="k131">FAILURES</span><span class="v131">0</span></div>
+  <div><span class="k131">SEEDED CONTROLS</span><span class="v131">88</span></div>
+  <div><span class="k131">CLAIMS RE-DERIVED</span><span class="v131">283</span></div>
+  <div><span class="k131">MEASURED ORDER</span><span class="v131">2.0003</span></div>
+</div>
+
+<p class="cap131">The root was established by 760-iteration Decimal bisection with a residual below 1e-150, by a numpy companion matrix, and by a sign-change sweep - none of which evaluates \(f'\), so the target is not defined by the method under test. \(f'\) was recovered formula-blind by complex-step differentiation and \(f''\) by a Richardson-extrapolated second difference. The convergence order was measured inside a bounded ladder, with the unbounded ladder's 1.4925 artifact asserted as a seeded control. The 2-cycle census was proved able to fire by finding two genuine cycles on \(x^3 - 2x + 2\). A separate claims checker then re-derived every number printed on this page and confirmed each appears here verbatim.</p>
+
+</main>
+

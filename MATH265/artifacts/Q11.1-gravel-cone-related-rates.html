@@ -1,0 +1,1088 @@
+<title>Always Versus When</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q11.1 OPENS the
+   related-rates category, and the category's whole difficulty is a reading
+   problem rather than a calculus one: the stem hands you numbers of two
+   incompatible kinds and does not label them.  So the two loudest hues carry
+   the page's single idea - a quantity that is true ALWAYS against one true
+   only WHEN - and the signature block is the two-column substitution licence
+   in section 01.
+
+     ALWAYS: substitutable before differentiating       --rul   amber
+     WHEN:   a snapshot, substitutable only after       --chn   slate
+     WHERE MARKS DIE                                    --los   terracotta
+     THE VARIATION families                             --fam   teal
+     NUMERICS: gates, arms, tolerances, controls        --num   mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+</style>
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; Q11.1 &middot; MT1 item 7 &middot; 5 points</p>
+  <h1>Always Versus When</h1>
+  <p class="stand">Gravel falls onto a pile at \(0.5\ \mathrm{m^3/min}\). The pile is a cone whose base diameter and height are always equal. How fast is the height rising when the pile is 4 m high? This is the first related-rates question in the bank, and it is a different animal from everything before it: the calculus is one power rule, and every single mark is in the reading.</p>
+  <div class="ansbar111">
+    <div><span class="k111">The answer</span><span class="v111">\(\dfrac{dh}{dt} = \dfrac{1}{8\pi}\ \mathrm{m/min}\)</span></div>
+    <div><span class="k111">Decimal</span><span class="v111">0.0398 m/min</span></div>
+    <div><span class="k111">Type into M&ouml;bius</span><span class="v111 mono">1/(8*pi)</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="num">01</span> Two words decide the whole question</h2>
+  <p>A related-rates stem hands you numbers of two completely different kinds, and it does not label them. Some are <b>rates</b> and <b>fixed relationships</b>, true at every moment. Others are <b>snapshots</b>, true only at the instant you are asked about. Telling them apart is not a detail of this question; it <i>is</i> this question.</p>
+
+  <div class="ledger111">
+    <div class="col111 add111">
+      <p class="colh111">&ldquo;Always&rdquo; - true at every instant</p>
+      <ul>
+        <li><b>&ldquo;at a rate of \(0.5\ \mathrm{m^3/min}\)&rdquo;</b> &rarr; \(\dfrac{dV}{dt}=0.5\), and it stays 0.5 forever.</li>
+        <li><b>&ldquo;base diameter and height are <i>always</i> equal&rdquo;</b> &rarr; \(2r=h\), so \(r=\dfrac{h}{2}\).</li>
+      </ul>
+      <p class="tag111 ok111">You may substitute these into the equation <b>before</b> you differentiate. That is the whole point of the word &ldquo;always&rdquo;.</p>
+    </div>
+    <div class="col111 inh111">
+      <p class="colh111">&ldquo;When&rdquo; - true at one instant only</p>
+      <ul>
+        <li><b>&ldquo;<i>when</i> the pile is 4 m high&rdquo;</b> &rarr; \(h=4\), and only at one moment out of all time.</li>
+      </ul>
+      <p class="tag111 no111">Substituting this early turns \(h\) into a number, so \(V\) becomes a constant, so \(\dfrac{dV}{dt}=0\), and you are left solving \(0.5 = 0\). The question is destroyed and there is nothing to salvage.</p>
+    </div>
+  </div>
+
+  <p class="note">This is the defining error of the entire related-rates category. It is not a slip in the algebra - it is a misreading, committed before any calculus starts. If you take one thing from this page: <b>a variable may not be replaced by its value until after you differentiate.</b></p>
+</section>
+
+<section>
+  <h2><span class="num">02</span> Write four lines before you touch calculus</h2>
+  <p>Every related-rates solution starts the same way, and the four lines below are cheap insurance. If you cannot fill them in, you have not finished reading the question yet.</p>
+
+  <div class="steps111">
+    <div class="st111"><p class="sth111">1 &middot; Name</p><p>\(h\) = height in m, \(r\) = base radius in m, \(V\) = volume in m\(^3\). Each is a function of time \(t\) in minutes.</p></div>
+    <div class="st111"><p class="sth111">2 &middot; Given</p><p>\(\dfrac{dV}{dt} = 0.5\ \mathrm{m^3/min}\). A rate, with units, holding at all times.</p></div>
+    <div class="st111"><p class="sth111">3 &middot; Want</p><p>\(\dfrac{dh}{dt}\) in m/min, at the instant \(h = 4\) m.</p></div>
+    <div class="st111"><p class="sth111">4 &middot; Relate</p><p>One equation joining what you have to what you want: \(V = \dfrac{1}{3}\pi r^2 h\).</p></div>
+  </div>
+
+  <p class="warn111"><b>The formula is not printed on this question.</b> The other cone question in the course, MT2 item 2, prints the hint &ldquo;The volume of a cone is \(V = \frac{\pi r^2 h}{3}\)&rdquo;. MT1 item 7 does not. You have to know it.</p>
+</section>
+
+<section>
+  <h2><span class="num">03</span> Eliminate, then differentiate, then substitute</h2>
+  <p>The relating equation has two variables, \(r\) and \(h\), and you only want one. The fixed ratio is what removes the extra one. <b>Diameter</b> means \(2r\), so &ldquo;the base diameter equals the height&rdquo; is \(2r = h\), which is \(r = h/2\) - not \(r = h\).</p>
+
+  <div class="chain111">
+    <div class="ch111"><p class="chh111">Eliminate</p><p class="chm111">\(V = \dfrac{1}{3}\pi\left(\dfrac{h}{2}\right)^{2}h = \dfrac{\pi h^{3}}{12}\)</p></div>
+    <div class="ch111"><p class="chh111">Differentiate in \(t\)</p><p class="chm111">\(\dfrac{dV}{dt} = \dfrac{\pi}{4}h^{2}\,\dfrac{dh}{dt}\)</p></div>
+    <div class="ch111"><p class="chh111">Substitute the instant</p><p class="chm111">\(0.5 = \dfrac{\pi}{4}(4)^{2}\dfrac{dh}{dt} = 4\pi\dfrac{dh}{dt}\)</p></div>
+    <div class="ch111"><p class="chh111">Solve</p><p class="chm111">\(\dfrac{dh}{dt} = \dfrac{1}{8\pi} \approx 0.0398\)</p></div>
+  </div>
+
+  <p><b>Where the chain rule enters.</b> \(h\) is not a plain variable here - it is \(h(t)\), a function of time. So differentiating \(h^3\) with respect to \(t\) gives \(3h^2\) <i>times</i> \(dh/dt\), and that trailing factor is the thing you are solving for. This is exactly the \(y'\) from Q10.1 wearing different clothes. If your differentiated equation does not contain the rate you want, you dropped it: go back.</p>
+
+  <p class="note">Both MT1 questions that test this chain factor are worth 5 points and sit two items apart: item 7 is this one, item 8 is Q10.1's implicit differentiation. Revise them together.</p>
+</section>
+
+<section>
+  <h2><span class="num">04</span> What is actually happening</h2>
+  <div class="figbox"><svg viewBox="0 0 760 312" width="100%" role="img" aria-label="Left: the gravel pile in cross-section, with base diameter equal to height. Right: the height of the pile against time, with the tangent at four metres."> 
+<text class="lab hd" x="18" y="34">THE PILE AT ONE INSTANT</text>
+<ellipse class="cone" cx="168" cy="250" rx="100" ry="15"/>
+<polygon class="cone" points="168,70 68,250 268,250"/>
+<line class="dim" x1="168" y1="70" x2="168" y2="250" marker-start="url(#a111)" marker-end="url(#a111)"/>
+<text class="lab" x="178" y="164">h</text>
+<line class="dim" x1="68" y1="282" x2="268" y2="282" marker-start="url(#a111)" marker-end="url(#a111)"/>
+<text class="lab" x="142" y="302">d = h</text>
+<line class="dim2" x1="168" y1="250" x2="268" y2="250"/>
+<text class="lab" x="286" y="244">r = h/2</text>
+<text class="lab sm" x="18" y="54">always true, at every size</text>
+<text class="lab hd" x="424" y="34">THE PILE OVER TIME &#183; h IN m, t IN min</text>
+<line class="gridl" x1="424.0" y1="199.3" x2="742.0" y2="199.3"/>
+<line class="gridl" x1="424.0" y1="130.7" x2="742.0" y2="130.7"/>
+<line class="gridl" x1="424.0" y1="62.0" x2="742.0" y2="62.0"/>
+<line class="gridl" x1="514.9" y1="268.0" x2="514.9" y2="62.0"/>
+<line class="gridl" x1="605.7" y1="268.0" x2="605.7" y2="62.0"/>
+<line class="gridl" x1="696.6" y1="268.0" x2="696.6" y2="62.0"/>
+<line class="axis" x1="424.0" y1="268.0" x2="742.0" y2="268.0"/>
+<line class="axis" x1="424.0" y1="268.0" x2="424.0" y2="62.0"/>
+<polyline class="curve" points="424.00,268.00 425.99,235.66 427.98,227.26 429.96,221.36 431.95,216.67 433.94,212.70 435.93,209.24 437.91,206.14 439.90,203.32 441.89,200.73 443.88,198.33 445.86,196.08 447.85,193.97 449.84,191.96 451.82,190.06 453.81,188.25 455.80,186.51 457.79,184.85 459.77,183.25 461.76,181.71 463.75,180.22 465.74,178.78 467.73,177.39 469.71,176.04 471.70,174.72 473.69,173.44 475.68,172.20 477.66,170.99 479.65,169.80 481.64,168.65 483.62,167.52 485.61,166.41 487.60,165.33 489.59,164.28 491.57,163.24 493.56,162.22 495.55,161.22 497.54,160.24 499.52,159.28 501.51,158.34 503.50,157.41 505.49,156.49 507.48,155.59 509.46,154.71 511.45,153.84 513.44,152.98 515.42,152.13 517.41,151.30 519.40,150.48 521.39,149.67 523.38,148.87 525.36,148.08 527.35,147.30 529.34,146.53 531.33,145.77 533.31,145.02 535.30,144.28 537.29,143.55 539.27,142.82 541.26,142.11 543.25,141.40 545.24,140.70 547.23,140.01 549.21,139.33 551.20,138.65 553.19,137.98 555.17,137.32 557.16,136.66 559.15,136.01 561.14,135.36 563.12,134.73 565.11,134.10 567.10,133.47 569.09,132.85 571.08,132.24 573.06,131.63 575.05,131.02 577.04,130.43 579.02,129.83 581.01,129.24 583.00,128.66 584.99,128.08 586.98,127.51 588.96,126.94 590.95,126.38 592.94,125.82 594.92,125.26 596.91,124.71 598.90,124.16 600.89,123.62 602.88,123.08 604.86,122.55 606.85,122.02 608.84,121.49 610.83,120.97 612.81,120.45 614.80,119.93 616.79,119.42 618.77,118.91 620.76,118.40 622.75,117.90 624.74,117.40 626.73,116.91 628.71,116.42 630.70,115.93 632.69,115.44 634.67,114.96 636.66,114.48 638.65,114.00 640.64,113.53 642.62,113.06 644.61,112.59 646.60,112.12 648.59,111.66 650.58,111.20 652.56,110.74 654.55,110.29 656.54,109.84 658.52,109.39 660.51,108.94 662.50,108.50 664.49,108.05 666.48,107.62 668.46,107.18 670.45,106.74 672.44,106.31 674.42,105.88 676.41,105.45 678.40,105.03 680.39,104.60 682.38,104.18 684.36,103.76 686.35,103.35 688.34,102.93 690.33,102.52 692.31,102.11 694.30,101.70 696.29,101.29 698.28,100.89 700.26,100.49 702.25,100.09 704.24,99.69 706.22,99.29 708.21,98.90 710.20,98.50 712.19,98.11 714.17,97.72 716.16,97.33 718.15,96.95 720.14,96.56 722.12,96.18 724.11,95.80 726.10,95.42 728.09,95.04 730.08,94.67 732.06,94.29 734.05,93.92 736.04,93.55 738.03,93.18 740.01,92.81 742.00,92.44"/>
+<polyline class="tang" points="480.83,159.35 671.63,101.98"/>
+<circle class="dot" cx="576.23" cy="130.67" r="4.2"/>
+<text class="lab" x="596" y="168">h = 4 m</text>
+<text class="lab sm" x="596" y="190">at t = 33.5 min</text>
+<text class="lab am" x="596" y="212">slope = 1/(8 pi)</text>
+<text class="lab sm" x="596" y="234">it keeps flattening</text>
+<text class="lab tk" x="406.0" y="203.3">2</text>
+<text class="lab tk" x="406.0" y="134.7">4</text>
+<text class="lab tk" x="406.0" y="66.0">6</text>
+<text class="lab tk" x="507.9" y="287.0">20</text>
+<text class="lab tk" x="598.7" y="287.0">40</text>
+<text class="lab tk" x="689.6" y="287.0">60</text>
+<defs><marker id="a111" markerWidth="7" markerHeight="7" refX="3.5" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 z" class="mk"/></marker></defs>
+</svg></div>
+  <p class="cap111">Left: because the diameter equals the height, the pile's cross-section is drawn to scale - as wide as it is tall, at every size it ever reaches. Right: the real growth curve \(h(t)=(6t/\pi)^{1/3}\) for a pile fed at a constant \(0.5\ \mathrm{m^3/min}\) from empty. The answer is the slope of that curve at one point. The curve visibly flattens, which is the physical content of the answer: the taller the pile, the wider its base, so the same half cubic metre per minute buys less height.</p>
+</section>
+
+<section>
+  <h2><span class="num">05</span> Two other routes, and why you should not use them</h2>
+
+  <p><b>Route B - differentiate first, eliminate afterwards.</b> Keep both variables and use the product rule:</p>
+  <p class="disp111">$$\frac{dV}{dt} = \frac{\pi}{3}\left(2rh\,\frac{dr}{dt} + r^{2}\,\frac{dh}{dt}\right)$$</p>
+  <p>Then put in \(r = h/2\) <i>and</i> its own derivative \(\dfrac{dr}{dt} = \dfrac12\dfrac{dh}{dt}\), and it collapses to the same \(\dfrac{\pi}{4}h^2\dfrac{dh}{dt}\). This is worth doing once, because it proves the early substitution in Route A was legal rather than lucky. It is a bad exam route: it needs the product rule and it needs the ratio's derivative, and forgetting the second is a fresh way to lose the mark.</p>
+
+  <p><b>Route C - the base-area shortcut.</b> For any cone that keeps its shape as it grows, differentiating \(V = \frac13\pi k^2h^3\) gives \(\dfrac{dV}{dh} = \pi(kh)^2 = \pi r^2\), which is exactly the base area. So</p>
+  <p class="disp111">$$\frac{dh}{dt} = \frac{dV/dt}{\text{base area}} = \frac{0.5}{4\pi} = \frac{1}{8\pi}$$</p>
+  <p>in a single line. Do not write this as your method - the marker wants the differentiation. Use it as an eight-second check.</p>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Route</th><th>Steps</th><th>How it goes wrong</th><th>Time</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b> - eliminate, then differentiate</td><td class="mono">4</td><td>halving the diameter wrongly</td><td class="mono">~60 s</td></tr>
+      <tr><td><b>B</b> - differentiate, then eliminate</td><td class="mono">6</td><td>product rule; forgetting \(dr/dt=\frac12 dh/dt\)</td><td class="mono">~120 s</td></tr>
+      <tr><td><b>C</b> - base-area shortcut</td><td class="mono">1</td><td>shows no working, so no method marks</td><td class="mono">~15 s</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="verdict111"><b>Use Route A under pressure and check with Route C.</b></p>
+</section>
+
+<section>
+  <h2><span class="num">06</span> Check it in eight seconds</h2>
+
+  <div class="checks111">
+    <div class="ck111"><p class="ckh111">Magnitude</p><p>Half a cubic metre spread over a base of \(4\pi \approx 12.6\ \mathrm{m^2}\) must raise the pile about \(0.5/12.6 \approx 0.04\) m each minute. Four centimetres a minute is right for a gravel pile. Four metres a minute is not.</p></div>
+    <div class="ck111"><p class="ckh111">Units, worked not guessed</p><p>\(\left[\dfrac{dh}{dt}\right] = \dfrac{\mathrm{m^3/min}}{\mathrm{m^2}} = \mathrm{m/min}\). Not m\(^3\)/min just because the given rate was. This is the classic lost mark and no numerical check catches it.</p></div>
+    <div class="ck111"><p class="ckh111">Sign</p><p>Positive. The pile is growing. A negative answer means you inverted a rate somewhere.</p></div>
+    <div class="ck111"><p class="ckh111">Is the instant reachable?</p><p>Do not assume it. \(V = 0.5t\) and \(\pi h^3/12 = 0.5t\) give \(h = 4\) at \(t = \frac{32\pi}{3} \approx 33.5\) min. Finite and positive, so yes. Run the same screen on a shrinking pile asked to reach a greater height and it correctly returns &ldquo;never&rdquo;.</p></div>
+    <div class="ck111"><p class="ckh111">Scaling</p><p>\(dh/dt \propto 1/h^2\), so doubling the height divides the rate by exactly 4. Check your own two answers against that.</p></div>
+    <div class="ck111"><p class="ckh111">Answer the right question</p><p>&ldquo;How fast is the <i>height</i> increasing&rdquo; is \(dh/dt\). Not \(dr/dt\) (half as big), not the base-area rate (0.25), and not \(dV/dt\), which you were given.</p></div>
+  </div>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Worth memorising</th><th>Exact</th><th>Decimal</th></tr></thead>
+    <tbody>
+      <tr><td>\(dh/dt\) at \(h=4\)</td><td class="mono">1/(8&pi;)</td><td class="mono">0.0397887 m/min</td></tr>
+      <tr><td>\(dr/dt\) at \(h=4\)</td><td class="mono">1/(16&pi;)</td><td class="mono">0.0198944 m/min</td></tr>
+      <tr><td>base area at \(h=4\), which is \(dV/dh\)</td><td class="mono">4&pi;</td><td class="mono">12.5664 m&sup2;</td></tr>
+      <tr><td>volume at \(h=4\)</td><td class="mono">16&pi;/3</td><td class="mono">16.7552 m&sup3;</td></tr>
+      <tr><td>time from empty to \(h=4\)</td><td class="mono">32&pi;/3</td><td class="mono">33.5103 min</td></tr>
+      <tr><td>base-area rate \(dA/dt\) at \(h=4\)</td><td class="mono">1/4</td><td class="mono">0.25 m&sup2;/min exactly</td></tr>
+      <tr><td>the answer in cm/min</td><td class="mono">100/(8&pi;)</td><td class="mono">3.9789 cm/min</td></tr>
+      <tr><td>the answer in m/h</td><td class="mono">60/(8&pi;)</td><td class="mono">2.3873 m/h</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">07</span> The M&ouml;bius box</h2>
+  <p>Both exams are machine-marked and answer-only, so a right method with a wrong keystroke scores zero.</p>
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Type this</th><th>Never this</th><th>Because</th></tr></thead>
+    <tbody>
+      <tr><td class="mono ok2111">1/(8*pi)</td><td class="mono no2111">1/8*pi</td><td>parses as \((1/8)\pi = 0.3927\) - nearly ten times too big, and plausible enough that you will not notice</td></tr>
+      <tr><td class="mono ok2111">0.5/(4*pi)</td><td class="mono no2111">0.5/4*pi</td><td>the same failure</td></tr>
+      <tr><td class="mono ok2111">2/(16*pi)</td><td class="mono no2111">1/8pi</td><td>implicit multiplication is not guaranteed to be read</td></tr>
+      <tr><td class="mono ok2111">0.0398</td><td class="mono no2111">0.04</td><td>0.04 is \(2\times10^{-4}\) away, outside a \(10^{-4}\) tolerance</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="warn111"><b>The most expensive typo is the missing bracket around the whole denominator.</b> If the box asks for a unit separately, it is <span class="mono">m/min</span>.</p>
+</section>
+
+<section>
+  <h2><span class="num">08</span> Every variation the examiner can reach for</h2>
+  <p>Read these as <b>structure</b>, not as a list of facts. For a self-similar cone there is only ever one formula, \(\dfrac{dh}{dt} = \dfrac{dV/dt}{\pi k^{2}h^{2}}\) with \(r = kh\), and every row in Family 1 is that formula with a different \(k\). The magnitudes are generated by \(k^{-2}\) alone; the signs are generated entirely by whether material is being added or removed. Every value below was verified twice - once from the closed form, and once formula-blind, by building an explicit \(h(t)\) and differentiating it numerically.</p>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 0</span> The same pile, a different unknown</p>
+    <p class="famt111"><b>Trigger:</b> the same stem with the question mark moved. <b>Tool:</b> the same relating equation; only the unknown changes place.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>\(dh/dt\) at \(h=4\)</td><td>the exam question</td><td class="mono">1/(8&pi;) = 0.0397887 m/min</td></tr>
+        <tr><td>\(dV/dt\) if \(dh/dt=0.02\) at \(h=4\)</td><td>run it backwards</td><td class="mono">0.08&pi; = 0.2513274 m&sup3;/min</td></tr>
+        <tr><td>at what \(h\) is \(dh/dt = 0.1\)?</td><td>solve for \(h\)</td><td class="mono">2.5231 m</td></tr>
+        <tr><td>\(dr/dt\) at \(h=4\)</td><td>\(r=h/2 \Rightarrow \dot r = \dot h/2\)</td><td class="mono">1/(16&pi;) = 0.0198944 m/min</td></tr>
+        <tr><td>base-area rate at \(h=4\)</td><td>\(A = \pi h^2/4\)</td><td class="mono">0.25 m&sup2;/min exactly</td></tr>
+        <tr><td>lateral-surface rate at \(h=4\)</td><td>\(L = \pi\sqrt5\,h^2/4\)</td><td class="mono">&radic;5/4 = 0.5590 m&sup2;/min</td></tr>
+        <tr><td>is \(dh/dt\) rising or falling?</td><td>\(h'' &lt; 0\)</td><td class="mono">falling; h&Prime; &asymp; -7.916e-4 m/min&sup2;</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 1</span> A different fixed ratio</p>
+    <p class="famt111"><b>Trigger:</b> any phrase fixing the shape with &ldquo;always&rdquo; or &ldquo;at all times&rdquo;. <b>Tool:</b> convert the English to \(r = kh\), then apply the one formula. The conversion is where the marks go, so do it slowly.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Phrasing</th><th>\(r = kh\)</th><th>\(dh/dt\) at \(h=4\), \(dV/dt=0.5\)</th></tr></thead>
+      <tbody>
+        <tr><td>&ldquo;base diameter and height are always equal&rdquo;</td><td class="mono">k = 1/2</td><td class="mono">1/(8&pi;) = 0.0397887</td></tr>
+        <tr><td>&ldquo;height is double the radius&rdquo;</td><td class="mono">k = 1/2 - the SAME constraint</td><td class="mono">1/(8&pi;) = 0.0397887</td></tr>
+        <tr><td>&ldquo;radius always equals the height&rdquo;</td><td class="mono">k = 1</td><td class="mono">1/(32&pi;) = 0.0099472</td></tr>
+        <tr><td>&ldquo;base diameter is always three times the height&rdquo;</td><td class="mono">k = 3/2</td><td class="mono">1/(72&pi;) = 0.0044210</td></tr>
+        <tr><td>&ldquo;height is always three times the radius&rdquo;</td><td class="mono">k = 1/3</td><td class="mono">9/(32&pi;) = 0.0895247</td></tr>
+        <tr><td>&ldquo;radius is always twice the height&rdquo;</td><td class="mono">k = 2</td><td class="mono">1/(128&pi;) = 0.0024868</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Look at the second row. MT2 item 2 says &ldquo;a cone whose height is double the size of its radius&rdquo;, which is <b>exactly the same geometry</b> as this question's wording. The examiner has already used both phrasings on this course.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 2</span> A different solid, one variable</p>
+    <p class="famt111"><b>Trigger:</b> a sphere, a cube, a balloon, a tank of fixed radius. <b>Tool:</b> no elimination needed - differentiate the volume formula and solve.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Relation</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>sphere, \(dV/dt=0.5\), \(r=4\)</td><td>\(\dot V = 4\pi r^2\dot r\)</td><td class="mono">1/(128&pi;) = 0.0024868 m/min</td></tr>
+        <tr><td>that sphere's surface</td><td>\(\dot S = 8\pi r\dot r\)</td><td class="mono">0.25 m&sup2;/min</td></tr>
+        <tr><td>cube, \(dV/dt=0.5\), \(s=4\)</td><td>\(\dot V = 3s^2\dot s\)</td><td class="mono">1/96 = 0.0104167 m/min</td></tr>
+        <tr><td>that cube's surface</td><td>\(\dot S = 12s\dot s\)</td><td class="mono">0.5 m&sup2;/min</td></tr>
+        <tr><td>cylinder, radius fixed at 2</td><td>\(\dot V = 4\pi\dot h\)</td><td class="mono">1/(8&pi;) = 0.0397887 m/min</td></tr>
+        <tr><td>inverted conical tank, radius 3 at depth 6</td><td>the walls fix \(r = h/2\)</td><td class="mono">at h=4, 1/(8&pi;) - identical algebra</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn111">The cylinder row is a warning, not a shortcut. It agrees with the cone <b>only at \(h=4\)</b>, because that is the one height where the cone's base area happens to be \(4\pi\). At \(h=2\) or \(h=6\) the two disagree completely.</p>
+    <p class="note">The tank row deserves its own sentence. A <b>pile</b> fixes its ratio by growing self-similarly; a <b>tank</b> fixes it with its walls. The algebra is identical, but only one of the two stems contains the word &ldquo;always&rdquo;, so you must recognise the second kind without that cue.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 3</span> Pythagorean relations</p>
+    <p class="famt111"><b>Trigger:</b> a right angle, a ladder, a radar station, a baseball diamond. <b>Tool:</b> \(x^2+y^2=z^2\), differentiated to \(x\dot x + y\dot y = z\dot z\). Nothing to eliminate.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>10 ft ladder, foot moving out at 1 ft/s, foot 6 ft out</td><td class="mono">-0.75 ft/s (the top slides DOWN)</td></tr>
+        <tr><td><b>Q11.2</b>: radar 5 mi away, rocket at 4 mi, \(\dot z = 2000\) mi/h</td><td class="mono">500&radic;41 = 3201.5621 mi/h</td></tr>
+        <tr><td>18 m diamond, runner 3 m from second at 7.5 m/s</td><td class="mono">112.5/&radic;549 = 4.8014 m/s from home</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">Q11.2 lives here, not in Family 1. The category's second question deliberately swaps the relating equation while keeping everything else the same, which is precisely why the four-line setup discipline in section 02 is the part that transfers.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 4</span> Similar triangles and shadows</p>
+    <p class="famt111"><b>Trigger:</b> a lamp post, a person &ldquo;tall&rdquo;, walking &ldquo;away&rdquo;. <b>Tool:</b> the proportion between two similar triangles, which is the same elimination move as the cone's ratio.</p>
+    <p>A 5 m lamp, a 2 m person walking away at 1.5 m/s. With \(s\) the shadow length and \(x\) the distance from the post, \(\frac{2}{s} = \frac{5}{s+x}\) gives \(s = \frac{2x}{3}\).</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>how fast the shadow <b>lengthens</b></td><td class="mono">1 m/s</td></tr>
+        <tr><td>how fast the shadow's <b>tip</b> moves</td><td class="mono">1.5 + 1 = 2.5 m/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn111">Two different questions, two different answers. Confusing them is the standard trap in this family.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 5</span> Trigonometric relations</p>
+    <p class="famt111"><b>Trigger:</b> an angle, an angle of elevation, &ldquo;the angle \(\theta\) shown in the figure&rdquo;. <b>Tool:</b> a trig relation, differentiated, with \(\sec^2\) and \(\csc\cot\) turning up.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>satellite, \(h = r(\csc\theta-1)\), \(r=6378\), at \(\theta=\pi/6\)</td><td class="mono">-12756&radic;3 = -22094.04 km/rad</td></tr>
+        <tr><td>average rate of that \(h\) from \(\pi/4\) to \(\pi/3\)</td><td class="mono">-6322.30 km/rad</td></tr>
+        <tr><td>balloon rising 2 m/s, observer 50 m away, at height 50 m</td><td class="mono">0.02 rad/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="note">The satellite question is in the course's own categorised list. Its part (c) asks for a rate but never supplies \(d\theta/dt\), so what it wants is \(dh/d\theta\), in kilometres per <b>radian</b>. Answer the units question the stem actually poses.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 6</span> Two independent rates - do not eliminate</p>
+    <p class="famt111"><b>Trigger:</b> two quantities each get their own rate, and no &ldquo;always&rdquo; phrase links them. <b>Tool:</b> the product rule, keeping both rate terms. There is nothing to eliminate and trying to is the error.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Setup</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>cone, \(r=2\), \(h=4\), \(\dot r = 0.1\), \(\dot h = 0.05\)</td><td class="mono">(&pi;/3)(2rh&#775;r + r&sup2;h&#775;) = 0.6&pi; = 1.8850 m&sup3;/min</td></tr>
+        <tr><td>rectangle, \(l=10\), \(w=6\), \(\dot l = 2\), \(\dot w = -3\)</td><td class="mono">2(6) + 10(-3) = -18 units&sup2;/s</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="warn111">The rectangle row is the point of this family: the area <b>shrinks</b> while the length <b>grows</b>. When two rates fight, the sign of the answer is not the sign of either input and you cannot guess it.</p>
+  </div>
+
+  <div class="fam111">
+    <p class="famh111"><span class="fk111">Family 7</span> Inverse and asymptotic questions</p>
+    <p class="famt111"><b>Trigger:</b> &ldquo;at what height&rdquo;, &ldquo;how long until&rdquo;, &ldquo;what happens as the pile gets large&rdquo;. <b>Tool:</b> the same formula, solved for a different letter.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Asked</th><th>Answer</th></tr></thead>
+      <tbody>
+        <tr><td>at what height is \(dh/dt = 0.01\) m/min?</td><td class="mono">7.9788 m</td></tr>
+        <tr><td>\(dh/dt\) at \(h=8\)</td><td class="mono">1/(32&pi;) = 0.0099472 m/min</td></tr>
+        <tr><td>\(dh/dt\) as \(h \to \infty\)</td><td class="mono">&rarr; 0; the pile rises ever more slowly</td></tr>
+        <tr><td>doubling \(h\) does what?</td><td class="mono">divides the rate by exactly 4</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">09</span> Where a wrong answer hides</h2>
+  <p>Seven plausible wrong formulas were scanned across nine heights and five volume rates. The degenerate cases were deliberately <b>included</b> rather than skipped for tidiness, because that is exactly where a wrong answer becomes invisible.</p>
+
+  <div class="hide111">
+    <div class="hd1111"><p class="hdh111">At a zero rate, everything looks right</p><p>All seven wrong formulas differ from the truth by a multiplicative constant, so at \(dV/dt = 0\) every one of them returns 0 - the same as the truth. A spot-check performed on a stationary pile <b>cannot fail</b>, so it proves nothing at all.</p></div>
+    <div class="hd1111"><p class="hdh111">At \(h = 1\), the exponent slips vanish</p><p>Writing \(h^3\) or \(h\) where \(h^2\) belongs is invisible at \(h = 1\), and only there, because that is where the extra factor equals one. Never sanity-check a related-rates formula at \(h = 1\).</p></div>
+    <div class="hd1111"><p class="hdh111">This stem is itself a degenerate case</p><p>Because the diameter equals the height, \(d = h = 4\) numerically at the instant asked. A student who reads the pile's &ldquo;width&rdquo; as its height gets the right number here <b>by luck</b>. Change the ratio to \(r = h\) and the same confusion costs a factor of 4.</p></div>
+  </div>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>The mistake</th><th>What it gives</th><th>Off by</th></tr></thead>
+    <tbody>
+      <tr><td>never substituted \(r = h/2\); treated \(r\) as constant</td><td class="mono">3/(8&pi;) = 0.1193662</td><td class="mono">&times;3</td></tr>
+      <tr><td>used \(r = h\) - read diameter as radius</td><td class="mono">1/(32&pi;) = 0.0099472</td><td class="mono">&times;1/4</td></tr>
+      <tr><td>dropped the \(\frac13\) and used a cylinder</td><td class="mono">1/(24&pi;) = 0.0132629</td><td class="mono">&times;1/3</td></tr>
+      <tr><td>inverted the ratio to \(r = 2h\)</td><td class="mono">1/(128&pi;) = 0.0024868</td><td class="mono">&times;1/16</td></tr>
+      <tr><td>substituted \(r\) for \(h\) after eliminating</td><td class="mono">1/(2&pi;) = 0.1591549</td><td class="mono">&times;4</td></tr>
+      <tr><td>dropped the chain factor \(dh/dt\)</td><td class="mono">0.5 = 12.566</td><td class="mono">no unknown left</td></tr>
+      <tr><td>substituted \(h = 4\) before differentiating</td><td class="mono">0.5 = 0</td><td class="mono">no solution</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="num">10</span> The trap list, ranked</h2>
+  <ol class="tl111">
+    <li><span><b>Substituting \(h = 4\) before differentiating.</b> The defining error of the category. A snapshot may only be substituted after you differentiate; a relationship holding at all times may be substituted before. The word &ldquo;always&rdquo; is the only thing distinguishing them.</span></li>
+    <li><span><b>Using \(r = h\) instead of \(r = h/2\).</b> The stem says the <i>diameter</i> equals the height. This is the single most common wrong answer here, a factor of 4 too small.</span></li>
+    <li><span><b>Never substituting the ratio at all.</b> Treating \(r\) as a constant gives an answer three times too large, and it looks like a complete solution, which is what makes it dangerous.</span></li>
+    <li><span><b>Dropping the chain factor.</b> If the rate you want is missing from your differentiated equation, you dropped it. Re-differentiate rather than pressing on.</span></li>
+    <li><span><b>Dropping the \(\frac13\)</b> and integrating a cylinder's worth of gravel instead.</span></li>
+    <li><span><b>Reporting m\(^3\)/min</b> because that is what the given rate was in. The answer is a length per time. No numerical check catches this, so units get their own line.</span></li>
+    <li><span><b>Answering the wrong question</b> - giving \(dr/dt\), or the base-area rate, or restating \(dV/dt\).</span></li>
+    <li><span><b>The missing bracket</b> in the M&ouml;bius box.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="num">11</span> Drill set</h2>
+  <p>Score <b>sign</b> separately from <b>magnitude</b>. A wrong sign is a reading problem; a wrong magnitude is an algebra problem. They need different fixes, so do not lump them together.</p>
+  <ol class="dr111">
+    <li><span>The same gravel pile: how fast is the height increasing when the pile is 2 m high?</span></li>
+    <li><span>The same pile at \(h=4\): how fast is the base <b>radius</b> increasing?</span></li>
+    <li><span>The same pile at \(h=4\): how fast is the <b>base area</b> increasing?</span></li>
+    <li><span>Gravel at 2 m\(^3\)/min forms a cone whose base radius always equals its height. How fast is the height rising at \(h = 3\)?</span></li>
+    <li><span>Water enters an inverted conical tank of top radius 3 m and depth 6 m at 0.8 m\(^3\)/min. How fast is the depth rising when it is 2 m?</span></li>
+    <li><span>A spherical balloon is inflated at 10 cm\(^3\)/s. How fast is the radius growing when \(r = 5\) cm?</span></li>
+    <li><span>Same balloon, same instant: how fast is the surface area growing?</span></li>
+    <li><span>A 13 ft ladder leans on a wall; the foot is pulled away at 2 ft/s. How fast is the top sliding down when the foot is 5 ft out?</span></li>
+    <li><span>A rocket rises vertically, tracked by a radar station 5 mi away. How fast is it rising when it is 4 mi high and its distance from the station grows at 2000 mi/h?</span></li>
+    <li><span>A cone has \(r=2\), \(h=4\), with \(\dot r = 0.1\) and \(\dot h = 0.05\) independently. How fast is the volume growing?</span></li>
+    <li><span>A 5 m lamp post, a 2 m person walking away at 1.5 m/s. How fast is the <b>tip</b> of the shadow moving?</span></li>
+    <li><span>For the original pile, at what height is the height increasing at exactly 1 cm/min?</span></li>
+  </ol>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>#</th><th>Exact</th><th>Decimal</th><th>Family and method</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">1</td><td class="mono">1/(2&pi;) m/min</td><td class="mono">0.1591549</td><td>F0 - same formula at \(h=2\); note it is 4&times; the \(h=4\) answer</td></tr>
+      <tr><td class="mono">2</td><td class="mono">1/(16&pi;) m/min</td><td class="mono">0.0198944</td><td>F0 - \(r = h/2 \Rightarrow \dot r = \dot h/2\)</td></tr>
+      <tr><td class="mono">3</td><td class="mono">1/4 m&sup2;/min</td><td class="mono">0.25 exactly</td><td>F0 - \(A = \pi h^2/4\), chain rule</td></tr>
+      <tr><td class="mono">4</td><td class="mono">2/(9&pi;) m/min</td><td class="mono">0.0707355</td><td>F1 - \(k=1\), so \(\dot h = \dot V/(\pi h^2)\)</td></tr>
+      <tr><td class="mono">5</td><td class="mono">0.8/&pi; m/min</td><td class="mono">0.2546479</td><td>F2 - a tank fixes \(r = h/2\) with its walls</td></tr>
+      <tr><td class="mono">6</td><td class="mono">1/(10&pi;) cm/s</td><td class="mono">0.0318310</td><td>F2 - sphere, \(\dot V = 4\pi r^2\dot r\)</td></tr>
+      <tr><td class="mono">7</td><td class="mono">4 cm&sup2;/s</td><td class="mono">4 exactly</td><td>F2 - \(\dot S = 8\pi r\dot r\), or the shortcut \(2\dot V/r\)</td></tr>
+      <tr><td class="mono">8</td><td class="mono">-5/6 ft/s</td><td class="mono">-0.8333333</td><td>F3 - Pythagoras; the sign must be negative</td></tr>
+      <tr><td class="mono">9</td><td class="mono">500&radic;41 mi/h</td><td class="mono">3201.5621</td><td>F3 - this is Q11.2</td></tr>
+      <tr><td class="mono">10</td><td class="mono">0.6&pi; m&sup3;/min</td><td class="mono">1.8849556</td><td>F6 - two rates, product rule, no elimination</td></tr>
+      <tr><td class="mono">11</td><td class="mono">2.5 m/s</td><td class="mono">2.5 exactly</td><td>F4 - tip speed is \(\dot x + \dot s\), not \(\dot s\)</td></tr>
+      <tr><td class="mono">12</td><td class="mono">&radic;(2/(0.01&pi;)) m</td><td class="mono">7.9788456</td><td>F7 - solve the formula for \(h\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note">Drill 8 is the sign drill. Drill 11 is the reading drill. Drill 5 is the vocabulary drill - nothing in it says &ldquo;always&rdquo;, yet the ratio is still fixed, by the tank.</p>
+</section>
+
+<section>
+  <h2><span class="num">12</span> The one-page decision tree</h2>
+  <pre class="tree111">READ THE STEM
+   |
+   +-- underline every RATE   ("at a rate of", "per minute", "how fast")
+   +-- circle every VALUE     ("when", "at the instant", "at the moment")
+   |
+   v
+WRITE FOUR LINES BEFORE ANY CALCULUS
+   NAME  : every changing quantity gets a letter AND a unit
+   GIVEN : d?/dt = ____ units
+   WANT  : d?/dt = ?  at the instant ____ = ____
+   RELATE: one equation joining them
+   |
+   v
+PICK THE RELATING EQUATION
+   +-- cone / sphere / cube / cylinder ......... a volume formula
+   +-- right angle, two distances .............. x^2 + y^2 = z^2
+   +-- "tall" + "away" + a lamp or wall ........ similar triangles
+   +-- an angle ................................ a trig relation
+   |
+   v
+HOW MANY VARIABLES ARE LEFT?
+   +-- ONE ...................... go differentiate
+   +-- TWO, and the stem says "always" / "at all times"
+   |        ==> ELIMINATE NOW with that fixed ratio
+   |            cone: r = k h, so V = (1/3) pi k^2 h^3
+   +-- TWO, each with its OWN given rate, no "always"
+            ==> DO NOT ELIMINATE. Product rule, keep both terms.
+   |
+   v
+DIFFERENTIATE WITH RESPECT TO t
+   every variable gains its own rate as a trailing factor
+   |
+   v
+IS THE RATE YOU WANT ACTUALLY IN THE EQUATION?
+   no  -> you dropped a chain factor. Go back.
+   yes -> continue
+   |
+   v
+NOW SUBSTITUTE THE INSTANT, AND SOLVE
+   |
+   v
+CHECK
+   sign      : should it grow or shrink? does your sign agree?
+   units     : work them out, do not guess
+   magnitude : cone shortcut  dh/dt = (dV/dt) / (base area)
+   reachable : could that instant actually occur? solve for t.
+   NOT at h = 1 and NOT at a zero rate - wrong answers hide there
+   |
+   v
+PREVIEW THE MOBIUS BOX
+   brackets around the WHOLE denominator:  1/(8*pi)   not   1/8*pi</pre>
+</section>
+
+<section>
+  <h2><span class="num">13</span> Provenance and verification</h2>
+
+  <div class="prov111">
+    <div class="pv111"><p class="pvh111">The paper</p><p>Midterm Exam 1, item 7. MT1 prints ten point values - 5, 6, 5, 16, 8, 4, 5, 5, 5, 5 - summing to <b>64</b>, and item 7 is worth <b>5</b>, or 7.8 percent of that total. Parsed from the paper file rather than typed.</p></div>
+    <div class="pv111"><p class="pvh111">Clauses that do not apply</p><p>MT1 carries exactly one &ldquo;no credit will be given&rdquo; clause and it is on item 3. Item 7 also lacks MT1's &ldquo;You may not need to simplify&rdquo; permission, which sits on item 5. Do not import a neighbour's clause.</p></div>
+    <div class="pv111"><p class="pvh111">Its sibling</p><p>Item 8 is Q10.1, implicit differentiation, also 5 points. Both test the same chain factor - written \(y'\) there and \(dh/dt\) here. Revise them as a pair.</p></div>
+    <div class="pv111"><p class="pvh111">What the course files get right</p><p>Both of \(\texttt{MATH265\_Review.md}\)'s statements of the cone method are correct, and so is the paper file's walkthrough. This is one of the cleaner topics in the course material.</p></div>
+    <div class="pv111"><p class="pvh111">What they leave out</p><p>No course file ever finishes the arithmetic - the value \(1/(8\pi)\) appears nowhere in any of the four - and neither related-rates passage mentions <b>units</b> at all.</p></div>
+    <div class="pv111"><p class="pvh111">And one dangerous phrasing</p><p>&ldquo;Substitute \(r\) to get \(V\) in terms of \(h\) <i>before</i> differentiating&rdquo; is correct, but a student who generalises it into &ldquo;substitute before differentiating&rdquo; will put \(h=4\) in early and destroy the problem. No course file draws that distinction. This page exists largely to draw it.</p></div>
+  </div>
+
+  <p class="note">No marking scheme exists anywhere in the course material - zero occurrences of &ldquo;rubric&rdquo;, &ldquo;marking scheme&rdquo; or &ldquo;part marks&rdquo; across all four files - so any claim about which sentences earn which marks is inference, and is flagged as such rather than asserted.</p>
+
+  <div class="vbar111">
+    <div><span class="k111">Assertions</span><span class="v111">180</span></div>
+    <div><span class="k111">Failures</span><span class="v111">0</span></div>
+    <div><span class="k111">Seeded controls</span><span class="v111">15</span></div>
+    <div><span class="k111">Verified</span><span class="v111">2026-09-01</span></div>
+  </div>
+
+  <p>The headline answer was checked four ways that never see the claimed value: a complex-step derivative of the explicit parametrisation \(h(t) = (6t/\pi)^{1/3}\); a bounded Richardson ladder whose convergence order was <b>measured</b> rather than assumed; the differentiated relation tested against an arbitrary non-constant \(h(t)\) at 24 instants; and the whole formula re-derived at 40 separate instants along the real pile. The relating equation's identity was checked at 60 heights, the base-area result at seven ratios and fourteen heights each, and the early-versus-late substitution equivalence at 45 grid points. Units were verified <b>dimensionally</b>, with four seeded controls confirming the check rejects m\(^3\)/min, m/min\(^2\), min/m and an inhomogeneous relation.</p>
+
+  <p class="note">Full write-up: <span class="mono">notes\Q11.1 - Gravel cone growing in height.md</span>. Harness sections <span class="mono">q111</span> and <span class="mono">q111d</span> in <span class="mono">Work\knowledge\topics\math265-answer-verification.py</span>.</p>
+</section>
+
+</main>
+

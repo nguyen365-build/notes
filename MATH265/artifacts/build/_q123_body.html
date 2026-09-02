@@ -1,0 +1,436 @@
+<header class="wrap hdr">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 1, ITEM 2 &middot; 8 POINTS &middot; CATEGORY 12 OF 12, CLOSED</p>
+  <h1>Write Four, Trust Two</h1>
+  <p class="stand">The stem asks you to estimate two values <b>to four decimal places</b>. The method it names cannot produce four correct places on either of them. Knowing that, and knowing what to write anyway, is what the eight points are for.</p>
+
+  <div class="ansbar">
+    <div><span class="k">Part (a) &middot; cos 62 degrees</span><span class="v">$\dfrac{1}{2} - \dfrac{\sqrt3\,\pi}{180}$</span></div>
+    <div><span class="k">Write</span><span class="v mono">0.4698</span></div>
+    <div><span class="k">Part (b) &middot; root of 16.4</span><span class="v">$4 + \dfrac{1}{20} = \dfrac{81}{20}$</span></div>
+    <div><span class="k">Write</span><span class="v mono">4.0500</span></div>
+    <div><span class="k">Both directions</span><span class="v mono">too big</span></div>
+    <div><span class="k">Places actually right</span><span class="v mono">2 and 0</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <p class="num">01</p>
+  <h2>The question, and the thing it is really asking</h2>
+
+  <p>Here is the item, word for word from the paper.</p>
+
+  <blockquote class="quote123">Use the method of differentials to estimate each of the values below to four decimal places (show the process).<br>a. $\cos 62^\circ$ &nbsp;&nbsp; b. $\sqrt{16.4}$</blockquote>
+
+  <p>Two parts, one stem, eight points. That makes it the heaviest question in the linear-approximation category, ahead of Q12.1 (5 points on Midterm 1) and Q12.2 (6 points on Midterm 2). Nineteen points across three separate papers all test the same five moves.</p>
+
+  <p>So why is this one worth more? Because of five words the other two do not have: <b>to four decimal places</b>.</p>
+
+  <p class="warn"><b>The uncomfortable fact.</b> Round the differential estimate to four places and round the true value to four places, and on <em>both</em> parts the two strings differ. Part (a) gives 0.4698 against a true 0.4695. Part (b) gives 4.0500 against a true 4.0497. The method is being asked for a precision it cannot supply, and the marker knows it.</p>
+
+  <p>The resolution is not clever. <b>"To four decimal places" means write four digits down.</b> It cannot mean guarantee four correct ones, because on this question nothing can. Section 03 measures that rather than asserting it.</p>
+
+  <div class="prov">
+    <div class="pv"><p class="pvh">Point value</p><p>Parsed from the paper, not typed. F1's fourteen printed values sum to 124, and item 2 takes 8 of them, which is 6.4516 percent. Four items are heavier; item 10 ties it.</p></div>
+    <div class="pv"><p class="pvh">No-credit clauses</p><p>Final Exam 1 carries <b>zero</b>, searched case-blind. Its one "you may not need to simplify" permission sits on item 1, not on item 2.</p></div>
+    <div class="pv"><p class="pvh">Its own demand</p><p>Item 2 says <b>"(show the process)"</b>, and that phrase appears exactly once on the whole paper. The working is being asked for explicitly.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="num">02</p>
+  <h2>The five moves, run twice</h2>
+
+  <p>Nothing carries between the two parts except the shape of the work. Different function, different anchor, different units.</p>
+
+  <div class="steps">
+    <div class="st"><p class="sth">1 &middot; name f</p><p>Part (a) is $f(x) = \cos x$. Part (b) is $f(x) = \sqrt{x}$. The quantity asked for has to be $f$ of something.</p></div>
+    <div class="st"><p class="sth">2 &middot; choose the anchor</p><p>The nearest point where you know $f(a)$ <em>exactly</em>. Part (a): $60^\circ$, since $\cos 60^\circ = \tfrac12$. Part (b): $16$, since $\sqrt{16} = 4$.</p></div>
+    <div class="st"><p class="sth">3 &middot; convert, if it is an angle</p><p>Only part (a) needs this, and it is where the question is lost. $dx = 2^\circ = \pi/90$ radians.</p></div>
+    <div class="st"><p class="sth">4 &middot; differentiate once</p><p>At the <b>anchor</b>, never at the target. $f'(\pi/3) = -\tfrac{\sqrt3}{2}$ and $f'(16) = \tfrac18$.</p></div>
+    <div class="st"><p class="sth">5 &middot; add, then round</p><p>$f(a) + f'(a)\,dx$, rounded to the places asked for and <b>padded with zeros</b>. $4.05$ is written $4.0500$.</p></div>
+  </div>
+
+  <div class="ledger">
+    <div class="col add">
+      <p class="colh">Part (a) &middot; cos 62 degrees</p>
+      <p>$dx = 2^\circ = \dfrac{\pi}{90}$, and $f'(a) = -\sin 60^\circ = -\dfrac{\sqrt3}{2}$.</p>
+      $$\cos 62^\circ \approx \frac12 - \frac{\sqrt3}{2}\cdot\frac{\pi}{90} = \frac12 - \frac{\sqrt3\,\pi}{180}$$
+      <p class="cap">$= 0.46977001\ldots$, so you write <b>0.4698</b>.</p>
+      <p class="tag ok">$f'' = -\cos x < 0$ here, so the graph is concave down, the tangent line sits above it, and the estimate is <b>too big</b>.</p>
+    </div>
+    <div class="col inh">
+      <p class="colh">Part (b) &middot; the square root of 16.4</p>
+      <p>$dx = 0.4$, and $f'(a) = \dfrac{1}{2\sqrt{16}} = \dfrac18$.</p>
+      $$\sqrt{16.4} \approx 4 + \frac18\cdot\frac25 = 4 + \frac{1}{20} = \frac{81}{20}$$
+      <p class="cap">$= 4.05$ exactly, so you write <b>4.0500</b>.</p>
+      <p class="tag ok">$f'' = -\dfrac{1}{4x^{3/2}} < 0$, so this one is concave down too, and it is <b>too big</b> as well.</p>
+    </div>
+  </div>
+
+  <p><b>Both parts lean the same way here, and that is a coincidence of this stem rather than a rule.</b> Pair a square root with a tangent and one overshoots while the other undershoots. Section 07, family 5, has the table.</p>
+
+  <p class="warn"><b>The single most expensive mistake in this category.</b> Skipping the conversion on part (a) gives $\tfrac12 - \tfrac{\sqrt3}{2}(2) = -1.2321$. That is 5701 times the method's own error, and a cosine is never below $-1$, so the check is free. Look at your answer and ask whether it is between $-1$ and $1$.</p>
+</section>
+
+<section>
+  <p class="num">03</p>
+  <h2>What "four decimal places" is worth</h2>
+
+  <p>Here is the whole question in one picture. Round the estimate and the truth to $k$ places for $k = 0$ through $4$, and mark where the two strings agree.</p>
+
+  LADDER_SVG
+
+  <p class="cap">Every value in that figure was computed in 60-digit decimal arithmetic and quantized with round-half-up on the decimal expansion, not with a floating-point <code>round()</code>.</p>
+
+  <p><b>Read part (a) first.</b> It agrees at zero, one and two places, then fails at three and stays failed. That is the ordinary pattern, and it means the answer is <b>correct to two decimal places</b>.</p>
+
+  <p><b>Now read part (b), which is the strange one.</b> It agrees at zero. It <em>fails</em> at one. It agrees again at two and three. Then it fails at four.</p>
+
+  <p>The cause is a rounding tie. The estimate is exactly $4.05$, which rounds up to $4.1$, while the true $4.0497$ rounds down to $4.0$. So if you check three places you conclude the answer is fine, and if you check one place you conclude it is wrong. <b>Rounding agreement is not nested, and you cannot infer a place count from the size of the error.</b></p>
+
+  <p>An honest count is the largest $k$ such that every place up to $k$ agrees. On that count part (b) is correct to <b>zero</b> decimal places, despite having the <em>smaller</em> relative error of the two.</p>
+
+  <div class="vbar">
+    <div><span class="k">(a) error</span><span class="v">2.98e-4</span></div>
+    <div><span class="k">(b) error</span><span class="v">3.09e-4</span></div>
+    <div><span class="k">(a) relative</span><span class="v">6.36e-4</span></div>
+    <div><span class="k">(b) relative</span><span class="v">7.62e-5</span></div>
+    <div><span class="k">(a) places right</span><span class="v">2</span></div>
+    <div><span class="k">(b) places right</span><span class="v">0</span></div>
+  </div>
+
+  <h3>Is the method simply incapable of four places?</h3>
+
+  <p>No, and that is worth knowing, because it turns a complaint into a rule. Four of the twelve drill problems in section 09 <em>do</em> reach four correct places. What separates them is one quantity.</p>
+
+  <div class="verdict"><b>The discriminator is $\dfrac{|f''(a)|\,(dx)^2}{2}$.</b> Below about $5\times10^{-5}$ the estimate reaches four places. Both of this question's parts sit near $3\times10^{-4}$, roughly ten times too coarse. That number takes one line to compute and it tells you exactly how much of your answer to believe.</p>
+
+  <h3>Could a better choice have rescued it?</h3>
+
+  <p>Four repairs were tested rather than assumed. None of them works within the method the stem names.</p>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Attempt</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>The best legal anchor for part (a)</td><td class="no2">$60^\circ$ already. Still two places.</td></tr>
+      <tr><td>A <em>nearer</em> anchor, $61^\circ$, which you do not know exactly</td><td class="no2">4.08 times better, and <b>still only two places</b></td></tr>
+      <tr><td>The exact anchor $16.81 = 4.1^2$, which is nearer than 16</td><td class="no2">produces the <b>identical</b> estimate $4.05$, so still zero places</td></tr>
+      <tr><td>Shrinking the step</td><td class="no2">impossible; the targets $62^\circ$ and $16.4$ are given</td></tr>
+      <tr><td>Adding the quadratic Taylor term</td><td class="ok2">reaches <b>five</b> places on both, 48x and 80x better, but it is a different method</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The third row is a small piece of arithmetic worth seeing: $4.1 - \tfrac{0.41}{8.2} = 4.1 - 0.05 = 4.05$. Two different anchors, one estimate, and the coincidence is exact in fractions.</p>
+
+  <p class="warn"><b>So write the estimate, not the truth.</b> Writing $0.4695$ or $4.0497$ because you checked on a calculator is the second most expensive thing you can do on this question. The marker's answer is the differential value.</p>
+</section>
+
+<section>
+  <p class="num">04</p>
+  <h2>The error bound, settled</h2>
+
+  <p>Taylor's theorem says the error is
+  $$\text{true} - \text{estimate} = \frac{f''(\xi)}{2}(dx)^2 \quad\text{for some } \xi \text{ strictly between } a \text{ and } a+dx.$$
+  That $\xi$ is somewhere you cannot name, so people reach for the value of $|f''|$ at an endpoint instead. Twice in this category that produced a "bound" the actual error exceeded, and the two failures pointed in opposite directions. Here is what is actually going on.</p>
+
+  BRACKET_SVG
+
+  <p class="cap">Each track is rescaled to its own interval, so only the marker's position inside the bar is comparable between rows.</p>
+
+  <div class="verdict"><b>Neither endpoint is "the bound".</b> Because $\xi$ is strictly <em>inside</em> the interval, the larger endpoint value is an upper bound and the smaller one is a <b>lower</b> bound. The error is strictly bracketed:
+  $$\frac{\min\big(|f''(a)|,|f''(b)|\big)}{2}(dx)^2 \;<\; |\text{error}| \;<\; \frac{\max\big(|f''(a)|,|f''(b)|\big)}{2}(dx)^2$$
+  Five instances, five brackets. Nothing was ever violated. A lower bound was read as an upper one.</div>
+
+  <p>Two things fall out, and both were measured rather than reasoned about.</p>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">The sign of dx does not decide it</p><p>$\sqrt{9.2}$ steps <em>up</em> and $\sqrt{48.6}$ steps <em>down</em> on the same falling $|f''|$, and the larger endpoint is different in the two cases.</p></div>
+    <div class="ck"><p class="ckh">What does decide it</p><p>Whether $|f''|$ <b>grows along the direction of travel</b>. If it does, the target is the larger endpoint; if it falls, the anchor is.</p></div>
+    <div class="ck"><p class="ckh">On this question</p><p>Both parts have their larger endpoint <b>at the anchor</b>, so the anchor bound is the one to quote: $3.05\times10^{-4}$ and $3.125\times10^{-4}$.</p></div>
+    <div class="ck"><p class="ckh">Where the bracket stops working</p><p>It needs $|f''|$ of one sign and monotone. An interval straddling $90^\circ$, where $|\sin|$ peaks inside, exceeds <em>both</em> endpoints. Neither of this question's intervals does that.</p></div>
+  </div>
+
+  <p>The bracket was checked on 56 root pairs, 54 sine pairs and 54 cosine pairs, and it held on all 164. The rule to carry into the exam is one line: <b>take the maximum of $|f''|$ over the whole interval</b>, and quote $\tfrac{M}{2}(dx)^2$. It comes out within 2 percent of the observed error every time, so it is worth writing down.</p>
+</section>
+
+<section>
+  <p class="num">05</p>
+  <h2>Choosing the anchor, and the rule that finally survives</h2>
+
+  <p>Q12.1 concluded "nearest exact point wins, always". Q12.2 found a trigonometric counterexample. <b>This question breaks the rule on both of its parts, including the square-root family the rule came from.</b></p>
+
+  <h3>Part (a): the nine legal anchors for cos 62 degrees</h3>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Anchor</th><th class="mono">Degrees away</th><th class="mono">Times worse than 60</th></tr></thead>
+    <tbody>
+      <tr><td>$60^\circ$</td><td class="mono">2</td><td class="mono ok2">1.00</td></tr>
+      <tr><td>$90^\circ$</td><td class="mono">28</td><td class="mono">64.40</td></tr>
+      <tr><td>$45^\circ$</td><td class="mono">17</td><td class="mono no2">93.26</td></tr>
+      <tr><td>$120^\circ$</td><td class="mono">58</td><td class="mono">310.95</td></tr>
+      <tr><td>$30^\circ$</td><td class="mono">32</td><td class="mono no2">393.04</td></tr>
+      <tr><td>$135^\circ$</td><td class="mono">73</td><td class="mono">923.65</td></tr>
+      <tr><td>$0^\circ$</td><td class="mono">62</td><td class="mono">1777.63</td></tr>
+      <tr><td>$150^\circ$</td><td class="mono">88</td><td class="mono">1901.68</td></tr>
+      <tr><td>$180^\circ$</td><td class="mono">118</td><td class="mono">4923.71</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><b>Two inversions.</b> $90^\circ$ is eleven degrees further away than $45^\circ$ and 1.45 times better. $120^\circ$ is twenty-six degrees further than $30^\circ$ and better again.</p>
+
+  <p>The reason is that the error goes as $\tfrac{|f''(a)|(dx)^2}{2}$, and for a cosine $f'' = -\cos$. So an anchor where $|\cos a|$ is small buys back a lot of distance, and $|\cos 90^\circ| = 0$.</p>
+
+  <p class="warn"><b>Note this points the opposite way from Q12.2.</b> There $f'' = -\sin$, so a small $|\sin a|$ helped and $30^\circ$ beat $90^\circ$. Here it is $|\cos a|$ that matters, so $90^\circ$ beats $30^\circ$. Same rule, different second derivative, reversed answer. That is why the rule is the thing to remember, not the ranking.</p>
+
+  <h3>Part (b): the same inversion, on square roots</h3>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th>Anchor</th><th class="mono">Distance from 16.4</th><th class="mono">Times worse than 16</th></tr></thead>
+    <tbody>
+      <tr><td>16</td><td class="mono">0.4</td><td class="mono ok2">1.00</td></tr>
+      <tr><td>25</td><td class="mono">8.6</td><td class="mono">292.59</td></tr>
+      <tr><td>9</td><td class="mono">7.4</td><td class="mono no2">594.98</td></tr>
+      <tr><td>36</td><td class="mono">19.6</td><td class="mono">1026.96</td></tr>
+      <tr><td>49</td><td class="mono">32.6</td><td class="mono">2014.35</td></tr>
+      <tr><td>4</td><td class="mono">12.4</td><td class="mono no2">3402.87</td></tr>
+      <tr><td>100</td><td class="mono">83.6</td><td class="mono">5735.58</td></tr>
+      <tr><td>1</td><td class="mono">15.4</td><td class="mono no2">15066.43</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p><b>25 is further from 16.4 than 9 is, and it is twice as good.</b> So are 36 and 49 compared with 4, and 100 compared with 1. The mechanism is identical: $|f''| = \tfrac{1}{4x^{3/2}}$ falls as $x$ grows, so a bigger anchor is more forgiving.</p>
+
+  <p>Q12.1 only ever ranked anchors that were close together, where $|f''|$ barely changes. That is precisely why it saw distance and error agree, and drew a rule that does not hold.</p>
+
+  <div class="verdict"><b>The rule that survives.</b> Minimise $|f''(a)|\,(dx)^2$. "Nearest" is the special case that holds when $|f''|$ is roughly the same across the candidates, which is most of the time and is why it is still what you do at speed. In practice: take the nearest anchor where $f(a)$ is exact, and if two candidates are close in distance, take the flatter one.</div>
+
+  <p class="cap">One caution, measured: the quadratic model predicts $90^\circ$ would be <em>perfect</em>, since $\cos 90^\circ = 0$ kills the whole quadratic term. The real error there is $1.9\times10^{-2}$, because the cubic term takes over, and it predicts that error to within 1.2 percent. So $|f''|$ is a tie-breaker, not a replacement for looking at the distance.</p>
+</section>
+
+<section>
+  <p class="num">06</p>
+  <h2>Checking yourself in the last thirty seconds</h2>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">(a) is it in [-1, 1]?</p><p>The highest-value check in the category. It catches the unconverted answer $-1.2321$, and no amount of careful arithmetic rescues that one.</p></div>
+    <div class="ck"><p class="ckh">(a) did it move the right way?</p><p>You stepped away from $0^\circ$, so the cosine should have <em>fallen</em> a little below $\tfrac12$. It did, by about $0.03$.</p></div>
+    <div class="ck"><p class="ckh">(b) square it back</p><p>$\left(\tfrac{81}{20}\right)^2 = 16.4025$, a little <b>above</b> $16.4$. That confirms the value and the overshoot at once, and it is the best check in the question.</p></div>
+    <div class="ck"><p class="ckh">(b) is it between 4 and 4.1?</p><p>$4^2 = 16$ and $4.1^2 = 16.81$, and $16 < 16.4 < 16.81$. Four seconds, kills every gross slip.</p></div>
+  </div>
+
+  <p><b>The two parts need different checks, and that is worth knowing in advance.</b> Part (b) squares back for free. Part (a) has no equivalent, because $\cos^2 + \sin^2 = 1$ needs the sine as well. Reaching for the wrong check is a real way to waste the time you have.</p>
+
+  <p class="warn"><b>The check that cannot fail.</b> Spot-checking at $dx = 0$ agrees with the truth for <b>five of the eight</b> standard wrong answers, because all five differ from the truth only by something multiplying $dy$, and $dy$ is zero there. Never sanity-check a linearization at its own anchor. The good news is specific: at this question's own numbers, not one of the eight slips coincides with the truth, so $60^\circ$ with $dx = 2^\circ$ and $16$ with $dx = 0.4$ are safe places to check.</p>
+</section>
+
+<section>
+  <p class="num">07</p>
+  <h2>Every version of this question</h2>
+
+  <p>Nine families, grouped by the tool the variation forces rather than by how it looks. Every value was recomputed from its closed form and independently re-derived by a numerical derivative that never sees the formula.</p>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 0</span>A root near a perfect power</p>
+    <p class="famt"><b>Trigger:</b> a root of a number just off a perfect square, cube or $n$th power. <b>Tool:</b> anchor at the nearest perfect power. This is part (b), and it is Q12.1.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Target</th><th class="mono">a</th><th class="mono">f'(a)</th><th>Estimate</th><th class="mono">Places right</th></tr></thead>
+      <tbody>
+        <tr><td>$\sqrt{16.4}$</td><td class="mono">16</td><td class="mono">1/8</td><td>$81/20$</td><td class="mono no2">0</td></tr>
+        <tr><td>$\sqrt{9.2}$</td><td class="mono">9</td><td class="mono">1/6</td><td>$91/30$</td><td class="mono">3</td></tr>
+        <tr><td>$\sqrt{4.1}$</td><td class="mono">4</td><td class="mono">1/4</td><td>$81/40$</td><td class="mono">1</td></tr>
+        <tr><td>$\sqrt{101}$</td><td class="mono">100</td><td class="mono">1/20</td><td>$201/20$</td><td class="mono no2">0</td></tr>
+        <tr><td>$\sqrt{24.6}$</td><td class="mono">25</td><td class="mono">1/10</td><td>$124/25$</td><td class="mono">3</td></tr>
+        <tr><td>$\sqrt{48.6}$</td><td class="mono">49</td><td class="mono">1/14</td><td>$244/35$</td><td class="mono ok2">4</td></tr>
+        <tr><td>$\sqrt[3]{26.8}$</td><td class="mono">27</td><td class="mono">1/27</td><td>$404/135$</td><td class="mono">-</td></tr>
+        <tr><td>$(32.2)^{1/5}$</td><td class="mono">32</td><td class="mono">1/80</td><td>$801/400$</td><td class="mono">-</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="cap">Read the third column as structure: every one is a <b>unit fraction</b>, which is the signature of a correctly chosen anchor. If yours is not, you picked the wrong $a$. And notice the last column has nothing to do with how tidy the row looks.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 1</span>A trig value near a special angle, given in degrees</p>
+    <p class="famt"><b>Trigger:</b> a sine or cosine of a whole number of degrees within a few of $0, 30, 45, 60, 90$. <b>Tool:</b> anchor at the special angle in radians. This is part (a), and it is Q12.2.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Target</th><th class="mono">Anchor</th><th>Estimate</th><th class="mono">Places right</th></tr></thead>
+      <tbody>
+        <tr><td>$\cos 62^\circ$</td><td class="mono">60</td><td>$\tfrac12 - \tfrac{\sqrt3\pi}{180}$</td><td class="mono no2">2</td></tr>
+        <tr><td>$\sin 62^\circ$</td><td class="mono">60</td><td>$\tfrac{\sqrt3}{2} + \tfrac{\pi}{180}$</td><td class="mono">3</td></tr>
+        <tr><td>$\cos 31^\circ$</td><td class="mono">30</td><td>$\tfrac{\sqrt3}{2} - \tfrac{\pi}{360}$</td><td class="mono">3</td></tr>
+        <tr><td>$\sin 29^\circ$</td><td class="mono">30</td><td>$\tfrac12 - \tfrac{\sqrt3\pi}{360}$</td><td class="mono">3</td></tr>
+        <tr><td>$\cos 44^\circ$</td><td class="mono">45</td><td>$\tfrac{\sqrt2}{2}\left(1 + \tfrac{\pi}{180}\right)$</td><td class="mono">3</td></tr>
+        <tr><td>$\sin 46^\circ$</td><td class="mono">45</td><td>$\tfrac{\sqrt2}{2}\left(1 + \tfrac{\pi}{180}\right)$</td><td class="mono">3</td></tr>
+        <tr><td>$\cos 58^\circ$</td><td class="mono">60</td><td>$\tfrac12 + \tfrac{\sqrt3\pi}{180}$</td><td class="mono">3</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="cap">All seven overshoot, because sine and cosine are both concave down on the first quadrant. <b>Not one reaches four places</b>, and this question's own $\cos 62^\circ$ is the worst of them. Rows five and six share an estimate, because reflecting through $45^\circ$ maps one problem onto the other.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 2</span>Tangent, cotangent, secant, cosecant</p>
+    <p class="famt"><b>Trigger:</b> any of the other four near a special angle. <b>Tool:</b> the same five moves, but <b>the direction flips</b>. All four are concave up on the first quadrant, so all four <em>undershoot</em>.</p>
+    <p>$\tan 46^\circ \approx 1 + \tfrac{\pi}{90}$, and $\tan 44^\circ \approx 1 - \tfrac{\pi}{90}$. One steps up, one steps down, and <b>both undershoot</b>. Convexity fixes the direction; the sign of $dx$ has no say, and neither does the sign of $f'$, which is negative for cotangent and cosecant and changes nothing.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 3</span>Powers, reciprocals, mixed exponents</p>
+    <p class="famt"><b>Trigger:</b> $(a + dx)^p$ for any real $p$. <b>Tool:</b> $f' = p\,a^{p-1}$, and the direction comes from the sign of $p(p-1)$.</p>
+    <p>$p > 1$ is convex and undershoots. $0 < p < 1$ is concave and overshoots, exactly like a root. $p < 0$ on positive $x$ is convex and undershoots.</p>
+    <p class="warn"><b>$(1.02)^{10}$ kills the idea that a small step means a good estimate.</b> Its step is $0.02$ and the answer is still 1.6 percent low, because $f''(1) = 90$. The error is $\tfrac12 f''(dx)^2$, and $f''$ gets a vote.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 4</span>"Estimate to N decimal places"</p>
+    <p class="famt"><b>Trigger:</b> any precision demand attached to the stem. <b>This is this question's own family, and no course file covers it.</b></p>
+    <p>Compute the estimate, round it to $N$ places padding with zeros, and separately compute $\tfrac{|f''(a)|}{2}(dx)^2$ so you can say what it is worth. What you write is always the <b>estimate</b>. If there is room, add one clause quoting the bound rather than claiming a place count.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 5</span>"Is your estimate too big or too small? Justify."</p>
+    <p class="famt"><b>Trigger:</b> the direction asked, with or without the number. <b>Tool:</b> the sign of $f''$, and one sentence about the tangent line.</p>
+    <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>Function</th><th class="mono">f''</th><th>Estimate is</th></tr></thead>
+      <tbody>
+        <tr><td>$\sqrt x$, $\sqrt[3]{x}$, $x^p$ for $0&lt;p&lt;1$, $\ln x$</td><td class="mono">$&lt;0$</td><td class="ok2">too big</td></tr>
+        <tr><td>$\sin x$, $\cos x$ on the first quadrant</td><td class="mono">$&lt;0$</td><td class="ok2">too big</td></tr>
+        <tr><td>$x^n$ for $n&gt;1$, $e^x$</td><td class="mono">$&gt;0$</td><td class="no2">too small</td></tr>
+        <tr><td>$1/x$, $\tan$, $\sec$, $\csc$, $\cot$ on $(0,\pi/2)$</td><td class="mono">$&gt;0$</td><td class="no2">too small</td></tr>
+      </tbody>
+    </table>
+    </div>
+    <p class="cap">Answer it with the tangent line, never with the arithmetic: "$f'' &lt; 0$ here, so the graph is concave down, so the tangent lies above it, so the estimate is too large." That works for a negative $dx$ too. Four of the eight overshoot and four undershoot, so "linearization overestimates" is a coin flip.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 6</span>Bound the error</p>
+    <p class="famt"><b>Trigger:</b> "how accurate is this", "bound the error", or a precision demand you want to justify. <b>Tool:</b> $\tfrac{M}{2}(dx)^2$ with $M$ the maximum of $|f''|$ over the <em>whole</em> interval. See section 04 for why the endpoint matters.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 7</span>Two parts that do not have to agree</p>
+    <p class="famt"><b>Trigger:</b> two lettered parts under one stem, which is exactly this question's shape.</p>
+    <p>This question's parts happen to agree, both overshooting. Pair $\sqrt{16.4}$ with $\tan 46^\circ$, or with $(2.01)^5$, and one overshoots while the other undershoots. Treat the parts as two independent questions that share only the shape of the work.</p>
+  </div>
+
+  <div class="fam">
+    <p class="famh"><span class="fk">Family 8</span>The change, not the value</p>
+    <p class="famt"><b>Trigger:</b> "by approximately how much does it change", or an error-propagation stem. <b>Tool:</b> $dy = f'(a)\,dx$ <b>alone</b>. Do not add $f(a)$.</p>
+    <p>A circle of radius 10 with $dr = 0.1$ changes area by $2\pi r\,dr = 2\pi$. A cube of side 5 with $ds = 0.02$ changes volume by $3s^2\,ds = 1.5$. For a power the relative form is clean: $\tfrac{dy}{y} = n\,\tfrac{dx}{x}$.</p>
+  </div>
+</section>
+
+<section>
+  <p class="num">08</p>
+  <h2>Where the marks actually go</h2>
+
+  <ol class="tl">
+    <li><span><b>Not converting to radians on part (a).</b> Gives $-1.2321$, which is 5701 times the method's own error. Available on exactly one of the two parts, and free to catch.</span></li>
+    <li><span><b>Writing the true value.</b> $0.4695$ and $4.0497$ are the truth, not the estimate. The question asked for the estimate.</span></li>
+    <li><span><b>Evaluating $f'$ at the target instead of the anchor.</b> The error it makes is about the same size as the correct answer's, pointing the other way, so it looks entirely plausible. Worse, it becomes invisible as the step shrinks.</span></li>
+    <li><span><b>Not padding to the requested number of places.</b> Writing $4.05$ where $4.0500$ was asked for. Free marks, one keystroke.</span></li>
+    <li><span><b>Carrying part (a)'s setup into part (b).</b> Different function, different anchor, different units.</span></li>
+    <li><span><b>Choosing a prettier anchor rather than a better one.</b> Subtler than it looks: see section 05, where the nearest anchor loses twice.</span></li>
+    <li><span><b>Spot-checking at the anchor.</b> $dx = 0$ hides five of the eight standard slips. Use the stem's own numbers instead.</span></li>
+    <li><span><b>Reporting $dy$ instead of $f(a) + dy$.</b> Answers $-0.0302$ and $0.05$. The magnitude check catches it instantly.</span></li>
+    <li><span><b>Getting the direction backwards</b> by reasoning from the sign of $dx$ rather than the sign of $f''$. Both parts step up and overshoot; $\sqrt{24.6}$ steps down and also overshoots.</span></li>
+    <li><span><b>Assuming both parts lean the same way.</b> Here they do. Change one function and they do not.</span></li>
+    <li><span><b>The invisible ones.</b> For a square root $f'(a) = 1$ exactly at $a = 1/4$, so forgetting to multiply by $f'(a)$ is undetectable there. For a cosine $f'(0) = 0$, so at that anchor a sign flip, a doubled correction and a target-for-step slip are all identical to the truth. Neither point is 16 or $60^\circ$, so this question is clean, but a reworded one might not be.</span></li>
+  </ol>
+</section>
+
+<section>
+  <p class="num">09</p>
+  <h2>Twelve to do closed-book</h2>
+
+  <p>Fifteen minutes, no calculator. Leave each answer exact, then say over or under.</p>
+
+  <ol class="dr">
+    <li><span>Estimate $\sqrt{16.4}$. <b class="ans">81/20 = 4.0500, over, 0 places</b></span></li>
+    <li><span>Estimate $\cos 62^\circ$. <b class="ans">1/2 - sqrt3 pi/180 = 0.4698, over, 2 places</b></span></li>
+    <li><span>Estimate $\sqrt{35.9}$. <b class="ans">6 - 1/120 = 5.9917, over, 4 places</b></span></li>
+    <li><span>Estimate $\sqrt[3]{63.5}$. <b class="ans">4 - 1/96 = 3.9896, over, 4 places</b></span></li>
+    <li><span>Estimate $\sin 59^\circ$. <b class="ans">sqrt3/2 - pi/360 = 0.8573, over, 3 places</b></span></li>
+    <li><span>Estimate $\tan 46^\circ$. <b class="ans">1 + pi/90 = 1.0349, UNDER, 1 place</b></span></li>
+    <li><span>Estimate $\cos 89^\circ$. <b class="ans">pi/180 = 0.0175, over, 5 places</b></span></li>
+    <li><span>Estimate $(3.02)^4$. <b class="ans">81 + 54/25 = 83.1600, UNDER, 1 place</b></span></li>
+    <li><span>Estimate $1/2.01$. <b class="ans">1/2 - 1/400 = 0.4975, UNDER, 4 places</b></span></li>
+    <li><span>Estimate $(16.4)^{1/4}$. <b class="ans">2 + 1/80 = 2.0125, over, 2 places</b></span></li>
+    <li><span>Estimate $\sec 62^\circ$. <b class="ans">2 + 2 sqrt3 pi/180 = 2.0605, UNDER, 1 place</b></span></li>
+    <li><span>Estimate $\sqrt{0.26}$. <b class="ans">51/100 = 0.5100, over, 3 places</b></span></li>
+  </ol>
+
+  <p class="warn"><b>Question 7 is the one to study.</b> At $90^\circ$ the second derivative $-\cos(90^\circ)$ is exactly <b>zero</b>, so the concavity test says nothing at all. The cubic term decides instead: $\cos(90^\circ - h) = \sin h = h - h^3/6$, which is less than $h$, so the estimate overshoots. Step the other way and the same estimate undershoots. An inflection is the only place in this whole catalog where the sign of $dx$ decides the direction.</p>
+
+  <p><b>Score magnitude and direction separately.</b> They are different failure modes needing different fixes. A wrong magnitude means you mis-differentiated or mis-anchored. A wrong direction means you reasoned from the sign of $dx$, which is a five-minute fix. Eight of the twelve overshoot, so answering "over" every time scores 8 out of 12, which looks like competence and is not.</p>
+
+  <p>The place counts across the twelve run $0, 1, 1, 1, 2, 2, 3, 3, 4, 4, 4, 5$. Four of them reach four correct places. What separates those four is the discriminator from section 03.</p>
+</section>
+
+<section>
+  <p class="num">10</p>
+  <h2>Closing the category</h2>
+
+  <p>All three questions are the same procedure. What differs is which step each one makes hard.</p>
+
+  <div class="tscroll vtab">
+  <table>
+    <thead><tr><th></th><th>Q12.1</th><th>Q12.2</th><th>Q12.3</th></tr></thead>
+    <tbody>
+      <tr><td class="mono">Paper and item</td><td>MT1 item 9</td><td>MT2 item 8</td><td><b>F1 item 2</b></td></tr>
+      <tr><td class="mono">Points</td><td class="mono">5</td><td class="mono">6</td><td class="mono ok2"><b>8</b></td></tr>
+      <tr><td class="mono">Stem wording</td><td>"use differentials"</td><td>"use linearization"</td><td>"the method of differentials"</td></tr>
+      <tr><td class="mono">Target</td><td>$\sqrt{9.2}$</td><td>$\sin 62^\circ$</td><td>$\cos 62^\circ$ and $\sqrt{16.4}$</td></tr>
+      <tr><td class="mono">Its one idea</td><td>the anchor is the question</td><td>the unit is the question</td><td><b>what the answer is worth</b></td></tr>
+      <tr><td class="mono">What it adds</td><td>$f'$ at the anchor; direction from $f''$</td><td>radians; the anchor rule needs $|f''|$</td><td>precision; two parts; the bound settled</td></tr>
+      <tr><td class="mono">Extra demand</td><td>none</td><td>none</td><td><b>"(show the process)"</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>Three things the category corrected about itself along the way, each one written down only because a measurement contradicted a draft.</p>
+
+  <div class="checks">
+    <div class="ck"><p class="ckh">"Nearest wins, always" is false</p><p>Stated on Q12.1, refuted on trigonometry by Q12.2, and refuted on square roots here. The surviving rule is: minimise $|f''(a)|(dx)^2$.</p></div>
+    <div class="ck"><p class="ckh">The bound was never violated</p><p>Two runs recorded an "anchor bound violated" with the inequality pointing opposite ways. Both were a lower bound read as an upper one.</p></div>
+    <div class="ck"><p class="ckh">"Four decimal places" means write four</p><p>The method reaches four places on four of twelve drills. It reaches four on neither of the two parts this paper actually asks for.</p></div>
+  </div>
+</section>
+
+<section>
+  <p class="num">11</p>
+  <h2>Where every number came from</h2>
+
+  <div class="vbar">
+    <div><span class="k">Assertions</span><span class="v">512</span></div>
+    <div><span class="k">Failures</span><span class="v">0</span></div>
+    <div><span class="k">Seeded controls</span><span class="v">56</span></div>
+    <div><span class="k">Claims re-checked</span><span class="v">138</span></div>
+    <div><span class="k">Bracket pairs</span><span class="v">164</span></div>
+    <div><span class="k">Concavity pairs</span><span class="v">102</span></div>
+  </div>
+
+  <p>Two sections were appended to the course's shared verification harness, <code>q123</code> and <code>q123d</code>. Every value on this page was printed by that harness and pasted from its output. No decimal was typed, and nothing was copied from the two predecessor pages without being recomputed here first.</p>
+
+  <p>The seeded controls matter as much as the assertions. A gate that reports nothing looks exactly like a gate that passes, so each one was proved to bite: the high-precision arithmetic was shown to reject a value wrong in its thirtieth digit, the place counter was shown to report 0, 1, 2, 3, 4 and 5 on different inputs, the bracket was shown to <em>break</em> on an interval straddling $90^\circ$, and the concavity test was shown to report "under" for four convex functions.</p>
+
+  <div class="prov">
+    <div class="pv"><p class="pvh">What the course notes get right</p><p>The review file states the linearization correctly in five places, and its worked example is right on all four of its claims. Its best sentence on the topic is "convert degrees to radians if trig".</p></div>
+    <div class="pv"><p class="pvh">What no course file contains</p><p>Any statement of the <em>direction</em> of the error. Any error bound. Any demonstration of an anchor choice against a competitor. And nothing at all about what "to four decimal places" means when the method cannot deliver them.</p></div>
+    <div class="pv"><p class="pvh">On marking</p><p>No marking scheme exists anywhere in the four course files, re-verified for the seventh consecutive time. Anything said here about which sentences make the method visible is inference, and is flagged as such on the page it appears.</p></div>
+  </div>
+</section>
+
+</main>

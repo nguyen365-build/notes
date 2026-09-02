@@ -1,0 +1,291 @@
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 1 &#183; ITEM 4 &#183; 20 POINTS &#183; JOINT-HEAVIEST ON THE PAPER</div>
+  <h1>Nothing Is An Answer</h1>
+  <p class="stand">Q14.1 asks for four things about each of two curves. Four of those eight cells are the word <b>none</b>, and a blank reads as an unattempted cell. This is the synthesis question of the course: it introduces no new technique, and everything it costs you is in the <em>order</em> you do the old ones and the <em>absences</em> you remember to write down.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2>The question, and the eight cells</h2>
+
+<p class="quote">Sketch the graph of each of the functions below. State all critical points, cusps, vertical asymptotes and points of inflection.<br><span class="qp">a. $f(x) = \dfrac{x^2}{x^2-1}$ &#160;&#160;&#160; b. $f(x) = x + \sin x$</span></p>
+
+<p>That verb matters. <b>"State all" occurs exactly once across all four MATH 265 papers, and this is the item that carries it.</b> It then enumerates four deliverables, so the marked object is eight labelled lists, not a picture.</p>
+
+<div class="tscroll vtab">
+<table class="ans">
+<thead><tr><th>deliverable</th><th>(a) $x^2/(x^2-1)$</th><th>(b) $x + \sin x$</th></tr></thead>
+<tbody>
+<tr><td class="dl">critical points</td><td>$(0,0)$, a local <b>maximum</b></td><td>$\big((2k+1)\pi,\,(2k+1)\pi\big)$, $k\in\mathbb{Z}$ &#183; horizontal tangents, <b>not</b> extrema</td></tr>
+<tr><td class="dl">cusps</td><td class="none">none</td><td class="none">none</td></tr>
+<tr><td class="dl">vertical asymptotes</td><td>$x=-1$ and $x=1$</td><td class="none">none</td></tr>
+<tr><td class="dl">points of inflection</td><td class="none">none</td><td>$\big(k\pi,\,k\pi\big)$, $k\in\mathbb{Z}$</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read that table down the middle and the design of the question appears. <b>The two parts are near-exact complements.</b> (a) has asymptotes and no inflections; (b) has inflections and no asymptotes. Where one is even the other is odd; where one has finitely many features the other has infinitely many; where one's single critical point <em>is</em> an extremum, none of the other's infinitely many is.</p>
+
+<p class="note">Four of the eight cells are <b>none</b>: cusps on both parts, vertical asymptotes on (b), inflections on (a). Each is a mark you get only if you write the word.</p>
+</section>
+
+<section>
+<h2>The two curves</h2>
+<div class="figbox">FIGURE_CURVES</div>
+<p class="cap">Both panels plotted from evaluated $f$, not sketched. Part (a) is drawn as three separate polylines, one per branch of the domain, so no segment crosses a pole; the vertical range is clipped at $\pm 6$ because the branches are unbounded. In panel B the rings are the critical points and the filled dots the plain inflections, and every one of them sits on the centre line $y=x$ - because $\sin(k\pi)=0$, so $f(k\pi)=k\pi$ exactly.</p>
+</section>
+
+<section>
+<h2>The checklist, and why the order is the order</h2>
+
+<p>The nine steps below are not a preference. Each one produces candidate $x$-values that the steps after it must filter, so an order that puts the filter last means auditing four lists instead of doing one lookup.</p>
+
+<ol class="steps"><li><span><b>Domain.</b> Write the excluded points down as a set. Everything after this is filtered by it.</span></li>
+<li><span><b>Intercepts.</b> $f(0)$, then solve $f(x)=0$.</span></li>
+<li><span><b>Symmetry.</b> Compare $f(-x)$ with $f(x)$ and with $-f(x)$. Even or odd halves everything below.</span></li>
+<li><span><b>Asymptotes.</b> Vertical after cancelling; horizontal by degree; slant only if $\deg N = \deg D + 1$.</span></li>
+<li><span><b>$f'$, and <em>both</em> kinds of critical point.</b> $f'=0$, and $f'$ undefined where $f$ is defined. Classify any non-differentiable point as corner, cusp or vertical tangent <em>here</em>.</span></li>
+<li><span><b>Sign chart of $f'$.</b> Break at every excluded point <em>and</em> every critical point. Read increasing and decreasing; classify each critical point by its sign change.</span></li>
+<li><span><b>$f''$.</b> Compute it from $f'$. Candidates are $f''=0$ <em>and</em> $f''$ undefined.</span></li>
+<li><span><b>Sign chart of $f''$.</b> An inflection is a candidate <em>in the domain</em> where the sign actually changes.</span></li>
+<li><span><b>Assemble, cross-check, then draw.</b> The three checks below, before the pencil moves.</span></li></ol>
+
+<div class="pipe">
+<div class="cell"><div class="ch">DOMAIN FIRST</div><p>It is the filter. Part (a) throws up $x=\pm1$ four separate times - as denominators of $f$, of $f'$ and of $f''$, and as the place the concavity flips. Each time the answer is the same lookup: not in the domain, not a feature.</p></div>
+<div class="cell"><div class="ch">SYMMETRY EARLY</div><p>It halves the derivative work and then acts as a free cross-check on it. Part (a) is even, so the sign chart on $x&lt;0$ must mirror $x&gt;0$; part (b) is odd, so the whole picture rotates about the origin.</p></div>
+<div class="cell"><div class="ch">ASYMPTOTES BEFORE $f'$</div><p>They fix the shape of the ends. Knowing (a) tends to $1$ at both infinities means your monotonicity on $(1,\infty)$ must be <em>decreasing towards 1</em>. If the sign chart disagrees, one of the two is wrong and you know it before drawing.</p></div>
+<div class="cell"><div class="ch">CUSPS IN STEP 5</div><p>A cusp <em>is</em> a critical point, so it breaks the $f'$ sign chart. Find it in step 5 or steps 6 and 8 are built without a break the function actually has. The course notes put this at step 9.</p></div>
+</div>
+
+<p>Does the same order serve both parts? <b>Yes.</b> What differs is only which steps return anything: step 4 returns three asymptotes on (a) and nothing on (b); step 8 returns nothing on (a) and everything on (b). Two things change in practice. On (b) the features repeat, so you solve one period and state the answer as a formula in $k$ rather than listing five instances. And on (b) the classification changes tool: $f'$ touches zero without crossing, so the second-derivative test is silent and you must use the first-derivative test, whose verdict is "neither".</p>
+</section>
+
+<section>
+<h2>Part (a), in checklist order</h2>
+
+<div class="pv">
+<div class="pvh">DOMAIN</div><div>$x^2-1=(x-1)(x+1)$, and the numerator $x^2$ shares no factor with it, so nothing cancels. $(-\infty,-1)\cup(-1,1)\cup(1,\infty)$.</div>
+<div class="pvh">INTERCEPTS</div><div>$f(0)=0/(-1)=0$. $f(x)=0$ needs $x^2=0$, a <b>double</b> root, so the curve touches the axis at $(0,0)$ rather than crossing.</div>
+<div class="pvh">SYMMETRY</div><div>$f(-x)=f(x)$. <b>Even.</b> Verified exactly in rational arithmetic at 121 points, and verified <em>not</em> odd at all 34 valid points of a second sample.</div>
+<div class="pvh">ASYMPTOTES</div><div>Vertical $x=-1$, $x=1$. Horizontal $y=1$: equal degrees, both leading coefficients $1$. No slant, because $2 \neq 2+1$.</div>
+<div class="pvh">$f'$</div><div>$$f'(x)=\frac{2x(x^2-1)-x^2(2x)}{(x^2-1)^2}=\frac{-2x}{(x^2-1)^2}$$ Zero only at $x=0$. Undefined only at $x=\pm1$, which are not in the domain, so <b>no other critical points and no cusps</b>.</div>
+<div class="pvh">SIGN OF $f'$</div><div>$(x^2-1)^2&gt;0$ throughout the domain, so $\operatorname{sign}f'=\operatorname{sign}(-2x)$: increasing on $(-\infty,-1)$ and $(-1,0)$, decreasing on $(0,1)$ and $(1,\infty)$. One sign change, so <b>one extremum: $(0,0)$ is a local maximum.</b></div>
+<div class="pvh">$f''$</div><div>The rule changes: $f'=-2x(x^2-1)^{-2}$ wants the product rule with a chain factor, not the quotient rule again. $$f''(x)=\frac{-2(x^2-1)+8x^2}{(x^2-1)^3}=\frac{2(3x^2+1)}{(x^2-1)^3}$$</div>
+<div class="pvh">SIGN OF $f''$</div><div>The numerator is $\geq 2$ for every real $x$ (the discriminant of $6x^2+2$ is $-48$), so $\operatorname{sign}f''=\operatorname{sign}(x^2-1)$: concave up on $|x|&gt;1$, concave down on $|x|&lt;1$.</div>
+<div class="pvh">INFLECTIONS</div><div><b>None.</b> $f''$ is never zero. The concavity <em>does</em> flip across $x=\pm1$, and neither is an inflection, because neither is a point of the graph.</div>
+</div>
+
+<p class="warn"><b>The trap on part (a) is the concavity flip at $x=\pm 1$.</b> It is a genuine change of sign of $f''$, at the two most conspicuous $x$-values on the page, and it is not an inflection point. Write the sentence that says why, or "no points of inflection" looks like you never computed $f''$.</p>
+
+<p>One more thing worth stating because it surprises people: the local maximum value is $0$, and the outer branches are all <em>above</em> $y=1$. So the local maximum is not a global one, and the range is $(-\infty,0]\cup(1,\infty)$.</p>
+</section>
+
+<section>
+<h2>Part (b), and the amplitude that decides everything</h2>
+
+<div class="pv">
+<div class="pvh">DOMAIN</div><div>All of $\mathbb{R}$.</div>
+<div class="pvh">INTERCEPTS</div><div>$f(0)=0$. For $0&lt;x\leq1$ both $x&gt;0$ and $\sin x&gt;0$; for $x&gt;1$, $f\geq x-1&gt;0$. So no positive root, and by oddness no negative one. $(0,0)$ only.</div>
+<div class="pvh">SYMMETRY</div><div>$f(-x)=-x-\sin x=-f(x)$. <b>Odd.</b> Verified to $10^{-12}$ at 9000 points.</div>
+<div class="pvh">ASYMPTOTES</div><div><b>None of any kind.</b> $f$ is continuous, so no vertical; unbounded, so no horizontal. And $f(x)-x=\sin x$ does <em>not</em> tend to zero - it reaches $+1$ and $-1$ for ever - so <b>$y=x$ is not a slant asymptote</b>. It is a centre line.</div>
+<div class="pvh">$f'$</div><div>$f'(x)=1+\cos x$. Zero exactly where $\cos x=-1$, so $x=(2k+1)\pi$. Finite everywhere ($0\leq f'\leq 2$), so <b>no cusps</b>.</div>
+<div class="pvh">SIGN OF $f'$</div><div>$f'\geq 0$ everywhere, with equality only at isolated points, so $f$ is <b>strictly increasing on all of $\mathbb{R}$</b>. No sign change anywhere. Sampled at 2000001 points on $[-4\pi,4\pi]$: minimum exactly $0$, no negative value.</div>
+<div class="pvh">CLASSIFY</div><div>The second-derivative test is <b>inconclusive</b>, because $f''\big((2k+1)\pi\big)=0$ too. First-derivative test: $f'&gt;0$ on both sides, no sign change, so <b>neither a maximum nor a minimum</b>. $f$ has no local extrema at all.</div>
+<div class="pvh">$f''$</div><div>$f''(x)=-\sin x$, zero at every $x=k\pi$, and it genuinely <b>changes sign</b> at each - verified as a sign change, not merely as $f''=0$.</div>
+<div class="pvh">INFLECTIONS</div><div>$\big(k\pi,k\pi\big)$ for every integer $k$. Concave up on $\big((2k-1)\pi,2k\pi\big)$, concave down on $\big(2k\pi,(2k+1)\pi\big)$.</div>
+</div>
+
+<p>The structural fact that makes the sketch easy: <b>the odd multiples of $\pi$ are a subset of all the multiples of $\pi$</b>, so every critical point is <em>also</em> an inflection point. The graph is a staircase that never turns back - steepest at the even multiples where $f'=2$, flat at the odd multiples, and touching $y=x$ at all of them.</p>
+
+<h3>Why (b) has no extrema, in one picture</h3>
+<div class="figbox">FIGURE_BIF</div>
+<p class="cap">$f'(x)=1+A\cos x$ for $f(x)=x+A\sin x$. Below $|A|=1$ the derivative never reaches zero and there are no critical points at all; above it, the roots separate into genuine maximum and minimum pairs. <b>The exam sits exactly on the boundary</b>, where the two roots have merged into a repeated one - which is precisely why its infinitely many critical points are horizontal tangents and not extrema. Minimum values printed on each panel are $1-A$, computed.</p>
+</section>
+
+<section>
+<h2>Cross-check before you draw</h2>
+
+<p>A sketch is the only deliverable that can silently contradict the lists above it. Three checks, each catching a different disagreement.</p>
+
+<div class="checks">
+<div class="ck"><div class="ckh">1 &#183; EVERY INFLECTION MUST CHANGE SIGN</div><p>Evaluate $f''$ just left and just right of each candidate; the product must be <b>negative</b>. On (b) all seven multiples of $\pi$ in $[-3\pi,3\pi]$ pass. The same test correctly <b>rejects</b> $x=\pi/2$, and rejects $x=0$ for $x^4$. This catches the commonest wrong answer in the topic: listing $f''=0$ as an inflection.</p></div>
+<div class="ck"><div class="ckh">2 &#183; TABLE MUST MATCH THE CRITICAL POINTS</div><p>Count sign changes in the $f'$ row; it must equal the number of extrema you claimed. (a): one change, one extremum. (b): zero changes, zero extrema. Calling (b)'s $x=\pi$ a maximum fails this instantly. Cheaper second form: the intervals must <b>tile the domain</b>, breaking only at excluded and critical points - four intervals on (a), from two exclusions and one critical point.</p></div>
+<div class="ck"><div class="ckh">3 &#183; THE DRAWING MUST RESPECT THE ASYMPTOTES</div><p>A vertical asymptote can <b>never</b> be crossed - $x=1$ is not in the domain. A horizontal one may or may not be, and you have to check: solving $x^2/(x^2-1)=1$ gives $0=-1$, so <b>this</b> curve never crosses $y=1$. But $x/(x^2+1)$ crosses <em>its</em> horizontal asymptote at the origin, so the general rule is false and the specific fact needs its one-line proof.</p></div>
+</div>
+
+<h3>The self-check that does not work - on either part</h3>
+
+<p class="warn">Checking your derivative <b>at the answer</b> cannot detect an error on this question. Five plausible slips in part (a)'s $f'$ - a lost minus sign, a missing chain factor, an inverted quotient rule, an unsquared denominator, a cubed one - were tested over a 401-point grid. <b>All five agree with the truth at exactly one point, and that point is $x=0$</b>: the critical point, the one value the question forces you to write down. Each slip differs from the truth only by a factor multiplying the numerator $2x$, which vanishes there. On part (b) the same thing happens one derivative later: the sign slip $f''=+\sin x$ agrees with the truth at <b>every multiple of $\pi$</b>, which is exactly the inflection set.</p>
+
+<p><b>So check somewhere that is not a feature.</b> $x=2$ catches all five slips on part (a). $x=\pi/3$ catches all four on part (b), because it is not a multiple of $\pi$, not a half-odd multiple, and not $\pi/4+k\pi$.</p>
+
+<p class="note">Two magnitude checks that cost nothing. Near a pole part (a) behaves like $1/(2\varepsilon)$, so $f(1-10^{-4})\approx-4999.25$ and each further factor of $100$ in $\varepsilon$ multiplies the value by $100$; if your mental picture has the branch levelling off near the pole, it is wrong. And part (b)'s steepest slope is exactly $2$, so no arc of that sketch should ever be steeper than $2$ or ever have negative slope.</p>
+</section>
+
+<section>
+<h2>The variation catalog</h2>
+
+<p>Eleven families, organised by the tool each forces rather than by what the formula looks like. The whole catalog is generated by three switches: <b>is the domain punctured</b> (poles, a cancelling factor, or neither), <b>what do the ends do</b> (horizontal, slant, none, or oscillating), and <b>is $f$ differentiable everywhere on its domain</b> (yes, corner, cusp, or vertical tangent). Read each table as structure, not as a list of facts.</p>
+
+<div class="fams">
+
+<div class="fam"><div class="famh">FAMILY 0 &#183; RATIONAL, EQUAL DEGREES, NOTHING CANCELS</div>
+<p class="ft">The exam's own part (a). One structure, and the pole locations are the only thing that moves.</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>poles</th><th>HA</th><th>critical</th><th>inflections</th></tr></thead><tbody>
+<tr><td class="mono">$x^2/(x^2-1)$</td><td>$\pm1$</td><td>$y=1$</td><td>$(0,0)$ max</td><td class="none">none</td></tr>
+<tr><td class="mono">$x^2/(x^2-4)$</td><td>$\pm2$</td><td>$y=1$</td><td>$(0,0)$ max</td><td class="none">none</td></tr>
+<tr><td class="mono">$x^2/(x^2-9)$</td><td>$\pm3$</td><td>$y=1$</td><td>$(0,0)$ max</td><td class="none">none</td></tr>
+</tbody></table></div>
+<p class="fk">The general member $x^2/(x^2-a^2)$ has $f''=2a^2(3x^2+a^2)/(x^2-a^2)^3$, whose numerator is positive for every real $x$. <b>No member of this family has an inflection point</b> - one sentence discharges the whole family.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 1 &#183; A COMMON FACTOR, SO A HOLE AND A POLE</div>
+<p class="ft">Forces the pole-versus-hole discrimination first. Cancel, run the checklist on the simplified function, then put the hole back as an open circle.</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>simplifies to</th><th>hole</th><th>pole</th><th>critical</th><th>inflections</th></tr></thead><tbody>
+<tr><td class="mono">$(x^2-x)/(x^2-1)$</td><td>$x/(x+1)$</td><td>$x=1$, $y=\tfrac12$</td><td>$x=-1$</td><td class="none">none</td><td class="none">none</td></tr>
+<tr><td class="mono">$(x^2-4)/(x^2-x-2)$</td><td>$(x+2)/(x+1)$</td><td>$x=2$, $y=\tfrac43$</td><td>$x=-1$</td><td class="none">none</td><td class="none">none</td></tr>
+<tr><td class="mono">$(x^2-1)/(x^2-3x+2)$</td><td>$(x+1)/(x-2)$</td><td>$x=1$, $y=-2$</td><td>$x=2$</td><td class="none">none</td><td class="none">none</td></tr>
+</tbody></table></div>
+<p class="fk">Every one of them cancels to a M&#246;bius function $(ax+b)/(cx+d)$, whose $f'$ and $f''$ never vanish. So the family has <b>no critical points and no inflections at all</b> and the entire question is the hole - whose $y$-value must be computed from the <em>cancelled</em> form.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 2 &#183; ONE DEGREE HIGHER ON TOP, SO A SLANT</div>
+<p class="ft">Forces polynomial division, and the recognition that horizontal and slant are mutually exclusive.</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>division</th><th>slant</th><th>pole</th><th>critical</th></tr></thead><tbody>
+<tr><td class="mono">$x^2/(x-1)$</td><td>$x+1+\dfrac{1}{x-1}$</td><td>$y=x+1$</td><td>$x=1$</td><td>$(0,0)$ max, $(2,4)$ min</td></tr>
+<tr><td class="mono">$x^2/(x+1)$</td><td>$x-1+\dfrac{1}{x+1}$</td><td>$y=x-1$</td><td>$x=-1$</td><td>$(-2,-4)$ max, $(0,0)$ min</td></tr>
+</tbody></table></div>
+<p class="fk">The feature that gets asked: <b>the local minimum value ($4$) is greater than the local maximum value ($0$)</b>. Legal, because they sit on different branches separated by the pole. A student checking "max above min" as a sanity rule will think they have erred. Neither member has an inflection.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 3 &#183; LOWER DEGREE ON TOP, AND THE CURVE CROSSES ITS HA</div>
+<p class="ft">The family that refutes "a curve never crosses its horizontal asymptote".</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>HA</th><th>crosses at</th><th>critical</th><th>inflections</th></tr></thead><tbody>
+<tr><td class="mono">$x/(x^2+1)$</td><td>$y=0$</td><td>$x=0$</td><td>$(1,\tfrac12)$ max, $(-1,-\tfrac12)$ min</td><td>$0$, $\pm\sqrt3$ &#183; $f(\sqrt3)=\tfrac{\sqrt3}{4}\approx0.4330$</td></tr>
+<tr><td class="mono">$x/(x^2+4)$</td><td>$y=0$</td><td>$x=0$</td><td>$(2,\tfrac14)$ max, $(-2,-\tfrac14)$ min</td><td>$0$, $\pm2\sqrt3$ &#183; $f(2\sqrt3)=\tfrac{\sqrt3}{8}\approx0.2165$</td></tr>
+</tbody></table></div>
+<p class="fk">$x/(x^2+a^2)$ has extrema at $\pm a$ with values $\pm\tfrac{1}{2a}$, and three inflections at $0$ and $\pm a\sqrt3$. Three magnitudes; every sign is generated by oddness.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 4 &#183; A LINE PLUS A BOUNDED OSCILLATION</div>
+<p class="ft">The amplitude decides the answer qualitatively, and the exam sits on the boundary. See the figure above.</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>critical points</th><th>extrema?</th><th>inflections</th></tr></thead><tbody>
+<tr><td class="mono">$x+\sin x$</td><td>$(2k+1)\pi$</td><td class="none">no</td><td>$k\pi$</td></tr>
+<tr><td class="mono">$x-\sin x$</td><td>$2k\pi$</td><td class="none">no</td><td>$k\pi$, concavity <b>reversed</b></td></tr>
+<tr><td class="mono">$x+\cos x$</td><td>$\tfrac{\pi}{2}+2k\pi$</td><td class="none">no</td><td>$\tfrac{\pi}{2}+k\pi$</td></tr>
+<tr><td class="mono">$x+2\cos x$</td><td>$\tfrac{\pi}{6}+2k\pi$ max, $\tfrac{5\pi}{6}+2k\pi$ min</td><td><b>yes</b></td><td>$\tfrac{\pi}{2}+k\pi$</td></tr>
+<tr><td class="mono">$x+2\sin x$</td><td>$\tfrac{2\pi}{3}+2k\pi$ max, $\tfrac{4\pi}{3}+2k\pi$ min</td><td><b>yes</b></td><td>$k\pi$</td></tr>
+</tbody></table></div>
+<p class="fk">$x+\cos x$ is <b>Q15.1 part (b) of this same paper</b>, two items further down. Two consecutive items on Final Exam 1 use the same shape of function, which makes this the highest-value drill in the topic. For $x+2\cos x$: $f'=1-2\sin x=0$ at $\sin x=\tfrac12$, giving $f(\tfrac{\pi}{6})=\tfrac{\pi}{6}+\sqrt3\approx2.2556$ and $f(\tfrac{5\pi}{6})=\tfrac{5\pi}{6}-\sqrt3\approx0.8859$.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 5, 6, 7 &#183; THE THREE NON-DIFFERENTIABLE POINTS</div>
+<p class="ft">Both parts of the exam have none of these, and the stem asks about cusps anyway. The discrimination is entirely in the two one-sided slopes.</p>
+<div class="tscroll vtab"><table><thead><tr><th>kind</th><th>one-sided slopes</th><th>example</th><th>cusp?</th><th>what else it is</th></tr></thead><tbody>
+<tr><td>corner</td><td>finite, unequal</td><td class="mono">$|x^2-4|$ at $\pm2$</td><td class="none">no</td><td>local minima, value $0$</td></tr>
+<tr><td>cusp</td><td>infinite, <b>opposite</b> signs</td><td class="mono">$x^{2/3}(x-5)$ at $0$</td><td><b>yes</b></td><td>a local <b>maximum</b>; other min at $x=2$, $f(2)=-3\cdot2^{2/3}\approx-4.7622$</td></tr>
+<tr><td>vertical tangent</td><td>infinite, <b>same</b> sign</td><td class="mono">$x^{1/3}$ at $0$</td><td class="none">no</td><td>an <b>inflection</b>, with $f''$ undefined there</td></tr>
+</tbody></table></div>
+<p class="fk"><b>The centred-difference trap.</b> A centred quotient at a corner returns the <em>average</em> of the two one-sided slopes. At $x=2$ on $|x^2-4|$ the slopes are $+4$ and $-4$, so it reads $0$ and certifies a non-differentiable point as a smooth stationary one. On an asymmetric corner - $2x$ for $x\geq0$ and $x$ below - it reads exactly $1.5$, which is <em>neither</em> slope and is arguably worse, because $0$ at least looks suspicious. Test one-sided slopes separately, always.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 8 &#183; $f''=0$ WITHOUT AN INFLECTION, AND ITS CONVERSE</div>
+<p class="ft">Four rows, four different reasons, and the exam's part (a) is the fourth.</p>
+<div class="tscroll vtab"><table><thead><tr><th>$f$</th><th>$f''$</th><th>at the candidate</th><th>inflection?</th></tr></thead><tbody>
+<tr><td class="mono">$x^4$</td><td>$12x^2$</td><td>zero, no sign change</td><td class="none">no</td></tr>
+<tr><td class="mono">$x^3$</td><td>$6x$</td><td>zero, sign change</td><td><b>yes</b></td></tr>
+<tr><td class="mono">$x^{1/3}$</td><td>$-\tfrac29x^{-5/3}$</td><td><b>undefined</b>, sign change</td><td><b>yes</b></td></tr>
+<tr><td class="mono">$x^2/(x^2-1)$</td><td>$\tfrac{2(3x^2+1)}{(x^2-1)^3}$</td><td>never zero; change at $\pm1$ is <b>outside the domain</b></td><td class="none">no</td></tr>
+</tbody></table></div>
+<p class="fk">$f''=0$ is neither necessary nor sufficient. An inflection needs a genuine <b>sign change</b> at a point <b>in the domain</b>, and those are two separate conditions that fail independently.</p></div>
+
+<div class="fam"><div class="famh">FAMILY 9 &#183; THE ODD RATIONAL TWIN, AND FAMILY 10 &#183; THE POLYNOMIAL ONE</div>
+<p class="ft">Change part (a)'s numerator exponent by one and every answer flips.</p>
+<div class="tscroll vtab"><table><thead><tr><th></th><th>$x^2/(x^2-1)$</th><th>$x/(x^2-1)$</th></tr></thead><tbody>
+<tr><td class="dl">symmetry</td><td>even</td><td><b>odd</b></td></tr>
+<tr><td class="dl">HA</td><td>$y=1$</td><td>$y=0$</td></tr>
+<tr><td class="dl">crosses the HA?</td><td class="none">never</td><td><b>yes, at $x=0$</b></td></tr>
+<tr><td class="dl">$f'$</td><td>$\dfrac{-2x}{(x^2-1)^2}$</td><td>$\dfrac{-(x^2+1)}{(x^2-1)^2}$</td></tr>
+<tr><td class="dl">critical points</td><td>one, at $x=0$</td><td class="none">none</td></tr>
+<tr><td class="dl">inflections</td><td class="none">none</td><td><b>one, at $x=0$</b></td></tr>
+</tbody></table></div>
+<p class="fk"><b>Family 10</b> puts part (b)'s structure in a polynomial you can factor by hand. $f(x)=x^4-4x^3$ has $f'=4x^2(x-3)$, whose root at $0$ is <b>double</b>, so $f'$ does not change sign there and $x=0$ is a critical point that is not an extremum; $x=3$ is a genuine minimum, $f(3)=-27$. And $f''=12x(x-2)$ makes $x=0$ an inflection as well, $f(2)=-16$. So $x=0$ is a critical point <em>and</em> an inflection <em>and</em> not an extremum - part (b)'s situation exactly, in four lines of algebra.</p></div>
+
+</div>
+</section>
+
+<section>
+<h2>The traps, ranked by what they cost</h2>
+<ol class="traps">
+<li><span><b>Leaving a "none" blank.</b> Four of the eight demanded cells are empty. A blank reads as unattempted, and this is the largest cheap loss on a 20-point question.</span></li>
+<li><span><b>Calling $f''=0$ an inflection.</b> Sufficient for nothing. Part (b)'s seven candidates all happen to pass, which is why the habit goes unpunished until it meets $x^4$.</span></li>
+<li><span><b>Calling a concavity change at an excluded point an inflection.</b> Part (a) flips concavity across $x=\pm1$ and has no inflection. The likeliest wrong answer on part (a).</span></li>
+<li><span><b>Calling $f'=0$ an extremum.</b> Part (b) is built to punish it, and the second-derivative test is silent there because $f''=0$ too.</span></li>
+<li><span><b>Writing $y=x$ as an asymptote for part (b).</b> $f(x)-x=\sin x$ does not tend to zero. Centre line.</span></li>
+<li><span><b>Swapping $(2k+1)\pi$ and $k\pi$.</b> The two deliverables are nested sets, so the wrong one is the <em>other</em> correct answer - and it is exactly what the $f''$ sign slip also produces.</span></li>
+<li><span><b>Checking your derivative at the answer.</b> All five $f'$ slips on (a) hide at $x=0$; the $f''$ slip on (b) hides at every $k\pi$. Check at $x=2$ and $x=\pi/3$.</span></li>
+<li><span><b>Drawing through a vertical asymptote,</b> or drawing part (a) dipping below $y=1$ on $(1,\infty)$, which it cannot do.</span></li>
+<li><span><b>Finding cusps at the end.</b> A cusp is a critical point and it breaks the $f'$ sign chart, so it belongs in step 5.</span></li>
+<li><span><b>Confusing corner, cusp and vertical tangent</b> - three distinct things, told apart only by the two one-sided slopes.</span></li>
+<li><span><b>Sampling for part (b)'s critical points.</b> They cannot be found by sampling at any resolution: $f'$ touches zero without crossing, so grids at step $1.0$, $0.5$, $0.25$ and $0.1$ all report "no critical points". Solve $\cos x=-1$.</span></li>
+<li><span><b>Assuming the local maximum is the highest point,</b> or that a local max value must exceed a local min value. Both false here, and family 2 makes the second one explicit.</span></li>
+</ol>
+</section>
+
+<section>
+<h2>Writing it down</h2>
+<div class="dodont">
+<div class="do"><div class="ch">DO</div><ul>
+<li>Write all four headings per part, <b>including the empty ones</b>.</li>
+<li>Write <b>"none"</b> as a word, not a blank or a dash.</li>
+<li>Give (b)'s answers as a formula in $k$, with "for all integers $k$".</li>
+<li>Give critical points and inflections as <b>ordered pairs</b> - the stem says "points".</li>
+<li>Write asymptotes as <b>equations</b>: $x=-1$, $x=1$, $y=1$.</li>
+<li><b>Classify</b> each critical point: max, min, or neither.</li>
+<li>Keep $\pi$ symbolic.</li>
+</ul></div>
+<div class="dont"><div class="ch">DO NOT</div><ul>
+<li>Omit a heading because the answer is "none".</li>
+<li>Leave a blank, a dash, or $\emptyset$ where a sentence is expected.</li>
+<li>List five instances of a periodic family and stop.</li>
+<li>Give bare $x$-values where points were asked for.</li>
+<li>Write asymptotes as numbers.</li>
+<li>List a critical point without saying which kind it is.</li>
+<li>Round $\pi$ to $3.1416$.</li>
+</ul></div>
+</div>
+<p class="warn"><b>The most expensive omission</b> is the word "none" against cusps and against part (a)'s inflections. <b>The most expensive typo</b> is writing (b)'s critical points as $k\pi$: that string is the inflection set, so it does not merely lose a mark, it collides with the other deliverable on the same line.</p>
+<p class="note">Item 4 carries <b>no</b> licence to leave an answer unsimplified. Final Exam 1's single "You may not need to simplify" sits on item 1 and its "(show the process)" on item 2 - neither is item 4's. The paper carries zero "no credit" clauses. No marking scheme exists anywhere in the four course files, so every statement here about what earns marks is inference from the stem's own wording, flagged as such.</p>
+</section>
+
+<section>
+<h2>Provenance and verification</h2>
+
+<div class="prov">
+<div class="pvh">PAPER</div><div>Final Exam 1, <b>item 4</b>, 20 points, printed inline per the F1 convention.</div>
+<div class="pvh">WEIGHT</div><div>F1's fourteen values are 20, 8, 6, 20, 11, 6, 5, 20, 5, 8, 4, 3, 5, 3 = <b>124</b>, re-parsed this run. $20/124 = 16.13$ percent. <b>Nothing on the paper is heavier</b>; items 1 and 8 tie it, and those three items alone are 60 of 124 points.</div>
+<div class="pvh">CLAUSES</div><div>Zero "no credit" clauses on F1, searched case-blind. "You may not need to simplify" is item 1's; "(show the process)" is item 2's. Item 4 carries neither, no "Show your work", and no hint.</div>
+<div class="pvh">ITS OWN DEMAND</div><div><b>"State all" occurs exactly once across all four papers</b>, and it is this item's. It then names four deliverables.</div>
+<div class="pvh">PARSER TRAPS</div><div>The paper file opens with a byte order mark, so an un-stripped heading scan finds only 4 of the 5 exam headings. And F1 item 9 prints its value on a continuation line, so a numbered-line-only parser sums F1 to <b>119</b>. Both re-asserted as controls.</div>
+</div>
+
+<h3>What the course notes get wrong</h3>
+<p><code>MATH265_Review.md</code> section 4 is the most complete treatment any topic gets in the four files: a ten-step checklist plus both parts of this very question worked, and every mathematical claim in those two worked parts checks out. Three things are wrong with it.</p>
+<ol class="tl">
+<li><span><b>Cusps are step 9,</b> after both sign charts. A cusp is a critical point and breaks the $f'$ chart, so it belongs in step 5.</span></li>
+<li><span><b>Its cusp definition is "where $f'$ is undefined but $f$ is continuous"</b> - which also admits corners and vertical tangents. The same file gives the correct definition elsewhere, in terms of opposite infinite one-sided slopes, so it contradicts itself and the curve-sketching section carries the wrong version.</span></li>
+<li><span><b>Its vertical-asymptote rule is "denominator $=0$ and numerator $\neq0$",</b> which is not a missing qualifier but a different and wrong rule. For $f(x)=\dfrac{x-1}{(x-1)^2}=\dfrac{1}{x-1}$ the numerator <em>is</em> zero at $x=1$ and $x=1$ <em>is</em> a pole. The file states the rule four times: two carry the correct "after simplification" form, two carry the broken one. What works: cancel first, and a pole survives exactly when the denominator's multiplicity exceeds the numerator's.</span></li>
+</ol>
+<p class="warn"><b>Part (a) cannot detect that defect.</b> Its numerator $x^2$ is non-zero at $x=\pm1$, so both rule forms give the same right answer. The broken rule has a hiding point and the exam question sits on it - the same "an error hides where the factor it touches vanishes" mechanism as the derivative slips above, applied for the first time in this queue to a <em>rule</em> rather than a formula.</p>
+<p>What the notes omit is sharper still. The stem demands eight cells; the notes fill five. <b>All three omissions are cells whose answer is "none"</b> - part (a)'s cusps and inflections, and part (b)'s cusps. Section 4 never writes the word "none" at all, never gives $f''$ for part (a) (while using $f''(0)&lt;0$ to classify), never mentions that part (b) is odd, and never mentions that its critical points are a subset of its inflections. The closed form $\tfrac{2(3x^2+1)}{(x^2-1)^3}$ appears nowhere in any of the four course files.</p>
+
+<h3>Verification</h3>
+<div class="tscroll vtab"><table class="vbar"><thead><tr><th>section</th><th>assertions</th><th>failures</th><th>seeded controls</th></tr></thead><tbody>
+<tr><td class="mono">q141 &#183; the two parts, provenance, gates</td><td class="num">382</td><td class="num">0</td><td class="num">75</td></tr>
+<tr><td class="mono">q141d &#183; 11 families, 12 drills</td><td class="num">287</td><td class="num">0</td><td class="num">19</td></tr>
+<tr><td class="mono"><b>total</b></td><td class="num"><b>669</b></td><td class="num"><b>0</b></td><td class="num"><b>94</b></td></tr>
+<tr><td class="mono">claims checker over the finished document</td><td class="num">122</td><td class="num">0</td><td class="num">2</td></tr>
+</tbody></table></div>
+
+<p>Both first derivatives were recovered formula-blind by complex step, both second derivatives by a Richardson-extrapolated second difference that never touches the claimed $f'$, and the quotient-rule form was proved identical to the simplified one in exact rationals at 324 points. Critical points and inflections came from a three-arm root census - companion matrix, sign-change sweep with bisection, and a touch-zero arm - <b>controlled in both directions</b>: it returns two roots on $x^2-3x+2$, three on $(x-1)(x-2)(x-3)$, four on $x^4-5x^2+4$, one on $x^3+x+1$, and zero on $x^2+1$. A census that always returned one would be indistinguishable from a correct one here.</p>
+
+<p class="note">Three checker defects were found and fixed, and all three were the check rather than the mathematics. A sample list on a $/7$ stride hit $x=1$ and crashed. An invented $-10^7$ bound was unreachable on the grid it was applied to, and was replaced by the asymptotic $-1/(2\varepsilon)$ law. And <b>bisecting a difference-quotient derivative to refine a touch zero failed outright</b>, walking to a bracket endpoint and reporting it as a root - near a double root the quotient is pure cancellation noise of size $\varepsilon/2h\approx10^{-10}$, larger than the sign information. Complex step has no cancellation and gives the root exactly. The claims checker separately caught two counts that this page had stated in prose without measuring, and both are now parsed from the tables rather than typed.</p>
+
+</section>
+
+</main>
