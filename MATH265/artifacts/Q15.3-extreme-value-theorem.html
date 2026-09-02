@@ -1,0 +1,2483 @@
+<title>Existence Is Not Location</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['\\(','\\)']], displayMath: [['$$','$$']], processEscapes: true },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+/* ===== ops console, MATH 265 series ========================================
+   Palette and type are the series system, unchanged since Q1.1.  What is
+   specific to THIS page is what the five accent hues MEAN.  Q13.1 OPENS
+   category 13, and it is the sequel to category 12: Newton's method is the
+   linearization fed back into itself.  Category 12's pages were about what one
+   estimate is WORTH; this page is about what changes when you ITERATE, so the
+   two loudest hues carry THE ITERATE against THE TRUE ROOT, and the signature
+   block is the digit ladder in section 03, where the correct-digit count
+   doubles every step but the digits you may REPORT do not.
+
+     THE ITERATE, what the method produces                   --rul amber
+     THE TRUE ROOT, established WITHOUT Newton               --chn slate
+     WHERE MARKS DIE, and the four failure modes             --los terracotta
+     THE VARIATION families                                  --fam teal
+     NUMERICS: orders, digit counts, constants, gates        --num mauve
+   ========================================================================= */
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:720px){
+  .verdict{grid-template-columns:1fr}
+  .verdict > div:first-child{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe{grid-template-columns:1fr}
+  .pipe > div{border-right:0;border-bottom:1px solid var(--line)}
+  .pipe > div:last-child{border-bottom:0}
+  .wrap{padding:0 16px 80px}
+}
+/* --- the term ledger: the y' binary, encoded as column colour ------------ */
+th.ypy,td.ypy{background:var(--rul-soft);border-left:1px solid var(--rul-line)}
+th.ypy{color:var(--rul)}
+td.ypy{color:var(--ink);font-weight:500}
+th.ypn,td.ypn{background:var(--chn-soft)}
+th.ypn{color:var(--chn)}
+/* --- the step board -------------------------------------------------------
+   Each cell here carries a WHOLE equation, which the series 4-across .pipe
+   cannot hold: at 1080px the MathJax SVGs overflowed their cells and
+   overlapped the neighbour.  lint.mjs passed it clean; only the screenshot
+   showed it.  Two across, dividers painted by the grid gap so the count can
+   drop to one on a narrow viewport without leaving a stray border, and each
+   equation scrolls inside its own cell as a backstop. ------------------- */
+.pipe.steps{grid-template-columns:repeat(auto-fit,minmax(430px,1fr));gap:1px;background:var(--line)}
+.pipe.steps > div{border-right:0;background:var(--surface)}
+.pipe.steps > div.hot{background:var(--los-soft)}
+.pipe.steps .sv{display:block;overflow-x:auto;overflow-y:hidden;padding-bottom:2px}
+/* --- six values, so three across reads as two even rows rather than 4+2 --- */
+.vgrid{grid-template-columns:repeat(auto-fit,minmax(290px,1fr))}
+/* --- figure caption ------------------------------------------------------ */
+.cap{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:74ch}
+
+/* --- header spacing -------------------------------------------------------
+   The series .wrap carries a 110px BOTTOM padding meant for the page end.
+   The header shares that class, so without this the page opens with a large
+   empty band under the answer bar - the same defect found on Q8.4, and no
+   layout gate reports it.  Scope the page-bottom padding to main.wrap. ---- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar under the standfirst ------------------------------------- */
+.ansbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar .k{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar .v{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar .v.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the inherit / add ledger -------------------------------------------- */
+.ledger{display:grid;grid-template-columns:repeat(auto-fit,minmax(330px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.ledger .col{background:var(--surface);padding:18px 20px}
+.ledger .col.add{background:var(--rul-soft)}
+.ledger .colh{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;margin:0 0 12px;color:var(--chn)}
+.ledger .col.add .colh{color:var(--rul)}
+.ledger ul{margin:0;padding-left:18px;display:flex;flex-direction:column;gap:10px}
+.ledger li{font-size:14.5px;line-height:1.62}
+
+/* --- the 30-second card --------------------------------------------------- */
+pre.card30{font-family:var(--mono);font-size:13px;line-height:1.66;background:var(--surface2);
+  border:1px solid var(--line);border-left:3px solid var(--rul);border-radius:3px;
+  padding:18px 20px;overflow-x:auto;margin:20px 0;color:var(--ink)}
+
+/* --- special-points grid under the figure -------------------------------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.pcard{background:var(--surface);padding:15px 17px;display:flex;flex-direction:column;gap:7px}
+.pcard .pk{margin:0;font-size:16px;font-weight:600}
+.pcard .pv{margin:0;font-family:var(--mono);font-size:10px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink3)}
+.pcard .pd{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.pcard.main{background:var(--rul-soft)} .pcard.main .pk{color:var(--rul)}
+.pcard.fam .pk{color:var(--fam)}
+.pcard.los .pk{color:var(--los)}
+.pcard.sing .pk{color:var(--ink2)}
+
+/* --- route comparison ----------------------------------------------------- */
+.routes{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.rt{background:var(--surface);padding:18px 20px}
+.rt.pick{background:var(--rul-soft)}
+.rth{margin:0 0 12px;font-family:var(--mono);font-size:11px;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ink2);display:flex;flex-wrap:wrap;gap:8px;align-items:baseline}
+.rt.pick .rth{color:var(--rul)}
+.tag{font-size:9.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;
+  background:var(--surface2);color:var(--ink3);border:1px solid var(--line)}
+.tag.on{background:var(--rul);color:var(--ground);border-color:var(--rul);font-weight:600}
+.rt p{font-size:14px;line-height:1.6}
+.rt .sv,.rt mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.cost{color:var(--ink2);font-size:13.5px;border-top:1px solid var(--line);padding-top:11px;margin-top:14px}
+
+/* --- procedure steps + the three-way exit --------------------------------- */
+ol.steps{margin:18px 0;padding-left:22px;display:flex;flex-direction:column;gap:11px}
+ol.steps li{font-size:15px;line-height:1.64}
+.exits{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.ex{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.ex .exh{margin:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.07em;color:var(--ink3)}
+.ex .exm{margin:0;font-size:16px;font-weight:600}
+.ex p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+.ex.ok{background:var(--rul-soft)} .ex.ok .exm{color:var(--rul)}
+.ex.vert .exm{color:var(--los)}
+.ex.sing .exm{color:var(--num)}
+.then{border-left:3px solid var(--rul);padding:11px 16px;background:var(--surface2);
+  border-radius:0 3px 3px 0;font-size:14.5px}
+
+/* --- verification + drill tables ------------------------------------------ */
+.vtab{overflow-x:auto;margin:20px 0;border:1px solid var(--line);border-radius:3px}
+.vtab table{border-collapse:collapse;width:100%;min-width:700px;font-size:13.5px}
+.vtab th{background:var(--surface2);text-align:left;padding:10px 14px;font-family:var(--mono);
+  font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);white-space:nowrap}
+.vtab td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.55}
+.vtab tr:last-child td{border-bottom:0}
+.vtab td.g{font-family:var(--mono);font-size:12px;color:var(--num);white-space:nowrap}
+.vtab td.ok{color:var(--fam);font-family:var(--mono);font-size:12px;white-space:nowrap}
+.vtab td.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.vtab td.yes{color:var(--los);font-weight:600}
+.vtab td.no{color:var(--ink3)}
+.vtab td.fmc{font-family:var(--mono);font-size:12px;color:var(--fam);font-weight:600}
+.tot{font-size:15px;border-left:3px solid var(--fam);padding:11px 16px;
+  background:var(--surface2);border-radius:0 3px 3px 0}
+
+/* --- trap list -------------------------------------------------------------
+   .traps is a SERIES class: a two-column grid, 34px counter + content.  Do not
+   redeclare its layout here - just give the single wrapped content child room
+   and the right measure.  Redeclaring display:flex on the ol fought it. ----- */
+.traps li > span{display:block;font-size:14.5px;line-height:1.62;max-width:76ch}
+.traps li{margin-bottom:13px}
+
+/* --- inline mono, and the emphasis callout ---------------------------------
+   The series sheet scopes .mono to td/th only, and defines .note but no .warn,
+   so both need declaring or they render as ordinary prose. -------------------*/
+span.mono,.e li .mono{font-family:var(--mono);font-size:12.5px;color:var(--rul)}
+p.warn{border:1px solid var(--line);border-left:3px solid var(--los);
+  background:var(--los-soft);border-radius:0 3px 3px 0;padding:13px 17px;
+  font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the eleven families -------------------------------------------------- */
+.fams{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.fm{background:var(--surface);padding:16px 18px;display:flex;flex-direction:column;gap:7px}
+.fm .fh{margin:0;font-size:14.5px;font-weight:600;color:var(--fam)}
+.fm .ft{margin:0;font-family:var(--mono);font-size:11px;color:var(--ink3);line-height:1.5}
+.fm p:last-child{margin:0;font-size:13.5px;line-height:1.6;color:var(--ink2)}
+
+/* --- answer entry --------------------------------------------------------- */
+.entry{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:20px 0}
+.e{background:var(--surface);padding:16px 18px}
+.e .eh{margin:0 0 11px;font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase}
+.e.do .eh{color:var(--fam)} .e.dont .eh{color:var(--los)}
+.e.dont{background:var(--los-soft)}
+.e ul{margin:0;padding-left:17px;display:flex;flex-direction:column;gap:8px}
+.e li{font-size:13.5px;line-height:1.55}
+
+/* --- figure caption ------------------------------------------------------- */
+.cap{margin:12px 0 0;font-size:13.5px;color:var(--ink3);max-width:74ch;line-height:1.65}
+
+/* --- footer --------------------------------------------------------------- */
+.ftr{border-top:1px solid var(--line);padding-top:24px;margin-top:8px}
+.ftr .fk{font-family:var(--mono);font-size:10px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink3);margin:16px 0 6px}
+.ftr p{font-size:13.5px;line-height:1.65;color:var(--ink2);max-width:82ch}
+
+/* --- two more inherited orphans -------------------------------------------
+   .stand and .tscroll are used by the series BODY markup introduced at Q10.2
+   but have no rule anywhere in the accumulated sheet, so that page's
+   standfirst renders as undifferentiated body text.  .tscroll is a hook the
+   table-fit gate selects on; give it the overflow it implies. ------------- */
+p.stand{font-size:16.5px;line-height:1.68;color:var(--ink2);max-width:66ch;
+  margin:15px 0 0}
+.tscroll{overflow-x:auto}
+
+/* --- header spacing: scope the page-bottom padding to main.wrap ---------- */
+header.hdr{padding-top:30px;padding-bottom:30px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar111 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar111 .v111{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar111 .v111.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the always/when licence: this page's signature block ---------------- */
+.ledger111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger111 .col111{background:var(--surface);padding:18px 20px}
+.ledger111 .col111.add111{background:var(--rul-soft)}
+.ledger111 .col111.inh111{background:var(--chn-soft)}
+.ledger111 .colh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger111 .col111.add111 .colh111{color:var(--rul)}
+.ledger111 .col111.inh111 .colh111{color:var(--chn)}
+.ledger111 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger111 li{line-height:1.62}
+.ledger111 .tag111{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger111 .tag111.ok111{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger111 .tag111.no111{background:var(--los-soft);border-left:3px solid var(--los)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps111 .st111{background:var(--surface);padding:16px 18px}
+.steps111 .sth111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps111 .st111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-step solve board ------------------------------------------- */
+.chain111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain111 .ch111{background:var(--surface);padding:16px 18px}
+.chain111 .chh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain111 .chm111{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks111 .ck111{background:var(--surface);padding:16px 18px}
+.checks111 .ckh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks111 .ck111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam111{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam111 .famh111{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam111 .fk111{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam111 .famt111{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide111 .hd1111{background:var(--los-soft);padding:16px 18px}
+.hide111 .hdh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide111 .hd1111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the 34px
+   counter column and renders one word wide, and no layout gate reports it. */
+ol.tl111,ol.dr111{list-style:none;counter-reset:t111;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl111 li,ol.dr111 li{counter-increment:t111;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl111 li::before,ol.dr111 li::before{content:counter(t111);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr111 li::before{color:var(--fam)}
+ol.tl111 li > span,ol.dr111 li > span{grid-column:2}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov111 .pv111{background:var(--surface);padding:16px 18px}
+.prov111 .pvh111{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov111 .pv111 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar111{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar111 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar111 .k111{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar111 .v111{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict111{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn111{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap111{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree111{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp111{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints for the entry table -------------------------------- */
+td.ok2111{color:var(--rul)}
+td.no2111{color:var(--los)}
+
+/* --- the figure ---------------------------------------------------------- */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:660px}
+.figbox .cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.6}
+.figbox ellipse.cone{fill:var(--rul-soft);stroke:var(--rul);stroke-width:1.2}
+.figbox .dim{stroke:var(--chn);stroke-width:1.3}
+.figbox .dim2{stroke:var(--fam);stroke-width:2.4}
+.figbox .mk{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.2}
+.figbox .tang{fill:none;stroke:var(--rul);stroke-width:2.2}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar112 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar112 .v112{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar112 .v112.mono{font-family:var(--mono);font-size:15px}
+
+/* --- the eliminate/compute fork: this page's signature block ------------- */
+.ledger112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger112 .col112{background:var(--surface);padding:18px 20px}
+.ledger112 .col112.add112{background:var(--rul-soft)}
+.ledger112 .col112.inh112{background:var(--chn-soft)}
+.ledger112 .colh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger112 .col112.add112 .colh112{color:var(--rul)}
+.ledger112 .col112.inh112 .colh112{color:var(--chn)}
+.ledger112 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger112 li{line-height:1.62}
+.ledger112 .tag112{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger112 .tag112.ok112{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger112 .tag112.no112{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup lines ------------------------------------------------ */
+.steps112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps112 .st112{background:var(--surface);padding:16px 18px}
+.steps112 .sth112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps112 .st112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four-move solve board ------------------------------------------- */
+.chain112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain112 .ch112{background:var(--surface);padding:16px 18px}
+.chain112 .chh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+.chain112 .chm112{margin:0;overflow-x:auto}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks112 .ck112{background:var(--surface);padding:16px 18px}
+.checks112 .ckh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks112 .ck112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam112{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam112 .famh112{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam112 .fk112{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam112 .famt112{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- the hiding-point panels --------------------------------------------- */
+.hide112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.hide112 .hd1112{background:var(--los-soft);padding:16px 18px}
+.hide112 .hdh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--los);margin:0 0 9px}
+.hide112 .hd1112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl112,ol.dr112{list-style:none;counter-reset:t112;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl112 li,ol.dr112 li{counter-increment:t112;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl112 li::before,ol.dr112 li::before{content:counter(t112);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr112 li::before{color:var(--fam)}
+ol.tl112 li > span,ol.dr112 li > span{grid-column:2}
+b.ans112{color:var(--rul);font-family:var(--mono);font-size:13px;white-space:nowrap}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov112 .pv112{background:var(--surface);padding:16px 18px}
+.prov112 .pvh112{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov112 .pv112 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar112{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar112 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar112 .k112{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar112 .v112{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- verdict, warn, figure caption, decision tree ------------------------ */
+.verdict112{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn112{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap112{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree112{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp112{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2112{color:var(--rul)}
+td.no2112{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   Class names are unique to this page (tri2/legf/legv/hypo/rang/stn/roc/
+   varr/sarr/asym/drop/vtr/vsn); lab, hd, sm, tk, am, gridl, axis, curve and dot
+   are DELIBERATELY the series names, because svg-labels.mjs112 selects on
+   text.lab and exempts lines whose class matches /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .tri2{fill:var(--rul-soft);stroke:none}
+.figbox .legf{stroke:var(--rul);stroke-width:3.2;stroke-linecap:round}
+.figbox .legv{stroke:var(--chn);stroke-width:2.4}
+.figbox .hypo{stroke:var(--chn);stroke-width:2.4}
+.figbox .rang{fill:none;stroke:var(--ink3);stroke-width:1.2}
+.figbox .stn{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox .roc{fill:var(--chn);stroke:var(--surface);stroke-width:1.6}
+.figbox .varr{stroke:var(--num);stroke-width:2.4}
+.figbox .varrhd{fill:var(--num);stroke:none}
+.figbox .sarr{stroke:var(--fam);stroke-width:2.4}
+.figbox .sarrhd{fill:var(--fam);stroke:none}
+.figbox .asym{stroke:var(--fam);stroke-width:1.6;stroke-dasharray:5 4}
+.figbox .drop{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.4}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.6}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vtr{fill:var(--num);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar121 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar121 .v121{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar121 .v121.mono{font-family:var(--mono);font-size:15px}
+/* MathJax SVG does not inherit the cell's colour on its own, so the
+   typeset answer rendered ink-black beside three amber siblings.  No
+   gate sees this; the screenshot did. */
+.ansbar121 .v121 mjx-container,.ansbar121 .v121 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the anchor decision: this page's signature block --------------------- */
+.ledger121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger121 .col121{background:var(--surface);padding:18px 20px}
+.ledger121 .col121.add121{background:var(--rul-soft)}
+.ledger121 .col121.inh121{background:var(--chn-soft)}
+.ledger121 .colh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger121 .col121.add121 .colh121{color:var(--rul)}
+.ledger121 .col121.inh121 .colh121{color:var(--chn)}
+.ledger121 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger121 li{line-height:1.62}
+.ledger121 .tag121{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger121 .tag121.ok121{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger121 .tag121.no121{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the four setup steps ------------------------------------------------ */
+.steps121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps121 .st121{background:var(--surface);padding:16px 18px}
+.steps121 .sth121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps121 .st121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain121 .ch121{background:var(--surface);padding:16px 18px}
+.chain121 .chh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the eight-second checks --------------------------------------------- */
+.checks121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks121 .ck121{background:var(--surface);padding:16px 18px}
+.checks121 .ckh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks121 .ck121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam121{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam121 .famh121{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam121 .fk121{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam121 .famt121{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.62}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov121 .pv121{background:var(--surface);padding:16px 18px}
+.prov121 .pvh121{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov121 .pv121 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar121{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar121 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar121 .k121{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar121 .v121{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl121,ol.dr121{list-style:none;counter-reset:t121;margin:20px 0;padding:0;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl121 li,ol.dr121 li{counter-increment:t121;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.62}
+ol.tl121 li::before,ol.dr121 li::before{content:counter(t121);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr121 li::before{color:var(--fam)}
+ol.tl121 li > span,ol.dr121 li > span{grid-column:2}
+b.ans121{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption, decision tree ------------------------------- */
+.verdict121{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.6}
+p.warn121{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.62}
+p.cap121{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.65}
+pre.tree121{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:20px 22px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.62;margin:20px 0;color:var(--ink2)}
+p.disp121{margin:16px 0;overflow-x:auto}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2121{color:var(--rul)}
+td.no2121{color:var(--los)}
+
+/* --- the figure ----------------------------------------------------------
+   gapfill/tang/gapline/gdot/leadr/bar/barbest are unique to this page; lab,
+   hd, sm, tk, am, vsn, gridl, axis, curve and dot are DELIBERATELY the series
+   names, because svg-labels.mjs121 selects text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:700px;margin:0 auto}
+.figbox .gapfill{fill:var(--chn-soft);stroke:none}
+.figbox .tanl{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapline{stroke:var(--fam);stroke-width:2.2}
+.figbox .gdot{fill:var(--fam);stroke:none}
+.figbox .leadr{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar{fill:var(--chn)}
+.figbox .barbest{fill:var(--rul)}
+.figbox .tansw{fill:var(--rul)}
+.figbox .cursw{fill:var(--chn)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--fam);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar122 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar122 .v122{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar122 .v122.mono{font-family:var(--mono);font-size:14px}
+.ansbar122 .v122 mjx-container,.ansbar122 .v122 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-column comparison: this page's signature block --------------- */
+.ledger122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger122 .col122{background:var(--surface);padding:18px 20px}
+.ledger122 .col122.add122{background:var(--rul-soft)}
+.ledger122 .col122.inh122{background:var(--chn-soft)}
+.ledger122 .colh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger122 .col122.add122 .colh122{color:var(--rul)}
+.ledger122 .col122.inh122 .colh122{color:var(--chn)}
+.ledger122 ul{margin:0;padding-left:19px;display:flex;flex-direction:column;gap:9px}
+.ledger122 li{line-height:1.62}
+.ledger122 .tag122{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger122 .tag122.ok122{background:var(--rul-soft);border-left:3px solid var(--rul)}
+.ledger122 .tag122.no122{background:var(--chn-soft);border-left:3px solid var(--chn)}
+
+/* --- the five setup steps ------------------------------------------------ */
+.steps122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps122 .st122{background:var(--surface);padding:16px 18px}
+.steps122 .sth122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps122 .st122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- the four routes.  Cells carry whole equations, so the track floor must
+   collapse at narrow widths or the 430px lint case overflows. ------------- */
+.chain122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.chain122 .ch122{background:var(--surface);padding:16px 18px}
+.chain122 .ch122 p{overflow-x:auto}
+.chain122 .chh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--chn);margin:0 0 10px}
+
+/* --- the verification checks --------------------------------------------- */
+.checks122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks122 .ck122{background:var(--surface);padding:16px 18px}
+.checks122 .ckh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks122 .ck122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- variation families -------------------------------------------------- */
+.fam122{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam122 .famh122{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam122 .fk122{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam122 .famt122{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov122 .pv122{background:var(--surface);padding:16px 18px}
+.prov122 .pvh122{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov122 .pv122 p:last-child{margin:0;font-size:14px;line-height:1.62}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar122{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar122 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar122 .k122{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar122 .v122{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it. */
+ol.tl122,ol.dr122{list-style:none;counter-reset:t122;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl122 li,ol.dr122 li{counter-increment:t122;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl122 li::before,ol.dr122 li::before{content:counter(t122);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr122 li::before{color:var(--fam)}
+ol.tl122 li > span,ol.dr122 li > span{grid-column:2}
+b.ans122{color:var(--rul);font-family:var(--mono);font-size:13px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict122{margin:14px 0 0;padding:12px 15px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.62}
+p.warn122{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;line-height:1.64}
+p.cap122{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2122{color:var(--rul)}
+td.no2122{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   tanl122/gdot122/bdot122/leadr122/gapfill122/gapline122/bar122/barbest122
+   are unique to this page; lab, hd, sm, tk, am, vsn, gridl, axis, curve and
+   dot are DELIBERATELY the series names, because svg-labels.mjs122 selects
+   text.lab and exempts /grid|axis/. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:780px;margin:0 auto}
+.figbox .tanl122{stroke:var(--rul);stroke-width:2.6}
+.figbox .gapfill122{fill:var(--chn-soft);stroke:none}
+.figbox .gapline122{stroke:var(--fam);stroke-width:2.4}
+.figbox .gdot122{fill:var(--chn);stroke:none}
+.figbox .bdot122{fill:var(--los);stroke:var(--surface);stroke-width:1.4}
+.figbox .leadr122{stroke:var(--ink3);stroke-width:1;stroke-dasharray:3 3}
+.figbox .bar122{fill:var(--chn)}
+.figbox .barbest122{fill:var(--rul)}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .axis{stroke:var(--ink3);stroke-width:1.2}
+.figbox .curve{fill:none;stroke:var(--chn);stroke-width:2.6}
+.figbox .dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.8}
+.figbox text.lab{font-family:var(--mono);font-size:12px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:10.5px;fill:var(--ink3);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3)}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn{fill:var(--chn);font-size:11.5px}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar123 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar123 .k123{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar123 .v123{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar123 .v123.mono{font-family:var(--mono);font-size:14px}
+.ansbar123 .v123 mjx-container,.ansbar123 .v123 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-part ledger: this page runs the method twice ----------------- */
+.ledger123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger123 .col123{background:var(--surface);padding:18px 20px;overflow-x:auto}
+.ledger123 .col123.add123{background:var(--rul-soft)}
+.ledger123 .col123.inh123{background:var(--chn-soft)}
+.ledger123 .colh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger123 .col123.add123 .colh123{color:var(--rul)}
+.ledger123 .col123.inh123 .colh123{color:var(--chn)}
+.ledger123 .tag123{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger123 .tag123.ok123{background:var(--surface);border-left:3px solid var(--rul)}
+
+/* --- the five moves ------------------------------------------------------ */
+.steps123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.steps123 .st123{background:var(--surface);padding:16px 18px}
+.steps123 .sth123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps123 .st123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the verification / discrimination checks ---------------------------- */
+.checks123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(280px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.checks123 .ck123{background:var(--surface);padding:16px 18px}
+.checks123 .ckh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks123 .ck123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- variation families -------------------------------------------------- */
+.fam123{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam123 .famh123{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam123 .fk123{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam123 .famt123{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ---------------------------------------------------------- */
+.prov123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov123 .pv123{background:var(--surface);padding:16px 18px}
+.prov123 .pvh123{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov123 .pv123 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- verification bar ---------------------------------------------------- */
+.vbar123{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(150px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.vbar123 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar123 .k123{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar123 .v123{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- the verbatim stem --------------------------------------------------- */
+blockquote.quote123{margin:20px 0;padding:16px 20px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--chn);border-radius:3px;
+  font-size:15px;line-height:1.72;max-width:none}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it.
+   max-width is redeclared because the inherited bare `ul,ol` rule clamps to
+   70ch, which renders these panels 628px wide inside a 1034px column. */
+ol.tl123,ol.dr123{list-style:none;counter-reset:t123;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl123 li,ol.dr123 li{counter-increment:t123;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl123 li::before,ol.dr123 li::before{content:counter(t123);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr123 li::before{color:var(--fam)}
+ol.tl123 li > span,ol.dr123 li > span{grid-column:2}
+b.ans123{color:var(--rul);font-family:var(--mono);font-size:12.5px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict123{margin:18px 0;padding:14px 17px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.66;max-width:none}
+p.warn123{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;
+  line-height:1.64;max-width:none}
+p.cap123{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2123{color:var(--rul)}
+td.no2123{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   cell123/hit123/miss123/vsn123/los123/track123/fill123/mark123 are unique to
+   this page; lab, hd, sm, tk, am and gridl are DELIBERATELY the series names,
+   because svg-labels.mjs123 selects text.lab and exempts /grid|axis/.
+   Both figures are built from RECTS, so no diagonal line bounding box can be
+   reported as crossing a label. */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:800px;margin:0 auto}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .cell123{fill:var(--surface);stroke:none}
+.figbox .hit123{fill:var(--rul-soft)}
+.figbox .miss123{fill:var(--los-soft)}
+.figbox .track123{fill:var(--surface);stroke:var(--line);stroke-width:1}
+.figbox .fill123{fill:var(--num-soft)}
+.figbox .mark123{fill:var(--rul)}
+.figbox text.lab{font-family:var(--mono);font-size:12.5px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:11.5px;fill:var(--ink2);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3);letter-spacing:.06em}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.vsn123{fill:var(--los)}
+.figbox text.lab.los123{fill:var(--los)}
+
+/* --- answer bar ---------------------------------------------------------- */
+.ansbar131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin-top:26px}
+.ansbar131 > div{background:var(--surface);padding:13px 16px;display:flex;flex-direction:column;gap:5px}
+.ansbar131 .k131{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.ansbar131 .v131{font-size:17px;color:var(--rul);font-weight:600}
+.ansbar131 .v131.mono{font-family:var(--mono);font-size:14px}
+.ansbar131 .v131 mjx-container,.ansbar131 .v131 mjx-container svg{color:var(--rul);
+  fill:currentColor}
+
+/* --- the two-part ledger: this page runs the method twice ----------------- */
+.ledger131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(360px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:24px 0}
+.ledger131 .col131{background:var(--surface);padding:18px 20px;overflow-x:auto}
+.ledger131 .col131.add131{background:var(--rul-soft)}
+.ledger131 .col131.inh131{background:var(--chn-soft)}
+.ledger131 .colh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 12px}
+.ledger131 .col131.add131 .colh131{color:var(--rul)}
+.ledger131 .col131.inh131 .colh131{color:var(--chn)}
+.ledger131 .tag131{margin:14px 0 0;padding:11px 13px;border-radius:3px;font-size:13.5px;line-height:1.6}
+.ledger131 .tag131.ok131{background:var(--surface);border-left:3px solid var(--rul)}
+
+/* --- the three moves -----------------------------------------------------
+   THREE cells, so the only track counts that divide it are 3 and 1. An
+   auto-fit floor resolves to TWO between roughly 620px and 900px, which leaves
+   one cell of the second row painted as a bare divider block. Found by
+   grid-fill.mjs131 sweeping nine viewports; it is clean at 1280 and at 430, which
+   is why every previous page in this series shipped with it. */
+.steps131{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:940px){.steps131{grid-template-columns:minmax(0,1fr)}}
+.steps131 .st131{background:var(--surface);padding:16px 18px}
+.steps131 .sth131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--rul);margin:0 0 9px}
+.steps131 .st131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- the verification / discrimination checks ----------------------------
+   Same three-cell arithmetic as .steps131 above, same fix. */
+.checks131{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:940px){.checks131{grid-template-columns:minmax(0,1fr)}}
+.checks131 .ck131{background:var(--surface);padding:16px 18px}
+.checks131 .ckh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--num);margin:0 0 9px}
+.checks131 .ck131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- variation families -------------------------------------------------- */
+.fam131{margin:26px 0;padding:2px 0 0;border-top:1px solid var(--line)}
+.fam131 .famh131{margin:16px 0 6px;font-size:16.5px;font-weight:600}
+.fam131 .fk131{display:inline-block;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.09em;text-transform:uppercase;color:var(--fam);
+  background:var(--fam-soft);padding:3px 8px;border-radius:3px;margin-right:10px;
+  vertical-align:2px}
+.fam131 .famt131{margin:0 0 12px;font-size:14px;color:var(--ink2);line-height:1.66}
+
+/* --- provenance ----------------------------------------------------------
+   The 300px floor resolves to THREE tracks in this column, and this grid has
+   FOUR cells, so the last row left two cells empty and they painted as bare
+   blocks of divider colour. auto-fit collapses an empty TRACK, never an empty
+   CELL. Raising the floor to 430px forces TWO tracks, so four cells fill two
+   rows exactly. Caught by grid-fill.mjs131; no other gate sees it. */
+.prov131{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(430px,100%),1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+.prov131 .pv131{background:var(--surface);padding:16px 18px}
+.prov131 .pvh131{font-family:var(--mono);font-size:10.5px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3);margin:0 0 9px}
+.prov131 .pv131 p:last-child{margin:0;font-size:14px;line-height:1.62;max-width:none}
+
+/* --- verification bar ----------------------------------------------------
+   FIXED track counts, not auto-fit. This bar has FIVE cells, and an auto-fit
+   floor of 150px resolves to TWO tracks at a 430px viewport, leaving one cell
+   of the last row painted as a bare block of divider colour. 5 and 1 are the
+   only track counts that divide 5, so they are the only two this grid uses.
+   Caught by grid-fill.mjs131 at the narrow viewport; every other gate is clean at
+   both widths. */
+.vbar131{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;margin:22px 0}
+@media (max-width:900px){.vbar131{grid-template-columns:minmax(0,1fr)}}
+.vbar131 > div{background:var(--surface);padding:14px 16px;display:flex;
+  flex-direction:column;gap:5px}
+.vbar131 .k131{font-family:var(--mono);font-size:10px;letter-spacing:.09em;
+  text-transform:uppercase;color:var(--ink3)}
+.vbar131 .v131{font-family:var(--mono);font-size:19px;color:var(--num);font-weight:600}
+
+/* --- the verbatim stem --------------------------------------------------- */
+blockquote.quote131{margin:20px 0;padding:16px 20px;background:var(--surface);
+  border:1px solid var(--line);border-left:3px solid var(--chn);border-radius:3px;
+  font-size:15px;line-height:1.72;max-width:none}
+
+/* --- ranked trap list and drill list -------------------------------------
+   ONE content child at column 2.  A list item holding several inline children
+   in a two-column grid pushes everything after the first into the counter
+   column and renders one word wide, and no layout gate reports it.
+   max-width is redeclared because the inherited bare `ul,ol` rule clamps to
+   70ch, which renders these panels 628px wide inside a 1034px column. */
+ol.tl131,ol.dr131{list-style:none;counter-reset:t131;margin:20px 0;padding:0;
+  max-width:none;
+  display:flex;flex-direction:column;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:3px}
+ol.tl131 li,ol.dr131 li{counter-increment:t131;background:var(--surface);
+  display:grid;grid-template-columns:38px minmax(0,1fr);align-items:start;
+  padding:13px 16px;line-height:1.66}
+ol.tl131 li::before,ol.dr131 li::before{content:counter(t131);grid-column:1;
+  font-family:var(--mono);font-size:12px;color:var(--los);padding-top:2px}
+ol.dr131 li::before{color:var(--fam)}
+ol.tl131 li > span,ol.dr131 li > span{grid-column:2}
+b.ans131{color:var(--rul);font-family:var(--mono);font-size:12.5px}
+
+/* --- verdict, warn, caption ---------------------------------------------- */
+.verdict131{margin:18px 0;padding:14px 17px;background:var(--rul-soft);
+  border-left:3px solid var(--rul);border-radius:3px;line-height:1.66;max-width:none}
+p.warn131{margin:16px 0;padding:12px 15px;background:var(--los-soft);
+  border-left:3px solid var(--los);border-radius:3px;font-size:14px;
+  line-height:1.64;max-width:none}
+p.cap131{margin:14px 0 0;font-size:13.5px;color:var(--ink2);line-height:1.68}
+
+/* --- table cell tints ---------------------------------------------------- */
+td.ok2131{color:var(--rul)}
+td.no2131{color:var(--los)}
+
+/* --- the figures ---------------------------------------------------------
+   band131/need131/sug131/s1_131/s2_131/s3_131/neg131/pos131/stem131/tick131/
+   mark131/crit131/keep131/miss131/vsn131/los131 are unique to this page;
+   lab, hd, sm, tk, am and gridl are DELIBERATELY the series names, because
+   svg-labels.mjs131 selects text.lab and exempts /grid|axis/.
+   Both figures are built from RECTS, so no diagonal line bounding box can be
+   reported as crossing a label.
+   The three series fills and the two threshold rules take FIVE DISTINCT
+   tokens: a fill and its track sharing one token renders as a uniform bar and
+   no gate compares them (found on Q12.3's gauge). */
+.figbox{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:18px 16px;margin:20px 0;overflow-x:auto}
+.figbox svg{display:block;min-width:820px;margin:0 auto}
+.figbox .gridl{stroke:var(--line);stroke-width:1}
+.figbox .band131{fill:var(--los-soft)}
+.figbox .need131{fill:var(--rul)}
+.figbox .sug131{fill:var(--ink3)}
+.figbox .s1_131{fill:var(--chn)}
+.figbox .s2_131{fill:var(--rul)}
+.figbox .s3_131{fill:var(--num)}
+.figbox .neg131{fill:var(--los-soft)}
+.figbox .pos131{fill:var(--chn-soft)}
+.figbox .stem131{fill:var(--rul-soft)}
+.figbox .keep131{fill:var(--chn-soft)}
+.figbox .miss131{fill:var(--los-soft)}
+.figbox .tick131{fill:var(--ink3)}
+.figbox .mark131{fill:var(--rul)}
+.figbox .negr131{fill:var(--los)}
+.figbox .posr131{fill:var(--chn)}
+.figbox .stemr131{fill:var(--rul)}
+.figbox .crit131{fill:var(--los)}
+.figbox .vsn131{fill:var(--los)}
+.figbox text.lab{font-family:var(--mono);font-size:12.5px;fill:var(--ink);
+  letter-spacing:.02em}
+.figbox text.lab.hd{font-size:10.5px;letter-spacing:.1em;fill:var(--ink3)}
+.figbox text.lab.sm{font-size:11.5px;fill:var(--ink2);letter-spacing:.03em}
+.figbox text.lab.tk{font-size:10px;fill:var(--ink3);letter-spacing:.06em}
+.figbox text.lab.am{fill:var(--rul);font-size:11.5px}
+.figbox text.lab.los131{fill:var(--los);font-size:11.5px}
+
+</style>
+<style>
+/* ===== Q14.1 EXTRA ==========================================================
+   The page's one idea: four of the eight demanded cells are the word "none",
+   so ABSENCE is the deliverable. Every rule below exists to make an absence
+   read as a stated answer rather than as a gap, and to keep the two parts
+   visually parallel so their complementarity is legible.
+   Hue roles on this page:
+     --accent  the curve, and part (a)'s single critical point
+     --los     part (a)'s vertical asymptotes, and the sub-critical amplitude
+     --num     the horizontal asymptote, and part (b)'s horizontal tangents
+     --rul     the centre line y = x, and part (b)'s inflections
+     --chn     the super-critical amplitude
+   ========================================================================= */
+
+/* the stem, quoted verbatim */
+p.quote141 { margin:16px 0 18px; max-width:none; padding:15px 18px 16px;
+  background:var(--sunk); border-left:3px solid var(--accent-line);
+  font-size:15px; line-height:1.68; color:var(--ink2); }
+.qp141 { display:block; margin-top:9px; color:var(--ink); }
+
+/* the answer board: an absence is TYPESET, never blank */
+table.ans141 td.dl141 { font-family:var(--mono); font-size:11.5px; letter-spacing:0.05em;
+  text-transform:uppercase; color:var(--ink3); white-space:nowrap; }
+td.none141, table.ans141 td.none141 {
+  font-family:var(--mono); font-weight:600; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--los);
+  background:var(--los-soft); text-align:center; }
+
+/* the four order-rationale cells: one content child at column 2 is not needed
+   here (this is a plain grid of blocks), but the TRACK COUNT must DIVIDE the
+   cell count or grid-fill.mjs141 reports a ragged last row. Four cells, so the
+   only legal track counts are 4, 2 and 1. */
+.pipe141 { display:grid; grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line);
+  margin:20px 0 22px; }
+.pipe141 .cell141 { background:var(--surface); padding:15px 16px 17px; }
+.pipe141 .cell141 p { margin:0; max-width:none; font-size:14px; line-height:1.62; }
+.pipe141 .ch141 { font-family:var(--mono); font-size:10.5px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:8px; }
+@media (max-width:1010px) { .pipe141 { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (max-width:600px)  { .pipe141 { grid-template-columns:minmax(0,1fr); } }
+
+/* the per-part walkthrough: a label/value ladder, not cards */
+.pv141 { display:grid; grid-template-columns:170px minmax(0,1fr);
+  gap:1px; background:var(--line); border:1px solid var(--line); margin:18px 0 20px; }
+.pv141 > div { background:var(--surface); padding:13px 16px; min-width:0; }
+.pv141 > div.pvh141 { background:var(--sunk); font-family:var(--mono); font-size:10.5px;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3);
+  display:flex; align-items:center; }
+.pv141 > div:not(.pvh141) { font-size:14.5px; line-height:1.66; max-width:none; }
+.pv141 mjx-container[display="true"] { overflow-x:auto; overflow-y:hidden; margin:9px 0!important; }
+@media (max-width:660px) {
+  .pv141 { grid-template-columns:minmax(0,1fr); }
+  .pv141 > div.pvh141 { padding-bottom:0; border:0; }
+}
+
+/* three cross-checks. THREE cells, so 3 or 1 tracks only. */
+.checks141 { display:grid; grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line); margin:18px 0 22px; }
+.checks141 .ck141 { background:var(--surface); padding:15px 16px 17px; }
+.checks141 .ck141 p { margin:0; max-width:none; font-size:14px; line-height:1.62; }
+.checks141 .ckh141 { font-family:var(--mono); font-size:10.5px; letter-spacing:0.09em;
+  text-transform:uppercase; color:var(--num); margin-bottom:9px; }
+@media (max-width:940px) { .checks141 { grid-template-columns:minmax(0,1fr); } }
+
+/* the family stack: one column, because each family carries a wide table */
+.fams141 { display:flex; flex-direction:column; gap:1px;
+  background:var(--line); border:1px solid var(--line); margin:18px 0 20px; }
+.fams141 .fam141 { background:var(--surface); padding:16px 18px 18px; min-width:0; }
+.fams141 .famh141 { font-family:var(--mono); font-size:11px; letter-spacing:0.1em;
+  text-transform:uppercase; color:var(--accent); margin-bottom:10px; }
+.fams141 .ft141 { margin:0 0 12px; font-size:14px; line-height:1.6; max-width:none;
+  color:var(--ink2); }
+.fams141 .fk141 { margin:12px 0 0; font-size:14px; line-height:1.64; max-width:none;
+  padding:11px 13px; background:var(--sunk); border-left:2px solid var(--accent-line); }
+.fams141 table { font-size:13.5px; }
+
+/* do / do-not. TWO cells, so 2 or 1 tracks. */
+.dodont141 { display:grid; grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px; background:var(--line); border:1px solid var(--line); margin:18px 0 20px; }
+.dodont141 > div { background:var(--surface); padding:15px 17px 18px; }
+.dodont141 ul { margin:0; padding-left:19px; max-width:none; font-size:14px; line-height:1.66; }
+.dodont141 li { margin-bottom:6px; }
+.dodont141 .ch141 { font-family:var(--mono); font-size:10.5px; letter-spacing:0.11em;
+  text-transform:uppercase; margin-bottom:10px; }
+.dodont141 .do141 .ch141 { color:var(--ok); }
+.dodont141 .dont141 .ch141 { color:var(--los); }
+@media (max-width:780px) { .dodont141 { grid-template-columns:minmax(0,1fr); } }
+
+/* provenance ladder, same shape as .pv141 so the page has one label idiom */
+.prov141 { display:grid; grid-template-columns:190px minmax(0,1fr);
+  gap:1px; background:var(--line); border:1px solid var(--line); margin:16px 0 22px; }
+.prov141 > div { background:var(--surface); padding:13px 16px; min-width:0;
+  font-size:14.5px; line-height:1.64; max-width:none; }
+.prov141 > div.pvh141 { background:var(--sunk); font-family:var(--mono); font-size:10.5px;
+  letter-spacing:0.1em; text-transform:uppercase; color:var(--ink3);
+  display:flex; align-items:center; }
+@media (max-width:660px) {
+  .prov141 { grid-template-columns:minmax(0,1fr); }
+  .prov141 > div.pvh141 { padding-bottom:0; }
+}
+
+/* the verification bar reads as data, so tabular figures */
+table.vbar141 td.num { font-family:var(--mono); font-variant-numeric:tabular-nums;
+  text-align:right; white-space:nowrap; }
+
+/* ordered lists this page invents. The inherited ul,ol sets max-width:70ch,
+   which the element-inheritance guard checks; these are wide blocks and must
+   redeclare it, and each li holds ONE content child (a span) so the inherited
+   two-column .traps grid cannot wrap it one word wide. */
+ol.steps141, ol.traps, ol.tl { max-width:none; }
+ol.steps141 { margin:16px 0 20px; padding-left:0; list-style:none;
+  counter-reset:st141; display:flex; flex-direction:column; gap:1px;
+  background:var(--line); border:1px solid var(--line); }
+ol.steps141 li { counter-increment:st141; background:var(--surface);
+  padding:12px 16px 13px; display:grid; grid-template-columns:30px minmax(0,1fr);
+  align-items:baseline; font-size:14.5px; line-height:1.64; }
+ol.steps141 li::before { content:counter(st141); font-family:var(--mono);
+  font-size:11px; color:var(--accent); grid-column:1; }
+ol.steps141 li > span { grid-column:2; }
+ol.traps li, ol.tl li { max-width:none; }
+ol.traps li > span, ol.tl li > span { grid-column:2; }
+ol.tl { margin:14px 0 18px; }
+
+/* ---- figures ------------------------------------------------------------
+   ALL SVG paint and type live here, never in a presentation attribute: var()
+   does not resolve in one, and a CSS rule beats one outright. In particular
+   upstream's `.figbox text.lab{font-size:12px}` and
+   `.figbox .gridl141{stroke:var(--line);stroke-width:1}` would silently override
+   any attribute this page wrote, which is why the reference lines below use
+   `gridref` - it still matches the svg-labels /grid|axis/ exemption, and
+   inherits none of the gridline paint. */
+.figbox { overflow-x:auto; }
+.figbox svg { display:block; min-width:820px; }
+
+.figbox text.lab.fhd141 { font-size:10.5px; letter-spacing:0.1em; fill:var(--ink3); }
+.figbox text.lab.ftk141 { font-size:10.5px; letter-spacing:0.02em; fill:var(--plotlab); }
+.figbox text.lab.flg141 { font-size:11.5px; letter-spacing:0.01em; fill:var(--ink2); }
+
+.figbox .pbox141 { fill:var(--plot); stroke:var(--line); stroke-width:1; }
+.figbox .gridfine141 { stroke:var(--grid); stroke-width:1; }
+.figbox .axisl141 { stroke:var(--line); stroke-width:1.4; }
+/* the drawn curve. The SVG scales to its container, so a plotted stroke would
+   thin out with it; pin it to screen pixels instead. */
+.figbox .cv141 { fill:none; stroke:var(--accent); stroke-width:2.6;
+  stroke-linecap:round; vector-effect:non-scaling-stroke; }
+.figbox .cv141.closs141 { stroke:var(--los); }
+.figbox .cv141.cacc141 { stroke:var(--accent); }
+.figbox .cv141.cchn141 { stroke:var(--chn); }
+/* Reference lines: exempt from the label gate, painted by role, and at FULL
+   strength rather than the -line tint. The vertical asymptotes sit exactly on
+   top of the x = -1 and x = 1 gridlines, so at tint strength they were
+   indistinguishable from the grid - and they are part (a)'s headline answer.
+   The screenshot is the only thing that shows this; no gate compares two
+   strokes. Same reasoning as the carryover's "two soft tints are not a
+   contrast", one tier up. */
+.figbox .gridref141 { fill:none; stroke-width:2; stroke-dasharray:8 5;
+  vector-effect:non-scaling-stroke; }
+.figbox .gridref141.va141 { stroke:var(--los); stroke-width:2.2; }
+.figbox .gridref141.ha141 { stroke:var(--num); }
+.figbox .gridref141.cl141 { stroke:var(--rul); }
+.figbox .tg141 { stroke:var(--num-line); stroke-width:2.4; stroke-linecap:round;
+  vector-effect:non-scaling-stroke; }
+/* marked points */
+.figbox .cp141 { fill:var(--ground); stroke:var(--accent); stroke-width:2.6; }
+.figbox .ip141 { fill:var(--rul); stroke:none; }
+.figbox .zr141 { fill:var(--ground); stroke-width:2.4; }
+.figbox .zr141.closs141 { stroke:var(--los); }
+.figbox .zr141.cacc141 { stroke:var(--accent); }
+.figbox .zr141.cchn141 { stroke:var(--chn); }
+/* the tangent stub is full-strength, not the line tint: at 30px it has to read */
+.figbox .tg141 { stroke:var(--num); }
+
+/* MathJax inline must stay INLINE. Series rule, restated because a missing
+   copy of it breaks every sentence containing math onto three lines. */
+mjx-container:not([display="true"]) { display:inline-block!important; margin:0!important;
+  text-align:left; vertical-align:-0.15em; }
+/* and typeset math inherits the surrounding colour, which it does not by default */
+td.none141 mjx-container, td.none141 mjx-container svg { color:var(--los); fill:currentColor; }
+.fams141 .famh141 mjx-container svg, .pv141 .pvh141 mjx-container svg { fill:currentColor; }
+</style>
+
+<style>
+/* ===== Q15.1 EXTRA =========================================================
+   Q15.1 OPENS category 15. What the five series hues mean on THIS page:
+
+     THE ANSWER, the value and the point that win        --rul amber
+     THE CANDIDATE LIST, the machinery that finds them   --chn slate
+     WHERE MARKS DIE, the dropped endpoint and the
+       value/point confusion                            --los terracotta
+     THE VARIATION families                              --fam teal
+     NUMERICS: provenance, counts, gates                 --num mauve
+
+   The signature block is the two-panel figure in section 02, where the
+   maximum LEVEL is drawn all the way across part (a): nothing on the curve
+   reaches it until the last point of the interval.
+   ======================================================================== */
+
+/* ---- section numbers -------------------------------------------------- */
+.sn151{ font-family:var(--mono); font-size:.62em; font-weight:600;
+  letter-spacing:.09em; color:var(--num); vertical-align:.32em;
+  margin-right:.55em; }
+
+/* ---- the quoted stem -------------------------------------------------- */
+p.quote151{ margin:16px 0 20px; padding:15px 18px; border-radius:2px;
+  background:var(--sunk); border-left:3px solid var(--accent-line);
+  color:var(--ink); line-height:1.62; }
+.qp151{ display:block; margin-top:10px; font-family:var(--mono);
+  font-size:.92em; color:var(--ink2); }
+
+/* ---- tables ----------------------------------------------------------- */
+table.ans151, table.kinds151, table.cand151, table.sgn151, table.cat151,
+table.cens151, table.fam151, table.dr151{
+  width:100%; border-collapse:collapse; font-size:14px;
+  min-width:700px; }
+table.fam151, table.dr151{ min-width:920px; }
+table.ans151 th, table.kinds151 th, table.cand151 th, table.sgn151 th,
+table.cat151 th, table.cens151 th, table.fam151 th, table.dr151 th{
+  text-align:left; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.085em; text-transform:uppercase; color:var(--ink3);
+  font-weight:600; padding:9px 12px; border-bottom:1px solid var(--line);
+  vertical-align:bottom; }
+table.ans151 td, table.kinds151 td, table.cand151 td, table.sgn151 td,
+table.cat151 td, table.cens151 td, table.fam151 td, table.dr151 td{
+  padding:10px 12px; border-bottom:1px solid var(--line-soft);
+  vertical-align:top; line-height:1.5; }
+td.dl151{ font-weight:600; color:var(--ink); white-space:nowrap; }
+td.hi151{ background:var(--rul-soft); color:var(--ink); font-weight:600; }
+td.non151{ font-family:var(--mono); font-size:12.5px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--fam); font-weight:600; }
+td.mono151, code.mono151, span.mono151{ font-family:var(--mono);
+  font-size:12.8px; font-variant-numeric:tabular-nums; }
+td.wint151{ background:var(--rul-soft); color:var(--rul); font-weight:600;
+  white-space:nowrap; }
+td.endw151{ color:var(--rul); font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; }
+td.critw151{ color:var(--chn); font-family:var(--mono); font-size:11.5px;
+  letter-spacing:.05em; text-transform:uppercase; white-space:nowrap; }
+td.pos151{ color:var(--fam); font-weight:600; }
+td.neg151{ color:var(--los); font-weight:600; }
+td.bad151{ background:var(--los-soft); color:var(--los); font-weight:600; }
+td.hid151{ background:var(--num-soft); color:var(--num); font-weight:600;
+  font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; }
+td.nap151{ color:var(--ink3); text-align:center; }
+td.tie151{ color:var(--fam); font-weight:600; }
+td.fh151{ font-family:var(--mono); font-size:11.5px; font-weight:600;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--fam);
+  background:var(--fam-soft); white-space:nowrap; }
+span.pt151{ display:block; margin-top:3px; font-family:var(--mono);
+  font-size:10px; letter-spacing:.07em; color:var(--ink3);
+  text-transform:uppercase; font-weight:500; }
+
+/* ---- step and trap lists: ONE content child at column 2 --------------- */
+ol.steps151, ol.traps151, ol.def151{ list-style:none; counter-reset:s151;
+  margin:18px 0 4px; padding:0; display:flex; flex-direction:column;
+  gap:1px; background:var(--line-soft); border-radius:2px;
+  overflow:hidden; }
+ol.steps151 > li, ol.traps151 > li, ol.def151 > li{
+  counter-increment:s151; display:grid;
+  grid-template-columns:38px minmax(0,1fr); align-items:start;
+  background:var(--surface); padding:12px 14px; }
+ol.steps151 > li::before, ol.traps151 > li::before, ol.def151 > li::before{
+  content:counter(s151); grid-column:1; font-family:var(--mono);
+  font-size:11px; font-weight:600; letter-spacing:.06em;
+  color:var(--accent); padding-top:.28em; }
+ol.steps151 > li > span, ol.traps151 > li > span, ol.def151 > li > span{
+  grid-column:2; line-height:1.6; }
+ol.traps151 > li::before{ color:var(--los); }
+ol.def151 > li::before{ color:var(--num); }
+
+/* ---- callouts --------------------------------------------------------- */
+p.warn151{ margin:16px 0; padding:13px 16px; border-radius:2px;
+  background:var(--los-soft); border-left:3px solid var(--los-line);
+  color:var(--ink); line-height:1.6; }
+
+/* ---- panel grids. Track counts DIVIDE the cell counts. ---------------- */
+.pgrid.evt151{ display:grid; gap:1px; background:var(--line-soft);
+  grid-template-columns:repeat(3,minmax(0,1fr)); margin:18px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.bif151{ display:grid; gap:1px; background:var(--line-soft);
+  grid-template-columns:repeat(3,minmax(0,1fr)); margin:18px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.shape151, .pgrid.prov151, .pgrid.ent151{ display:grid; gap:1px;
+  background:var(--line-soft);
+  grid-template-columns:repeat(3,minmax(0,1fr)); margin:18px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.ver151{ display:grid; gap:1px; background:var(--line-soft);
+  grid-template-columns:repeat(4,minmax(0,1fr)); margin:18px 0;
+  border-radius:2px; overflow:hidden; }
+@media (max-width:1080px){
+  .pgrid.ver151{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:880px){
+  .pgrid.evt151, .pgrid.bif151, .pgrid.shape151, .pgrid.prov151,
+  .pgrid.ent151{ grid-template-columns:repeat(1,minmax(0,1fr)); }
+  .pgrid.ver151{ grid-template-columns:repeat(1,minmax(0,1fr)); }
+}
+.pv151{ margin-top:6px; font-size:13.5px; line-height:1.55;
+  color:var(--ink2); }
+.pcard.ok151 .pk{ color:var(--fam); }
+.pcard.no151 .pk{ color:var(--los); }
+
+/* ---- display maths ---------------------------------------------------- */
+.disp151{ margin:18px 0; padding:4px 0; overflow-x:auto; text-align:center; }
+
+/* ---- the figure ------------------------------------------------------- */
+.figbox.f151{ margin:20px 0 8px; padding:14px 10px 10px;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:2px; overflow-x:auto; }
+svg.fig151{ display:block; width:100%; min-width:640px; height:auto; }
+p.cap151{ margin:0 0 22px; font-size:12.6px; line-height:1.55;
+  color:var(--ink3); }
+
+/* SVG paint. Every colour lives HERE, never in a presentation attribute,
+   because var() does not resolve in one and a CSS rule beats one anyway. */
+.figbox rect.pbox151{ fill:none; stroke:var(--line);
+  vector-effect:non-scaling-stroke; }
+.figbox line.gridv151, .figbox line.gridh151{ stroke:var(--grid);
+  stroke-width:1; vector-effect:non-scaling-stroke; }
+.figbox line.gridrule151{ stroke:var(--line); stroke-width:1;
+  vector-effect:non-scaling-stroke; }
+.figbox polyline.curve151{ fill:none; stroke:var(--ink2); stroke-width:2;
+  stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.figbox line.lev151{ stroke:var(--rul); stroke-width:1.6;
+  stroke-dasharray:7 5; vector-effect:non-scaling-stroke; }
+.figbox line.flat151{ stroke:var(--chn); stroke-width:2.6;
+  vector-effect:non-scaling-stroke; }
+.figbox rect.endp151{ fill:var(--rul); stroke:var(--surface);
+  stroke-width:1.4; vector-effect:non-scaling-stroke; }
+.figbox circle.crit151{ fill:var(--chn); stroke:var(--surface);
+  stroke-width:1.4; vector-effect:non-scaling-stroke; }
+.figbox circle.win151{ fill:none; stroke:var(--accent); stroke-width:2;
+  vector-effect:non-scaling-stroke; }
+.figbox text.lab{ font-family:var(--mono); fill:var(--plotlab); }
+.figbox text.tick151, .figbox text.ytick151{ font-size:10.5px;
+  letter-spacing:.04em; }
+.figbox text.tick151{ text-anchor:middle; }
+.figbox text.ytick151{ text-anchor:end; }
+.figbox text.ph151{ font-size:10.5px; letter-spacing:.09em;
+  font-weight:600; fill:var(--ink3); text-anchor:start; }
+.figbox text.leg151{ font-size:11px; letter-spacing:.02em;
+  fill:var(--ink2); text-anchor:start; }
+</style>
+
+<style>
+/* ===== Q15.2 EXTRA =========================================================
+   Q15.2 is the FIRST optimization word problem and the FIRST question in the
+   queue whose feasible domain is OPEN. What the five series hues mean here:
+
+     THE ANSWER, the square and the minimum level          --rul amber
+     THE MACHINERY, the two component terms, the
+       derivative, the candidate the algebra produces      --chn slate
+     WHERE MARKS DIE, the missing justification and the
+       square that hides three wrong objectives            --los terracotta
+     THE VARIATION families                                --fam teal
+     NUMERICS: provenance, counts, gates                   --num mauve
+
+   The signature block is panel B in section 03: five rectangles of area 220
+   drawn to scale on one baseline, whose perimeters read 118, 71, 59.3296,
+   71, 118. The list is symmetric because P(220/w) = P(w), so the square is
+   the fixed point of that involution - the page's deepest single fact, and
+   the reason the shape is not a check.
+   ======================================================================== */
+
+/* ---- section numbers -------------------------------------------------- */
+.sn152{ font-family:var(--mono); font-size:.62em; font-weight:600;
+  letter-spacing:.09em; color:var(--num); vertical-align:.32em;
+  margin-right:.55em; }
+
+/* ---- the quoted stem and the model write-up --------------------------- */
+p.quote152{ margin:16px 0 20px; padding:15px 18px; border-radius:2px;
+  background:var(--sunk); border-left:3px solid var(--accent-line);
+  color:var(--ink); line-height:1.66; }
+.qp152{ display:block; margin-top:10px; font-family:var(--mono);
+  font-size:.88em; line-height:1.6; color:var(--ink3); }
+
+/* ---- tables ----------------------------------------------------------- */
+table.ans152, table.gen152, table.cls152, table.rc152, table.ck152,
+table.cens152, table.fam152, table.f2t152, table.dr152{
+  width:100%; border-collapse:collapse; font-size:14px; min-width:700px; }
+table.fam152, table.dr152, table.cens152{ min-width:940px; }
+table.f2t152{ min-width:820px; }
+table.ans152 th, table.gen152 th, table.cls152 th, table.rc152 th,
+table.ck152 th, table.cens152 th, table.fam152 th, table.f2t152 th,
+table.dr152 th{
+  text-align:left; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.085em; text-transform:uppercase; color:var(--ink3);
+  font-weight:600; padding:9px 12px; border-bottom:1px solid var(--line);
+  vertical-align:bottom; }
+table.ans152 td, table.gen152 td, table.cls152 td, table.rc152 td,
+table.ck152 td, table.cens152 td, table.fam152 td, table.f2t152 td,
+table.dr152 td{
+  padding:10px 12px; border-bottom:1px solid var(--line-soft);
+  vertical-align:top; line-height:1.52; }
+td.dl152{ font-weight:600; color:var(--ink); }
+td.hi152, tr.hi152 > td{ background:var(--rul-soft); color:var(--ink); }
+td.hi152{ font-weight:600; }
+td.non152{ font-family:var(--mono); font-size:12.5px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--fam); font-weight:600; }
+td.mono152, span.mono152{ font-family:var(--mono); font-size:12.6px;
+  font-variant-numeric:tabular-nums; }
+/* Long Windows paths carry no break opportunity - a backslash is not one -
+   so an inline mono span holding one is an unbreakable 388px token that
+   pushes the DOCUMENT sideways at the 430px lint case. Found by lint.mjs
+   on the first build; the reported culprits were the wide table inside its
+   own scroll container, which is noise, and the real cause was
+   `Work\knowledge\topics\math265-answer-verification.py` in section 12. */
+span.mono152, p.cap152{ overflow-wrap:anywhere; }
+td.bad152{ background:var(--los-soft); color:var(--los); font-weight:600; }
+td.hid152{ background:var(--num-soft); color:var(--num); font-weight:600;
+  font-family:var(--mono); font-size:11.6px; letter-spacing:.05em; }
+td.pos152{ color:var(--fam); font-weight:600; }
+td.neg152{ color:var(--los); font-weight:600; }
+td.fh152{ font-family:var(--mono); font-size:11.4px; font-weight:600;
+  letter-spacing:.055em; text-transform:uppercase; color:var(--fam);
+  background:var(--fam-soft); }
+
+/* ---- numbered lists: ONE content child at grid column 2 --------------- */
+ol.steps152, ol.traps152, ol.def152{ list-style:none; counter-reset:s152;
+  margin:18px 0 4px; padding:0; display:flex; flex-direction:column;
+  gap:1px; background:var(--line-soft); border-radius:2px;
+  overflow:hidden; }
+ol.steps152 > li, ol.traps152 > li, ol.def152 > li{
+  counter-increment:s152; display:grid;
+  grid-template-columns:38px minmax(0,1fr); align-items:start;
+  background:var(--surface); padding:12px 14px; }
+ol.steps152 > li::before, ol.traps152 > li::before,
+ol.def152 > li::before{
+  content:counter(s152); grid-column:1; font-family:var(--mono);
+  font-size:11px; font-weight:600; letter-spacing:.06em;
+  color:var(--accent); padding-top:.3em; }
+ol.steps152 > li > span, ol.traps152 > li > span, ol.def152 > li > span{
+  grid-column:2; line-height:1.62; }
+ol.traps152 > li::before{ color:var(--los); }
+ol.def152 > li::before{ color:var(--num); }
+
+/* ---- callout ---------------------------------------------------------- */
+p.warn152{ margin:18px 0; padding:14px 17px; border-radius:2px;
+  background:var(--los-soft); border-left:3px solid var(--los-line);
+  color:var(--ink); line-height:1.62; }
+
+/* ---- panel grids. Every track count DIVIDES its cell count. ----------- */
+.pgrid.inh152, .pgrid.wr152, .pgrid.ent152{ display:grid; gap:1px;
+  background:var(--line-soft);
+  grid-template-columns:repeat(3,minmax(0,1fr)); margin:20px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.ent152{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+.pgrid.rt152{ display:grid; gap:1px; background:var(--line-soft);
+  grid-template-columns:repeat(2,minmax(0,1fr)); margin:20px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.ver152{ display:grid; gap:1px; background:var(--line-soft);
+  grid-template-columns:repeat(4,minmax(0,1fr)); margin:20px 0;
+  border-radius:2px; overflow:hidden; }
+.pgrid.ver152 .pk{ font-family:var(--mono); font-size:26px;
+  font-variant-numeric:tabular-nums; color:var(--num); }
+@media (max-width:1080px){
+  .pgrid.ver152{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (max-width:880px){
+  .pgrid.inh152, .pgrid.wr152, .pgrid.rt152, .pgrid.ent152,
+  .pgrid.ver152{ grid-template-columns:repeat(1,minmax(0,1fr)); }
+}
+
+/* ---- the figures ------------------------------------------------------ */
+.figbox.f152{ margin:20px 0 8px; padding:14px 10px 10px;
+  background:var(--surface); border:1px solid var(--line);
+  border-radius:2px; overflow-x:auto; }
+svg.fig152{ display:block; width:100%; min-width:660px; height:auto; }
+p.cap152{ margin:0 0 22px; font-size:12.8px; line-height:1.58;
+  color:var(--ink3); }
+
+/* SVG paint lives HERE and only here. var() does not resolve in an SVG
+   presentation attribute, and an upstream CSS rule beats one anyway. */
+.figbox rect.pbox152{ fill:none; stroke:var(--line);
+  vector-effect:non-scaling-stroke; }
+.figbox line.gridv152, .figbox line.gridh152{ stroke:var(--grid);
+  stroke-width:1; vector-effect:non-scaling-stroke; }
+.figbox line.gridbase152{ stroke:var(--line); stroke-width:1.4;
+  vector-effect:non-scaling-stroke; }
+.figbox line.gridlev152{ stroke:var(--rul); stroke-width:1.7;
+  stroke-dasharray:7 5; vector-effect:non-scaling-stroke; }
+.figbox line.gridrop152{ stroke:var(--chn); stroke-width:1.2;
+  stroke-dasharray:3 4; vector-effect:non-scaling-stroke; }
+.figbox polyline.curveP152{ fill:none; stroke:var(--ink2);
+  stroke-width:2.2; stroke-linejoin:round;
+  vector-effect:non-scaling-stroke; }
+.figbox polyline.termlin152, .figbox polyline.termhyp152{ fill:none;
+  stroke:var(--chn); stroke-width:1.5; stroke-dasharray:6 4;
+  stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+.figbox circle.minm152{ fill:var(--rul); stroke:var(--surface);
+  stroke-width:1.6; vector-effect:non-scaling-stroke; }
+.figbox circle.crossm152{ fill:var(--chn); stroke:var(--surface);
+  stroke-width:1.4; vector-effect:non-scaling-stroke; }
+.figbox rect.rbox152{ fill:var(--chn-soft); stroke:var(--chn);
+  stroke-width:1.3; vector-effect:non-scaling-stroke; }
+.figbox rect.sqbox152{ fill:var(--rul-soft); stroke:var(--rul);
+  stroke-width:2.2; vector-effect:non-scaling-stroke; }
+.figbox rect.swpl152{ fill:var(--ink2); stroke:none; }
+.figbox rect.swtm152{ fill:var(--chn); stroke:none; }
+.figbox rect.swlv152{ fill:var(--rul); stroke:none; }
+.figbox text.lab{ font-family:var(--mono); fill:var(--plotlab); }
+.figbox text.tick152, .figbox text.ytick152{ font-size:10.5px;
+  letter-spacing:.04em; }
+.figbox text.tick152{ text-anchor:middle; }
+.figbox text.ytick152{ text-anchor:end; }
+.figbox text.ph152{ font-size:10.5px; letter-spacing:.09em;
+  font-weight:600; fill:var(--ink3); text-anchor:start; }
+.figbox text.leg152{ font-size:11px; letter-spacing:.02em;
+  fill:var(--ink2); text-anchor:start; }
+.figbox text.callo152{ font-size:11px; letter-spacing:.06em;
+  font-weight:600; fill:var(--ink2); text-anchor:start; }
+.figbox text.levlab152{ font-size:11px; letter-spacing:.05em;
+  font-weight:600; fill:var(--rul); text-anchor:end; }
+.figbox text.dim152{ font-size:10.5px; letter-spacing:.04em;
+  fill:var(--ink3); text-anchor:middle; }
+.figbox text.per152{ font-size:11px; letter-spacing:.04em;
+  font-weight:600; fill:var(--ink2); text-anchor:middle; }
+.figbox text.perwin152{ font-size:11px; letter-spacing:.04em;
+  font-weight:600; fill:var(--rul); text-anchor:middle; }
+
+/* Inline MathJax must stay INLINE. Without this the series' own tex-svg
+   output can resolve to a centred block and break every sentence that
+   contains inline maths onto three lines. */
+mjx-container:not([display="true"]){ display:inline-block!important;
+  margin:0; text-align:left; vertical-align:-0.15em; }
+
+/* MathJax does NOT inherit its container's colour, because upstream sets
+   `mjx-container{color:var(--mj)}`. Every coloured cell and every card
+   heading on this page contains inline maths, so without these rules the
+   maths renders ink-white beside teal, terracotta, mauve or amber text in
+   the SAME phrase. No gate sees it; the screenshot did. */
+td.pos152 mjx-container, td.pos152 mjx-container svg,
+td.neg152 mjx-container, td.neg152 mjx-container svg,
+td.bad152 mjx-container, td.bad152 mjx-container svg,
+td.hid152 mjx-container, td.hid152 mjx-container svg,
+td.non152 mjx-container, td.non152 mjx-container svg,
+td.fh152 mjx-container, td.fh152 mjx-container svg,
+.pcard .pk mjx-container, .pcard .pk mjx-container svg,
+.pgrid.ver152 .pk mjx-container, .pgrid.ver152 .pk mjx-container svg{
+  color:inherit; fill:currentColor; }
+</style>
+
+<style>
+/* ===== Q15.3 EXTRA =========================================================
+   Q15.3 is the only question in the course whose stem NAMES the Extreme
+   Value Theorem, so the theorem itself is the object under examination.
+   What the five series hues mean on this page:
+
+     THE ANSWER, the two extreme values and the minimum level   --rul amber
+     THE MACHINERY, the derivative, the candidate rows,
+       the hypothesis checks that pass                          --chn slate
+     WHERE MARKS DIE, a dropped hypothesis, an unattained
+       extreme, a mutilation that HIDES                          --los terracotta
+     THE VARIATION families and the checks that catch things    --fam teal
+     NUMERICS: provenance, counts, gates                        --num mauve
+
+   The signature block is panel A in section 04: the curve on [-1,1] with a
+   dashed level line at y = 1/2 running the full width of the frame, so the
+   two minimum markers are visibly at the SAME height at the two ends. That
+   tie is why both endpoint omissions HIDE, which is the run's headline.
+
+   Panel B is three sub-panels of the SAME function with one hypothesis
+   dropped in each. A HOLLOW marker means an extreme that is approached and
+   never attained; the distinction between hollow and filled is the whole
+   figure.
+   ======================================================================== */
+
+/* ---- section numbers -------------------------------------------------- */
+.sn153{ font-family:var(--mono); font-size:.62em; font-weight:600;
+  letter-spacing:.09em; color:var(--num); vertical-align:.32em;
+  margin-right:.55em; }
+h3.sh153{ font-size:15.5px; letter-spacing:.005em; margin:30px 0 10px;
+  color:var(--ink); font-weight:600; }
+
+/* ---- the quoted stem -------------------------------------------------- */
+p.quote153{ margin:16px 0 20px; padding:15px 18px; border-radius:2px;
+  background:var(--sunk); border-left:3px solid var(--accent-line);
+  color:var(--ink); line-height:1.66; }
+.qp153{ display:block; margin-top:10px; font-family:var(--mono);
+  font-size:.88em; line-height:1.6; color:var(--ink3); }
+
+/* ---- the one-line pull quote: this page's three load-bearing lines ---- */
+p.pull153{ margin:22px 0; padding:14px 18px 14px 20px;
+  border-left:3px solid var(--rul); background:var(--rul-soft);
+  color:var(--ink); font-size:15.5px; line-height:1.6; border-radius:2px; }
+
+/* ---- tables ----------------------------------------------------------- */
+table.ans153, table.hyp153, table.ce153, table.loc153, table.cand153,
+table.rc153, table.cens153, table.bnd153, table.fam153, table.dr153,
+table.ae153, table.pv153t{
+  width:100%; border-collapse:collapse; font-size:14px; min-width:700px; }
+table.fam153, table.dr153, table.ce153{ min-width:980px; }
+table.cens153{ min-width:880px; }
+/* rc153's label column squeezed to 127px at the 430px case, wrapping a
+   six-word label onto four lines. lint.mjs found it only AFTER a MathJax
+   span was removed from one of that table's HEADERS: the span had been
+   holding a column open, so the widths redistributed and this one
+   collapsed. A wide table's min-width is a lint INPUT, not a style
+   choice. 880 was not enough; 1000 plus an explicit floor is. */
+table.rc153{ min-width:1000px; }
+table.rc153 td:first-child, table.rc153 th:first-child{
+  min-width:178px; }
+table.bnd153{ min-width:820px; }
+table.ae153, table.pv153t, table.loc153{ min-width:560px; }
+table.ans153 th, table.hyp153 th, table.ce153 th, table.loc153 th,
+table.cand153 th, table.rc153 th, table.cens153 th, table.bnd153 th,
+table.fam153 th, table.dr153 th, table.ae153 th, table.pv153t th{
+  text-align:left; font-family:var(--mono); font-size:10.5px;
+  letter-spacing:.085em; text-transform:uppercase; color:var(--ink3);
+  font-weight:600; padding:9px 12px; border-bottom:1px solid var(--line);
+  vertical-align:bottom; }
+table.ans153 td, table.hyp153 td, table.ce153 td, table.loc153 td,
+table.cand153 td, table.rc153 td, table.cens153 td, table.bnd153 td,
+table.fam153 td, table.dr153 td, table.ae153 td, table.pv153t td{
+  padding:10px 12px; border-bottom:1px solid var(--line-soft);
+  vertical-align:top; line-height:1.52; }
+td.dl153{ font-weight:600; color:var(--ink); }
+td.hi153, tr.hi153 > td{ background:var(--rul-soft); color:var(--ink); }
+td.hi153{ font-weight:600; }
+td.mono153, span.mono153{ font-family:var(--mono); font-size:12.6px;
+  font-variant-numeric:tabular-nums; }
+/* a long Windows path carries no break opportunity - a backslash is not
+   one - so an inline mono span holding one is an unbreakable token that
+   pushes the DOCUMENT sideways at the 430px lint case. */
+span.mono153, p.cap153{ overflow-wrap:anywhere; }
+td.non153{ font-family:var(--mono); font-size:12.2px; letter-spacing:.06em;
+  text-transform:uppercase; color:var(--ink3); font-weight:600; }
+td.two153{ font-family:var(--mono); font-size:12.2px; letter-spacing:.07em;
+  text-transform:uppercase; color:var(--rul); font-weight:600;
+  background:var(--rul-soft); }
+td.ok153{ color:var(--fam); }
+td.pos153{ color:var(--fam); font-weight:600; }
+td.neg153{ color:var(--los); font-weight:600; }
+td.bad153{ background:var(--los-soft); color:var(--los); font-weight:600;
+  font-family:var(--mono); font-size:11.6px; letter-spacing:.05em;
+  text-transform:uppercase; }
+td.hid153{ background:var(--num-soft); color:var(--num); font-weight:600;
+  font-family:var(--mono); font-size:11.6px; letter-spacing:.05em;
+  text-transform:uppercase; }
+td.dr153c{ color:var(--los); font-weight:600; font-family:var(--mono);
+  font-size:11.8px; letter-spacing:.05em; text-transform:uppercase; }
+td.win153{ color:var(--rul); font-weight:600; font-family:var(--mono);
+  font-size:11.6px; letter-spacing:.06em; text-transform:uppercase; }
+td.fh153{ font-family:var(--mono); font-size:11.4px; font-weight:600;
+  letter-spacing:.055em; text-transform:uppercase; color:var(--fam);
+  background:var(--fam-soft); }
+
+/* MathJax does NOT inherit its container's colour - upstream sets
+   mjx-container{color:var(--mj)} - so every coloured cell holding inline
+   maths would render ink-white beside teal or terracotta text in the same
+   phrase. No gate sees this; only the screenshot does. Fix all the classes
+   at once. Carryover 16.7. */
+td.hi153 mjx-container, td.pos153 mjx-container, td.neg153 mjx-container,
+td.bad153 mjx-container, td.hid153 mjx-container, td.ok153 mjx-container,
+td.non153 mjx-container, td.win153 mjx-container, td.two153 mjx-container,
+td.dr153c mjx-container, td.fh153 mjx-container,
+td.hi153 mjx-container svg, td.pos153 mjx-container svg,
+td.neg153 mjx-container svg, td.bad153 mjx-container svg,
+td.hid153 mjx-container svg, td.ok153 mjx-container svg,
+td.non153 mjx-container svg, td.win153 mjx-container svg,
+td.two153 mjx-container svg, td.dr153c mjx-container svg,
+td.fh153 mjx-container svg{ color:inherit; fill:currentColor; }
+.pull153 mjx-container, .pull153 mjx-container svg,
+.hl153 mjx-container, .hl153 mjx-container svg{
+  color:inherit; fill:currentColor; }
+
+/* ---- the model write-up, with the four scoring phrases lifted -------- */
+div.wu153{ margin:18px 0 20px; padding:16px 20px; border-radius:2px;
+  background:var(--sunk); border-left:3px solid var(--fam);
+  display:flex; flex-direction:column; gap:9px; }
+div.wu153 > p{ margin:0; line-height:1.66; color:var(--ink); }
+span.hl153{ background:var(--fam-soft); color:var(--fam); font-weight:600;
+  padding:1px 4px; border-radius:2px; }
+
+/* ---- numbered lists: ONE content child at grid column 2 -------------- */
+ol.traps153, ol.def153, ol.cr153{ list-style:none; counter-reset:s153;
+  margin:18px 0 4px; padding:0; display:flex; flex-direction:column;
+  gap:1px; background:var(--line-soft); border-radius:2px;
+  overflow:hidden; }
+ol.traps153 > li, ol.def153 > li, ol.cr153 > li{
+  counter-increment:s153; display:grid;
+  grid-template-columns:38px minmax(0,1fr); align-items:start;
+  background:var(--surface); padding:12px 14px; }
+ol.traps153 > li::before, ol.def153 > li::before, ol.cr153 > li::before{
+  content:counter(s153); grid-column:1; font-family:var(--mono);
+  font-size:11px; font-weight:600; letter-spacing:.06em;
+  color:var(--accent); padding-top:.3em; }
+ol.traps153 > li > span, ol.def153 > li > span, ol.cr153 > li > span{
+  grid-column:2; line-height:1.6; color:var(--ink2); }
+
+/* ---- card grids -------------------------------------------------------
+   NOT auto-fit. `repeat(auto-fit, minmax(...))` picks whatever track
+   count fits and knows nothing about how many cells it must place, so it
+   produced a 2-track row for 3 cards at vp 620 and a 3-track row for 4
+   cards from vp 860 to 1010 - three ragged grids, all found by
+   grid-fill.mjs and by nothing else. For any floor there is some
+   viewport where the bad count fits, so the only reliable fix is to
+   enumerate track counts that DIVIDE the cell count and skip the rest.
+
+     .two153g   2 cards  ->  1 or 2 tracks
+     .three153  3 cards  ->  1 or 3      (2 is never used)
+     .cs153     3 cards  ->  1 or 3      (2 is never used)
+     .ck153     4 cards  ->  1, 2 or 4   (3 is never used)
+
+   Content width is at most 1080 - 44 = 1036px, so each card gets 358px
+   at 2-up, 285px at 3-up (vp 900) and 259px at 4-up (vp 1100).
+   ---------------------------------------------------------------------- */
+.pgrid.two153g, .pgrid.three153, .pgrid.cs153, .pgrid.ck153{
+  grid-template-columns:minmax(0,1fr); }
+@media (min-width:760px){
+  .pgrid.two153g{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .pgrid.ck153{ grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media (min-width:900px){
+  .pgrid.three153{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .pgrid.cs153{ grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+@media (min-width:1100px){
+  .pgrid.ck153{ grid-template-columns:repeat(4,minmax(0,1fr)); }
+}
+
+/* ---- figures ---------------------------------------------------------- */
+.figbox svg.fig153{ width:100%; height:auto; display:block; }
+p.cap153, figcaption.cap153{ margin:10px 2px 0; font-size:13px;
+  line-height:1.58; color:var(--ink3); }
+
+.figbox rect.pbox153{ fill:none; stroke:var(--line); stroke-width:1; }
+.figbox line.gridv153, .figbox line.gridh153{ stroke:var(--line-soft);
+  stroke-width:1; }
+.figbox line.ivl153{ stroke:var(--accent); stroke-width:3.5; }
+.figbox line.lev153{ stroke:var(--rul); stroke-width:1.4;
+  stroke-dasharray:6 4; }
+.figbox polyline.crv153{ fill:none; stroke:var(--chn); stroke-width:2.4; }
+.figbox polyline.ghost153{ fill:none; stroke:var(--line);
+  stroke-width:1.4; stroke-dasharray:2 3; }
+.figbox line.inf153{ stroke:var(--num); stroke-width:1.8; }
+.figbox circle.mx153{ fill:var(--rul); stroke:var(--surface); stroke-width:1.6; }
+.figbox circle.mn153{ fill:var(--rul); stroke:var(--surface); stroke-width:1.6; }
+.figbox circle.opn153{ fill:var(--surface); stroke:var(--los);
+  stroke-width:2.2; }
+
+.figbox text.lab{ font-family:var(--mono); fill:var(--ink3);
+  font-size:11px; letter-spacing:.05em; }
+.figbox text.labmx153{ fill:var(--rul); font-size:11.5px;
+  font-weight:600; text-anchor:middle; }
+.figbox text.labl153{ fill:var(--rul); font-size:11.5px;
+  font-weight:600; }
+.figbox text.labr153{ fill:var(--rul); font-size:11.5px; font-weight:600;
+  text-anchor:end; }
+.figbox text.labtie153{ fill:var(--ink3); font-size:11px;
+  text-anchor:middle; }
+.figbox text.tx153{ text-anchor:middle; }
+.figbox text.ty153{ text-anchor:end; }
+.figbox text.lgd153{ fill:var(--ink3); font-size:11px; }
+.figbox text.sub153{ fill:var(--ink); font-size:11.5px; font-weight:600;
+  letter-spacing:.07em; }
+.figbox text.cap153{ fill:var(--ink3); font-size:10.5px; }
+.figbox text.arw153{ fill:var(--ink3); font-size:10.5px;
+  text-anchor:middle; }
+.figbox rect.swcrv153{ fill:var(--chn); }
+.figbox rect.swghost153{ fill:var(--line); }
+.figbox rect.swlev153{ fill:var(--rul); }
+.figbox rect.swinf153{ fill:var(--num); }
+</style>
+
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 2 &#183; ITEM 3a &#183; THE THEOREM IS NAMED ONCE IN THE COURSE</div>
+  <h1>Existence Is Not Location</h1>
+  <p class="stand">Q15.3 names the Extreme Value Theorem, and Q15.1 does not. That is the whole difference between them. Q15.1 asked you to <em>run</em> the closed-interval method; Q15.3 asks you to <em>justify</em> it, and the justification carries marks the answer does not. The theorem proves that the two extremes <b>exist</b>. It does not say where they are, how many there are, or how to find them. This page is about that gap.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2><span class="sn153">01</span> The question, and the answer it wants</h2>
+
+<p class="quote153">Use the Extreme Value Theorem to find the absolute extreme values of the function \(f(x) = \dfrac{1}{x^2+1}\) on the interval \([-1,1]\).<span class="qp153">Final Exam 2, item 3, part (a). The item is worth 8 points and it has TWO sub-parts; part (b) asks you to estimate \(\int_{-1}^{1} f\) from the properties of the definite integral, on the same function over the same interval. So the 8 points cover both halves, and part (a)'s two numbers are part (b)'s inputs. No "no credit" clause, no hint, no "show your work".</span></p>
+
+<div class="tscroll vtab">
+<table class="ans153">
+<thead><tr><th>&#160;</th><th>exact</th><th>decimal</th><th>where, and what kind of place that is</th></tr></thead>
+<tbody>
+<tr><td class="dl153">absolute <b>maximum</b> value</td><td class="hi153">\(1\)</td><td class="mono153">1</td><td>at \(x=0\), an <b>interior critical point</b></td></tr>
+<tr><td class="dl153">absolute <b>minimum</b> value</td><td class="hi153">\(1/2\)</td><td class="mono153">0.5</td><td>at \(x=-1\) <b>and</b> \(x=1\), <b>both endpoints</b></td></tr>
+<tr><td class="dl153">how many minimisers</td><td class="two153">two</td><td class="two153">two</td><td>and this single fact reorganises the whole question</td></tr>
+<tr><td class="dl153">\(f''\) at the maximiser</td><td>\(-2\)</td><td class="mono153">-2</td><td>negative, so the second-derivative test <em>would</em> work; it is not needed</td></tr>
+<tr><td class="dl153">points where \(f'\) is undefined</td><td class="non153">none</td><td class="non153">none</td><td>\((x^2+1)^2 \ge 1\), so that box is <b>empty</b>; saying so earns credit</td></tr>
+<tr><td class="dl153">the range of \(f\) on \([-1,1]\)</td><td>\([1/2,\;1]\)</td><td class="mono153">[0.5, 1]</td><td>the maximum is exactly <b>twice</b> the minimum</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">Every printed digit on this page was recomputed in Python before it was written down. Harness sections <span class="mono153">q153</span>, <span class="mono153">q153d</span> and <span class="mono153">q153c</span>: <b>462 assertions, 0 failures, 72 seeded controls</b>. No number anywhere on this page describes the shared harness <em>file</em>, because that file is appended to concurrently by other runs and any whole-file byte count or banner count of it goes stale within minutes of being printed.</p>
+</section>
+
+<section>
+<h2><span class="sn153">02</span> The theorem, and the theorem it is usually confused with</h2>
+
+<p>Most students meet the EVT as a recipe: find the critical points, add the endpoints, compare. That recipe is <b>two theorems stapled together</b>, and only one of them is the EVT.</p>
+
+<div class="pgrid two153g">
+  <div class="pcard main"><p class="pk">Theorem 1, the EVT</p><p class="pv">EXISTENCE</p><p class="pd">If \(f\) is continuous on a <b>closed, bounded</b> interval \([a,b]\), then there exist points \(c\) and \(d\) in \([a,b]\) with \(f(d) \le f(x) \le f(c)\) for every \(x\) in \([a,b]\). Three hypotheses, one conclusion, and the conclusion is that such points <em>exist</em>. It names none of them.</p></div>
+  <div class="pcard los"><p class="pk">Theorem 2, Fermat</p><p class="pv">LOCATION</p><p class="pd">If \(f\) has a local extremum at an <b>interior</b> point \(c\) and \(f'(c)\) exists, then \(f'(c)=0\). Read the contrapositive, which is the useful direction: an interior point where \(f'\) exists and is not zero <b>cannot</b> be an extremum. That is what shrinks the search to a finite list.</p></div>
+</div>
+
+<p>So the candidate list comes from Fermat, not from the EVT. And notice what Fermat says about an endpoint: <b>nothing</b>, because an endpoint is not interior. On this question \(f'(-1) = 1/2\) and \(f'(1) = -1/2\), both plainly nonzero, and both of those points are minimisers.</p>
+
+<p class="pull153">No derivative condition flags an endpoint. You write them into the list by hand, or you lose them.</p>
+
+<div class="tscroll vtab">
+<table class="hyp153">
+<thead><tr><th>hypothesis</th><th>what it rules out</th><th>how it is checked here</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\(f\) continuous on <b>all</b> of \([a,b]\)</td><td>a jump, a pole, a removable hole</td><td class="ok153">\(x^2 \ge 0\), so \(x^2+1 \ge 1\), so the denominator never vanishes</td></tr>
+<tr><td class="dl153">the interval is <b>closed</b></td><td>a domain like \((-1,1)\) or \((0,1]\)</td><td class="ok153">the square brackets in \([-1,1]\)</td></tr>
+<tr><td class="dl153">the interval is <b>bounded</b></td><td>a domain like \([0,\infty)\)</td><td class="ok153">its length is \(2\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>That third row is the one students skip, because \([a,b]\) with real \(a\) and \(b\) looks bounded by notation. It is worth naming anyway: the theorem has three hypotheses and the stem asked you to cite it.</p>
+</section>
+
+<section>
+<h2><span class="sn153">03</span> What each hypothesis is actually holding up</h2>
+
+<p>A theorem's hypotheses are only meaningful if dropping one can break the conclusion. So here is one counterexample per hypothesis, and all three are built from <b>this question's own function</b>. Each drops exactly one hypothesis and loses exactly one extreme, by a different mechanism.</p>
+
+<figure class="figbox">
+<svg class="fig153" viewBox="0 0 720 300" role="img" aria-label="three sub-panels, each the same function with one of the theorem hypotheses dropped: an open interval loses the minimum, an unbounded interval loses the minimum by a limit at infinity, and a puncture at the peak loses the maximum. A hollow marker is an extreme that is never attained."><rect class="pbox153" x="14" y="52" width="218.67" height="162"></rect><text class="lab sub153" x="14" y="34">(-1, 1)  OPEN</text><polyline class="crv153" points="39.23,134.33 40.63,133.21 42.03,132.08 43.44,130.93 44.84,129.75 46.24,128.57 47.64,127.36 49.04,126.13 50.44,124.89 51.85,123.63 53.25,122.36 54.65,121.06 56.05,119.75 57.45,118.43 58.85,117.09 60.26,115.74 61.66,114.37 63.06,112.99 64.46,111.6 65.86,110.2 67.26,108.79 68.67,107.37 70.07,105.95 71.47,104.52 72.87,103.08 74.27,101.65 75.68,100.21 77.08,98.77 78.48,97.34 79.88,95.91 81.28,94.49 82.68,93.08 84.09,91.68 85.49,90.3 86.89,88.93 88.29,87.58 89.69,86.25 91.09,84.95 92.5,83.67 93.9,82.43 95.3,81.21 96.7,80.04 98.1,78.9 99.5,77.8 100.91,76.75 102.31,75.75 103.71,74.79 105.11,73.89 106.51,73.04 107.91,72.25 109.32,71.52 110.72,70.86 112.12,70.25 113.52,69.72 114.92,69.25 116.32,68.85 117.73,68.52 119.13,68.27 120.53,68.08 121.93,67.97 123.33,67.93 124.74,67.97 126.14,68.08 127.54,68.27 128.94,68.52 130.34,68.85 131.74,69.25 133.15,69.72 134.55,70.25 135.95,70.86 137.35,71.52 138.75,72.25 140.15,73.04 141.56,73.89 142.96,74.79 144.36,75.75 145.76,76.75 147.16,77.8 148.56,78.9 149.97,80.04 151.37,81.21 152.77,82.43 154.17,83.67 155.57,84.95 156.97,86.25 158.38,87.58 159.78,88.93 161.18,90.3 162.58,91.68 163.98,93.08 165.38,94.49 166.79,95.91 168.19,97.34 169.59,98.77 170.99,100.21 172.39,101.65 173.79,103.08 175.2,104.52 176.6,105.95 178,107.37 179.4,108.79 180.8,110.2 182.21,111.6 183.61,112.99 185.01,114.37 186.41,115.74 187.81,117.09 189.21,118.43 190.62,119.75 192.02,121.06 193.42,122.36 194.82,123.63 196.22,124.89 197.62,126.13 199.03,127.36 200.43,128.57 201.83,129.75 203.23,130.93 204.63,132.08 206.03,133.21 207.44,134.33"></polyline><line class="lev153" x1="14" y1="134.33" x2="232.67" y2="134.33"></line><circle class="mx153" cx="123.33" cy="67.93" r="5.5"></circle><circle class="opn153" cx="39.23" cy="134.33" r="5.5"></circle><circle class="opn153" cx="207.44" cy="134.33" r="5.5"></circle><text class="lab cap153" x="14" y="240">min 1/2 LOST</text><text class="lab cap153" x="14" y="259">the minimisers WERE</text><text class="lab cap153" x="14" y="278">the endpoints</text><rect class="pbox153" x="250.67" y="52" width="218.67" height="162"></rect><text class="lab sub153" x="250.67" y="34">[0, inf)  UNBOUNDED</text><polyline class="crv153" points="269.98,67.93 271.02,68.08 272.06,68.52 273.09,69.25 274.13,70.25 275.17,71.52 276.21,73.04 277.25,74.79 278.29,76.75 279.32,78.9 280.36,81.21 281.4,83.67 282.44,86.25 283.48,88.93 284.52,91.68 285.55,94.49 286.59,97.34 287.63,100.21 288.67,103.08 289.71,105.95 290.75,108.79 291.78,111.6 292.82,114.37 293.86,117.09 294.9,119.75 295.94,122.36 296.97,124.89 298.01,127.36 299.05,129.75 300.09,132.08 301.13,134.33 302.17,136.5 303.2,138.61 304.24,140.64 305.28,142.59 306.32,144.48 307.36,146.3 308.4,148.05 309.43,149.74 310.47,151.36 311.51,152.92 312.55,154.42 313.59,155.86 314.63,157.25 315.66,158.58 316.7,159.86 317.74,161.1 318.78,162.28 319.82,163.42 320.86,164.52 321.89,165.57 322.93,166.59 323.97,167.56 325.01,168.5 326.05,169.4 327.09,170.27 328.12,171.11 329.16,171.92 330.2,172.69 331.24,173.44 332.28,174.16 333.32,174.86 334.35,175.53 335.39,176.18 336.43,176.8 337.47,177.4 338.51,177.98 339.55,178.54 340.58,179.09 341.62,179.61 342.66,180.12 343.7,180.61 344.74,181.08 345.78,181.54 346.81,181.98 347.85,182.41 348.89,182.82 349.93,183.22 350.97,183.61 352.01,183.99 353.04,184.35 354.08,184.7 355.12,185.05 356.16,185.38 357.2,185.7 358.23,186.01 359.27,186.32 360.31,186.61 361.35,186.9 362.39,187.17 363.43,187.44 364.46,187.7 365.5,187.96 366.54,188.21 367.58,188.45 368.62,188.68 369.66,188.91 370.69,189.13 371.73,189.34 372.77,189.55 373.81,189.76 374.85,189.96 375.89,190.15 376.92,190.34 377.96,190.52 379,190.7 380.04,190.87 381.08,191.04 382.12,191.21 383.15,191.37 384.19,191.53 385.23,191.68 386.27,191.83 387.31,191.98 388.35,192.12 389.38,192.26 390.42,192.4 391.46,192.53 392.5,192.66 393.54,192.79 394.58,192.91 395.61,193.03 396.65,193.15 397.69,193.27 398.73,193.38 399.77,193.49 400.81,193.6 401.84,193.7 402.88,193.81 403.92,193.91 404.96,194.01 406,194.1 407.04,194.2 408.07,194.29 409.11,194.38 410.15,194.47 411.19,194.56 412.23,194.65 413.26,194.73 414.3,194.81 415.34,194.89 416.38,194.97 417.42,195.05 418.46,195.12 419.49,195.2 420.53,195.27 421.57,195.34 422.61,195.41 423.65,195.48 424.69,195.55 425.72,195.61 426.76,195.68 427.8,195.74 428.84,195.81 429.88,195.87 430.92,195.93 431.95,195.99 432.99,196.04 434.03,196.1 435.07,196.16 436.11,196.21 437.15,196.27 438.18,196.32 439.22,196.37 440.26,196.42 441.3,196.47 442.34,196.52 443.38,196.57 444.41,196.62 445.45,196.66 446.49,196.71 447.53,196.76 448.57,196.8 449.61,196.84 450.64,196.89 451.68,196.93 452.72,196.97 453.76,197.01 454.8,197.05 455.84,197.09 456.87,197.13"></polyline><line class="lev153" x1="250.67" y1="200.72" x2="469.33" y2="200.72"></line><circle class="mx153" cx="269.98" cy="67.93" r="5.5"></circle><circle class="opn153" cx="453.33" cy="200.72" r="5.5"></circle><text class="lab arw153" x="431.33" y="186.72">to 0</text><text class="lab cap153" x="250.67" y="240">inf 0 LOST</text><text class="lab cap153" x="250.67" y="259">a limit at infinity,</text><text class="lab cap153" x="250.67" y="278">never a value</text><rect class="pbox153" x="487.33" y="52" width="218.67" height="162"></rect><text class="lab sub153" x="487.33" y="34">[-1,1], h(0) = 1/2</text><polyline class="crv153" points="512.56,134.33 513.95,133.23 515.33,132.11 516.72,130.97 518.1,129.81 519.49,128.64 520.87,127.45 522.26,126.24 523.64,125.01 525.03,123.77 526.41,122.51 527.8,121.23 529.18,119.94 530.57,118.64 531.95,117.32 533.34,115.98 534.72,114.63 536.11,113.27 537.49,111.9 538.88,110.52 540.26,109.13 541.65,107.73 543.03,106.33 544.42,104.91 545.8,103.5 547.19,102.08 548.57,100.66 549.96,99.24 551.34,97.82 552.73,96.41 554.11,95 555.5,93.6 556.88,92.22 558.27,90.84 559.65,89.48 561.04,88.14 562.42,86.82 563.8,85.52 565.19,84.25 566.57,83 567.96,81.79 569.34,80.61 570.73,79.47 572.11,78.36 573.5,77.3 574.88,76.28 576.27,75.31 577.65,74.39 579.04,73.52 580.42,72.71 581.81,71.95 583.19,71.26 584.58,70.62 585.96,70.05 587.35,69.54 588.73,69.11 590.12,68.73 591.5,68.43 592.89,68.2 594.27,68.04 595.66,67.95"></polyline><polyline class="crv153" points="597.68,67.95 599.06,68.04 600.45,68.2 601.83,68.43 603.22,68.73 604.6,69.11 605.99,69.54 607.37,70.05 608.76,70.62 610.14,71.26 611.52,71.95 612.91,72.71 614.29,73.52 615.68,74.39 617.06,75.31 618.45,76.28 619.83,77.3 621.22,78.36 622.6,79.47 623.99,80.61 625.37,81.79 626.76,83 628.14,84.25 629.53,85.52 630.91,86.82 632.3,88.14 633.68,89.48 635.07,90.84 636.45,92.22 637.84,93.6 639.22,95 640.61,96.41 641.99,97.82 643.38,99.24 644.76,100.66 646.15,102.08 647.53,103.5 648.92,104.91 650.3,106.33 651.69,107.73 653.07,109.13 654.46,110.52 655.84,111.9 657.23,113.27 658.61,114.63 660,115.98 661.38,117.32 662.77,118.64 664.15,119.94 665.54,121.23 666.92,122.51 668.31,123.77 669.69,125.01 671.08,126.24 672.46,127.45 673.84,128.64 675.23,129.81 676.61,130.97 678,132.11 679.38,133.23 680.77,134.33"></polyline><line class="lev153" x1="487.33" y1="134.33" x2="706" y2="134.33"></line><circle class="opn153" cx="596.67" cy="67.93" r="5.5"></circle><circle class="mn153" cx="512.56" cy="134.33" r="5.5"></circle><circle class="mn153" cx="596.67" cy="134.33" r="5.5"></circle><circle class="mn153" cx="680.77" cy="134.33" r="5.5"></circle><text class="lab cap153" x="487.33" y="240">max 1 LOST</text><text class="lab cap153" x="487.33" y="259">the peak is punctured,</text><text class="lab cap153" x="487.33" y="278">so 1 is approached</text></svg>
+<figcaption class="cap153">Three sub-panels, one hypothesis dropped in each. A <b>filled</b> marker is an extreme that is attained; a <b>hollow</b> one is approached and never reached. Left: removing the endpoints costs the minimum, because the minimisers <em>were</em> the endpoints. Middle: letting the interval run to infinity costs the minimum again, but now the infimum is \(0\) and it is a limit at infinity rather than a value at a removed point. Right: puncturing the peak costs the maximum, the exact complement of the left case.</figcaption>
+</figure>
+
+<div class="tscroll vtab">
+<table class="ce153">
+<thead><tr><th>instance</th><th>dropped</th><th>maximum</th><th>minimum</th><th>the measurement that proves it fails</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\(f\) on \((-1,1)\)</td><td class="dr153c">closed</td><td class="pos153">\(1\) at \(x=0\), attained</td><td class="neg153">\(1/2\), <b>not attained</b></td><td>every interior point has \(f(x) &gt; 1/2\) strictly; the closest an interior sample gets is \(5.0\times 10^{-7}\) above it</td></tr>
+<tr><td class="dl153">\(f\) on \([0,\infty)\)</td><td class="dr153c">bounded</td><td class="pos153">\(1\) at \(x=0\), attained</td><td class="neg153">\(0\), <b>not attained</b></td><td>\(f(10^6) = 10^{-12}\) and \(f(10^9) = 10^{-18}\), and \(f(x) &gt; 0\) for every real \(x\)</td></tr>
+<tr><td class="dl153">\(h = f\) but \(h(0)=1/2\), on \([-1,1]\)</td><td class="dr153c">continuous</td><td class="neg153">\(1\), <b>not attained</b></td><td class="pos153">\(1/2\) at \(x=-1,0,1\)</td><td>\(h(x)=1\) needs \(x=0\), where \(h\) is \(1/2\) instead; the jump at \(0\) is \(1/2\), while on a 4001-point grid the continuous \(f\) cannot change by more than \(\max\lvert f' \rvert \times \text{spacing} = 0.6495190528 \times 0.0005 = 0.0003247595\) in one step, so the jump is <b>1539 times</b> the largest step continuity allows</td></tr>
+<tr><td class="dl153">\(1/x\) on \((0,1]\)</td><td class="dr153c">bounded above</td><td class="neg153">none at all</td><td class="pos153">\(1\) at \(x=1\)</td><td>\(1/x\) exceeds \(10^8\) within \(10^{-9}\) of the removed end</td></tr>
+<tr><td class="dl153">\(\tan x\) on \((-\pi/2,\pi/2)\)</td><td class="dr153c">closed</td><td class="neg153">none</td><td class="neg153">none</td><td>it runs to \(-\infty\) and \(+\infty\) at the two open ends</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The three same-function rows are worth memorising as a set, because between them they show that the two extremes fail <b>independently</b>. Remove the ends and you lose the one that lived there. Puncture the middle and you lose the one that lived there. The hypotheses are not a ritual; each one is holding up a specific part of the conclusion.</p>
+
+<h3 class="sh153">And a dropped hypothesis does not force failure</h3>
+
+<p>This is the half that gets stated backwards in exams. The hypotheses are <b>sufficient, not necessary</b>. When one fails, the theorem is <em>silent</em>, not negative.</p>
+
+<div class="pgrid three153">
+  <div class="pcard fam"><p class="pk">Open domain</p><p class="pv">STILL ATTAINS ITS MINIMUM</p><p class="pd">\(x^2\) on the open \((-1,1)\) reaches \(0\) at \(x=0\). The minimum is fine; only the maximum is lost.</p></div>
+  <div class="pcard fam"><p class="pk">Discontinuous</p><p class="pv">STILL ATTAINS BOTH</p><p class="pd">A step function on \([-1,1]\) attains \(0\) at \(x=-1\) and \(1\) at \(x=0\). A jump is not automatically fatal.</p></div>
+  <div class="pcard fam"><p class="pk">Unbounded domain</p><p class="pv">STILL ATTAINS ITS MAXIMUM</p><p class="pd">\(f\) itself on \([0,\infty)\) reaches \(1\) at \(x=0\). Losing one hypothesis does not lose both extremes.</p></div>
+</div>
+
+<p>So <b>"the domain is open, therefore there is no maximum" is a wrong sentence.</b> The right one is: "the domain is open, so the EVT does not guarantee one, and here there is not."</p>
+
+<h3 class="sh153">The theorem locates nothing, and the proof is one function</h3>
+
+<p>Keep \(f\) and move the interval. Same theorem, same guarantee, three different answers.</p>
+
+<div class="tscroll vtab">
+<table class="loc153">
+<thead><tr><th>interval</th><th>where the maximum sits</th><th>what the EVT said about that</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\([-1,1]\)</td><td class="hi153">the interior point \(x=0\)</td><td class="non153">nothing</td></tr>
+<tr><td class="dl153">\([1,3]\)</td><td class="hi153">the <b>left</b> endpoint</td><td class="non153">nothing</td></tr>
+<tr><td class="dl153">\([-3,-1]\)</td><td class="hi153">the <b>right</b> endpoint</td><td class="non153">nothing</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2><span class="sn153">04</span> The candidate table, and the tie inside it</h2>
+
+<p>\(f\) is a quotient of polynomials whose denominator never vanishes, so it is continuous on all of \(\mathbb{R}\). Differentiate once, by the chain rule on \((x^2+1)^{-1}\) or by the quotient rule, which agree:</p>
+
+$$f'(x) = \frac{-2x}{(x^2+1)^2}, \qquad f''(x) = \frac{6x^2-2}{(x^2+1)^3}$$
+
+<p>The denominator of \(f'\) is at least \(1\), so \(f'\) exists everywhere and vanishes exactly when \(-2x = 0\), that is \(x=0\), which lies inside \([-1,1]\). Three candidates, and one of them is a tie.</p>
+
+<figure class="figbox">
+<svg class="fig153" viewBox="0 0 720 408" role="img" aria-label="one over x squared plus one, drawn only on the closed interval from minus one to one, with its maximum marked at the interior point zero and its minimum marked at both endpoints at the same height"><rect class="pbox153" x="86" y="26" width="604" height="220"></rect><line class="gridv153" x1="132.07" y1="26" x2="132.07" y2="246"></line><line class="gridv153" x1="260.03" y1="26" x2="260.03" y2="246"></line><line class="gridv153" x1="388" y1="26" x2="388" y2="246"></line><line class="gridv153" x1="515.97" y1="26" x2="515.97" y2="246"></line><line class="gridv153" x1="643.93" y1="26" x2="643.93" y2="246"></line><line class="gridh153" x1="86" y1="216.67" x2="690" y2="216.67"></line><line class="gridh153" x1="86" y1="143.33" x2="690" y2="143.33"></line><line class="gridh153" x1="86" y1="70" x2="690" y2="70"></line><line class="ivl153" x1="132.07" y1="254" x2="643.93" y2="254"></line><line class="lev153" x1="86" y1="216.67" x2="690" y2="216.67"></line><polyline class="crv153" points="132.07,216.67 133.49,215.85 134.91,215.03 136.33,214.2 137.76,213.37 139.18,212.54 140.6,211.7 142.02,210.85 143.44,210 144.86,209.15 146.29,208.29 147.71,207.43 149.13,206.56 150.55,205.69 151.97,204.82 153.4,203.94 154.82,203.05 156.24,202.16 157.66,201.27 159.08,200.37 160.5,199.47 161.93,198.57 163.35,197.65 164.77,196.74 166.19,195.82 167.61,194.9 169.04,193.97 170.46,193.04 171.88,192.1 173.3,191.16 174.72,190.22 176.15,189.27 177.57,188.32 178.99,187.36 180.41,186.4 181.83,185.44 183.25,184.47 184.68,183.5 186.1,182.53 187.52,181.55 188.94,180.56 190.36,179.58 191.79,178.59 193.21,177.6 194.63,176.6 196.05,175.6 197.47,174.6 198.89,173.59 200.32,172.58 201.74,171.57 203.16,170.55 204.58,169.54 206,168.52 207.43,167.49 208.85,166.47 210.27,165.44 211.69,164.41 213.11,163.37 214.53,162.34 215.96,161.3 217.38,160.26 218.8,159.21 220.22,158.17 221.64,157.12 223.07,156.08 224.49,155.03 225.91,153.98 227.33,152.92 228.75,151.87 230.18,150.82 231.6,149.76 233.02,148.7 234.44,147.65 235.86,146.59 237.28,145.53 238.71,144.47 240.13,143.41 241.55,142.36 242.97,141.3 244.39,140.24 245.82,139.18 247.24,138.13 248.66,137.07 250.08,136.01 251.5,134.96 252.92,133.91 254.35,132.86 255.77,131.81 257.19,130.76 258.61,129.71 260.03,128.67 261.46,127.62 262.88,126.59 264.3,125.55 265.72,124.52 267.14,123.48 268.56,122.46 269.99,121.43 271.41,120.41 272.83,119.4 274.25,118.38 275.67,117.38 277.1,116.37 278.52,115.37 279.94,114.38 281.36,113.39 282.78,112.41 284.21,111.43 285.63,110.46 287.05,109.49 288.47,108.53 289.89,107.58 291.31,106.63 292.74,105.7 294.16,104.76 295.58,103.84 297,102.92 298.42,102.01 299.85,101.11 301.27,100.22 302.69,99.33 304.11,98.46 305.53,97.59 306.95,96.73 308.38,95.89 309.8,95.05 311.22,94.22 312.64,93.4 314.06,92.59 315.49,91.8 316.91,91.01 318.33,90.24 319.75,89.47 321.17,88.72 322.6,87.98 324.02,87.25 325.44,86.54 326.86,85.84 328.28,85.15 329.7,84.47 331.13,83.8 332.55,83.15 333.97,82.52 335.39,81.89 336.81,81.28 338.24,80.69 339.66,80.11 341.08,79.54 342.5,78.99 343.92,78.45 345.34,77.93 346.77,77.42 348.19,76.93 349.61,76.45 351.03,76 352.45,75.55 353.88,75.12 355.3,74.71 356.72,74.32 358.14,73.94 359.56,73.58 360.98,73.23 362.41,72.9 363.83,72.59 365.25,72.3 366.67,72.02 368.09,71.76 369.52,71.52 370.94,71.3 372.36,71.09 373.78,70.9 375.2,70.73 376.63,70.58 378.05,70.44 379.47,70.33 380.89,70.23 382.31,70.14 383.73,70.08 385.16,70.04 386.58,70.01 388,70 389.42,70.01 390.84,70.04 392.27,70.08 393.69,70.14 395.11,70.23 396.53,70.33 397.95,70.44 399.37,70.58 400.8,70.73 402.22,70.9 403.64,71.09 405.06,71.3 406.48,71.52 407.91,71.76 409.33,72.02 410.75,72.3 412.17,72.59 413.59,72.9 415.02,73.23 416.44,73.58 417.86,73.94 419.28,74.32 420.7,74.71 422.12,75.12 423.55,75.55 424.97,76 426.39,76.45 427.81,76.93 429.23,77.42 430.66,77.93 432.08,78.45 433.5,78.99 434.92,79.54 436.34,80.11 437.76,80.69 439.19,81.28 440.61,81.89 442.03,82.52 443.45,83.15 444.87,83.8 446.3,84.47 447.72,85.15 449.14,85.84 450.56,86.54 451.98,87.25 453.4,87.98 454.83,88.72 456.25,89.47 457.67,90.24 459.09,91.01 460.51,91.8 461.94,92.59 463.36,93.4 464.78,94.22 466.2,95.05 467.62,95.89 469.05,96.73 470.47,97.59 471.89,98.46 473.31,99.33 474.73,100.22 476.15,101.11 477.58,102.01 479,102.92 480.42,103.84 481.84,104.76 483.26,105.7 484.69,106.63 486.11,107.58 487.53,108.53 488.95,109.49 490.37,110.46 491.79,111.43 493.22,112.41 494.64,113.39 496.06,114.38 497.48,115.37 498.9,116.37 500.33,117.38 501.75,118.38 503.17,119.4 504.59,120.41 506.01,121.43 507.44,122.46 508.86,123.48 510.28,124.52 511.7,125.55 513.12,126.59 514.54,127.62 515.97,128.67 517.39,129.71 518.81,130.76 520.23,131.81 521.65,132.86 523.08,133.91 524.5,134.96 525.92,136.01 527.34,137.07 528.76,138.13 530.18,139.18 531.61,140.24 533.03,141.3 534.45,142.36 535.87,143.41 537.29,144.47 538.72,145.53 540.14,146.59 541.56,147.65 542.98,148.7 544.4,149.76 545.82,150.82 547.25,151.87 548.67,152.92 550.09,153.98 551.51,155.03 552.93,156.08 554.36,157.12 555.78,158.17 557.2,159.21 558.62,160.26 560.04,161.3 561.47,162.34 562.89,163.37 564.31,164.41 565.73,165.44 567.15,166.47 568.57,167.49 570,168.52 571.42,169.54 572.84,170.55 574.26,171.57 575.68,172.58 577.11,173.59 578.53,174.6 579.95,175.6 581.37,176.6 582.79,177.6 584.21,178.59 585.64,179.58 587.06,180.56 588.48,181.55 589.9,182.53 591.32,183.5 592.75,184.47 594.17,185.44 595.59,186.4 597.01,187.36 598.43,188.32 599.85,189.27 601.28,190.22 602.7,191.16 604.12,192.1 605.54,193.04 606.96,193.97 608.39,194.9 609.81,195.82 611.23,196.74 612.65,197.65 614.07,198.57 615.5,199.47 616.92,200.37 618.34,201.27 619.76,202.16 621.18,203.05 622.6,203.94 624.03,204.82 625.45,205.69 626.87,206.56 628.29,207.43 629.71,208.29 631.14,209.15 632.56,210 633.98,210.85 635.4,211.7 636.82,212.54 638.24,213.37 639.67,214.2 641.09,215.03 642.51,215.85 643.93,216.67"></polyline><polyline class="ghost153" points="86,240.72 86.77,240.36 87.54,239.99 88.3,239.63 89.07,239.26 89.84,238.89 90.61,238.52 91.37,238.15 92.14,237.78 92.91,237.41 93.68,237.03 94.45,236.66 95.21,236.28 95.98,235.9 96.75,235.52 97.52,235.14 98.28,234.76 99.05,234.38 99.82,233.99 100.59,233.6 101.36,233.22 102.12,232.83 102.89,232.44 103.66,232.05 104.43,231.66 105.19,231.26 105.96,230.87 106.73,230.47 107.5,230.07 108.27,229.67 109.03,229.27 109.8,228.87 110.57,228.47 111.34,228.07 112.11,227.66 112.87,227.26 113.64,226.85 114.41,226.44 115.18,226.03 115.94,225.62 116.71,225.2 117.48,224.79 118.25,224.37 119.02,223.96 119.78,223.54 120.55,223.12 121.32,222.7 122.09,222.28 122.85,221.85 123.62,221.43 124.39,221 125.16,220.57 125.93,220.14 126.69,219.71 127.46,219.28 128.23,218.85 129,218.42 129.76,217.98 130.53,217.54 131.3,217.11 132.07,216.67"></polyline><polyline class="ghost153" points="643.93,216.67 644.7,217.11 645.47,217.54 646.24,217.98 647,218.42 647.77,218.85 648.54,219.28 649.31,219.71 650.07,220.14 650.84,220.57 651.61,221 652.38,221.43 653.15,221.85 653.91,222.28 654.68,222.7 655.45,223.12 656.22,223.54 656.98,223.96 657.75,224.37 658.52,224.79 659.29,225.2 660.06,225.62 660.82,226.03 661.59,226.44 662.36,226.85 663.13,227.26 663.89,227.66 664.66,228.07 665.43,228.47 666.2,228.87 666.97,229.27 667.73,229.67 668.5,230.07 669.27,230.47 670.04,230.87 670.81,231.26 671.57,231.66 672.34,232.05 673.11,232.44 673.88,232.83 674.64,233.22 675.41,233.6 676.18,233.99 676.95,234.38 677.72,234.76 678.48,235.14 679.25,235.52 680.02,235.9 680.79,236.28 681.55,236.66 682.32,237.03 683.09,237.41 683.86,237.78 684.63,238.15 685.39,238.52 686.16,238.89 686.93,239.26 687.7,239.63 688.46,239.99 689.23,240.36 690,240.72"></polyline><line class="inf153" x1="240.24" y1="136.33" x2="240.24" y2="150.33"></line><line class="inf153" x1="535.76" y1="136.33" x2="535.76" y2="150.33"></line><circle class="mx153" cx="388" cy="70" r="6.5"></circle><circle class="mn153" cx="132.07" cy="216.67" r="6.5"></circle><circle class="mn153" cx="643.93" cy="216.67" r="6.5"></circle><text class="lab labmx153" x="388" y="44">MAX  f(0) = 1   an INTERIOR critical point</text><text class="lab labl153" x="144.07" y="240.67">MIN  f(-1) = 1/2</text><text class="lab labr153" x="631.93" y="240.67">MIN  f(1) = 1/2</text><text class="lab labtie153" x="388" y="240.67">the SAME value, at BOTH ends</text><text class="lab tx153" x="132.07" y="282">-1</text><text class="lab tx153" x="260.03" y="282">-1/2</text><text class="lab tx153" x="388" y="282">0</text><text class="lab tx153" x="515.97" y="282">1/2</text><text class="lab tx153" x="643.93" y="282">1</text><text class="lab ty153" x="74" y="220.67">1/2</text><text class="lab ty153" x="74" y="147.33">3/4</text><text class="lab ty153" x="74" y="74">1</text><rect class="swcrv153" x="86" y="312" width="16" height="3"></rect><text class="lab lgd153" x="112" y="317">f(x) = 1/(x^2+1), plotted ONLY on the interval</text><rect class="swghost153" x="86" y="334" width="16" height="3"></rect><text class="lab lgd153" x="112" y="339">the same f outside [-1,1] - the interval is a choice</text><rect class="swlev153" x="86" y="356" width="6.5" height="3"></rect><rect class="swlev153" x="95.5" y="356" width="6.5" height="3"></rect><text class="lab lgd153" x="112" y="361">the minimum level 1/2, reached at BOTH endpoints</text><rect class="swinf153" x="86" y="378" width="16" height="3"></rect><text class="lab lgd153" x="112" y="383">inflection at x = +-1/sqrt3, where f = 3/4</text></svg>
+<figcaption class="cap153">\(f\) on its own interval, with the same function drawn faintly outside it so the interval reads as a choice rather than as where the function stops. The dashed level line at \(y=1/2\) runs the full width of the frame, which is what makes the tie visible: <b>the two minimum markers sit at exactly the same height, at the two ends of the interval.</b> The maximum is the single marker at the crown. The short vertical ticks at \(x=\pm 1/\sqrt3 = \pm 0.5773502692\) are the inflection points, where \(f = 3/4\) and the curve stops steepening.</figcaption>
+</figure>
+
+<div class="tscroll vtab">
+<table class="cand153">
+<thead><tr><th>\(x\)</th><th>why it is a candidate</th><th>f(x) exact</th><th>decimal</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td class="mono153">-1</td><td>left endpoint, added by hand</td><td>\(1/2\)</td><td class="mono153">0.5</td><td class="win153">MINIMUM</td></tr>
+<tr><td class="mono153">0</td><td>interior, \(f'(0)=0\)</td><td>\(1\)</td><td class="mono153">1</td><td class="win153">MAXIMUM</td></tr>
+<tr><td class="mono153">1</td><td>right endpoint, added by hand</td><td>\(1/2\)</td><td class="mono153">0.5</td><td class="win153">MINIMUM, again</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two rows carry the same value, so the minimum happens <b>twice</b>. A single-point answer to "where is the minimum" has the right value and an incomplete location. And that tie has a consequence that reaches much further than the phrasing of one sentence, which is section 06.</p>
+
+<h3 class="sh153">Two shorter routes, and why neither replaces the table</h3>
+
+<div class="tscroll vtab">
+<table class="rc153">
+<thead><tr><th>route</th><th>the work</th><th>proves the classification?</th><th>handles f-prime undefined?</th><th>its risk</th></tr></thead>
+<tbody>
+<tr class="hi153"><td class="dl153">A &#183; the closed-interval table</td><td>differentiate, solve, three evaluations</td><td class="pos153">yes, by comparison</td><td class="pos153">yes, once you look</td><td>forgetting an endpoint</td></tr>
+<tr><td class="dl153">B &#183; the sign of \(f'\)</td><td>differentiate, one sign argument</td><td class="pos153">yes, and more strongly</td><td class="pos153">yes</td><td>you must argue over the whole interval, not sample it</td></tr>
+<tr><td class="dl153">C &#183; reciprocal of a parabola</td><td>none at all</td><td class="pos153">yes, by order-reversal</td><td class="neg153">no, it is shape-specific</td><td>it only works on functions of \(|x|\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Route B</b> is worth knowing: the denominator of \(f'\) is positive, so the sign of \(f'\) is the sign of \(-2x\), which is positive on \([-1,0)\) and negative on \((0,1]\). So \(f\) increases then decreases, its maximum is the turning point, and its minimum is whichever end is lower. Both ends are equal, so both are minimisers.</p>
+
+<p><b>Route C</b> is the eight-second sanity check. \(x^2+1\) grows with \(|x|\), and taking a reciprocal reverses order on positive quantities, so \(f\) is <em>decreasing</em> in \(|x|\). Biggest where \(|x|\) is smallest, smallest where \(|x|\) is biggest. No calculus.</p>
+
+<p class="pull153">Use route A under exam pressure. It is the only one that generalises to every function the examiner can put in this slot, it is what "by the Extreme Value Theorem" is asking for, and its table documents itself for a marker.</p>
+</section>
+
+<section>
+<h2><span class="sn153">05</span> The write-up a marker expects</h2>
+
+<p>Six sentences. Four things in them earn credit that a bare answer does not.</p>
+
+<div class="wu153">
+<p>\(f(x) = 1/(x^2+1)\).</p>
+<p>Since \(x^2+1 \ge 1 &gt; 0\) for every real \(x\), <span class="hl153">the denominator never vanishes</span>, so \(f\) is continuous on all of \(\mathbb{R}\) and in particular on the <span class="hl153">closed, bounded</span> interval \([-1,1]\).</p>
+<p>By the Extreme Value Theorem, \(f\) attains an absolute maximum and an absolute minimum on \([-1,1]\).</p>
+<p>\(f'(x) = -2x/(x^2+1)^2\), which <span class="hl153">is defined for all \(x\)</span> and vanishes only at \(x=0\), so the candidates are \(x=-1,0,1\).</p>
+<p>\(f(-1) = 1/2\), \(f(0) = 1\), \(f(1) = 1/2\).</p>
+<p>The absolute maximum value is \(1\), at \(x=0\); the absolute minimum value is \(1/2\), <span class="hl153">attained at both</span> \(x=-1\) and \(x=1\).</p>
+</div>
+
+<ol class="cr153">
+<li><span><b>The reason \(f\) is continuous</b>, not just the claim. "The denominator never vanishes" is the whole argument and it is nine words.</span></li>
+<li><span><b>The words "closed" and "bounded"</b> attached to the interval. The stem named a theorem; citing its hypotheses as satisfied <em>is</em> the citation.</span></li>
+<li><span><b>"is defined for all \(x\)"</b> about \(f'\). That is the empty box being reported as empty, which shows you looked for a cusp and found none.</span></li>
+<li><span><b>"attained at both"</b>. The minimum happens twice and the marker is looking for whether you noticed.</span></li>
+</ol>
+
+<p class="note">One thing that earns nothing here: a second-derivative test. It <em>would</em> work, since \(f''(0) = -2 &lt; 0\), but the closed-interval comparison has already settled the question and the test cannot see the endpoints at all.</p>
+</section>
+
+<section>
+<h2><span class="sn153">06</span> The census: which mistakes are invisible</h2>
+
+<p>Fourteen plausible mutilations of this question were scanned, with nothing excluded as degenerate. A mutilation <b>hides</b> if it reproduces both reported values.</p>
+
+<div class="pgrid cs153">
+  <div class="pcard main"><p class="pk">Mutilations scanned</p><p class="pv">14</p><p class="pd">Nothing excluded, including the ones that look too silly to make.</p></div>
+  <div class="pcard los"><p class="pk">Hide completely</p><p class="pv">6</p><p class="pd">Both reported values come out right anyway.</p></div>
+  <div class="pcard fam"><p class="pk">Show</p><p class="pv">8</p><p class="pd">At least one value comes out wrong.</p></div>
+</div>
+
+<div class="tscroll vtab">
+<table class="cens153">
+<thead><tr><th>mutilation</th><th>verdict</th><th>why</th></tr></thead>
+<tbody>
+<tr><td class="dl153">drop the <b>left</b> endpoint</td><td class="hid153">hides</td><td>the right endpoint supplies the same \(1/2\)</td></tr>
+<tr><td class="dl153">drop the <b>right</b> endpoint</td><td class="hid153">hides</td><td>the left endpoint supplies the same \(1/2\)</td></tr>
+<tr><td class="dl153">drop <b>both</b> endpoints</td><td class="bad153">shows</td><td>the minimum becomes \(1\)</td></tr>
+<tr><td class="dl153">drop the critical point \(x=0\)</td><td class="bad153">shows</td><td>the maximum collapses to \(1/2\)</td></tr>
+<tr><td class="dl153">report the points instead of the values</td><td class="bad153">shows</td><td>the maximum is reported as \(0\)</td></tr>
+<tr><td class="dl153">sign error in \(f'\), \(+2x\) for \(-2x\)</td><td class="hid153">hides</td><td>the root is still \(0\), because the error preserves the <b>evenness</b> of \(f\)</td></tr>
+<tr><td class="dl153">forget to square \(f'\)'s denominator</td><td class="hid153">hides</td><td>the root is still \(0\), same reason</td></tr>
+<tr><td class="dl153">drop the inner \(2x\), no chain rule</td><td class="bad153">shows</td><td>\(f'\) then never vanishes, so zero critical points and max \(=\) min \(= 1/2\)</td></tr>
+<tr><td class="dl153">solve \((x^2+1)^2 = 0\) instead</td><td class="bad153">shows</td><td>no real root, so the same broken answer by a different route</td></tr>
+<tr><td class="dl153">misread the fraction as \(1/x^2 + 1\)</td><td class="bad153">shows</td><td>a different function, and unbounded on the interval</td></tr>
+<tr><td class="dl153">add the inflection points as candidates</td><td class="hid153">hides</td><td>extra candidates are harmless: \(f(\pm 1/\sqrt3) = 3/4\), between the two extremes</td></tr>
+<tr><td class="dl153">report \(f''(0)\) as the maximum</td><td class="bad153">shows</td><td>\(2\) instead of \(1\); the test's output is not the extreme value</td></tr>
+<tr><td class="dl153">treat \(f\) as odd, so \(f(-1) = -1/2\)</td><td class="bad153">shows</td><td>the reported minimum falls outside the range \(f\) can take</td></tr>
+<tr><td class="dl153">solve it on \([0,1]\) instead of \([-1,1]\)</td><td class="hid153">hides</td><td>numerically identical, because \(f\) is even and \([0,1]\) keeps one endpoint and the critical point</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="pull153">On Q15.1 part (b) both endpoint omissions were fatal, because its two extremes sat at different endpoints. Here both are harmless, and structurally so: the minimum sits at both endpoints, so each one is its twin's backup.</p>
+
+<p><b>So Q15.3 is the question where the closed-interval method's most important step cannot be checked by the answer at all.</b> Dropping the critical point does show, so the maximum's location is verifiable while the minimum's is not. Write both endpoints down every time as a habit, because on this question the answer will not tell you when you did not.</p>
+
+<h3 class="sh153">Two hiding mechanisms, live at once</h3>
+
+<div class="pgrid two153g">
+  <div class="pcard los"><p class="pk">Mechanism 1</p><p class="pv">AN ENDPOINT WITH A TWIN</p><p class="pd">Each endpoint carries the same value, so omitting either leaves the other to report it. Shift the peak to \(x=1\) and put the interval at \([-1,2]\) and the tie breaks: \(f(-1)=1/5\), \(f(2)=1/2\), and the same omission shows immediately. <b>The hiding belongs to the symmetry of this one interval, not to the method.</b></p></div>
+  <div class="pcard los"><p class="pk">Mechanism 2</p><p class="pv">A SYMMETRY FIXED POINT</p><p class="pd">\(x=0\) is the fixed point of \(x \mapsto -x\), and \(f\) is even. Any error that <em>preserves</em> that evenness leaves the maximiser sitting exactly where it belongs. The sign error and the un-squared denominator both do, which is why two obviously wrong derivatives still give the right answer.</p></div>
+</div>
+
+<h3 class="sh153">And the value cannot check the point</h3>
+
+<p>The maximum is a smooth peak, so \(f\) is flat there. Measured: a point \(5\times 10^{-5}\) away from \(x=0\) has \(f\) within \(2.5\times 10^{-9}\) of \(1\). A nearly-right maximiser therefore produces a maximum that is right to nine decimal places.</p>
+
+<p><b>Never validate the maximiser using the maximum.</b> The verification behind this page root-finds on \(f'\) instead: that located \(x=0\) to within \(5\times 10^{-61}\), while a value comparison in the same arithmetic cannot resolve the position better than \(\sqrt{2\varepsilon f^{*}/|f''|} = 1.49\times 10^{-8}\). The gap is <b>52 orders of magnitude</b>, and it belongs entirely to the comparison rather than to the arithmetic.</p>
+</section>
+
+<section>
+<h2><span class="sn153">07</span> The other half of the item</h2>
+
+<p>Part (b) of item 3 asks for an estimate of \(\int_{-1}^{1} \frac{dx}{x^2+1}\) from the properties of the definite integral. The relevant property is the comparison bound:</p>
+
+$$m \le f(x) \le M \text{ on } [a,b] \quad \Longrightarrow \quad m(b-a) \;\le\; \int_a^b f(x)\,dx \;\le\; M(b-a)$$
+
+<p>Part (a) just produced \(m = 1/2\) and \(M = 1\), and \(b-a = 2\), so the bound is \([1,2]\). The true value is \(2\arctan 1 = \pi/2 = 1.5707963268\), comfortably inside. <b>That is why the examiner chose this function and this interval</b>, and it means part (b) is a free check on part (a).</p>
+
+<div class="tscroll vtab">
+<table class="bnd153">
+<thead><tr><th>integral</th><th>\(m\)</th><th>\(M\)</th><th>bound</th><th>true value</th></tr></thead>
+<tbody>
+<tr class="hi153"><td class="dl153">\(\int_{-1}^{1} \frac{dx}{x^2+1}\) &#183; this item</td><td>\(1/2\)</td><td>\(1\)</td><td class="mono153">[1, 2]</td><td class="mono153">1.5707963268</td></tr>
+<tr><td class="dl153">\(\int_{-2}^{2} \frac{dx}{x^2+1}\)</td><td>\(1/5\)</td><td>\(1\)</td><td class="mono153">[0.8, 4]</td><td class="mono153">2.2142974356</td></tr>
+<tr><td class="dl153">\(\int_0^{\pi/3} \sec x\,dx\) &#183; Q17.1</td><td>\(1\)</td><td>\(2\)</td><td class="mono153">[1.0471975512, 2.0943951024]</td><td class="mono153">1.3169578969</td></tr>
+<tr><td class="dl153">\(\int_{-2}^{3} (x^2+2x)^{2/3}dx\) &#183; Q17.3</td><td>\(0\)</td><td>\(15^{2/3}\)</td><td class="mono153">[0, 30.4110099779]</td><td class="mono153">inside</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Row two shows what a wider interval costs: \(m\) falls while \(M\) cannot rise, so the bound gets worse. Row four is one-sided in practice, because its minimum <em>is</em> zero, so the upper end carries all the information. And forgetting the \((b-a)\) factor on row one gives \([1/2, 1]\), which <b>excludes</b> \(\pi/2\), so the slip is visible.</p>
+
+<p class="note">Exactly <b>two</b> of Final Exam 2's twelve items pair an extremes question with an integral bound on the same function: item 3, which is this one with Q17.2, and item 7, which is Q15.5 with Q17.3. Together they are <b>14 of the paper's 81 points</b>. Both extremes questions on that paper feed a category 17 question on the same paper, so the two topics are worth studying as one.</p>
+</section>
+
+<section>
+<h2><span class="sn153">08</span> The variation catalog</h2>
+
+<p>Ten families, organised by the <b>tool</b> the variation forces rather than by how the function looks. Nine are drilled below; family 7 is deliberately handed to Q15.5.</p>
+
+<div class="tscroll vtab">
+<table class="fam153">
+<thead><tr><th>&#160;</th><th>the trigger you see</th><th>the tool it forces</th><th>the instance that defines it</th></tr></thead>
+<tbody>
+<tr><td class="fh153">F0</td><td>the interval is symmetric about the stationary point</td><td>the table, plus a note that the two ends tie</td><td class="hi153">the exam question. On \([-c,c]\) the maximum is always \(1\) and the minimum is \(1/(c^2+1)\) at both ends: \(1/2\), \(1/5\), \(1/10\) at \(c=1,2,3\)</td></tr>
+<tr><td class="fh153">F1</td><td>ask "is \(0\) in \([a,b]\)?" and the answer is no</td><td>monotonicity; the table has only two rows</td><td>on \([1,3]\) the max is \(1/2\) at the <b>left</b> end and the min \(1/10\) at the right; on \([-3,-1]\) the roles swap</td></tr>
+<tr><td class="fh153">F2</td><td>the denominator can vanish</td><td class="dr153c">the continuity hypothesis</td><td>\(1/(x^2-1)\) on \([-2,2]\): no extremes exist. But \(1/(x^2-4)\) on \([-1,1]\) is <b>safe</b>, with max \(-1/4\) and min \(-1/3\)</td></tr>
+<tr><td class="fh153">F3</td><td>a constant multiple, or \(x\) replaced by \(x-c\)</td><td>the same table; a multiple scales, a shift moves the peak</td><td>\(1/((x-1)^2+1)\) on \([-1,2]\): max \(1\) at \(x=1\), min \(1/5\) at \(x=-1\) <b>only</b>, because the interval is no longer symmetric about the peak</td></tr>
+<tr><td class="fh153">F4</td><td>the numerator involves \(x\)</td><td>the quotient rule, and there may be two stationary points</td><td>\(x/(x^2+1)\) on \([-2,2]\): max \(1/2\) at \(x=1\), min \(-1/2\) at \(x=-1\). <b>Both extremes interior</b>, the complement of F0. In general \(x/(x^2+a^2)\) gives \(\pm 1/(2a)\) at \(\pm a\)</td></tr>
+<tr><td class="fh153">F5</td><td>a higher power in the denominator</td><td>the table, but the second-derivative test may go silent</td><td>\(1/(x^4+1)\) on \([-1,1]\) has the <b>same answer</b> as the exam question and a different reason: \(f'\) has a triple root at \(0\) and \(f''(0)=0\), so only the sign chart settles it</td></tr>
+<tr><td class="fh153">F6</td><td>a round bracket, an infinity, a jump</td><td class="dr153c">the hypotheses; the answer is a sentence</td><td>section 03's five rows</td></tr>
+<tr><td class="fh153">F7</td><td>an absolute value, or an exponent below \(1\)</td><td>step 5, which is empty on this question</td><td class="non153">left to Q15.5, which is exactly this on the exam</td></tr>
+<tr><td class="fh153">F8</td><td>"use the properties of the definite integral"</td><td>\(m(b-a) \le \int \le M(b-a)\)</td><td>section 07's four rows</td></tr>
+<tr><td class="fh153">F9</td><td>a trigonometric term, usually plus a linear one</td><td>the table, with critical points from a trig equation</td><td>\(x-2\sin x\) on \([0,2\pi]\) is Q15.1(b)'s <b>mirror</b>: its maximum is at the interior \(5\pi/3\), value \(6.9680385636\), which beats the endpoint \(2\pi = 6.2831853072\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read family 0 as <b>structure</b>, not as three facts: it has exactly one maximum value between all its rows, because the peak is at \(x=0\) and \(0\) is inside every symmetric interval, and its minima are a single decreasing function of the half-width. Across the whole catalog all four combinations of "where the extremes sit" occur: interior max with endpoint min (F0), endpoint max with interior min (F4's \(x^2/(x^2+1)\)), both interior (F4's \(x/(x^2+1)\)), and both endpoint (Q15.1 part (b), in F9).</p>
+
+<p class="note">Family 2 carries a <b>sign trap</b> worth naming separately. On \(1/(x^2-4)\) over \([-1,1]\) both extremes are negative, so the maximum is the value <em>closest to zero</em>. Taking the largest magnitude gives \(-1/3\), which is the minimum, so the answer comes out exactly inverted.</p>
+</section>
+
+<section>
+<h2><span class="sn153">09</span> The traps, ranked</h2>
+
+<ol class="traps153">
+<li><span><b>Reporting the location instead of the value.</b> The stem says extreme <em>values</em>. Those are \(1\) and \(1/2\); the locations are \(0\) and \(\pm 1\). No magnitude check catches this, because \(0\) is a perfectly plausible <em>input</em> for this function.</span></li>
+<li><span><b>Naming only one endpoint for the minimum.</b> It happens at \(x=-1\) <em>and</em> \(x=1\).</span></li>
+<li><span><b>Skipping the hypothesis check when the stem names the theorem.</b> "By the Extreme Value Theorem" is an instruction, not a label. Two sentences is the cheapest credit on the item.</span></li>
+<li><span><b>Not testing the denominator against the interval.</b> The reworded version puts a pole inside \([a,b]\) and the answer becomes a sentence. Solve denominator \(=0\) first, every time.</span></li>
+<li><span><b>Dropping the inner \(2x\).</b> You get \(f' = -1/(x^2+1)^2\), which never vanishes, and land on max \(=\) min \(= 1/2\). That output is self-evidently broken: a maximum equal to a minimum says the function is constant.</span></li>
+<li><span><b>Setting the denominator of \(f'\) to zero</b> rather than the numerator. Same broken answer, different route.</span></li>
+<li><span><b>Reaching for the second-derivative test.</b> It happens to work here, but it cannot see the endpoints, and on the very similar \(1/(x^4+1)\) it goes silent.</span></li>
+<li><span><b>Reading a negative instance's maximum as the largest magnitude.</b> Family 2's sign trap.</span></li>
+<li><span><b>Assuming a dropped hypothesis means the extreme is lost.</b> The theorem is silent, not negative.</span></li>
+<li><span><b>Forgetting the \((b-a)\) factor in part (b).</b> \([1/2,1]\) excludes the true \(\pi/2\).</span></li>
+</ol>
+</section>
+
+<section>
+<h2><span class="sn153">10</span> Drill set</h2>
+
+<p>Closed-book, in order. <b>Score sign separately from magnitude.</b> A magnitude slip means you mis-evaluated \(f\); a sign slip means you mis-read which value is larger, and on the negative instances that inverts the whole answer. The two failures need different remediation.</p>
+
+<div class="tscroll vtab">
+<table class="dr153">
+<thead><tr><th>&#160;</th><th>the problem</th><th>maximum</th><th>minimum</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td class="mono153">1</td><td>\(1/(x^2+1)\) on \([-2,2]\)</td><td>\(1\) at \(x=0\)</td><td>\(1/5\) at \(x=\pm 2\)</td><td class="fh153">F0 &#183; table, endpoints tie</td></tr>
+<tr><td class="mono153">2</td><td>\(1/(x^2+1)\) on \([1,4]\)</td><td>\(1/2\) at \(x=1\)</td><td>\(1/17 = 0.0588235294\) at \(x=4\)</td><td class="fh153">F1 &#183; critical point outside; monotone</td></tr>
+<tr><td class="mono153">3</td><td>\(1/(x^2-9)\) on \([-4,4]\)</td><td class="non153">none</td><td class="non153">none</td><td class="fh153">F2 &#183; poles at \(\pm 3\) inside; EVT does not apply</td></tr>
+<tr><td class="mono153">4</td><td>\(1/(x^2-9)\) on \([-2,2]\)</td><td>\(-1/9 = -0.1111111111\) at \(x=0\)</td><td>\(-1/5\) at \(x=\pm 2\)</td><td class="fh153">F2 &#183; poles outside; the sign trap</td></tr>
+<tr><td class="mono153">5</td><td>\(1/((x+2)^2+1)\) on \([-4,0]\)</td><td>\(1\) at \(x=-2\)</td><td>\(1/5\) at \(x=-4\) and \(x=0\)</td><td class="fh153">F3 &#183; shift; symmetric about the peak, so the tie is back</td></tr>
+<tr><td class="mono153">6</td><td>\(1/((x-1)^2+1)\) on \([0,4]\)</td><td>\(1\) at \(x=1\)</td><td>\(1/10\) at \(x=4\)</td><td class="fh153">F3 &#183; shift; asymmetric, one minimiser only</td></tr>
+<tr><td class="mono153">7</td><td>\(x/(x^2+4)\) on \([-4,4]\)</td><td>\(1/4\) at \(x=2\)</td><td>\(-1/4\) at \(x=-2\)</td><td class="fh153">F4 &#183; quotient rule; both extremes interior</td></tr>
+<tr><td class="mono153">8</td><td>\(x^2/(x^2+1)\) on \([-2,1]\)</td><td>\(4/5\) at \(x=-2\)</td><td>\(0\) at \(x=0\)</td><td class="fh153">F4 &#183; mirror; endpoint max, interior min</td></tr>
+<tr><td class="mono153">9</td><td>\(1/(x^4+1)\) on \([-1,1]\)</td><td>\(1\) at \(x=0\)</td><td>\(1/2\) at \(x=\pm 1\)</td><td class="fh153">F5 &#183; triple root, \(f''(0)=0\), sign chart required</td></tr>
+<tr><td class="mono153">10</td><td>\(1/(x^2+1)\) on the <b>open</b> \((-2,2)\)</td><td>\(1\) at \(x=0\), attained</td><td class="dr153c">\(1/5\), NOT attained</td><td class="fh153">F6 &#183; open domain; the minimisers were the endpoints</td></tr>
+<tr><td class="mono153">11</td><td>bound \(\int_{-2}^{2} \frac{dx}{x^2+1}\) from drill 1</td><td colspan="2">bound \([4/5,\,4]\); true value \(2\arctan 2 = 2.2142974356\)</td><td class="fh153">F8 &#183; \(m(b-a) \le \int \le M(b-a)\)</td></tr>
+<tr><td class="mono153">12</td><td>\(\sin x\) on \([0, 3\pi/2]\)</td><td>\(1\) at \(x=\pi/2\)</td><td>\(-1\) at \(x=3\pi/2\)</td><td class="fh153">F9 &#183; interior max, endpoint min</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Counted off the key: <b>seven of the twelve have their attained minimum at an endpoint</b>, and <b>four of those seven are a tie between the two endpoints</b>. Drill 3 has no extremes at all and drill 10's minimum is not attained, so nine of the twelve have an attained minimum and seven of those nine sit at an end. Drills 4 and 8 are the two where a sign slip changes which value is the maximum.</p>
+</section>
+
+<section>
+<h2><span class="sn153">11</span> Answer entry, and the check that is free</h2>
+
+<div class="tscroll vtab">
+<table class="ae153">
+<thead><tr><th>do</th><th>do not</th></tr></thead>
+<tbody>
+<tr><td class="pos153">enter <span class="kbd">1</span> for the maximum value</td><td class="neg153">enter \(0\), which is <em>where</em> it happens</td></tr>
+<tr><td class="pos153">enter <span class="kbd">1/2</span> for the minimum value</td><td class="neg153">enter \(-1\) or \(1\), which is <em>where</em> it happens</td></tr>
+<tr><td class="pos153">give <b>both</b> minimiser locations when asked where</td><td class="neg153">name only one endpoint</td></tr>
+<tr><td class="pos153">use the exact fraction <span class="kbd">1/2</span></td><td class="neg153">round to <span class="kbd">0.5</span> unless the box asks for a decimal</td></tr>
+<tr><td class="pos153">keep value and location in separate boxes</td><td class="neg153">merge them into one string</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Four checks, in the order they cost you time.</p>
+
+<div class="pgrid ck153">
+  <div class="pcard main"><p class="pk">Magnitude &#183; 3 seconds</p><p class="pv">0 &lt; f &lt;= 1</p><p class="pd">\(f\) is one over something at least \(1\). Any reported extreme outside \((0,1]\) is wrong on sight, which kills a reported minimum of \(-1/2\) and a maximum of \(2\).</p></div>
+  <div class="pcard main"><p class="pk">Order</p><p class="pv">SMALLEST |x| WINS</p><p class="pd">\(f\) decreases in \(|x|\), so the candidate with the smallest \(|x|\) must carry the largest \(f\). Here \(|x|\) runs \(0,1,1\), so \(f\) must run largest, tied, tied.</p></div>
+  <div class="pcard main"><p class="pk">Symmetry</p><p class="pv">f IS EVEN</p><p class="pd">The table must be symmetric about \(x=0\). Two endpoint values that differ on a symmetric interval are an arithmetic slip.</p></div>
+  <div class="pcard fam"><p class="pk">Part (b) &#183; free</p><p class="pv">1 &lt;= pi/2 &lt;= 2</p><p class="pd">If the true integral falls outside \([m(b-a),\,M(b-a)]\), one of \(m\), \(M\) or \((b-a)\) is wrong. This is the only check that catches a wrong \(m\) or \(M\).</p></div>
+</div>
+
+<p class="pull153">The single most expensive typo is answering the wrong question. Report the value and the point as two separate answers, always.</p>
+</section>
+
+<section>
+<h2><span class="sn153">12</span> Provenance, course files, and the gates</h2>
+
+<p>Final Exam 2, item 3, part (a). The item's 8 points cover both sub-parts. The phrase "Extreme Value Theorem" occurs <b>once</b> in Final Exam 2 and <b>zero</b> times in Final Exam 1, so the theorem is examined by name exactly once in the course. "Absolute extreme values" occurs twice, on items 3a and 7a. "All maxima and minima", which is Q15.1's wording and demands that the losing critical points be classified, occurs zero times on Final Exam 2. <b>That wording split is what tells you whether a sign chart is required.</b></p>
+
+<div class="tscroll vtab">
+<table class="pv153t">
+<thead><tr><th>question</th><th>paper</th><th>item</th><th>points</th></tr></thead>
+<tbody>
+<tr><td class="dl153">Q15.1 all maxima and minima</td><td>Final Exam 1</td><td class="mono153">5</td><td class="mono153">11</td></tr>
+<tr><td class="dl153">Q15.2 rectangle of least perimeter</td><td>Final Exam 1</td><td class="mono153">6</td><td class="mono153">6</td></tr>
+<tr class="hi153"><td class="dl153">Q15.3 absolute extremes by the EVT</td><td>Final Exam 2</td><td class="mono153">3</td><td class="mono153">8, shared with Q17.2</td></tr>
+<tr><td class="dl153">Q15.4 cheapest rectangular box</td><td>Final Exam 2</td><td class="mono153">5</td><td class="mono153">10</td></tr>
+<tr><td class="dl153">Q15.5 extremes with a cusp</td><td>Final Exam 2</td><td class="mono153">7</td><td class="mono153">6, shared with Q17.3</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sh153">The course files, verified before being reported</h3>
+
+<p><span class="mono153">MATH265_Review.md</span> states the four-step method <b>four</b> times and pairs the two hypotheses, continuity and a closed interval, in only <b>three</b> of them. The one that omits continuity is the Final Exam 1 section-5 statement. The phrase "Extreme Value Theorem" appears <b>six</b> times, while the abbreviation "EVT" appears four, so counting the abbreviation undercounts by two.</p>
+
+<ol class="def153">
+<li><span><b>The theorem is stated four times and never once justified, tested or bounded.</b> "Counterexample" occurs zero times in the whole file, and so do "does not attain", "fails to attain" and "hypothes". A student is handed a recipe and no reason, on the one question that asks for the reason.</span></li>
+<li><span><b>It never distinguishes existence from location.</b> No sentence anywhere pairs "guarantees" with "exists". That distinction is this question's entire content.</span></li>
+<li><span><b>There is no worked example of this question anywhere in the file.</b> \(1/(x^2+1)\) appears zero times, and so does \(1.5708\). Eighth consecutive category where the notes stop before the arithmetic.</span></li>
+<li><span><b>The Final Exam 2 block skips item 7 entirely.</b> Its sections run in item order and give item 3's two parts their own consecutive sections, 3 and 4, which independently confirms that item 3 is a two-part item. But its section 7 is Integration Techniques, which is item 6, and section 8 is Area Between Curves, which is item 8. Item 7's function never appears in that block at all. That block also carries no point values in its headings, unlike the Final Exam 1 block, so Final Exam 2's values cannot be cross-checked from the notes.</span></li>
+</ol>
+
+<p>Four further conflicts, each re-verified rather than repeated from a predecessor's notes. <b>"Q3" labels two different questions inside the same file</b>, at 4 and 6 points, and neither is Final Exam 2 item 3. <b>The vertical-asymptote rule is stated four times with the broken form still present</b>: "the denominator is 0 but the numerator is not" fails on \((x-1)/(x-1)^2 = 1/(x-1)\), whose numerator <em>is</em> zero at \(x=1\) and which <em>does</em> have a pole there. The correct "simplify first" form is also present, so the file contradicts itself rather than being uniformly wrong. <b>The claim that \(f'(0)\) is undefined on Q15.1 part (a) is still there and still false</b>: for \(2x^{5/3}-5x^{4/3}\) both one-sided difference quotients tend to \(0\). And <b>the advice "check endpoints" is offered as the verification step on the open-domain optimization question, which has none</b>; the same sentence is correct for <em>this</em> question, so it is not a wrong sentence but a sentence filed under the wrong question.</p>
+
+<p><span class="mono153">MATH265_Categorized.md</span> is <b>cp1252 and fails a UTF-8 decode at byte 318</b>, re-confirmed with the offset asserted. It has no entry for this topic at all. Re-verified: "rubric", "marking scheme" and "part marks" each occur zero times across the course files, for the twelfth consecutive run.</p>
+
+<h3 class="sh153">What the verification found</h3>
+
+<p>Nine assertions failed on the first run and <b>all nine were the check or a typed number, never the mathematics</b>: a flat \(10^{-9}\) tolerance applied to a Richardson ladder whose truncation error at that step size is \(4.3\times10^{-7}\); a \(10^{-13}\) tolerance applied to a quantity whose float roundoff bound is \(1.16\times10^{-12}\); three claims that a bisection returned "exactly zero" when it returns \(5\times10^{-61}\); one typed decimal, \(30.454484541\) written for \(5\cdot 15^{2/3}\), which is \(30.4110099779\); and three course-file counts stated from the wrong grep. Every tolerance on this page is now derived from a measured quantity.</p>
+
+<p>The markdown claims checker then found a defect the assertion harness structurally could not: the drill key's endpoint-minimum count. The draft said six and the measurement says <b>seven</b>. The harness assertion that should have caught it was written as a comparison of one typed tuple against an identical typed tuple, which passes for every value of the data. Harness section <span class="mono153">q153c</span> was appended to re-derive both counts from the drill intervals and to seed the wrong answer, so the check can now disagree.</p>
+
+<p class="note">Files: the tutorial at <span class="mono153">notes\Q15.3 - Absolute extremes by the Extreme Value Theorem.md</span>; the verification at <span class="mono153">Work\knowledge\topics\math265-answer-verification.py</span>, sections <span class="mono153">q153</span> (243 PASS, 51 controls), <span class="mono153">q153d</span> (205 PASS, 16 controls) and <span class="mono153">q153c</span> (14 PASS, 5 controls). Written 2026-09-02.</p>
+</section>
+
+</main>

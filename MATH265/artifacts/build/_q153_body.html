@@ -1,0 +1,403 @@
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 2 &#183; ITEM 3a &#183; THE THEOREM IS NAMED ONCE IN THE COURSE</div>
+  <h1>Existence Is Not Location</h1>
+  <p class="stand">Q15.3 names the Extreme Value Theorem, and Q15.1 does not. That is the whole difference between them. Q15.1 asked you to <em>run</em> the closed-interval method; Q15.3 asks you to <em>justify</em> it, and the justification carries marks the answer does not. The theorem proves that the two extremes <b>exist</b>. It does not say where they are, how many there are, or how to find them. This page is about that gap.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2><span class="sn153">01</span> The question, and the answer it wants</h2>
+
+<p class="quote153">Use the Extreme Value Theorem to find the absolute extreme values of the function \(f(x) = \dfrac{1}{x^2+1}\) on the interval \([-1,1]\).<span class="qp153">Final Exam 2, item 3, part (a). The item is worth 8 points and it has TWO sub-parts; part (b) asks you to estimate \(\int_{-1}^{1} f\) from the properties of the definite integral, on the same function over the same interval. So the 8 points cover both halves, and part (a)'s two numbers are part (b)'s inputs. No "no credit" clause, no hint, no "show your work".</span></p>
+
+<div class="tscroll vtab">
+<table class="ans153">
+<thead><tr><th>&#160;</th><th>exact</th><th>decimal</th><th>where, and what kind of place that is</th></tr></thead>
+<tbody>
+<tr><td class="dl153">absolute <b>maximum</b> value</td><td class="hi153">\(1\)</td><td class="mono153">1</td><td>at \(x=0\), an <b>interior critical point</b></td></tr>
+<tr><td class="dl153">absolute <b>minimum</b> value</td><td class="hi153">\(1/2\)</td><td class="mono153">0.5</td><td>at \(x=-1\) <b>and</b> \(x=1\), <b>both endpoints</b></td></tr>
+<tr><td class="dl153">how many minimisers</td><td class="two153">two</td><td class="two153">two</td><td>and this single fact reorganises the whole question</td></tr>
+<tr><td class="dl153">\(f''\) at the maximiser</td><td>\(-2\)</td><td class="mono153">-2</td><td>negative, so the second-derivative test <em>would</em> work; it is not needed</td></tr>
+<tr><td class="dl153">points where \(f'\) is undefined</td><td class="non153">none</td><td class="non153">none</td><td>\((x^2+1)^2 \ge 1\), so that box is <b>empty</b>; saying so earns credit</td></tr>
+<tr><td class="dl153">the range of \(f\) on \([-1,1]\)</td><td>\([1/2,\;1]\)</td><td class="mono153">[0.5, 1]</td><td>the maximum is exactly <b>twice</b> the minimum</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">Every printed digit on this page was recomputed in Python before it was written down. Harness sections <span class="mono153">q153</span>, <span class="mono153">q153d</span> and <span class="mono153">q153c</span>: <b>462 assertions, 0 failures, 72 seeded controls</b>. No number anywhere on this page describes the shared harness <em>file</em>, because that file is appended to concurrently by other runs and any whole-file byte count or banner count of it goes stale within minutes of being printed.</p>
+</section>
+
+<section>
+<h2><span class="sn153">02</span> The theorem, and the theorem it is usually confused with</h2>
+
+<p>Most students meet the EVT as a recipe: find the critical points, add the endpoints, compare. That recipe is <b>two theorems stapled together</b>, and only one of them is the EVT.</p>
+
+<div class="pgrid two153g">
+  <div class="pcard main"><p class="pk">Theorem 1, the EVT</p><p class="pv">EXISTENCE</p><p class="pd">If \(f\) is continuous on a <b>closed, bounded</b> interval \([a,b]\), then there exist points \(c\) and \(d\) in \([a,b]\) with \(f(d) \le f(x) \le f(c)\) for every \(x\) in \([a,b]\). Three hypotheses, one conclusion, and the conclusion is that such points <em>exist</em>. It names none of them.</p></div>
+  <div class="pcard los"><p class="pk">Theorem 2, Fermat</p><p class="pv">LOCATION</p><p class="pd">If \(f\) has a local extremum at an <b>interior</b> point \(c\) and \(f'(c)\) exists, then \(f'(c)=0\). Read the contrapositive, which is the useful direction: an interior point where \(f'\) exists and is not zero <b>cannot</b> be an extremum. That is what shrinks the search to a finite list.</p></div>
+</div>
+
+<p>So the candidate list comes from Fermat, not from the EVT. And notice what Fermat says about an endpoint: <b>nothing</b>, because an endpoint is not interior. On this question \(f'(-1) = 1/2\) and \(f'(1) = -1/2\), both plainly nonzero, and both of those points are minimisers.</p>
+
+<p class="pull153">No derivative condition flags an endpoint. You write them into the list by hand, or you lose them.</p>
+
+<div class="tscroll vtab">
+<table class="hyp153">
+<thead><tr><th>hypothesis</th><th>what it rules out</th><th>how it is checked here</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\(f\) continuous on <b>all</b> of \([a,b]\)</td><td>a jump, a pole, a removable hole</td><td class="ok153">\(x^2 \ge 0\), so \(x^2+1 \ge 1\), so the denominator never vanishes</td></tr>
+<tr><td class="dl153">the interval is <b>closed</b></td><td>a domain like \((-1,1)\) or \((0,1]\)</td><td class="ok153">the square brackets in \([-1,1]\)</td></tr>
+<tr><td class="dl153">the interval is <b>bounded</b></td><td>a domain like \([0,\infty)\)</td><td class="ok153">its length is \(2\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>That third row is the one students skip, because \([a,b]\) with real \(a\) and \(b\) looks bounded by notation. It is worth naming anyway: the theorem has three hypotheses and the stem asked you to cite it.</p>
+</section>
+
+<section>
+<h2><span class="sn153">03</span> What each hypothesis is actually holding up</h2>
+
+<p>A theorem's hypotheses are only meaningful if dropping one can break the conclusion. So here is one counterexample per hypothesis, and all three are built from <b>this question's own function</b>. Each drops exactly one hypothesis and loses exactly one extreme, by a different mechanism.</p>
+
+<figure class="figbox">
+<!--FIGB-->
+<figcaption class="cap153">Three sub-panels, one hypothesis dropped in each. A <b>filled</b> marker is an extreme that is attained; a <b>hollow</b> one is approached and never reached. Left: removing the endpoints costs the minimum, because the minimisers <em>were</em> the endpoints. Middle: letting the interval run to infinity costs the minimum again, but now the infimum is \(0\) and it is a limit at infinity rather than a value at a removed point. Right: puncturing the peak costs the maximum, the exact complement of the left case.</figcaption>
+</figure>
+
+<div class="tscroll vtab">
+<table class="ce153">
+<thead><tr><th>instance</th><th>dropped</th><th>maximum</th><th>minimum</th><th>the measurement that proves it fails</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\(f\) on \((-1,1)\)</td><td class="dr153c">closed</td><td class="pos153">\(1\) at \(x=0\), attained</td><td class="neg153">\(1/2\), <b>not attained</b></td><td>every interior point has \(f(x) &gt; 1/2\) strictly; the closest an interior sample gets is \(5.0\times 10^{-7}\) above it</td></tr>
+<tr><td class="dl153">\(f\) on \([0,\infty)\)</td><td class="dr153c">bounded</td><td class="pos153">\(1\) at \(x=0\), attained</td><td class="neg153">\(0\), <b>not attained</b></td><td>\(f(10^6) = 10^{-12}\) and \(f(10^9) = 10^{-18}\), and \(f(x) &gt; 0\) for every real \(x\)</td></tr>
+<tr><td class="dl153">\(h = f\) but \(h(0)=1/2\), on \([-1,1]\)</td><td class="dr153c">continuous</td><td class="neg153">\(1\), <b>not attained</b></td><td class="pos153">\(1/2\) at \(x=-1,0,1\)</td><td>\(h(x)=1\) needs \(x=0\), where \(h\) is \(1/2\) instead; the jump at \(0\) is \(1/2\), while on a 4001-point grid the continuous \(f\) cannot change by more than \(\max\lvert f' \rvert \times \text{spacing} = 0.6495190528 \times 0.0005 = 0.0003247595\) in one step, so the jump is <b>1539 times</b> the largest step continuity allows</td></tr>
+<tr><td class="dl153">\(1/x\) on \((0,1]\)</td><td class="dr153c">bounded above</td><td class="neg153">none at all</td><td class="pos153">\(1\) at \(x=1\)</td><td>\(1/x\) exceeds \(10^8\) within \(10^{-9}\) of the removed end</td></tr>
+<tr><td class="dl153">\(\tan x\) on \((-\pi/2,\pi/2)\)</td><td class="dr153c">closed</td><td class="neg153">none</td><td class="neg153">none</td><td>it runs to \(-\infty\) and \(+\infty\) at the two open ends</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The three same-function rows are worth memorising as a set, because between them they show that the two extremes fail <b>independently</b>. Remove the ends and you lose the one that lived there. Puncture the middle and you lose the one that lived there. The hypotheses are not a ritual; each one is holding up a specific part of the conclusion.</p>
+
+<h3 class="sh153">And a dropped hypothesis does not force failure</h3>
+
+<p>This is the half that gets stated backwards in exams. The hypotheses are <b>sufficient, not necessary</b>. When one fails, the theorem is <em>silent</em>, not negative.</p>
+
+<div class="pgrid three153">
+  <div class="pcard fam"><p class="pk">Open domain</p><p class="pv">STILL ATTAINS ITS MINIMUM</p><p class="pd">\(x^2\) on the open \((-1,1)\) reaches \(0\) at \(x=0\). The minimum is fine; only the maximum is lost.</p></div>
+  <div class="pcard fam"><p class="pk">Discontinuous</p><p class="pv">STILL ATTAINS BOTH</p><p class="pd">A step function on \([-1,1]\) attains \(0\) at \(x=-1\) and \(1\) at \(x=0\). A jump is not automatically fatal.</p></div>
+  <div class="pcard fam"><p class="pk">Unbounded domain</p><p class="pv">STILL ATTAINS ITS MAXIMUM</p><p class="pd">\(f\) itself on \([0,\infty)\) reaches \(1\) at \(x=0\). Losing one hypothesis does not lose both extremes.</p></div>
+</div>
+
+<p>So <b>"the domain is open, therefore there is no maximum" is a wrong sentence.</b> The right one is: "the domain is open, so the EVT does not guarantee one, and here there is not."</p>
+
+<h3 class="sh153">The theorem locates nothing, and the proof is one function</h3>
+
+<p>Keep \(f\) and move the interval. Same theorem, same guarantee, three different answers.</p>
+
+<div class="tscroll vtab">
+<table class="loc153">
+<thead><tr><th>interval</th><th>where the maximum sits</th><th>what the EVT said about that</th></tr></thead>
+<tbody>
+<tr><td class="dl153">\([-1,1]\)</td><td class="hi153">the interior point \(x=0\)</td><td class="non153">nothing</td></tr>
+<tr><td class="dl153">\([1,3]\)</td><td class="hi153">the <b>left</b> endpoint</td><td class="non153">nothing</td></tr>
+<tr><td class="dl153">\([-3,-1]\)</td><td class="hi153">the <b>right</b> endpoint</td><td class="non153">nothing</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2><span class="sn153">04</span> The candidate table, and the tie inside it</h2>
+
+<p>\(f\) is a quotient of polynomials whose denominator never vanishes, so it is continuous on all of \(\mathbb{R}\). Differentiate once, by the chain rule on \((x^2+1)^{-1}\) or by the quotient rule, which agree:</p>
+
+$$f'(x) = \frac{-2x}{(x^2+1)^2}, \qquad f''(x) = \frac{6x^2-2}{(x^2+1)^3}$$
+
+<p>The denominator of \(f'\) is at least \(1\), so \(f'\) exists everywhere and vanishes exactly when \(-2x = 0\), that is \(x=0\), which lies inside \([-1,1]\). Three candidates, and one of them is a tie.</p>
+
+<figure class="figbox">
+<!--FIGA-->
+<figcaption class="cap153">\(f\) on its own interval, with the same function drawn faintly outside it so the interval reads as a choice rather than as where the function stops. The dashed level line at \(y=1/2\) runs the full width of the frame, which is what makes the tie visible: <b>the two minimum markers sit at exactly the same height, at the two ends of the interval.</b> The maximum is the single marker at the crown. The short vertical ticks at \(x=\pm 1/\sqrt3 = \pm 0.5773502692\) are the inflection points, where \(f = 3/4\) and the curve stops steepening.</figcaption>
+</figure>
+
+<div class="tscroll vtab">
+<table class="cand153">
+<thead><tr><th>\(x\)</th><th>why it is a candidate</th><th>f(x) exact</th><th>decimal</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td class="mono153">-1</td><td>left endpoint, added by hand</td><td>\(1/2\)</td><td class="mono153">0.5</td><td class="win153">MINIMUM</td></tr>
+<tr><td class="mono153">0</td><td>interior, \(f'(0)=0\)</td><td>\(1\)</td><td class="mono153">1</td><td class="win153">MAXIMUM</td></tr>
+<tr><td class="mono153">1</td><td>right endpoint, added by hand</td><td>\(1/2\)</td><td class="mono153">0.5</td><td class="win153">MINIMUM, again</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Two rows carry the same value, so the minimum happens <b>twice</b>. A single-point answer to "where is the minimum" has the right value and an incomplete location. And that tie has a consequence that reaches much further than the phrasing of one sentence, which is section 06.</p>
+
+<h3 class="sh153">Two shorter routes, and why neither replaces the table</h3>
+
+<div class="tscroll vtab">
+<table class="rc153">
+<thead><tr><th>route</th><th>the work</th><th>proves the classification?</th><th>handles f-prime undefined?</th><th>its risk</th></tr></thead>
+<tbody>
+<tr class="hi153"><td class="dl153">A &#183; the closed-interval table</td><td>differentiate, solve, three evaluations</td><td class="pos153">yes, by comparison</td><td class="pos153">yes, once you look</td><td>forgetting an endpoint</td></tr>
+<tr><td class="dl153">B &#183; the sign of \(f'\)</td><td>differentiate, one sign argument</td><td class="pos153">yes, and more strongly</td><td class="pos153">yes</td><td>you must argue over the whole interval, not sample it</td></tr>
+<tr><td class="dl153">C &#183; reciprocal of a parabola</td><td>none at all</td><td class="pos153">yes, by order-reversal</td><td class="neg153">no, it is shape-specific</td><td>it only works on functions of \(|x|\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>Route B</b> is worth knowing: the denominator of \(f'\) is positive, so the sign of \(f'\) is the sign of \(-2x\), which is positive on \([-1,0)\) and negative on \((0,1]\). So \(f\) increases then decreases, its maximum is the turning point, and its minimum is whichever end is lower. Both ends are equal, so both are minimisers.</p>
+
+<p><b>Route C</b> is the eight-second sanity check. \(x^2+1\) grows with \(|x|\), and taking a reciprocal reverses order on positive quantities, so \(f\) is <em>decreasing</em> in \(|x|\). Biggest where \(|x|\) is smallest, smallest where \(|x|\) is biggest. No calculus.</p>
+
+<p class="pull153">Use route A under exam pressure. It is the only one that generalises to every function the examiner can put in this slot, it is what "by the Extreme Value Theorem" is asking for, and its table documents itself for a marker.</p>
+</section>
+
+<section>
+<h2><span class="sn153">05</span> The write-up a marker expects</h2>
+
+<p>Six sentences. Four things in them earn credit that a bare answer does not.</p>
+
+<div class="wu153">
+<p>\(f(x) = 1/(x^2+1)\).</p>
+<p>Since \(x^2+1 \ge 1 &gt; 0\) for every real \(x\), <span class="hl153">the denominator never vanishes</span>, so \(f\) is continuous on all of \(\mathbb{R}\) and in particular on the <span class="hl153">closed, bounded</span> interval \([-1,1]\).</p>
+<p>By the Extreme Value Theorem, \(f\) attains an absolute maximum and an absolute minimum on \([-1,1]\).</p>
+<p>\(f'(x) = -2x/(x^2+1)^2\), which <span class="hl153">is defined for all \(x\)</span> and vanishes only at \(x=0\), so the candidates are \(x=-1,0,1\).</p>
+<p>\(f(-1) = 1/2\), \(f(0) = 1\), \(f(1) = 1/2\).</p>
+<p>The absolute maximum value is \(1\), at \(x=0\); the absolute minimum value is \(1/2\), <span class="hl153">attained at both</span> \(x=-1\) and \(x=1\).</p>
+</div>
+
+<ol class="cr153">
+<li><span><b>The reason \(f\) is continuous</b>, not just the claim. "The denominator never vanishes" is the whole argument and it is nine words.</span></li>
+<li><span><b>The words "closed" and "bounded"</b> attached to the interval. The stem named a theorem; citing its hypotheses as satisfied <em>is</em> the citation.</span></li>
+<li><span><b>"is defined for all \(x\)"</b> about \(f'\). That is the empty box being reported as empty, which shows you looked for a cusp and found none.</span></li>
+<li><span><b>"attained at both"</b>. The minimum happens twice and the marker is looking for whether you noticed.</span></li>
+</ol>
+
+<p class="note">One thing that earns nothing here: a second-derivative test. It <em>would</em> work, since \(f''(0) = -2 &lt; 0\), but the closed-interval comparison has already settled the question and the test cannot see the endpoints at all.</p>
+</section>
+
+<section>
+<h2><span class="sn153">06</span> The census: which mistakes are invisible</h2>
+
+<p>Fourteen plausible mutilations of this question were scanned, with nothing excluded as degenerate. A mutilation <b>hides</b> if it reproduces both reported values.</p>
+
+<div class="pgrid cs153">
+  <div class="pcard main"><p class="pk">Mutilations scanned</p><p class="pv">14</p><p class="pd">Nothing excluded, including the ones that look too silly to make.</p></div>
+  <div class="pcard los"><p class="pk">Hide completely</p><p class="pv">6</p><p class="pd">Both reported values come out right anyway.</p></div>
+  <div class="pcard fam"><p class="pk">Show</p><p class="pv">8</p><p class="pd">At least one value comes out wrong.</p></div>
+</div>
+
+<div class="tscroll vtab">
+<table class="cens153">
+<thead><tr><th>mutilation</th><th>verdict</th><th>why</th></tr></thead>
+<tbody>
+<tr><td class="dl153">drop the <b>left</b> endpoint</td><td class="hid153">hides</td><td>the right endpoint supplies the same \(1/2\)</td></tr>
+<tr><td class="dl153">drop the <b>right</b> endpoint</td><td class="hid153">hides</td><td>the left endpoint supplies the same \(1/2\)</td></tr>
+<tr><td class="dl153">drop <b>both</b> endpoints</td><td class="bad153">shows</td><td>the minimum becomes \(1\)</td></tr>
+<tr><td class="dl153">drop the critical point \(x=0\)</td><td class="bad153">shows</td><td>the maximum collapses to \(1/2\)</td></tr>
+<tr><td class="dl153">report the points instead of the values</td><td class="bad153">shows</td><td>the maximum is reported as \(0\)</td></tr>
+<tr><td class="dl153">sign error in \(f'\), \(+2x\) for \(-2x\)</td><td class="hid153">hides</td><td>the root is still \(0\), because the error preserves the <b>evenness</b> of \(f\)</td></tr>
+<tr><td class="dl153">forget to square \(f'\)'s denominator</td><td class="hid153">hides</td><td>the root is still \(0\), same reason</td></tr>
+<tr><td class="dl153">drop the inner \(2x\), no chain rule</td><td class="bad153">shows</td><td>\(f'\) then never vanishes, so zero critical points and max \(=\) min \(= 1/2\)</td></tr>
+<tr><td class="dl153">solve \((x^2+1)^2 = 0\) instead</td><td class="bad153">shows</td><td>no real root, so the same broken answer by a different route</td></tr>
+<tr><td class="dl153">misread the fraction as \(1/x^2 + 1\)</td><td class="bad153">shows</td><td>a different function, and unbounded on the interval</td></tr>
+<tr><td class="dl153">add the inflection points as candidates</td><td class="hid153">hides</td><td>extra candidates are harmless: \(f(\pm 1/\sqrt3) = 3/4\), between the two extremes</td></tr>
+<tr><td class="dl153">report \(f''(0)\) as the maximum</td><td class="bad153">shows</td><td>\(2\) instead of \(1\); the test's output is not the extreme value</td></tr>
+<tr><td class="dl153">treat \(f\) as odd, so \(f(-1) = -1/2\)</td><td class="bad153">shows</td><td>the reported minimum falls outside the range \(f\) can take</td></tr>
+<tr><td class="dl153">solve it on \([0,1]\) instead of \([-1,1]\)</td><td class="hid153">hides</td><td>numerically identical, because \(f\) is even and \([0,1]\) keeps one endpoint and the critical point</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="pull153">On Q15.1 part (b) both endpoint omissions were fatal, because its two extremes sat at different endpoints. Here both are harmless, and structurally so: the minimum sits at both endpoints, so each one is its twin's backup.</p>
+
+<p><b>So Q15.3 is the question where the closed-interval method's most important step cannot be checked by the answer at all.</b> Dropping the critical point does show, so the maximum's location is verifiable while the minimum's is not. Write both endpoints down every time as a habit, because on this question the answer will not tell you when you did not.</p>
+
+<h3 class="sh153">Two hiding mechanisms, live at once</h3>
+
+<div class="pgrid two153g">
+  <div class="pcard los"><p class="pk">Mechanism 1</p><p class="pv">AN ENDPOINT WITH A TWIN</p><p class="pd">Each endpoint carries the same value, so omitting either leaves the other to report it. Shift the peak to \(x=1\) and put the interval at \([-1,2]\) and the tie breaks: \(f(-1)=1/5\), \(f(2)=1/2\), and the same omission shows immediately. <b>The hiding belongs to the symmetry of this one interval, not to the method.</b></p></div>
+  <div class="pcard los"><p class="pk">Mechanism 2</p><p class="pv">A SYMMETRY FIXED POINT</p><p class="pd">\(x=0\) is the fixed point of \(x \mapsto -x\), and \(f\) is even. Any error that <em>preserves</em> that evenness leaves the maximiser sitting exactly where it belongs. The sign error and the un-squared denominator both do, which is why two obviously wrong derivatives still give the right answer.</p></div>
+</div>
+
+<h3 class="sh153">And the value cannot check the point</h3>
+
+<p>The maximum is a smooth peak, so \(f\) is flat there. Measured: a point \(5\times 10^{-5}\) away from \(x=0\) has \(f\) within \(2.5\times 10^{-9}\) of \(1\). A nearly-right maximiser therefore produces a maximum that is right to nine decimal places.</p>
+
+<p><b>Never validate the maximiser using the maximum.</b> The verification behind this page root-finds on \(f'\) instead: that located \(x=0\) to within \(5\times 10^{-61}\), while a value comparison in the same arithmetic cannot resolve the position better than \(\sqrt{2\varepsilon f^{*}/|f''|} = 1.49\times 10^{-8}\). The gap is <b>52 orders of magnitude</b>, and it belongs entirely to the comparison rather than to the arithmetic.</p>
+</section>
+
+<section>
+<h2><span class="sn153">07</span> The other half of the item</h2>
+
+<p>Part (b) of item 3 asks for an estimate of \(\int_{-1}^{1} \frac{dx}{x^2+1}\) from the properties of the definite integral. The relevant property is the comparison bound:</p>
+
+$$m \le f(x) \le M \text{ on } [a,b] \quad \Longrightarrow \quad m(b-a) \;\le\; \int_a^b f(x)\,dx \;\le\; M(b-a)$$
+
+<p>Part (a) just produced \(m = 1/2\) and \(M = 1\), and \(b-a = 2\), so the bound is \([1,2]\). The true value is \(2\arctan 1 = \pi/2 = 1.5707963268\), comfortably inside. <b>That is why the examiner chose this function and this interval</b>, and it means part (b) is a free check on part (a).</p>
+
+<div class="tscroll vtab">
+<table class="bnd153">
+<thead><tr><th>integral</th><th>\(m\)</th><th>\(M\)</th><th>bound</th><th>true value</th></tr></thead>
+<tbody>
+<tr class="hi153"><td class="dl153">\(\int_{-1}^{1} \frac{dx}{x^2+1}\) &#183; this item</td><td>\(1/2\)</td><td>\(1\)</td><td class="mono153">[1, 2]</td><td class="mono153">1.5707963268</td></tr>
+<tr><td class="dl153">\(\int_{-2}^{2} \frac{dx}{x^2+1}\)</td><td>\(1/5\)</td><td>\(1\)</td><td class="mono153">[0.8, 4]</td><td class="mono153">2.2142974356</td></tr>
+<tr><td class="dl153">\(\int_0^{\pi/3} \sec x\,dx\) &#183; Q17.1</td><td>\(1\)</td><td>\(2\)</td><td class="mono153">[1.0471975512, 2.0943951024]</td><td class="mono153">1.3169578969</td></tr>
+<tr><td class="dl153">\(\int_{-2}^{3} (x^2+2x)^{2/3}dx\) &#183; Q17.3</td><td>\(0\)</td><td>\(15^{2/3}\)</td><td class="mono153">[0, 30.4110099779]</td><td class="mono153">inside</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Row two shows what a wider interval costs: \(m\) falls while \(M\) cannot rise, so the bound gets worse. Row four is one-sided in practice, because its minimum <em>is</em> zero, so the upper end carries all the information. And forgetting the \((b-a)\) factor on row one gives \([1/2, 1]\), which <b>excludes</b> \(\pi/2\), so the slip is visible.</p>
+
+<p class="note">Exactly <b>two</b> of Final Exam 2's twelve items pair an extremes question with an integral bound on the same function: item 3, which is this one with Q17.2, and item 7, which is Q15.5 with Q17.3. Together they are <b>14 of the paper's 81 points</b>. Both extremes questions on that paper feed a category 17 question on the same paper, so the two topics are worth studying as one.</p>
+</section>
+
+<section>
+<h2><span class="sn153">08</span> The variation catalog</h2>
+
+<p>Ten families, organised by the <b>tool</b> the variation forces rather than by how the function looks. Nine are drilled below; family 7 is deliberately handed to Q15.5.</p>
+
+<div class="tscroll vtab">
+<table class="fam153">
+<thead><tr><th>&#160;</th><th>the trigger you see</th><th>the tool it forces</th><th>the instance that defines it</th></tr></thead>
+<tbody>
+<tr><td class="fh153">F0</td><td>the interval is symmetric about the stationary point</td><td>the table, plus a note that the two ends tie</td><td class="hi153">the exam question. On \([-c,c]\) the maximum is always \(1\) and the minimum is \(1/(c^2+1)\) at both ends: \(1/2\), \(1/5\), \(1/10\) at \(c=1,2,3\)</td></tr>
+<tr><td class="fh153">F1</td><td>ask "is \(0\) in \([a,b]\)?" and the answer is no</td><td>monotonicity; the table has only two rows</td><td>on \([1,3]\) the max is \(1/2\) at the <b>left</b> end and the min \(1/10\) at the right; on \([-3,-1]\) the roles swap</td></tr>
+<tr><td class="fh153">F2</td><td>the denominator can vanish</td><td class="dr153c">the continuity hypothesis</td><td>\(1/(x^2-1)\) on \([-2,2]\): no extremes exist. But \(1/(x^2-4)\) on \([-1,1]\) is <b>safe</b>, with max \(-1/4\) and min \(-1/3\)</td></tr>
+<tr><td class="fh153">F3</td><td>a constant multiple, or \(x\) replaced by \(x-c\)</td><td>the same table; a multiple scales, a shift moves the peak</td><td>\(1/((x-1)^2+1)\) on \([-1,2]\): max \(1\) at \(x=1\), min \(1/5\) at \(x=-1\) <b>only</b>, because the interval is no longer symmetric about the peak</td></tr>
+<tr><td class="fh153">F4</td><td>the numerator involves \(x\)</td><td>the quotient rule, and there may be two stationary points</td><td>\(x/(x^2+1)\) on \([-2,2]\): max \(1/2\) at \(x=1\), min \(-1/2\) at \(x=-1\). <b>Both extremes interior</b>, the complement of F0. In general \(x/(x^2+a^2)\) gives \(\pm 1/(2a)\) at \(\pm a\)</td></tr>
+<tr><td class="fh153">F5</td><td>a higher power in the denominator</td><td>the table, but the second-derivative test may go silent</td><td>\(1/(x^4+1)\) on \([-1,1]\) has the <b>same answer</b> as the exam question and a different reason: \(f'\) has a triple root at \(0\) and \(f''(0)=0\), so only the sign chart settles it</td></tr>
+<tr><td class="fh153">F6</td><td>a round bracket, an infinity, a jump</td><td class="dr153c">the hypotheses; the answer is a sentence</td><td>section 03's five rows</td></tr>
+<tr><td class="fh153">F7</td><td>an absolute value, or an exponent below \(1\)</td><td>step 5, which is empty on this question</td><td class="non153">left to Q15.5, which is exactly this on the exam</td></tr>
+<tr><td class="fh153">F8</td><td>"use the properties of the definite integral"</td><td>\(m(b-a) \le \int \le M(b-a)\)</td><td>section 07's four rows</td></tr>
+<tr><td class="fh153">F9</td><td>a trigonometric term, usually plus a linear one</td><td>the table, with critical points from a trig equation</td><td>\(x-2\sin x\) on \([0,2\pi]\) is Q15.1(b)'s <b>mirror</b>: its maximum is at the interior \(5\pi/3\), value \(6.9680385636\), which beats the endpoint \(2\pi = 6.2831853072\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read family 0 as <b>structure</b>, not as three facts: it has exactly one maximum value between all its rows, because the peak is at \(x=0\) and \(0\) is inside every symmetric interval, and its minima are a single decreasing function of the half-width. Across the whole catalog all four combinations of "where the extremes sit" occur: interior max with endpoint min (F0), endpoint max with interior min (F4's \(x^2/(x^2+1)\)), both interior (F4's \(x/(x^2+1)\)), and both endpoint (Q15.1 part (b), in F9).</p>
+
+<p class="note">Family 2 carries a <b>sign trap</b> worth naming separately. On \(1/(x^2-4)\) over \([-1,1]\) both extremes are negative, so the maximum is the value <em>closest to zero</em>. Taking the largest magnitude gives \(-1/3\), which is the minimum, so the answer comes out exactly inverted.</p>
+</section>
+
+<section>
+<h2><span class="sn153">09</span> The traps, ranked</h2>
+
+<ol class="traps153">
+<li><span><b>Reporting the location instead of the value.</b> The stem says extreme <em>values</em>. Those are \(1\) and \(1/2\); the locations are \(0\) and \(\pm 1\). No magnitude check catches this, because \(0\) is a perfectly plausible <em>input</em> for this function.</span></li>
+<li><span><b>Naming only one endpoint for the minimum.</b> It happens at \(x=-1\) <em>and</em> \(x=1\).</span></li>
+<li><span><b>Skipping the hypothesis check when the stem names the theorem.</b> "By the Extreme Value Theorem" is an instruction, not a label. Two sentences is the cheapest credit on the item.</span></li>
+<li><span><b>Not testing the denominator against the interval.</b> The reworded version puts a pole inside \([a,b]\) and the answer becomes a sentence. Solve denominator \(=0\) first, every time.</span></li>
+<li><span><b>Dropping the inner \(2x\).</b> You get \(f' = -1/(x^2+1)^2\), which never vanishes, and land on max \(=\) min \(= 1/2\). That output is self-evidently broken: a maximum equal to a minimum says the function is constant.</span></li>
+<li><span><b>Setting the denominator of \(f'\) to zero</b> rather than the numerator. Same broken answer, different route.</span></li>
+<li><span><b>Reaching for the second-derivative test.</b> It happens to work here, but it cannot see the endpoints, and on the very similar \(1/(x^4+1)\) it goes silent.</span></li>
+<li><span><b>Reading a negative instance's maximum as the largest magnitude.</b> Family 2's sign trap.</span></li>
+<li><span><b>Assuming a dropped hypothesis means the extreme is lost.</b> The theorem is silent, not negative.</span></li>
+<li><span><b>Forgetting the \((b-a)\) factor in part (b).</b> \([1/2,1]\) excludes the true \(\pi/2\).</span></li>
+</ol>
+</section>
+
+<section>
+<h2><span class="sn153">10</span> Drill set</h2>
+
+<p>Closed-book, in order. <b>Score sign separately from magnitude.</b> A magnitude slip means you mis-evaluated \(f\); a sign slip means you mis-read which value is larger, and on the negative instances that inverts the whole answer. The two failures need different remediation.</p>
+
+<div class="tscroll vtab">
+<table class="dr153">
+<thead><tr><th>&#160;</th><th>the problem</th><th>maximum</th><th>minimum</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td class="mono153">1</td><td>\(1/(x^2+1)\) on \([-2,2]\)</td><td>\(1\) at \(x=0\)</td><td>\(1/5\) at \(x=\pm 2\)</td><td class="fh153">F0 &#183; table, endpoints tie</td></tr>
+<tr><td class="mono153">2</td><td>\(1/(x^2+1)\) on \([1,4]\)</td><td>\(1/2\) at \(x=1\)</td><td>\(1/17 = 0.0588235294\) at \(x=4\)</td><td class="fh153">F1 &#183; critical point outside; monotone</td></tr>
+<tr><td class="mono153">3</td><td>\(1/(x^2-9)\) on \([-4,4]\)</td><td class="non153">none</td><td class="non153">none</td><td class="fh153">F2 &#183; poles at \(\pm 3\) inside; EVT does not apply</td></tr>
+<tr><td class="mono153">4</td><td>\(1/(x^2-9)\) on \([-2,2]\)</td><td>\(-1/9 = -0.1111111111\) at \(x=0\)</td><td>\(-1/5\) at \(x=\pm 2\)</td><td class="fh153">F2 &#183; poles outside; the sign trap</td></tr>
+<tr><td class="mono153">5</td><td>\(1/((x+2)^2+1)\) on \([-4,0]\)</td><td>\(1\) at \(x=-2\)</td><td>\(1/5\) at \(x=-4\) and \(x=0\)</td><td class="fh153">F3 &#183; shift; symmetric about the peak, so the tie is back</td></tr>
+<tr><td class="mono153">6</td><td>\(1/((x-1)^2+1)\) on \([0,4]\)</td><td>\(1\) at \(x=1\)</td><td>\(1/10\) at \(x=4\)</td><td class="fh153">F3 &#183; shift; asymmetric, one minimiser only</td></tr>
+<tr><td class="mono153">7</td><td>\(x/(x^2+4)\) on \([-4,4]\)</td><td>\(1/4\) at \(x=2\)</td><td>\(-1/4\) at \(x=-2\)</td><td class="fh153">F4 &#183; quotient rule; both extremes interior</td></tr>
+<tr><td class="mono153">8</td><td>\(x^2/(x^2+1)\) on \([-2,1]\)</td><td>\(4/5\) at \(x=-2\)</td><td>\(0\) at \(x=0\)</td><td class="fh153">F4 &#183; mirror; endpoint max, interior min</td></tr>
+<tr><td class="mono153">9</td><td>\(1/(x^4+1)\) on \([-1,1]\)</td><td>\(1\) at \(x=0\)</td><td>\(1/2\) at \(x=\pm 1\)</td><td class="fh153">F5 &#183; triple root, \(f''(0)=0\), sign chart required</td></tr>
+<tr><td class="mono153">10</td><td>\(1/(x^2+1)\) on the <b>open</b> \((-2,2)\)</td><td>\(1\) at \(x=0\), attained</td><td class="dr153c">\(1/5\), NOT attained</td><td class="fh153">F6 &#183; open domain; the minimisers were the endpoints</td></tr>
+<tr><td class="mono153">11</td><td>bound \(\int_{-2}^{2} \frac{dx}{x^2+1}\) from drill 1</td><td colspan="2">bound \([4/5,\,4]\); true value \(2\arctan 2 = 2.2142974356\)</td><td class="fh153">F8 &#183; \(m(b-a) \le \int \le M(b-a)\)</td></tr>
+<tr><td class="mono153">12</td><td>\(\sin x\) on \([0, 3\pi/2]\)</td><td>\(1\) at \(x=\pi/2\)</td><td>\(-1\) at \(x=3\pi/2\)</td><td class="fh153">F9 &#183; interior max, endpoint min</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Counted off the key: <b>seven of the twelve have their attained minimum at an endpoint</b>, and <b>four of those seven are a tie between the two endpoints</b>. Drill 3 has no extremes at all and drill 10's minimum is not attained, so nine of the twelve have an attained minimum and seven of those nine sit at an end. Drills 4 and 8 are the two where a sign slip changes which value is the maximum.</p>
+</section>
+
+<section>
+<h2><span class="sn153">11</span> Answer entry, and the check that is free</h2>
+
+<div class="tscroll vtab">
+<table class="ae153">
+<thead><tr><th>do</th><th>do not</th></tr></thead>
+<tbody>
+<tr><td class="pos153">enter <span class="kbd">1</span> for the maximum value</td><td class="neg153">enter \(0\), which is <em>where</em> it happens</td></tr>
+<tr><td class="pos153">enter <span class="kbd">1/2</span> for the minimum value</td><td class="neg153">enter \(-1\) or \(1\), which is <em>where</em> it happens</td></tr>
+<tr><td class="pos153">give <b>both</b> minimiser locations when asked where</td><td class="neg153">name only one endpoint</td></tr>
+<tr><td class="pos153">use the exact fraction <span class="kbd">1/2</span></td><td class="neg153">round to <span class="kbd">0.5</span> unless the box asks for a decimal</td></tr>
+<tr><td class="pos153">keep value and location in separate boxes</td><td class="neg153">merge them into one string</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Four checks, in the order they cost you time.</p>
+
+<div class="pgrid ck153">
+  <div class="pcard main"><p class="pk">Magnitude &#183; 3 seconds</p><p class="pv">0 &lt; f &lt;= 1</p><p class="pd">\(f\) is one over something at least \(1\). Any reported extreme outside \((0,1]\) is wrong on sight, which kills a reported minimum of \(-1/2\) and a maximum of \(2\).</p></div>
+  <div class="pcard main"><p class="pk">Order</p><p class="pv">SMALLEST |x| WINS</p><p class="pd">\(f\) decreases in \(|x|\), so the candidate with the smallest \(|x|\) must carry the largest \(f\). Here \(|x|\) runs \(0,1,1\), so \(f\) must run largest, tied, tied.</p></div>
+  <div class="pcard main"><p class="pk">Symmetry</p><p class="pv">f IS EVEN</p><p class="pd">The table must be symmetric about \(x=0\). Two endpoint values that differ on a symmetric interval are an arithmetic slip.</p></div>
+  <div class="pcard fam"><p class="pk">Part (b) &#183; free</p><p class="pv">1 &lt;= pi/2 &lt;= 2</p><p class="pd">If the true integral falls outside \([m(b-a),\,M(b-a)]\), one of \(m\), \(M\) or \((b-a)\) is wrong. This is the only check that catches a wrong \(m\) or \(M\).</p></div>
+</div>
+
+<p class="pull153">The single most expensive typo is answering the wrong question. Report the value and the point as two separate answers, always.</p>
+</section>
+
+<section>
+<h2><span class="sn153">12</span> Provenance, course files, and the gates</h2>
+
+<p>Final Exam 2, item 3, part (a). The item's 8 points cover both sub-parts. The phrase "Extreme Value Theorem" occurs <b>once</b> in Final Exam 2 and <b>zero</b> times in Final Exam 1, so the theorem is examined by name exactly once in the course. "Absolute extreme values" occurs twice, on items 3a and 7a. "All maxima and minima", which is Q15.1's wording and demands that the losing critical points be classified, occurs zero times on Final Exam 2. <b>That wording split is what tells you whether a sign chart is required.</b></p>
+
+<div class="tscroll vtab">
+<table class="pv153t">
+<thead><tr><th>question</th><th>paper</th><th>item</th><th>points</th></tr></thead>
+<tbody>
+<tr><td class="dl153">Q15.1 all maxima and minima</td><td>Final Exam 1</td><td class="mono153">5</td><td class="mono153">11</td></tr>
+<tr><td class="dl153">Q15.2 rectangle of least perimeter</td><td>Final Exam 1</td><td class="mono153">6</td><td class="mono153">6</td></tr>
+<tr class="hi153"><td class="dl153">Q15.3 absolute extremes by the EVT</td><td>Final Exam 2</td><td class="mono153">3</td><td class="mono153">8, shared with Q17.2</td></tr>
+<tr><td class="dl153">Q15.4 cheapest rectangular box</td><td>Final Exam 2</td><td class="mono153">5</td><td class="mono153">10</td></tr>
+<tr><td class="dl153">Q15.5 extremes with a cusp</td><td>Final Exam 2</td><td class="mono153">7</td><td class="mono153">6, shared with Q17.3</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sh153">The course files, verified before being reported</h3>
+
+<p><span class="mono153">MATH265_Review.md</span> states the four-step method <b>four</b> times and pairs the two hypotheses, continuity and a closed interval, in only <b>three</b> of them. The one that omits continuity is the Final Exam 1 section-5 statement. The phrase "Extreme Value Theorem" appears <b>six</b> times, while the abbreviation "EVT" appears four, so counting the abbreviation undercounts by two.</p>
+
+<ol class="def153">
+<li><span><b>The theorem is stated four times and never once justified, tested or bounded.</b> "Counterexample" occurs zero times in the whole file, and so do "does not attain", "fails to attain" and "hypothes". A student is handed a recipe and no reason, on the one question that asks for the reason.</span></li>
+<li><span><b>It never distinguishes existence from location.</b> No sentence anywhere pairs "guarantees" with "exists". That distinction is this question's entire content.</span></li>
+<li><span><b>There is no worked example of this question anywhere in the file.</b> \(1/(x^2+1)\) appears zero times, and so does \(1.5708\). Eighth consecutive category where the notes stop before the arithmetic.</span></li>
+<li><span><b>The Final Exam 2 block skips item 7 entirely.</b> Its sections run in item order and give item 3's two parts their own consecutive sections, 3 and 4, which independently confirms that item 3 is a two-part item. But its section 7 is Integration Techniques, which is item 6, and section 8 is Area Between Curves, which is item 8. Item 7's function never appears in that block at all. That block also carries no point values in its headings, unlike the Final Exam 1 block, so Final Exam 2's values cannot be cross-checked from the notes.</span></li>
+</ol>
+
+<p>Four further conflicts, each re-verified rather than repeated from a predecessor's notes. <b>"Q3" labels two different questions inside the same file</b>, at 4 and 6 points, and neither is Final Exam 2 item 3. <b>The vertical-asymptote rule is stated four times with the broken form still present</b>: "the denominator is 0 but the numerator is not" fails on \((x-1)/(x-1)^2 = 1/(x-1)\), whose numerator <em>is</em> zero at \(x=1\) and which <em>does</em> have a pole there. The correct "simplify first" form is also present, so the file contradicts itself rather than being uniformly wrong. <b>The claim that \(f'(0)\) is undefined on Q15.1 part (a) is still there and still false</b>: for \(2x^{5/3}-5x^{4/3}\) both one-sided difference quotients tend to \(0\). And <b>the advice "check endpoints" is offered as the verification step on the open-domain optimization question, which has none</b>; the same sentence is correct for <em>this</em> question, so it is not a wrong sentence but a sentence filed under the wrong question.</p>
+
+<p><span class="mono153">MATH265_Categorized.md</span> is <b>cp1252 and fails a UTF-8 decode at byte 318</b>, re-confirmed with the offset asserted. It has no entry for this topic at all. Re-verified: "rubric", "marking scheme" and "part marks" each occur zero times across the course files, for the twelfth consecutive run.</p>
+
+<h3 class="sh153">What the verification found</h3>
+
+<p>Nine assertions failed on the first run and <b>all nine were the check or a typed number, never the mathematics</b>: a flat \(10^{-9}\) tolerance applied to a Richardson ladder whose truncation error at that step size is \(4.3\times10^{-7}\); a \(10^{-13}\) tolerance applied to a quantity whose float roundoff bound is \(1.16\times10^{-12}\); three claims that a bisection returned "exactly zero" when it returns \(5\times10^{-61}\); one typed decimal, \(30.454484541\) written for \(5\cdot 15^{2/3}\), which is \(30.4110099779\); and three course-file counts stated from the wrong grep. Every tolerance on this page is now derived from a measured quantity.</p>
+
+<p>The markdown claims checker then found a defect the assertion harness structurally could not: the drill key's endpoint-minimum count. The draft said six and the measurement says <b>seven</b>. The harness assertion that should have caught it was written as a comparison of one typed tuple against an identical typed tuple, which passes for every value of the data. Harness section <span class="mono153">q153c</span> was appended to re-derive both counts from the drill intervals and to seed the wrong answer, so the check can now disagree.</p>
+
+<p class="note">Files: the tutorial at <span class="mono153">notes\Q15.3 - Absolute extremes by the Extreme Value Theorem.md</span>; the verification at <span class="mono153">Work\knowledge\topics\math265-answer-verification.py</span>, sections <span class="mono153">q153</span> (243 PASS, 51 controls), <span class="mono153">q153d</span> (205 PASS, 16 controls) and <span class="mono153">q153c</span> (14 PASS, 5 controls). Written 2026-09-02.</p>
+</section>
+
+</main>

@@ -1,0 +1,363 @@
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 1 &#183; ITEM 5 &#183; 11 POINTS &#183; OPENS CATEGORY 15</div>
+  <h1>Both Ends Count</h1>
+  <p class="stand">Q15.1 asks for all maxima and minima of two functions on two closed intervals. Between them the two parts have <b>four</b> absolute extremes, and <b>three of the four sit at an endpoint of the interval</b>. Part (a) punishes you for leaving the right endpoint off the list; part (b) punishes you for assuming a critical point must be an extreme. That pair of punishments is the whole question, and it is why the method always tests both ends.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2><span class="sn151">01</span> The question, and the four numbers per part</h2>
+
+<p class="quote151">Find all maxima and minima of the functions listed below on the indicated intervals.<br><span class="qp151">a. \(f(x) = 2x^{5/3} - 5x^{4/3}\) on \([-1, 20]\). &#160;&#160;&#160; b. \(f(x) = x + \cos x\) on \([-\pi, 2\pi]\).</span></p>
+
+<p>An extreme has <b>two</b> answers, and they are different kinds of thing. The <em>value</em> is a number that \(f\) outputs. The <em>point</em> is the input where it happens. Write both, every time, because "the maximum is 20" is the most expensive slip on this question and no magnitude check can catch it.</p>
+
+<div class="tscroll vtab">
+<table class="ans151">
+<thead><tr><th>&#160;</th><th>part (a) \(2x^{5/3}-5x^{4/3}\) on \([-1,20]\)</th><th>part (b) \(x+\cos x\) on \([-\pi,2\pi]\)</th></tr></thead>
+<tbody>
+<tr><td class="dl151">absolute <b>maximum value</b></td><td class="hi151">\(40\cdot 20^{2/3} - 100\cdot 20^{1/3} \approx 23.2808\)</td><td class="hi151">\(2\pi + 1 \approx 7.2832\)</td></tr>
+<tr><td class="dl151">attained <b>at the point</b></td><td>\(x = 20\), the <b>right endpoint</b></td><td>\(x = 2\pi\), the <b>right endpoint</b></td></tr>
+<tr><td class="dl151">absolute <b>minimum value</b></td><td class="hi151">\(-16\)</td><td class="hi151">\(-\pi - 1 \approx -4.1416\)</td></tr>
+<tr><td class="dl151">attained <b>at the point</b></td><td>\(x = 8\), an <b>interior</b> critical point</td><td>\(x = -\pi\), the <b>left endpoint</b></td></tr>
+<tr><td class="dl151">other local extremes</td><td>local <b>max</b> <span class="mono151">0</span> at \(x=0\)</td><td class="non151">none</td></tr>
+<tr><td class="dl151">critical points that win nothing</td><td class="non151">none</td><td>\(x = \pi/2\), where \(f'\) touches zero</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">The two parts are near-exact complements, and that is the design. Part (a) has an interior minimum and a critical point that is a genuine local maximum; part (b) has neither, and both of its extremes are ends. Each part's empty cell is the other part's content.</p>
+</section>
+
+<section>
+<h2><span class="sn151">02</span> Both parts, drawn to the same idea</h2>
+
+<p>The figure exists to make one thing visible: <b>where the winning points are</b>. On part (a) the curve dips to its minimum in the middle and then climbs past everything it has been to reach the right edge. On part (b) it never stops climbing, so the two ends are the only places an extreme can be, and the flat tangent in the middle is a shelf on the way up.</p>
+
+<div class="figbox f151"><!--FIGA--></div>
+<p class="cap151">The maximum level is drawn all the way across. Nothing on part (a)'s curve reaches it until the last point of the interval, which is exactly why a candidate list without \(x=20\) produces a plausible and wrong answer.</p>
+
+<div class="figbox f151"><!--FIGB--></div>
+<p class="cap151">Part (b) rises throughout. The horizontal tangent at \(\pi/2\) is a genuine critical point and it is neither a maximum nor a minimum, because \(f'(x) = 1 - \sin x\) touches zero without changing sign.</p>
+</section>
+
+<section>
+<h2><span class="sn151">03</span> The closed-interval method</h2>
+
+<p>This is the method the whole category is built on, and Q15.1 is where it gets established. It needs <b>no derivative test at all</b>. You build a short list of numbers and pick the biggest and the smallest, and the Extreme Value Theorem is what guarantees there is a biggest and a smallest to pick.</p>
+
+<ol class="steps151">
+<li><span><b>Check the theorem applies.</b> Closed interval, bounded, \(f\) continuous on it. One sentence. If any of the three fails you are not in this method at all, and section 08's families 6 and 9 say what to do instead.</span></li>
+<li><span><b>Differentiate, and factor.</b> You are about to set \(f'\) to zero and also to look for where it blows up, and a factored form answers both at a glance.</span></li>
+<li><span><b>Solve \(f' = 0\).</b> Substitute if a fractional power makes the algebra easier.</span></li>
+<li><span><b>Find where \(f'\) is UNDEFINED.</b> A denominator, a negative power, an absolute value, an exponent strictly between 0 and 1. If there are none, <b>write that down</b> rather than skipping the step.</span></li>
+<li><span><b>Discard critical points outside \((a,b)\).</b> A critical point off the interval is simply not relevant.</span></li>
+<li><span><b>Build the candidate list: \(a\), \(b\), then the surviving critical points.</b> Write the endpoints FIRST, so you cannot forget them.</span></li>
+<li><span><b>Evaluate \(f\) at every candidate.</b> Exactly, in a table.</span></li>
+<li><span><b>Compare.</b> Largest is the absolute maximum, smallest the absolute minimum. Report each as a value AND a point. If a value ties, list every point.</span></li>
+<li><span><b>Only if the stem said "all maxima and minima":</b> classify the interior critical points that lost, using a sign chart of \(f'\).</span></li>
+</ol>
+
+<p class="warn151">Step 9 is conditional and the wording decides it. Q15.1 says "find all maxima and minima", so the losers need naming. Q15.3 and Q15.5 say "the absolute extreme values", so they do not. Read which one you were asked.</p>
+
+<h3>The Extreme Value Theorem, and what each hypothesis buys</h3>
+
+<p>If \(f\) is <b>continuous</b> on a <b>closed</b>, <b>bounded</b> interval \([a,b]\), then \(f\) attains both an absolute maximum and an absolute minimum on \([a,b]\). All three conditions are load-bearing, and the verification harness removed them one at a time.</p>
+
+<div class="pgrid evt151">
+  <div class="pcard"><div class="pk">DROP CLOSED</div><div class="pv151">\(f\) on \([-1,20)\) has <b>no maximum</b>. The supremum 23.2808 was approached over 200,000 samples and never attained.</div></div>
+  <div class="pcard"><div class="pk">DROP BOUNDED</div><div class="pv151">\(f\) on \([-1,\infty)\) has <b>no maximum</b>. Measured: \(f(10^6) &gt; 10^9\).</div></div>
+  <div class="pcard"><div class="pk">DROP CONTINUOUS</div><div class="pv151">\(1/x\) on \([-1,1]\) has <b>neither</b>. The interval is closed and bounded and it does not help.</div></div>
+</div>
+
+<p>The theorem is one-directional. It promises the extremes <em>exist</em>; it says nothing about <em>where</em>. That is why a candidate list is still needed, and why "the EVT does not apply" never means "there is no answer" but only "you have lost the guarantee and must argue".</p>
+
+<h3>Three ways \(f'\) can fail to exist, and all three are critical points</h3>
+
+<div class="tscroll vtab">
+<table class="kinds151">
+<thead><tr><th>kind</th><th>one-sided slopes</th><th>measured on</th></tr></thead>
+<tbody>
+<tr><td class="dl151">corner</td><td>finite and <b>unequal</b></td><td>\(\lvert x^2-1\rvert\) at \(x=1\): \(-2\) and \(+2\)</td></tr>
+<tr><td class="dl151">cusp</td><td>infinite and <b>opposite</b></td><td>\((x^2-4)^{2/3}\) at \(x=2\): \(\to-\infty\) and \(\to+\infty\)</td></tr>
+<tr><td class="dl151">vertical tangent</td><td>infinite and <b>equal</b></td><td>\(x^{1/3}\) at \(x=0\): both \(\to+\infty\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn151">A <b>centred</b> difference quotient cannot see any of them. At the cusp of \((x^2+2x)^{2/3}\) it returns \(5.3\times 10^{-5}\) while both one-sided slopes exceed 150 in magnitude, an understatement by a factor above a million. At a corner it returns the <b>average</b> of the two slopes, which is exactly zero only when the corner is symmetric; on an asymmetric one it returns 1.5, which is neither slope. Test one-sided slopes separately.</p>
+</section>
+
+<section>
+<h2><span class="sn151">04</span> Part (a), worked</h2>
+
+<p>\(x^{5/3}\) and \(x^{4/3}\) are continuous for every real \(x\), because the cube root is, and \([-1,20]\) is closed and bounded. The theorem applies, so both extremes exist.</p>
+
+<div class="disp151">$$f'(x) = \tfrac{10}{3}x^{2/3} - \tfrac{20}{3}x^{1/3} = \tfrac{10}{3}\,x^{1/3}\!\left(x^{1/3} - 2\right)$$</div>
+
+<p>So \(x^{1/3} = 0\) or \(x^{1/3} = 2\), giving \(x = 0\) and \(x = 8\). The substitution \(t = x^{1/3}\) is worth naming: it turns the whole family into a polynomial, \(f = 2t^5 - 5t^4\) with \(\mathrm{d}f/\mathrm{d}t = 10t^3(t-2)\), and because \(t = x^{1/3}\) is increasing it preserves the order of the values, so the comparison could be done in \(t\) too.</p>
+
+<p><b>Step 4, and this is the step the course notes get wrong.</b> Every power of \(x\) in \(f'\) is positive, \(2/3\) and \(1/3\). There is no denominator and no negative power, so <b>\(f'\) is defined everywhere and there are no cusps, corners or vertical tangents.</b> The one-sided difference quotients at \(x=0\) have closed forms,</p>
+
+<div class="disp151">$$\frac{f(h)-f(0)}{h} = -5h^{1/3} + 2h^{2/3}, \qquad \frac{f(0)-f(-h)}{h} = +5h^{1/3} + 2h^{2/3}$$</div>
+
+<p>both confirmed to \(10^{-14}\) over a ladder from \(h=10^{-3}\) down to \(10^{-30}\). They approach zero from <b>opposite sides</b> and agree in the limit, which is what "differentiable at 0, with \(f'(0)=0\)" means. Note the rate: each factor-of-1000 cut in \(h\) divides the quotient by only <b>10</b>, because the convergence is \(O(h^{1/3})\). That is why a spot check at \(h=10^{-6}\) shows a slope of \(-0.0498\) and looks like it is not converging at all.</p>
+
+<p>The general rule is worth carrying: <b>an exponent below 1 gives you an undefined derivative and an exponent above 1 does not.</b> Part (a)'s exponents are \(5/3\) and \(4/3\), both above 1, which is why its cusp box is empty. Q15.5's are \(2/3\), which is why its is not.</p>
+
+<div class="tscroll vtab">
+<table class="cand151">
+<thead><tr><th>\(x\)</th><th>why it is a candidate</th><th>\(f(x)\) exact</th><th>\(f(x)\)</th></tr></thead>
+<tbody>
+<tr><td class="mono151">\(-1\)</td><td class="endw151">left endpoint</td><td>\(2(-1) - 5(1)\)</td><td class="mono151">\(-7\)</td></tr>
+<tr><td class="mono151">\(0\)</td><td class="critw151">\(f' = 0\)</td><td>\(0\)</td><td class="mono151">\(0\)</td></tr>
+<tr><td class="mono151">\(8\)</td><td class="critw151">\(f' = 0\)</td><td>\(2(32) - 5(16)\)</td><td class="mono151 wint151">\(-16\) &#160;MIN</td></tr>
+<tr><td class="mono151">\(20\)</td><td class="endw151">right endpoint</td><td>\(40\cdot 20^{2/3} - 100\cdot 20^{1/3}\)</td><td class="mono151 wint151">\(23.2807582317\) &#160;MAX</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>That last value has three equivalent exact spellings, all confirmed equal to \(10^{-11}\):</p>
+
+<div class="disp151">$$2\cdot 20^{5/3} - 5\cdot 20^{4/3} \;=\; 40\cdot 20^{2/3} - 100\cdot 20^{1/3} \;=\; 20\sqrt[3]{20}\left(2\sqrt[3]{20} - 5\right)$$</div>
+
+<h3>Step 9, the sign chart</h3>
+
+<div class="tscroll vtab">
+<table class="sgn151">
+<thead><tr><th>interval</th><th>\(x^{1/3}\)</th><th>\(x^{1/3}-2\)</th><th>\(f'\)</th><th>\(f\)</th></tr></thead>
+<tbody>
+<tr><td class="mono151">\((-1,\,0)\)</td><td>negative</td><td>negative</td><td class="pos151">positive</td><td>increasing</td></tr>
+<tr><td class="mono151">\((0,\,8)\)</td><td>positive, below 2</td><td>negative</td><td class="neg151">negative</td><td>decreasing</td></tr>
+<tr><td class="mono151">\((8,\,20)\)</td><td>above 2</td><td>positive</td><td class="pos151">positive</td><td>increasing</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>So \(x=0\) is a <b>local maximum</b> with value 0, and \(x=8\) is a <b>local minimum</b> with value \(-16\). The endpoints are one-sided local extremes. Two sign changes, two interior extremes, and the intervals tile \([-1,20]\) breaking only at the critical points.</p>
+
+<p class="warn151">The second-derivative test would have been a poor choice here. \(f''(x) = \frac{20}{9}x^{-1/3} - \frac{20}{9}x^{-2/3}\) <b>blows up at \(x=0\)</b>, the very point you most want classified, so the test is unusable there. It does work at \(x=8\), where \(f''(8) = \frac{5}{9} &gt; 0\). The sign chart handles both points with one piece of machinery.</p>
+
+<p class="note">One extra fact that explains the shape. \(f(x) = x^{4/3}\left(2x^{1/3}-5\right)\) is zero at \(x=0\) and where \(x^{1/3} = 5/2\), that is \(x = 125/8 = 15.625\). The curve dips below the axis after the origin, bottoms out at \((8,-16)\), and climbs back through zero at 15.625 before reaching 23.2808. That single number is why the maximum is at the endpoint: the interval reaches past it.</p>
+</section>
+
+<section>
+<h2><span class="sn151">05</span> Part (b), and the critical point that wins nothing</h2>
+
+<p>\(f'(x) = 1 - \sin x\), defined everywhere, and zero exactly where \(\sin x = 1\), that is \(x = \frac{\pi}{2} + 2k\pi\). The interval is only \(3\pi\) long, so exactly one of those lands inside it: \(k=0\), giving \(x = \pi/2\). (\(k=-1\) gives \(-3\pi/2 &lt; -\pi\); \(k=1\) gives \(5\pi/2 &gt; 2\pi\).)</p>
+
+<div class="tscroll vtab">
+<table class="cand151">
+<thead><tr><th>\(x\)</th><th>why</th><th>\(f(x)\) exact</th><th>\(f(x)\)</th></tr></thead>
+<tbody>
+<tr><td class="mono151">\(-\pi\)</td><td class="endw151">left endpoint</td><td>\(-\pi - 1\)</td><td class="mono151 wint151">\(-4.1415926536\) &#160;MIN</td></tr>
+<tr><td class="mono151">\(\pi/2\)</td><td class="critw151">\(f' = 0\)</td><td>\(\pi/2\)</td><td class="mono151">\(1.5707963268\)</td></tr>
+<tr><td class="mono151">\(2\pi\)</td><td class="endw151">right endpoint</td><td>\(2\pi + 1\)</td><td class="mono151 wint151">\(7.2831853072\) &#160;MAX</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>The sentence that earns the marks:</b> \(\sin x \le 1\) for every \(x\), so \(f'(x) = 1 - \sin x \ge 0\) everywhere, with equality only at \(\pi/2\). Therefore \(f\) is increasing on the whole interval, confirmed over 5,000 consecutive sample pairs. The critical point \(\pi/2\) is a horizontal tangent that is <b>neither a maximum nor a minimum</b>, and its value sits strictly between the two endpoint values. There are no local extremes in the interior at all.</p>
+
+<p>The second-derivative test is silent, and structurally so: \(f''(x) = -\cos x\) and \(f''(\pi/2) = 0\). What settles it is the sign chart, or the third derivative, \(f'''(x) = \sin x\) with \(\sin(\pi/2) = 1 \ne 0\), which makes \(\pi/2\) an inflection point.</p>
+
+<h3>Why you cannot find this critical point by looking</h3>
+
+<p>A <b>sign-change</b> census of \(f'\) over \([-\pi,2\pi]\) returns <b>zero</b> critical points at every resolution tried, from 37 subintervals up to 99,999, because \(f'\) never changes sign. That is Q14.1's finding recurring exactly, and it is why the verification here needed a third arm: a search for local minima of \(\lvert f'\rvert\) refined by golden section, which is the only one of the three that finds \(\pi/2\).</p>
+
+<p class="warn151">And there is a coincidence in this particular interval that sharpens the point rather than softening it. <b>\(\pi/2\) is exactly the midpoint of \([-\pi, 2\pi]\)</b>, since \(\left(\pi/2 + \pi\right) / 3\pi = 1/2\) precisely. So any grid with an <b>even</b> number of subintervals lands on it, \(1 - \sin x\) evaluates to a hard zero, and a value-scan "finds" it. Any <b>odd</b> grid misses it entirely and reports a strictly positive minimum. The verdict of a sampling test on part (b) is decided by the <b>parity of the grid</b>. Solve \(\sin x = 1\) instead.</p>
+</section>
+
+<section>
+<h2><span class="sn151">06</span> What the rest of category 15 adds</h2>
+
+<p>Q15.1 opens the five-question extreme-values and optimization block, the largest remaining group in the bank. Its job is to own four things, because every later question assumes them: the closed-interval method itself, the theorem that guarantees an answer exists, the local-versus-absolute distinction, and the value-versus-point vocabulary. Given those, <b>each later question is exactly one increment</b>.</p>
+
+<div class="tscroll vtab">
+<table class="cat151">
+<thead><tr><th>question</th><th>what it ADDS on top of Q15.1</th><th>verified answer</th></tr></thead>
+<tbody>
+<tr><td class="dl151"><b>Q15.2</b><br>rectangle of least perimeter<br><span class="pt151">F1 item 6 &#183; 6 pts</span></td><td>the domain is <b>open</b>, \((0,\infty)\), so there are <b>no endpoints to test</b> and the theorem does not apply</td><td>\(P = 2w + 440/w\) is unbounded at both ends, so a second-derivative or sign argument replaces the comparison. \(w = \sqrt{220}\), a square, \(P_{\min} = 8\sqrt{55} \approx 59.3296\), and there is <b>no maximum</b>.</td></tr>
+<tr><td class="dl151"><b>Q15.3</b><br>absolute extremes by the EVT<br><span class="pt151">F2 item 3 &#183; 8 pts</span></td><td>nothing new; it is Q15.1's method on a clean function, and it names the theorem in the stem</td><td>\(1/(x^2+1)\) on \([-1,1]\): max \(1\) at \(x=0\), min \(1/2\) at <b>both</b> endpoints. One value, two points.</td></tr>
+<tr><td class="dl151"><b>Q15.4</b><br>cheapest rectangular box<br><span class="pt151">F2 item 5 &#183; 10 pts</span></td><td><b>two</b> constraints to eliminate before differentiating, and an open domain again</td><td>\(C(w) = 5.4w^2 + 432/w\), \(w = \sqrt[3]{40} \approx 3.4200\) cm, \(l \approx 6.8399\) cm, \(h \approx 5.1299\) cm, minimum cost \(16.2\cdot 40^{2/3} \approx 189.4763\) dollars.</td></tr>
+<tr><td class="dl151"><b>Q15.5</b><br>extremes with a cusp<br><span class="pt151">F2 item 7 &#183; 6 pts</span></td><td>critical points where <b>\(f'\) is undefined</b>, which is the one box Q15.1 gets to leave empty</td><td>\((x^2+2x)^{2/3}\) on \([-2,3]\): cusps at \(x=-2\) and \(x=0\), max \(15^{2/3} \approx 6.0822\) at \(x=3\), min \(0\) at <b>two</b> points.</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read that as the category's shape. <b>Two of the four later questions remove the endpoints, one repeats the method verbatim, and one adds the undefined-derivative critical point.</b> Nothing else is coming. The block is worth <b>41 points</b> in total, 11 + 6 + 8 + 10 + 6, split 17 on Final Exam 1 and 24 on Final Exam 2 - and the three CLOSED-INTERVAL questions are 25 of the 41, more than the optimization pair.</p>
+</section>
+
+<section>
+<h2><span class="sn151">07</span> The wrong-answer census</h2>
+
+<p>Ten mutilations of the candidate list were scanned across the two parts, with nothing excluded as degenerate. <b>Four of them HIDE</b>, producing the identical absolute answer, and <b>six SHOW</b>. Knowing which is which is what stops you trusting a spot check.</p>
+
+<div class="tscroll vtab">
+<table class="cens151">
+<thead><tr><th>mutilation</th><th>part (a)</th><th>part (b)</th></tr></thead>
+<tbody>
+<tr><td class="dl151">drop the <b>right</b> endpoint</td><td class="bad151">max becomes 0 at \(x=0\), wrong by 23.28</td><td class="bad151">max becomes \(\pi/2\), wrong</td></tr>
+<tr><td class="dl151">drop the <b>left</b> endpoint</td><td class="hid151">HIDES, same answer</td><td class="bad151">min becomes \(\pi/2\), wrong</td></tr>
+<tr><td class="dl151">miss the critical point \(x=0\)</td><td class="hid151">HIDES</td><td class="nap151">n/a</td></tr>
+<tr><td class="dl151">miss the critical point \(x=8\)</td><td class="bad151">min becomes \(-7\) at \(x=-1\)</td><td class="nap151">n/a</td></tr>
+<tr><td class="dl151">miss the critical point \(\pi/2\)</td><td class="nap151">n/a</td><td class="hid151">HIDES, it was never an extreme</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn151">So on part (a) <b>only one of the two endpoint omissions is fatal</b>, and on part (b) <b>both are</b>. That asymmetry is the pair's design, and it is the argument for writing both endpoints down every time rather than deciding case by case.</p>
+
+<p>Two more slips hide completely and are worth knowing about anyway. Reading \((-1)^{4/3}\) as \(-1\) makes \(f(-1) = +3\) instead of \(-7\), and 3 sits harmlessly between \(-16\) and 23.28. Adding a spurious critical point at \(3\pi/2\), from solving \(\sin x = 1\) as \(\sin x = -1\), puts 4.7124 on the list, also harmlessly interior. A slip that hides is still a slip, and on a different interval either would cost the answer.</p>
+</section>
+
+<section>
+<h2><span class="sn151">08</span> The variation catalog</h2>
+
+<p>Ten families, grouped by <b>the tool the variation forces</b> rather than by how the function looks. Every instance was solved twice: once by the candidate list, and once by a formula-blind dense sweep with a golden-section refinement that never sees the candidate list. Read the tables as structure: the whole catalog produces only four <em>shapes</em> of answer, and the family tells you which shape to expect.</p>
+
+<div class="tscroll fscroll">
+<table class="fam151">
+<thead><tr><th>family</th><th>trigger</th><th>tool it forces</th><th>verified instances</th></tr></thead>
+<tbody>
+<tr><td class="fh151">0<br>polynomial</td><td>a polynomial and an interval</td><td>\(f'=0\), then compare. Nothing else.</td><td>\(x^3-3x\) on \([-2,3]\): max 18 at \(x=3\), min \(-2\) at \(x=-2\) AND \(x=1\). &#160;\(2x^3-9x^2+12x\) on \([0,3]\): 9 and 0, both at endpoints. &#160;\(1/x\) on \([1,4]\): 1 and \(1/4\), with <b>no critical points at all</b>.</td></tr>
+<tr><td class="fh151">1<br>fractional exponents</td><td>exponents \(5/3\), \(4/3\), \(2/3\), \(1/3\)</td><td>substitute \(t = x^{1/3}\); evaluate negatives as "cube root first"</td><td>the exam. &#160;Same function on \([-1,8]\): max moves to the INTERIOR, 0 at \(x=0\). &#160;\(3x^{5/3}-15x^{2/3}\) on \([-1,8]\): 36 and \(-18\), and here \(f'\) IS undefined at 0.</td></tr>
+<tr><td class="fh151">2<br>the touch zero</td><td>\(f'\) with a repeated root, or \(1 + A\cos x\) with \(\lvert A\rvert = 1\)</td><td>a sign chart, never a second-derivative test</td><td>the exam. &#160;\(x+\sin x\) on \([-\pi,2\pi]\). &#160;\(x + 2\cos x\) on \([0,2\pi]\): interior min \(\frac{5\pi}{6}-\sqrt3 \approx 0.885943\). &#160;\(x + \frac12\sin x\) on \([-\pi,\pi]\): no critical points. &#160;\(x^4-4x^3\) on \([-1,4]\): 5 and \(-27\), with \(x=0\) critical and neither.</td></tr>
+<tr><td class="fh151">3<br>\(f'\) undefined</td><td>absolute value, exponent in \((0,1)\), odd root</td><td>add the undefined points to the list; you need not know which kind it is</td><td>\((x^2-4)^{2/3}\) on \([-3,3]\): \(5^{2/3} \approx 2.924018\) at \(x=\pm3\), 0 at \(x=\pm2\). &#160;\(\lvert x^2-1\rvert\) on \([-2,2]\): 3 and 0, both tied. &#160;\(x^{1/3}\) on \([-1,8]\): a vertical tangent that is not an extreme.</td></tr>
+<tr><td class="fh151">4<br>ties</td><td>even function on a symmetric interval; a periodic one over several periods</td><td>the same method; the write-up changes, not the arithmetic</td><td>\(1/(x^2+1)\) on \([-1,1]\): min at BOTH endpoints, which is Q15.3. &#160;\(x^2\) on \([-3,3]\): max at \(x=\pm3\). &#160;\(\cos x\) on \([-2\pi,2\pi]\): max at THREE points, min at TWO.</td></tr>
+<tr><td class="fh151">5<br>rational</td><td>a quotient</td><td>quotient rule, numerator \(=0\), and check the denominator does not vanish inside</td><td>\(x/(x^2+1)\) on \([0,3]\): \(1/2\) and 0. &#160;on \([-3,3]\): \(\pm 1/2\). &#160;\((x^2+1)/x\) on \([0.5,4]\): 4.25 and 2. &#160;<b>The trap:</b> the same on \([-1,4]\) has a pole at 0, so \(f\) is discontinuous, the theorem fails, and there is no maximum.</td></tr>
+<tr><td class="fh151">6<br>open domain</td><td>a word problem with no interval printed: "smallest perimeter", "cheapest", "largest area"</td><td>derive the domain, notice it is open, and replace the comparison with \(f''\) or a sign chart plus a statement about the ends</td><td>Q15.2: min \(8\sqrt{55} \approx 59.3296\), no maximum. &#160;Q15.4: min \(16.2\cdot 40^{2/3} \approx 189.4763\). &#160;Fixed perimeter 40, max area 100 at \(w=10\), and no minimum. &#160;<b>Control:</b> \(2w+440/w\) on the CLOSED \([1,100]\) has a maximum, 442 at \(w=1\).</td></tr>
+<tr><td class="fh151">7<br>trigonometric</td><td>\(\sin\), \(\cos\), \(\tan\) with an interval</td><td>solve the equation, then keep only the solutions inside the interval</td><td>\(\sin x + \cos x\) on \([0,\pi]\): \(\sqrt2\) and \(-1\). &#160;\(\sin 2x\) on \([0,\pi]\): \(\pm 1\). &#160;\(x - 2\sin x\) on \([0,2\pi]\): BOTH extremes interior, \(\frac{5\pi}{3}+\sqrt3 \approx 6.968039\) beating the endpoint \(2\pi\).</td></tr>
+<tr><td class="fh151">8<br>the interval is the variable</td><td>the same function twice with different intervals</td><td>nothing new, but realise the critical points belong to \(f\) and the ANSWER belongs to \(f\) and the interval</td><td>part (a)'s own function: on \([-1,15]\) the max is interior at \(x=0\); on \([-1,125/8]\) it is TIED; on \([-1,20]\) it is the right endpoint. <b>Three answers, one function</b>, switching at \(x = 15.625\).</td></tr>
+<tr><td class="fh151">9<br>hypotheses fail</td><td>half-open or infinite interval; a jump or a pole inside</td><td>name the hypothesis that failed and say what is no longer guaranteed</td><td>\(x\) on \([0,1)\): min exists, no max. &#160;\(x\) on \([0,\infty)\): no max. &#160;\(x\) on \([0,1)\) with \(f(1)=0\): closed interval, still no max. &#160;\(1/x\) on \([-1,1]\): neither.</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>The amplitude bifurcation, and the exam sits exactly on it</h3>
+
+<p>Family 2's members are all \(f' = 1 + A\cos x\), which vanishes when \(\cos x = -1/A\) and is therefore solvable only when \(\lvert A\rvert \ge 1\). Counting sign changes over \([-\pi,2\pi]\):</p>
+
+<div class="pgrid bif151">
+  <div class="pcard"><div class="pk">\(\lvert A\rvert &lt; 1\)</div><div class="pv151"><b>0</b> sign changes. No critical points at all. Drill 4.</div></div>
+  <div class="pcard"><div class="pk">\(\lvert A\rvert = 1\)</div><div class="pv151"><b>0</b> sign changes. Critical points exist and are <b>not</b> extremes. <b>Q15.1(b) and Q14.1(b) are both here.</b></div></div>
+  <div class="pcard"><div class="pk">\(\lvert A\rvert &gt; 1\)</div><div class="pv151"><b>3</b> sign changes, not 2, because the interval is 1.5 periods long. Genuine max and min pairs. Drill 3.</div></div>
+</div>
+
+<p class="note">\(x + \sin x\) is Q14.1's part (b) and \(x + \cos x\) is Q15.1's, one item further down the same paper. Two adjacent items on Final Exam 1 use the same shape of function, which makes the line-plus-oscillation family the highest-value drill in the topic.</p>
+</section>
+
+<section>
+<h2><span class="sn151">09</span> The trap list</h2>
+
+<p>Ranked by how often each actually costs marks. Every entry was measured, not guessed.</p>
+
+<ol class="traps151">
+<li><span><b>Leaving an endpoint off the candidate list.</b> The question's designed failure. On part (a) dropping the right endpoint costs the whole maximum; on part (b) dropping either endpoint costs an answer. Write both ends first.</span></li>
+<li><span><b>Reporting the point as if it were the value.</b> "The maximum is 20" instead of 23.2808. The wrong answer is only <b>14.1 percent</b> below the right one on part (a) and off by <b>exactly 1</b> on part (b), so no magnitude check will save you.</span></li>
+<li><span><b>Assuming a critical point must be an extreme.</b> Calling \(\pi/2\) a maximum on part (b) is 5.712 below the truth. It is the one classification error there that changes the answer.</span></li>
+<li><span><b>Never looking for points where \(f'\) is undefined.</b> Part (a) has none, which is why writing "\(f'\) is defined for all \(x\)" is cheap and correct. Q15.5 has two, and drill 2 has one.</span></li>
+<li><span><b>Getting \((-1)^{4/3}\) wrong.</b> Cube root first: \((-1)^{5/3} = -1\) and \((-1)^{4/3} = +1\). Odd numerator keeps the sign, even numerator kills it. In floating point the naive decimal exponent returns a <b>complex</b> number whose modulus is right and whose value is wrong.</span></li>
+<li><span><b>Solving \(x^{1/3} = 2\) as \(x = 6\).</b> \(f(6) = -14.890491\), which is 1.11 above the true minimum, so this one does show.</span></li>
+<li><span><b>Reaching for the second-derivative test.</b> Unusable at part (a)'s \(x=0\) where \(f''\) blows up, silent at part (b)'s \(\pi/2\) where \(f''=0\). The closed-interval method needs no derivative test, and the sign chart does step 9 for both parts.</span></li>
+<li><span><b>Reading \(f''=0\) as "an inflection, therefore not an extreme".</b> On part (b) that reaches the right conclusion by luck. It is invalid in general: \(x^4\) has \(f''(0)=0\) and a genuine minimum.</span></li>
+<li><span><b>Forgetting a tie.</b> When a value is attained at more than one point, name every one. Three of the twelve drills tie, and so does Q15.3.</span></li>
+<li><span><b>Confusing "all maxima and minima" with "the absolute extreme values".</b> The first needs step 9 and the second does not. The stem wording is the instruction.</span></li>
+</ol>
+</section>
+
+<section>
+<h2><span class="sn151">10</span> Drill set</h2>
+
+<p>Do these without the key, then score <b>sign</b> separately from <b>magnitude</b> and both separately from <b>whether you named the point as well as the value</b>. The three failure modes need different remediation: a sign error is the arithmetic of a negative fractional power, a magnitude error is the candidate list, and a missing point is the write-up.</p>
+
+<div class="tscroll fscroll">
+<table class="dr151">
+<thead><tr><th>#</th><th>problem</th><th>max value</th><th>at</th><th>min value</th><th>at</th><th>family and method</th></tr></thead>
+<tbody>
+<tr><td class="mono151">1</td><td>\(x^3-3x\) on \([-2,3]\)</td><td class="mono151">18</td><td class="mono151">\(x=3\)</td><td class="mono151">\(-2\)</td><td class="mono151 tie151">\(x=-2\) and \(x=1\)</td><td>F0, plain polynomial, <b>tied minimum</b></td></tr>
+<tr><td class="mono151">2</td><td>\(3x^{5/3}-15x^{2/3}\) on \([-1,8]\)</td><td class="mono151">36</td><td class="mono151">\(x=8\)</td><td class="mono151">\(-18\)</td><td class="mono151">\(x=-1\)</td><td>F1, \(f'\) <b>undefined</b> at 0; interior values 0 and \(-14.286609\) both lose</td></tr>
+<tr><td class="mono151">3</td><td>\(x + 2\cos x\) on \([0,2\pi]\)</td><td class="mono151">8.283185</td><td class="mono151">\(x=2\pi\)</td><td class="mono151">0.885943</td><td class="mono151">\(x=\frac{5\pi}{6}\)</td><td>F2 with \(\lvert A\rvert&gt;1\), genuine interior minimum</td></tr>
+<tr><td class="mono151">4</td><td>\(x + \frac12\sin x\) on \([-\pi,\pi]\)</td><td class="mono151">\(\pi\)</td><td class="mono151">\(x=\pi\)</td><td class="mono151">\(-\pi\)</td><td class="mono151">\(x=-\pi\)</td><td>F2 with \(\lvert A\rvert&lt;1\), <b>no critical points</b></td></tr>
+<tr><td class="mono151">5</td><td>\((x^2-4)^{2/3}\) on \([-3,3]\)</td><td class="mono151">2.924018</td><td class="mono151 tie151">\(x=\pm3\)</td><td class="mono151">0</td><td class="mono151 tie151">\(x=\pm2\)</td><td>F3 cusps, <b>both</b> answers tied</td></tr>
+<tr><td class="mono151">6</td><td>\(x/(x^2+1)\) on \([0,3]\)</td><td class="mono151">\(1/2\)</td><td class="mono151">\(x=1\)</td><td class="mono151">0</td><td class="mono151">\(x=0\)</td><td>F5 rational, numerator \(1-x^2\)</td></tr>
+<tr><td class="mono151">7</td><td>\(\lvert x^2-1\rvert\) on \([-2,2]\)</td><td class="mono151">3</td><td class="mono151 tie151">\(x=\pm2\)</td><td class="mono151">0</td><td class="mono151 tie151">\(x=\pm1\)</td><td>F3 corners, <b>both</b> answers tied</td></tr>
+<tr><td class="mono151">8</td><td>\(2x^3-9x^2+12x\) on \([0,3]\)</td><td class="mono151">9</td><td class="mono151">\(x=3\)</td><td class="mono151">0</td><td class="mono151">\(x=0\)</td><td>F0, both extremes at endpoints</td></tr>
+<tr><td class="mono151">9</td><td>\(x^4-4x^3\) on \([-1,4]\)</td><td class="mono151">5</td><td class="mono151">\(x=-1\)</td><td class="mono151">\(-27\)</td><td class="mono151">\(x=3\)</td><td>F2 touch zero; \(x=0\) is critical and <b>neither</b></td></tr>
+<tr><td class="mono151">10</td><td>\(\sin x + \cos x\) on \([0,\pi]\)</td><td class="mono151">1.414214</td><td class="mono151">\(x=\pi/4\)</td><td class="mono151">\(-1\)</td><td class="mono151">\(x=\pi\)</td><td>F7 trig</td></tr>
+<tr><td class="mono151">11</td><td>\(1/x\) on \([1,4]\)</td><td class="mono151">1</td><td class="mono151">\(x=1\)</td><td class="mono151">\(1/4\)</td><td class="mono151">\(x=4\)</td><td>F0, <b>no critical points at all</b></td></tr>
+<tr><td class="mono151">12</td><td>\(x^{1/3}\) on \([-1,8]\)</td><td class="mono151">2</td><td class="mono151">\(x=8\)</td><td class="mono151">\(-1\)</td><td class="mono151">\(x=-1\)</td><td>F3 vertical tangent at 0, <b>not</b> an extreme</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="pgrid shape151">
+  <div class="pcard"><div class="pk">FAMILIES USED</div><div class="pv151"><b>six</b> of the ten: F0, F1, F2, F3, F5, F7</div></div>
+  <div class="pcard"><div class="pk">WITH A TIE</div><div class="pv151"><b>three</b> &#183; numbers 1, 5 and 7</div></div>
+  <div class="pcard"><div class="pk">NO CRITICAL POINTS</div><div class="pv151"><b>two</b> &#183; numbers 4 and 11</div></div>
+  <div class="pcard"><div class="pk">CRITICAL BUT NOT EXTREME</div><div class="pv151"><b>two</b> &#183; numbers 9 and 12</div></div>
+  <div class="pcard"><div class="pk">EXTREME AT AN ENDPOINT</div><div class="pv151"><b>all twelve</b></div></div>
+  <div class="pcard"><div class="pk">WHY THAT LAST ONE MATTERS</div><div class="pv151">if the answers lived at interior critical points you could skip the ends. They do not.</div></div>
+</div>
+</section>
+
+<section>
+<h2><span class="sn151">11</span> Writing the answer down</h2>
+
+<div class="pgrid ent151">
+  <div class="pcard ok151"><div class="pk">DO</div><div class="pv151">give the <b>value</b> when asked for a maximum or minimum, and add the point separately as \(x=20\) or \((20,\,23.2808)\)</div></div>
+  <div class="pcard no151"><div class="pk">DO NOT</div><div class="pv151">give the \(x\) where it happens and call that the maximum</div></div>
+  <div class="pcard ok151"><div class="pk">DO</div><div class="pv151">bracket every fractional exponent: <span class="kbd">40*20^(2/3)-100*20^(1/3)</span></div></div>
+  <div class="pcard no151"><div class="pk">DO NOT</div><div class="pv151">write <span class="kbd">40*20^2/3</span>, which is read as \((40\cdot 400)/3\)</div></div>
+  <div class="pcard ok151"><div class="pk">DO</div><div class="pv151">write <span class="kbd">2*pi+1</span> and <span class="kbd">-pi-1</span> with the explicit multiplication sign</div></div>
+  <div class="pcard no151"><div class="pk">DO NOT</div><div class="pv151">list one point when a value is attained at two</div></div>
+</div>
+
+<p class="warn151"><b>The single most expensive typo</b> is the missing bracket in a fractional exponent. <span class="kbd">20^(4/3)</span> is 54.288 and <span class="kbd">20^4/3</span> is 53,333.3, a factor of about a thousand, and the marker records the second one as wrong without comment. Both exams are answer-only and machine-marked, so <b>always preview</b>.</p>
+</section>
+
+<section>
+<h2><span class="sn151">12</span> Provenance, and what was verified</h2>
+
+<div class="pgrid prov151">
+  <div class="pcard"><div class="pk">PAPER</div><div class="pv151">Final Exam 1, item 5</div></div>
+  <div class="pcard"><div class="pk">WEIGHT</div><div class="pv151">11 points, printed inline at the end of the stem per the F1 convention</div></div>
+  <div class="pcard"><div class="pk">SHARE</div><div class="pv151">11 of <b>124</b>, that is <b>8.871</b> percent</div></div>
+  <div class="pcard"><div class="pk">RANK</div><div class="pv151">F1's <b>fourth</b> heaviest item; exactly three outrank it and all three are 20-pointers</div></div>
+  <div class="pcard"><div class="pk">CLAUSES</div><div class="pv151">F1 carries <b>zero</b> "no credit" clauses. Its one "you may not need to simplify" is on item 1, not item 5.</div></div>
+  <div class="pcard"><div class="pk">ITEM 5'S BLOCK</div><div class="pv151">no "show your work", no hint, no simplification permission: the stem plus the two functions</div></div>
+</div>
+
+<p>F1's fourteen point values, re-parsed from the paper this run: 20, 8, 6, 20, 11, 6, 5, 20, 5, 8, 4, 3, 5, 3, summing to <b>124</b>, which confirms the standing record for the seventh time. The stem sentence is byte-identical in the bank and the paper; the paper writes the exponents with <span class="kbd">\frac</span> and puts the sentence period outside the math, the bank uses a slash and puts it inside. Quote the paper.</p>
+
+<h3>The course files</h3>
+
+<p><code class="mono151">MATH265_Review.md</code> has a dedicated section headed "ABSOLUTE EXTREMA ON CLOSED INTERVAL (Q5 - 11 pts)", whose heading independently confirms the point value, and it states the method correctly there. Four defects were found and each was verified:</p>
+
+<ol class="def151">
+<li><span><b>It says \(x=0\) is a critical point of part (a) because "\(f'\) undefined".</b> That is false: \(f'(0)=0\) and is well defined, proved by the one-sided quotient ladder in section 04. The defect <b>hides</b>, because the wrong reason still yields the right critical point, so this exam question cannot discriminate the broken rule from the correct one. A hiding point can belong to a <em>rule</em> and not only to a formula.</span></li>
+<li><span><b>It stops before the arithmetic.</b> It says "Evaluate at \(x = -1, 0, 8, 20\)" and computes nothing. The value \(-16\) appears <b>zero</b> times in the whole file, and so does 23.28. Seventh consecutive category where the notes stop before the number.</span></li>
+<li><span><b>For part (b) it finds \(\pi/2\) and never says it is not an extreme</b>, and never says \(1-\sin x \ge 0\). That single sentence is part (b)'s entire content.</span></li>
+<li><span><b>Its section-5 statement of the method omits the continuity hypothesis</b> entirely, though two of its other three statements include it.</span></li>
+</ol>
+
+<p>Its fractional-exponent tip <em>is</em> correct, and gives \((-1)^{5/3}=-1\) and \((-1)^{4/3}=1\) explicitly. Two further conflicts to report: <b>"Q5" names two different questions inside the same file</b>, this one and F2's box problem, and the file never draws the value-versus-point distinction anywhere, so the vocabulary a marker expects is untaught. <code class="mono151">MATH265_Categorized.md</code> is <b>not UTF-8</b>, it is cp1252 and fails to decode at byte 318, and it carries no entry for this topic at all.</p>
+
+<p class="note">Re-verified again this run: <b>zero</b> occurrences of "rubric", "marking scheme" or "part marks" across all four course files. Tenth consecutive run confirming it, so any claim about which sentences earn which marks stays flagged as inference rather than asserted.</p>
+
+<h3>Verification</h3>
+
+<div class="pgrid ver151">
+  <div class="pcard"><div class="pk">ASSERTIONS</div><div class="pv151"><b>726</b> = 338 + 348 + 40, in harness sections <span class="kbd">q151</span>, <span class="kbd">q151d</span> and <span class="kbd">q151p</span></div></div>
+  <div class="pcard"><div class="pk">FAILURES</div><div class="pv151"><b>0</b> in all three sections, and the whole shared harness ran end to end with zero failures anywhere</div></div>
+  <div class="pcard"><div class="pk">SEEDED CONTROLS</div><div class="pv151"><b>86</b> = 68 + 15 + 3, each one proving an assertion can bite</div></div>
+  <div class="pcard"><div class="pk">DOCUMENT CLAIMS</div><div class="pv151">a second pass re-derives every printed number from the markdown and the page; it found real defects the assertion harness cannot see</div></div>
+</div>
+
+<p>What the verification covers: both derivatives formula-blind by complex step and by a Richardson ladder with its order measured; \(f''\) by its own second-difference arm; a <b>three-arm root census</b> controlled in both directions, proved to return two, three, four and zero roots on polynomials with those counts and proved to disagree with itself on a touch zero; the one-sided differentiability of part (a) at \(x=0\) against closed forms over a seven-rung ladder; evaluation at every candidate including both endpoints; a formula-blind dense sweep of 2,000,001 points with golden-section refinement that never sees the candidate list; a cluster count proving each extreme is attained at exactly one point; the ten-case wrong-answer census; the three theorem hypotheses dropped one at a time; provenance parsed from the paper with the byte-order-mark and numbered-line parser traps re-asserted as controls; and every entry of the ten-family catalog and the twelve-problem drill key solved twice.</p>
+
+<p class="note">Companion markdown at <code class="mono151">notes\Q15.1 - All maxima and minima on closed intervals.md</code>. Cited rather than re-derived: Q14.1 for the sign-change census finding and the sketching checklist, Q8.2 for computing \(f''\), Q5.1 to Q5.3 for corners and cusps, Q4.1 for family 5's pole. Computed 2026-09-02.</p>
+</section>
+
+</main>
