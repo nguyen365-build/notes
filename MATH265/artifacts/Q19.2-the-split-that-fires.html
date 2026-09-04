@@ -1,0 +1,696 @@
+<meta charset="utf-8">
+<title>The Split That Fires</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Q19.2 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig192{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig192 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig192 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig192 text{font-family:var(--mono)}
+
+/* ---- Q19.2 page classes. Every invented name carries the 192 suffix so it cannot
+   shadow anything in the inherited token+base prefix. ---- */
+.mast192{padding:56px 22px 26px;border-bottom:1px solid var(--rul)}
+.mast192 h1{margin:8px 0 14px;font-size:clamp(30px,5.2vw,50px);line-height:1.04;
+  letter-spacing:-0.022em;text-wrap:balance}
+.ansbar192{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin-top:26px;
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.acell192{background:var(--surface);padding:15px 17px 17px;display:flex;
+  flex-direction:column;gap:7px;justify-content:flex-start}
+.alab192{font-family:var(--mono);font-size:9.5px;letter-spacing:0.13em;
+  text-transform:uppercase;color:var(--ink3);margin:0}
+.aval192{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.abig192{font-size:18px;color:var(--accent);font-weight:600}
+.snum192{font-family:var(--mono);font-size:0.62em;color:var(--accent);
+  letter-spacing:0.08em;margin-right:12px;vertical-align:0.18em}
+.steps192{list-style:none;counter-reset:s192;padding:0;margin:20px 0 26px;
+  display:flex;flex-direction:column;gap:13px}
+.steps192 li{counter-increment:s192;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:2px;margin:0;padding:0}
+.steps192 li::before{content:counter(s192);font-family:var(--mono);font-size:11px;
+  color:var(--accent);padding-top:3px;grid-column:1}
+.steps192 li>span{grid-column:2;line-height:1.62}
+.traps192{list-style:none;counter-reset:t192;padding:0;margin:18px 0 8px;
+  display:flex;flex-direction:column;gap:11px}
+.traps192 li{counter-increment:t192;display:grid;grid-template-columns:32px minmax(0,1fr);
+  gap:2px;margin:0;padding:0}
+.traps192 li::before{content:counter(t192);font-family:var(--mono);font-size:11px;
+  color:var(--ink3);padding-top:3px;grid-column:1}
+.traps192 li>span{grid-column:2;line-height:1.6}
+.pipe192{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin:22px 0 8px;
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.pc192{background:var(--surface);padding:15px 17px 16px;display:flex;
+  flex-direction:column;gap:9px}
+.pc192 p{margin:0;max-width:none}
+.pc192>p:nth-child(2){overflow-x:auto;font-size:14px}
+.pnum192{font-family:var(--mono);font-size:15px;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.cards192{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin:22px 0 20px;
+  grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+.cd192{background:var(--surface);padding:16px 18px 18px;display:flex;
+  flex-direction:column;gap:10px}
+.cd192 p{margin:0;max-width:none;line-height:1.62}
+.fine192{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--line);
+  padding-top:10px}
+.hot192{border-left:3px solid var(--los);background:var(--sunk);padding:15px 18px;
+  margin:22px 0;border-radius:0 2px 2px 0;display:flex;flex-direction:column;gap:11px}
+.hot192 p{margin:0;max-width:none;line-height:1.62}
+.note192{border-left:3px solid var(--accent);background:var(--sunk);padding:15px 18px;
+  margin:22px 0;border-radius:0 2px 2px 0}
+.note192 p{margin:0;max-width:none;line-height:1.62}
+.disp192{margin:16px 0;overflow-x:auto;max-width:none}
+/* .tscroll is the table-fit gate's markup hook; it must exist as a real rule,
+   not only as a selector the gate looks for. */
+.tscroll,.tscroll192{overflow-x:auto;margin:20px 0;border:1px solid var(--line);
+  border-radius:2px}
+.tab192{width:100%;min-width:660px;border-collapse:collapse;font-size:13px}
+.tabwide192{min-width:1020px}
+.tab192 th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  padding:11px 14px;border-bottom:1px solid var(--rul);background:var(--sunk)}
+.tab192 td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;
+  line-height:1.55;color:var(--ink2)}
+.tab192 tr:last-child td{border-bottom:none}
+.ra192{text-align:right}
+.num192{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fk192{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap}
+/* semantic colours must beat the table cell rule, so name both scopes explicitly */
+.tab192 td.fa192,.fa192{color:var(--fam);font-weight:500}
+.tab192 td.lo192,.lo192{color:var(--los);font-weight:500}
+.tab192 tr.pick192 td{background:var(--sunk)}
+.tab192 code{font-size:11.5px;white-space:nowrap}
+mjx-container:not([display="true"]){display:inline-block!important;margin:0;
+  text-align:left;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+@media (max-width:560px){.mast192{padding:38px 16px 20px}}
+</style>
+<header class="wrap mast192">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 2 &middot; ITEM 8 &middot; 4 POINTS &middot; Q19.2</p>
+  <h1>The Split That Fires</h1>
+  <p class="lede">Q19.1 said the absolute value in $A=\int \lvert f-g\rvert$ is a rule you are told and never see fire. This is the question where it fires. The curves genuinely cross inside the interval, so the region is three pieces, and integrating straight through gives a negative number that becomes a confident wrong answer the moment somebody makes it positive.</p>
+  <div class="ansbar192">
+    <div class="acell192"><p class="alab192">THE QUESTION</p><p class="aval192">Area between $\cos x$ and $y=\tfrac{1}{\sqrt2}$ on $[-\tfrac{\pi}{2},\tfrac{\pi}{2}]$</p></div>
+    <div class="acell192"><p class="alab192">THE ANSWER</p><p class="aval192 abig192">$2\sqrt2-2 \approx 0.8284271247$</p></div>
+    <div class="acell192"><p class="alab192">TYPE INTO M&Ouml;BIUS</p><p class="aval192"><code>2*sqrt(2)-2</code></p></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="snum192">01</span> Four decisions, then one antiderivative</h2>
+  <p>The integration in this question is $\int\cos x\,dx=\sin x$ and $\int c\,dx=cx$. Everything that can go wrong goes wrong before that.</p>
+  <ol class="steps192">
+    <li><span><b>Solve for the crossings, as a family.</b> $\cos x = \tfrac{1}{\sqrt2}$ gives $x=\pm\tfrac{\pi}{4}+2k\pi$. Write the whole family down, then keep the members inside the interval. Do not solve for one value.</span></li>
+    <li><span><b>Notice both are strictly interior.</b> $-\tfrac{\pi}{2} &lt; -\tfrac{\pi}{4} &lt; \tfrac{\pi}{4} &lt; \tfrac{\pi}{2}$. That is what forces the split, and it is the only thing separating this question from Q19.1.</span></li>
+    <li><span><b>Decide the orientation on each piece separately</b>, at a point strictly between two knots where $\lvert\cos x-\tfrac{1}{\sqrt2}\rvert$ is not small. Never at a knot: there the difference is zero and the comparison decides nothing.</span></li>
+    <li><span><b>Use the symmetry on purpose.</b> $\cos x-\tfrac{1}{\sqrt2}$ is even, so $\lvert D\rvert$ is even, so do $[0,\tfrac{\pi}{2}]$ and double. Write the 2 down at the moment you use it.</span></li>
+  </ol>
+  <div class="pipe192">
+    <div class="pc192"><p class="alab192">MIDDLE LOBE</p><p>$\displaystyle\int_{-\pi/4}^{\pi/4}\!\Big(\cos x-\tfrac{1}{\sqrt2}\Big)dx=\sqrt2-\tfrac{\pi\sqrt2}{4}$</p><p class="pnum192">0.3034928278</p></div>
+    <div class="pc192"><p class="alab192">EACH OUTER LOBE</p><p>$\displaystyle\int_{\pi/4}^{\pi/2}\!\Big(\tfrac{1}{\sqrt2}-\cos x\Big)dx=\tfrac{\pi\sqrt2}{8}-1+\tfrac{\sqrt2}{2}$</p><p class="pnum192">0.2624671485</p></div>
+    <div class="pc192"><p class="alab192">ADD THE THREE</p><p>$\displaystyle A=2\sqrt2-2$ - the two $\pi\sqrt2/4$ terms cancel exactly</p><p class="pnum192">0.8284271247</p></div>
+  </div>
+</section>
+
+<figure class="figbox fig192">
+  <svg viewBox="0 0 760 400" width="100%" role="img" aria-label="cos x against the line y = 1 over root 2 on minus pi over 2 to pi over 2, with the three pieces of the region shaded">
+<rect x="0" y="0" width="760" height="400" fill="var(--surface)"/>
+<rect x="78.0" y="40.0" width="648.0" height="298.0" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+<line class="gridl" x1="78.00" y1="40.0" x2="78.00" y2="338.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="240.00" y1="40.0" x2="240.00" y2="338.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="402.00" y1="40.0" x2="402.00" y2="338.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="564.00" y1="40.0" x2="564.00" y2="338.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="726.00" y1="40.0" x2="726.00" y2="338.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="313.97" x2="726.0" y2="313.97" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="144.03" x2="726.0" y2="144.03" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="73.65" x2="726.0" y2="73.65" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<polygon class="band192" points="78.00,313.97 79.01,312.79 80.03,311.61 81.04,310.43 82.05,309.25 83.06,308.07 84.07,306.89 85.09,305.71 86.10,304.53 87.11,303.35 88.13,302.18 89.14,301.00 90.15,299.82 91.16,298.64 92.17,297.47 93.19,296.29 94.20,295.11 95.21,293.94 96.23,292.76 97.24,291.59 98.25,290.41 99.26,289.24 100.27,288.07 101.29,286.89 102.30,285.72 103.31,284.55 104.33,283.38 105.34,282.21 106.35,281.04 107.36,279.87 108.37,278.71 109.39,277.54 110.40,276.37 111.41,275.21 112.43,274.04 113.44,272.88 114.45,271.72 115.46,270.56 116.47,269.40 117.49,268.24 118.50,267.08 119.51,265.93 120.53,264.77 121.54,263.62 122.55,262.46 123.56,261.31 124.57,260.16 125.59,259.01 126.60,257.87 127.61,256.72 128.62,255.57 129.64,254.43 130.65,253.29 131.66,252.15 132.67,251.01 133.69,249.87 134.70,248.73 135.71,247.60 136.73,246.47 137.74,245.34 138.75,244.21 139.76,243.08 140.77,241.95 141.79,240.83 142.80,239.70 143.81,238.58 144.83,237.46 145.84,236.35 146.85,235.23 147.86,234.12 148.88,233.01 149.89,231.90 150.90,230.79 151.91,229.68 152.93,228.58 153.94,227.48 154.95,226.38 155.96,225.28 156.97,224.18 157.99,223.09 159.00,222.00 160.01,220.91 161.03,219.82 162.04,218.74 163.05,217.66 164.06,216.58 165.07,215.50 166.09,214.43 167.10,213.35 168.11,212.28 169.12,211.22 170.14,210.15 171.15,209.09 172.16,208.03 173.17,206.97 174.19,205.92 175.20,204.86 176.21,203.81 177.23,202.77 178.24,201.72 179.25,200.68 180.26,199.64 181.27,198.61 182.29,197.57 183.30,196.54 184.31,195.51 185.33,194.49 186.34,193.47 187.35,192.45 188.36,191.43 189.38,190.42 190.39,189.41 191.40,188.40 192.41,187.40 193.43,186.39 194.44,185.40 195.45,184.40 196.46,183.41 197.47,182.42 198.49,181.43 199.50,180.45 200.51,179.47 201.53,178.50 202.54,177.52 203.55,176.55 204.56,175.59 205.58,174.63 206.59,173.67 207.60,172.71 208.61,171.76 209.62,170.81 210.64,169.86 211.65,168.92 212.66,167.98 213.67,167.05 214.69,166.11 215.70,165.19 216.71,164.26 217.72,163.34 218.74,162.42 219.75,161.51 220.76,160.60 221.78,159.69 222.79,158.79 223.80,157.89 224.81,157.00 225.82,156.10 226.84,155.22 227.85,154.33 228.86,153.45 229.87,152.58 230.89,151.70 231.90,150.84 232.91,149.97 233.93,149.11 234.94,148.26 235.95,147.40 236.96,146.55 237.97,145.71 238.99,144.87 240.00,144.03 240.00,144.03 238.99,144.03 237.97,144.03 236.96,144.03 235.95,144.03 234.94,144.03 233.93,144.03 232.91,144.03 231.90,144.03 230.89,144.03 229.87,144.03 228.86,144.03 227.85,144.03 226.84,144.03 225.83,144.03 224.81,144.03 223.80,144.03 222.79,144.03 221.78,144.03 220.76,144.03 219.75,144.03 218.74,144.03 217.72,144.03 216.71,144.03 215.70,144.03 214.69,144.03 213.67,144.03 212.66,144.03 211.65,144.03 210.64,144.03 209.63,144.03 208.61,144.03 207.60,144.03 206.59,144.03 205.57,144.03 204.56,144.03 203.55,144.03 202.54,144.03 201.53,144.03 200.51,144.03 199.50,144.03 198.49,144.03 197.47,144.03 196.46,144.03 195.45,144.03 194.44,144.03 193.43,144.03 192.41,144.03 191.40,144.03 190.39,144.03 189.38,144.03 188.36,144.03 187.35,144.03 186.34,144.03 185.33,144.03 184.31,144.03 183.30,144.03 182.29,144.03 181.27,144.03 180.26,144.03 179.25,144.03 178.24,144.03 177.23,144.03 176.21,144.03 175.20,144.03 174.19,144.03 173.17,144.03 172.16,144.03 171.15,144.03 170.14,144.03 169.12,144.03 168.11,144.03 167.10,144.03 166.09,144.03 165.07,144.03 164.06,144.03 163.05,144.03 162.04,144.03 161.03,144.03 160.01,144.03 159.00,144.03 157.99,144.03 156.97,144.03 155.96,144.03 154.95,144.03 153.94,144.03 152.93,144.03 151.91,144.03 150.90,144.03 149.89,144.03 148.88,144.03 147.86,144.03 146.85,144.03 145.84,144.03 144.83,144.03 143.81,144.03 142.80,144.03 141.79,144.03 140.77,144.03 139.76,144.03 138.75,144.03 137.74,144.03 136.73,144.03 135.71,144.03 134.70,144.03 133.69,144.03 132.67,144.03 131.66,144.03 130.65,144.03 129.64,144.03 128.62,144.03 127.61,144.03 126.60,144.03 125.59,144.03 124.57,144.03 123.56,144.03 122.55,144.03 121.54,144.03 120.53,144.03 119.51,144.03 118.50,144.03 117.49,144.03 116.47,144.03 115.46,144.03 114.45,144.03 113.44,144.03 112.43,144.03 111.41,144.03 110.40,144.03 109.39,144.03 108.37,144.03 107.36,144.03 106.35,144.03 105.34,144.03 104.33,144.03 103.31,144.03 102.30,144.03 101.29,144.03 100.27,144.03 99.26,144.03 98.25,144.03 97.24,144.03 96.23,144.03 95.21,144.03 94.20,144.03 93.19,144.03 92.17,144.03 91.16,144.03 90.15,144.03 89.14,144.03 88.13,144.03 87.11,144.03 86.10,144.03 85.09,144.03 84.07,144.03 83.06,144.03 82.05,144.03 81.04,144.03 80.03,144.03 79.01,144.03 78.00,144.03" fill="var(--los)" fill-opacity="0.55" stroke="var(--los)" stroke-width="0.8" stroke-opacity="0.9"/>
+<polygon class="band192" points="240.00,144.03 242.03,142.37 244.05,140.73 246.07,139.10 248.10,137.49 250.12,135.90 252.15,134.32 254.17,132.77 256.20,131.23 258.23,129.70 260.25,128.20 262.27,126.71 264.30,125.24 266.33,123.79 268.35,122.35 270.38,120.94 272.40,119.54 274.43,118.17 276.45,116.81 278.47,115.47 280.50,114.15 282.53,112.85 284.55,111.56 286.57,110.30 288.60,109.06 290.62,107.84 292.65,106.63 294.67,105.45 296.70,104.29 298.73,103.14 300.75,102.02 302.77,100.92 304.80,99.84 306.83,98.78 308.85,97.74 310.88,96.72 312.90,95.72 314.93,94.74 316.95,93.79 318.97,92.85 321.00,91.94 323.03,91.05 325.05,90.18 327.07,89.33 329.10,88.50 331.12,87.69 333.15,86.91 335.18,86.15 337.20,85.41 339.23,84.69 341.25,83.99 343.27,83.32 345.30,82.67 347.32,82.04 349.35,81.43 351.38,80.85 353.40,80.29 355.43,79.75 357.45,79.23 359.47,78.73 361.50,78.26 363.53,77.81 365.55,77.39 367.57,76.98 369.60,76.60 371.62,76.25 373.65,75.91 375.68,75.60 377.70,75.31 379.73,75.05 381.75,74.80 383.77,74.58 385.80,74.39 387.82,74.21 389.85,74.06 391.88,73.93 393.90,73.83 395.93,73.75 397.95,73.69 399.97,73.66 402.00,73.65 404.03,73.66 406.05,73.69 408.07,73.75 410.10,73.83 412.12,73.93 414.15,74.06 416.18,74.21 418.20,74.39 420.23,74.58 422.25,74.80 424.27,75.05 426.30,75.31 428.32,75.60 430.35,75.91 432.38,76.25 434.40,76.60 436.43,76.98 438.45,77.39 440.48,77.81 442.50,78.26 444.53,78.73 446.55,79.23 448.57,79.75 450.60,80.29 452.62,80.85 454.65,81.43 456.68,82.04 458.70,82.67 460.72,83.32 462.75,83.99 464.77,84.69 466.80,85.41 468.82,86.15 470.85,86.91 472.88,87.69 474.90,88.50 476.93,89.33 478.95,90.18 480.97,91.05 483.00,91.94 485.03,92.85 487.05,93.79 489.07,94.74 491.10,95.72 493.12,96.72 495.15,97.74 497.18,98.78 499.20,99.84 501.23,100.92 503.25,102.02 505.28,103.14 507.30,104.29 509.32,105.45 511.35,106.63 513.38,107.84 515.40,109.06 517.42,110.30 519.45,111.56 521.48,112.85 523.50,114.15 525.52,115.47 527.55,116.81 529.58,118.17 531.60,119.54 533.62,120.94 535.65,122.35 537.68,123.79 539.70,125.24 541.72,126.71 543.75,128.20 545.77,129.70 547.80,131.23 549.83,132.77 551.85,134.32 553.88,135.90 555.90,137.49 557.92,139.10 559.95,140.73 561.97,142.37 564.00,144.03 564.00,144.03 561.97,144.03 559.95,144.03 557.93,144.03 555.90,144.03 553.88,144.03 551.85,144.03 549.83,144.03 547.80,144.03 545.77,144.03 543.75,144.03 541.72,144.03 539.70,144.03 537.67,144.03 535.65,144.03 533.62,144.03 531.60,144.03 529.58,144.03 527.55,144.03 525.53,144.03 523.50,144.03 521.48,144.03 519.45,144.03 517.42,144.03 515.40,144.03 513.38,144.03 511.35,144.03 509.32,144.03 507.30,144.03 505.27,144.03 503.25,144.03 501.23,144.03 499.20,144.03 497.18,144.03 495.15,144.03 493.12,144.03 491.10,144.03 489.07,144.03 487.05,144.03 485.03,144.03 483.00,144.03 480.97,144.03 478.95,144.03 476.93,144.03 474.90,144.03 472.88,144.03 470.85,144.03 468.82,144.03 466.80,144.03 464.77,144.03 462.75,144.03 460.73,144.03 458.70,144.03 456.68,144.03 454.65,144.03 452.62,144.03 450.60,144.03 448.57,144.03 446.55,144.03 444.53,144.03 442.50,144.03 440.47,144.03 438.45,144.03 436.43,144.03 434.40,144.03 432.38,144.03 430.35,144.03 428.32,144.03 426.30,144.03 424.27,144.03 422.25,144.03 420.23,144.03 418.20,144.03 416.18,144.03 414.15,144.03 412.12,144.03 410.10,144.03 408.07,144.03 406.05,144.03 404.03,144.03 402.00,144.03 399.97,144.03 397.95,144.03 395.92,144.03 393.90,144.03 391.88,144.03 389.85,144.03 387.82,144.03 385.80,144.03 383.77,144.03 381.75,144.03 379.73,144.03 377.70,144.03 375.68,144.03 373.65,144.03 371.62,144.03 369.60,144.03 367.57,144.03 365.55,144.03 363.52,144.03 361.50,144.03 359.47,144.03 357.45,144.03 355.43,144.03 353.40,144.03 351.38,144.03 349.35,144.03 347.32,144.03 345.30,144.03 343.28,144.03 341.25,144.03 339.23,144.03 337.20,144.03 335.18,144.03 333.15,144.03 331.12,144.03 329.10,144.03 327.07,144.03 325.05,144.03 323.03,144.03 321.00,144.03 318.97,144.03 316.95,144.03 314.93,144.03 312.90,144.03 310.88,144.03 308.85,144.03 306.83,144.03 304.80,144.03 302.77,144.03 300.75,144.03 298.72,144.03 296.70,144.03 294.67,144.03 292.65,144.03 290.62,144.03 288.60,144.03 286.57,144.03 284.55,144.03 282.53,144.03 280.50,144.03 278.48,144.03 276.45,144.03 274.43,144.03 272.40,144.03 270.38,144.03 268.35,144.03 266.32,144.03 264.30,144.03 262.27,144.03 260.25,144.03 258.23,144.03 256.20,144.03 254.17,144.03 252.15,144.03 250.12,144.03 248.10,144.03 246.08,144.03 244.05,144.03 242.03,144.03 240.00,144.03" fill="var(--fam)" fill-opacity="0.55" stroke="var(--fam)" stroke-width="0.8" stroke-opacity="0.9"/>
+<polygon class="band192" points="564.00,144.03 565.01,144.87 566.03,145.71 567.04,146.55 568.05,147.40 569.06,148.26 570.07,149.11 571.09,149.97 572.10,150.84 573.11,151.70 574.12,152.58 575.14,153.45 576.15,154.33 577.16,155.22 578.17,156.10 579.19,157.00 580.20,157.89 581.21,158.79 582.23,159.69 583.24,160.60 584.25,161.51 585.26,162.42 586.28,163.34 587.29,164.26 588.30,165.19 589.31,166.11 590.33,167.05 591.34,167.98 592.35,168.92 593.36,169.86 594.38,170.81 595.39,171.76 596.40,172.71 597.41,173.67 598.42,174.63 599.44,175.59 600.45,176.55 601.46,177.52 602.48,178.50 603.49,179.47 604.50,180.45 605.51,181.43 606.52,182.42 607.54,183.41 608.55,184.40 609.56,185.40 610.58,186.39 611.59,187.40 612.60,188.40 613.61,189.41 614.62,190.42 615.64,191.43 616.65,192.45 617.66,193.47 618.68,194.49 619.69,195.51 620.70,196.54 621.71,197.57 622.73,198.61 623.74,199.64 624.75,200.68 625.76,201.72 626.77,202.77 627.79,203.81 628.80,204.86 629.81,205.92 630.83,206.97 631.84,208.03 632.85,209.09 633.86,210.15 634.87,211.22 635.89,212.28 636.90,213.35 637.91,214.43 638.92,215.50 639.94,216.58 640.95,217.66 641.96,218.74 642.98,219.82 643.99,220.91 645.00,222.00 646.01,223.09 647.02,224.18 648.04,225.28 649.05,226.38 650.06,227.48 651.08,228.58 652.09,229.68 653.10,230.79 654.11,231.90 655.13,233.01 656.14,234.12 657.15,235.23 658.16,236.35 659.17,237.46 660.19,238.58 661.20,239.70 662.21,240.83 663.23,241.95 664.24,243.08 665.25,244.21 666.26,245.34 667.27,246.47 668.29,247.60 669.30,248.73 670.31,249.87 671.32,251.01 672.34,252.15 673.35,253.29 674.36,254.43 675.38,255.57 676.39,256.72 677.40,257.87 678.41,259.01 679.42,260.16 680.44,261.31 681.45,262.46 682.46,263.62 683.48,264.77 684.49,265.93 685.50,267.08 686.51,268.24 687.52,269.40 688.54,270.56 689.55,271.72 690.56,272.88 691.58,274.04 692.59,275.21 693.60,276.37 694.61,277.54 695.62,278.71 696.64,279.87 697.65,281.04 698.66,282.21 699.67,283.38 700.69,284.55 701.70,285.72 702.71,286.89 703.73,288.07 704.74,289.24 705.75,290.41 706.76,291.59 707.77,292.76 708.79,293.94 709.80,295.11 710.81,296.29 711.83,297.47 712.84,298.64 713.85,299.82 714.86,301.00 715.88,302.18 716.89,303.35 717.90,304.53 718.91,305.71 719.93,306.89 720.94,308.07 721.95,309.25 722.96,310.43 723.98,311.61 724.99,312.79 726.00,313.97 726.00,144.03 724.99,144.03 723.98,144.03 722.96,144.03 721.95,144.03 720.94,144.03 719.93,144.03 718.91,144.03 717.90,144.03 716.89,144.03 715.88,144.03 714.86,144.03 713.85,144.03 712.84,144.03 711.83,144.03 710.81,144.03 709.80,144.03 708.79,144.03 707.77,144.03 706.76,144.03 705.75,144.03 704.74,144.03 703.73,144.03 702.71,144.03 701.70,144.03 700.69,144.03 699.67,144.03 698.66,144.03 697.65,144.03 696.64,144.03 695.62,144.03 694.61,144.03 693.60,144.03 692.59,144.03 691.58,144.03 690.56,144.03 689.55,144.03 688.54,144.03 687.52,144.03 686.51,144.03 685.50,144.03 684.49,144.03 683.48,144.03 682.46,144.03 681.45,144.03 680.44,144.03 679.42,144.03 678.41,144.03 677.40,144.03 676.39,144.03 675.38,144.03 674.36,144.03 673.35,144.03 672.34,144.03 671.32,144.03 670.31,144.03 669.30,144.03 668.29,144.03 667.27,144.03 666.26,144.03 665.25,144.03 664.24,144.03 663.23,144.03 662.21,144.03 661.20,144.03 660.19,144.03 659.17,144.03 658.16,144.03 657.15,144.03 656.14,144.03 655.13,144.03 654.11,144.03 653.10,144.03 652.09,144.03 651.08,144.03 650.06,144.03 649.05,144.03 648.04,144.03 647.02,144.03 646.01,144.03 645.00,144.03 643.99,144.03 642.98,144.03 641.96,144.03 640.95,144.03 639.94,144.03 638.92,144.03 637.91,144.03 636.90,144.03 635.89,144.03 634.87,144.03 633.86,144.03 632.85,144.03 631.84,144.03 630.83,144.03 629.81,144.03 628.80,144.03 627.79,144.03 626.77,144.03 625.76,144.03 624.75,144.03 623.74,144.03 622.73,144.03 621.71,144.03 620.70,144.03 619.69,144.03 618.68,144.03 617.66,144.03 616.65,144.03 615.64,144.03 614.62,144.03 613.61,144.03 612.60,144.03 611.59,144.03 610.58,144.03 609.56,144.03 608.55,144.03 607.54,144.03 606.52,144.03 605.51,144.03 604.50,144.03 603.49,144.03 602.48,144.03 601.46,144.03 600.45,144.03 599.44,144.03 598.42,144.03 597.41,144.03 596.40,144.03 595.39,144.03 594.38,144.03 593.36,144.03 592.35,144.03 591.34,144.03 590.33,144.03 589.31,144.03 588.30,144.03 587.29,144.03 586.28,144.03 585.26,144.03 584.25,144.03 583.24,144.03 582.23,144.03 581.21,144.03 580.20,144.03 579.19,144.03 578.17,144.03 577.16,144.03 576.15,144.03 575.14,144.03 574.12,144.03 573.11,144.03 572.10,144.03 571.09,144.03 570.07,144.03 569.06,144.03 568.05,144.03 567.04,144.03 566.03,144.03 565.01,144.03 564.00,144.03" fill="var(--los)" fill-opacity="0.55" stroke="var(--los)" stroke-width="0.8" stroke-opacity="0.9"/>
+<line class="lin192" x1="78.00" y1="144.03" x2="726.00" y2="144.03" stroke="var(--accent)" stroke-width="2"/>
+<polyline class="cos192" points="78.00,313.97 79.62,312.08 81.24,310.19 82.86,308.31 84.48,306.42 86.10,304.53 87.72,302.65 89.34,300.76 90.96,298.88 92.58,296.99 94.20,295.11 95.82,293.23 97.44,291.35 99.06,289.47 100.68,287.60 102.30,285.72 103.92,283.85 105.54,281.98 107.16,280.11 108.78,278.24 110.40,276.37 112.02,274.51 113.64,272.65 115.26,270.79 116.88,268.94 118.50,267.08 120.12,265.23 121.74,263.39 123.36,261.54 124.98,259.70 126.60,257.87 128.22,256.03 129.84,254.20 131.46,252.38 133.08,250.55 134.70,248.73 136.32,246.92 137.94,245.11 139.56,243.30 141.18,241.50 142.80,239.70 144.42,237.91 146.04,236.12 147.66,234.34 149.28,232.56 150.90,230.79 152.52,229.02 154.14,227.26 155.76,225.50 157.38,223.75 159.00,222.00 160.62,220.26 162.24,218.52 163.86,216.79 165.48,215.07 167.10,213.35 168.72,211.64 170.34,209.94 171.96,208.24 173.58,206.55 175.20,204.86 176.82,203.19 178.44,201.51 180.06,199.85 181.68,198.19 183.30,196.54 184.92,194.90 186.54,193.26 188.16,191.63 189.78,190.01 191.40,188.40 193.02,186.79 194.64,185.20 196.26,183.61 197.88,182.03 199.50,180.45 201.12,178.89 202.74,177.33 204.36,175.78 205.98,174.24 207.60,172.71 209.22,171.19 210.84,169.67 212.46,168.17 214.08,166.67 215.70,165.19 217.32,163.71 218.94,162.24 220.56,160.78 222.18,159.33 223.80,157.89 225.42,156.46 227.04,155.04 228.66,153.63 230.28,152.23 231.90,150.84 233.52,149.46 235.14,148.08 236.76,146.72 238.38,145.37 240.00,144.03 241.62,142.70 243.24,141.39 244.86,140.08 246.48,138.78 248.10,137.49 249.72,136.22 251.34,134.95 252.96,133.70 254.58,132.46 256.20,131.23 257.82,130.00 259.44,128.80 261.06,127.60 262.68,126.41 264.30,125.24 265.92,124.08 267.54,122.92 269.16,121.79 270.78,120.66 272.40,119.54 274.02,118.44 275.64,117.35 277.26,116.27 278.88,115.20 280.50,114.15 282.12,113.10 283.74,112.07 285.36,111.06 286.98,110.05 288.60,109.06 290.22,108.08 291.84,107.11 293.46,106.16 295.08,105.22 296.70,104.29 298.32,103.37 299.94,102.47 301.56,101.58 303.18,100.70 304.80,99.84 306.42,98.99 308.04,98.15 309.66,97.33 311.28,96.52 312.90,95.72 314.52,94.94 316.14,94.17 317.76,93.41 319.38,92.67 321.00,91.94 322.62,91.22 324.24,90.52 325.86,89.83 327.48,89.16 329.10,88.50 330.72,87.85 332.34,87.22 333.96,86.60 335.58,86.00 337.20,85.41 338.82,84.83 340.44,84.27 342.06,83.72 343.68,83.19 345.30,82.67 346.92,82.16 348.54,81.67 350.16,81.20 351.78,80.73 353.40,80.29 355.02,79.85 356.64,79.43 358.26,79.03 359.88,78.64 361.50,78.26 363.12,77.90 364.74,77.56 366.36,77.22 367.98,76.91 369.60,76.60 371.22,76.32 372.84,76.04 374.46,75.78 376.08,75.54 377.70,75.31 379.32,75.10 380.94,74.90 382.56,74.71 384.18,74.54 385.80,74.39 387.42,74.25 389.04,74.12 390.66,74.01 392.28,73.91 393.90,73.83 395.52,73.76 397.14,73.71 398.76,73.67 400.38,73.65 402.00,73.65 403.62,73.65 405.24,73.67 406.86,73.71 408.48,73.76 410.10,73.83 411.72,73.91 413.34,74.01 414.96,74.12 416.58,74.25 418.20,74.39 419.82,74.54 421.44,74.71 423.06,74.90 424.68,75.10 426.30,75.31 427.92,75.54 429.54,75.78 431.16,76.04 432.78,76.32 434.40,76.60 436.02,76.91 437.64,77.22 439.26,77.56 440.88,77.90 442.50,78.26 444.12,78.64 445.74,79.03 447.36,79.43 448.98,79.85 450.60,80.29 452.22,80.73 453.84,81.20 455.46,81.67 457.08,82.16 458.70,82.67 460.32,83.19 461.94,83.72 463.56,84.27 465.18,84.83 466.80,85.41 468.42,86.00 470.04,86.60 471.66,87.22 473.28,87.85 474.90,88.50 476.52,89.16 478.14,89.83 479.76,90.52 481.38,91.22 483.00,91.94 484.62,92.67 486.24,93.41 487.86,94.17 489.48,94.94 491.10,95.72 492.72,96.52 494.34,97.33 495.96,98.15 497.58,98.99 499.20,99.84 500.82,100.70 502.44,101.58 504.06,102.47 505.68,103.37 507.30,104.29 508.92,105.22 510.54,106.16 512.16,107.11 513.78,108.08 515.40,109.06 517.02,110.05 518.64,111.06 520.26,112.07 521.88,113.10 523.50,114.15 525.12,115.20 526.74,116.27 528.36,117.35 529.98,118.44 531.60,119.54 533.22,120.66 534.84,121.79 536.46,122.92 538.08,124.08 539.70,125.24 541.32,126.41 542.94,127.60 544.56,128.80 546.18,130.00 547.80,131.23 549.42,132.46 551.04,133.70 552.66,134.95 554.28,136.22 555.90,137.49 557.52,138.78 559.14,140.08 560.76,141.39 562.38,142.70 564.00,144.03 565.62,145.37 567.24,146.72 568.86,148.08 570.48,149.46 572.10,150.84 573.72,152.23 575.34,153.63 576.96,155.04 578.58,156.46 580.20,157.89 581.82,159.33 583.44,160.78 585.06,162.24 586.68,163.71 588.30,165.19 589.92,166.67 591.54,168.17 593.16,169.67 594.78,171.19 596.40,172.71 598.02,174.24 599.64,175.78 601.26,177.33 602.88,178.89 604.50,180.45 606.12,182.03 607.74,183.61 609.36,185.20 610.98,186.79 612.60,188.40 614.22,190.01 615.84,191.63 617.46,193.26 619.08,194.90 620.70,196.54 622.32,198.19 623.94,199.85 625.56,201.51 627.18,203.19 628.80,204.86 630.42,206.55 632.04,208.24 633.66,209.94 635.28,211.64 636.90,213.35 638.52,215.07 640.14,216.79 641.76,218.52 643.38,220.26 645.00,222.00 646.62,223.75 648.24,225.50 649.86,227.26 651.48,229.02 653.10,230.79 654.72,232.56 656.34,234.34 657.96,236.12 659.58,237.91 661.20,239.70 662.82,241.50 664.44,243.30 666.06,245.11 667.68,246.92 669.30,248.73 670.92,250.55 672.54,252.38 674.16,254.20 675.78,256.03 677.40,257.87 679.02,259.70 680.64,261.54 682.26,263.39 683.88,265.23 685.50,267.08 687.12,268.94 688.74,270.79 690.36,272.65 691.98,274.51 693.60,276.37 695.22,278.24 696.84,280.11 698.46,281.98 700.08,283.85 701.70,285.72 703.32,287.60 704.94,289.47 706.56,291.35 708.18,293.23 709.80,295.11 711.42,296.99 713.04,298.88 714.66,300.76 716.28,302.65 717.90,304.53 719.52,306.42 721.14,308.31 722.76,310.19 724.38,312.08 726.00,313.97" fill="none" stroke="var(--ink)" stroke-width="2.4"/>
+<circle class="dot192" cx="240.00" cy="144.03" r="4.5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+<circle class="dot192" cx="564.00" cy="144.03" r="4.5" fill="var(--surface)" stroke="var(--ink)" stroke-width="2"/>
+<line class="axist" x1="78.00" y1="338.0" x2="78.00" y2="343.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="78.00" y="357.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">-pi/2</text>
+<line class="axist" x1="240.00" y1="338.0" x2="240.00" y2="343.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="240.00" y="357.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">-pi/4</text>
+<line class="axist" x1="402.00" y1="338.0" x2="402.00" y2="343.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="402.00" y="357.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">0</text>
+<line class="axist" x1="564.00" y1="338.0" x2="564.00" y2="343.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="564.00" y="357.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">pi/4</text>
+<line class="axist" x1="726.00" y1="338.0" x2="726.00" y2="343.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="726.00" y="357.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">pi/2</text>
+<line class="axist" x1="73.0" y1="313.97" x2="78.0" y2="313.97" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="317.47" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">0</text>
+<line class="axist" x1="73.0" y1="144.03" x2="78.0" y2="144.03" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="147.53" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">0.707</text>
+<line class="axist" x1="73.0" y1="73.65" x2="78.0" y2="73.65" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="77.15" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">1</text>
+<text class="tick192" x="78.00" y="378.00" text-anchor="start" font-size="9.5" font-weight="500" fill="var(--ink3)">x  IN RADIANS</text>
+<text class="lab" x="354.57" y="113.85" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--fam)">COSINE ON TOP</text>
+<text class="lab" x="77.00" y="185.29" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--los)">LINE ON TOP</text>
+<text class="lab" x="638.45" y="179.04" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--los)">LINE ON TOP</text>
+<text class="lab" x="245.77" y="178.39" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">x = -pi/4</text>
+<line class="conn192" x1="250.34" y1="152.71" x2="240.00" y2="144.03" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="558.00" y="109.43" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">x = pi/4</text>
+<line class="conn192" x1="573.25" y1="128.01" x2="564.00" y2="144.03" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="67.98" y="220.20" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">y = cos x</text>
+<line class="conn192" x1="125.41" y1="238.88" x2="135.75" y2="247.55" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="647.42" y="121.22" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--accent)">y = 1/sqrt2</text>
+</svg>
+  <figcaption>The region is three pieces and the top curve alternates. Teal is the middle lobe, where the cosine is above the line; rust is the two outer lobes, where the line is above the cosine. The shaded shapes are the region itself, sampled from the two curves, not a stand-in of matching area.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum192">02</span> What hides, and why it hides differently here</h2>
+  <p>Twelve candidate errors were computed, with no point excluded as degenerate. <b>Eleven of the twelve are positive</b>, so a positivity check rejects exactly one of them.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>The mistake</th><th class="ra192">Value</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Reversed orientation, straight through</td><td class="ra192 num192">+0.2214414691</td><td class="lo192">hides</td></tr>
+      <tr><td>No split, correct orientation</td><td class="ra192 num192">&minus;0.2214414691</td><td class="fa192">caught by the sign</td></tr>
+      <tr><td>Split at $x=0$ instead of at the crossings</td><td class="ra192 num192">+0.2214414691</td><td class="lo192">hides</td></tr>
+      <tr><td>Forgot to double the half-region</td><td class="ra192 num192">+0.4142135624</td><td class="lo192">hides</td></tr>
+      <tr><td>Only the middle lobe</td><td class="ra192 num192">+0.3034928278</td><td class="lo192">hides</td></tr>
+      <tr><td>Sign flipped on one outer lobe</td><td class="ra192 num192">+0.3034928278</td><td class="lo192">hides</td></tr>
+      <tr><td>Outer lobes only</td><td class="ra192 num192">+0.5249342969</td><td class="lo192">hides</td></tr>
+      <tr><td>Wrong branch, used $\pm 3\pi/4$</td><td class="ra192 num192">+1.9179486412</td><td class="fa192">too large</td></tr>
+      <tr><td>Wrong period, used $\pi/4$ and $7\pi/4$</td><td class="ra192 num192">+4.7463757660</td><td class="fa192">too large</td></tr>
+      <tr><td>Dropped the constant, integrated $\cos x$ alone</td><td class="ra192 num192">+2.0000000000</td><td class="fa192">too large</td></tr>
+      <tr><td>Treated the region as a rectangle</td><td class="ra192 num192">+4.4428829382</td><td class="fa192">too large</td></tr>
+      <tr><td>Calculator in degree mode</td><td class="ra192 num192">+12.6876615874</td><td class="fa192">absurd</td></tr>
+    </tbody>
+  </table></div>
+  <div class="hot192">
+    <p><b>Three errors share the value 0.2214414691</b>, and one of them is the negative one. The moment a student writes &ldquo;an area is positive&rdquo; and drops the minus sign, the second row becomes the first row exactly.</p>
+    <p><b>The consequence is the opposite of Q19.1's, and that is the point of this page.</b> On Q19.1 three errors all gave $-4.5$, the magnitude was right, and &ldquo;make it positive&rdquo; accidentally rescued you. Here the magnitude is wrong - 0.221 against 0.828 - so the same repair converts a visibly broken answer into a confident, plausible, wrong one. <b>Settle the orientation before the integration, never after it.</b></p>
+    <p>A second collision: <b>two errors share 0.3034928278</b>, because the outer lobes are equal and a sign flip on one cancels the other exactly.</p>
+  </div>
+  <p>None of these is caught by arithmetic. A sketch with the three pieces marked and an explicit sentence saying which curve is on top in each catches six of the twelve. Writing the general solution before filtering catches two more. Writing the factor of 2 down at the moment you use the symmetry catches one.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">03</span> Why $1/\sqrt2$, and why the $\pi$ cancels</h2>
+  <p>Replace the line height with a general $c$ in $[0,1]$ and let $a=\arccos c$. The same three-piece calculation gives one formula for the whole family, checked against the catalog at 51 values of $c$:</p>
+  <p class="disp192">$$A(c) = 4\sqrt{1-c^2} - 4c\arccos(c) + \pi c - 2$$</p>
+  <p>Differentiate, and the two $\arccos'$ terms cancel because $\cos a = c$:</p>
+  <p class="disp192">$$\frac{dA}{dc} = \pi - 4\arccos(c), \qquad \frac{d^2A}{dc^2} = \frac{4}{\sqrt{1-c^2}} &gt; 0$$</p>
+  <p>That vanishes exactly at $\arccos c=\pi/4$, which is $c=1/\sqrt2$. <b>The question's own line height is precisely the one that minimises the area</b>, and the minimum value is $2\sqrt2-2$.</p>
+  <p>And the $\pi$ appears in $A(c)$ only inside $\pi c - 4c\arccos c = c\,(\pi - 4\arccos c)$, which is $c$ times the derivative. At the stationary height that bracket is zero, <b>so no $\pi$ survives</b>. The cancellation has a reason.</p>
+  <div class="note192">
+    <p><b>Two things to carry from this.</b> &ldquo;There is no $\pi$ in my answer&rdquo; is not evidence of a dropped term on this particular $c$ - at $c=1/2$ the answer is $2\sqrt3-2-\pi/6$ and the $\pi$ is genuinely there. And a &ldquo;find $c$ so the area is $A$&rdquo; question has <b>two</b> answers, not one, because $A(c)$ falls and rises again.</p>
+  </div>
+</section>
+
+<figure class="figbox fig192">
+  <svg viewBox="0 0 760 360" width="100%" role="img" aria-label="the area as a function of the line height c, falling to a minimum at c = 1 over root 2 and rising again">
+<rect x="0" y="0" width="760" height="360" fill="var(--surface)"/>
+<rect x="78.0" y="34.0" width="648.0" height="264.0" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+<line class="gridl" x1="78.00" y1="34.0" x2="78.00" y2="298.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="402.00" y1="34.0" x2="402.00" y2="298.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="536.21" y1="34.0" x2="536.21" y2="298.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="726.00" y1="34.0" x2="726.00" y2="298.0" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="273.78" x2="726.0" y2="273.78" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="241.43" x2="726.0" y2="241.43" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="147.14" x2="726.0" y2="147.14" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="gridl" x1="78.0" y1="52.86" x2="726.0" y2="52.86" stroke="var(--line)" stroke-width="1" stroke-dasharray="2 4"/>
+<line class="lev192" x1="78.0" y1="241.43" x2="726.0" y2="241.43" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="5 4"/>
+<polyline class="acurve192" points="78.00,52.86 79.30,54.04 80.59,55.22 81.89,56.40 83.18,57.57 84.48,58.74 85.78,59.91 87.07,61.08 88.37,62.24 89.66,63.40 90.96,64.55 92.26,65.71 93.55,66.86 94.85,68.00 96.14,69.15 97.44,70.29 98.74,71.43 100.03,72.56 101.33,73.70 102.62,74.82 103.92,75.95 105.22,77.07 106.51,78.19 107.81,79.31 109.10,80.42 110.40,81.53 111.70,82.64 112.99,83.75 114.29,84.85 115.58,85.95 116.88,87.04 118.18,88.14 119.47,89.23 120.77,90.31 122.06,91.40 123.36,92.48 124.66,93.56 125.95,94.63 127.25,95.70 128.54,96.77 129.84,97.84 131.14,98.90 132.43,99.96 133.73,101.01 135.02,102.07 136.32,103.12 137.62,104.16 138.91,105.21 140.21,106.25 141.50,107.29 142.80,108.32 144.10,109.36 145.39,110.39 146.69,111.41 147.98,112.43 149.28,113.45 150.58,114.47 151.87,115.49 153.17,116.50 154.46,117.50 155.76,118.51 157.06,119.51 158.35,120.51 159.65,121.51 160.94,122.50 162.24,123.49 163.54,124.47 164.83,125.46 166.13,126.44 167.42,127.42 168.72,128.39 170.02,129.36 171.31,130.33 172.61,131.30 173.90,132.26 175.20,133.22 176.50,134.17 177.79,135.13 179.09,136.08 180.38,137.02 181.68,137.97 182.98,138.91 184.27,139.85 185.57,140.78 186.86,141.71 188.16,142.64 189.46,143.57 190.75,144.49 192.05,145.41 193.34,146.33 194.64,147.24 195.94,148.15 197.23,149.06 198.53,149.96 199.82,150.86 201.12,151.76 202.42,152.65 203.71,153.55 205.01,154.44 206.30,155.32 207.60,156.20 208.90,157.08 210.19,157.96 211.49,158.83 212.78,159.70 214.08,160.57 215.38,161.43 216.67,162.30 217.97,163.15 219.26,164.01 220.56,164.86 221.86,165.71 223.15,166.55 224.45,167.40 225.74,168.24 227.04,169.07 228.34,169.91 229.63,170.74 230.93,171.56 232.22,172.39 233.52,173.21 234.82,174.02 236.11,174.84 237.41,175.65 238.70,176.46 240.00,177.26 241.30,178.07 242.59,178.87 243.89,179.66 245.18,180.45 246.48,181.24 247.78,182.03 249.07,182.81 250.37,183.59 251.66,184.37 252.96,185.14 254.26,185.92 255.55,186.68 256.85,187.45 258.14,188.21 259.44,188.97 260.74,189.72 262.03,190.47 263.33,191.22 264.62,191.97 265.92,192.71 267.22,193.45 268.51,194.19 269.81,194.92 271.10,195.65 272.40,196.38 273.70,197.10 274.99,197.82 276.29,198.54 277.58,199.25 278.88,199.96 280.18,200.67 281.47,201.38 282.77,202.08 284.06,202.78 285.36,203.47 286.66,204.16 287.95,204.85 289.25,205.54 290.54,206.22 291.84,206.90 293.14,207.57 294.43,208.25 295.73,208.92 297.02,209.58 298.32,210.25 299.62,210.90 300.91,211.56 302.21,212.22 303.50,212.87 304.80,213.51 306.10,214.16 307.39,214.80 308.69,215.43 309.98,216.07 311.28,216.70 312.58,217.33 313.87,217.95 315.17,218.57 316.46,219.19 317.76,219.80 319.06,220.42 320.35,221.02 321.65,221.63 322.94,222.23 324.24,222.83 325.54,223.42 326.83,224.02 328.13,224.61 329.42,225.19 330.72,225.77 332.02,226.35 333.31,226.93 334.61,227.50 335.90,228.07 337.20,228.63 338.50,229.20 339.79,229.76 341.09,230.31 342.38,230.86 343.68,231.41 344.98,231.96 346.27,232.50 347.57,233.04 348.86,233.58 350.16,234.11 351.46,234.64 352.75,235.16 354.05,235.69 355.34,236.21 356.64,236.72 357.94,237.23 359.23,237.74 360.53,238.25 361.82,238.75 363.12,239.25 364.42,239.75 365.71,240.24 367.01,240.73 368.30,241.21 369.60,241.70 370.90,242.18 372.19,242.65 373.49,243.12 374.78,243.59 376.08,244.06 377.38,244.52 378.67,244.98 379.97,245.43 381.26,245.89 382.56,246.33 383.86,246.78 385.15,247.22 386.45,247.66 387.74,248.09 389.04,248.53 390.34,248.95 391.63,249.38 392.93,249.80 394.22,250.22 395.52,250.63 396.82,251.04 398.11,251.45 399.41,251.85 400.70,252.25 402.00,252.65 403.30,253.04 404.59,253.43 405.89,253.82 407.18,254.20 408.48,254.58 409.78,254.95 411.07,255.33 412.37,255.70 413.66,256.06 414.96,256.42 416.26,256.78 417.55,257.14 418.85,257.49 420.14,257.83 421.44,258.18 422.74,258.52 424.03,258.85 425.33,259.19 426.62,259.52 427.92,259.84 429.22,260.17 430.51,260.49 431.81,260.80 433.10,261.11 434.40,261.42 435.70,261.72 436.99,262.03 438.29,262.32 439.58,262.62 440.88,262.91 442.18,263.19 443.47,263.48 444.77,263.75 446.06,264.03 447.36,264.30 448.66,264.57 449.95,264.83 451.25,265.09 452.54,265.35 453.84,265.60 455.14,265.85 456.43,266.10 457.73,266.34 459.02,266.58 460.32,266.82 461.62,267.05 462.91,267.27 464.21,267.50 465.50,267.72 466.80,267.93 468.10,268.15 469.39,268.35 470.69,268.56 471.98,268.76 473.28,268.96 474.58,269.15 475.87,269.34 477.17,269.52 478.46,269.71 479.76,269.88 481.06,270.06 482.35,270.23 483.65,270.39 484.94,270.56 486.24,270.72 487.54,270.87 488.83,271.02 490.13,271.17 491.42,271.31 492.72,271.45 494.02,271.59 495.31,271.72 496.61,271.84 497.90,271.97 499.20,272.09 500.50,272.20 501.79,272.31 503.09,272.42 504.38,272.52 505.68,272.62 506.98,272.72 508.27,272.81 509.57,272.90 510.86,272.98 512.16,273.06 513.46,273.14 514.75,273.21 516.05,273.27 517.34,273.34 518.64,273.40 519.94,273.45 521.23,273.50 522.53,273.55 523.82,273.59 525.12,273.63 526.42,273.66 527.71,273.69 529.01,273.72 530.30,273.74 531.60,273.76 532.90,273.77 534.19,273.78 535.49,273.78 536.78,273.78 538.08,273.78 539.38,273.77 540.67,273.76 541.97,273.74 543.26,273.72 544.56,273.69 545.86,273.66 547.15,273.63 548.45,273.59 549.74,273.55 551.04,273.50 552.34,273.45 553.63,273.39 554.93,273.33 556.22,273.27 557.52,273.20 558.82,273.12 560.11,273.04 561.41,272.96 562.70,272.87 564.00,272.78 565.30,272.68 566.59,272.58 567.89,272.48 569.18,272.37 570.48,272.25 571.78,272.13 573.07,272.01 574.37,271.88 575.66,271.74 576.96,271.60 578.26,271.46 579.55,271.31 580.85,271.16 582.14,271.00 583.44,270.84 584.74,270.67 586.03,270.50 587.33,270.32 588.62,270.14 589.92,269.95 591.22,269.76 592.51,269.57 593.81,269.36 595.10,269.16 596.40,268.95 597.70,268.73 598.99,268.51 600.29,268.28 601.58,268.05 602.88,267.81 604.18,267.57 605.47,267.32 606.77,267.07 608.06,266.81 609.36,266.55 610.66,266.28 611.95,266.01 613.25,265.73 614.54,265.45 615.84,265.16 617.14,264.86 618.43,264.56 619.73,264.26 621.02,263.94 622.32,263.63 623.62,263.30 624.91,262.98 626.21,262.64 627.50,262.30 628.80,261.96 630.10,261.61 631.39,261.25 632.69,260.89 633.98,260.52 635.28,260.15 636.58,259.77 637.87,259.38 639.17,258.99 640.46,258.59 641.76,258.19 643.06,257.78 644.35,257.36 645.65,256.94 646.94,256.51 648.24,256.08 649.54,255.63 650.83,255.19 652.13,254.73 653.42,254.27 654.72,253.80 656.02,253.33 657.31,252.85 658.61,252.36 659.90,251.87 661.20,251.37 662.50,250.86 663.79,250.34 665.09,249.82 666.38,249.29 667.68,248.76 668.98,248.21 670.27,247.66 671.57,247.10 672.86,246.54 674.16,245.96 675.46,245.38 676.75,244.79 678.05,244.20 679.34,243.59 680.64,242.98 681.94,242.36 683.23,241.73 684.53,241.09 685.82,240.44 687.12,239.79 688.42,239.13 689.71,238.45 691.01,237.77 692.30,237.08 693.60,236.38 694.90,235.67 696.19,234.95 697.49,234.22 698.78,233.48 700.08,232.72 701.38,231.96 702.67,231.19 703.97,230.40 705.26,229.61 706.56,228.80 707.86,227.98 709.15,227.15 710.45,226.30 711.74,225.44 713.04,224.56 714.34,223.67 715.63,222.77 716.93,221.84 718.22,220.90 719.52,219.94 720.82,218.96 722.11,217.95 723.41,216.92 724.70,215.85 726.00,214.73" fill="none" stroke="var(--ink)" stroke-width="2.4"/>
+<circle class="dot192" cx="368.88" cy="241.43" r="4.5" fill="var(--los)" stroke="var(--surface)" stroke-width="1.5"/>
+<circle class="dot192" cx="683.85" cy="241.43" r="4.5" fill="var(--los)" stroke="var(--surface)" stroke-width="1.5"/>
+<circle class="dot192" cx="536.21" cy="273.78" r="5" fill="var(--fam)" stroke="var(--surface)" stroke-width="1.5"/>
+<line class="axist" x1="78.00" y1="298.0" x2="78.00" y2="303.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="78.00" y="317.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">0</text>
+<line class="axist" x1="402.00" y1="298.0" x2="402.00" y2="303.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="402.00" y="317.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">0.5</text>
+<line class="axist" x1="536.21" y1="298.0" x2="536.21" y2="303.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="536.21" y="317.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">1/sqrt2</text>
+<line class="axist" x1="726.00" y1="298.0" x2="726.00" y2="303.0" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="726.00" y="317.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--ink3)">1</text>
+<line class="axist" x1="73.0" y1="273.78" x2="78.0" y2="273.78" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="277.28" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">0.828</text>
+<line class="axist" x1="73.0" y1="241.43" x2="78.0" y2="241.43" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="244.93" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">1.0</text>
+<line class="axist" x1="73.0" y1="147.14" x2="78.0" y2="147.14" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="150.64" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">1.5</text>
+<line class="axist" x1="73.0" y1="52.86" x2="78.0" y2="52.86" stroke="var(--ink3)" stroke-width="1"/>
+<text class="tick192" x="68.00" y="56.36" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--ink3)">2.0</text>
+<text class="tick192" x="78.00" y="338.00" text-anchor="start" font-size="9.5" font-weight="500" fill="var(--ink3)">c  THE LINE HEIGHT</text>
+<text class="tick192" x="726.00" y="338.00" text-anchor="end" font-size="9.5" font-weight="500" fill="var(--ink3)">AREA ON THE VERTICAL</text>
+<text class="lab" x="462.21" y="217.28" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--fam)">MINIMUM AT c = 1/sqrt2</text>
+<line class="conn192" x1="536.21" y1="235.78" x2="536.21" y2="273.78" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="452.21" y="185.28" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--fam)">AREA = 2 sqrt2 - 2 = 0.8284</text>
+<text class="lab" x="314.88" y="279.57" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--los)">c = 0.4489</text>
+<line class="conn192" x1="361.63" y1="253.99" x2="368.88" y2="241.43" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="678.13" y="278.63" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--los)">c = 0.9349</text>
+<line class="conn192" x1="693.49" y1="252.92" x2="683.85" y2="241.43" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="153.90" y="272.93" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--accent)">AREA = 1 IS MET TWICE</text>
+<line class="conn192" x1="262.44" y1="247.18" x2="272.40" y2="241.43" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="117.16" y="56.84" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">A(0) = 2</text>
+<line class="conn192" x1="126.52" y1="75.55" x2="116.88" y2="87.04" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+<text class="lab" x="671.03" y="190.35" text-anchor="start" font-size="10.5" font-weight="600" fill="var(--ink)">A(1) = pi - 2</text>
+<line class="conn192" x1="713.94" y1="209.01" x2="716.28" y2="222.31" stroke="var(--ink3)" stroke-width="1" stroke-dasharray="2 3"/>
+</svg>
+  <figcaption>The area as a function of the line height. It falls to a minimum at $c=1/\sqrt2$, which is the exam question, and rises again. The dashed level shows why &ldquo;find $c$ giving area 1&rdquo; is met at two separate heights, 0.4489 and 0.9349.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum192">04</span> Five routes, and the one to use under pressure</h2>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Route</th><th class="ra192">Integrals</th><th>Where it goes wrong</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Three pieces, exact antiderivative</td><td class="ra192 num192">3</td><td>three orientation decisions</td><td>correct, slightly long</td></tr>
+      <tr class="pick192"><td><b>Symmetry first, two pieces</b></td><td class="ra192 num192">2</td><td>you must remember to double</td><td class="fa192"><b>use this one</b></td></tr>
+      <tr><td>Horizontal strips in $y$</td><td class="ra192 num192">3</td><td>needs $\arccos$ and a by-parts</td><td>good check, bad exam route</td></tr>
+      <tr><td>Numerical quadrature</td><td class="ra192 num192">-</td><td>no closed form</td><td>verification only</td></tr>
+      <tr><td>Archimedes' two-thirds law</td><td class="ra192 num192">0</td><td>it is a <i>parabola</i> law</td><td class="lo192">do not use here</td></tr>
+    </tbody>
+  </table></div>
+  <div class="hot192">
+    <p><b>Archimedes is the dangerous one.</b> Q19.1's best shortcut, $A=\tfrac23\times\text{span}\times\text{largest gap}$, is exact for a parabola against a chord. Applied to this question's middle lobe it gives 0.3067170615 against the true 0.3034928278 - <b>1.0624 percent high</b>. A cosine arch resembles a parabola closely enough that a wrong shortcut lands within one percent, and no mental check will reject it. Carry Archimedes for parabolas only.</p>
+  </div>
+  <p>All four computational routes plus the closed form agree, with a total spread of $6.7\times10^{-16}$.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">05</span> Two numerical warnings, because both look like health</h2>
+  <div class="cards192">
+    <div class="cd192">
+      <p class="alab192">A NEAR-MISS CROSSING IS ALMOST FREE</p>
+      <p>Moving the split from $\pi/4$ to $\pi/4+0.0025$ changes the area by <b>0.000534 percent</b>. The measured order of the error in the offset is 2.0094, 2.0047, 2.0024, 2.0012 - second order, because the difference vanishes at a true crossing. A <i>mis-identified</i> split at $3\pi/8$ costs <b>14.70 percent</b>.</p>
+      <p class="fine192">So the answer cannot tell you that a nearly-right crossing was guessed rather than solved. Solve it.</p>
+    </div>
+    <div class="cd192">
+      <p class="alab192">A LUCKY GRID IS NOT A CORRECT METHOD</p>
+      <p>Integrating $\lvert D\rvert$ straight through both kinks with Simpson at $n=4000$ has error $8.9\times10^{-16}$, which looks exact. At $n=4002$ the same routine on the same function has error $7.3\times10^{-8}$. The kinks sit at one quarter and three quarters of the span, so any $n$ divisible by 8 puts them on panel boundaries.</p>
+      <p class="fine192">Measured orders across the kink: 4.02, 4.01, 4.00 aligned; 1.78, 1.89, 1.94, 1.97, 1.99 mis-aligned.</p>
+    </div>
+  </div>
+  <p>Q19.1 could not measure a convergence order at all, because its integrand was a quadratic and Simpson is exact on every cubic. <b>Here it is measurable</b>, and it was measured rather than quoted.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Integrand</th><th>Measured Simpson order</th></tr></thead>
+    <tbody>
+      <tr><td>$\cos x-1/\sqrt2$ on the middle lobe (this question)</td><td class="num192">4.0050, 4.0012, 4.0003, 4.0001, 4.0000</td></tr>
+      <tr><td>$t^{2/3}$ on $[0,1]$ - a control that must not read 4</td><td class="num192">1.6663, 1.6666, 1.6667, 1.6667, 1.6667</td></tr>
+      <tr><td>$2\arccos y$ - the horizontal-strip integrand</td><td class="num192">1.4999, 1.5000, 1.5000, 1.5000</td></tr>
+    </tbody>
+  </table></div>
+  <p>The third row is why the horizontal route used a double-exponential rule instead: $\arccos$ has an infinite slope at $y=1$. Simpson's error on that piece was $1.29\times10^{-8}$; tanh-sinh's was $6.1\times10^{-16}$. <b>The digits quoted on this page inherit the precision of tanh-sinh, not of Simpson.</b></p>
+</section>
+
+<section>
+  <h2><span class="snum192">06</span> The periodic trap</h2>
+  <p>A root census over $D(x)=\cos x-1/\sqrt2$, controlled in both directions before its verdict was trusted.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Window</th><th class="ra192">Roots</th><th>What it shows</th></tr></thead>
+    <tbody>
+      <tr class="pick192"><td>$[-\pi/2,\pi/2]$ - the question</td><td class="ra192 num192">2</td><td>$\pm\pi/4$, both to $10^{-10}$</td></tr>
+      <tr><td>$[-\pi/8,\pi/8]$</td><td class="ra192 num192">0</td><td>the routine can return zero</td></tr>
+      <tr><td>$[0,\pi/2]$</td><td class="ra192 num192">1</td><td>the routine can return one</td></tr>
+      <tr><td>$[-2\pi,2\pi]$</td><td class="ra192 num192">4</td><td class="lo192">the same equation, a wider window</td></tr>
+      <tr><td>$[-3\pi,3\pi]$</td><td class="ra192 num192">6</td><td class="lo192">and the count keeps growing</td></tr>
+      <tr><td>$\cos x=2$, anywhere</td><td class="ra192 num192">0</td><td>no solutions at all</td></tr>
+    </tbody>
+  </table></div>
+  <p>Two of those four roots on $[-2\pi,2\pi]$, at $\pm 7\pi/4$, are not in the region and contribute nothing. <b>A periodic boundary makes &ldquo;how many intersections are there&rdquo; a question with no answer until you say where.</b> On Q19.1 you could search $[-6,6]$ and be safe; here that finds real roots the question never asked about.</p>
+  <p>The census has two honest failures, both measured on this page rather than assumed. At a <b>tangency</b> it finds nothing, because a curve that touches without crossing has no sign change - and whether it finds anything at all depends on grid parity: on $\cos x=1$ an even grid, which lands exactly on $x=0$, reports one root and an odd grid reports zero. And a grid point landing <b>exactly</b> on a genuine root makes the sign-change product zero rather than negative, so the root is lost silently. That last one cost a wrong drill answer before it was caught.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">07</span> The variation catalog</h2>
+  <p>Nine families, fifteen rows with closed forms plus one that has none. Every value was verified against a formula-blind router that splits at every sign change it finds and never sees the claimed answer. Read the tables as structure: what changes between families is only <b>which step becomes the hard one</b>.</p>
+  <div class="tscroll tscroll192"><table class="tab192 tabwide192">
+    <thead><tr><th>Family</th><th>Trigger</th><th>Instance</th><th>Answer</th><th class="ra192">Decimal</th></tr></thead>
+    <tbody>
+      <tr class="pick192"><td class="fk192">F1</td><td>trig curve against a constant, interval given, constant inside the range</td><td>$\cos x$ vs $1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td></tr>
+      <tr><td class="fk192">F1</td><td></td><td>$\cos x$ vs $1/2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt3-2-\pi/6$</td><td class="ra192 num192">0.9405028395</td></tr>
+      <tr><td class="fk192">F1</td><td></td><td>$\cos x$ vs $\sqrt3/2$ on $[-\pi/2,\pi/2]$</td><td>$\pi\sqrt3/6$</td><td class="ra192 num192">0.9068996821</td></tr>
+      <tr><td class="fk192">F2</td><td>sine instead of cosine; the second crossing is $\pi-\arcsin c$, not $-\arcsin c$</td><td>$\sin x$ vs $1/2$ on $[0,\pi]$</td><td>$2\sqrt3-2-\pi/6$</td><td class="ra192 num192">0.9405028395</td></tr>
+      <tr><td class="fk192">F2</td><td></td><td>$\sin x$ vs $0$ on $[0,2\pi]$</td><td>$4$</td><td class="ra192 num192">4.0000000000</td></tr>
+      <tr><td class="fk192">F3</td><td>the line is outside the curve's range, so there is no crossing and no split</td><td>$y=2$ vs $\cos x$ on $[-\pi/2,\pi/2]$</td><td>$2\pi-2$</td><td class="ra192 num192">4.2831853072</td></tr>
+      <tr><td class="fk192">F3</td><td></td><td>$\cos x$ vs $y=-1$ on $[-\pi/2,\pi/2]$</td><td>$2+\pi$</td><td class="ra192 num192">5.1415926536</td></tr>
+      <tr><td class="fk192">F4</td><td>neither boundary is constant; $\tan x=1$ gives the crossing</td><td>$\sin x$ vs $\cos x$ on $[0,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td></tr>
+      <tr><td class="fk192">F4</td><td></td><td>$\sin x$ vs $\cos x$ on $[0,\pi]$</td><td>$2\sqrt2$</td><td class="ra192 num192">2.8284271247</td></tr>
+      <tr><td class="fk192">F5</td><td>no interval given, so consecutive crossings become the limits</td><td>$\cos x$ vs $1/\sqrt2$ between crossings</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td></tr>
+      <tr><td class="fk192">F5</td><td></td><td>$\sin x$ vs $0$ over one arch</td><td>$2$</td><td class="ra192 num192">2.0000000000</td></tr>
+      <tr><td class="fk192">F6</td><td>the interval spans one or more periods</td><td>$\lvert\cos x-1/\sqrt2\rvert$ over $[0,2\pi]$</td><td>$2\sqrt2+\pi\sqrt2/2$</td><td class="ra192 num192">5.0498685938</td></tr>
+      <tr><td class="fk192">F6</td><td></td><td>the same over $[-\pi/2,3\pi/2]$</td><td>$2\sqrt2+\pi\sqrt2/2$</td><td class="ra192 num192">5.0498685938</td></tr>
+      <tr><td class="fk192">F7</td><td>solve for the line height from a required area</td><td>find $c$ with $A(c)=1$</td><td class="lo192">two answers</td><td class="ra192 num192">0.4488842358 / 0.9349464147</td></tr>
+      <tr><td class="fk192">F8</td><td>the constant equals an extreme value, so the curves touch without crossing</td><td>$y=1$ vs $\cos x$ on $[-\pi/2,\pi/2]$</td><td>$\pi-2$</td><td class="ra192 num192">1.1415926536</td></tr>
+      <tr><td class="fk192">F9</td><td>the left and right boundaries are single curves but the top and bottom are not</td><td>middle lobe as $\int 2\arccos y\,dy$</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The structure worth seeing.</b> The three F1 rows are one formula at three values of $c$, and the third has no algebraic part at all because $4\sqrt{1-c^2}=2$ exactly cancels the $-2$ there. F2's first row is numerically identical to F1's second, because $\sin x$ on $[0,\pi]$ is $\cos x$ on $[-\pi/2,\pi/2]$ shifted. F4's first row equals the exam answer from an entirely different geometry, so <b>meeting $2\sqrt2-2$ on a paper does not tell you which question you solved</b>. The two F6 rows agree because both windows have length $2\pi$: any window of one full period gives the same total, wherever it starts. The one integration technique the whole category needs beyond the basics is $\int\arccos y\,dy = y\arccos y-\sqrt{1-y^2}$.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">08</span> The trap list</h2>
+  <ol class="traps192">
+    <li><span><b>Not splitting at the crossings.</b> Gives $-0.2214$, and then &ldquo;make it positive&rdquo; gives $+0.2214$. This is the whole question.</span></li>
+    <li><span><b>Losing the $\pm$ in $x=\pm\arccos c$.</b> Half the crossings, or a region in the wrong place.</span></li>
+    <li><span><b>Forgetting to double after using the symmetry.</b> Gives $\sqrt2-1=0.4142$, positive and plausible.</span></li>
+    <li><span><b>Taking the wrong branch.</b> $3\pi/4$ solves $\cos x=-1/\sqrt2$. Check the branch against the sign of $c$.</span></li>
+    <li><span><b>Taking the wrong period.</b> $7\pi/4$ is a real solution and is not in the interval.</span></li>
+    <li><span><b>Deciding orientation at a crossing.</b> The difference is zero there and decides nothing.</span></li>
+    <li><span><b>Deciding orientation once for the whole interval</b> when the curves cross. Three pieces, three decisions.</span></li>
+    <li><span><b>Splitting somewhere that is not a crossing.</b> Splitting at $x=0$ changes nothing, because the sign does not turn there.</span></li>
+    <li><span><b>Degree mode.</b> Gives 12.69, which at least announces itself.</span></li>
+    <li><span><b>Reading the crossings off a sketch.</b> A near-miss costs 0.0005 percent, so you will never be told you were guessing.</span></li>
+    <li><span><b>Assuming a missing $\pi$ means a dropped term.</b> On this specific $c$ the $\pi$ cancels for a reason.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="snum192">09</span> Drill answers</h2>
+  <p>Score <b>sign</b> separately from <b>magnitude</b>: a wrong sign means the orientation procedure is not automatic yet, a wrong magnitude means the split or the antiderivative is not.</p>
+  <div class="tscroll tscroll192"><table class="tab192 tabwide192">
+    <thead><tr><th class="ra192">#</th><th>Curves and interval</th><th>Exact</th><th class="ra192">Decimal</th><th>Family and method</th></tr></thead>
+    <tbody>
+      <tr><td class="ra192 num192">1</td><td>$\cos x$, $y=1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td><td class="fk192">F1 - the question</td></tr>
+      <tr><td class="ra192 num192">2</td><td>$\cos x$, $y=1/\sqrt2$ on $[-\pi/4,\pi/4]$</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td><td class="fk192">F5 - no split</td></tr>
+      <tr><td class="ra192 num192">3</td><td>$\cos x$, $y=1/\sqrt2$ on $[0,\pi/2]$</td><td>$\sqrt2-1$</td><td class="ra192 num192">0.4142135624</td><td class="fk192">F1 - exactly half of #1</td></tr>
+      <tr><td class="ra192 num192">4</td><td>$\sin x$, $y=1/2$ on $[0,\pi/2]$</td><td>$\sqrt3-1-\pi/12$</td><td class="ra192 num192">0.4702514198</td><td class="fk192">F2 - crossing at $\pi/6$</td></tr>
+      <tr><td class="ra192 num192">5</td><td>$\sin x$, $\cos x$ on $[0,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td><td class="fk192">F4 - same value as #1</td></tr>
+      <tr><td class="ra192 num192">6</td><td>$\cos x$, $y=0$ on $[0,\pi]$</td><td>$2$</td><td class="ra192 num192">2.0000000000</td><td class="fk192">F5 - one arch</td></tr>
+      <tr><td class="ra192 num192">7</td><td>$\sin x$, $y=0$ on $[0,3\pi/2]$</td><td>$3$</td><td class="ra192 num192">3.0000000000</td><td class="fk192">F6 - split at $\pi$</td></tr>
+      <tr><td class="ra192 num192">8</td><td>$\cos x$, $y=1/2$ on $[0,\pi]$</td><td>$\sqrt3+\pi/6$</td><td class="ra192 num192">2.2556495832</td><td class="fk192">F1 - asymmetric interval</td></tr>
+      <tr><td class="ra192 num192">9</td><td>$\cos x$, $y=-1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2+\pi\sqrt2/2$</td><td class="ra192 num192">4.2214414691</td><td class="fk192">F3 - no split</td></tr>
+      <tr><td class="ra192 num192">10</td><td>$y=2\cos x$, $y=1$ on $[-\pi/2,\pi/2]$</td><td>$4\sqrt3-4-\pi/3$</td><td class="ra192 num192">1.8810056791</td><td class="fk192">F1 - twice F1's $c=1/2$ row</td></tr>
+      <tr><td class="ra192 num192">11</td><td>$\cos(2x)$, $y=1/\sqrt2$ on $[-\pi/4,\pi/4]$</td><td>$\sqrt2-1$</td><td class="ra192 num192">0.4142135624</td><td class="fk192">F1 - $u=2x$ halves it</td></tr>
+      <tr><td class="ra192 num192">12</td><td>$\sec^2 x$, $y=2$ on $[-\pi/4,\pi/4]$</td><td>$\pi-2$</td><td class="ra192 num192">1.1415926536</td><td class="fk192">F8 - endpoints touch</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Twelve drills, ten distinct values</b>, because #1 and #5 coincide and #3 and #11 coincide. Three are exactly half of #1 and one is exactly twice a catalog row - but the halving pattern is <b>not universal</b>: #8 is not twice #4. Recognise it, do not assume it.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">10</span> Answer entry</h2>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+    <tbody>
+      <tr><td class="fa192"><code>2*sqrt(2)-2</code></td><td class="lo192"><code>2sqrt(2)-2</code> - implicit multiplication is not universally parsed</td></tr>
+      <tr><td class="fa192"><code>sqrt(8)-2</code> and <code>2*(sqrt(2)-1)</code> are the same number</td><td class="lo192"><code>2*sqrt(2-2)</code>, which is 0 - watch the bracket</td></tr>
+      <tr><td class="fa192"><code>0.8284271247</code> if a decimal is wanted</td><td class="lo192"><code>0.83</code> - three significant figures is off by more than $5\times10^{-4}$</td></tr>
+      <tr><td class="fa192">Preview the rendered answer before submitting</td><td class="lo192">Typing <code>units^2</code> - units are not part of a numeric answer</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The most expensive typo here is a bracket around the wrong thing.</b> <code>2*sqrt(2)-2</code> and <code>2*sqrt(2-2)</code> differ by one character and by the whole answer. The second most expensive is a leading minus: if your working produced $-0.2214$, the fix is not to delete the sign, it is that you never split.</p>
+  <div class="note192">
+    <p>Both exams are M&ouml;bius: answer-only and machine-marked. <b>No marking scheme, rubric or part-mark breakdown exists anywhere in the four course files</b>, re-confirmed on this run, so any statement about which written lines earn marks is inference from the wording and the point value, not a quoted rubric. Final Exam 2's single &ldquo;no credit will be given&rdquo; clause is on item 1; item 8 carries no justification demand of any kind.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><b>Provenance.</b> Final Exam 2, item 8, 4 points, parsed from <code>notes\MATH265\MATH265.md</code>. The value prints on its own line <i>after</i> the item, which is Final Exam 2's convention, so the 6 printed above item 8 belongs to item 7. Final Exam 2 prints twelve point values summing to 81, and 4 is the joint-lightest value on that paper. <code>MATH265_Categorized.md</code> contains nothing on areas between curves, so all nine families were derived from the mathematics.</p>
+  <p><b>Verification.</b> Harness sections <code>q192</code>, <code>q192d</code> and <code>q192s</code> in <code>Work\knowledge\topics\math265-answer-verification.py</code>: 291 assertions, 0 failures, 37 seeded controls, scoped by grepping each prefix with a trailing space rather than by any internal counter. Ten apparent errors were investigated while building this page and all ten were the check, not the mathematics; three of them became findings on this page. Companion write-up at <code>notes\Q19.2 - Area between a cosine and a horizontal line.md</code>, and the direct prerequisite is <code>notes\Q19.1 - Area between a line and a parabola.md</code>.</p>
+  <p>Written 2026-09-03.</p>
+</footer>
+

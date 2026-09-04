@@ -1,0 +1,867 @@
+<meta charset="utf-8">
+<title>Which Factor Varies</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Q19.2 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig192{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig192 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig192 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig192 text{font-family:var(--mono)}
+
+
+/* ---- Q19.3 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig193{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig193 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig193 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig193 text{font-family:var(--mono)}
+/* SVG hooks that also need real rules, so the orphan guard can see them */
+.plotbg193{}
+.band193{}
+.brk193{}
+.rate193{}
+.dot193{}
+.conn193{}
+.tick193{}
+
+
+
+/* ---- Q19.5 figure classes.  Emitted BEFORE the body, in this same block. */
+.plotbg195{fill:var(--plot)}
+/* the -soft tokens are 10-13 percent alpha, which vanishes on the plot ground.
+   An area fill needs its own opacity off the SOLID token, so it works in both
+   themes without adding a theme-conditional colour. */
+.fill195{fill:var(--fam);fill-opacity:.26;stroke:var(--fam);stroke-width:1.6}
+.naivebox195{fill:var(--los);fill-opacity:.13;stroke:var(--los);stroke-width:1.5;
+  stroke-dasharray:5 4}
+.force195{fill:none;stroke:var(--fam);stroke-width:2.4;stroke-linecap:round}
+.avg195{stroke:var(--accent);stroke-width:1.4;stroke-dasharray:2 3}
+/* ONE colour mapping across the whole page, checked by looking:
+   teal --fam  = the truth, and the routes that generalise
+   rust --los  = the wrong answer, and the shortcuts that break
+   amber --accent = the factor that VARIES, and the quantity being measured
+   A first draft used teal-for-chain and rust-for-spring in figure 1, which
+   made teal mean "correct" in one figure and "chain" in the other. */
+.slice195{fill:none;stroke:var(--ink3);stroke-width:1.3}
+.bar195{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.2}
+.rise195{stroke:var(--accent);stroke-width:1.6}
+.arrowh195{fill:var(--accent)}
+.tick195{fill:var(--plotlab);font:500 10px var(--mono);letter-spacing:.04em}
+.lab{fill:var(--plotlab);font:500 11px var(--mono);letter-spacing:.05em}
+.flab195{fill:var(--fam)}
+.movl195{fill:var(--fam)}
+.stayl195{fill:var(--los)}
+.avgl195{fill:var(--accent)}
+.varl195{fill:var(--accent)}
+.areal195{fill:var(--ink)}
+.gridl{stroke:var(--grid);stroke-width:1}
+.axis{stroke:var(--ink3);stroke-width:1.4}
+
+/* ---- Q19.5 page classes.  Every invented name carries the 195 suffix.
+   --sans and .tscroll are defined in Q19.4's EXTRA, which sits AFTER the slice
+   boundary, so both have to be re-declared here or the page loses its sans
+   stack and its wide tables stop scrolling (29.8). */
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.lede195{font:500 clamp(15px,1.6vw,17.5px)/1.62 var(--sans);color:var(--ink2);
+  max-width:62ch;margin:14px 0 0}
+.ansbar195{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(min(232px,100%),1fr))}
+.ac195{background:var(--surface2);padding:16px 18px;display:flex;
+  flex-direction:column;gap:8px}
+.al195{font:600 10px var(--mono);letter-spacing:.13em;color:var(--accent)}
+.av195{font:600 18px/1.4 var(--sans);color:var(--ink)}
+.small195{font:400 13.5px/1.58 var(--sans);color:var(--ink2)}
+.steps195{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  margin:18px 0}
+.sp195{background:var(--surface);padding:13px 16px;display:grid;
+  grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline}
+.sp195 > span:nth-child(2){grid-column:2}
+.sn195{grid-column:1;font:600 12px var(--mono);color:var(--accent);letter-spacing:.06em}
+.box195{border-left:3px solid var(--accent);background:var(--sunk);
+  padding:6px 20px;margin:20px 0;overflow-x:auto}
+.note195,.warn195{border-left:3px solid var(--fam);background:var(--sunk);
+  padding:14px 18px;margin:18px 0;font:400 14.5px/1.62 var(--sans);color:var(--ink2)}
+.warn195{border-left-color:var(--los)}
+.tscroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line)}
+.tab195{width:100%;min-width:940px;border-collapse:collapse;
+  font:400 13.5px/1.5 var(--sans)}
+.tab195 th{font:600 10px var(--mono);letter-spacing:.11em;color:var(--ink3);
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+.tab195 td{padding:9px 12px;border-bottom:1px solid var(--line-soft);
+  vertical-align:top}
+.tab195 tbody tr:last-child td{border-bottom:none}
+.num195{font-variant-numeric:tabular-nums;font-family:var(--mono);
+  font-size:12.5px;white-space:nowrap}
+/* semantic colours are their own rules, scoped both ways, so a table cell keeps
+   its meaning without borrowing a block class (28.10) */
+.tab195 td.ok195,.ok195{color:var(--fam)}
+.tab195 td.no195,.no195{color:var(--los)}
+.tab195 td.mov195,.mov195{color:var(--fam)}
+.tab195 td.stay195,.stay195{color:var(--los)}
+.tab195 td.var195,.var195{color:var(--accent)}
+.tab195 tr.hot195 td{background:var(--los-soft)}
+.tab195 tr.hid195 td{background:var(--accent-soft)}
+.tree195{font:500 12px/1.62 var(--mono);color:var(--ink2);background:var(--sunk);
+  border:1px solid var(--line);padding:16px 18px;overflow-x:auto;margin:16px 0}
+/* carryover 7: inline MathJax must never resolve to a centred block, and the
+   unit has to sit INSIDE the math or it rides above the baseline (29.9) */
+mjx-container:not([display="true"]){display:inline-block!important;
+  margin:0!important;text-align:left!important;vertical-align:-0.15em}
+.tab195 td mjx-container,.tab195 th mjx-container{color:inherit}
+.tab195 td mjx-container svg{fill:currentColor}
+@media (max-width:760px){.tab195{min-width:760px}}
+</style>
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &middot; FINAL EXAM 2 &middot; ITEM 9 &middot; 6 POINTS &middot; Q19.5</div>
+  <h1>Which Factor Varies</h1>
+  <p class="lede195">Work is force times distance, and an integral appears the moment one of
+  those two stops being constant. Q19.4's chain had a constant force per slice and distances
+  that changed from slice to slice. The spring is the mirror image: the force changes along the
+  path while every element travels the same tiny step. Same integral, opposite factor.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <div class="ansbar195">
+    <div class="ac195">
+      <div class="al195">THE STEM</div>
+      <div class="av195 small195">Assume that 20 ft-lb of work is required to stretch a spring
+      1 ft beyond its natural length. (a) What is the spring constant? (b) How much work is
+      required to stretch the spring 2 ft beyond its natural length?</div>
+    </div>
+    <div class="ac195">
+      <div class="al195">PART A</div>
+      <div class="av195">$k = 40\ \text{lb/ft}$</div>
+      <div class="small195">From $20 = \tfrac12 k (1)^2$.</div>
+    </div>
+    <div class="ac195">
+      <div class="al195">PART B</div>
+      <div class="av195">$W = 80\ \text{ft-lb}$</div>
+      <div class="small195">From $\int_0^2 40x\,dx$.</div>
+    </div>
+    <div class="ac195">
+      <div class="al195">TYPE INTO M&Ouml;BIUS</div>
+      <div class="av195"><code class="kbd">40</code> &middot; <code class="kbd">80</code></div>
+      <div class="small195">Two boxes, no units.</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The mirror</h2>
+  <p>Both work problems in this category compute the same thing: a sum of
+  <b>(force acting on a piece)</b> times <b>(distance that piece moves)</b>. What separates
+  them is which of the two factors is a function.</p>
+
+  <figure>
+    <div class="figbox"><svg viewBox="0 0 760 340" width="100%" role="img" aria-label="The mirror. On the left a chain, where every slice needs the same force and travels a different distance. On the right a spring, where every element travels the same distance and needs a different force."><rect x="0" y="0" width="760" height="340" class="plotbg195"/><line class="axis" x1="380" y1="30" x2="380" y2="306"/><text class="lab" x="30" y="26">CHAIN - SAME FORCE, DIFFERENT DISTANCES</text><rect class="slice195" x="46" y="279.0" width="34" height="9"/><line class="rise195" x1="88" y1="283.5" x2="112.0" y2="283.5"/><polygon class="arrowh195" points="112.0,283.5 105.0,279.0 105.0,288.0"/><rect class="slice195" x="46" y="243.0" width="34" height="9"/><line class="rise195" x1="88" y1="247.5" x2="158.0" y2="247.5"/><polygon class="arrowh195" points="158.0,247.5 151.0,243.0 151.0,252.0"/><rect class="slice195" x="46" y="207.0" width="34" height="9"/><line class="rise195" x1="88" y1="211.5" x2="204.0" y2="211.5"/><polygon class="arrowh195" points="204.0,211.5 197.0,207.0 197.0,216.0"/><rect class="slice195" x="46" y="171.0" width="34" height="9"/><line class="rise195" x1="88" y1="175.5" x2="250.0" y2="175.5"/><polygon class="arrowh195" points="250.0,175.5 243.0,171.0 243.0,180.0"/><rect class="slice195" x="46" y="135.0" width="34" height="9"/><line class="rise195" x1="88" y1="139.5" x2="296.0" y2="139.5"/><polygon class="arrowh195" points="296.0,139.5 289.0,135.0 289.0,144.0"/><rect class="slice195" x="46" y="99.0" width="34" height="9"/><line class="rise195" x1="88" y1="103.5" x2="342.0" y2="103.5"/><polygon class="arrowh195" points="342.0,103.5 335.0,99.0 335.0,108.0"/><text class="lab tick195" x="46" y="306">EACH SLICE: 78.4 dy NEWTONS</text><text class="lab varl195" x="46" y="328">THE DISTANCE VARIES</text><text class="lab" x="426" y="26">SPRING - SAME DISTANCE, DIFFERENT FORCES</text><rect class="bar195" x="426.0" y="258.0" width="25.0" height="30.0"/><rect class="bar195" x="454.0" y="218.0" width="25.0" height="70.0"/><rect class="bar195" x="482.0" y="178.0" width="25.0" height="110.0"/><rect class="bar195" x="510.0" y="138.0" width="25.0" height="150.0"/><rect class="bar195" x="538.0" y="98.0" width="25.0" height="190.0"/><rect class="bar195" x="566.0" y="58.0" width="25.0" height="230.0"/><line class="axis" x1="420.0" y1="288.0" x2="598.0" y2="288.0"/><text class="lab tick195" x="426" y="306">EACH STEP: THE SAME dx</text><text class="lab varl195" x="426" y="328">THE FORCE VARIES</text></svg></div>
+    <figcaption><b>Figure 1.</b> Left, the chain: every slice needs the same
+    $78.4\,dy$ newtons and travels a different distance, so the arrows have different lengths
+    and the slices are all the same size. Right, the spring: every step along the path is the
+    same $dx$ and needs a different force, so the steps have equal width and different
+    heights.</figcaption>
+  </figure>
+
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th></th><th>Q19.4, the chain</th><th>Q19.5, the spring</th></tr></thead>
+    <tbody>
+      <tr><td>Slicing variable</td><td>height $y$ of a slice of chain</td>
+          <td>extension $x$ along the stretch</td></tr>
+      <tr><td>Force factor</td>
+          <td>$78.4\,dy$ N, the <b>same</b> for every slice</td>
+          <td class="var195">$F(x) = 40x$ lb, <b>different</b> at every $x$</td></tr>
+      <tr><td>Distance factor</td>
+          <td class="var195">$y$ metres, <b>different</b> for every slice</td>
+          <td>$dx$, the <b>same</b> for every element</td></tr>
+      <tr><td>The integral sums</td><td>pieces of the object</td><td>pieces of the path</td></tr>
+      <tr><td>Answer</td><td class="num195">1411.2 J</td><td class="num195">80 ft-lb</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>That table is a measurement, not a slogan. Differentiate each factor with respect to its own
+  slicing variable and one derivative comes out zero in each problem: for the chain the force
+  factor has derivative $0$ and the distance factor has derivative $1$, and for the spring the
+  force factor has derivative $40$ while the displacement element has derivative $0$.</p>
+</section>
+
+<section>
+  <h2>Why the answer is not force times distance</h2>
+  <p>At the end of the stretch the force is $F(2) = 80$ lb, and the distance is $2$ ft. Multiply
+  those and you get $160$ ft-lb, which is exactly twice the truth. The picture below is the whole
+  explanation: the work is the <b class="mov195">triangle</b> under Hooke's line, and force times
+  distance is the <b class="stay195">whole box</b>.</p>
+
+  <figure>
+    <div class="figbox"><svg viewBox="0 0 760 392" width="100%" role="img" aria-label="Force against extension. The work is the shaded triangle; force at the far end times the distance is the whole box, twice as big."><rect x="0" y="0" width="760" height="392" class="plotbg195"/><line class="gridl" x1="62.00" y1="346.00" x2="62.00" y2="34.00"/><line class="gridl" x1="176.17" y1="346.00" x2="176.17" y2="34.00"/><line class="gridl" x1="290.33" y1="346.00" x2="290.33" y2="34.00"/><line class="gridl" x1="404.50" y1="346.00" x2="404.50" y2="34.00"/><line class="gridl" x1="518.67" y1="346.00" x2="518.67" y2="34.00"/><line class="gridl" x1="62.00" y1="346.00" x2="610.00" y2="346.00"/><line class="gridl" x1="62.00" y1="286.00" x2="610.00" y2="286.00"/><line class="gridl" x1="62.00" y1="226.00" x2="610.00" y2="226.00"/><line class="gridl" x1="62.00" y1="166.00" x2="610.00" y2="166.00"/><line class="gridl" x1="62.00" y1="106.00" x2="610.00" y2="106.00"/><line class="gridl" x1="62.00" y1="46.00" x2="610.00" y2="46.00"/><rect class="naivebox195" x="62.00" y="106.00" width="456.67" height="240.00"/><polygon class="fill195" points="62.00,346.00 518.67,346.00 518.67,106.00"/><line class="avg195" x1="62.00" y1="226.00" x2="518.67" y2="226.00"/><line class="force195" x1="62.00" y1="346.00" x2="610.00" y2="58.00"/><line class="axis" x1="62.00" y1="346.00" x2="610.00" y2="346.00"/><line class="axis" x1="62.00" y1="346.00" x2="62.00" y2="34.00"/><text class="tick195" x="62.00" y="363.00" text-anchor="middle">0</text><text class="tick195" x="176.17" y="363.00" text-anchor="middle">0.5</text><text class="tick195" x="290.33" y="363.00" text-anchor="middle">1</text><text class="tick195" x="404.50" y="363.00" text-anchor="middle">1.5</text><text class="tick195" x="518.67" y="363.00" text-anchor="middle">2</text><text class="tick195" x="53.00" y="349.50" text-anchor="end">0</text><text class="tick195" x="53.00" y="289.50" text-anchor="end">20</text><text class="tick195" x="53.00" y="229.50" text-anchor="end">40</text><text class="tick195" x="53.00" y="169.50" text-anchor="end">60</text><text class="tick195" x="53.00" y="109.50" text-anchor="end">80</text><text class="tick195" x="53.00" y="49.50" text-anchor="end">100</text><text class="lab" x="336.00" y="380.00" text-anchor="middle">EXTENSION x IN FEET, ACROSS - FORCE F IN POUNDS, UP</text><text class="lab flab195" x="622.00" y="58.00" text-anchor="start" style="font-size:11px">F(x) = 40x</text><text class="lab movl195" x="622.00" y="130.00" text-anchor="start" style="font-size:11px">WORK = 80 ft-lb</text><text class="lab tick195" x="622.00" y="157.00" text-anchor="start" style="font-size:10px">the TRIANGLE</text><text class="lab stayl195" x="622.00" y="214.00" text-anchor="start" style="font-size:11px">F(2) x 2 = 160</text><text class="lab tick195" x="622.00" y="241.00" text-anchor="start" style="font-size:10px">the WHOLE BOX</text><text class="lab avgl195" x="622.00" y="298.00" text-anchor="start" style="font-size:10px">AVERAGE FORCE 40 lb</text><text class="lab areal195" x="415.92" y="292.00" text-anchor="middle">80</text><text class="lab stayl195" x="203.57" y="154.00" text-anchor="middle">80 MORE</text></svg></div>
+    <figcaption><b>Figure 2.</b> Force against extension. The work done is the area under
+    $F(x) = 40x$ from $0$ to $2$, which is a triangle of area $80$. The dashed box is
+    $F(2)\times 2 = 160$. The horizontal line at $40$ lb is the average force, and it cuts the
+    box into two equal halves, which is why the average-force shortcut lands on the truth
+    here.</figcaption>
+  </figure>
+
+  <div class="box195">
+    $$W = \int_0^2 F(x)\,dx = \int_0^2 40x\,dx = \Big[20x^2\Big]_0^2 = 80\ \text{ft-lb}$$
+  </div>
+</section>
+
+<section>
+  <h2>Hooke's law, and the one word that costs the mark</h2>
+  <div class="box195">
+    $$F(x) = kx, \qquad x = (\text{current length}) - (\text{natural length})$$
+  </div>
+  <p class="warn195"><b>$x$ is the extension, never the total length.</b> This stem is generous:
+  it says "1 ft beyond its natural length" and "2 ft beyond its natural length", so both numbers
+  are already extensions and it never even tells you the natural length. A version that gives
+  you lengths instead is where the mark actually goes, and it is Family 3 below.</p>
+
+  <p>Everything then turns on finding $k$ first, and the formula depends on what kind of datum
+  you were handed. Getting this wrong is not a partial error: $W = \tfrac12 k a^2$ is linear in
+  $k$, so a $k$ that is half the truth gives an answer that is half the truth, with nothing to
+  catch it downstream.</p>
+
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>The datum</th><th>$k$ from it</th><th>Why</th><th>This question</th></tr></thead>
+    <tbody>
+      <tr class="hid195"><td><b>work</b> $W_1$ over extension $a_1$</td>
+          <td class="num195">$2W_1 / a_1^2$</td><td>invert $W = \tfrac12 k a^2$</td>
+          <td class="num195">$2(20)/1^2 = 40$</td></tr>
+      <tr><td><b>force</b> $F_1$ at extension $a_1$</td><td class="num195">$F_1 / a_1$</td>
+          <td>invert $F = kx$ directly</td><td>Family 4</td></tr>
+      <tr><td><b>work</b> between $b$ and $a$</td>
+          <td class="num195">$2W/(a^2 - b^2)$</td><td>invert the general form</td>
+          <td>Family 9</td></tr>
+      <tr><td>a <b>mass</b> $m$ hanging at $x$</td><td class="num195">$mg / x$</td>
+          <td>the weight is $mg$, not $m$</td><td>Family 6, the only $g$</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p class="note195"><b>The pound is a force, so $g$ must not appear.</b> Q19.4 gave a mass in
+  kilograms and had to insert $g = 9.8$ to turn it into a weight. Q19.5 is stated in ft-lb, and
+  the pound is already a force, so inserting $g = 32.2$ is the same mistake running backwards.
+  It produces $2576$, which nobody will mistake for $80$.</p>
+</section>
+
+<section>
+  <h2>The procedure, once, for both work questions</h2>
+  <div class="steps195">
+    <div class="sp195"><span class="sn195">1</span><span><b>Draw the final state</b> and name a
+      slicing variable, saying where its origin is. For the chain that is a height; for the
+      spring it is an extension.</span></div>
+    <div class="sp195"><span class="sn195">2</span><span><b>Ask which factor varies.</b> If the
+      force per piece is constant and the distances differ, you are slicing the
+      <b>object</b>. If every piece moves the same $dx$ and the force differs, you are slicing
+      the <b>path</b>. The <b class="var195">varying</b> factor is the one under the integral
+      sign.</span></div>
+    <div class="sp195"><span class="sn195">3</span><span><b>Find any constant the stem only
+      implies</b> - the linear density $\lambda$ for a chain, the spring constant $k$ for a
+      spring - and write its units down beside it.</span></div>
+    <div class="sp195"><span class="sn195">4</span><span><b>Put that constant back into the
+      given datum</b> and reproduce the given number. One line, and it catches every
+      wrong-formula error.</span></div>
+    <div class="sp195"><span class="sn195">5</span><span><b>Write and evaluate the integral</b>
+      of (force) times (distance) over the range of your variable.</span></div>
+    <div class="sp195"><span class="sn195">6</span><span><b>Bracket the answer</b> between
+      smallest-force-times-distance and largest-force-times-distance. There is no sign to check
+      on a work question, so this is the only cheap test you have.</span></div>
+  </div>
+</section>
+
+<section>
+  <h2>Five routes, and the one to actually check with</h2>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>Route</th><th>What it is</th><th>Needs $k$</th><th>Fails when</th>
+      <th>Answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b> extension</td><td>$\int_0^2 kx\,dx$, sliced along the path</td>
+          <td class="no195">yes</td><td>never, if $x$ is read right</td>
+          <td class="num195">80</td></tr>
+      <tr><td><b>B</b> total length</td>
+          <td>$\int_{L_0}^{L_0+2} k(\ell - L_0)\,d\ell$, origin moved</td>
+          <td class="no195">yes</td><td>you forget the shift</td>
+          <td class="num195">80</td></tr>
+      <tr><td><b>C</b> stored energy</td><td>$U(2) - U(0)$ with $U = \tfrac12 kx^2$</td>
+          <td class="no195">yes</td><td>never</td><td class="num195">80</td></tr>
+      <tr class="hid195"><td><b>D</b> scaling</td>
+          <td>$W_1 (a/a_1)^2 = 20 \times 4$, no $k$ at all</td>
+          <td class="ok195">no</td><td>the force is not $kx$</td>
+          <td class="num195">80</td></tr>
+      <tr><td><b>E</b> average force</td><td>$\tfrac12 k(a+b)$ times the displacement</td>
+          <td class="no195">yes</td><td>the force is not linear</td>
+          <td class="num195">80</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>Write Route A, check with Route D.</b> Route A is what a marker expects and it
+  generalises to every variation. Route D is one multiplication and it shares nothing with A, so
+  it disagrees the instant your $k$ is wrong. Routes A, C and E all share $k$, which means they
+  agree with each other even when $k$ is wrong.</p>
+  <p class="note195"><b>Route B is the real check on the setup.</b> It derives the integrand a
+  second, independent way, and the answer must not depend on the natural length $L_0$. Evaluated
+  at nine values of $L_0$ from $0$ to $1000$, it returned $80$ every time. Forget the shift and
+  integrate $\int_1^3 40\ell\,d\ell$ instead, and you get $160$.</p>
+</section>
+
+<section>
+  <h2>The average-force shortcut is exactly right here</h2>
+  <p>Not approximately. $F(x) = kx$ is a linear function, and the mean of a linear function over
+  an interval is its value at the midpoint, which is also the mean of its endpoint values. So
+  $\bar{F}(a-b) = \tfrac12 k(a^2-b^2)$ is an identity. Tested over 24 intervals, the worst
+  disagreement was $2.274 \times 10^{-13}$, which is roundoff.</p>
+  <p>It stops being exact the moment the force stops being linear, which is why knowing
+  <em>why</em> it works matters more than knowing that it does:</p>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>Force law on $[0,2]$</th><th>Exact work</th><th>Endpoint-average</th>
+      <th>Midpoint</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr class="hid195"><td>$40x$, this question</td><td class="num195">80</td>
+          <td class="num195">80</td><td class="num195">80</td>
+          <td class="ok195">exact</td></tr>
+      <tr><td>$40x^2$</td><td class="num195">106.666667</td><td class="num195">160</td>
+          <td class="num195">80</td><td class="no195">both wrong</td></tr>
+      <tr><td>$40x + 5x^3$</td><td class="num195">100</td><td class="num195">120</td>
+          <td>-</td><td class="no195">off by 20</td></tr>
+      <tr><td>$40x + 6x^2$</td><td class="num195">96</td><td class="num195">104</td>
+          <td>-</td><td class="no195">off by 8</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The midpoint column on the $40x^2$ row returns $80$, which is the right answer to a
+  different question. It is a coincidence of these numbers, not a shortcut.</p>
+  <p class="note195"><b>One theorem, two disguises.</b> This is the same statement as Q19.4's
+  centre-of-mass shortcut, which is exact because the rise there is <em>linear in the slicing
+  variable</em> - not, as it is tempting to assume, because the chain's density is uniform.</p>
+</section>
+
+<section>
+  <h2>The check that works, and the one that does nothing</h2>
+  <p>On an area or a net-change question you can ask "is it positive?" and catch a sign error for
+  free. Work, as this question asks for it, is unsigned. Of the twenty wrong-answer candidates
+  built for this page, nineteen are strictly positive and one is zero, so a positivity check
+  rejects <b class="no195">none of them</b>.</p>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>Check</th><th>Range</th><th>Rejects</th><th>Comment</th></tr></thead>
+    <tbody>
+      <tr><td>work is positive</td><td>$W > 0$</td><td class="no195">0 of 20</td>
+          <td>inert, exactly as on Q19.4</td></tr>
+      <tr><td>trivial bracket</td><td class="num195">$0 < W < 160$</td>
+          <td class="num195">6 of 20</td><td>smallest and largest force times the distance</td></tr>
+      <tr class="hid195"><td>two-panel bracket</td><td class="num195">$40 < W < 120$</td>
+          <td class="num195">14 of 20</td><td>a strict superset, and worth the ten seconds</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The answer sits at exactly $0.5$ of the trivial range, and it sits there
+  <em>because the force is linear</em>. For $F = 40x^2$ over the same interval it sits at
+  $0.3333$ instead.</p>
+</section>
+
+<section>
+  <h2>Four wrong methods return 80</h2>
+  <p>This is the part worth reading twice. The stem's numbers are <b>degenerate in two
+  independent ways</b>, and between them they let three genuinely wrong methods produce the right
+  answer.</p>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>Value</th><th>Produced by</th><th>Caught by</th></tr></thead>
+    <tbody>
+      <tr><td class="num195">0</td><td>force at the near end times the distance</td>
+          <td>trivial bracket</td></tr>
+      <tr><td class="num195">2.484472</td><td>dividing by $g = 32.2$</td>
+          <td>tight bracket</td></tr>
+      <tr><td class="num195">20</td><td>answering part b with the datum; integrating to
+          $a = 1$ by reflex</td><td>tight bracket</td></tr>
+      <tr class="hot195"><td class="num195">40</td><td>$k = W/a^2$; $k = W/a$; linear scaling;
+          answering with $k$; $\tfrac12 ka$ - five mistakes on one value</td>
+          <td>tight bracket</td></tr>
+      <tr><td class="num195">60</td><td>integrating from $1$ to $2$ when $0$ to $2$ was asked</td>
+          <td class="no195">nothing cheap</td></tr>
+      <tr class="hid195"><td class="num195">80</td><td><b>the truth</b>, and three wrong methods
+          besides</td><td class="no195">nothing at all</td></tr>
+      <tr class="hot195"><td class="num195">160</td><td>forgetting the $\tfrac12$; force at the
+          far end times the distance; total length with $L_0 = 1$</td>
+          <td>trivial bracket</td></tr>
+      <tr><td class="num195">1600</td><td>swapping the roles, $\tfrac12 a k^2$</td>
+          <td>trivial bracket</td></tr>
+      <tr><td class="num195">2576</td><td>multiplying by $g = 32.2$</td>
+          <td>trivial bracket</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>Degeneracy</th><th>Why it hides</th><th>Where it breaks</th></tr></thead>
+    <tbody>
+      <tr><td>$a_1 = 1$ makes $2W/a^2$ and $2W/a$ agree</td>
+          <td>dividing by $1$ or by $1^2$ is the same thing</td>
+          <td>at $a_1 = 0.5$ they give $160$ and $80$</td></tr>
+      <tr><td>$a = 2$ makes $\tfrac12 ka^2$ and $ka$ agree</td>
+          <td>$\tfrac12 a^2 = a$ exactly when $a = 2$</td>
+          <td>at $a = 3$ they give $180$ and $120$</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <p>The second one was swept rather than argued: scanning $a$ over $5001$ points on $[0, 5]$,
+  the only values where $\tfrac12 ka^2 = ka$ are $a = 0$ and $a = 2$. So both hiders are
+  manufactured by the convenient numbers $1$ and $2$ in the stem.</p>
+
+  <p class="warn195"><b>Two of your own routes agreeing is weak evidence on this question.</b>
+  Four values in the census are collisions, with multiplicities $2$, $5$, $4$ and $3$, so
+  <b>14 of the 20</b> candidates sit on a value some other mistake also reaches. The only thing
+  that separates the truth from the three impostors is step 4 of the procedure: put $k$ back
+  into the given datum and reproduce the given $20$ ft-lb.</p>
+</section>
+
+<section>
+  <h2>The variation catalog</h2>
+  <p>Fifteen families, all derived from the mathematics, because
+  <code class="kbd">MATH265_Categorized.md</code> has zero occurrences of "spring" and zero of
+  "Hooke". Read it as structure: there are only four tools in the whole table - invert a datum to
+  get $k$, integrate $kx$ between two extensions, subtract a natural length, and integrate
+  something that is not $kx$.</p>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>#</th><th>Trigger</th><th>Tool</th><th>Worked instance</th>
+      <th>Value</th></tr></thead>
+    <tbody>
+      <tr class="hid195"><td>0</td><td>work at one extension, another asked</td>
+          <td>$k = 2W_1/a_1^2$ then $\tfrac12 k a^2$</td>
+          <td>20 ft-lb over 1 ft, asked 2 ft</td><td class="num195">80 ft-lb</td></tr>
+      <tr><td>1</td><td>$k$ given outright</td><td>straight to $\tfrac12 k a^2$</td>
+          <td>$k = 30$, stretch 3 ft</td><td class="num195">135 ft-lb</td></tr>
+      <tr><td>2</td><td>"additional", two nonzero extensions</td>
+          <td>$\tfrac12 k(a^2 - b^2)$</td><td>$k = 40$, from 1 ft to 2 ft</td>
+          <td class="num195">60 ft-lb</td></tr>
+      <tr class="hot195"><td>3</td><td>a natural length and two <b>lengths</b></td>
+          <td>subtract first, then Family 2</td>
+          <td>natural 8 in, 10 in to 14 in, $k = 24$</td>
+          <td class="num195">2.666667 ft-lb</td></tr>
+      <tr><td>4</td><td>a <b>force</b> datum</td><td>$k = F/a$, no 2 and no square</td>
+          <td>40 lb holds it at 2 ft, asked 3 ft</td><td class="num195">90 ft-lb</td></tr>
+      <tr><td>5</td><td>newtons, joules, metres</td><td>identical, and no $g$</td>
+          <td>12 J over 0.4 m, asked 0.8 m</td><td class="num195">48 J</td></tr>
+      <tr><td>6</td><td>a hanging <b>mass</b></td><td>$k = mg/x$</td>
+          <td>4 kg stretches it 0.05 m, asked 0.1 m</td><td class="num195">3.92 J</td></tr>
+      <tr><td>7</td><td>"compress"</td><td>same formula, magnitude of $x$</td>
+          <td>$k = 50$ N/m, compress 0.2 m</td><td class="num195">1 J</td></tr>
+      <tr><td>8</td><td>"how far", "what extension"</td><td>$a = \sqrt{2W/k}$</td>
+          <td>$k = 40$, 45 ft-lb of work</td><td class="num195">1.5 ft</td></tr>
+      <tr><td>9</td><td>work over a nonzero interval, $k$ asked</td>
+          <td>$k = 2W/(a^2 - b^2)$</td><td>60 ft-lb from 1 ft to 2 ft</td>
+          <td class="num195">40 lb/ft</td></tr>
+      <tr><td>10</td><td>the force is not $kx$</td><td>integrate; no shortcut survives</td>
+          <td>$F = 40x + 6x^2$ from 0 to 2</td><td class="num195">96 ft-lb</td></tr>
+      <tr><td>11</td><td>two springs</td><td>effective $k$ first</td>
+          <td>40 and 60 lb/ft in series, 1 ft</td><td class="num195">12 ft-lb</td></tr>
+      <tr><td>12</td><td>"energy stored", "work released"</td>
+          <td>same magnitude, mind the sign</td><td>relaxing from 2 ft to 1 ft</td>
+          <td class="num195">60 ft-lb</td></tr>
+      <tr><td>13</td><td>any $F(x)$, no spring at all</td><td>$\int_b^a F\,dx$</td>
+          <td>$F = 3x^2 + 2$ from 0 to 4</td><td class="num195">72</td></tr>
+      <tr><td>14</td><td>a chain, a rope, a tank</td>
+          <td>slice the <b>object</b>; see Q19.4</td>
+          <td>10 m 80 kg chain, one end to 6 m</td><td class="num195">1411.2 J</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>Closing the work pair</h2>
+  <p>Q19.4 and Q19.5 are the whole of "work" in this bank, and between them they cover both
+  shapes the integral can take. Here is which question teaches what, so you know where to look
+  when a variation appears.</p>
+  <div class="tscroll">
+  <table class="tab195">
+    <thead><tr><th>What you need</th><th>Learn it from</th><th>Because</th></tr></thead>
+    <tbody>
+      <tr><td>Building an integrand from a picture</td><td><b>Q19.4</b></td>
+          <td>nothing is handed to you as a function</td></tr>
+      <tr><td>The four-move slice method</td><td><b>Q19.4</b></td>
+          <td>final picture, weight of a slice, distance of that slice, add up</td></tr>
+      <tr><td>Deriving the integrand twice as the real check</td><td>both</td>
+          <td>move the origin, or change the slicing variable</td></tr>
+      <tr><td>Weight versus mass, and when $g$ appears</td><td>both, mirrored</td>
+          <td>kg needs $g$; lb already is a force</td></tr>
+      <tr><td>Finding an implied constant before using it</td><td><b>Q19.5</b></td>
+          <td>a wrong $k$ scales the answer with nothing to catch it</td></tr>
+      <tr><td>Hooke's law, and that $x$ is an extension</td><td><b>Q19.5</b></td>
+          <td>the classic lost mark in the topic</td></tr>
+      <tr><td>Why work is not force times distance</td><td><b>Q19.5</b></td>
+          <td>the triangle against the box, exactly a factor of two</td></tr>
+      <tr><td>When a linear-average shortcut is exact</td><td>both</td>
+          <td>centre of mass and average force are one theorem</td></tr>
+      <tr><td>That positivity is inert and the bracket is not</td><td>both</td>
+          <td>work as asked is unsigned</td></tr>
+      <tr><td>A wrong picture hiding behind right arithmetic</td><td><b>Q19.4</b></td>
+          <td>measuring the rise downward returns the same 1411.2</td></tr>
+      <tr><td>A wrong formula hiding behind convenient data</td><td><b>Q19.5</b></td>
+          <td>$a_1 = 1$ and $a = 2$ each hide one mistake</td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>Answer entry, and the expensive typo</h2>
+  <p>Both exams are M&ouml;bius and answer-only, so a right method with a bad keystroke scores
+  nothing. Part a takes <code class="kbd">40</code> and part b takes
+  <code class="kbd">80</code>, both as plain integers, in two separate boxes, with no units unless
+  the box asks for them.</p>
+  <p class="warn195"><b>The most expensive typo is answering part b with 40.</b> It is the spring
+  constant, you just wrote it down, and it is also what five separate wrong methods produce, so
+  it looks more familiar than any other wrong answer on the page.</p>
+  <p class="note195"><b>A reading trap that is not a typo.</b> "Stretch the spring 2 ft beyond
+  its natural length" means from the natural length to an extension of $2$ ft, so the limits are
+  $0$ to $2$ and the answer is $80$. If a version asks for the <em>additional</em> work, or "from
+  1 ft to 2 ft", the limits are $1$ to $2$ and the answer is $60$. The two readings differ by
+  exactly the stem's own $20$ ft-lb, because $80 = 20 + 60$.</p>
+</section>
+
+<section>
+  <h2>The one-page decision tree</h2>
+  <pre class="tree195">work on a spring?
+ |
+ +- what am I given?
+ |    work over an extension ----------&gt; k = 2W / a^2
+ |    force at an extension -----------&gt; k = F / a          (no 2, no square)
+ |    work between b and a ------------&gt; k = 2W / (a^2 - b^2)
+ |    a hanging MASS ------------------&gt; k = m g / x        (the only g)
+ |    k itself ------------------------&gt; skip to the integral
+ |
+ +- are the numbers extensions or LENGTHS?
+ |    lengths -&gt; subtract the natural length from BOTH, now
+ |
+ +- W = integral from b to a of k x dx = (1/2) k (a^2 - b^2)
+ |
+ +- is the force actually k x?
+ |    no -&gt; integrate F(x); every shortcut on this page is void
+ |
+ CHECK  1. put k back into the GIVEN datum and reproduce the GIVEN work
+ CHECK  2. Route D: W = W1 (a/a1)^2, which never touches k
+ CHECK  3. bracket:  F(b)(a-b)  &lt;  W  &lt;  F(a)(a-b),  and for k x it is the midpoint
+ CHECK  4. units: force x length.  imperial -&gt; no g.  metric mass datum -&gt; g.
+ |
+ PREVIEW in Mobius before submitting</pre>
+</section>
+
+<footer class="wrap">
+  <p class="small195"><b>Provenance.</b> The stem is re-parsed from
+  <code class="kbd">notes\MATH265\MATH265.md</code>, Final Exam 2 item 9, and matches the question
+  bank's copy after normalising the LaTeX spacing macros. That paper prints its point value on
+  its own line after each item; item 9 carries 6 points, its twelve values sum to $81$, and three
+  of the twelve items carry $6$, so this question is $7.4074$ percent of the paper and not an
+  extreme of it. Item 9 carries no justification demand of any kind, asserted by searching its
+  own slice for six such phrases and confirming that five of the six do appear elsewhere in the
+  same paper. <b>No marking scheme exists in any of the four course files</b>, so every claim
+  about where the marks sit is an inference and is flagged as one.</p>
+  <p class="small195"><b>Verification.</b> The spring constant was determined four independent
+  ways, none of which uses the part-b computation, and then checked back against the stem's own
+  datum. The integrand was derived twice, in extension and in total length with the shift
+  applied, agreeing for nine natural lengths from $0$ to $1000$. The definite integral was
+  evaluated by exact antiderivative, Gauss-Legendre, bounded tanh-sinh and Simpson. Quadrature
+  order is <b>unmeasurable on this integrand</b> because $40x$ is linear and Simpson is exact on
+  it - the worst error across ten resolutions was $1.421 \times 10^{-14}$ - so the instrument was
+  demonstrated on controls instead, which measured $4.0003$ on a smooth function and $1.6667$ on
+  a cusp, with Simpson confirmed <em>not</em> exact on $x^4$. The units gate, as exponent vectors
+  over pound-force, foot and second, was proved to reject eight seeded errors before its
+  acceptance was trusted. Harness sections <code class="kbd">q195</code> and
+  <code class="kbd">q195d</code> report $235$ PASS and $0$ FAIL with $47$ seeded controls, the
+  control count taken from the assertion labels rather than an internal counter.</p>
+  <p class="small195">Companion page: <b>Q19.4, Build the Integrand</b>, which owns the slice
+  method and the chain. Verified 2026-09-03.</p>
+</footer>
+
+</main>

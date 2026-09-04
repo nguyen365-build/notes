@@ -1,0 +1,351 @@
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 2 &middot; Item 10 &middot; 5 points</div>
+  <h1>Two Answers, One Integral</h1>
+  <p class="deck">Displacement asks where the particle ended up. Distance asks what the odometer
+  read. They are the same integral with one difference: whether you keep the sign. On this
+  question the velocity changes sign twice inside the interval, so the two answers are forced
+  apart, and eleven of the nineteen wrong ways to do part (b) hand back part (a)'s number.</p>
+  <p class="stem">A particle moves along a line so that its velocity at time \(t\) is
+  \(v(t) = t^2 - 3t + 2\) (meter/sec). <b>(a)</b> Find the displacement of the particle during
+  the time period \([0, 3]\). <b>(b)</b> Find the distance traveled during this same time
+  period.</p>
+</header>
+
+<section class="ansbar198">
+  <div class="acard198">
+    <div class="alab198">Part (a) &middot; displacement</div>
+    <div class="aval198 sig198">\(\dfrac{3}{2}\)</div>
+    <div class="asub198">= 1.5 metres &middot; signed</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Part (b) &middot; distance</div>
+    <div class="aval198 uns198">\(\dfrac{11}{6}\)</div>
+    <div class="asub198">&#8776; 1.8333333333 metres &middot; unsigned</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Do they coincide?</div>
+    <div class="aval198 no198">No</div>
+    <div class="asub198">gap \(\tfrac{1}{3}\), twice the one negative piece</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Type into M&ouml;bius</div>
+    <div class="aval198 mono198">3/2 &nbsp;|&nbsp; 11/6</div>
+    <div class="asub198">never a rounded decimal</div>
+  </div>
+</section>
+
+<section>
+  <h2>The whole method in four steps</h2>
+  <ol class="steps198">
+    <li><b>Factor.</b> \(v = t^2-3t+2 = (t-1)(t-2)\), so \(v = 0\) at \(t=1\) and \(t=2\).
+        <span class="hi198">Both are strictly inside \([0,3]\)</span>, which is the sentence
+        that decides the mark.</li>
+    <li><b>Antidifferentiate once.</b> \(S(t) = \dfrac{t^3}{3} - \dfrac{3t^2}{2} + 2t\), and
+        \(S' = v\) checks in one line.</li>
+    <li><b>Part (a) needs no split.</b>
+        \(\displaystyle\int_0^3 v\,dt = S(3)-S(0) = 9 - \tfrac{27}{2} + 6 = \tfrac{3}{2}\).</li>
+    <li><b>Part (b) splits at every sign change.</b> The three pieces are \(\tfrac{5}{6}\),
+        \(-\tfrac{1}{6}\) and \(\tfrac{5}{6}\); add their absolute values to get
+        \(\tfrac{11}{6}\).</li>
+  </ol>
+  <p class="chk198"><b>Eight-second check.</b> distance \(-\) displacement \(= \tfrac{11}{6} -
+  \tfrac{3}{2} = \tfrac{1}{3}\), which is exactly <b>twice</b> the one negative piece. If the
+  gap is not twice something you already computed, a piece was dropped or double-counted.</p>
+</section>
+
+<figure class="figbox">
+  __FIG1__
+  <figcaption><b>Figure 1. Where the difference comes from.</b> The velocity is positive on
+  \([0,1)\) and \((2,3]\) and negative on \((1,2)\). Displacement adds the three signed areas
+  and gets \(\tfrac{3}{2}\); distance adds their magnitudes and gets \(\tfrac{11}{6}\). The
+  blue sliver is the entire reason the two answers differ, and it is worth only
+  \(\tfrac{1}{6}\).</figcaption>
+</figure>
+
+<section>
+  <h2>Why the difference is twice the negative part</h2>
+  <p>Split the interval into the part where \(v \ge 0\) and the part where \(v &lt; 0\). Write
+  \(A\) for the integral over the first and \(B \le 0\) for the integral over the second.</p>
+  <p class="disp198">\[\text{displacement} = A + B, \qquad \text{distance} = A - B, \qquad
+  \text{distance} - \text{displacement} = 2\lvert B\rvert.\]</p>
+  <p>So the two answers agree <b>exactly when \(B = 0\)</b>, that is, exactly when the velocity
+  never changes sign on the interval. Nothing else matters: not the degree of \(v\), not
+  whether a root exists, only whether a root lies inside <em>and</em> the sign actually flips
+  there.</p>
+</section>
+
+<figure class="figbox">
+  __FIG2__
+  <figcaption><b>Figure 2. Position against odometer.</b> The two curves are identical until
+  the first sign change at \(t=1\). Between \(t=1\) and \(t=2\) the position falls while the
+  odometer keeps climbing, and after \(t=2\) they run parallel, permanently \(\tfrac{1}{3}\)
+  apart. An odometer can never go down; a position can.</figcaption>
+</figure>
+
+<section>
+  <h2>Read the noun, then decide</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>The wording says</th><th>You are being asked for</th>
+      <th class="nw198">Split at the zeros?</th></tr></thead>
+    <tbody>
+      <tr><td>displacement, net change in position</td><td>\(\int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td>how far is it from where it started</td><td>\(\lvert\int_a^b v\,dt\rvert\)</td><td>no</td></tr>
+      <tr><td><b>distance travelled, total distance</b></td><td>\(\int_a^b \lvert v\rvert\,dt\)</td>
+        <td class="yes198">yes</td></tr>
+      <tr><td>position at time \(b\)</td><td>\(x(a) + \int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td>average velocity</td><td>\(\frac{1}{b-a}\int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td><b>average speed</b></td><td>\(\frac{1}{b-a}\int_a^b \lvert v\rvert\,dt\)</td>
+        <td class="yes198">yes</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note2198">Rows two and three are the pair to stare at. <b>How far it is from where
+  it started</b> is \(\lvert\int v\rvert = \tfrac{3}{2}\); <b>how far it travelled</b> is
+  \(\int\lvert v\rvert = \tfrac{11}{6}\). The absolute value goes <em>inside</em> the integral,
+  not outside.</p>
+</section>
+
+<section>
+  <h2>The wrong-answer census</h2>
+  <p>Thirty-four candidate methods, no exclusions, every value computed as an exact fraction.
+  <b>Fifteen of the thirty-four land on exactly \(\tfrac{3}{2}\).</b></p>
+  <div class="callout198">
+    <div class="colab198">The magnitude pattern</div>
+    <p>Eleven of the nineteen wrong values for part (b) are exactly \(\tfrac{3}{2}\), the
+    <em>correct answer to part (a)</em>. Call it a <b>cross-part collision</b>. It is worse
+    than a scattered wrong answer, because the number is one you have already written down and
+    checked, and every cheap sanity test it meets, it passes. It is a real answer to a real
+    question, just the wrong one.</p>
+  </div>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Check</th><th class="nw198">Rejects on (b)</th><th class="nw198">Rejects on (a)</th>
+      <th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>positivity, value \(&gt; 0\)</td><td class="num198">0 of 19</td>
+        <td class="num198">5 of 10</td><td class="dead198">inert on part (b)</td></tr>
+      <tr><td>distance \(\ge\) \(\lvert\)displacement\(\rvert\)</td><td class="num198">4 of 19</td>
+        <td class="num198">&mdash;</td><td>too weak, the collisions are equal not smaller</td></tr>
+      <tr><td><b>distance \(&gt;\) displacement, strictly</b></td><td class="num198">15 of 19</td>
+        <td class="num198">&mdash;</td><td class="live198">the one that works</td></tr>
+      <tr><td>sandwich \(0 \le\) displacement \(\le 6\)</td><td class="num198">&mdash;</td>
+        <td class="num198">4 of 10</td><td>useful on part (a) only</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The strict inequality earns its keep only because you already established that \(v\)
+  changes sign. <b>Two genuine mistakes hide on part (a)</b> and <b>none hides on part (b)</b>.
+  A sign repair rescues nothing here: only 3 of the 34 candidates are negative and none has
+  \(\tfrac{3}{2}\) or \(\tfrac{11}{6}\) as its magnitude.</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Three that look like work and are not</th><th class="nw198">Returns</th>
+      <th>Why it collapses</th></tr></thead>
+    <tbody>
+      <tr><td>split at \(t=1\) only</td><td class="num198 no198">3/2</td>
+        <td>\(\tfrac{5}{6} + \tfrac{2}{3}\); the missed flip cancels the middle piece</td></tr>
+      <tr><td>split at \(t=2\) only</td><td class="num198 no198">3/2</td>
+        <td>\(\tfrac{2}{3} + \tfrac{5}{6}\), the mirror image of the same slip</td></tr>
+      <tr><td>split at the vertex \(t=\tfrac{3}{2}\)</td><td class="num198 no198">3/2</td>
+        <td>that is where \(a = 0\), not where \(v = 0\); you split at zeros of the
+        <em>velocity</em></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The constants are not optional</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>Given</th><th>Wanted</th><th>Extra condition needed</th></tr></thead>
+    <tbody>
+      <tr><td>\(v(t)\)</td><td>displacement</td><td class="ok198">none &mdash; it is a change,
+        and the constant cancels</td></tr>
+      <tr><td>\(v(t)\)</td><td>position \(x(b)\)</td><td>\(x(a)\)</td></tr>
+      <tr><td>\(a(t)\)</td><td>velocity \(v(b)\)</td><td>\(v(a)\)</td></tr>
+      <tr><td>\(a(t)\)</td><td>position \(x(b)\)</td><td><b>both</b> \(v(a)\) and \(x(a)\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Part (a) asks for <b>displacement</b>, not position, and that is deliberate: it is the one
+  quantity answerable without an initial condition. A student who forgets \(x(0)\) entirely
+  still scores part (a). That is precisely why the omission is invisible here and fatal the
+  moment the wording changes &mdash; which is what Q19.9 does next.</p>
+</section>
+
+<section>
+  <h2>The variation catalog, in one table</h2>
+  <p>Read it as structure. Only four magnitudes appear anywhere &mdash; \(\tfrac{5}{6}\),
+  \(\tfrac{1}{6}\), \(\tfrac{2}{3}\) and \(\tfrac{3}{2}\) &mdash; and the sign rule is one
+  line: a piece is negative exactly when it lies between \(t=1\) and \(t=2\).</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Interval</th><th class="nw198">Roots inside</th><th class="nw198">Displacement</th>
+      <th class="nw198">Distance</th><th>Agree?</th></tr></thead>
+    <tbody>
+      <tr class="exam198"><td>\([0,3]\) &nbsp;<span class="tag198">the exam</span></td>
+        <td>1, 2</td><td class="num198 sig198">3/2</td><td class="num198 uns198">11/6</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([0,2]\)</td><td>1</td><td class="num198">2/3</td><td class="num198">1</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([0,1]\)</td><td>none</td><td class="num198">5/6</td><td class="num198">5/6</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\([1,2]\)</td><td>none</td><td class="num198">-1/6</td><td class="num198">1/6</td>
+        <td class="ok198">in magnitude</td></tr>
+      <tr><td>\([0,4]\)</td><td>1, 2</td><td class="num198">16/3</td><td class="num198">17/3</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([2,5]\)</td><td>none</td><td class="num198">27/2</td><td class="num198">27/2</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\(v = (t-\tfrac{3}{2})^2\) on \([0,3]\)</td><td>1, a double root</td>
+        <td class="num198">9/4</td><td class="num198">9/4</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\(v = \sin(\pi t)\) on \([0,2]\)</td><td>1</td><td class="num198">0</td>
+        <td class="num198">1.2732395447</td><td class="no198">no</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note2198">The last two rows are the sharp ones. A <b>double root</b> is a zero
+  where the sign does not flip, and it splits nothing &mdash; the condition is a sign change,
+  not a zero. And the sine row shows the extreme: <b>zero displacement with a positive
+  distance</b>. The ratio has no upper bound.</p>
+</section>
+
+<section>
+  <h2>What the numerical check actually does</h2>
+  <p>\(\lvert v\rvert\) has <b>corners</b> at \(t=1\) and \(t=2\), so its quadrature behaviour
+  is not the textbook one. It was measured, not assumed.</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Rule</th><th>Alignment</th><th class="nw198">Observed order</th>
+      <th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>composite Simpson</td><td>\(n\) a multiple of 6</td>
+        <td class="num198 ok198">exact</td><td>error 0 at every \(n\) from 6 to 768</td></tr>
+      <tr><td>composite Simpson</td><td>\(3 \nmid n\)</td><td class="num198">3</td>
+        <td>error \(\times\, n^3 = 5.333333\) at \(n = 200\) through 3200</td></tr>
+      <tr><td>Gauss-Legendre, 16 nodes</td><td>unsplit</td><td class="num198">2</td>
+        <td>1.9747, 2.0126, 1.9937, 2.0032</td></tr>
+      <tr><td>any rule</td><td>split at \(t=1,2\)</td><td class="num198 ok198">exact</td>
+        <td>error \(2.2 \times 10^{-16}\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>Simpson is exact when the corners land on even node indices.</b> With \(h = 3/n\) the
+  corner at \(t=1\) sits at node index \(n/3\); Simpson pairs its panels, so a corner only
+  hurts when it falls strictly inside a pair.</p>
+  <p><b>The off-alignment order is 3, not the 2 you would expect</b>, and that is an accident
+  of this interval. The local Simpson error on a pair of half-width \(h\) with a corner at
+  offset \(s h\) from the midpoint is \(e(s) = \tfrac{h^2}{3}(4\lvert s\rvert - 1 - 3s^2)\),
+  which has a <b>root at \(\lvert s\rvert = \tfrac{1}{3}\)</b>. On \([0,3]\) the corner index is
+  always \(n/3\), so every even \(n\) not divisible by 3 puts it at exactly that offset
+  &mdash; checked for all 1334 such \(n\) up to 4000. The leading term vanishes, and order 3 is
+  what is left. Move the same integrand to \([0,\pi]\), where the corners fall at irrational
+  fractions of a panel, and error \(\times\, n^2\) oscillates in the band [0.0094, 1.3000]
+  without settling: that is the generic order 2.</p>
+  <div class="callout198">
+    <div class="colab198">The practical lesson is one line</div>
+    <p>Split at the corners. Unsplit 16-point Gauss-Legendre &mdash; a rule exact for
+    polynomials up to degree 31 &mdash; is dragged to order 2 by a single corner and still
+    carries an error of \(3.1 \times 10^{-6}\) at 40 panels. Splitting takes it to
+    \(2.2 \times 10^{-16}\): ten orders of magnitude, for no extra work.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Units, and what they cannot tell you</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>Quantity</th><th class="nw198">Dimension</th><th>Reads as</th></tr></thead>
+    <tbody>
+      <tr><td>\(v\)</td><td class="num198">\(L\,T^{-1}\)</td><td>m/s</td></tr>
+      <tr><td>\(\int v\,dt\) and \(\int \lvert v\rvert\,dt\)</td><td class="num198">\(L\)</td>
+        <td>metres, <b>both of them</b></td></tr>
+      <tr><td>\(a = v'\)</td><td class="num198">\(L\,T^{-2}\)</td><td>m/s&sup2;</td></tr>
+      <tr><td>\(\int a\,dt\)</td><td class="num198">\(L\,T^{-1}\)</td>
+        <td>a <b>velocity</b>, not a distance</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Read literally, \(v(t) = t^2 - 3t + 2\) is dimensionally inhomogeneous: for the sum to be
+  a velocity, the numeral 1 must carry \(L\,T^{-3}\), the 3 must carry \(L\,T^{-2}\) and the 2
+  must carry \(L\,T^{-1}\). None of them is a pure number.</p>
+  <div class="blind198">
+    <div class="colab198">Named blind spot</div>
+    <p>The units gate <b>structurally cannot</b> tell part (a) from part (b): displacement and
+    distance are both lengths. All eleven cross-part errors pass it cleanly. Only the
+    sign-change argument catches them.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The trap list</h2>
+  <ol class="traps198">
+    <li><b>Answering part (b) with part (a)'s number.</b> Eleven distinct wrong methods produce
+      it, and nothing about the answer looks wrong.</li>
+    <li><b>Never looking for the zeros.</b> The upstream cause of trap 1. Factor \(v\) before
+      anything else; it is a habit, not a technique.</li>
+    <li><b>Splitting at one root, or at the vertex.</b> Half the work, none of the benefit.</li>
+    <li><b>Writing \(\lvert\int v\rvert\) instead of \(\int\lvert v\rvert\).</b> Trap 1 in
+      symbols.</li>
+    <li><b>Forgetting the absolute values after correctly splitting.</b> The most painful one:
+      all the hard work done, and the answer is still \(\tfrac{3}{2}\).</li>
+    <li><b>Forgetting an initial condition</b> when the wording says position. Invisible here,
+      fatal on Q19.9.</li>
+    <li><b>Reading "speeding up" as \(a &gt; 0\).</b> It is \(v\) and \(a\) sharing a sign, so
+      here that is \((1,\tfrac{3}{2})\) and \((2,3)\) &mdash; and on the first of those the
+      acceleration is negative.</li>
+    <li><b>Rounding \(\tfrac{11}{6}\).</b> M&ouml;bius is machine-marked; 1.83 is not
+      \(\tfrac{11}{6}\).</li>
+  </ol>
+</section>
+
+<section>
+  <h2>The decision tree</h2>
+  <pre class="tree198">read the NOUN in the question
+   |
+   +-- displacement / net change ....... int v dt          (no split)
+   +-- how far from the start ......... |int v dt|         (no split)
+   +-- position at time b ............. x(a) + int v dt    (needs x(a))
+   +-- average of either .............. divide by (b - a)
+   +-- DISTANCE / total distance ...... int |v| dt
+             |
+             solve v(t) = 0
+             |
+             any root STRICTLY inside where v CHANGES SIGN?
+               |                              |
+              NO                             YES
+               |                              |
+        distance = |int v|         split at each one, integrate v on
+                                   each piece, add the ABSOLUTE VALUES
+
+CHECK 1  distance > |displacement|, strictly if a sign change exists
+CHECK 2  the gap = 2 x |sum of the negative pieces|
+CHECK 3  the answer is in metres, not m/s
+CHECK 4  the two parts are DIFFERENT numbers
+         then PREVIEW the rendered answer in Mobius</pre>
+  <p class="note2198">The single most valuable node is <b>where \(v\) changes sign</b>. Not
+  where \(v = 0\), and not where \(a = 0\). Getting that node right is worth the whole of part
+  (b).</p>
+</section>
+
+<footer>
+  <p><b>Provenance.</b> Stem parsed from the Final Exam 2 block of
+  <code>notes\MATH265\MATH265.md</code>, item 10. Final Exam 2 prints twelve numbered items and
+  twelve point markers summing to 81; the marker follows its item on this paper, making item 10
+  worth <b>5 points</b>, or 6.1728 percent. No marking scheme exists in any of the five course
+  files, so every claim here about how marks are allocated is inference from the point value
+  and the question's construction.</p>
+  <p><b>Verification.</b> Every value was computed before it was written: 37 core assertions,
+  17 on quadrature order, 16 on the corner analysis, 10 on the census, 65 on the variation
+  families and 34 on units and provenance, 179 in total with zero failures. The census is exact rational arithmetic with no
+  floating point. The root census was controlled in both directions and catches the case where
+  both roots land exactly on grid points. The Net Change Theorem itself is not re-derived here;
+  it is worked in full on the Q19.3 page, whose own catalog forward-references this question by
+  name.</p>
+</footer>
+
+</div>

@@ -1,0 +1,267 @@
+<header class="wrap mast">
+<div class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 14 &middot; 3 POINTS &middot; Q19.6</div>
+<h1>Nine Is Not Evidence</h1>
+<p class="lede196">A rod 6 m long is at $3x$ degrees C at distance $x$ from one end. Its average temperature is 9 degrees C. So is the answer you get by averaging the two ends, by dividing by 6 instead of by $6-0$, by reading the temperature at the middle, and by five other wrong methods. This page is about the one check that still works.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+<div class="ansbar196">
+  <div class="ac196"><div class="al196">THE ANSWER</div><div class="av196">$9$ degrees C</div><div class="small196">Exactly. $\frac{1}{6}\int_0^6 3x\,dx = \frac{54}{6}$.</div></div>
+  <div class="ac196"><div class="al196">TYPE INTO MOEBIUS</div><div class="av196"><code>9</code></div><div class="small196">Answer-only, machine-marked. Preview it anyway.</div></div>
+  <div class="ac196"><div class="al196">THE MVT POINT</div><div class="av196">$c = 3$ m</div><div class="small196">Where the rod really is at 9 degrees. Here that is also the midpoint, and that is a coincidence.</div></div>
+  <div class="ac196"><div class="al196">WRONG METHODS THAT RETURN 9</div><div class="av196">$8$ of $23$</div><div class="small196">The worst hiding rate in this category. Q19.4 and Q19.5 each had one.</div></div>
+</div>
+</section>
+
+<section>
+<h2>1. An average is the height of the equal-area rectangle</h2>
+<p>That one sentence generates the formula, so it is the thing to remember.</p>
+<div class="box196">
+$$f_{\text{avg}} \;=\; \frac{1}{b-a}\int_a^b f(x)\,dx$$
+</div>
+<p>The area under $T = 3x$ from 0 to 6 is a right triangle of base 6 and height 18, so it is 54. A rectangle 6 wide with area 54 must be 9 tall. That is the whole calculation, and it needs no antiderivative at all.</p>
+<p>The figure below is the argument, not an illustration of it. Draw the triangle, then lay the rectangle over it. What is left over is two wedges, one inside the rectangle and one inside the triangle, and they are congruent right triangles of area 13.5 each. Equal leftovers is exactly what "same area" means, and the place where the line crosses the rectangle's top edge is the point at which the rod actually reaches its average.</p>
+<figure>
+<div class="figbox">FIG1</div>
+<figcaption>The rod's temperature, the total, and the equal-area rectangle. The two wedges are congruent, each of area 13.5, which is why the rectangle and the triangle have the same area of 54. The crossing at $x = 3$ is the Mean Value Theorem point.</figcaption>
+</figure>
+</section>
+
+<section>
+<h2>2. Why you divide by the interval length</h2>
+<p>Three readings of the same division. The third one is the one worth carrying, because it is the only one that explains why the denominator is $b-a$ and not $b$ or $n$.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>READING</th><th>THE STATEMENT</th><th>WHAT IT RULES OUT</th></tr></thead>
+<tbody>
+<tr><td>Geometric</td><td>$f_{\text{avg}}$ is the height of the equal-area rectangle</td><td>Reporting 54, which is an area</td></tr>
+<tr><td>Dimensional</td><td>$\int f\,dx$ carries the units of $f$ times a length; dividing by a length gives the units of $f$ back</td><td>Any answer in degrees C times metres</td></tr>
+<tr><td>Discrete limit</td><td>The plain mean of $n$ samples is $\frac{1}{n}\sum f(x_i) = \frac{1}{b-a}\sum f(x_i)\,\Delta x$, which tends to $\frac{1}{b-a}\int_a^b f$</td><td>Any answer that is not a weighted mean of the values of $f$</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note196">Verified directly rather than asserted: the mean of $n$ midpoint samples of $3x$ on $[0,6]$ returns 9 at $n = 10$, 100, 1000, 10000 and 100000, and the one-sided sample means bracket 9 from both sides with the error shrinking by a measured factor of exactly 10 per tenfold refinement, which is the $O(1/n)$ of a one-sided rule.</p>
+</section>
+
+<section>
+<h2>3. The average of a function is not the average of its two end values</h2>
+<p>$\frac{f(a)+f(b)}{2}$ is the mean of two numbers. $f_{\text{avg}}$ is the mean of infinitely many. They agree exactly when $f$ is affine, and on this exam question $f$ is affine, so the mistake is invisible.</p>
+<p>The three panels below are the mechanism. All three functions agree at both endpoints, so all three share the same chord and the same endpoint mean of 0.50. Only the straight one has its true average on that level. For a convex function the chord sits above the curve and the endpoint mean comes out too high; for a concave one it sits below and the mean comes out too low.</p>
+<figure>
+<div class="figbox">FIG2</div>
+<figcaption>Affine, convex and concave on $[0,1]$. The endpoint mean is 0.50 in all three panels; the true average is 0.50, then $\frac13$, then $\frac23$. The two levels coincide only on the left.</figcaption>
+</figure>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>$f$ AND INTERVAL</th><th>TRUE AVERAGE</th><th>ENDPOINT MEAN</th><th>MIDPOINT VALUE</th></tr></thead>
+<tbody>
+<tr class="truth196"><td>$3x$ on $[0,6]$, this question</td><td class="num196">9</td><td class="num196">9</td><td class="num196">9</td></tr>
+<tr><td>$x^2$ on $[0,6]$</td><td class="num196">12</td><td class="num196 no196">18</td><td class="num196 no196">9</td></tr>
+<tr><td>$\sqrt{x}$ on $[0,6]$</td><td class="num196">1.6329931619</td><td class="num196 no196">1.2247448714</td><td class="num196 no196">1.7320508076</td></tr>
+<tr><td>$e^x$ on $[0,6]$</td><td class="num196">67.0714655821</td><td class="num196 no196">202.2143967464</td><td class="num196 no196">20.0855369232</td></tr>
+<tr><td>$\sin x$ on $[0,\pi]$</td><td class="num196">0.6366197724</td><td class="num196 no196">0</td><td class="num196 no196">1</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small196">Read that as one fact with four witnesses. The top row is the only one where all three columns agree, and it is the only affine row. The endpoint mean is too high for a convex $f$ and too low for a concave one, so the error even has a predictable sign.</p>
+</section>
+
+<section>
+<h2>4. The Mean Value Theorem for Integrals</h2>
+<div class="box196">
+<p>If $f$ is continuous on $[a,b]$ there is a $c$ in $[a,b]$ with $f(c) = \frac{1}{b-a}\int_a^b f$, equivalently $\int_a^b f = f(c)(b-a)$.</p>
+</div>
+<p>The rectangle in figure 1 is not a fiction. Its top edge crosses the curve, and the crossing is that $c$. Here $3c = 9$ gives $c = 3$ metres, so the rod really is at 9 degrees at the 3 m mark.</p>
+<p>Is $c$ the midpoint? Here yes, and that is another degeneracy of this stem rather than a general fact. For $f = x^p$ on $[0,6]$ the average is $\frac{6^p}{p+1}$ and $c = 6/(p+1)^{1/p}$, which drifts right as the function gets more convex, because a convex function spends more of the interval below its average and has to climb further to reach it.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>$p$</th><th>AVERAGE ON $[0,6]$</th><th>MVT POINT $c$</th><th>MIDPOINT</th><th>SAME?</th></tr></thead>
+<tbody>
+<tr><td class="num196">1</td><td class="num196">9</td><td class="num196">3.0000000000</td><td class="num196">3</td><td class="ok196">yes, $f$ is affine</td></tr>
+<tr><td class="num196">2</td><td class="num196">12</td><td class="num196">3.4641016151</td><td class="num196">3</td><td class="no196">no</td></tr>
+<tr><td class="num196">3</td><td class="num196">54</td><td class="num196">3.7797631497</td><td class="num196">3</td><td class="no196">no</td></tr>
+<tr><td class="num196">4</td><td class="num196">259.2</td><td class="num196">4.0124418299</td><td class="num196">3</td><td class="no196">no</td></tr>
+</tbody>
+</table>
+</div>
+<p class="warn196">Two things the theorem does not say. It does not say $c$ is unique: for $\sin x$ on $[0,\pi]$ there are two, at $\arcsin\frac{2}{\pi} = 0.6901070914$ and its reflection. And the answer is a point on the $x$-axis, not a value of $f$, so writing 9 again is a real and common slip.</p>
+</section>
+
+<section>
+<h2>5. The wrong-answer census, in full</h2>
+<p>Twenty-four methods were computed on this stem: the correct one and twenty-three plausible wrong ones. Nothing was excluded as too silly, because the point of a census is to find out which errors are invisible, and an error that looks silly can still be the one that hides.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>#</th><th>THE METHOD</th><th>VALUE</th><th>VERDICT</th></tr></thead>
+<tbody>
+<tr class="truth196"><td class="num196">0</td><td>$\frac{1}{b-a}\int_a^b f$</td><td class="num196">9</td><td class="ok196">correct</td></tr>
+<tr><td class="num196">1</td><td>forgot to divide by $(b-a)$</td><td class="num196">54</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">2</td><td>averaged the two endpoint values</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">3</td><td>divided by $b$ instead of $(b-a)$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">4</td><td>used the midpoint value $f\!\left(\frac{a+b}{2}\right)$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">5</td><td>averaged the $x$-values, not $f$</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">6</td><td>antiderivative $3x^2$, dropped the $\frac12$</td><td class="num196">18</td><td>caught</td></tr>
+<tr><td class="num196">7</td><td>integrated the constant 3, not $3x$</td><td class="num196">3</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">8</td><td>$F(b)$ with $F(a)$ never subtracted</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">9</td><td>took the right endpoint value $f(b)$</td><td class="num196">18</td><td>caught</td></tr>
+<tr><td class="num196">10</td><td>took the left endpoint value $f(a)$</td><td class="num196">0</td><td>caught</td></tr>
+<tr><td class="num196">11</td><td>average rate of change $\frac{f(b)-f(a)}{b-a}$</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">12</td><td>divided by $(b-a)$ twice</td><td class="num196">1.5</td><td>caught</td></tr>
+<tr><td class="num196">13</td><td>multiplied by $(b-a)$</td><td class="num196">324</td><td>caught</td></tr>
+<tr><td class="num196">14</td><td>reversed the limits of integration</td><td class="num196">-9</td><td>caught</td></tr>
+<tr><td class="num196">15</td><td>integrated over half the rod, divided by half</td><td class="num196">4.5</td><td>caught</td></tr>
+<tr><td class="num196">16</td><td>integrated over half the rod, divided by 6</td><td class="num196">2.25</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">17</td><td>trapezoid with one panel, then divided</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">18</td><td>Simpson with two panels, then divided</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">19</td><td>averaged $m$ and $M$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">20</td><td>divided by the number 3, the slope</td><td class="num196">18</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">21</td><td>mean of $f(0), f(1), \dots, f(6)$, seven samples</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">22</td><td>differentiated instead of integrating</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">23</td><td>used the rod length as the average</td><td class="num196">6</td><td>caught</td></tr>
+</tbody>
+</table>
+</div>
+<p>Three values are reached more than once: 9 by nine candidates, 3 by four, 18 by three. So 16 of the 24 candidates sit on a value some other candidate also reaches, and the biggest pile-up of all is on the correct answer. The multiplicities were derived from the value multiset and cross-checked by an independent pairwise sweep.</p>
+<p>The four candidates on 3 are worth a second look. The mean of the $x$-values, the integral of the constant 3, the average rate of change and the derivative all land on the temperature <em>gradient</em>, which is a different physical quantity wearing the same number.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>CHEAP REPAIR</th><th>REJECTS</th><th>OF 23</th><th>USE IT?</th></tr></thead>
+<tbody>
+<tr><td>an average temperature cannot be negative</td><td class="num196">1</td><td class="num196">4.3 percent</td><td>barely worth the ink</td></tr>
+<tr><td>the average must be strictly positive</td><td class="num196">2</td><td class="num196">over-rejects</td><td class="no196">unsafe, see below</td></tr>
+<tr><td>the $[0,18]$ sandwich</td><td class="num196">3</td><td class="num196">13.0 percent</td><td class="ok196">yes, and it is a superset of the first</td></tr>
+</tbody>
+</table>
+</div>
+<p class="warn196">Strict positivity is not safe here. It rejects row 10's value of 0, and 0 is a legal value of this $f$, so "the average is positive" over-rejects. Non-negativity is the honest form, and the sandwich is a strict superset of it. This is the third instance in category 19 of the pattern first measured on Q19.4, positivity near-inert and the bracket helping, but the bracket's reach collapses here: 3 of 23, against Q19.5's 14 of 20, and it cannot touch a single one of the eight hiders because every one of them equals the truth.</p>
+<p class="note196">The conclusion, which is the reason this page exists. On this question no check that looks only at the answer can help you, because the wrong answers are the right answer. The only discriminator is the method: did you write $(b-a)$, and did you divide.</p>
+</section>
+
+<section>
+<h2>6. The two checks that still work</h2>
+<div class="steps196">
+  <div class="sp196"><span class="sn196">1</span><span>The <b>sandwich</b>. The rod runs from 0 to 18 degrees, so the answer must land in $[0,18]$. This is the comparison property of Q17.1, item 9 on this same paper, with the width divided out: $m \le f \le M$ on $[a,b]$ gives $m \le f_{\text{avg}} \le M$. Here 9 sits 9 above the floor and 9 below the ceiling, exactly halfway, and that halfway position is a property of an affine $f$: $x^1$ sits at 0.5 of the band, $x^2$ at $\frac13$, $x^3$ at $\frac14$.</span></div>
+  <div class="sp196"><span class="sn196">2</span><span>The <b>units</b>. The constant 3 is a gradient in degrees C per metre; $3x$ is a temperature; $\int_0^6 3x\,dx$ is degrees C times metres, which is not a temperature; dividing by 6 metres gives a temperature back. If your answer carries degrees times metres you skipped the division, and no amount of re-checking the arithmetic will find it. The gate was seeded: it rejects degrees C times metres, degrees C per metre, metres per degree C, and the inhomogeneous sum $T + x$, and accepts the correct relation.</span></div>
+  <div class="sp196"><span class="sn196">3</span><span>And the <b>limit</b> of both. Dividing by $b$ instead of $b-a$ is dimensionally correct, because both are lengths, and on this stem it is also numerically correct. Nothing cheap catches it. What catches it is writing $b-a$ symbolically before you substitute.</span></div>
+</div>
+<p class="small196">How $m$ and $M$ were established, and why it needed three arms. A complex-step derivative at 401 points gives $f' = 3$ with maximum deviation below $10^{-12}$, so there are no interior critical points; a sign-change sweep of $f'$ at four grid sizes finds none; and a left-versus-right difference-quotient scan at 800 interior points finds no kink, so there is no point where $f'$ fails to exist either. The census was controlled both directions, on $3x - \frac12 x^2$, on $x^3-9x$ over two intervals, and on $|x-2|$ against $\sin x$.</p>
+<p class="note196">One finding from that census worth carrying. On an <em>even</em> grid the critical point of the control function is a node, so $f'$ is exactly zero there, the strict sign-change test skips it, and the census reports 0. On an odd grid it reports 1. A sign-change census must count exact grid zeros as well as strict changes, and be run at both parities, or grid parity silently decides your answer.</p>
+</section>
+
+<section>
+<h2>7. The average of a function versus the average rate of change</h2>
+<p>These are the two objects a student most often merges, and they are averages of different things over different objects.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th></th><th>AVERAGE VALUE, Q19.6</th><th>AVERAGE RATE OF CHANGE, Q6.1</th></tr></thead>
+<tbody>
+<tr><td>written</td><td>$\frac{1}{b-a}\int_a^b f(x)\,dx$</td><td>$\frac{P(b)-P(a)}{b-a}$</td></tr>
+<tr><td>needs</td><td>$f$ everywhere on the interval</td><td>only the two endpoint values</td></tr>
+<tr><td>geometry</td><td>the height of the equal-area rectangle</td><td>the slope of the secant line</td></tr>
+<tr><td>units</td><td>the units of $f$</td><td>output units per input unit</td></tr>
+<tr><td>on this rod</td><td class="ok196">9 degrees C</td><td class="no196">3 degrees C per metre</td></tr>
+</tbody>
+</table>
+</div>
+<p>They coincide exactly when the $f$ you are averaging is the derivative of the $P$ whose rate you are quoting, which is the Fundamental Theorem in one sentence. That is why the average value of a velocity equals the average rate of change of position, and it is why Q19.3's water-tank rate and Q19.8's velocity can be done either way.</p>
+<p>Applying Q6.1's formula to this question gives $\frac{18-0}{6-0} = 3$, which is the temperature gradient in degrees C per metre, not the average temperature. That is census row 11, and 3 is one of the piled-up wrong values.</p>
+</section>
+
+<section>
+<h2>8. The variation families that make the hidden mistakes visible</h2>
+<p>Each family is a stem on which one of the eight hiders stops hiding. Work the second column and the mistake announces itself.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>FAMILY</th><th>TRIGGER</th><th>WHAT IT EXPOSES</th><th>INSTANCE AND ANSWER</th></tr></thead>
+<tbody>
+<tr><td>0. rescalings</td><td>a linear quantity on $[0,L]$</td><td>nothing; this is the exam's own shape</td><td>$3x$ on $[0,10]$ gives 15; $5x$ on $[0,6]$ gives 15</td></tr>
+<tr><td>1. general interval</td><td>$a \ne 0$</td><td class="ok196">the divide-by-$b$ error</td><td>$3x$ on $[2,6]$ is 12, the wrong version 8</td></tr>
+<tr><td>2. curved $f$</td><td>$f$ is not affine</td><td class="ok196">the endpoint mean and the midpoint value</td><td>$x^2$ on $[0,3]$ is 3, mean 4.5, midpoint 2.25</td></tr>
+<tr><td>3. periodic $f$</td><td>a sine or cosine over whole periods</td><td>symmetry beats integration</td><td>$\sin$ on $[0,2\pi]$ is 0; on $[0,\pi]$ it is $\frac{2}{\pi}$; $\cos^2$ over a period is $\frac12$</td></tr>
+<tr><td>4. the MVT point</td><td>"find the point where $f$ attains its average"</td><td class="ok196">reporting the value instead of the point</td><td>$x^2$ on $[0,3]$ gives $c = \sqrt3 = 1.7320508076$, not the midpoint 1.5</td></tr>
+<tr><td>5. solve backwards</td><td>the average is given, a parameter is not</td><td>this is Q19.7</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32, so $k = \frac{5}{32} = 0.15625$</td></tr>
+<tr><td>6. piecewise</td><td>two materials, two phases</td><td class="ok196">averaging sub-averages unweighted</td><td>$3x$ on $[0,3]$ then held at 9 on $[3,6]$ gives 6.75</td></tr>
+<tr><td>7. average of a rate</td><td>$f$ is itself a derivative</td><td>the Q6.1 merge</td><td>$r(t) = 180-6t$ on $[0,15]$ averages 135 litres per minute</td></tr>
+<tr><td>8. average of $|f|$</td><td>the stem says distance or magnitude</td><td>this is Q19.8</td><td>$3x$ on $[-6,6]$ averages 0, but $|3x|$ averages 9</td></tr>
+<tr><td>9. the sandwich</td><td>"find an interval containing"</td><td>this is Q17.1</td><td>$\sec$ on $[0,\pi/3]$ lands in $[\frac{\pi}{3}, \frac{2\pi}{3}]$, true value 1.3169578969</td></tr>
+<tr><td>10. units</td><td>the data and the answer are in different units</td><td class="ok196">converting half-way</td><td>the same rod as 600 cm at 0.03 degrees per cm still averages 9</td></tr>
+<tr><td>11. discrete samples</td><td>a table of values, or "sampled every metre"</td><td class="ok196">a finite mean is not the integral mean</td><td>7 samples of $3x$ give 9 by accident; 7 samples of $x^2$ give 13 against a true 12</td></tr>
+<tr><td>12. weighted average</td><td>varying density or cross-section</td><td>where $(b-a)$ comes from</td><td>$3x$ weighted by $x$ on $[0,6]$ averages 12, weighted by $6-x$ it averages 6</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note196">Family 12 is the cleanest explanation of the whole formula. A weighted average is $\frac{\int f w}{\int w}$, and a plain average is the case $w \equiv 1$, where the denominator is exactly $b-a$. So $(b-a)$ is not an arbitrary divisor: it is the total weight. An average is always the total of the thing over the total of the weight, and for a plain average the weight is length.</p>
+<p class="small196">Family 11's first instance is a genuine hazard. The mean of an arithmetic progression equals its middle term, so sampling a linear temperature at equally spaced points including both ends returns the true average exactly. It is right for the wrong reason, and it breaks the moment $T$ curves.</p>
+</section>
+
+<section>
+<h2>9. Traps, ranked</h2>
+<ol class="traps">
+<li><span><b>Writing 54.</b> Forgetting the division is the most common error on every average-value question ever set, and it is the only one of the four named errors this stem catches. It is caught twice over, by the units and by the band.</span></li>
+<li><span><b>Averaging the endpoint values, and writing 9.</b> Right here and wrong almost everywhere else. If you got 9 this way you have learned nothing, and family 2 will end you.</span></li>
+<li><span><b>Dividing by $b$ instead of $b-a$, and writing 9.</b> Also right here, because $a = 0$. A sweep over 501 left endpoints with the width held at 6 found the two agree at exactly one value of $a$, namely 0.</span></li>
+<li><span><b>Using the midpoint value, and writing 9.</b> Right here because $f$ is affine. The shortcut is legitimate only with the affineness stated.</span></li>
+<li><span><b>Reporting the MVT point instead of the average, or the reverse.</b> On this question the two are 3 and 9, so a slip is a whole mark.</span></li>
+<li><span><b>Confusing the average value with the average rate of change.</b> Gives 3, which is a plausible-looking number and is actually the gradient.</span></li>
+<li><span><b>Dropping the $\frac12$ in the antiderivative.</b> $\int 3x\,dx = \frac32 x^2$, not $3x^2$. Gives 18, which is also $f(6)$, so it looks defensible.</span></li>
+<li><span><b>Averaging $m$ and $M$.</b> Gives 9 here, because $f$ is affine and monotone. It is trap 2 in a different hat.</span></li>
+<li><span><b>Reversing the limits.</b> Gives $-9$, and it is the one error non-negativity catches.</span></li>
+<li><span><b>Averaging a nonlinear function of $T$.</b> Averaging does not commute with squaring: the average of $T^2$ on this rod is 108, while the square of the average is 81.</span></li>
+</ol>
+</section>
+
+<section>
+<h2>10. The one-page decision tree</h2>
+<div class="tree196">Stem names an average.  Of WHAT?
+
++-- of the VALUES of f over an interval
+|     +-- f affine?          -&gt; midpoint value works, but SAY SO
+|     +-- f curved?          -&gt; (1/(b-a)) INT f, no shortcut
+|     +-- f piecewise?       -&gt; width-WEIGHTED mean of the sub-averages
+|     +-- a weight w given?  -&gt; (INT f w) / (INT w)
+|
++-- of the RATE of change of something (Q6.1)
+|     -&gt; ( F(b) - F(a) ) / (b-a),  endpoints only, no integral
+|
++-- of a rate, over time (Q19.3, Q19.8)
+      -&gt; the two coincide by the FTC; either route is fine
+
+Then, ALWAYS, in this order:
+  1. is the answer in [m, M]?              &lt;- free, catches the missing division
+  2. do the units match the units of f?    &lt;- catches it again
+  3. did I divide by (b - a) or by b?      &lt;- NOTHING catches this; check by hand
+  4. average, or the POINT c?
+  5. preview the answer box</div>
+</section>
+
+<section>
+<h2>11. Provenance and verification</h2>
+<p>Final Exam 1 carries 14 items worth 20, 8, 6, 20, 11, 6, 5, 20, 5, 8, 4, 3, 5, 3, a total of 124 points, parsed from the paper rather than typed. Item 14 is worth 3, which is 2.4194 percent of the paper and the minimum value on it, and it is the last item. Two of the fourteen items carry 3 points, so this is the joint-cheapest question on the paper.</p>
+<p>Item 14's own text contains none of the six justification phrases used elsewhere on these papers, and five of the six do appear somewhere across them, so that search is live rather than vacuous.</p>
+<p class="warn196">No marking scheme, rubric or part-mark breakdown exists in any of the course files. A search for "rubric", "marking scheme" and "part marks" across all five returns zero hits, with a control proving the search works. Every statement anywhere about how marks are awarded on this item is inference.</p>
+<p><code>MATH265_Categorized.md</code> contains zero occurrences of "average value", of "mean value theorem for integral" and of "metal rod", so all thirteen variation families above were derived from the mathematics. <code>MATH265_Review.md</code> has 7 occurrences of "average value" and 1 of "mean value theorem for integral", which is the control proving the search works.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>WHAT WAS CHECKED</th><th>HOW</th><th>RESULT</th></tr></thead>
+<tbody>
+<tr><td>the answer</td><td>exact rationals, then Simpson at eight resolutions, Gauss-Legendre at five node counts, bounded tanh-sinh, and Romberg, none of which sees the closed form</td><td class="ok196">9</td></tr>
+<tr><td>the definition itself</td><td>the plain mean of $n$ midpoint samples, at five resolutions</td><td class="ok196">9</td></tr>
+<tr><td>$m$ and $M$</td><td>a three-arm root census plus a 200001-point grid, controlled both directions</td><td class="ok196">0 and 18</td></tr>
+<tr><td>the MVT point</td><td>solved exactly in rationals, then recovered blind by bisection on the quadrature average</td><td class="ok196">3</td></tr>
+<tr><td>the units</td><td>exponent vectors over degrees C and metres, with four seeded rejections and a conversion arm</td><td class="ok196">degrees C</td></tr>
+<tr><td>quadrature order</td><td>UNMEASURABLE on this integrand: $3x$ is affine, so Simpson is exact and the worst error over $n = 2$ to 1024 is 0</td><td>demonstrated on controls instead</td></tr>
+<tr><td>the instrument</td><td>$\sin(t^2)$ measured 3.9799, 3.9953, 3.9988, 3.9997; the cusp $|t|^{2/3}$ measured 1.6650 to 1.6667, converging on $\frac53$; Simpson exact on $x^3$ but not on $x^4$, error 1.666667e-02 at $n=4$</td><td class="ok196">live</td></tr>
+<tr><td>the assertions</td><td><code>q196</code> and <code>q196d</code> in the shared harness, grepped with a trailing space independently of the internal counters</td><td class="ok196">213 and 51 PASS, 0 FAIL</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small196">The $n=8$ rung of the smooth control measured 3.8951, which looks exactly like a degraded order and is a pre-asymptotic transient. It is reported rather than hidden, and the order claim is made on the asymptotic rungs only. This is the fifth consecutive question in category 19 whose quadrature order could not be measured on its own integrand.</p>
+</section>
+
+<footer class="wrap">
+<p class="small196">MATH 265 &middot; Q19.6 &middot; Average temperature of a metal rod &middot; Final Exam 1 item 14 &middot; 3 points. Companion markdown at <code>notes\Q19.6 - Average temperature of a metal rod.md</code>. Every printed digit on this page was computed, none typed.</p>
+</footer>
+
+</main>

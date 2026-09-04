@@ -1,0 +1,267 @@
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 2 &#183; ITEM 7(a) &#183; SIX POINTS, SHARED WITH Q17.3</div>
+  <h1>The Cusp That Hides</h1>
+  <p class="stand">Every closed-interval question in this course runs the same four lines: differentiate, solve \(f'=0\), add the endpoints, compare. This one adds a fifth kind of candidate, a point where \(f'\) does not exist at all, and then arranges the interval so that <b>missing it costs you nothing</b>. Both reported values come out right. The habit is what is being tested, and the answer cannot tell you whether you have it. This page is about the point with no slope, and about why this particular interval lets you get away with ignoring it.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2><span class="sn155">01</span> The question, and the two answers it wants</h2>
+
+<p class="quote155">Find the absolute extreme values of the function \(f(x) = (x^2 + 2x)^{2/3}\) on the interval \([-2, 3]\).<span class="qp155">Final Exam 2, item 7, part (a). Item 7 has <em>two</em> sub-parts under a single point tag and part (b) is Q17.3, which bounds \(\int_{-2}^{3}(x^2+2x)^{2/3}\,dx\) over the same interval using the two numbers part (a) produces. The paper attaches six points to the item as a whole and gives no per-part split. Exactly two of Final Exam 2's twelve items are built this way, items 3 and 7, and between them they are 14 of the paper's 81 points. No marking scheme exists in any course file on this machine, so every claim on this page about how marks are distributed is inference. The word "cusp" appears in the question bank's title for this item and <b>zero times in the exam paper</b>.</span></p>
+
+<div class="tscroll vtab">
+<table class="ans155">
+<thead><tr><th>&#160;</th><th>exact</th><th>decimal</th><th>where, and why it is there</th></tr></thead>
+<tbody>
+<tr><td class="dl155">absolute <b>maximum</b></td><td class="hi155">\(15^{2/3} = \sqrt[3]{225}\)</td><td class="mono155">6.0822019956</td><td>at \(x = 3\), the right endpoint</td></tr>
+<tr><td class="dl155">absolute <b>minimum</b></td><td class="hi155">\(0\)</td><td class="mono155">0.0000000000</td><td>at \(x = -2\) <b>and</b> at \(x = 0\), two points</td></tr>
+<tr><td class="dl155">the point where \(f' = 0\)</td><td>\(x = -1\), value \(1\)</td><td class="mono155">1.0000000000</td><td>a <em>local</em> maximum only, and not an answer</td></tr>
+<tr><td class="dl155">points where \(f'\) is <b>undefined</b></td><td class="win155">\(x = 0\) and \(x = -2\)</td><td class="win155">two of them</td><td>the base vanishes, so the cube root in the denominator does</td></tr>
+<tr><td class="dl155">species at \(x = 0\)</td><td class="win155">a <b>CUSP</b></td><td class="win155">\(\mp\infty\) both sides</td><td>opposite infinite one-sided slopes, measured not guessed</td></tr>
+<tr><td class="dl155">does omitting the cusp show?</td><td class="los155">no, it <b>HIDES</b></td><td class="los155">both values intact</td><td>the left endpoint is the cusp's mirror image</td></tr>
+<tr><td class="dl155">part (b)'s bound, for free</td><td>\(0 \le I \le 5\cdot 15^{2/3}\)</td><td class="mono155">0 to 30.4110099779</td><td>part (a) hands part (b) its \(m\) and \(M\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">Every printed digit on this page was recomputed in Python before it was written down. Harness sections <span class="mono155">q155</span>, <span class="mono155">q155d</span> and <span class="mono155">q155c</span>: <b>910 assertions, 0 failures, 70 seeded controls</b>. A second checker re-derived every claim on the companion markdown page independently and found three defects the assertion harness structurally could not see. No number anywhere on this page describes the shared harness <em>file</em>, because that file is appended to concurrently by other runs and any whole-file count of it is stale within minutes of being printed.</p>
+
+<p class="entry155">What to type into M&#246;bius: <span class="kbd">15^(2/3)</span> for the maximum and <span class="kbd">0</span> for the minimum. Bracket the fractional exponent. <span class="kbd">15^2/3</span> reads as \(15^2/3 = 75\), because the caret binds tighter than the slash, and the machine marks it wrong without comment. If a box asks <em>where</em> the minimum occurs, both \(x=-2\) and \(x=0\) belong in it.</p>
+</section>
+
+<section>
+<h2><span class="sn155">02</span> The step that produces the answer</h2>
+
+<p>Write \(u = x^2+2x\), so \(u' = 2(x+1)\) and the chain rule gives</p>
+
+$$f'(x) \;=\; \tfrac{2}{3}u^{-1/3}u' \;=\; \frac{4(x+1)}{3\sqrt[3]{x^2+2x}}$$
+
+<p>Now write the next line, which is the one almost nobody writes:</p>
+
+$$\operatorname{dom}(f') \;=\; \mathbb{R}\setminus\{-2,\,0\}$$
+
+<p>The domain of \(f\) is all of \(\mathbb{R}\). The domain of \(f'\) is not, because the cube root in the denominator is zero exactly where \(x(x+2)\) is. Those two points are candidates, and setting \(f'(x)=0\) will never produce them.</p>
+
+<div class="pgrid two155g">
+  <div class="pcard main155"><p class="pk">Why a point with no slope is still a candidate</p><p class="pv">FERMAT NEEDS \(f'\) TO EXIST</p><p class="pd">Fermat's theorem says an interior extremum forces \(f'(c)=0\) <em>only if \(f'(c)\) exists</em>. Where it does not exist, the theorem says nothing at all, so the point cannot be ruled out. It is not a technicality bolted on for completeness: here the absolute minimum is attained at exactly such a point.</p></div>
+  <div class="pcard los155"><p class="pk">Why solving \(f'=0\) is not a slightly incomplete method</p><p class="pv">IT CANNOT SEE THE ANSWER</p><p class="pd">The candidate \(x=0\) is where the minimum lives, and it is invisible to every algebraic manipulation of the equation \(4(x+1)=0\). A student who never writes the derivative's domain down has not made a small omission; the answer is simply not in the set they searched.</p></div>
+</div>
+
+<h3 class="sh155">Where to look, in order</h3>
+
+<div class="tscroll vtab">
+<table class="fnd155">
+<thead><tr><th>look at</th><th>it fails when</th><th>example</th></tr></thead>
+<tbody>
+<tr><td class="dl155">a <b>denominator</b> of \(f'\)</td><td>it vanishes inside the interval</td><td>\(\dfrac{4(x+1)}{3\sqrt[3]{x^2+2x}}\) at \(x=0,-2\)</td></tr>
+<tr><td class="dl155">a <b>fractional power</b> \(g(x)^{p}\), \(0&#60;p&#60;1\)</td><td>\(g(x)=0\)</td><td>\(x^{2/3}\), \(x^{1/3}\), \((x-4)^{4/5}\)</td></tr>
+<tr><td class="dl155">an <b>even root</b> \(\sqrt[2k]{g(x)}\)</td><td>\(g(x)=0\), and the domain ends there too</td><td>\(\sqrt{x}\) at \(x=0\)</td></tr>
+<tr><td class="dl155">an <b>absolute value</b> \(\lvert g(x)\rvert\)</td><td>\(g(x)=0\) with \(g'\ne 0\) there</td><td>\(\lvert x\rvert\), \(\lvert x^2-4\rvert\)</td></tr>
+<tr><td class="dl155">a <b>piecewise</b> rule</td><td>at every seam</td><td>any split-definition function</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn155">The discriminator, and it is worth memorising. For \(g(x)^{p}\) with \(g(c)=0\) and \(g'(c)\ne 0\): if \(p &#60; 1\) then \(f'\) blows up at \(c\) and \(c\) is a critical point of the undefined kind; if \(p \ge 1\) then \(f'\) is finite there and usually zero. Here \(p = 2/3\). This is measured rather than asserted: the harness probes the six exponents \(1/3, 2/3, 1, 4/3, 5/3, 2\) and the one-sided slope blows up on exactly the two below \(1\). Had the examiner written \(4/3\), solving \(f'=0\) alone would have been enough.</p>
+</section>
+
+<section>
+<h2><span class="sn155">03</span> The function, and the two points that tie</h2>
+
+<div class="figbox">
+<!--FIGA-->
+</div>
+
+<p>The base factors twice over. As \(x(x+2)\) it shows the two zeros; as \((x+1)^2-1\) it shows that \(f\) depends on \(x\) only through \((x+1)^2\), so <b>\(f\) is symmetric about the vertical line \(x=-1\)</b> and the reflection \(x\mapsto -2-x\) leaves it unchanged. That single observation explains the whole picture: the arch on \([-2,0]\) is a mirror image about its peak at \(x=-1\), the two cusps are each other's reflection, and outside \([-2,0]\) the function grows without bound in both directions.</p>
+
+<p>The interval \([-2,3]\) is <em>not</em> symmetric about \(x=-1\); its midpoint is \(x=\tfrac12\). So the right tail runs four units from the centre and the left tail runs one, which is why the maximum is at \(x=3\) and not at the other end.</p>
+</section>
+
+<section>
+<h2><span class="sn155">04</span> Corner, cusp, vertical tangent</h2>
+
+<p>All three are points where \(f'\) fails to exist, all three are critical points, and only one of them is a cusp. Settle it from the two <b>one-sided</b> limits of \(f'\), never from a picture and never from \(f''\).</p>
+
+<div class="figbox">
+<!--FIGB-->
+</div>
+
+<div class="tscroll vtab">
+<table class="spc155">
+<thead><tr><th>species</th><th>\(\lim_{x\to c^-}f'\)</th><th>\(\lim_{x\to c^+}f'\)</th><th>magnitude</th><th>signs</th><th>example</th></tr></thead>
+<tbody>
+<tr><td class="dl155"><b>corner</b></td><td>finite \(L_1\)</td><td>finite \(L_2\ne L_1\)</td><td class="fam155">finite</td><td class="fam155">disagree</td><td>\(\lvert x\rvert\): \(-1\) and \(+1\)</td></tr>
+<tr><td class="dl155"><b>vertical tangent</b></td><td>\(+\infty\)</td><td>\(+\infty\)</td><td class="fam155">infinite</td><td class="fam155">agree</td><td>\(x^{1/3}\) at \(0\)</td></tr>
+<tr><td class="dl155"><b>cusp</b></td><td>\(-\infty\)</td><td>\(+\infty\)</td><td class="win155">infinite</td><td class="win155">opposite</td><td>\(x^{2/3}\) at \(0\), and <b>this question</b></td></tr>
+<tr><td class="dl155">smooth after all</td><td>\(L\)</td><td>the same \(L\)</td><td class="fam155">finite</td><td class="fam155">agree</td><td>\(x^{4/3}\) at \(0\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sh155">The classification here, computed</h3>
+
+<p>Near \(x=0\) the numerator \(4(x+1)\) tends to \(4\), a fixed positive number, while \(3\sqrt[3]{x(x+2)}\) approaches zero <em>through positive values from the right</em> and <em>through negative values from the left</em>, because the base changes sign at \(0\). Therefore</p>
+
+$$\lim_{x\to 0^-}f'(x) = -\infty, \qquad \lim_{x\to 0^+}f'(x) = +\infty$$
+
+<p class="win155">Opposite signs, both infinite. <b>It is a cusp.</b> Numerically \(f'(-10^{-9}) \approx -1058.27\) and \(f'(+10^{-9}) \approx +1058.27\), and both grow without bound as the step shrinks. The same computation at \(x=-2\) also gives a cusp on the natural domain; inside \([-2,3]\) only its right branch exists, and it is on the candidate list anyway because it is an endpoint.</p>
+
+<p class="warn155">The reflex check - take a centred difference quotient and see whether it is near zero - gives the wrong answer with total confidence. At \(h=10^{-6}\) it reads \(5.29\times10^{-5}\) while the two one-sided quotients are \(+158.740158\) and \(-158.740052\), an understatement by a factor above a million, because the two one-sided errors are near mirror images and cancel in the subtraction. On a symmetric corner the same quotient returns exactly \(0\); on an asymmetric corner it returns the <em>average</em> of the two slopes. Three behaviours, one method, none of them the derivative. Test one-sided slopes separately, every time.</p>
+
+<div class="tscroll vtab">
+<table class="qt155">
+<thead><tr><th>\(h\)</th><th>centred quotient at \(x=0\)</th><th>right one-sided</th><th>left one-sided</th></tr></thead>
+<tbody>
+<tr><td class="mono155">1e-03</td><td class="los155 mono155">0.005291337</td><td class="mono155">+15.879301</td><td class="mono155">-15.868719</td></tr>
+<tr><td class="mono155">1e-06</td><td class="los155 mono155">0.000052913</td><td class="mono155">+158.740158</td><td class="mono155">-158.740052</td></tr>
+<tr><td class="mono155">1e-09</td><td class="los155 mono155">0.000000529</td><td class="mono155">+1587.401052</td><td class="mono155">-1587.401051</td></tr>
+<tr><td class="mono155">1e-12</td><td class="los155 mono155">0.000000005</td><td class="mono155">+15874.010520</td><td class="mono155">-15874.010520</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>The one-sided quotient diverges like \(h^{-1/3}\), so cutting \(h\) by a thousand multiplies it by exactly ten. Its closed form is \((h^2+2h)^{2/3}/h \to 2^{2/3}h^{-1/3}\), and \(2^{2/3} = 1.5874010520\), which is where the digits \(15874\) come from. That rate is also a fingerprint: a slope ladder that refuses to converge at order one is telling you it is standing on a fractional power.</p>
+</section>
+
+<section>
+<h2><span class="sn155">05</span> The candidate table, and the tie</h2>
+
+<div class="tscroll vtab">
+<table class="cnd155">
+<thead><tr><th>\(x\)</th><th>why it is on the list</th><th>\(f(x)\) exactly</th><th>decimal</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td class="mono155">-2</td><td>left endpoint <b>and</b> a cusp</td><td>\(0\)</td><td class="mono155">0.0000000000</td><td class="win155">absolute MIN</td></tr>
+<tr><td class="mono155">-1</td><td>\(f'=0\)</td><td>\(\lvert -1\rvert^{2/3}=1\)</td><td class="mono155">1.0000000000</td><td class="fam155">local max only</td></tr>
+<tr><td class="mono155">0</td><td>interior <b>cusp</b>, \(f'\) undefined</td><td>\(0\)</td><td class="mono155">0.0000000000</td><td class="win155">absolute MIN</td></tr>
+<tr><td class="mono155">3</td><td>right endpoint</td><td>\(15^{2/3}=\sqrt[3]{225}\)</td><td class="mono155">6.0822019956</td><td class="win155">absolute MAX</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn155">Read the base as \(\left(x^2+2x\right)^{2/3} = \left(\left(x^2+2x\right)^2\right)^{1/3}\). The base is strictly negative on \((-2,0)\), which is most of the left half of the interval, and an <b>even numerator kills the sign</b>. That is why \(f \ge 0\) everywhere and why the minimum can be exactly zero. Reading \((-1)^{2/3}\) as \(-1\) would put the minimum at \(-1\), which contradicts the range - and note that on Q15.1(a), where the exponent's numerator is odd, the same misread gave \(+3\) and hid completely.</p>
+
+<p>The best single check on this page is to cube the answer. \(6.0822019956^3 = 225\) exactly, because \(\left(15^{2/3}\right)^3 = 15^2\). And \(15^{2/3}\) has to sit between \(8^{2/3}=4\) and \(27^{2/3}=9\), much nearer the bottom, so about six. The two wrong exponents are far away: \(15^{1/3}=2.4662120743\) and \(15^{3/2}=58.09\).</p>
+</section>
+
+<section>
+<h2><span class="sn155">06</span> The mistake that hides</h2>
+
+<p>Fifteen mutilations of the candidate list were scanned, with nothing excluded as degenerate, and each scored on whether the reported <em>pair of values</em> changes. The result is <b class="los155">10 HIDE, 5 SHOW</b>.</p>
+
+<div class="pgrid three155g">
+  <div class="pcard los155"><p class="pk">The defining mistake</p><p class="pv">HIDES</p><p class="pd">Drop the interior cusp and the candidate list becomes \(\{-2,-1,3\}\), whose values are \(0\), \(1\) and \(15^{2/3}\). Minimum \(0\), maximum \(15^{2/3}\). Both correct. Drop <em>both</em> cusps as a class and nothing changes either, because \(x=-2\) is an endpoint and endpoints are on every list ever written.</p></div>
+  <div class="pcard main155"><p class="pk">Where it is visible</p><p class="pv">IN THE POINTS</p><p class="pd">The true argmin list has <b>two</b> entries; the mutilated one has a single entry, \(x=-2\). So the only box on this exam that can catch the error is a box asking <em>where</em> the minimum occurs. Report value and location as two separate answers and the error surfaces; report only the value and it never does.</p></div>
+  <div class="pcard fam155"><p class="pk">Whose fault the hiding is</p><p class="pv">THE INTERVAL</p><p class="pd">Move the left endpoint from \(-2\) to \(-1.5\) and the cusp loses its twin. Dropping it then reports \(0.8254818122\) instead of \(0\), and the whole minimum is gone. The hiding belongs to this interval, not to the method, which is the argument for fixing the habit rather than trusting the instance.</p></div>
+</div>
+
+<div class="tscroll vtab">
+<table class="cen155">
+<thead><tr><th>mutilation</th><th>reported min</th><th>reported max</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td>drop the interior cusp \(x=0\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>drop both cusps as a class</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>drop the left endpoint \(x=-2\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>drop the right endpoint \(x=3\)</td><td class="mono155">0</td><td class="mono155">1</td><td class="win155">SHOWS</td></tr>
+<tr><td>drop the \(f'=0\) point \(x=-1\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>drop both endpoints</td><td class="mono155">0</td><td class="mono155">1</td><td class="win155">SHOWS</td></tr>
+<tr><td>keep only \(x=-1\)</td><td class="mono155">1</td><td class="mono155">1</td><td class="win155">SHOWS</td></tr>
+<tr><td>add the inflection point \(-1+\sqrt3\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>add a spurious cusp at \(x=2\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>solve the base's zeros as \(0\) and \(+2\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>sign error giving \(x=+1\) for \(x=-1\)</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>read the exponent as \(3/2\), so no cusp</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>work on \([-2,0]\) instead</td><td class="mono155">0</td><td class="mono155">1</td><td class="win155">SHOWS</td></tr>
+<tr><td>work on \([0,3]\) instead</td><td class="mono155">0</td><td class="mono155">6.0822</td><td class="los155">HIDES</td></tr>
+<tr><td>second-derivative test only</td><td class="mono155">1</td><td class="mono155">1</td><td class="win155">SHOWS</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Three consecutive closed-interval questions arrange the tie three different ways, which is the whole argument for writing both endpoints down as a habit rather than as a judgement.</p>
+
+<div class="tscroll vtab">
+<table class="tie155">
+<thead><tr><th>question</th><th>how the minimum ties</th><th>dropping an endpoint</th></tr></thead>
+<tbody>
+<tr><td class="dl155">Q15.1(b)</td><td>no tie; the extremes sit at different endpoints</td><td class="win155">both omissions fatal</td></tr>
+<tr><td class="dl155">Q15.3</td><td>a tie at <b>both endpoints</b>, \(f(-1)=f(1)=\tfrac12\)</td><td class="los155">both omissions harmless</td></tr>
+<tr><td class="dl155">Q15.5</td><td>a tie at <b>one endpoint and one interior cusp</b></td><td class="fam155">left harmless, right fatal</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="warn155">Two more places marks die here, and neither is about cusps. \(f''(x) = \dfrac{4\left((x+1)^2-3\right)}{9\left(x^2+2x\right)^{4/3}}\) blows up at \(x=0\) like \(x^{-4/3}\), so the second-derivative test is silent exactly where you wanted it - though it does work at \(x=-1\), where \(f''(-1)=-\tfrac43&#60;0\) confirms the local maximum. And on part (b), forgetting the \((b-a)\) factor gives \(\left[0,\,6.0822\right]\), which <em>excludes</em> the true integral \(10.6736300365\). That is the one slip on item 7 guaranteed to show.</p>
+</section>
+
+<section>
+<h2><span class="sn155">07</span> One procedure, five questions</h2>
+
+<p>Category 15 is five questions. Two of them sit inside items that also contain an integral question, so the category's nominal 41 points over-count: eight and six of them are shared with category 17. Study the two categories together on Final Exam 2, because part (a) hands part (b) its \(m\) and \(M\) and part (b) is then a free check on part (a).</p>
+
+<div class="tscroll vtab">
+<table class="cat155">
+<thead><tr><th>Q</th><th>paper and item</th><th>points</th><th>shape</th><th>what it alone teaches</th></tr></thead>
+<tbody>
+<tr><td class="dl155">15.1</td><td>F1 item 5</td><td class="mono155">11</td><td class="fam155">closed interval</td><td><em>run</em> the candidate table; a fractional power with an odd numerator</td></tr>
+<tr><td class="dl155">15.2</td><td>F1 item 6</td><td class="mono155">6</td><td class="chn155">open domain</td><td>build the objective; there is no endpoint to fall back on</td></tr>
+<tr><td class="dl155">15.3</td><td>F2 item 3a</td><td class="mono155">8 shared</td><td class="fam155">closed interval</td><td><em>name</em> the theorem; what the EVT guarantees and what it does not locate</td></tr>
+<tr><td class="dl155">15.4</td><td>F2 item 5</td><td class="mono155">10</td><td class="chn155">open domain</td><td>a constrained cost model with an \(Aw^2 + B/w\) objective</td></tr>
+<tr><td class="dl155">15.5</td><td>F2 item 7a</td><td class="mono155">6 shared</td><td class="fam155">closed interval</td><td>the <b>cusp</b>: a critical point that \(f'=0\) can never find</td></tr>
+</tbody>
+</table>
+</div>
+
+<pre class="tree155">IS THE DOMAIN CLOSED AND BOUNDED?
+ |
+ +-- YES -&#62; CLOSED-INTERVAL METHOD                     Q15.1, Q15.3, Q15.5
+ |          1. continuity -&#62; the EVT guarantees both extremes EXIST
+ |          2. f'  -&#62;  and write its DOMAIN beside it
+ |          3. candidates = {f' = 0} U {f' undefined} U {a, b}
+ |          4. evaluate f at each one; biggest and smallest win
+ |          5. report VALUE and LOCATION separately; list every tie
+ |
+ +-- NO  -&#62; OPTIMIZATION ON AN OPEN DOMAIN              Q15.2, Q15.4
+            1. name the variable and write the CONSTRAINT
+            2. reduce to ONE variable; state the domain, usually (0, inf)
+            3. f' = 0  -&#62;  the single interior critical point
+            4. prove it is a minimum WITHOUT endpoints:
+               f'' &#62; 0 there, or f -&#62; +inf at both ends of the domain
+            5. answer the question actually asked
+
+The two halves differ in exactly ONE place, step 4. On a closed interval the
+endpoints do the work of proving the extreme is global. On an open domain
+there are no endpoints, so you supply that proof yourself.</pre>
+
+<p class="entry155">Classify only if asked, and only from the two one-sided limits of \(f'\): finite and disagreeing is a <b>corner</b>, infinite and agreeing is a <b>vertical tangent</b>, infinite and opposite is a <b>cusp</b>. All three are critical points. None of them is found by solving \(f'=0\).</p>
+</section>
+
+<section>
+<h2><span class="sn155">08</span> Provenance and verification</h2>
+
+<div class="pgrid two155g">
+  <div class="pcard num155"><p class="pk">Sources</p><p class="pv">THE PAPER, PARSED LIVE</p><p class="pd">The item's wording, its two sub-parts, its six points and the item-3 and item-7 pairing are all parsed out of <span class="mono155">MATH265\MATH265.md</span> at build time rather than transcribed. <span class="mono155">MATH265_Categorized.md</span> is cp1252, crashes a utf-8 open at byte 318, and contains "extreme" and "absolute" <b>zero times each</b>: it has no coverage of this question at all.</p></div>
+  <div class="pcard los155"><p class="pk">The Review file contradicts itself</p><p class="pv">3 WRONG, 2 RIGHT</p><p class="pd">Seven mentions of cusps across five blocks. Three conflate a corner with a cusp, including one that literally reads "Sharp corners (cusps)" and one whose heading's contents are "Sharp corners, Vertical tangent". Two are correct, and one of those is the only place in any course file that states the one-sided-limit test properly. Its curve-sketching checklist finds cusps at <b>step 9</b>, after classifying local extremes at step 6, which is too late here: the cusp <em>is</em> a candidate for the absolute minimum.</p></div>
+</div>
+
+<div class="tscroll vtab">
+<table class="ver155">
+<thead><tr><th>harness block</th><th>what it covers</th><th>assertions</th><th>failures</th><th>controls</th></tr></thead>
+<tbody>
+<tr><td class="mono155">q155</td><td>the model, both derivatives formula-blind, a four-arm critical-point census, the cusp classification, the wrong-answer census, the course-file audit</td><td class="mono155">353</td><td class="mono155">0</td><td class="mono155">52</td></tr>
+<tr><td class="mono155">q155d</td><td>eleven variation families and twelve drills, each solved twice, then digit-locked</td><td class="mono155">535</td><td class="mono155">0</td><td class="mono155">13</td></tr>
+<tr><td class="mono155">q155c</td><td>corrections: the quadrature precision finding</td><td class="mono155">22</td><td class="mono155">0</td><td class="mono155">5</td></tr>
+<tr><td class="dl155"><b>total for this question</b></td><td>&#160;</td><td class="win155">910</td><td class="win155">0</td><td class="win155">70</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">Three method notes worth keeping. Every critical point here is at a <b>rational</b> fraction of the interval, namely \(0\), \(\tfrac15\) and \(\tfrac25\), so a naive sign-change census returns \(0\) on any grid whose subinterval count is divisible by five and \(2\) on any grid that is not; a census that steps over exact zeros returns \(2\) at every resolution tried. A sign-change census also counts zeros and cusps <em>together</em> and cannot tell them apart, which is why a fourth arm hunts the base's zeros separately. And a dense sweep's tolerance has to be derived from the function's own variation across one grid step, because \(f\) is not Lipschitz at a cusp: the sweep's value error there is \(O(\text{step}^{2/3})\), and a Lipschitz-derived tolerance produced nine false failures before it was replaced by a measured one.</p>
+
+<p class="note">A digit-lock inherits the precision of the method it locks. The part-(b) integrals were first computed with plain Simpson and locked to ten decimals; Simpson's measured order on this integrand is \(5/3\), not \(4\), because the integrand has a cusp, so the tenth decimal was wrong while two independent resolutions agreed with each other. The substitution \(x=s^3\) removes the singularity and the corrected values live in block <span class="mono155">q155c</span>. Self-consistency is not accuracy.</p>
+
+<p class="note">Companion markdown, with the eleven-family variation catalog, the ranked trap list and the twelve-problem drill set: <span class="mono155">notes\Q15.5 - Absolute extremes of a function with a cusp.md</span>. Sibling pages: Q15.1 for the candidate table, Q15.2 and Q15.4 for the open-domain half, Q15.3 for the theorem and the sub-part sharing. This question closes category 15.</p>
+</section>
+
+</main>

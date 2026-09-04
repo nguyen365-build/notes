@@ -1,0 +1,674 @@
+<meta charset="utf-8">
+<title>Nine Is Not Evidence</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Q19.2 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig192{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig192 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig192 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig192 text{font-family:var(--mono)}
+
+
+/* ---- Q19.3 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig193{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig193 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig193 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig193 text{font-family:var(--mono)}
+/* SVG hooks that also need real rules, so the orphan guard can see them */
+.plotbg193{}
+.band193{}
+.brk193{}
+.rate193{}
+.dot193{}
+.conn193{}
+.tick193{}
+
+
+
+
+/* ---- Q19.6 figure classes.  Emitted BEFORE the body, in this same block. */
+.plotbg196{fill:var(--plot)}
+/* an area fill takes its opacity off the SOLID token.  The -soft tokens are
+   10 to 13 percent alpha and vanish against the plot ground - 30.8 shipped a
+   figure whose one idea was invisible for exactly that reason. */
+.fill196{fill:var(--fam);fill-opacity:.20;stroke:none}
+.rectbox196{fill:none;stroke:var(--accent);stroke-width:1.8}
+.wedgeA196{fill:var(--num);fill-opacity:.30;stroke:var(--num);stroke-width:1}
+.wedgeB196{fill:var(--num);fill-opacity:.30;stroke:var(--num);stroke-width:1}
+.tline196{fill:none;stroke:var(--fam);stroke-width:2.4;stroke-linecap:round}
+.avg196{stroke:var(--accent);stroke-width:1.3;stroke-dasharray:2 3}
+.cline196{stroke:var(--ink3);stroke-width:1.2;stroke-dasharray:3 3}
+.cdot196{fill:var(--accent)}
+.panel196{fill:none;stroke:var(--line);stroke-width:1}
+.curve196{fill:none;stroke:var(--fam);stroke-width:2.2}
+.chord196{stroke:var(--ink3);stroke-width:1.2;stroke-dasharray:4 3}
+.eplev196{stroke:var(--num);stroke-width:2.6}
+.avglev196{stroke:var(--accent);stroke-width:1.4;stroke-dasharray:3 3}
+/* ONE colour mapping across the whole page, settled by looking:
+   teal --fam     = the truth, and the routes that generalise
+   rust --los     = the wrong answer, and the shortcuts that break
+   amber --accent = the object being constructed, here the average and the
+                    rectangle that defines it
+   slate --num    = a NEUTRAL region or level that is neither right nor wrong:
+                    figure 1's two leftover wedges are the ARGUMENT, not an
+                    error, and figure 2's endpoint level is correct in one
+                    panel and wrong in two, so neither may borrow the rust
+   Panel headers and the neutral comparison columns stay unpainted, because a
+   comparison with no right and wrong side must not borrow the pair (30.9). */
+.tick196{fill:var(--plotlab);font:500 10px var(--mono);letter-spacing:.04em}
+.lab{fill:var(--plotlab);font:500 11px var(--mono);letter-spacing:.05em}
+.tlab196{fill:var(--fam)}
+.arealab196{fill:var(--fam)}
+.avgl196{fill:var(--accent)}
+.clab196{fill:var(--accent)}
+.wedgeAl196{fill:var(--num)}
+.wedgeBl196{fill:var(--num)}
+.panl196{fill:var(--ink)}
+.same196{fill:var(--accent)}
+.hi196{fill:var(--los)}
+.lo196{fill:var(--los)}
+.gridl{stroke:var(--grid);stroke-width:1}
+.axis{stroke:var(--ink3);stroke-width:1.4}
+
+/* ---- Q19.6 page classes.  Every invented name carries the 196 suffix.
+   The sans token and the scroll wrapper are defined in Q19.5's EXTRA, which
+   sits AFTER the slice boundary, so both have to be re-declared here or the
+   page loses its sans stack and its wide tables stop scrolling. */
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.lede196{font:500 clamp(15px,1.6vw,17.5px)/1.62 var(--sans);color:var(--ink2);
+  max-width:64ch;margin:14px 0 0}
+.ansbar196{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(min(232px,100%),1fr))}
+.ac196{background:var(--surface2);padding:16px 18px;display:flex;
+  flex-direction:column;gap:8px}
+.al196{font:600 10px var(--mono);letter-spacing:.13em;color:var(--accent)}
+.av196{font:600 18px/1.4 var(--sans);color:var(--ink)}
+.small196{font:400 13.5px/1.58 var(--sans);color:var(--ink2)}
+.steps196{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  margin:18px 0}
+.sp196{background:var(--surface);padding:13px 16px;display:grid;
+  grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline}
+.sp196 > span:nth-child(2){grid-column:2}
+.sn196{grid-column:1;font:600 12px var(--mono);color:var(--accent);letter-spacing:.06em}
+.box196{border-left:3px solid var(--accent);background:var(--sunk);
+  padding:6px 20px;margin:20px 0;overflow-x:auto}
+.note196,.warn196{border-left:3px solid var(--fam);background:var(--sunk);
+  padding:14px 18px;margin:18px 0;font:400 14.5px/1.62 var(--sans);color:var(--ink2)}
+.warn196{border-left-color:var(--los)}
+.tscroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line)}
+.tab196{width:100%;min-width:860px;border-collapse:collapse;
+  font:400 13.5px/1.5 var(--sans)}
+.tab196 th{font:600 10px var(--mono);letter-spacing:.11em;color:var(--ink3);
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+.tab196 td{padding:9px 12px;border-bottom:1px solid var(--line-soft);
+  vertical-align:top}
+.tab196 tbody tr:last-child td{border-bottom:none}
+.num196{font-variant-numeric:tabular-nums;font-family:var(--mono);
+  font-size:12.5px;white-space:nowrap}
+/* semantic colours get their own rules, scoped both ways, so a table cell keeps
+   its meaning without borrowing a block class, and so a later cell rule cannot
+   win on specificity and repaint it (28.10, 25.7) */
+.tab196 td.ok196,.ok196{color:var(--fam)}
+.tab196 td.no196,.no196{color:var(--los)}
+.tab196 tr.hot196 td{background:var(--los-soft)}
+.tab196 tr.truth196 td{background:var(--accent-soft)}
+.tree196{font:500 12px/1.62 var(--mono);color:var(--ink2);background:var(--sunk);
+  border:1px solid var(--line);padding:16px 18px;overflow-x:auto;margin:16px 0;
+  white-space:pre}
+/* carryover 7: inline MathJax must never resolve to a centred block */
+mjx-container:not([display="true"]){display:inline-block!important;
+  margin:0!important;text-align:left!important;vertical-align:-0.15em}
+.tab196 td mjx-container,.tab196 th mjx-container{color:inherit}
+.tab196 td mjx-container svg{fill:currentColor}
+@media (max-width:760px){.tab196{min-width:700px}}
+</style>
+<header class="wrap mast">
+<div class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 14 &middot; 3 POINTS &middot; Q19.6</div>
+<h1>Nine Is Not Evidence</h1>
+<p class="lede196">A rod 6 m long is at $3x$ degrees C at distance $x$ from one end. Its average temperature is 9 degrees C. So is the answer you get by averaging the two ends, by dividing by 6 instead of by $6-0$, by reading the temperature at the middle, and by five other wrong methods. This page is about the one check that still works.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+<div class="ansbar196">
+  <div class="ac196"><div class="al196">THE ANSWER</div><div class="av196">$9$ degrees C</div><div class="small196">Exactly. $\frac{1}{6}\int_0^6 3x\,dx = \frac{54}{6}$.</div></div>
+  <div class="ac196"><div class="al196">TYPE INTO MOEBIUS</div><div class="av196"><code>9</code></div><div class="small196">Answer-only, machine-marked. Preview it anyway.</div></div>
+  <div class="ac196"><div class="al196">THE MVT POINT</div><div class="av196">$c = 3$ m</div><div class="small196">Where the rod really is at 9 degrees. Here that is also the midpoint, and that is a coincidence.</div></div>
+  <div class="ac196"><div class="al196">WRONG METHODS THAT RETURN 9</div><div class="av196">$8$ of $23$</div><div class="small196">The worst hiding rate in this category. Q19.4 and Q19.5 each had one.</div></div>
+</div>
+</section>
+
+<section>
+<h2>1. An average is the height of the equal-area rectangle</h2>
+<p>That one sentence generates the formula, so it is the thing to remember.</p>
+<div class="box196">
+$$f_{\text{avg}} \;=\; \frac{1}{b-a}\int_a^b f(x)\,dx$$
+</div>
+<p>The area under $T = 3x$ from 0 to 6 is a right triangle of base 6 and height 18, so it is 54. A rectangle 6 wide with area 54 must be 9 tall. That is the whole calculation, and it needs no antiderivative at all.</p>
+<p>The figure below is the argument, not an illustration of it. Draw the triangle, then lay the rectangle over it. What is left over is two wedges, one inside the rectangle and one inside the triangle, and they are congruent right triangles of area 13.5 each. Equal leftovers is exactly what "same area" means, and the place where the line crosses the rectangle's top edge is the point at which the rod actually reaches its average.</p>
+<figure>
+<div class="figbox"><svg viewBox="0 0 760 412" width="100%" role="img" aria-label="Temperature against position along the rod. The shaded triangle under T equals 3x has area 54. The rectangle 6 wide and 9 tall has the same area, so 9 is the average temperature. The two leftover wedges are congruent, each of area 13.5, which is why the areas match."><rect x="0" y="0" width="760" height="412" class="plotbg196"/><line class="gridl" x1="64.00" y1="358.00" x2="64.00" y2="34.00"/><line class="gridl" x1="146.12" y1="358.00" x2="146.12" y2="34.00"/><line class="gridl" x1="228.24" y1="358.00" x2="228.24" y2="34.00"/><line class="gridl" x1="310.36" y1="358.00" x2="310.36" y2="34.00"/><line class="gridl" x1="392.48" y1="358.00" x2="392.48" y2="34.00"/><line class="gridl" x1="474.61" y1="358.00" x2="474.61" y2="34.00"/><line class="gridl" x1="556.73" y1="358.00" x2="556.73" y2="34.00"/><line class="gridl" x1="64.00" y1="358.00" x2="606.00" y2="358.00"/><line class="gridl" x1="64.00" y1="308.91" x2="606.00" y2="308.91"/><line class="gridl" x1="64.00" y1="259.82" x2="606.00" y2="259.82"/><line class="gridl" x1="64.00" y1="210.73" x2="606.00" y2="210.73"/><line class="gridl" x1="64.00" y1="161.64" x2="606.00" y2="161.64"/><line class="gridl" x1="64.00" y1="112.55" x2="606.00" y2="112.55"/><line class="gridl" x1="64.00" y1="63.45" x2="606.00" y2="63.45"/><polygon class="fill196" points="64.00,358.00 556.73,358.00 556.73,63.45"/><rect class="rectbox196" x="64.00" y="210.73" width="492.73" height="147.27"/><polygon class="wedgeA196" points="64.00,358.00 310.36,210.73 64.00,210.73"/><polygon class="wedgeB196" points="310.36,210.73 556.73,210.73 556.73,63.45"/><line class="tline196" x1="64.00" y1="358.00" x2="606.00" y2="34.00"/><line class="avg196" x1="64.00" y1="210.73" x2="606.00" y2="210.73"/><line class="cline196" x1="310.36" y1="358.00" x2="310.36" y2="210.73"/><circle class="cdot196" cx="310.36" cy="210.73" r="4"/><line class="axis" x1="64.00" y1="358.00" x2="606.00" y2="358.00"/><line class="axis" x1="64.00" y1="358.00" x2="64.00" y2="34.00"/><text class="tick196" x="64.00" y="376.00" text-anchor="middle">0</text><text class="tick196" x="146.12" y="376.00" text-anchor="middle">1</text><text class="tick196" x="228.24" y="376.00" text-anchor="middle">2</text><text class="tick196" x="310.36" y="376.00" text-anchor="middle">3</text><text class="tick196" x="392.48" y="376.00" text-anchor="middle">4</text><text class="tick196" x="474.61" y="376.00" text-anchor="middle">5</text><text class="tick196" x="556.73" y="376.00" text-anchor="middle">6</text><text class="tick196" x="55.00" y="361.50" text-anchor="end">0</text><text class="tick196" x="55.00" y="312.41" text-anchor="end">3</text><text class="tick196" x="55.00" y="263.32" text-anchor="end">6</text><text class="tick196" x="55.00" y="214.23" text-anchor="end">9</text><text class="tick196" x="55.00" y="165.14" text-anchor="end">12</text><text class="tick196" x="55.00" y="116.05" text-anchor="end">15</text><text class="tick196" x="55.00" y="66.95" text-anchor="end">18</text><text class="lab" x="335.00" y="400.00" text-anchor="middle">POSITION x IN METRES, ACROSS - TEMPERATURE T IN DEGREES C, UP</text><text class="lab tlab196" x="618.00" y="47.09" text-anchor="start" style="font-size:11px">T(x) = 3x</text><text class="lab arealab196" x="618.00" y="89.64" text-anchor="start" style="font-size:11px">TOTAL = 54</text><text class="lab tick196" x="618.00" y="114.18" text-anchor="start" style="font-size:10px">AREA UNDER THE LINE</text><text class="lab avgl196" x="618.00" y="168.18" text-anchor="start" style="font-size:11px">AVERAGE = 9</text><text class="lab tick196" x="618.00" y="192.73" text-anchor="start" style="font-size:10px">RECTANGLE 6 BY 9</text><text class="lab tick196" x="618.00" y="217.27" text-anchor="start" style="font-size:10px">SAME AREA, 54</text><text class="lab clab196" x="618.00" y="272.91" text-anchor="start" style="font-size:11px">c = 3 m</text><text class="lab tick196" x="618.00" y="297.45" text-anchor="start" style="font-size:10px">T(3) = 9 EXACTLY</text><text class="lab wedgeAl196" x="142.02" y="250.00" text-anchor="middle">13.5</text><text class="lab wedgeBl196" x="478.71" y="160.00" text-anchor="middle">13.5</text></svg></div>
+<figcaption>The rod's temperature, the total, and the equal-area rectangle. The two wedges are congruent, each of area 13.5, which is why the rectangle and the triangle have the same area of 54. The crossing at $x = 3$ is the Mean Value Theorem point.</figcaption>
+</figure>
+</section>
+
+<section>
+<h2>2. Why you divide by the interval length</h2>
+<p>Three readings of the same division. The third one is the one worth carrying, because it is the only one that explains why the denominator is $b-a$ and not $b$ or $n$.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>READING</th><th>THE STATEMENT</th><th>WHAT IT RULES OUT</th></tr></thead>
+<tbody>
+<tr><td>Geometric</td><td>$f_{\text{avg}}$ is the height of the equal-area rectangle</td><td>Reporting 54, which is an area</td></tr>
+<tr><td>Dimensional</td><td>$\int f\,dx$ carries the units of $f$ times a length; dividing by a length gives the units of $f$ back</td><td>Any answer in degrees C times metres</td></tr>
+<tr><td>Discrete limit</td><td>The plain mean of $n$ samples is $\frac{1}{n}\sum f(x_i) = \frac{1}{b-a}\sum f(x_i)\,\Delta x$, which tends to $\frac{1}{b-a}\int_a^b f$</td><td>Any answer that is not a weighted mean of the values of $f$</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note196">Verified directly rather than asserted: the mean of $n$ midpoint samples of $3x$ on $[0,6]$ returns 9 at $n = 10$, 100, 1000, 10000 and 100000, and the one-sided sample means bracket 9 from both sides with the error shrinking by a measured factor of exactly 10 per tenfold refinement, which is the $O(1/n)$ of a one-sided rule.</p>
+</section>
+
+<section>
+<h2>3. The average of a function is not the average of its two end values</h2>
+<p>$\frac{f(a)+f(b)}{2}$ is the mean of two numbers. $f_{\text{avg}}$ is the mean of infinitely many. They agree exactly when $f$ is affine, and on this exam question $f$ is affine, so the mistake is invisible.</p>
+<p>The three panels below are the mechanism. All three functions agree at both endpoints, so all three share the same chord and the same endpoint mean of 0.50. Only the straight one has its true average on that level. For a convex function the chord sits above the curve and the endpoint mean comes out too high; for a concave one it sits below and the mean comes out too low.</p>
+<figure>
+<div class="figbox"><svg viewBox="0 0 760 318" width="100%" role="img" aria-label="Three panels on the interval zero to one. In the affine panel the true average and the mean of the two endpoint values land on the same level. In the convex panel the endpoint mean sits above the true average, and in the concave panel it sits below."><rect x="0" y="0" width="760" height="318" class="plotbg196"/><text class="lab" x="30" y="20">WHY THE ENDPOINT MEAN IS RIGHT HERE AND WRONG ALMOST EVERYWHERE</text><rect class="panel196" x="30" y="58" width="226" height="186"/><polyline class="curve196" points="30.0,244.0 33.8,240.9 37.5,237.8 41.3,234.7 45.1,231.6 48.8,228.5 52.6,225.4 56.4,222.3 60.1,219.2 63.9,216.1 67.7,213.0 71.4,209.9 75.2,206.8 79.0,203.7 82.7,200.6 86.5,197.5 90.3,194.4 94.0,191.3 97.8,188.2 101.6,185.1 105.3,182.0 109.1,178.9 112.9,175.8 116.6,172.7 120.4,169.6 124.2,166.5 127.9,163.4 131.7,160.3 135.5,157.2 139.2,154.1 143.0,151.0 146.8,147.9 150.5,144.8 154.3,141.7 158.1,138.6 161.8,135.5 165.6,132.4 169.4,129.3 173.1,126.2 176.9,123.1 180.7,120.0 184.4,116.9 188.2,113.8 192.0,110.7 195.7,107.6 199.5,104.5 203.3,101.4 207.0,98.3 210.8,95.2 214.6,92.1 218.3,89.0 222.1,85.9 225.9,82.8 229.6,79.7 233.4,76.6 237.2,73.5 240.9,70.4 244.7,67.3 248.5,64.2 252.2,61.1 256.0,58.0"/><line class="chord196" x1="30.0" y1="244.0" x2="256.0" y2="58.0"/><line class="eplev196" x1="30.0" y1="151.0" x2="256.0" y2="151.0"/><line class="avglev196" x1="30.0" y1="151.0" x2="256.0" y2="151.0"/><text class="lab panl196" x="30" y="50">AFFINE  f = x</text><text class="lab same196" x="30" y="266" style="font-size:10px">0.50 = 0.50</text><text class="lab same196" x="30" y="290" style="font-size:10px">COINCIDE</text><rect class="panel196" x="268" y="58" width="226" height="186"/><polyline class="curve196" points="268.0,244.0 271.8,243.9 275.5,243.8 279.3,243.5 283.1,243.2 286.8,242.7 290.6,242.1 294.4,241.5 298.1,240.7 301.9,239.8 305.7,238.8 309.4,237.7 313.2,236.6 317.0,235.3 320.7,233.9 324.5,232.4 328.3,230.8 332.0,229.1 335.8,227.3 339.6,225.3 343.3,223.3 347.1,221.2 350.9,219.0 354.6,216.7 358.4,214.2 362.2,211.7 365.9,209.1 369.7,206.3 373.5,203.5 377.2,200.5 381.0,197.5 384.8,194.3 388.5,191.1 392.3,187.7 396.1,184.3 399.8,180.7 403.6,177.0 407.4,173.3 411.1,169.4 414.9,165.4 418.7,161.3 422.4,157.1 426.2,152.9 430.0,148.5 433.7,144.0 437.5,139.4 441.3,134.7 445.0,129.9 448.8,125.0 452.6,119.9 456.3,114.8 460.1,109.6 463.9,104.3 467.6,98.9 471.4,93.3 475.2,87.7 478.9,82.0 482.7,76.1 486.5,70.2 490.2,64.1 494.0,58.0"/><line class="chord196" x1="268.0" y1="244.0" x2="494.0" y2="58.0"/><line class="eplev196" x1="268.0" y1="151.0" x2="494.0" y2="151.0"/><line class="avglev196" x1="268.0" y1="182.0" x2="494.0" y2="182.0"/><text class="lab panl196" x="268" y="50">CONVEX  f = x^2</text><text class="lab hi196" x="268" y="266" style="font-size:10px">0.33 vs 0.50</text><text class="lab hi196" x="268" y="290" style="font-size:10px">MEAN TOO HIGH</text><rect class="panel196" x="506" y="58" width="226" height="186"/><polyline class="curve196" points="506.0,244.0 509.8,220.0 513.5,210.0 517.3,202.4 521.1,196.0 524.8,190.3 528.6,185.2 532.4,180.5 536.1,176.1 539.9,172.0 543.7,168.1 547.4,164.4 551.2,160.8 555.0,157.4 558.7,154.2 562.5,151.0 566.3,148.0 570.0,145.0 573.8,142.1 577.6,139.3 581.3,136.6 585.1,134.0 588.9,131.4 592.6,128.8 596.4,126.4 600.2,123.9 603.9,121.6 607.7,119.2 611.5,116.9 615.2,114.7 619.0,112.5 622.8,110.3 626.5,108.2 630.3,106.1 634.1,104.0 637.8,101.9 641.6,99.9 645.4,97.9 649.1,96.0 652.9,94.0 656.7,92.1 660.4,90.2 664.2,88.4 668.0,86.5 671.7,84.7 675.5,82.9 679.3,81.1 683.0,79.4 686.8,77.6 690.6,75.9 694.3,74.2 698.1,72.5 701.9,70.8 705.6,69.2 709.4,67.5 713.2,65.9 716.9,64.3 720.7,62.7 724.5,61.1 728.2,59.6 732.0,58.0"/><line class="chord196" x1="506.0" y1="244.0" x2="732.0" y2="58.0"/><line class="eplev196" x1="506.0" y1="151.0" x2="732.0" y2="151.0"/><line class="avglev196" x1="506.0" y1="120.0" x2="732.0" y2="120.0"/><text class="lab panl196" x="506" y="50">CONCAVE  f = root x</text><text class="lab lo196" x="506" y="266" style="font-size:10px">0.67 vs 0.50</text><text class="lab lo196" x="506" y="290" style="font-size:10px">MEAN TOO LOW</text></svg></div>
+<figcaption>Affine, convex and concave on $[0,1]$. The endpoint mean is 0.50 in all three panels; the true average is 0.50, then $\frac13$, then $\frac23$. The two levels coincide only on the left.</figcaption>
+</figure>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>$f$ AND INTERVAL</th><th>TRUE AVERAGE</th><th>ENDPOINT MEAN</th><th>MIDPOINT VALUE</th></tr></thead>
+<tbody>
+<tr class="truth196"><td>$3x$ on $[0,6]$, this question</td><td class="num196">9</td><td class="num196">9</td><td class="num196">9</td></tr>
+<tr><td>$x^2$ on $[0,6]$</td><td class="num196">12</td><td class="num196 no196">18</td><td class="num196 no196">9</td></tr>
+<tr><td>$\sqrt{x}$ on $[0,6]$</td><td class="num196">1.6329931619</td><td class="num196 no196">1.2247448714</td><td class="num196 no196">1.7320508076</td></tr>
+<tr><td>$e^x$ on $[0,6]$</td><td class="num196">67.0714655821</td><td class="num196 no196">202.2143967464</td><td class="num196 no196">20.0855369232</td></tr>
+<tr><td>$\sin x$ on $[0,\pi]$</td><td class="num196">0.6366197724</td><td class="num196 no196">0</td><td class="num196 no196">1</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small196">Read that as one fact with four witnesses. The top row is the only one where all three columns agree, and it is the only affine row. The endpoint mean is too high for a convex $f$ and too low for a concave one, so the error even has a predictable sign.</p>
+</section>
+
+<section>
+<h2>4. The Mean Value Theorem for Integrals</h2>
+<div class="box196">
+<p>If $f$ is continuous on $[a,b]$ there is a $c$ in $[a,b]$ with $f(c) = \frac{1}{b-a}\int_a^b f$, equivalently $\int_a^b f = f(c)(b-a)$.</p>
+</div>
+<p>The rectangle in figure 1 is not a fiction. Its top edge crosses the curve, and the crossing is that $c$. Here $3c = 9$ gives $c = 3$ metres, so the rod really is at 9 degrees at the 3 m mark.</p>
+<p>Is $c$ the midpoint? Here yes, and that is another degeneracy of this stem rather than a general fact. For $f = x^p$ on $[0,6]$ the average is $\frac{6^p}{p+1}$ and $c = 6/(p+1)^{1/p}$, which drifts right as the function gets more convex, because a convex function spends more of the interval below its average and has to climb further to reach it.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>$p$</th><th>AVERAGE ON $[0,6]$</th><th>MVT POINT $c$</th><th>MIDPOINT</th><th>SAME?</th></tr></thead>
+<tbody>
+<tr><td class="num196">1</td><td class="num196">9</td><td class="num196">3.0000000000</td><td class="num196">3</td><td class="ok196">yes, $f$ is affine</td></tr>
+<tr><td class="num196">2</td><td class="num196">12</td><td class="num196">3.4641016151</td><td class="num196">3</td><td class="no196">no</td></tr>
+<tr><td class="num196">3</td><td class="num196">54</td><td class="num196">3.7797631497</td><td class="num196">3</td><td class="no196">no</td></tr>
+<tr><td class="num196">4</td><td class="num196">259.2</td><td class="num196">4.0124418299</td><td class="num196">3</td><td class="no196">no</td></tr>
+</tbody>
+</table>
+</div>
+<p class="warn196">Two things the theorem does not say. It does not say $c$ is unique: for $\sin x$ on $[0,\pi]$ there are two, at $\arcsin\frac{2}{\pi} = 0.6901070914$ and its reflection. And the answer is a point on the $x$-axis, not a value of $f$, so writing 9 again is a real and common slip.</p>
+</section>
+
+<section>
+<h2>5. The wrong-answer census, in full</h2>
+<p>Twenty-four methods were computed on this stem: the correct one and twenty-three plausible wrong ones. Nothing was excluded as too silly, because the point of a census is to find out which errors are invisible, and an error that looks silly can still be the one that hides.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>#</th><th>THE METHOD</th><th>VALUE</th><th>VERDICT</th></tr></thead>
+<tbody>
+<tr class="truth196"><td class="num196">0</td><td>$\frac{1}{b-a}\int_a^b f$</td><td class="num196">9</td><td class="ok196">correct</td></tr>
+<tr><td class="num196">1</td><td>forgot to divide by $(b-a)$</td><td class="num196">54</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">2</td><td>averaged the two endpoint values</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">3</td><td>divided by $b$ instead of $(b-a)$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">4</td><td>used the midpoint value $f\!\left(\frac{a+b}{2}\right)$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">5</td><td>averaged the $x$-values, not $f$</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">6</td><td>antiderivative $3x^2$, dropped the $\frac12$</td><td class="num196">18</td><td>caught</td></tr>
+<tr><td class="num196">7</td><td>integrated the constant 3, not $3x$</td><td class="num196">3</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">8</td><td>$F(b)$ with $F(a)$ never subtracted</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">9</td><td>took the right endpoint value $f(b)$</td><td class="num196">18</td><td>caught</td></tr>
+<tr><td class="num196">10</td><td>took the left endpoint value $f(a)$</td><td class="num196">0</td><td>caught</td></tr>
+<tr><td class="num196">11</td><td>average rate of change $\frac{f(b)-f(a)}{b-a}$</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">12</td><td>divided by $(b-a)$ twice</td><td class="num196">1.5</td><td>caught</td></tr>
+<tr><td class="num196">13</td><td>multiplied by $(b-a)$</td><td class="num196">324</td><td>caught</td></tr>
+<tr><td class="num196">14</td><td>reversed the limits of integration</td><td class="num196">-9</td><td>caught</td></tr>
+<tr><td class="num196">15</td><td>integrated over half the rod, divided by half</td><td class="num196">4.5</td><td>caught</td></tr>
+<tr><td class="num196">16</td><td>integrated over half the rod, divided by 6</td><td class="num196">2.25</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">17</td><td>trapezoid with one panel, then divided</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">18</td><td>Simpson with two panels, then divided</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr class="hot196"><td class="num196">19</td><td>averaged $m$ and $M$</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">20</td><td>divided by the number 3, the slope</td><td class="num196">18</td><td>caught</td></tr>
+<tr class="hot196"><td class="num196">21</td><td>mean of $f(0), f(1), \dots, f(6)$, seven samples</td><td class="num196">9</td><td class="no196">HIDES</td></tr>
+<tr><td class="num196">22</td><td>differentiated instead of integrating</td><td class="num196">3</td><td>caught</td></tr>
+<tr><td class="num196">23</td><td>used the rod length as the average</td><td class="num196">6</td><td>caught</td></tr>
+</tbody>
+</table>
+</div>
+<p>Three values are reached more than once: 9 by nine candidates, 3 by four, 18 by three. So 16 of the 24 candidates sit on a value some other candidate also reaches, and the biggest pile-up of all is on the correct answer. The multiplicities were derived from the value multiset and cross-checked by an independent pairwise sweep.</p>
+<p>The four candidates on 3 are worth a second look. The mean of the $x$-values, the integral of the constant 3, the average rate of change and the derivative all land on the temperature <em>gradient</em>, which is a different physical quantity wearing the same number.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>CHEAP REPAIR</th><th>REJECTS</th><th>OF 23</th><th>USE IT?</th></tr></thead>
+<tbody>
+<tr><td>an average temperature cannot be negative</td><td class="num196">1</td><td class="num196">4.3 percent</td><td>barely worth the ink</td></tr>
+<tr><td>the average must be strictly positive</td><td class="num196">2</td><td class="num196">over-rejects</td><td class="no196">unsafe, see below</td></tr>
+<tr><td>the $[0,18]$ sandwich</td><td class="num196">3</td><td class="num196">13.0 percent</td><td class="ok196">yes, and it is a superset of the first</td></tr>
+</tbody>
+</table>
+</div>
+<p class="warn196">Strict positivity is not safe here. It rejects row 10's value of 0, and 0 is a legal value of this $f$, so "the average is positive" over-rejects. Non-negativity is the honest form, and the sandwich is a strict superset of it. This is the third instance in category 19 of the pattern first measured on Q19.4, positivity near-inert and the bracket helping, but the bracket's reach collapses here: 3 of 23, against Q19.5's 14 of 20, and it cannot touch a single one of the eight hiders because every one of them equals the truth.</p>
+<p class="note196">The conclusion, which is the reason this page exists. On this question no check that looks only at the answer can help you, because the wrong answers are the right answer. The only discriminator is the method: did you write $(b-a)$, and did you divide.</p>
+</section>
+
+<section>
+<h2>6. The two checks that still work</h2>
+<div class="steps196">
+  <div class="sp196"><span class="sn196">1</span><span>The <b>sandwich</b>. The rod runs from 0 to 18 degrees, so the answer must land in $[0,18]$. This is the comparison property of Q17.1, item 9 on this same paper, with the width divided out: $m \le f \le M$ on $[a,b]$ gives $m \le f_{\text{avg}} \le M$. Here 9 sits 9 above the floor and 9 below the ceiling, exactly halfway, and that halfway position is a property of an affine $f$: $x^1$ sits at 0.5 of the band, $x^2$ at $\frac13$, $x^3$ at $\frac14$.</span></div>
+  <div class="sp196"><span class="sn196">2</span><span>The <b>units</b>. The constant 3 is a gradient in degrees C per metre; $3x$ is a temperature; $\int_0^6 3x\,dx$ is degrees C times metres, which is not a temperature; dividing by 6 metres gives a temperature back. If your answer carries degrees times metres you skipped the division, and no amount of re-checking the arithmetic will find it. The gate was seeded: it rejects degrees C times metres, degrees C per metre, metres per degree C, and the inhomogeneous sum $T + x$, and accepts the correct relation.</span></div>
+  <div class="sp196"><span class="sn196">3</span><span>And the <b>limit</b> of both. Dividing by $b$ instead of $b-a$ is dimensionally correct, because both are lengths, and on this stem it is also numerically correct. Nothing cheap catches it. What catches it is writing $b-a$ symbolically before you substitute.</span></div>
+</div>
+<p class="small196">How $m$ and $M$ were established, and why it needed three arms. A complex-step derivative at 401 points gives $f' = 3$ with maximum deviation below $10^{-12}$, so there are no interior critical points; a sign-change sweep of $f'$ at four grid sizes finds none; and a left-versus-right difference-quotient scan at 800 interior points finds no kink, so there is no point where $f'$ fails to exist either. The census was controlled both directions, on $3x - \frac12 x^2$, on $x^3-9x$ over two intervals, and on $|x-2|$ against $\sin x$.</p>
+<p class="note196">One finding from that census worth carrying. On an <em>even</em> grid the critical point of the control function is a node, so $f'$ is exactly zero there, the strict sign-change test skips it, and the census reports 0. On an odd grid it reports 1. A sign-change census must count exact grid zeros as well as strict changes, and be run at both parities, or grid parity silently decides your answer.</p>
+</section>
+
+<section>
+<h2>7. The average of a function versus the average rate of change</h2>
+<p>These are the two objects a student most often merges, and they are averages of different things over different objects.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th></th><th>AVERAGE VALUE, Q19.6</th><th>AVERAGE RATE OF CHANGE, Q6.1</th></tr></thead>
+<tbody>
+<tr><td>written</td><td>$\frac{1}{b-a}\int_a^b f(x)\,dx$</td><td>$\frac{P(b)-P(a)}{b-a}$</td></tr>
+<tr><td>needs</td><td>$f$ everywhere on the interval</td><td>only the two endpoint values</td></tr>
+<tr><td>geometry</td><td>the height of the equal-area rectangle</td><td>the slope of the secant line</td></tr>
+<tr><td>units</td><td>the units of $f$</td><td>output units per input unit</td></tr>
+<tr><td>on this rod</td><td class="ok196">9 degrees C</td><td class="no196">3 degrees C per metre</td></tr>
+</tbody>
+</table>
+</div>
+<p>They coincide exactly when the $f$ you are averaging is the derivative of the $P$ whose rate you are quoting, which is the Fundamental Theorem in one sentence. That is why the average value of a velocity equals the average rate of change of position, and it is why Q19.3's water-tank rate and Q19.8's velocity can be done either way.</p>
+<p>Applying Q6.1's formula to this question gives $\frac{18-0}{6-0} = 3$, which is the temperature gradient in degrees C per metre, not the average temperature. That is census row 11, and 3 is one of the piled-up wrong values.</p>
+</section>
+
+<section>
+<h2>8. The variation families that make the hidden mistakes visible</h2>
+<p>Each family is a stem on which one of the eight hiders stops hiding. Work the second column and the mistake announces itself.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>FAMILY</th><th>TRIGGER</th><th>WHAT IT EXPOSES</th><th>INSTANCE AND ANSWER</th></tr></thead>
+<tbody>
+<tr><td>0. rescalings</td><td>a linear quantity on $[0,L]$</td><td>nothing; this is the exam's own shape</td><td>$3x$ on $[0,10]$ gives 15; $5x$ on $[0,6]$ gives 15</td></tr>
+<tr><td>1. general interval</td><td>$a \ne 0$</td><td class="ok196">the divide-by-$b$ error</td><td>$3x$ on $[2,6]$ is 12, the wrong version 8</td></tr>
+<tr><td>2. curved $f$</td><td>$f$ is not affine</td><td class="ok196">the endpoint mean and the midpoint value</td><td>$x^2$ on $[0,3]$ is 3, mean 4.5, midpoint 2.25</td></tr>
+<tr><td>3. periodic $f$</td><td>a sine or cosine over whole periods</td><td>symmetry beats integration</td><td>$\sin$ on $[0,2\pi]$ is 0; on $[0,\pi]$ it is $\frac{2}{\pi}$; $\cos^2$ over a period is $\frac12$</td></tr>
+<tr><td>4. the MVT point</td><td>"find the point where $f$ attains its average"</td><td class="ok196">reporting the value instead of the point</td><td>$x^2$ on $[0,3]$ gives $c = \sqrt3 = 1.7320508076$, not the midpoint 1.5</td></tr>
+<tr><td>5. solve backwards</td><td>the average is given, a parameter is not</td><td>this is Q19.7</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32, so $k = \frac{5}{32} = 0.15625$</td></tr>
+<tr><td>6. piecewise</td><td>two materials, two phases</td><td class="ok196">averaging sub-averages unweighted</td><td>$3x$ on $[0,3]$ then held at 9 on $[3,6]$ gives 6.75</td></tr>
+<tr><td>7. average of a rate</td><td>$f$ is itself a derivative</td><td>the Q6.1 merge</td><td>$r(t) = 180-6t$ on $[0,15]$ averages 135 litres per minute</td></tr>
+<tr><td>8. average of $|f|$</td><td>the stem says distance or magnitude</td><td>this is Q19.8</td><td>$3x$ on $[-6,6]$ averages 0, but $|3x|$ averages 9</td></tr>
+<tr><td>9. the sandwich</td><td>"find an interval containing"</td><td>this is Q17.1</td><td>$\sec$ on $[0,\pi/3]$ lands in $[\frac{\pi}{3}, \frac{2\pi}{3}]$, true value 1.3169578969</td></tr>
+<tr><td>10. units</td><td>the data and the answer are in different units</td><td class="ok196">converting half-way</td><td>the same rod as 600 cm at 0.03 degrees per cm still averages 9</td></tr>
+<tr><td>11. discrete samples</td><td>a table of values, or "sampled every metre"</td><td class="ok196">a finite mean is not the integral mean</td><td>7 samples of $3x$ give 9 by accident; 7 samples of $x^2$ give 13 against a true 12</td></tr>
+<tr><td>12. weighted average</td><td>varying density or cross-section</td><td>where $(b-a)$ comes from</td><td>$3x$ weighted by $x$ on $[0,6]$ averages 12, weighted by $6-x$ it averages 6</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note196">Family 12 is the cleanest explanation of the whole formula. A weighted average is $\frac{\int f w}{\int w}$, and a plain average is the case $w \equiv 1$, where the denominator is exactly $b-a$. So $(b-a)$ is not an arbitrary divisor: it is the total weight. An average is always the total of the thing over the total of the weight, and for a plain average the weight is length.</p>
+<p class="small196">Family 11's first instance is a genuine hazard. The mean of an arithmetic progression equals its middle term, so sampling a linear temperature at equally spaced points including both ends returns the true average exactly. It is right for the wrong reason, and it breaks the moment $T$ curves.</p>
+</section>
+
+<section>
+<h2>9. Traps, ranked</h2>
+<ol class="traps">
+<li><span><b>Writing 54.</b> Forgetting the division is the most common error on every average-value question ever set, and it is the only one of the four named errors this stem catches. It is caught twice over, by the units and by the band.</span></li>
+<li><span><b>Averaging the endpoint values, and writing 9.</b> Right here and wrong almost everywhere else. If you got 9 this way you have learned nothing, and family 2 will end you.</span></li>
+<li><span><b>Dividing by $b$ instead of $b-a$, and writing 9.</b> Also right here, because $a = 0$. A sweep over 501 left endpoints with the width held at 6 found the two agree at exactly one value of $a$, namely 0.</span></li>
+<li><span><b>Using the midpoint value, and writing 9.</b> Right here because $f$ is affine. The shortcut is legitimate only with the affineness stated.</span></li>
+<li><span><b>Reporting the MVT point instead of the average, or the reverse.</b> On this question the two are 3 and 9, so a slip is a whole mark.</span></li>
+<li><span><b>Confusing the average value with the average rate of change.</b> Gives 3, which is a plausible-looking number and is actually the gradient.</span></li>
+<li><span><b>Dropping the $\frac12$ in the antiderivative.</b> $\int 3x\,dx = \frac32 x^2$, not $3x^2$. Gives 18, which is also $f(6)$, so it looks defensible.</span></li>
+<li><span><b>Averaging $m$ and $M$.</b> Gives 9 here, because $f$ is affine and monotone. It is trap 2 in a different hat.</span></li>
+<li><span><b>Reversing the limits.</b> Gives $-9$, and it is the one error non-negativity catches.</span></li>
+<li><span><b>Averaging a nonlinear function of $T$.</b> Averaging does not commute with squaring: the average of $T^2$ on this rod is 108, while the square of the average is 81.</span></li>
+</ol>
+</section>
+
+<section>
+<h2>10. The one-page decision tree</h2>
+<div class="tree196">Stem names an average.  Of WHAT?
+
++-- of the VALUES of f over an interval
+|     +-- f affine?          -&gt; midpoint value works, but SAY SO
+|     +-- f curved?          -&gt; (1/(b-a)) INT f, no shortcut
+|     +-- f piecewise?       -&gt; width-WEIGHTED mean of the sub-averages
+|     +-- a weight w given?  -&gt; (INT f w) / (INT w)
+|
++-- of the RATE of change of something (Q6.1)
+|     -&gt; ( F(b) - F(a) ) / (b-a),  endpoints only, no integral
+|
++-- of a rate, over time (Q19.3, Q19.8)
+      -&gt; the two coincide by the FTC; either route is fine
+
+Then, ALWAYS, in this order:
+  1. is the answer in [m, M]?              &lt;- free, catches the missing division
+  2. do the units match the units of f?    &lt;- catches it again
+  3. did I divide by (b - a) or by b?      &lt;- NOTHING catches this; check by hand
+  4. average, or the POINT c?
+  5. preview the answer box</div>
+</section>
+
+<section>
+<h2>11. Provenance and verification</h2>
+<p>Final Exam 1 carries 14 items worth 20, 8, 6, 20, 11, 6, 5, 20, 5, 8, 4, 3, 5, 3, a total of 124 points, parsed from the paper rather than typed. Item 14 is worth 3, which is 2.4194 percent of the paper and the minimum value on it, and it is the last item. Two of the fourteen items carry 3 points, so this is the joint-cheapest question on the paper.</p>
+<p>Item 14's own text contains none of the six justification phrases used elsewhere on these papers, and five of the six do appear somewhere across them, so that search is live rather than vacuous.</p>
+<p class="warn196">No marking scheme, rubric or part-mark breakdown exists in any of the course files. A search for "rubric", "marking scheme" and "part marks" across all five returns zero hits, with a control proving the search works. Every statement anywhere about how marks are awarded on this item is inference.</p>
+<p><code>MATH265_Categorized.md</code> contains zero occurrences of "average value", of "mean value theorem for integral" and of "metal rod", so all thirteen variation families above were derived from the mathematics. <code>MATH265_Review.md</code> has 7 occurrences of "average value" and 1 of "mean value theorem for integral", which is the control proving the search works.</p>
+<div class="tscroll">
+<table class="tab196">
+<thead><tr><th>WHAT WAS CHECKED</th><th>HOW</th><th>RESULT</th></tr></thead>
+<tbody>
+<tr><td>the answer</td><td>exact rationals, then Simpson at eight resolutions, Gauss-Legendre at five node counts, bounded tanh-sinh, and Romberg, none of which sees the closed form</td><td class="ok196">9</td></tr>
+<tr><td>the definition itself</td><td>the plain mean of $n$ midpoint samples, at five resolutions</td><td class="ok196">9</td></tr>
+<tr><td>$m$ and $M$</td><td>a three-arm root census plus a 200001-point grid, controlled both directions</td><td class="ok196">0 and 18</td></tr>
+<tr><td>the MVT point</td><td>solved exactly in rationals, then recovered blind by bisection on the quadrature average</td><td class="ok196">3</td></tr>
+<tr><td>the units</td><td>exponent vectors over degrees C and metres, with four seeded rejections and a conversion arm</td><td class="ok196">degrees C</td></tr>
+<tr><td>quadrature order</td><td>UNMEASURABLE on this integrand: $3x$ is affine, so Simpson is exact and the worst error over $n = 2$ to 1024 is 0</td><td>demonstrated on controls instead</td></tr>
+<tr><td>the instrument</td><td>$\sin(t^2)$ measured 3.9799, 3.9953, 3.9988, 3.9997; the cusp $|t|^{2/3}$ measured 1.6650 to 1.6667, converging on $\frac53$; Simpson exact on $x^3$ but not on $x^4$, error 1.666667e-02 at $n=4$</td><td class="ok196">live</td></tr>
+<tr><td>the assertions</td><td><code>q196</code> and <code>q196d</code> in the shared harness, grepped with a trailing space independently of the internal counters</td><td class="ok196">213 and 51 PASS, 0 FAIL</td></tr>
+</tbody>
+</table>
+</div>
+<p class="small196">The $n=8$ rung of the smooth control measured 3.8951, which looks exactly like a degraded order and is a pre-asymptotic transient. It is reported rather than hidden, and the order claim is made on the asymptotic rungs only. This is the fifth consecutive question in category 19 whose quadrature order could not be measured on its own integrand.</p>
+</section>
+
+<footer class="wrap">
+<p class="small196">MATH 265 &middot; Q19.6 &middot; Average temperature of a metal rod &middot; Final Exam 1 item 14 &middot; 3 points. Companion markdown at <code>notes\Q19.6 - Average temperature of a metal rod.md</code>. Every printed digit on this page was computed, none typed.</p>
+</footer>
+
+</main>

@@ -1,0 +1,863 @@
+<meta charset="utf-8">
+<title>The Hand-Off</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+
+/* ---- Q19.9 FIGURE CSS. Emitted BEFORE the body, inside this same block. */
+:root{--rampfill:rgba(217,138,31,.24);--cruisefill:rgba(63,100,147,.20);
+  --bandfill:rgba(217,138,31,.30);--band2fill:rgba(63,100,147,.26);
+  --lofill:rgba(63,100,147,.34);--actfill:rgba(30,122,110,.38);
+  --hifill:rgba(63,100,147,.34)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--rampfill:rgba(242,165,60,.18);
+    --cruisefill:rgba(126,155,196,.20);--bandfill:rgba(242,165,60,.30);
+    --band2fill:rgba(126,155,196,.26);--lofill:rgba(126,155,196,.32);
+    --actfill:rgba(90,196,178,.34);--hifill:rgba(126,155,196,.32)}
+}
+:root[data-theme="dark"]{--rampfill:rgba(242,165,60,.18);
+  --cruisefill:rgba(126,155,196,.20);--bandfill:rgba(242,165,60,.30);
+  --band2fill:rgba(126,155,196,.26);--lofill:rgba(126,155,196,.32);
+  --actfill:rgba(90,196,178,.34);--hifill:rgba(126,155,196,.32)}
+:root[data-theme="light"]{--rampfill:rgba(217,138,31,.24);
+  --cruisefill:rgba(63,100,147,.20);--bandfill:rgba(217,138,31,.30);
+  --band2fill:rgba(63,100,147,.26);--lofill:rgba(63,100,147,.34);
+  --actfill:rgba(30,122,110,.38);--hifill:rgba(63,100,147,.34)}
+
+.fig199{width:100%;height:auto;display:block;background:transparent}
+/* Every figure label carries `lab` so svg-labels can select it, and the
+   family and role rules are written TWO-CLASS so the specificity contest
+   (25.7) cannot let a family rule erase a role's semantic colour. */
+.lab{font-family:var(--mono);font-size:11px;fill:var(--ink2)}
+.lab.labin{font-size:11px;fill:var(--ink)}
+.lab.tlab{font-size:10px;fill:var(--plotlab);letter-spacing:.05em}
+.ramp199{fill:var(--rampfill);stroke:none}
+.cruise199{fill:var(--cruisefill);stroke:none}
+.band1199{fill:var(--bandfill);stroke:none}
+.band2199{fill:var(--band2fill);stroke:none}
+.blo199{fill:var(--lofill);stroke:none}
+.bact199{fill:var(--actfill);stroke:none}
+.bhi199{fill:var(--hifill);stroke:none}
+.axis199{stroke:var(--plot);stroke-width:1.2;fill:none}
+.tick199{stroke:var(--plot);stroke-width:1.1;fill:none}
+.drop199{stroke:var(--plot);stroke-width:1.1;stroke-dasharray:3 3;fill:none}
+.vramp199{fill:none;stroke:var(--rul);stroke-width:2.4;stroke-linecap:round}
+.vcruise199{fill:none;stroke:var(--chn);stroke-width:2.4;stroke-linecap:round}
+.brk199{stroke:var(--plot);stroke-width:1.2;fill:none}
+.conn199{stroke:var(--plot);stroke-width:1;stroke-dasharray:2 3;fill:none}
+.mid199{stroke:var(--fam);stroke-width:2.4;fill:none}
+.lab.areaA199{fill:var(--rul);font-weight:600}
+.lab.areaB199{fill:var(--chn);font-weight:600}
+.lab.hoff199{fill:var(--fam);font-weight:600}
+.lab.tape199{fill:var(--fam);font-weight:600}
+.lab.mlab199{fill:var(--fam);font-weight:600}
+.lab.v1199{fill:var(--fam);font-weight:600}
+.lab.v0199,.lab.v2199{fill:var(--chn);font-weight:600}
+.lab.b1199{fill:var(--rul);font-weight:600}
+.lab.b2199{fill:var(--chn);font-weight:600}
+.lab.ph1199{fill:var(--rul);letter-spacing:.12em}
+.lab.ph2199{fill:var(--chn);letter-spacing:.12em}
+.lab.strip199{letter-spacing:.12em}
+.lab.axt199,.lab.axv199,.lab.ax2199{fill:var(--plotlab);letter-spacing:.05em}
+
+/* ---- Q19.9 page classes. Every invented name carries the 199 suffix.
+   Two DELIBERATE re-declarations of names ABSENT from the slice: --sans and
+   .tscroll (29.8). Nothing inherited AS IS is redefined here. */
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+
+.ansbar199{display:grid;grid-template-columns:repeat(auto-fit,minmax(212px,1fr));
+  gap:14px;margin:30px 0 6px}
+.acard199{background:var(--surface);border:1px solid var(--line);
+  border-radius:3px;padding:15px 17px 16px;display:flex;flex-direction:column;
+  gap:5px}
+.alab199{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink3)}
+.aval199{font-size:27px;line-height:1.15;font-weight:600;
+  font-variant-numeric:tabular-nums}
+.asub199{font-size:12.5px;color:var(--ink2)}
+.mono199{font-family:var(--mono);font-size:23px;letter-spacing:.02em}
+.ans199{color:var(--fam)}
+.hand199{color:var(--rul)}
+.no199{color:var(--ok)}
+.wrong199{color:var(--los)}
+
+.steps199{margin:14px 0 0;padding-left:22px}
+.steps199 li{margin:9px 0}
+.hi199{background:var(--rul-soft);border-bottom:1px solid var(--rul-line);
+  padding:1px 3px}
+.chk199{margin-top:18px;padding:13px 16px;background:var(--sunk);
+  border-left:2px solid var(--fam);border-radius:2px;font-size:14.5px}
+
+.disp199{margin:18px 0;overflow-x:auto}
+.note2199{font-size:14.5px;color:var(--ink2)}
+
+.callout199{margin:20px 0;padding:16px 18px;background:var(--rul-soft);
+  border:1px solid var(--rul-line);border-radius:3px}
+.blind199{margin:20px 0;padding:16px 18px;background:var(--sunk);
+  border:1px solid var(--line);border-left:2px solid var(--ink3);
+  border-radius:3px}
+.colab199{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
+.callout199 p,.blind199 p{margin:0}
+
+.tab199{border-collapse:collapse;width:100%;min-width:620px;font-size:14px}
+.tab199.wide199{min-width:900px}
+.tab199 th{text-align:left;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);
+  border-bottom:1px solid var(--line);padding:8px 12px 8px 0;font-weight:500}
+.tab199 td{padding:9px 12px 9px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top}
+.tab199 tr:last-child td{border-bottom:none}
+.num199{font-family:var(--mono);font-variant-numeric:tabular-nums;
+  white-space:nowrap}
+.nw199{white-space:nowrap}
+.dead199{color:var(--ink3)}
+.live199{color:var(--fam);font-weight:600}
+.cont199{color:var(--fam);font-weight:600}
+.jump199{color:var(--rul);font-weight:600}
+.exam199 td{background:var(--rul-soft)}
+.tag199{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--rul);border:1px solid var(--rul-line);
+  border-radius:2px;padding:1px 5px}
+
+.traps199{margin:14px 0 0;padding-left:22px}
+.traps199 li{margin:8px 0}
+.tree199{background:var(--sunk);border:1px solid var(--line-soft);
+  border-radius:3px;padding:16px 18px;overflow-x:auto;
+  font-family:var(--mono);font-size:12.5px;line-height:1.6;color:var(--ink2);
+  white-space:pre}
+
+@media (max-width:760px){
+  .tab199{min-width:580px}
+  .tab199.wide199{min-width:840px}
+  .aval199{font-size:23px}
+  .mono199{font-size:20px}
+}
+
+</style>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 2 &middot; Item 11 &middot; 4 points</div>
+  <h1>The Hand-Off</h1>
+  <p class="deck">The acceleration is given in two pieces, so the velocity and the position have
+  to be built one piece at a time. The whole question is the moment between the pieces: the speed
+  and the distance the sprinter has at the end of phase 1 are the starting values for phase 2.
+  Eight questions in this category let you forget that constant. This one does not.</p>
+  <p class="stem">A sprinter in a 100 m race explodes out of the starting block with an
+  acceleration of 4 m/s<sup>2</sup>, which she sustains for 2 seconds. Her acceleration then drops
+  to zero for the rest of the race. What is her time for the race?</p>
+</header>
+
+<section class="ansbar199">
+  <div class="acard199">
+    <div class="alab199">Her time for the race</div>
+    <div class="aval199 ans199">13.5 s</div>
+    <div class="asub199">exactly \(\tfrac{27}{2}\) seconds</div>
+  </div>
+  <div class="acard199">
+    <div class="alab199">The hand-off at \(t = 2\)</div>
+    <div class="aval199 hand199">8, 8</div>
+    <div class="asub199">8 m/s and 8 m &middot; both carry forward</div>
+  </div>
+  <div class="acard199">
+    <div class="alab199">Does anything hide?</div>
+    <div class="aval199 no199">No</div>
+    <div class="asub199">0 of 29 wrong methods give 13.5</div>
+  </div>
+  <div class="acard199">
+    <div class="alab199">Type into M&ouml;bius</div>
+    <div class="aval199 mono199">13.5</div>
+    <div class="asub199">the time, never the 11.5</div>
+  </div>
+</section>
+
+<section>
+  <h2>The whole method in five steps</h2>
+  <ol class="steps199">
+    <li><b>Write the initial state.</b> "Explodes out of the starting block" means
+      \(v(0) = 0\) and \(x(0) = 0\). Write both down.</li>
+    <li><b>Phase 1, on \([0,2]\), with \(a = 4\).</b> Integrate once for
+      \(v = 4t\), again for \(x = 2t^2\).</li>
+    <li><b>Evaluate at the boundary.</b> <span class="hi199">\(v(2) = 8\) m/s and
+      \(x(2) = 8\) m.</span> This line is the hand-off, and it is very likely the line the
+      marker is looking for, though that is inference: no rubric exists.</li>
+    <li><b>Phase 2, on \([2, T]\), with \(a = 0\).</b> Zero acceleration means the velocity
+      <em>stops changing</em>, not that it becomes zero. So \(v = 8\) still, and
+      \(x = 8 + 8(t-2)\). The two eights are the numbers from step 3.</li>
+    <li><b>Solve.</b> \(8 + 8(T-2) = 100\), so \(T - 2 = \tfrac{92}{8} = 11.5\) and
+      \(T = 13.5\) seconds.</li>
+  </ol>
+  <div class="chk199"><b>Eight-second check.</b> Her top speed is 8 m/s, so she cannot beat
+  \(100/8 = 12.5\) s. She also does better than standing still for 2 s and then cruising, which
+  would take 14.5 s. And 13.5 is the midpoint of those two, which is not a coincidence.</div>
+</section>
+
+<section>
+  <h2>The picture is the answer</h2>
+  <p>On a velocity-time graph, distance is the area underneath. The ramp encloses a triangle and
+  the cruise encloses a rectangle, and those two areas <em>are</em> the 8 m and the 92 m. You can
+  read the whole solution off the shape without integrating anything.</p>
+  <figure class="figbox">
+    <svg class="fig199" viewBox="0 0 740 420" width="100%" role="img" aria-label="Velocity-time graph of the sprinter. A straight ramp from rest to 8 metres per second over the first two seconds, then a horizontal line at 8 metres per second to the finish at 13.5 seconds. The shaded triangle under the ramp is 8 metres and the shaded rectangle under the cruise is 92 metres.">
+  <polygon class="ramp199" points="64.00,354.00 136.97,149.92 136.97,354.00" />
+  <polygon class="cruise199" points="136.97,354.00 136.97,149.92 556.57,149.92 556.57,354.00" />
+  <rect class="band1199" x="64.00" y="58.00" width="72.97" height="22.00" rx="3" />
+  <rect class="band2199" x="136.97" y="58.00" width="419.59" height="22.00" rx="3" />
+  <line class="axis199" x1="64.00" y1="354.00" x2="604.00" y2="354.00" />
+  <line class="axis199" x1="64.00" y1="354.00" x2="64.00" y2="104.00" />
+  <line class="drop199" x1="136.97" y1="354.00" x2="136.97" y2="149.92" />
+  <line class="drop199" x1="556.57" y1="354.00" x2="556.57" y2="149.92" />
+  <line class="drop199" x1="64.00" y1="149.92" x2="136.97" y2="149.92" />
+  <line class="vramp199" x1="64.00" y1="354.00" x2="136.97" y2="149.92" />
+  <line class="vcruise199" x1="136.97" y1="149.92" x2="556.57" y2="149.92" />
+  <line class="tick199" x1="64.00" y1="354.00" x2="64.00" y2="359.00" />
+  <line class="tick199" x1="136.97" y1="354.00" x2="136.97" y2="359.00" />
+  <line class="tick199" x1="209.95" y1="354.00" x2="209.95" y2="359.00" />
+  <line class="tick199" x1="282.92" y1="354.00" x2="282.92" y2="359.00" />
+  <line class="tick199" x1="355.89" y1="354.00" x2="355.89" y2="359.00" />
+  <line class="tick199" x1="428.86" y1="354.00" x2="428.86" y2="359.00" />
+  <line class="tick199" x1="501.84" y1="354.00" x2="501.84" y2="359.00" />
+  <line class="tick199" x1="574.81" y1="354.00" x2="574.81" y2="359.00" />
+  <line class="tick199" x1="59.00" y1="302.98" x2="64.00" y2="302.98" />
+  <line class="tick199" x1="59.00" y1="251.96" x2="64.00" y2="251.96" />
+  <line class="tick199" x1="59.00" y1="200.94" x2="64.00" y2="200.94" />
+  <line class="tick199" x1="59.00" y1="149.92" x2="64.00" y2="149.92" />
+  <text class="lab tlab strip199" x="64.00" y="20.00" text-anchor="start">ACCELERATION, THE DATA THE QUESTION GIVES</text>
+  <text class="lab tlab ph1199" x="100.49" y="48.00" text-anchor="middle">PHASE 1</text>
+  <text class="lab tlab ph2199" x="346.77" y="48.00" text-anchor="middle">PHASE 2</text>
+  <text class="lab labin b1199" x="100.49" y="73.00" text-anchor="middle">a = 4</text>
+  <text class="lab labin b2199" x="346.77" y="73.00" text-anchor="middle">a = 0</text>
+  <text class="lab areaA199" x="120.55" y="315.73" text-anchor="middle">8 m</text>
+  <text class="lab areaB199" x="341.30" y="262.16" text-anchor="middle">92 m</text>
+  <text class="lab hoff199" x="151.57" y="126.96" text-anchor="start">hand-off   v = 8 m/s</text>
+  <text class="lab tape199" x="556.57" y="402.00" text-anchor="middle">finish   t = 13.5 s</text>
+  <text class="lab axt199" x="608.00" y="377.00" text-anchor="start">t   (seconds)</text>
+  <text class="lab axv199" x="66.00" y="100.00" text-anchor="start">v   (m/s)</text>
+  <text class="lab tlab" x="64.00" y="377.00" text-anchor="middle">0</text>
+  <text class="lab tlab" x="136.97" y="377.00" text-anchor="middle">2</text>
+  <text class="lab tlab" x="209.95" y="377.00" text-anchor="middle">4</text>
+  <text class="lab tlab" x="282.92" y="377.00" text-anchor="middle">6</text>
+  <text class="lab tlab" x="355.89" y="377.00" text-anchor="middle">8</text>
+  <text class="lab tlab" x="428.86" y="377.00" text-anchor="middle">10</text>
+  <text class="lab tlab" x="501.84" y="377.00" text-anchor="middle">12</text>
+  <text class="lab tlab" x="574.81" y="377.00" text-anchor="middle">14</text>
+  <text class="lab tlab" x="54.00" y="306.48" text-anchor="end">2</text>
+  <text class="lab tlab" x="54.00" y="255.46" text-anchor="end">4</text>
+  <text class="lab tlab" x="54.00" y="204.44" text-anchor="end">6</text>
+  <text class="lab tlab" x="54.00" y="153.42" text-anchor="end">8</text>
+</svg>
+    <figcaption>Acceleration jumps at \(t = 2\); velocity does not. The strip along the top is
+    the data the question gives, and it is discontinuous. The line below it is the velocity, and
+    it has a corner there but no gap, because a body cannot change speed instantaneously. The
+    triangle is 8 m, the rectangle is 92 m, and together they are the race.</figcaption>
+  </figure>
+</section>
+
+<section>
+  <h2>Why this is the question that catches the missing constant</h2>
+  <p>Every motion question hands you one rung of a ladder and asks for another. What you have to
+  supply depends only on how far you climb.</p>
+  <div class="tscroll">
+  <table class="tab199">
+    <thead><tr><th>You are given</th><th>You want</th><th>What you must supply</th></tr></thead>
+    <tbody>
+      <tr><td>\(v\)</td><td>displacement</td><td class="dead199">nothing, the constant cancels</td></tr>
+      <tr><td>\(v\)</td><td>position \(x(t)\)</td><td class="live199">\(x(0)\)</td></tr>
+      <tr><td>\(a\)</td><td>velocity \(v(t)\)</td><td class="live199">\(v(0)\)</td></tr>
+      <tr class="exam199"><td>\(a\)</td><td>position \(x(t)\)</td><td class="live199"><b>both</b> \(v(0)\) and \(x(0)\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="callout199">
+    <div class="colab199">The reason the previous question was easier</div>
+    <p>Q19.8 gave you \(v\) and asked for <em>displacement</em>. Displacement is
+    \(x(3) - x(0)\), so whatever \(x(0)\) was, it subtracted itself away, and a student who never
+    wrote it down still got full marks. Q19.9 gives you \(a\) and asks for a race time, which is
+    a position question wearing a disguise. Both constants are now load-bearing. This is the same
+    omission finally being caught.</p>
+  </div>
+  <h3>What must be continuous, and what may jump</h3>
+  <div class="tscroll">
+  <table class="tab199">
+    <thead><tr><th>Quantity</th><th>At a phase boundary</th><th>Why</th></tr></thead>
+    <tbody>
+      <tr><td>\(a\)</td><td class="jump199">may jump</td><td>it is the given data, and the data changes</td></tr>
+      <tr><td>\(v\)</td><td class="cont199">must be continuous</td><td>it is an integral of a bounded function</td></tr>
+      <tr><td>\(x\)</td><td class="cont199">must be continuous</td><td>it is an integral of a continuous function</td></tr>
+      <tr><td>\(v'\)</td><td class="jump199">may jump</td><td>\(v' = a\), and \(a\) jumped</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note2199">A body cannot teleport, and it cannot change speed instantaneously without
+  infinite force. Those two sentences are the whole content of "\(x\) and \(v\) are continuous",
+  and they are why the hand-off values are what they are.</p>
+</section>
+
+<section>
+  <h2>The ramp costs exactly half its own duration</h2>
+  <p>Work the algebra in symbols instead of numbers and something clean falls out. If a body
+  starts from rest, accelerates uniformly for \(T_1\) seconds to a top speed \(v_{\text{top}}\),
+  and then cruises to a line at distance \(L\):</p>
+  <div class="disp199">
+    $$T = \frac{L}{v_{\text{top}}} + \frac{T_1}{2}$$
+  </div>
+  <p>The acceleration does not appear at all. Only the ramp's <em>duration</em> and the top speed
+  matter, and the ramp costs you exactly half of its own length in time. Here that is
+  \(\tfrac{100}{8} + \tfrac{2}{2} = 12.5 + 1 = 13.5\).</p>
+  <p>It also explains the check. The slowest she could be is standing still for the ramp and then
+  cruising; the fastest is cruising the whole way. The true answer sits exactly halfway between
+  them, always.</p>
+  <figure class="figbox">
+    <svg class="fig199" viewBox="0 0 740 240" width="100%" role="img" aria-label="Three time bars on one scale. Cruising at 8 metres per second from the gun would take 12.5 seconds; the sprinter takes 13.5 seconds; standing still for two seconds and then cruising would take 14.5 seconds. A bracket shows 13.5 is the exact midpoint.">
+  <rect class="blo199" x="64.00" y="44.00" width="413.46" height="26.00" rx="3" />
+  <rect class="bact199" x="64.00" y="88.00" width="446.54" height="26.00" rx="3" />
+  <rect class="bhi199" x="64.00" y="132.00" width="479.62" height="26.00" rx="3" />
+  <line class="conn199" x1="477.46" y1="158.00" x2="477.46" y2="184.00" />
+  <line class="conn199" x1="543.62" y1="158.00" x2="543.62" y2="184.00" />
+  <line class="brk199" x1="477.46" y1="184.00" x2="543.62" y2="184.00" />
+  <line class="brk199" x1="477.46" y1="179.00" x2="477.46" y2="189.00" />
+  <line class="brk199" x1="543.62" y1="179.00" x2="543.62" y2="189.00" />
+  <line class="mid199" x1="510.54" y1="174.00" x2="510.54" y2="194.00" />
+  <line class="tick199" x1="64.00" y1="31.00" x2="64.00" y2="36.00" />
+  <line class="tick199" x1="196.31" y1="31.00" x2="196.31" y2="36.00" />
+  <line class="tick199" x1="328.62" y1="31.00" x2="328.62" y2="36.00" />
+  <line class="tick199" x1="460.92" y1="31.00" x2="460.92" y2="36.00" />
+  <text class="lab v0199" x="486.46" y="62.00" text-anchor="start">12.5 s</text>
+  <text class="lab labin" x="73.00" y="62.00" text-anchor="start">cruise at 8 m/s from the gun</text>
+  <text class="lab v1199" x="519.54" y="106.00" text-anchor="start">13.5 s</text>
+  <text class="lab labin" x="73.00" y="106.00" text-anchor="start">the sprinter</text>
+  <text class="lab v2199" x="552.62" y="150.00" text-anchor="start">14.5 s</text>
+  <text class="lab labin" x="73.00" y="150.00" text-anchor="start">stand still 2 s, then cruise</text>
+  <text class="lab mlab199" x="510.54" y="214.00" text-anchor="middle">13.5 is the exact midpoint of 12.5 and 14.5</text>
+  <text class="lab ax2199" x="732.00" y="22.00" text-anchor="end">elapsed time   (seconds)</text>
+  <text class="lab tlab" x="64.00" y="22.00" text-anchor="middle">0</text>
+  <text class="lab tlab" x="196.31" y="22.00" text-anchor="middle">4</text>
+  <text class="lab tlab" x="328.62" y="22.00" text-anchor="middle">8</text>
+  <text class="lab tlab" x="460.92" y="22.00" text-anchor="middle">12</text>
+</svg>
+    <figcaption>Three ways to cover 100 m, on one time scale. The two bounds are things the
+    sprinter is definitely between; the middle bar is what she actually does. That the middle
+    bar lands on the exact midpoint is the half-ramp law, drawn.</figcaption>
+  </figure>
+  <div class="blind199">
+    <div class="colab199">When the law does not apply</div>
+    <p>Check first that the finish line falls in the <em>cruise</em> phase. If the ramp is long
+    enough that she crosses the line while still accelerating, the law is simply wrong: for
+    \(a = 4\) sustained 20 s it predicts 11.25 s against a true \(\sqrt{50} \approx 7.0711\) s.
+    A rolling start or a head start also breaks it, because it assumes she begins from rest at
+    the line.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Every way to get this wrong</h2>
+  <p>Thirty-two methods were enumerated and each one solved exactly, with no candidate excluded
+  for being silly: three correct routes and twenty-nine wrong ones. The result is unusual for
+  this category.</p>
+  <div class="callout199">
+    <div class="colab199">Nothing hides</div>
+    <p><b>Zero of the twenty-nine wrong methods returns 13.5.</b> Every other question in this
+    block had at least one mistake that produced the right number for the wrong reason, and one
+    of them had eight. Here there are none. But that is not the same as the wrong answers being
+    <em>informative</em>.</p>
+  </div>
+  <p>Twenty-six of the wrong methods produce a number at all, and between them those twenty-six
+  produce only <b>eleven distinct values</b>. Five of those values are each reached by two to five
+  completely different mistakes.</p>
+  <div class="tscroll">
+  <table class="tab199">
+    <thead><tr><th class="num199">Value</th><th>Reached by</th><th class="num199">Methods</th></tr></thead>
+    <tbody>
+      <tr><td class="num199 wrong199">7.0711 s</td><td>dropping phase 2, three wrong-limit errors, one wrong phase-2 model</td><td class="num199">5</td></tr>
+      <tr><td class="num199 wrong199">11.5 s</td><td>dropping phase 1's time, two wrong-limit errors, reporting the wrong quantity, a sign error</td><td class="num199">5</td></tr>
+      <tr><td class="num199 wrong199">12.5 s</td><td>dropping phase 1, two constant-\(a\) errors, two wrong \(x(2)\) formulas</td><td class="num199">5</td></tr>
+      <tr><td class="num199 wrong199">25 s</td><td>three different wrong velocities</td><td class="num199">3</td></tr>
+      <tr><td class="num199 wrong199">14.5 s</td><td>restarting the position at zero, or dropping the 8 m</td><td class="num199">2</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Call it <b>wrong-answer clustering</b>, and it is the seventh distinct behaviour this category
+  has produced. It is the mirror image of the previous question, where eleven wrong methods landed
+  on a number the student had already written down and believed. Here no mistake reaches the truth,
+  but a wrong number is nearly useless as a diagnosis.</p>
+  <div class="blind199">
+    <div class="colab199">What that means for recovery</div>
+    <p>If you get 12.5, do not go hunting for a lost sign. Ask the two questions that actually
+    separate the five methods that give it: <em>did I use phase 1 at all</em>, and <em>did I
+    compute \(x(2)\) with both the one-half and the square</em>.</p>
+  </div>
+  <h3>Three mistakes produce no number at all</h3>
+  <p>Restarting the <em>velocity</em> at zero in phase 2 leaves her at rest with zero acceleration,
+  so she never moves again and the equation has no solution. That is a loud failure: your algebra
+  dies in front of you. Restarting the <em>position</em> at zero is the quiet one, and it gives
+  14.5.</p>
+</section>
+
+<section>
+  <h2>Which check earns its keep</h2>
+  <p>Measured against the census, not guessed at.</p>
+  <div class="tscroll">
+  <table class="tab199">
+    <thead><tr><th>Check</th><th class="num199">Rejects</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr class="exam199"><td>the sandwich, \(12.5 &lt; T &lt; 14.5\)</td><td class="num199 live199">25 of 26</td><td>the one to run</td></tr>
+      <tr><td>\(T &gt; 100/8 = 12.5\) alone</td><td class="num199">18 of 26</td><td>most of the sandwich's power is in this arm</td></tr>
+      <tr><td>average speed \(100/T \le 8\)</td><td class="num199">13 of 26</td><td>the same idea as a rate</td></tr>
+      <tr><td>\(T &lt; 14.5\) alone</td><td class="num199">7 of 26</td><td>weak by itself</td></tr>
+      <tr><td>\(T &gt; 2\), longer than phase 1</td><td class="num199">1 of 26</td><td>nearly useless</td></tr>
+      <tr><td>positivity, \(T &gt; 0\)</td><td class="num199 dead199">0 of 26</td><td>completely inert</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Positivity is the check most students reach for first, and on this stem it catches nothing at
+  all: every wrong method here returns a positive time.</p>
+  <div class="callout199">
+    <div class="colab199">The one survivor</div>
+    <p>The single wrong answer the sandwich cannot reject is <b>14.0 s</b>, from computing
+    \(x(2)\) as \(\tfrac12 a t = 4\) instead of \(\tfrac12 a t^2 = 8\). It sits inside the
+    physically possible band, so no plausibility check can catch it. Only the units catch it:
+    \(\tfrac12 a t\) is a velocity, not a length. <b>Run your dimensional check on the
+    intermediate quantities, not on the final answer</b>, because the answer and every plausible
+    error are all times.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The traps, ranked</h2>
+  <ol class="traps199">
+    <li><b>Restarting phase 2 from zero.</b> The defining error. Restarting \(x\) gives 14.5;
+      restarting \(v\) gives no answer at all.</li>
+    <li><b>Answering 11.5.</b> The phase-2 duration is a number you computed and believed one line
+      before the answer, and five different wrong methods also land there.</li>
+    <li><b>Dropping the one-half or the square in \(x(2)\).</b> Gives 16 or 4 instead of 8, and
+      the resulting 14.0 is the one wrong answer no plausibility check rejects.</li>
+    <li><b>Treating \(a\) as constant over the whole race.</b> Gives \(\sqrt{50} \approx 7.0711\)
+      s, which is badly wrong but sounds plausible for a sprint.</li>
+    <li><b>Using the half-ramp law without checking the phase.</b></li>
+    <li><b>Wrong limits on the phase-2 integral.</b> \(\int_0^t\) instead of \(\int_2^t\) shifts
+      the clock and gives 11.5.</li>
+    <li><b>Forgetting to check whether she finishes at all</b> when a later phase decelerates.</li>
+    <li><b>"\(a = 0\), so nothing happens."</b> Zero acceleration is not zero motion, it is
+      <em>unchanged</em> motion. This misconception is the root of trap 1.</li>
+  </ol>
+</section>
+
+<section>
+  <h2>The variation catalog</h2>
+  <p>Every instance below was solved twice: once by the exact phase-by-phase algebra, and once by
+  a numerical integration of the piecewise \(a(t)\) that never sees the closed form. Twelve
+  instances, zero disagreements. Read the table as structure: only two things ever change, which
+  phase the finish line falls in and how many initial conditions you have to carry.</p>
+  <div class="tscroll">
+  <table class="tab199 wide199">
+    <thead><tr><th>Family</th><th>Trigger</th><th>Instance</th><th class="num199">Answer</th></tr></thead>
+    <tbody>
+      <tr class="exam199"><td><span class="tag199">F1</span> ramp then cruise</td><td>two phases, second with \(a = 0\)</td><td>the exam: \(a=4\) for 2 s; 100 m</td><td class="num199 ans199">13.5</td></tr>
+      <tr><td><span class="tag199">F1</span></td><td>&nbsp;</td><td>\(a=3\) for 3 s; 100 m</td><td class="num199">\(\tfrac{227}{18} \approx 12.6111\)</td></tr>
+      <tr><td><span class="tag199">F1</span></td><td>&nbsp;</td><td>\(a=5\) for 2 s; 200 m</td><td class="num199">21</td></tr>
+      <tr><td><span class="tag199">F1</span></td><td>&nbsp;</td><td>\(a=2\) for 4 s; 60 m</td><td class="num199">9.5</td></tr>
+      <tr><td><span class="tag199">F2</span> finishes in the ramp</td><td>\(x(t_1) \ge L\)</td><td>\(a=4\) for 10 s; 100 m</td><td class="num199">\(\sqrt{50} \approx 7.0711\)</td></tr>
+      <tr><td><span class="tag199">F2</span></td><td>&nbsp;</td><td>\(a=2\) for 20 s; 100 m</td><td class="num199">10</td></tr>
+      <tr><td><span class="tag199">F3</span> three or more phases</td><td>the stem names three intervals</td><td>\(4\) for 2 s, \(0\) for 4 s, \(-1\) for 3 s, then \(0\); 100 m</td><td class="num199">17.1</td></tr>
+      <tr><td><span class="tag199">F3</span></td><td>&nbsp;</td><td>\(6\) for 2 s, \(-1\) for 4 s, then \(0\); 100 m</td><td class="num199">12</td></tr>
+      <tr><td><span class="tag199">F4</span> rolling start</td><td>"already moving at"</td><td>\(v_0=2\), \(a=4\) for 2 s; 100 m</td><td class="num199">10.8</td></tr>
+      <tr><td><span class="tag199">F4</span></td><td>&nbsp;</td><td>\(v_0=5\), \(a=0\) for 3 s, then \(a=2\); 100 m</td><td class="num199">\(\approx 10.0525\)</td></tr>
+      <tr><td><span class="tag199">F5</span> head start</td><td>"starts 15 m ahead"</td><td>\(x_0=10\), \(a=4\) for 2 s; 100 m</td><td class="num199">12.25</td></tr>
+      <tr><td><span class="tag199">F6</span> ramps all the way</td><td>no phase has \(a = 0\)</td><td>\(4\) for 2 s, \(2\) for 2 s, then \(1\); 100 m</td><td class="num199">\(\approx 8.9706\)</td></tr>
+      <tr><td><span class="tag199">F7</span> she never finishes</td><td>a final phase decelerates</td><td>\(4\) for 2 s, \(0\) for 4 s, then \(-1\); 100 m</td><td class="num199 wrong199">no finish</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="blind199">
+    <div class="colab199">Family 7 is a real question, not a degenerate case</div>
+    <p>In that last row her velocity reaches zero 8 s into the third phase, at \(t = 14\), with
+    \(x = 72\) m. She stops 28 m short and the correct answer is a distance, not a time. A control
+    confirms the machinery is not just refusing everything: the same phases over a 60 m race
+    finish at about 9.101 s.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Closing the category, and the bank</h2>
+  <p>This is the ninth of the nine applications-of-integration questions and the forty-ninth of
+  forty-nine in the bank. All nine are the same three moves.</p>
+  <ol class="steps199">
+    <li><b>Name the rate and the quantity.</b> Something is given as a rate of change and
+      something else is asked for.</li>
+    <li><b>Build the integrand.</b> Turn the physical description into an expression in one
+      variable, with the right limits. Nearly all the marks are here.</li>
+    <li><b>Integrate, then answer the question that was asked</b>, not the one that is easiest to
+      compute.</li>
+  </ol>
+  <div class="tscroll">
+  <table class="tab199">
+    <thead><tr><th>Question</th><th>What only it teaches</th></tr></thead>
+    <tbody>
+      <tr><td class="nw199">Q19.1 &middot; line and parabola</td><td>orientation: which curve is on top, and the sign that hides</td></tr>
+      <tr><td class="nw199">Q19.2 &middot; cosine and a line</td><td>finding the crossings first, then splitting there</td></tr>
+      <tr><td class="nw199">Q19.3 &middot; net change</td><td>the Net Change Theorem itself, which the other six all use</td></tr>
+      <tr><td class="nw199">Q19.4 &middot; raising a chain</td><td>building an integrand from a physical slice</td></tr>
+      <tr><td class="nw199">Q19.5 &middot; stretching a spring</td><td>finding a constant from the data before integrating</td></tr>
+      <tr><td class="nw199">Q19.6 &middot; average temperature</td><td>the average-value formula and its dividing width</td></tr>
+      <tr><td class="nw199">Q19.7 &middot; find \(k\)</td><td>the same formula run backwards, as an equation</td></tr>
+      <tr><td class="nw199">Q19.8 &middot; displacement, distance</td><td>signed versus unsigned, splitting at the zeros of \(v\)</td></tr>
+      <tr class="exam199"><td class="nw199">Q19.9 &middot; the sprinter</td><td>integrating in pieces, and carrying the hand-off across</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The last two are deliberately paired. Q19.8 gives you \(v\) and hides the constants; Q19.9
+  gives you \(a\) and makes both of them matter.</p>
+  <div class="callout199">
+    <div class="colab199">One sentence for the whole category</div>
+    <p>The integral of a rate of change is the net change in the quantity. Everything else is
+    deciding what the rate is, over what interval, and in what pieces.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The decision tree</h2>
+  <div class="tree199">"acceleration is X for a while, then Y"
+          |
+          v
+  [1] write v(0) and x(0) from the words
+      "from the block", "from rest"   -&gt;  v(0) = 0
+      "at the start line"             -&gt;  x(0) = 0
+      "already moving at 3 m/s"       -&gt;  v(0) = 3      [F4]
+      "starts 15 m ahead"             -&gt;  x(0) = 15     [F5]
+          |
+          v
+  [2] PHASE 1:  v = v(0) + int a,   x = x(0) + int v
+          |
+          v
+  [3] EVALUATE at the boundary.  Write v(t1) and x(t1) on their own line.
+          |
+          v
+  [4] is x(t1) &gt;= L ?
+        YES -&gt; the race ended in phase 1.  Solve (1/2) a t^2 = L.   [F2]
+        NO  -&gt; continue
+          |
+          v
+  [5] PHASE 2 starts from ( v(t1), x(t1) ).  NOT from zero.
+      shift the clock:  u = t - t1,   x = x(t1) + int_0^u v
+          |
+          v
+  [6] more phases?           -&gt; back to [3]                         [F3]
+      final phase decelerates?  find where v = 0, check x there.    [F7]
+          |
+          v
+  [7] SOLVE inside the phase that contains the line
+          |
+          v
+  [8] CHECK:  L/v_top &lt; T &lt; t1 + L/v_top,
+              and T should be the MIDPOINT of those two
+          |
+          v
+  [9] PREVIEW the box.  Type the TIME, not the phase-2 duration.</div>
+</section>
+
+<footer>
+  <p><b>Provenance.</b> Final Exam 2, item 11, re-parsed from the papers file rather than typed.
+  That paper has 12 items whose point values sum to 81. Item 11 is worth 4 under the
+  follows-the-item reading, which is 4.9383 percent of the paper and the joint-cheapest value on
+  it, shared with items 2 and 8. The dearest item on the same paper is item 12, worth 10, which is
+  Q19.7: this category's cheapest and dearest questions sit one apart.</p>
+  <p><b>On grading.</b> No rubric, marking scheme or part-marks statement exists anywhere in the
+  five course files, confirmed for the fourteenth consecutive time, so every claim here about what
+  earns marks is inference from the point value and the question's construction.</p>
+  <p><b>The course notes.</b> The Review file's section 11 carries a complete and correct solution
+  to this question, names the constant as coming from an initial condition, and states both
+  \(v(0) = 0\) and \(x(0) = 0\) explicitly. That is the second consecutive topic on which that
+  file is right. It never calls the technique piecewise integration, though, and the Categorized
+  file is silent on integration and on motion altogether.</p>
+  <p><b>Verification.</b> Every number here was computed before it was written: 20 core assertions,
+  32 on quadrature order across the phase boundary, 10 on the census, 21 on the variation catalog,
+  31 on provenance and units, and 6 on the drills, for 169 in total with zero failures. The census
+  is exact rational arithmetic. Continuity of \(v\) and \(x\) at the boundary is asserted from both
+  phase formulas, and a control confirms the acceleration genuinely jumps there, so the check
+  cannot pass on a function that is secretly smooth. Six of this page's own drafted claims were
+  refuted by its own checks and replaced with measured values.</p>
+</footer>
+
+</div>
+

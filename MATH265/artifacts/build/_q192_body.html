@@ -1,0 +1,233 @@
+<header class="wrap mast192">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 2 &middot; ITEM 8 &middot; 4 POINTS &middot; Q19.2</p>
+  <h1>The Split That Fires</h1>
+  <p class="lede">Q19.1 said the absolute value in $A=\int \lvert f-g\rvert$ is a rule you are told and never see fire. This is the question where it fires. The curves genuinely cross inside the interval, so the region is three pieces, and integrating straight through gives a negative number that becomes a confident wrong answer the moment somebody makes it positive.</p>
+  <div class="ansbar192">
+    <div class="acell192"><p class="alab192">THE QUESTION</p><p class="aval192">Area between $\cos x$ and $y=\tfrac{1}{\sqrt2}$ on $[-\tfrac{\pi}{2},\tfrac{\pi}{2}]$</p></div>
+    <div class="acell192"><p class="alab192">THE ANSWER</p><p class="aval192 abig192">$2\sqrt2-2 \approx 0.8284271247$</p></div>
+    <div class="acell192"><p class="alab192">TYPE INTO M&Ouml;BIUS</p><p class="aval192"><code>2*sqrt(2)-2</code></p></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="snum192">01</span> Four decisions, then one antiderivative</h2>
+  <p>The integration in this question is $\int\cos x\,dx=\sin x$ and $\int c\,dx=cx$. Everything that can go wrong goes wrong before that.</p>
+  <ol class="steps192">
+    <li><span><b>Solve for the crossings, as a family.</b> $\cos x = \tfrac{1}{\sqrt2}$ gives $x=\pm\tfrac{\pi}{4}+2k\pi$. Write the whole family down, then keep the members inside the interval. Do not solve for one value.</span></li>
+    <li><span><b>Notice both are strictly interior.</b> $-\tfrac{\pi}{2} &lt; -\tfrac{\pi}{4} &lt; \tfrac{\pi}{4} &lt; \tfrac{\pi}{2}$. That is what forces the split, and it is the only thing separating this question from Q19.1.</span></li>
+    <li><span><b>Decide the orientation on each piece separately</b>, at a point strictly between two knots where $\lvert\cos x-\tfrac{1}{\sqrt2}\rvert$ is not small. Never at a knot: there the difference is zero and the comparison decides nothing.</span></li>
+    <li><span><b>Use the symmetry on purpose.</b> $\cos x-\tfrac{1}{\sqrt2}$ is even, so $\lvert D\rvert$ is even, so do $[0,\tfrac{\pi}{2}]$ and double. Write the 2 down at the moment you use it.</span></li>
+  </ol>
+  <div class="pipe192">
+    <div class="pc192"><p class="alab192">MIDDLE LOBE</p><p>$\displaystyle\int_{-\pi/4}^{\pi/4}\!\Big(\cos x-\tfrac{1}{\sqrt2}\Big)dx=\sqrt2-\tfrac{\pi\sqrt2}{4}$</p><p class="pnum192">0.3034928278</p></div>
+    <div class="pc192"><p class="alab192">EACH OUTER LOBE</p><p>$\displaystyle\int_{\pi/4}^{\pi/2}\!\Big(\tfrac{1}{\sqrt2}-\cos x\Big)dx=\tfrac{\pi\sqrt2}{8}-1+\tfrac{\sqrt2}{2}$</p><p class="pnum192">0.2624671485</p></div>
+    <div class="pc192"><p class="alab192">ADD THE THREE</p><p>$\displaystyle A=2\sqrt2-2$ - the two $\pi\sqrt2/4$ terms cancel exactly</p><p class="pnum192">0.8284271247</p></div>
+  </div>
+</section>
+
+<figure class="figbox fig192">
+  __FIG1__
+  <figcaption>The region is three pieces and the top curve alternates. Teal is the middle lobe, where the cosine is above the line; rust is the two outer lobes, where the line is above the cosine. The shaded shapes are the region itself, sampled from the two curves, not a stand-in of matching area.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum192">02</span> What hides, and why it hides differently here</h2>
+  <p>Twelve candidate errors were computed, with no point excluded as degenerate. <b>Eleven of the twelve are positive</b>, so a positivity check rejects exactly one of them.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>The mistake</th><th class="ra192">Value</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Reversed orientation, straight through</td><td class="ra192 num192">+0.2214414691</td><td class="lo192">hides</td></tr>
+      <tr><td>No split, correct orientation</td><td class="ra192 num192">&minus;0.2214414691</td><td class="fa192">caught by the sign</td></tr>
+      <tr><td>Split at $x=0$ instead of at the crossings</td><td class="ra192 num192">+0.2214414691</td><td class="lo192">hides</td></tr>
+      <tr><td>Forgot to double the half-region</td><td class="ra192 num192">+0.4142135624</td><td class="lo192">hides</td></tr>
+      <tr><td>Only the middle lobe</td><td class="ra192 num192">+0.3034928278</td><td class="lo192">hides</td></tr>
+      <tr><td>Sign flipped on one outer lobe</td><td class="ra192 num192">+0.3034928278</td><td class="lo192">hides</td></tr>
+      <tr><td>Outer lobes only</td><td class="ra192 num192">+0.5249342969</td><td class="lo192">hides</td></tr>
+      <tr><td>Wrong branch, used $\pm 3\pi/4$</td><td class="ra192 num192">+1.9179486412</td><td class="fa192">too large</td></tr>
+      <tr><td>Wrong period, used $\pi/4$ and $7\pi/4$</td><td class="ra192 num192">+4.7463757660</td><td class="fa192">too large</td></tr>
+      <tr><td>Dropped the constant, integrated $\cos x$ alone</td><td class="ra192 num192">+2.0000000000</td><td class="fa192">too large</td></tr>
+      <tr><td>Treated the region as a rectangle</td><td class="ra192 num192">+4.4428829382</td><td class="fa192">too large</td></tr>
+      <tr><td>Calculator in degree mode</td><td class="ra192 num192">+12.6876615874</td><td class="fa192">absurd</td></tr>
+    </tbody>
+  </table></div>
+  <div class="hot192">
+    <p><b>Three errors share the value 0.2214414691</b>, and one of them is the negative one. The moment a student writes &ldquo;an area is positive&rdquo; and drops the minus sign, the second row becomes the first row exactly.</p>
+    <p><b>The consequence is the opposite of Q19.1's, and that is the point of this page.</b> On Q19.1 three errors all gave $-4.5$, the magnitude was right, and &ldquo;make it positive&rdquo; accidentally rescued you. Here the magnitude is wrong - 0.221 against 0.828 - so the same repair converts a visibly broken answer into a confident, plausible, wrong one. <b>Settle the orientation before the integration, never after it.</b></p>
+    <p>A second collision: <b>two errors share 0.3034928278</b>, because the outer lobes are equal and a sign flip on one cancels the other exactly.</p>
+  </div>
+  <p>None of these is caught by arithmetic. A sketch with the three pieces marked and an explicit sentence saying which curve is on top in each catches six of the twelve. Writing the general solution before filtering catches two more. Writing the factor of 2 down at the moment you use the symmetry catches one.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">03</span> Why $1/\sqrt2$, and why the $\pi$ cancels</h2>
+  <p>Replace the line height with a general $c$ in $[0,1]$ and let $a=\arccos c$. The same three-piece calculation gives one formula for the whole family, checked against the catalog at 51 values of $c$:</p>
+  <p class="disp192">$$A(c) = 4\sqrt{1-c^2} - 4c\arccos(c) + \pi c - 2$$</p>
+  <p>Differentiate, and the two $\arccos'$ terms cancel because $\cos a = c$:</p>
+  <p class="disp192">$$\frac{dA}{dc} = \pi - 4\arccos(c), \qquad \frac{d^2A}{dc^2} = \frac{4}{\sqrt{1-c^2}} &gt; 0$$</p>
+  <p>That vanishes exactly at $\arccos c=\pi/4$, which is $c=1/\sqrt2$. <b>The question's own line height is precisely the one that minimises the area</b>, and the minimum value is $2\sqrt2-2$.</p>
+  <p>And the $\pi$ appears in $A(c)$ only inside $\pi c - 4c\arccos c = c\,(\pi - 4\arccos c)$, which is $c$ times the derivative. At the stationary height that bracket is zero, <b>so no $\pi$ survives</b>. The cancellation has a reason.</p>
+  <div class="note192">
+    <p><b>Two things to carry from this.</b> &ldquo;There is no $\pi$ in my answer&rdquo; is not evidence of a dropped term on this particular $c$ - at $c=1/2$ the answer is $2\sqrt3-2-\pi/6$ and the $\pi$ is genuinely there. And a &ldquo;find $c$ so the area is $A$&rdquo; question has <b>two</b> answers, not one, because $A(c)$ falls and rises again.</p>
+  </div>
+</section>
+
+<figure class="figbox fig192">
+  __FIG2__
+  <figcaption>The area as a function of the line height. It falls to a minimum at $c=1/\sqrt2$, which is the exam question, and rises again. The dashed level shows why &ldquo;find $c$ giving area 1&rdquo; is met at two separate heights, 0.4489 and 0.9349.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum192">04</span> Five routes, and the one to use under pressure</h2>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Route</th><th class="ra192">Integrals</th><th>Where it goes wrong</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Three pieces, exact antiderivative</td><td class="ra192 num192">3</td><td>three orientation decisions</td><td>correct, slightly long</td></tr>
+      <tr class="pick192"><td><b>Symmetry first, two pieces</b></td><td class="ra192 num192">2</td><td>you must remember to double</td><td class="fa192"><b>use this one</b></td></tr>
+      <tr><td>Horizontal strips in $y$</td><td class="ra192 num192">3</td><td>needs $\arccos$ and a by-parts</td><td>good check, bad exam route</td></tr>
+      <tr><td>Numerical quadrature</td><td class="ra192 num192">-</td><td>no closed form</td><td>verification only</td></tr>
+      <tr><td>Archimedes' two-thirds law</td><td class="ra192 num192">0</td><td>it is a <i>parabola</i> law</td><td class="lo192">do not use here</td></tr>
+    </tbody>
+  </table></div>
+  <div class="hot192">
+    <p><b>Archimedes is the dangerous one.</b> Q19.1's best shortcut, $A=\tfrac23\times\text{span}\times\text{largest gap}$, is exact for a parabola against a chord. Applied to this question's middle lobe it gives 0.3067170615 against the true 0.3034928278 - <b>1.0624 percent high</b>. A cosine arch resembles a parabola closely enough that a wrong shortcut lands within one percent, and no mental check will reject it. Carry Archimedes for parabolas only.</p>
+  </div>
+  <p>All four computational routes plus the closed form agree, with a total spread of $6.7\times10^{-16}$.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">05</span> Two numerical warnings, because both look like health</h2>
+  <div class="cards192">
+    <div class="cd192">
+      <p class="alab192">A NEAR-MISS CROSSING IS ALMOST FREE</p>
+      <p>Moving the split from $\pi/4$ to $\pi/4+0.0025$ changes the area by <b>0.000534 percent</b>. The measured order of the error in the offset is 2.0094, 2.0047, 2.0024, 2.0012 - second order, because the difference vanishes at a true crossing. A <i>mis-identified</i> split at $3\pi/8$ costs <b>14.70 percent</b>.</p>
+      <p class="fine192">So the answer cannot tell you that a nearly-right crossing was guessed rather than solved. Solve it.</p>
+    </div>
+    <div class="cd192">
+      <p class="alab192">A LUCKY GRID IS NOT A CORRECT METHOD</p>
+      <p>Integrating $\lvert D\rvert$ straight through both kinks with Simpson at $n=4000$ has error $8.9\times10^{-16}$, which looks exact. At $n=4002$ the same routine on the same function has error $7.3\times10^{-8}$. The kinks sit at one quarter and three quarters of the span, so any $n$ divisible by 8 puts them on panel boundaries.</p>
+      <p class="fine192">Measured orders across the kink: 4.02, 4.01, 4.00 aligned; 1.78, 1.89, 1.94, 1.97, 1.99 mis-aligned.</p>
+    </div>
+  </div>
+  <p>Q19.1 could not measure a convergence order at all, because its integrand was a quadratic and Simpson is exact on every cubic. <b>Here it is measurable</b>, and it was measured rather than quoted.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Integrand</th><th>Measured Simpson order</th></tr></thead>
+    <tbody>
+      <tr><td>$\cos x-1/\sqrt2$ on the middle lobe (this question)</td><td class="num192">4.0050, 4.0012, 4.0003, 4.0001, 4.0000</td></tr>
+      <tr><td>$t^{2/3}$ on $[0,1]$ - a control that must not read 4</td><td class="num192">1.6663, 1.6666, 1.6667, 1.6667, 1.6667</td></tr>
+      <tr><td>$2\arccos y$ - the horizontal-strip integrand</td><td class="num192">1.4999, 1.5000, 1.5000, 1.5000</td></tr>
+    </tbody>
+  </table></div>
+  <p>The third row is why the horizontal route used a double-exponential rule instead: $\arccos$ has an infinite slope at $y=1$. Simpson's error on that piece was $1.29\times10^{-8}$; tanh-sinh's was $6.1\times10^{-16}$. <b>The digits quoted on this page inherit the precision of tanh-sinh, not of Simpson.</b></p>
+</section>
+
+<section>
+  <h2><span class="snum192">06</span> The periodic trap</h2>
+  <p>A root census over $D(x)=\cos x-1/\sqrt2$, controlled in both directions before its verdict was trusted.</p>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Window</th><th class="ra192">Roots</th><th>What it shows</th></tr></thead>
+    <tbody>
+      <tr class="pick192"><td>$[-\pi/2,\pi/2]$ - the question</td><td class="ra192 num192">2</td><td>$\pm\pi/4$, both to $10^{-10}$</td></tr>
+      <tr><td>$[-\pi/8,\pi/8]$</td><td class="ra192 num192">0</td><td>the routine can return zero</td></tr>
+      <tr><td>$[0,\pi/2]$</td><td class="ra192 num192">1</td><td>the routine can return one</td></tr>
+      <tr><td>$[-2\pi,2\pi]$</td><td class="ra192 num192">4</td><td class="lo192">the same equation, a wider window</td></tr>
+      <tr><td>$[-3\pi,3\pi]$</td><td class="ra192 num192">6</td><td class="lo192">and the count keeps growing</td></tr>
+      <tr><td>$\cos x=2$, anywhere</td><td class="ra192 num192">0</td><td>no solutions at all</td></tr>
+    </tbody>
+  </table></div>
+  <p>Two of those four roots on $[-2\pi,2\pi]$, at $\pm 7\pi/4$, are not in the region and contribute nothing. <b>A periodic boundary makes &ldquo;how many intersections are there&rdquo; a question with no answer until you say where.</b> On Q19.1 you could search $[-6,6]$ and be safe; here that finds real roots the question never asked about.</p>
+  <p>The census has two honest failures, both measured on this page rather than assumed. At a <b>tangency</b> it finds nothing, because a curve that touches without crossing has no sign change - and whether it finds anything at all depends on grid parity: on $\cos x=1$ an even grid, which lands exactly on $x=0$, reports one root and an odd grid reports zero. And a grid point landing <b>exactly</b> on a genuine root makes the sign-change product zero rather than negative, so the root is lost silently. That last one cost a wrong drill answer before it was caught.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">07</span> The variation catalog</h2>
+  <p>Nine families, fifteen rows with closed forms plus one that has none. Every value was verified against a formula-blind router that splits at every sign change it finds and never sees the claimed answer. Read the tables as structure: what changes between families is only <b>which step becomes the hard one</b>.</p>
+  <div class="tscroll tscroll192"><table class="tab192 tabwide192">
+    <thead><tr><th>Family</th><th>Trigger</th><th>Instance</th><th>Answer</th><th class="ra192">Decimal</th></tr></thead>
+    <tbody>
+      <tr class="pick192"><td class="fk192">F1</td><td>trig curve against a constant, interval given, constant inside the range</td><td>$\cos x$ vs $1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td></tr>
+      <tr><td class="fk192">F1</td><td></td><td>$\cos x$ vs $1/2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt3-2-\pi/6$</td><td class="ra192 num192">0.9405028395</td></tr>
+      <tr><td class="fk192">F1</td><td></td><td>$\cos x$ vs $\sqrt3/2$ on $[-\pi/2,\pi/2]$</td><td>$\pi\sqrt3/6$</td><td class="ra192 num192">0.9068996821</td></tr>
+      <tr><td class="fk192">F2</td><td>sine instead of cosine; the second crossing is $\pi-\arcsin c$, not $-\arcsin c$</td><td>$\sin x$ vs $1/2$ on $[0,\pi]$</td><td>$2\sqrt3-2-\pi/6$</td><td class="ra192 num192">0.9405028395</td></tr>
+      <tr><td class="fk192">F2</td><td></td><td>$\sin x$ vs $0$ on $[0,2\pi]$</td><td>$4$</td><td class="ra192 num192">4.0000000000</td></tr>
+      <tr><td class="fk192">F3</td><td>the line is outside the curve's range, so there is no crossing and no split</td><td>$y=2$ vs $\cos x$ on $[-\pi/2,\pi/2]$</td><td>$2\pi-2$</td><td class="ra192 num192">4.2831853072</td></tr>
+      <tr><td class="fk192">F3</td><td></td><td>$\cos x$ vs $y=-1$ on $[-\pi/2,\pi/2]$</td><td>$2+\pi$</td><td class="ra192 num192">5.1415926536</td></tr>
+      <tr><td class="fk192">F4</td><td>neither boundary is constant; $\tan x=1$ gives the crossing</td><td>$\sin x$ vs $\cos x$ on $[0,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td></tr>
+      <tr><td class="fk192">F4</td><td></td><td>$\sin x$ vs $\cos x$ on $[0,\pi]$</td><td>$2\sqrt2$</td><td class="ra192 num192">2.8284271247</td></tr>
+      <tr><td class="fk192">F5</td><td>no interval given, so consecutive crossings become the limits</td><td>$\cos x$ vs $1/\sqrt2$ between crossings</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td></tr>
+      <tr><td class="fk192">F5</td><td></td><td>$\sin x$ vs $0$ over one arch</td><td>$2$</td><td class="ra192 num192">2.0000000000</td></tr>
+      <tr><td class="fk192">F6</td><td>the interval spans one or more periods</td><td>$\lvert\cos x-1/\sqrt2\rvert$ over $[0,2\pi]$</td><td>$2\sqrt2+\pi\sqrt2/2$</td><td class="ra192 num192">5.0498685938</td></tr>
+      <tr><td class="fk192">F6</td><td></td><td>the same over $[-\pi/2,3\pi/2]$</td><td>$2\sqrt2+\pi\sqrt2/2$</td><td class="ra192 num192">5.0498685938</td></tr>
+      <tr><td class="fk192">F7</td><td>solve for the line height from a required area</td><td>find $c$ with $A(c)=1$</td><td class="lo192">two answers</td><td class="ra192 num192">0.4488842358 / 0.9349464147</td></tr>
+      <tr><td class="fk192">F8</td><td>the constant equals an extreme value, so the curves touch without crossing</td><td>$y=1$ vs $\cos x$ on $[-\pi/2,\pi/2]$</td><td>$\pi-2$</td><td class="ra192 num192">1.1415926536</td></tr>
+      <tr><td class="fk192">F9</td><td>the left and right boundaries are single curves but the top and bottom are not</td><td>middle lobe as $\int 2\arccos y\,dy$</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The structure worth seeing.</b> The three F1 rows are one formula at three values of $c$, and the third has no algebraic part at all because $4\sqrt{1-c^2}=2$ exactly cancels the $-2$ there. F2's first row is numerically identical to F1's second, because $\sin x$ on $[0,\pi]$ is $\cos x$ on $[-\pi/2,\pi/2]$ shifted. F4's first row equals the exam answer from an entirely different geometry, so <b>meeting $2\sqrt2-2$ on a paper does not tell you which question you solved</b>. The two F6 rows agree because both windows have length $2\pi$: any window of one full period gives the same total, wherever it starts. The one integration technique the whole category needs beyond the basics is $\int\arccos y\,dy = y\arccos y-\sqrt{1-y^2}$.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">08</span> The trap list</h2>
+  <ol class="traps192">
+    <li><span><b>Not splitting at the crossings.</b> Gives $-0.2214$, and then &ldquo;make it positive&rdquo; gives $+0.2214$. This is the whole question.</span></li>
+    <li><span><b>Losing the $\pm$ in $x=\pm\arccos c$.</b> Half the crossings, or a region in the wrong place.</span></li>
+    <li><span><b>Forgetting to double after using the symmetry.</b> Gives $\sqrt2-1=0.4142$, positive and plausible.</span></li>
+    <li><span><b>Taking the wrong branch.</b> $3\pi/4$ solves $\cos x=-1/\sqrt2$. Check the branch against the sign of $c$.</span></li>
+    <li><span><b>Taking the wrong period.</b> $7\pi/4$ is a real solution and is not in the interval.</span></li>
+    <li><span><b>Deciding orientation at a crossing.</b> The difference is zero there and decides nothing.</span></li>
+    <li><span><b>Deciding orientation once for the whole interval</b> when the curves cross. Three pieces, three decisions.</span></li>
+    <li><span><b>Splitting somewhere that is not a crossing.</b> Splitting at $x=0$ changes nothing, because the sign does not turn there.</span></li>
+    <li><span><b>Degree mode.</b> Gives 12.69, which at least announces itself.</span></li>
+    <li><span><b>Reading the crossings off a sketch.</b> A near-miss costs 0.0005 percent, so you will never be told you were guessing.</span></li>
+    <li><span><b>Assuming a missing $\pi$ means a dropped term.</b> On this specific $c$ the $\pi$ cancels for a reason.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="snum192">09</span> Drill answers</h2>
+  <p>Score <b>sign</b> separately from <b>magnitude</b>: a wrong sign means the orientation procedure is not automatic yet, a wrong magnitude means the split or the antiderivative is not.</p>
+  <div class="tscroll tscroll192"><table class="tab192 tabwide192">
+    <thead><tr><th class="ra192">#</th><th>Curves and interval</th><th>Exact</th><th class="ra192">Decimal</th><th>Family and method</th></tr></thead>
+    <tbody>
+      <tr><td class="ra192 num192">1</td><td>$\cos x$, $y=1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td><td class="fk192">F1 - the question</td></tr>
+      <tr><td class="ra192 num192">2</td><td>$\cos x$, $y=1/\sqrt2$ on $[-\pi/4,\pi/4]$</td><td>$\sqrt2-\pi\sqrt2/4$</td><td class="ra192 num192">0.3034928278</td><td class="fk192">F5 - no split</td></tr>
+      <tr><td class="ra192 num192">3</td><td>$\cos x$, $y=1/\sqrt2$ on $[0,\pi/2]$</td><td>$\sqrt2-1$</td><td class="ra192 num192">0.4142135624</td><td class="fk192">F1 - exactly half of #1</td></tr>
+      <tr><td class="ra192 num192">4</td><td>$\sin x$, $y=1/2$ on $[0,\pi/2]$</td><td>$\sqrt3-1-\pi/12$</td><td class="ra192 num192">0.4702514198</td><td class="fk192">F2 - crossing at $\pi/6$</td></tr>
+      <tr><td class="ra192 num192">5</td><td>$\sin x$, $\cos x$ on $[0,\pi/2]$</td><td>$2\sqrt2-2$</td><td class="ra192 num192">0.8284271247</td><td class="fk192">F4 - same value as #1</td></tr>
+      <tr><td class="ra192 num192">6</td><td>$\cos x$, $y=0$ on $[0,\pi]$</td><td>$2$</td><td class="ra192 num192">2.0000000000</td><td class="fk192">F5 - one arch</td></tr>
+      <tr><td class="ra192 num192">7</td><td>$\sin x$, $y=0$ on $[0,3\pi/2]$</td><td>$3$</td><td class="ra192 num192">3.0000000000</td><td class="fk192">F6 - split at $\pi$</td></tr>
+      <tr><td class="ra192 num192">8</td><td>$\cos x$, $y=1/2$ on $[0,\pi]$</td><td>$\sqrt3+\pi/6$</td><td class="ra192 num192">2.2556495832</td><td class="fk192">F1 - asymmetric interval</td></tr>
+      <tr><td class="ra192 num192">9</td><td>$\cos x$, $y=-1/\sqrt2$ on $[-\pi/2,\pi/2]$</td><td>$2+\pi\sqrt2/2$</td><td class="ra192 num192">4.2214414691</td><td class="fk192">F3 - no split</td></tr>
+      <tr><td class="ra192 num192">10</td><td>$y=2\cos x$, $y=1$ on $[-\pi/2,\pi/2]$</td><td>$4\sqrt3-4-\pi/3$</td><td class="ra192 num192">1.8810056791</td><td class="fk192">F1 - twice F1's $c=1/2$ row</td></tr>
+      <tr><td class="ra192 num192">11</td><td>$\cos(2x)$, $y=1/\sqrt2$ on $[-\pi/4,\pi/4]$</td><td>$\sqrt2-1$</td><td class="ra192 num192">0.4142135624</td><td class="fk192">F1 - $u=2x$ halves it</td></tr>
+      <tr><td class="ra192 num192">12</td><td>$\sec^2 x$, $y=2$ on $[-\pi/4,\pi/4]$</td><td>$\pi-2$</td><td class="ra192 num192">1.1415926536</td><td class="fk192">F8 - endpoints touch</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Twelve drills, ten distinct values</b>, because #1 and #5 coincide and #3 and #11 coincide. Three are exactly half of #1 and one is exactly twice a catalog row - but the halving pattern is <b>not universal</b>: #8 is not twice #4. Recognise it, do not assume it.</p>
+</section>
+
+<section>
+  <h2><span class="snum192">10</span> Answer entry</h2>
+  <div class="tscroll tscroll192"><table class="tab192">
+    <thead><tr><th>Do</th><th>Do not</th></tr></thead>
+    <tbody>
+      <tr><td class="fa192"><code>2*sqrt(2)-2</code></td><td class="lo192"><code>2sqrt(2)-2</code> - implicit multiplication is not universally parsed</td></tr>
+      <tr><td class="fa192"><code>sqrt(8)-2</code> and <code>2*(sqrt(2)-1)</code> are the same number</td><td class="lo192"><code>2*sqrt(2-2)</code>, which is 0 - watch the bracket</td></tr>
+      <tr><td class="fa192"><code>0.8284271247</code> if a decimal is wanted</td><td class="lo192"><code>0.83</code> - three significant figures is off by more than $5\times10^{-4}$</td></tr>
+      <tr><td class="fa192">Preview the rendered answer before submitting</td><td class="lo192">Typing <code>units^2</code> - units are not part of a numeric answer</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The most expensive typo here is a bracket around the wrong thing.</b> <code>2*sqrt(2)-2</code> and <code>2*sqrt(2-2)</code> differ by one character and by the whole answer. The second most expensive is a leading minus: if your working produced $-0.2214$, the fix is not to delete the sign, it is that you never split.</p>
+  <div class="note192">
+    <p>Both exams are M&ouml;bius: answer-only and machine-marked. <b>No marking scheme, rubric or part-mark breakdown exists anywhere in the four course files</b>, re-confirmed on this run, so any statement about which written lines earn marks is inference from the wording and the point value, not a quoted rubric. Final Exam 2's single &ldquo;no credit will be given&rdquo; clause is on item 1; item 8 carries no justification demand of any kind.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="wrap">
+  <p><b>Provenance.</b> Final Exam 2, item 8, 4 points, parsed from <code>notes\MATH265\MATH265.md</code>. The value prints on its own line <i>after</i> the item, which is Final Exam 2's convention, so the 6 printed above item 8 belongs to item 7. Final Exam 2 prints twelve point values summing to 81, and 4 is the joint-lightest value on that paper. <code>MATH265_Categorized.md</code> contains nothing on areas between curves, so all nine families were derived from the mathematics.</p>
+  <p><b>Verification.</b> Harness sections <code>q192</code>, <code>q192d</code> and <code>q192s</code> in <code>Work\knowledge\topics\math265-answer-verification.py</code>: 291 assertions, 0 failures, 37 seeded controls, scoped by grepping each prefix with a trailing space rather than by any internal counter. Ten apparent errors were investigated while building this page and all ten were the check, not the mathematics; three of them became findings on this page. Companion write-up at <code>notes\Q19.2 - Area between a cosine and a horizontal line.md</code>, and the direct prerequisite is <code>notes\Q19.1 - Area between a line and a parabola.md</code>.</p>
+  <p>Written 2026-09-03.</p>
+</footer>

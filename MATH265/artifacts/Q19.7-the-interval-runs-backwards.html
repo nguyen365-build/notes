@@ -1,0 +1,762 @@
+<meta charset="utf-8">
+<title>The Interval Runs Backwards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Q19.2 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig192{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig192 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig192 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig192 text{font-family:var(--mono)}
+
+
+/* ---- Q19.3 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig193{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig193 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig193 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig193 text{font-family:var(--mono)}
+/* SVG hooks that also need real rules, so the orphan guard can see them */
+.plotbg193{}
+.band193{}
+.brk193{}
+.rate193{}
+.dot193{}
+.conn193{}
+.tick193{}
+
+
+
+
+
+/* ---- Q19.7 figure classes.  Emitted BEFORE the body, in this same block. */
+.plotbg197{fill:var(--plot)}
+.panel197{fill:none;stroke:var(--line);stroke-width:1}
+.curve197{fill:none;stroke:var(--fam);stroke-width:2.4;stroke-linecap:round}
+.tlev197{stroke:var(--accent);stroke-width:1.5;stroke-dasharray:3 3}
+.nlev197{stroke:var(--num);stroke-width:1.4;stroke-dasharray:3 3}
+.nline197{stroke:var(--num);stroke-width:1.1;stroke-dasharray:2 4}
+.gline197{stroke:var(--accent);stroke-width:1.1;stroke-dasharray:2 4}
+.soldot197{fill:var(--accent)}
+.opendot197{fill:var(--plot);stroke:var(--num);stroke-width:1.6}
+/* ONE colour mapping across the whole page, settled by looking:
+   teal  --fam    = the truth, the curve that answers the question
+   rust  --los    = a wrong answer, or a target no k can reach
+   amber --accent = the object being constructed: the target level and the
+                    solution it produces
+   slate --num    = a NEUTRAL region or level that is neither right nor wrong.
+                    The level 5, the excluded point k = 1 and the guide lines
+                    are scaffolding, not verdicts, so they must not borrow the
+                    right/wrong pair (31.9's fourth-token rule). */
+.tick197{fill:var(--plotlab);font:500 10px var(--mono);letter-spacing:.04em}
+.lab{fill:var(--plotlab);font:500 11px var(--mono);letter-spacing:.05em}
+.curvel197{fill:var(--fam)}
+.tlevl197{fill:var(--accent)}
+.nlevl197{fill:var(--num)}
+.regionl197{fill:var(--ink3)}
+.soll197{fill:var(--accent)}
+.axl197{fill:var(--plotlab)}
+.panl197{fill:var(--ink)}
+.okl197{fill:var(--fam)}
+.axis{stroke:var(--ink3);stroke-width:1.4}
+
+/* ---- Q19.7 page classes.  Every invented name carries the 197 suffix.
+   The sans token and the scroll wrapper are defined in Q19.5's EXTRA, which
+   sits AFTER the slice boundary, so both have to be re-declared here or the
+   page loses its sans stack and its wide tables stop scrolling. */
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.lede197{font:500 clamp(15px,1.6vw,17.5px)/1.62 var(--sans);color:var(--ink2);
+  max-width:64ch;margin:14px 0 0}
+.ansbar197{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  grid-template-columns:repeat(auto-fit,minmax(min(232px,100%),1fr))}
+.ac197{background:var(--surface2);padding:16px 18px;display:flex;
+  flex-direction:column;gap:8px}
+.al197{font:600 10px var(--mono);letter-spacing:.13em;color:var(--accent)}
+.av197{font:600 18px/1.4 var(--sans);color:var(--ink)}
+.small197{font:400 13.5px/1.58 var(--sans);color:var(--ink2)}
+.steps197{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  margin:18px 0}
+.sp197{background:var(--surface);padding:13px 16px;display:grid;
+  grid-template-columns:30px minmax(0,1fr);gap:12px;align-items:baseline}
+.sp197 > span:nth-child(2){grid-column:2}
+.sn197{grid-column:1;font:600 12px var(--mono);color:var(--accent);letter-spacing:.06em}
+.box197{border-left:3px solid var(--accent);background:var(--sunk);
+  padding:6px 20px;margin:20px 0;overflow-x:auto}
+.note197,.warn197{border-left:3px solid var(--fam);background:var(--sunk);
+  padding:14px 18px;margin:18px 0;font:400 14.5px/1.62 var(--sans);color:var(--ink2)}
+.warn197{border-left-color:var(--los)}
+.tscroll{overflow-x:auto;margin:16px 0;border:1px solid var(--line)}
+.tab197{width:100%;min-width:860px;border-collapse:collapse;
+  font:400 13.5px/1.5 var(--sans)}
+.tab197 th{font:600 10px var(--mono);letter-spacing:.11em;color:var(--ink3);
+  text-align:left;padding:9px 12px;border-bottom:1px solid var(--line)}
+.tab197 td{padding:9px 12px;border-bottom:1px solid var(--line-soft);
+  vertical-align:top}
+.tab197 tbody tr:last-child td{border-bottom:none}
+.num197{font-variant-numeric:tabular-nums;font-family:var(--mono);
+  font-size:12.5px;white-space:nowrap}
+/* semantic colours get their own rules, scoped both ways, so a table cell keeps
+   its meaning without borrowing a block class, and so a later cell rule cannot
+   win on specificity and repaint it (28.10, 25.7) */
+.tab197 td.ok197,.ok197{color:var(--fam)}
+.tab197 td.no197,.no197{color:var(--los)}
+.tab197 tr.hot197 td{background:var(--los-soft)}
+.tab197 tr.truth197 td{background:var(--accent-soft)}
+.tree197{font:500 12px/1.62 var(--mono);color:var(--ink2);background:var(--sunk);
+  border:1px solid var(--line);padding:16px 18px;overflow-x:auto;margin:16px 0;
+  white-space:pre}
+/* carryover 7: inline MathJax must never resolve to a centred block */
+mjx-container:not([display="true"]){display:inline-block!important;
+  margin:0!important;text-align:left!important;vertical-align:-0.15em}
+.tab197 td mjx-container,.tab197 th mjx-container{color:inherit}
+.tab197 td mjx-container svg{fill:currentColor}
+/* the four-column family table squeezes its prose cells to six lines at
+   430px if it is allowed to shrink with the others, which lint.mjs found
+   on the first build.  It keeps a wider floor and scrolls instead. */
+.tab197.wide197{min-width:1020px}
+@media (max-width:760px){.tab197{min-width:700px}
+  .tab197.wide197{min-width:940px}}
+</style>
+<header class="wrap mast">
+<div class="eyebrow">MATH 265 &middot; FINAL EXAM 2 &middot; ITEM 12 &middot; 10 POINTS &middot; Q19.7</div>
+<h1>The Interval Runs Backwards</h1>
+<p class="lede197">Find a positive $k$ such that the average of $f(x) = 5/x^2$ over the interval between 1 and $k$ is 32. The average works out to $5/k$, so $k = 5/32$ - which is less than 1, so the interval runs from $5/32$ up to 1, not from 1 up to $k$. This is Q19.6 read backwards, and running it backwards changes three things: you set up an equation instead of evaluating one, you have to decide whether the answer is unique, and your only check is substitution.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+<div class="ansbar197">
+  <div class="ac197"><div class="al197">THE ANSWER</div><div class="av197">$k = \frac{5}{32} = 0.15625$</div><div class="small197">From $\frac{5}{k} = 32$. The $(k-1)$ cancels.</div></div>
+  <div class="ac197"><div class="al197">TYPE INTO MOEBIUS</div><div class="av197"><code>5/32</code></div><div class="small197">A fraction, so the preview matters more than usual.</div></div>
+  <div class="ac197"><div class="al197">THE INTERVAL</div><div class="av197">$\left[\frac{5}{32},\,1\right]$</div><div class="small197">Width $\frac{27}{32}$, integral 27. Backwards from the way the stem reads.</div></div>
+  <div class="ac197"><div class="al197">WRONG METHODS THAT HIDE</div><div class="av197">$1$ of $24$</div><div class="small197">And it is not an arithmetic error. Q19.6 had 8 of 23.</div></div>
+</div>
+</section>
+
+<section>
+<h2>1. The average-value formula, read as an equation</h2>
+<p>Nothing about the formula changes. What changes is which symbol is unknown.</p>
+<div class="box197">
+$$\frac{1}{k-a}\int_a^k f(x)\,dx \;=\; T$$
+</div>
+<p>In Q19.6 everything on the left was known and you computed $T$. Here $T$ is given, $a = 1$ is given, and $k$ is what you are solving for. So you carry $k$ as a letter all the way through the integration and only put numbers in at the end.</p>
+<div class="steps197">
+  <div class="sp197"><span class="sn197">1</span><span>Write the constraint with $k$ still a letter.</span></div>
+  <div class="sp197"><span class="sn197">2</span><span>Integrate symbolically: $\int 5x^{-2}dx = -\dfrac{5}{x}$, so $\displaystyle\int_1^k = 5 - \dfrac{5}{k} = \dfrac{5(k-1)}{k}$.</span></div>
+  <div class="sp197"><span class="sn197">3</span><span><strong>Look for the factor $(k-1)$ and cancel it.</strong> This is the step the whole question turns on.</span></div>
+  <div class="sp197"><span class="sn197">4</span><span>Solve what is left: $\dfrac{5}{k} = 32$, so $k = \dfrac{5}{32}$.</span></div>
+  <div class="sp197"><span class="sn197">5</span><span>Count the solutions, and use the stem's word "positive" to discard any others.</span></div>
+  <div class="sp197"><span class="sn197">6</span><span>Substitute back and recompute the <em>average</em>, not the integral.</span></div>
+</div>
+<p class="note197">The general statement, verified on 92 instances: the average of $\dfrac{c}{x^2}$ over the interval between $a$ and $k$ is $\dfrac{c}{a\,k}$. With $c=5$ and $a=1$ that is $5/k$, the exam's own equation. A control confirms it is false for $c/x^3$, so it is not a tautology.</p>
+</section>
+
+<section>
+<h2>2. One picture settles both the trap and the uniqueness</h2>
+<p>Plot the average against $k$. Because the average is $5/k$, the picture is a hyperbola, and everything the question asks can be read straight off it.</p>
+<figure>
+<div class="figbox"><svg viewBox="0 0 760 430" role="img" aria-label="The average 5 over k against k, cut once by the level 32 at k = 5 over 32"><rect class="plotbg197" x="0.00" y="0.00" width="760.00" height="430.00"/><line class="axis" x1="68.00" y1="374.00" x2="584.00" y2="374.00"/><line class="axis" x1="68.00" y1="374.00" x2="68.00" y2="34.00"/><text class="lab tick197" x="68.00" y="391.00" text-anchor="middle">0</text><text class="lab tick197" x="183.18" y="391.00" text-anchor="middle">0.5</text><text class="lab tick197" x="298.36" y="391.00" text-anchor="middle">1</text><text class="lab tick197" x="413.54" y="391.00" text-anchor="middle">1.5</text><text class="lab tick197" x="528.71" y="391.00" text-anchor="middle">2</text><text class="lab tick197" x="59.00" y="301.94" text-anchor="end">10</text><text class="lab tick197" x="59.00" y="226.39" text-anchor="end">20</text><text class="lab tick197" x="59.00" y="150.83" text-anchor="end">30</text><text class="lab tick197" x="59.00" y="75.28" text-anchor="end">40</text><polyline class="curve197" points="93.82,37.02 95.46,57.07 97.09,74.87 98.73,90.78 100.36,105.08 101.99,118.01 103.63,129.75 105.26,140.46 106.90,150.27 108.53,159.29 110.16,167.61 111.80,175.31 113.43,182.45 115.07,189.10 116.70,195.31 118.33,201.11 119.97,206.54 121.60,211.65 123.24,216.45 124.87,220.98 126.50,225.25 128.14,229.29 129.77,233.12 131.40,236.75 133.04,240.20 134.67,243.48 136.31,246.60 137.94,249.57 139.57,252.42 141.21,255.13 142.84,257.72 144.48,260.21 146.11,262.59 147.74,264.87 149.38,267.06 151.01,269.17 152.65,271.19 154.28,273.14 155.91,275.01 157.55,276.82 159.18,278.56 160.82,280.24 162.45,281.86 164.08,283.43 165.72,284.94 167.35,286.41 168.98,287.83 170.62,289.20 172.25,290.53 173.89,291.81 175.52,293.06 177.15,294.27 178.79,295.45 180.42,296.59 182.06,297.70 183.69,298.78 185.32,299.83 186.96,300.84 188.59,301.84 190.23,302.80 191.86,303.74 193.49,304.65 195.13,305.55 196.76,306.41 198.40,307.26 200.03,308.09 201.66,308.89 203.30,309.68 204.93,310.45 206.57,311.20 208.20,311.93 209.83,312.64 211.47,313.34 213.10,314.03 214.73,314.69 216.37,315.35 218.00,315.99 219.64,316.61 221.27,317.22 222.90,317.82 224.54,318.41 226.17,318.98 227.81,319.54 229.44,320.10 231.07,320.64 232.71,321.16 234.34,321.68 235.98,322.19 237.61,322.69 239.24,323.18 240.88,323.66 242.51,324.13 244.15,324.60 245.78,325.05 247.41,325.50 249.05,325.93 250.68,326.36 252.31,326.79 253.95,327.20 255.58,327.61 257.22,328.01 258.85,328.40 260.48,328.79 262.12,329.17 263.75,329.54 265.39,329.91 267.02,330.27 268.65,330.63 270.29,330.98 271.92,331.32 273.56,331.66 275.19,332.00 276.82,332.33 278.46,332.65 280.09,332.97 281.73,333.28 283.36,333.59 284.99,333.90 286.63,334.20 288.26,334.49 289.89,334.78 291.53,335.07 293.16,335.35 294.80,335.63 296.43,335.90 298.06,336.17 299.70,336.44 301.33,336.70 302.97,336.96 304.60,337.22 306.23,337.47 307.87,337.72 309.50,337.97 311.14,338.21 312.77,338.45 314.40,338.68 316.04,338.92 317.67,339.14 319.31,339.37 320.94,339.59 322.57,339.82 324.21,340.03 325.84,340.25 327.47,340.46 329.11,340.67 330.74,340.88 332.38,341.08 334.01,341.29 335.64,341.49 337.28,341.68 338.91,341.88 340.55,342.07 342.18,342.26 343.81,342.45 345.45,342.63 347.08,342.82 348.72,343.00 350.35,343.18 351.98,343.36 353.62,343.53 355.25,343.70 356.89,343.88 358.52,344.05 360.15,344.21 361.79,344.38 363.42,344.54 365.06,344.70 366.69,344.86 368.32,345.02 369.96,345.18 371.59,345.34 373.22,345.49 374.86,345.64 376.49,345.79 378.13,345.94 379.76,346.09 381.39,346.23 383.03,346.38 384.66,346.52 386.30,346.66 387.93,346.80 389.56,346.94 391.20,347.07 392.83,347.21 394.47,347.34 396.10,347.48 397.73,347.61 399.37,347.74 401.00,347.87 402.64,347.99 404.27,348.12 405.90,348.25 407.54,348.37 409.17,348.49 410.80,348.61 412.44,348.73 414.07,348.85 415.71,348.97 417.34,349.09 418.97,349.21 420.61,349.32 422.24,349.43 423.88,349.55 425.51,349.66 427.14,349.77 428.78,349.88 430.41,349.99 432.05,350.10 433.68,350.20 435.31,350.31 436.95,350.41 438.58,350.52 440.22,350.62 441.85,350.72 443.48,350.82 445.12,350.92 446.75,351.02 448.38,351.12 450.02,351.22 451.65,351.32 453.29,351.41 454.92,351.51 456.55,351.60 458.19,351.70 459.82,351.79 461.46,351.88 463.09,351.97 464.72,352.06 466.36,352.15 467.99,352.24 469.63,352.33 471.26,352.42 472.89,352.51 474.53,352.59 476.16,352.68 477.80,352.76 479.43,352.85 481.06,352.93 482.70,353.02 484.33,353.10 485.96,353.18 487.60,353.26 489.23,353.34 490.87,353.42 492.50,353.50 494.13,353.58 495.77,353.66 497.40,353.73 499.04,353.81 500.67,353.89 502.30,353.96 503.94,354.04 505.57,354.11 507.21,354.19 508.84,354.26 510.47,354.33 512.11,354.40 513.74,354.48 515.38,354.55 517.01,354.62 518.64,354.69 520.28,354.76 521.91,354.83 523.55,354.90 525.18,354.97 526.81,355.03 528.45,355.10 530.08,355.17 531.71,355.23 533.35,355.30 534.98,355.36 536.62,355.43 538.25,355.49 539.88,355.56 541.52,355.62 543.15,355.69 544.79,355.75 546.42,355.81 548.05,355.87 549.69,355.93 551.32,355.99 552.96,356.06 554.59,356.12 556.22,356.18 557.86,356.23 559.49,356.29 561.13,356.35 562.76,356.41 564.39,356.47 566.03,356.53 567.66,356.58 569.29,356.64 570.93,356.70 572.56,356.75 574.20,356.81 575.83,356.86 577.46,356.92 579.10,356.97 580.73,357.03 582.37,357.08 584.00,357.13"/><line class="tlev197" x1="68.00" y1="132.22" x2="584.00" y2="132.22"/><line class="nlev197" x1="68.00" y1="336.22" x2="584.00" y2="336.22"/><line class="nline197" x1="298.36" y1="374.00" x2="298.36" y2="34.00"/><circle class="opendot197" cx="298.36" cy="336.22" r="4.20"/><line class="gline197" x1="103.99" y1="374.00" x2="103.99" y2="132.22"/><circle class="soldot197" cx="103.99" cy="132.22" r="4.60"/><text class="lab curvel197" x="441.18" y="302.98">AVERAGE = 5/k</text><text class="lab tlevl197" x="592.00" y="135.72">TARGET  32</text><text class="lab tlevl197" x="592.00" y="156.22">ONE CROSSING</text><text class="lab nlevl197" x="592.00" y="332.22">5, THE VALUE AT k = 1</text><text class="lab nlevl197" x="592.00" y="352.22">NEVER ATTAINED</text><text class="lab soll197" x="114.99" y="123.22">k = 5/32</text><text class="lab nlevl197" x="305.36" y="52.00">k = 1</text><text class="lab axl197" x="578.00" y="391.00" text-anchor="end">k</text><text class="lab regionl197" x="137.11" y="71.78">ABOVE 5  =>  k < 1</text><text class="lab regionl197" x="332.91" y="71.78">BELOW 5  =>  k > 1</text></svg></div>
+<figcaption>The constraint, drawn. A horizontal target meets a strictly decreasing curve exactly once, which is the whole uniqueness argument. The level 5 is the value $k = 1$ would give, and it is never attained because the interval would have zero width - so every target above 5, including 32, lands to the <em>left</em> of 1.</figcaption>
+</figure>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>WHAT THE PICTURE SAYS</th><th>WHY IT MATTERS IN THE EXAM</th></tr></thead>
+<tbody>
+<tr><td>The curve is strictly decreasing on $(0,1)$ and on $(1,\infty)$</td><td>At most one $k$ for any target, so "find <em>a</em> number" and "find <em>the</em> number" are the same question here</td></tr>
+<tr><td>The value 5 is approached at $k=1$ but never taken</td><td>$k=1$ gives an interval of zero width, so no target equals 5</td></tr>
+<tr><td>Targets above 5 land left of 1; targets below 5 land right of it</td><td>$32 &gt; 5$, so you know $k &lt; 1$ <em>before</em> you finish solving</td></tr>
+<tr><td>The vertical asymptote at $k = 0$</td><td>Every positive target above 5 is reachable, so a "no solution" answer is always wrong here</td></tr>
+</tbody>
+</table>
+</div>
+<p>That third row is the cheapest guard on the question. A bigger average needs a <em>smaller</em> endpoint, because $f$ is large near zero. Saying that sentence out loud kills the single most common wrong answer, $32/5 = 6.4$, in about two seconds.</p>
+</section>
+
+<section>
+<h2>3. Reversing the limits changes nothing, and that is worth knowing</h2>
+<p>Suppose you never noticed that $k &lt; 1$ and wrote the interval as $[1,k]$ anyway. Then</p>
+<div class="box197">
+$$\frac{1}{k-1}\int_1^k \frac{5}{x^2}\,dx \;=\; \frac{1}{1-k}\int_k^1 \frac{5}{x^2}\,dx \;=\; \frac{5}{k}$$
+</div>
+<p>Reversing the limits flips the sign of the integral <em>and</em> the sign of the width, and the two flips cancel. Verified at 501 sampled values of $k$, worst mismatch below $10^{-9}$.</p>
+<p class="warn197">So the orientation error is the one candidate in the census that returns the right answer, and it hides <strong>structurally</strong> rather than by luck. It costs you nothing on this stem. It costs you everything on a follow-up that asks which interval you used, or asks for the mean-value point, because then you have to name $\left[\frac{5}{32},1\right]$ correctly.</p>
+</section>
+
+<section>
+<h2>4. Uniqueness has to be argued, not assumed</h2>
+<p>It is tempting to solve, get one answer, and move on. On this question that happens to be right. On a question one word away it is wrong.</p>
+<figure>
+<div class="figbox"><svg viewBox="0 0 760 344" role="img" aria-label="Two panels: a monotone average cut once, and a non-monotone average cut twice, once or not at all"><rect class="plotbg197" x="0.00" y="0.00" width="760.00" height="344.00"/><rect class="panel197" x="46.00" y="40.00" width="250.00" height="246.00"/><line class="axis" x1="46.00" y1="286.00" x2="296.00" y2="286.00"/><polyline class="curve197" points="58.74,42.19 59.73,59.74 60.72,74.94 61.71,88.23 62.69,99.94 63.68,110.34 64.67,119.64 65.66,128.01 66.65,135.57 67.64,142.45 68.63,148.72 69.61,154.46 70.60,159.75 71.59,164.63 72.58,169.14 73.57,173.33 74.56,177.23 75.55,180.87 76.53,184.28 77.52,187.47 78.51,190.46 79.50,193.28 80.49,195.94 81.48,198.45 82.47,200.82 83.45,203.07 84.44,205.20 85.43,207.23 86.42,209.16 87.41,210.99 88.40,212.74 89.39,214.41 90.37,216.00 91.36,217.53 92.35,218.99 93.34,220.39 94.33,221.73 95.32,223.02 96.31,224.26 97.29,225.45 98.28,226.59 99.27,227.69 100.26,228.76 101.25,229.78 102.24,230.77 103.23,231.72 104.21,232.64 105.20,233.54 106.19,234.40 107.18,235.23 108.17,236.04 109.16,236.82 110.15,237.58 111.13,238.31 112.12,239.03 113.11,239.72 114.10,240.39 115.09,241.04 116.08,241.68 117.07,242.29 118.05,242.89 119.04,243.48 120.03,244.04 121.02,244.60 122.01,245.14 123.00,245.66 123.99,246.17 124.97,246.67 125.96,247.16 126.95,247.63 127.94,248.09 128.93,248.55 129.92,248.99 130.91,249.42 131.89,249.84 132.88,250.25 133.87,250.65 134.86,251.05 135.85,251.43 136.84,251.81 137.83,252.17 138.81,252.53 139.80,252.89 140.79,253.23 141.78,253.57 142.77,253.90 143.76,254.23 144.75,254.55 145.74,254.86 146.72,255.16 147.71,255.46 148.70,255.76 149.69,256.04 150.68,256.33 151.67,256.61 152.66,256.88 153.64,257.14 154.63,257.41 155.62,257.67 156.61,257.92 157.60,258.17 158.59,258.41 159.58,258.65 160.56,258.89 161.55,259.12 162.54,259.35 163.53,259.57 164.52,259.79 165.51,260.01 166.50,260.22 167.48,260.43 168.47,260.64 169.46,260.84 170.45,261.04 171.44,261.24 172.43,261.43 173.42,261.62 174.40,261.81 175.39,262.00 176.38,262.18 177.37,262.36 178.36,262.53 179.35,262.71 180.34,262.88 181.32,263.05 182.31,263.21 183.30,263.38 184.29,263.54 185.28,263.70 186.27,263.86 187.26,264.01 188.24,264.16 189.23,264.31 190.22,264.46 191.21,264.61 192.20,264.75 193.19,264.90 194.18,265.04 195.16,265.18 196.15,265.31 197.14,265.45 198.13,265.58 199.12,265.71 200.11,265.84 201.10,265.97 202.08,266.10 203.07,266.23 204.06,266.35 205.05,266.47 206.04,266.59 207.03,266.71 208.02,266.83 209.00,266.94 209.99,267.06 210.98,267.17 211.97,267.29 212.96,267.40 213.95,267.51 214.94,267.61 215.92,267.72 216.91,267.83 217.90,267.93 218.89,268.03 219.88,268.14 220.87,268.24 221.86,268.34 222.84,268.44 223.83,268.53 224.82,268.63 225.81,268.73 226.80,268.82 227.79,268.91 228.78,269.01 229.76,269.10 230.75,269.19 231.74,269.28 232.73,269.37 233.72,269.45 234.71,269.54 235.70,269.63 236.68,269.71 237.67,269.80 238.66,269.88 239.65,269.96 240.64,270.04 241.63,270.12 242.62,270.20 243.60,270.28 244.59,270.36 245.58,270.44 246.57,270.51 247.56,270.59 248.55,270.67 249.54,270.74 250.53,270.81 251.51,270.89 252.50,270.96 253.49,271.03 254.48,271.10 255.47,271.17 256.46,271.24 257.45,271.31 258.43,271.38 259.42,271.45 260.41,271.51 261.40,271.58 262.39,271.65 263.38,271.71 264.37,271.78 265.35,271.84 266.34,271.90 267.33,271.97 268.32,272.03 269.31,272.09 270.30,272.15 271.29,272.21 272.27,272.27 273.26,272.33 274.25,272.39 275.24,272.45 276.23,272.51 277.22,272.57 278.21,272.62 279.19,272.68 280.18,272.74 281.17,272.79 282.16,272.85 283.15,272.90 284.14,272.96 285.13,273.01 286.11,273.06 287.10,273.12 288.09,273.17 289.08,273.22 290.07,273.27 291.06,273.33 292.05,273.38 293.03,273.43 294.02,273.48 295.01,273.53 296.00,273.58"/><line class="tlev197" x1="46.00" y1="111.07" x2="296.00" y2="111.07"/><circle class="soldot197" cx="63.76" cy="111.07" r="4.20"/><text class="lab panl197" x="54.00" y="28.00">MONOTONE:  5/k</text><text class="lab okl197" x="166.00" y="58.00">EXACTLY ONE SOLUTION</text><text class="lab tlevl197" x="38.00" y="114.57" text-anchor="end">32</text><text class="lab tick197" x="38.00" y="289.50" text-anchor="end">0</text><text class="lab soll197" x="73.76" y="102.07">k = 5/32</text><text class="lab axl197" x="288.00" y="303.00" text-anchor="end">k</text><rect class="panel197" x="396.00" y="40.00" width="250.00" height="246.00"/><line class="axis" x1="396.00" y1="286.00" x2="646.00" y2="286.00"/><polyline class="curve197" points="396.00,100.84 397.04,103.80 398.08,106.74 399.12,109.65 400.17,112.53 401.21,115.38 402.25,118.21 403.29,121.01 404.33,123.79 405.38,126.54 406.42,129.26 407.46,131.95 408.50,134.62 409.54,137.26 410.58,139.88 411.62,142.46 412.67,145.02 413.71,147.56 414.75,150.06 415.79,152.54 416.83,155.00 417.88,157.43 418.92,159.83 419.96,162.20 421.00,164.54 422.04,166.86 423.08,169.16 424.12,171.42 425.17,173.66 426.21,175.88 427.25,178.06 428.29,180.22 429.33,182.35 430.38,184.46 431.42,186.54 432.46,188.59 433.50,190.61 434.54,192.61 435.58,194.58 436.62,196.53 437.67,198.45 438.71,200.34 439.75,202.20 440.79,204.04 441.83,205.85 442.88,207.63 443.92,209.39 444.96,211.12 446.00,212.82 447.04,214.50 448.08,216.15 449.12,217.77 450.17,219.37 451.21,220.94 452.25,222.48 453.29,224.00 454.33,225.49 455.38,226.95 456.42,228.39 457.46,229.80 458.50,231.18 459.54,232.53 460.58,233.86 461.62,235.17 462.67,236.44 463.71,237.69 464.75,238.91 465.79,240.10 466.83,241.27 467.88,242.41 468.92,243.53 469.96,244.62 471.00,245.68 472.04,246.71 473.08,247.72 474.12,248.70 475.17,249.65 476.21,250.58 477.25,251.48 478.29,252.35 479.33,253.20 480.38,254.02 481.42,254.81 482.46,255.58 483.50,256.32 484.54,257.03 485.58,257.72 486.62,258.38 487.67,259.01 488.71,259.61 489.75,260.19 490.79,260.75 491.83,261.27 492.88,261.77 493.92,262.24 494.96,262.69 496.00,263.10 497.04,263.49 498.08,263.86 499.12,264.20 500.17,264.51 501.21,264.79 502.25,265.05 503.29,265.28 504.33,265.48 505.38,265.66 506.42,265.81 507.46,265.93 508.50,266.03 509.54,266.10 510.58,266.14 511.62,266.16 512.67,266.15 513.71,266.11 514.75,266.05 515.79,265.96 516.83,265.84 517.88,265.70 518.92,265.53 519.96,265.33 521.00,265.10 522.04,264.85 523.08,264.57 524.12,264.27 525.17,263.94 526.21,263.58 527.25,263.19 528.29,262.78 529.33,262.34 530.38,261.88 531.42,261.38 532.46,260.86 533.50,260.32 534.54,259.75 535.58,259.15 536.62,258.52 537.67,257.87 538.71,257.19 539.75,256.48 540.79,255.75 541.83,254.99 542.88,254.20 543.92,253.38 544.96,252.54 546.00,251.68 547.04,250.78 548.08,249.86 549.12,248.91 550.17,247.94 551.21,246.94 552.25,245.91 553.29,244.85 554.33,243.77 555.38,242.66 556.42,241.53 557.46,240.37 558.50,239.18 559.54,237.96 560.58,236.72 561.62,235.45 562.67,234.15 563.71,232.83 564.75,231.48 565.79,230.11 566.83,228.70 567.88,227.27 568.92,225.82 569.96,224.33 571.00,222.82 572.04,221.29 573.08,219.72 574.12,218.13 575.17,216.51 576.21,214.87 577.25,213.20 578.29,211.50 579.33,209.78 580.38,208.03 581.42,206.25 582.46,204.44 583.50,202.61 584.54,200.75 585.58,198.87 586.62,196.96 587.67,195.02 588.71,193.05 589.75,191.06 590.79,189.04 591.83,186.99 592.88,184.92 593.92,182.82 594.96,180.70 596.00,178.54 597.04,176.36 598.08,174.16 599.12,171.92 600.17,169.66 601.21,167.38 602.25,165.06 603.29,162.72 604.33,160.35 605.38,157.96 606.42,155.54 607.46,153.09 608.50,150.62 609.54,148.12 610.58,145.59 611.62,143.03 612.67,140.45 613.71,137.84 614.75,135.21 615.79,132.55 616.83,129.86 617.88,127.14 618.92,124.40 619.96,121.63 621.00,118.84 622.04,116.01 623.08,113.16 624.12,110.29 625.17,107.39 626.21,104.46 627.25,101.50 628.29,98.52 629.33,95.51 630.38,92.47 631.42,89.41 632.46,86.32 633.50,83.20 634.54,80.05 635.58,76.88 636.62,73.69 637.67,70.46 638.71,67.21 639.75,63.93 640.79,60.63 641.83,57.30 642.88,53.94 643.92,50.55 644.96,47.14 646.00,43.70"/><line class="tlev197" x1="396.00" y1="166.97" x2="646.00" y2="166.97"/><line class="tlev197" x1="396.00" y1="266.16" x2="646.00" y2="266.16"/><line class="tlev197" x1="396.00" y1="276.08" x2="646.00" y2="276.08"/><circle class="soldot197" cx="422.09" cy="166.97" r="4.00"/><circle class="soldot197" cx="601.39" cy="166.97" r="4.00"/><circle class="soldot197" cx="511.74" cy="266.16" r="4.00"/><text class="lab panl197" x="404.00" y="28.00">NOT MONOTONE:  (k^2 - 5k + 7)/3</text><text class="lab tlevl197" x="654.00" y="170.47">TWO</text><text class="lab tlevl197" x="654.00" y="269.66">ONE</text><text class="lab tlevl197" x="654.00" y="292.08">NONE</text><text class="lab axl197" x="638.00" y="303.00" text-anchor="end">k</text><text class="lab tick197" x="388.00" y="289.50" text-anchor="end">0</text><text class="lab tick197" x="388.00" y="51.44" text-anchor="end">3</text></svg></div>
+<figcaption>Left, the exam's own average $5/k$ is strictly decreasing, so a horizontal target meets it once. Right, the average of $(x-2)^2$ between 1 and $k$ is $(k^2-5k+7)/3$, which falls then rises: the same question has two solutions above the minimum $\tfrac14$, exactly one at it, and none below.</figcaption>
+</figure>
+<p>The engine behind both panels is one derivative. Differentiating the average with respect to the moving endpoint gives</p>
+<div class="box197">
+$$\frac{d}{dk}\,f_{\text{avg}}(k) \;=\; \frac{f(k) - f_{\text{avg}}(k)}{k - a}$$
+</div>
+<p>which says <strong>the average moves toward the value you are adding</strong>. Verified numerically at 14 points across three integrands, worst mismatch $7.702\times10^{-9}$. If $f$ never crosses its own running average, the average is monotone and there is at most one solution. If $f$ dips below it and comes back, there can be two, or none.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>STEM</th><th>HOW MANY $k$</th><th>WHY</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32</td><td class="num197 ok197">1</td><td>$5/k$ strictly decreasing</td></tr>
+<tr><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$</td><td class="num197">2</td><td>$f$ dips to 0 inside the interval</td></tr>
+<tr><td>average of $(x-2)^2$ between 1 and $k$ is $\frac18$</td><td class="num197 no197">0</td><td>below the minimum $\frac14$</td></tr>
+<tr><td>average of $\sin x$ on $[0,k]$ is $\frac12$</td><td class="num197">2</td><td>the average rises then falls</td></tr>
+<tr><td>average of $\frac{k}{x^2}$ between 1 and $k$ is 32</td><td class="num197 no197">0</td><td>that average is identically 1, for every $k$</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197">The root-finder used to check all of this was controlled in both directions on the same code and the same window: it returns <strong>two</strong> roots for the average of $x^2$ at target $\frac73$ (namely $-3$ and $2$) and <strong>zero</strong> at target $\frac{1}{12}$. A finder that has never been shown returning two, and never been shown returning none, has not been shown to count.</p>
+</section>
+
+<section>
+<h2>5. The check you actually have, and what it cannot see</h2>
+<p>Put $k = \frac{5}{32}$ back in. The integral over $\left[\frac{5}{32},1\right]$ is $\left[-\frac{5}{x}\right] = -5+32 = 27$, the width is $\frac{27}{32}$, and $27 \div \frac{27}{32} = 32$.</p>
+<p class="warn197"><strong>This confirms the algebra of the solve, not the setup.</strong> If you set the <em>integral</em> equal to 32 instead of the average, got $k = \frac{5}{37}$, and then "checked" by recomputing the integral, it would agree with itself perfectly. The check only bites when you recompute the average - integral divided by width - from scratch.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>CHECK</th><th>ON THIS QUESTION</th><th>WRONG VALUES IT REJECTS</th></tr></thead>
+<tbody>
+<tr><td>$k &gt; 0$, because the stem says "positive"</td><td>$0.15625 &gt; 0$</td><td class="num197">6 of 24</td></tr>
+<tr><td>$0 &lt; k &lt; 1$, because $32 &gt; 5$</td><td>$0.15625 &lt; 1$</td><td class="num197">11 of 24</td></tr>
+<tr><td>Sandwich: $32$ must lie between $\min f$ and $\max f$, so $k \le 0.3952847075$</td><td>satisfied</td><td class="num197">13 of 24</td></tr>
+<tr class="truth197"><td>Substitute into the true average</td><td>$32$</td><td class="num197 ok197">23 of 24</td></tr>
+</tbody>
+</table>
+</div>
+<p>The sandwich is the strongest thing you can do <em>before</em> solving: it tells you $k$ must be under $0.3953$ while you still have time to change your setup.</p>
+</section>
+
+<section>
+<h2>6. The wrong-answer census</h2>
+<p>24 methods, every one solved to the value it actually produces, with no point excluded as degenerate. Four checks were then run against all 24 wrong values.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>ID</th><th>METHOD</th><th>$k$ PRODUCED</th><th>POS</th><th>BAND</th><th>SAND</th><th>SUBST</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>C0</td><td>the truth</td><td class="num197">0.15625</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td></tr>
+<tr class="hot197"><td>C1</td><td>set the integral itself to 32, never divided</td><td class="num197">0.1351351351</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C2</td><td>integral from 1 to $k$ set to 32</td><td class="num197">-0.1851851852</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C3</td><td>divide the integral by $k$ instead of the width</td><td class="num197">0.3248061549</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C3</td><td>same, other branch</td><td class="num197">-0.4810561549</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C4</td><td>divide by 1, the other endpoint</td><td class="num197">0.1351351351</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C5</td><td>endpoint average $\frac{f(1)+f(k)}{2} = 32$</td><td class="num197">0.2911112549</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C6</td><td>midpoint value $f\!\left(\frac{1+k}{2}\right) = 32$</td><td class="num197">-0.2094305850</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C6</td><td>same, other branch</td><td class="num197">-1.7905694150</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr class="hot197"><td>C7</td><td>reach $5/k = 32$ then write $k = 32/5$</td><td class="num197">6.4</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C8</td><td>reach $5/k = 32$ then write $k = 5\times32$</td><td class="num197">160</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C9</td><td>integrate 1 to $k$, divide by $(1-k)$</td><td class="num197">-0.15625</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C10</td><td>antiderivative taken as $+5/x$</td><td class="num197">-0.15625</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C11</td><td>antiderivative taken as $5\ln x$</td><td class="num197">0.0016795135</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C12</td><td>power rule as $x^{n-1}/(n-1)$</td><td class="num197">0.4397914158</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C13</td><td>forgot the factor 5</td><td class="num197">0.03125</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C14</td><td>multiplied by the width instead of dividing</td><td class="num197">0.1207843891</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C14</td><td>same, other branch</td><td class="num197">8.2792156109</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C15</td><td>set $f(k) = 32$, the value not the average</td><td class="num197">0.3952847075</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C16</td><td>two-panel Simpson average set to 32</td><td class="num197">0.1953571843</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C17</td><td>averaged the $x$'s: $\frac{1+k}{2} = 32$</td><td class="num197">63</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C18</td><td>assumed $k&gt;1$, concluded "no solution"</td><td class="num197">none</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C19</td><td>solved correctly, reported $1/k$</td><td class="num197">6.4</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C20</td><td>used width $(k+1)$</td><td class="num197">0.1222167135</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr class="truth197"><td>C21</td><td><strong>orientation flip</strong>: assume $k&gt;1$, use $\frac{1}{k-1}\int_1^k$ anyway</td><td class="num197">0.15625</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td></tr>
+<tr><td>C22</td><td>took the interval as $[0,k]$</td><td class="num197">divergent</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C23</td><td>endpoint-average route, forgot the square root</td><td class="num197">0.0847457627</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197"><strong>This stem does not inherit Q19.6's degeneracies, and that was swept rather than assumed.</strong> Q19.6 had eight hiders, traced to two properties of its stem: $f$ affine, and the fixed endpoint $a = 0$. Neither holds here. $5/x^2$ is not affine, so the endpoint mean gives $104.9$ and the midpoint value gives $14.9598246896$ where the truth is 32. The fixed endpoint is 1, not 0, so dividing by the endpoint instead of the width matches the truth at <strong>zero of 500</strong> positive left endpoints swept over $[0,5]$ - with a control confirming it does agree in the limit $a \to 0$, which is exactly Q19.6's case.</p>
+<p>Two rows deserve a second look. <strong>C1 is the dangerous one</strong>: $\frac{5}{37} = 0.1351351351$ is positive, less than 1, and passes the sandwich, so only substitution catches it. And <strong>C15 lands exactly on the mean-value point</strong> $\sqrt{5/32}$, which is the $x$ where $f$ equals its average - a wrong answer that is a genuinely meaningful number, which is what makes it feel right.</p>
+</section>
+
+<section>
+<h2>7. The magnitude pattern, which is new for this category</h2>
+<p>Four behaviours have been recorded across Q19.1 to Q19.6. This is a fifth.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>OBSERVATION</th><th>MEASURED</th><th>CONTRAST</th></tr></thead>
+<tbody>
+<tr><td>Positivity is <em>not</em> inert: the stem's word "positive" does real work</td><td class="num197">6 of 24 rejected</td><td>Q19.4 to Q19.6 had positivity rejecting almost nothing</td></tr>
+<tr><td>A sign repair rescues only some of those</td><td class="num197">2 of 6</td><td>C9 and C10 both land on $-0.15625$, so $|k|$ hands back the truth</td></tr>
+<tr><td>The bracket is strong</td><td class="num197">13 of 24 rejected</td><td>Q19.6's sandwich managed 3 of 23</td></tr>
+<tr><td>Values collide, so a wrong answer does not name its cause</td><td class="num197">4 shared values, 8 of 25 candidates</td><td>$-0.15625$, $0.1351351351$, $0.15625$ and $6.4$ each reached twice</td></tr>
+</tbody>
+</table>
+</div>
+<p>Summarised: <strong>positivity active, sign repair partial, bracket strong.</strong></p>
+</section>
+
+<section>
+<h2>8. The variation catalog</h2>
+<p>Read these as structure. Family 0 has exactly one moving part - the product $a\,k$ - so every row is the same divide. Families 1 to 4 are graded by <em>what power of $k$ survives the simplification</em>, which is the only thing that changes the tool you need.</p>
+
+<h3>Family 0 - rescalings, all of them one divide</h3>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>STEM</th><th>$c$</th><th>$a$</th><th>TARGET</th><th>$k$</th><th>CHECK</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>the exam's own</td><td class="num197">5</td><td class="num197">1</td><td class="num197">32</td><td class="num197">$\frac{5}{32} = 0.15625$</td><td class="num197">32</td></tr>
+<tr><td>average is 2 instead</td><td class="num197">5</td><td class="num197">1</td><td class="num197">2</td><td class="num197">2.5</td><td class="num197">2</td></tr>
+<tr><td>$12/x^2$, average 48</td><td class="num197">12</td><td class="num197">1</td><td class="num197">48</td><td class="num197">0.25</td><td class="num197">48</td></tr>
+<tr><td>between 2 and $k$</td><td class="num197">5</td><td class="num197">2</td><td class="num197">32</td><td class="num197">0.078125</td><td class="num197">32</td></tr>
+<tr><td>average is $\frac12$</td><td class="num197">5</td><td class="num197">1</td><td class="num197">0.5</td><td class="num197">10</td><td class="num197">0.5</td></tr>
+<tr><td>$3/x^2$, average 12</td><td class="num197">3</td><td class="num197">1</td><td class="num197">12</td><td class="num197">0.25</td><td class="num197">12</td></tr>
+<tr class="hot197"><td>average is 5, with $a=1$</td><td class="num197">5</td><td class="num197">1</td><td class="num197">5</td><td class="num197">none</td><td>$k=1$ collapses the interval</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Families 1 to 6 - what power of $k$ survives</h3>
+<div class="tscroll">
+<table class="tab197 wide197">
+<thead><tr><th>FAMILY</th><th>TRIGGER</th><th>WORKED INSTANCE</th><th>ANSWER</th></tr></thead>
+<tbody>
+<tr><td>1 - linear</td><td>$f$ affine, so the average is the midpoint value</td><td>average of $2x+1$ between 1 and $k$ is 10, i.e. $k+2=10$</td><td class="num197">8</td></tr>
+<tr><td>2 - quadratic</td><td>$c/x^3$, or a polynomial of degree $\ge 2$</td><td>average of $\frac{5}{x^3}$ between 1 and $k$ is 32, i.e. $64k^2-5k-5=0$</td><td class="num197">$\frac{5+\sqrt{1305}}{128} = 0.3212873729$</td></tr>
+<tr><td>3 - parameter inside $f$</td><td>both endpoints given, a constant unknown</td><td>average of $\frac{c}{x^2}$ on $[1,4]$ is 3</td><td class="num197">$c = 12$</td></tr>
+<tr><td>3 - again</td><td>additive constant</td><td>average of $x^2+c$ on $[0,2]$ is 6</td><td class="num197">$c = \frac{14}{3} = 4.6666666667$</td></tr>
+<tr><td>4 - transcendental</td><td>$e^x$, $\sin x$, $\ln x$ with $k$ in a limit</td><td>average of $e^x$ on $[0,k]$ is 10</td><td class="num197">$3.6149504271$, numerically</td></tr>
+<tr><td>5 - non-unique</td><td>$f$ crosses its own running average</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$</td><td class="num197">$\frac{5\mp\sqrt{15}}{2}$: $0.5635083269$ and $4.4364916731$</td></tr>
+<tr><td>6 - the MVT point</td><td>"find $c$ with $f(c)$ equal to the average"</td><td>$\frac{5}{x^2}$ on $\left[\frac{5}{32},1\right]$</td><td class="num197">$\sqrt{\frac{5}{32}} = 0.3952847075$</td></tr>
+<tr class="hot197">
+<td>7 - $k$ in both places</td><td>the same letter twice; simplify first</td><td>average of $\frac{k}{x^2}$ between 1 and $k$</td><td class="num197">identically 1, so no target but 1 works</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Which mean of the endpoints is the mean-value point</h3>
+<p>A pattern the course notes do not state, verified on 12 instances. It generalises Q19.6's observation that its own mean-value point landed on the midpoint.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>INTEGRAND</th><th>THE MVT POINT IS</th><th>ON $\left[\frac{5}{32},1\right]$</th></tr></thead>
+<tbody>
+<tr><td>affine, $\alpha x + \beta$</td><td>the <strong>arithmetic</strong> mean $\frac{a+b}{2}$</td><td class="num197">0.578125</td></tr>
+<tr><td>$c/x$</td><td>the <strong>logarithmic</strong> mean $\frac{b-a}{\ln(b/a)}$</td><td class="num197">0.4545337033</td></tr>
+<tr class="truth197"><td>$c/x^2$, this question</td><td>the <strong>geometric</strong> mean $\sqrt{ab}$</td><td class="num197">0.3952847075</td></tr>
+</tbody>
+</table>
+</div>
+<p>The ordering geometric $&lt;$ logarithmic $&lt;$ arithmetic is the AM-GM chain, and Q19.6's mean-value point was the midpoint precisely because its $f$ was affine.</p>
+</section>
+
+<section>
+<h2>9. Units, and the gate's named blind spot</h2>
+<p>Write $[x] = L$ and $[f] = F$. Then the constant 5 carries $F\!\cdot\!L^2$, the integral carries $F\!\cdot\!L$, the average carries $F$, and <strong>$k$ carries $L$</strong> - it is a length, so the answer is "$\frac{5}{32}$ of whatever unit $x$ is measured in", not a pure number.</p>
+<p>A dimensional gate over these vectors accepts the correct relation and rejects four seeded candidates, including the interesting one: the expression <strong>"$5 - \frac{5}{k}$" exactly as written is inhomogeneous</strong>, because 5 carries $F L^2$ and $\frac{5}{k}$ carries $F L$. It is only legal as $\frac{5}{x_0} - \frac{5}{k}$ with $x_0 = 1$ understood as a <em>length</em>. The numeral 1 in "between 1 and $k$" is not a pure number.</p>
+<p>A conversion arm confirms it: measure $x$ in centimetres, so the interval runs from 100 to 15.625 and $f$ becomes $50000/x^2$, and the average is still 32. Forgetting to rescale the constant gives 0.0032, a factor of $10^4$ out.</p>
+<p class="warn197"><strong>The blind spot, stated so silence is not mistaken for coverage.</strong> Dividing by $k$ instead of by the width $(1-k)$ is dimensionally <em>legal</em> - both are lengths - so the units gate structurally cannot see that error. Only substitution can. A gate's blind spot deserves an assertion of its own.</p>
+</section>
+
+<section>
+<h2>10. Closing the pair</h2>
+<p>Q19.6 and Q19.7 are the same formula read in opposite directions, and they teach opposite lessons about what a right answer proves.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th></th><th>Q19.6 &middot; F1 item 14 &middot; 3 pts</th><th>Q19.7 &middot; F2 item 12 &middot; 10 pts</th></tr></thead>
+<tbody>
+<tr><td>Direction</td><td>forward: compute the average</td><td>inverse: recover a parameter</td></tr>
+<tr><td>Integrand</td><td>$3x$, affine</td><td>$5/x^2$, strictly decreasing</td></tr>
+<tr><td>Fixed endpoint</td><td>$a = 0$</td><td>$a = 1$</td></tr>
+<tr><td>Answer</td><td class="num197">9</td><td class="num197">$\frac{5}{32}$</td></tr>
+<tr><td>MVT point</td><td>midpoint, 3</td><td>geometric mean, $\sqrt{5/32}$</td></tr>
+<tr><td>Wrong methods that hide</td><td class="num197 no197">8 of 23</td><td class="num197 ok197">1 of 24, and not an arithmetic error</td></tr>
+<tr><td>Positivity as a check</td><td>inert</td><td>rejects 6 of 24</td></tr>
+<tr><td>Sandwich as a check</td><td class="num197">3 of 23</td><td class="num197">13 of 24</td></tr>
+<tr class="truth197"><td>Its own lesson</td><td>a correct answer is not evidence</td><td>a correct answer is evidence, but only substitution can give it to you</td></tr>
+</tbody>
+</table>
+</div>
+<p>The informativeness of an answer is a property of the stem, not of the student. Use Q19.6 to drill the formula and Q19.7 to drill the check.</p>
+</section>
+
+<section>
+<h2>11. The decision tree</h2>
+<div class="tree197">"average value" appears in the stem
+  |
+  +-- is the average GIVEN?
+  |     NO  -> Q19.6 shape.  Compute (1/(b-a)) INT f.  Check m &lt;= avg &lt;= M and the units.
+  |     YES -> Q19.7 shape.  Continue.
+  |
+  +-- what is unknown?
+  |     an ENDPOINT           -> carry it as a letter through the integration
+  |     a CONSTANT inside f   -> the average is linear in it; one divide
+  |     BOTH the same letter  -> simplify FIRST, it usually cancels
+  |
+  +-- integrate symbolically, then LOOK FOR (k - a) IN THE NUMERATOR
+  |     found it   -> cancel; the equation collapses (this is Q19.7)
+  |     not found  -> clear denominators and classify by the power of k
+  |
+  +-- classify:
+  |     k to the first power  -> one divide
+  |     k quadratic           -> quadratic formula, then use the stem's wording
+  |     k transcendental      -> no closed form; expect a rigged cancellation
+  |
+  +-- COUNT the solutions:  d/dk avg = (f(k) - avg)/(k - a)
+  |     f monotone on the range        -> at most one
+  |     f crosses its running average  -> could be two, or none
+  |
+  +-- apply the stem's own words: "positive", "greater than 1", "find all"
+  |
+  +-- CHECK: substitute k back and recompute the AVERAGE from scratch
+  |          (not the integral - the average)
+  |
+  +-- CHECK: which side of a does k sit on?  name the interval correctly
+  |
+  +-- PREVIEW the Moebius box</div>
+</section>
+
+<section>
+<h2>12. Traps, ranked by what they actually cost</h2>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>#</th><th>TRAP</th><th>WHAT YOU GET</th><th>WHAT KILLS IT</th></tr></thead>
+<tbody>
+<tr class="hot197"><td>1</td><td>reporting $32/5$, the reciprocal slip</td><td class="num197">6.4</td><td>"a bigger average needs a smaller endpoint"</td></tr>
+<tr class="hot197"><td>2</td><td>setting the integral to 32 instead of the average</td><td class="num197">0.1351351351</td><td>substitution only - it survives every cheap check</td></tr>
+<tr><td>3</td><td>not noticing $k &lt; 1$</td><td class="num197">0.15625</td><td>nothing, and nothing needs to - until a follow-up asks for the interval</td></tr>
+<tr><td>4</td><td>concluding "no solution" because $k&gt;1$ was assumed</td><td class="num197">none</td><td>the range argument: every target above 5 is reachable</td></tr>
+<tr><td>5</td><td>failing to cancel $(k-1)$ and wrestling with the algebra</td><td class="num197">0.1207843891</td><td>look for the common factor before clearing denominators</td></tr>
+<tr><td>6</td><td>dividing by $k$ rather than the width</td><td class="num197">0.3248061549</td><td>substitution; the units gate cannot see this one</td></tr>
+<tr><td>7</td><td>setting $f(k) = 32$</td><td class="num197">0.3952847075</td><td>notice that is the MVT point, not the endpoint</td></tr>
+<tr><td>8</td><td>antiderivative as $5\ln x$ or $+5/x$</td><td class="num197">0.0016795135 or -0.15625</td><td>differentiate your antiderivative back</td></tr>
+<tr><td>9</td><td>forgetting the factor 5</td><td class="num197">0.03125</td><td>substitution</td></tr>
+<tr><td>10</td><td>rounding $0.15625$ to $0.16$</td><td class="num197">0.16</td><td>the decimal terminates, so rounding is pure loss</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2>13. Drills</h2>
+<p>Score sign and magnitude separately: a wrong sign means you lost the orientation, a wrong magnitude means you lost the setup, and those need different fixes.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>#</th><th>STEM</th><th>ANSWER</th><th>FAMILY</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32</td><td class="num197">$\frac{5}{32} = 0.15625$</td><td>F0</td></tr>
+<tr><td>2</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 2</td><td class="num197">2.5</td><td>F0</td></tr>
+<tr><td>3</td><td>average of $\frac{8}{x^2}$ between 2 and $k$ is 16</td><td class="num197">0.25</td><td>F0</td></tr>
+<tr><td>4</td><td>average of $2x+1$ between 1 and $k$ is 10</td><td class="num197">8</td><td>F1</td></tr>
+<tr><td>5</td><td>average of $\frac{5}{x^3}$ between 1 and $k$ is 32</td><td class="num197">0.3212873729</td><td>F2</td></tr>
+<tr><td>6</td><td>average of $\frac{c}{x^2}$ on $[1,4]$ is 3; find $c$</td><td class="num197">12</td><td>F3</td></tr>
+<tr><td>7</td><td>average of $e^x$ on $[0,k]$ is 10</td><td class="num197">3.6149504271</td><td>F4</td></tr>
+<tr><td>8</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$, smaller</td><td class="num197">0.5635083269</td><td>F5</td></tr>
+<tr><td>9</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$, larger</td><td class="num197">4.4364916731</td><td>F5</td></tr>
+<tr><td>10</td><td>MVT point for $\frac{5}{x^2}$ on $\left[\frac{5}{32},1\right]$</td><td class="num197">0.3952847075</td><td>F6</td></tr>
+<tr><td>11</td><td>average of $x^2$ between 1 and $k$ is $\frac73$</td><td class="num197">2</td><td>F2</td></tr>
+<tr class="hot197"><td>12</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 5</td><td class="num197 no197">no solution</td><td>F0</td></tr>
+</tbody>
+</table>
+</div>
+<p>All eleven answerable rows were checked by recomputing the average at the stated $k$ by quadrature and comparing with the target; every one agrees to better than $10^{-8}$.</p>
+</section>
+
+<section>
+<h2>14. How this page was checked</h2>
+<p>181 assertions passed and none failed, across four sections appended to the shared verification harness. Every printed digit was computed rather than typed, and the claims checker caught eight decimals that had been widened past the precision of their source before this page shipped.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>ARM</th><th>WHAT IT PROVES</th><th>RESULT</th></tr></thead>
+<tbody>
+<tr><td>Exact antiderivative</td><td>the average is $5/k$ for every $k$, both orientations</td><td class="ok197">agrees at 9 values</td></tr>
+<tr><td>Graded Gauss-Legendre quadrature, which never sees the closed form</td><td>the same, computed independently</td><td class="ok197">agrees to $10^{-9}$</td></tr>
+<tr><td>Monotonicity sweep, 200000 steps each side of $k=1$</td><td>uniqueness</td><td class="ok197">0 violations</td></tr>
+<tr><td>Complex-step derivative at 401 points</td><td>the slope is negative everywhere</td><td class="ok197">0 positives</td></tr>
+<tr><td>Root scan at both grid parities</td><td>exactly one root on $(0,1)$, none on $(1,60)$</td><td class="ok197">1 and 0</td></tr>
+<tr><td>Root-finder controls on the same window</td><td>the finder can return two, and can return none</td><td class="ok197">2 and 0</td></tr>
+<tr><td>Observed Simpson order on $5/x^2$</td><td>the integrand is not a cubic, so the order is measurable here</td><td class="num197">3.9734, 3.9932, 3.9983, 3.9996</td></tr>
+<tr><td>Trapezoid order on the same integrand</td><td>the instrument is calibrated</td><td class="num197">1.9996, 1.9999, 2.0000</td></tr>
+<tr><td>Simpson exact on $x^3$, not on $x^4$</td><td>the order instrument is controlled both ways</td><td class="num197">error $5.208333\times10^{-4}$ at $n=4$</td></tr>
+<tr><td>Dimensional gate with seeded rejections</td><td>$k$ is a length; four wrong forms rejected</td><td class="ok197">4 rejected, 1 blind spot named</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197">The coarse Simpson rungs at $n = 4, 8, 16, 32, 64$ read 2.1016, 2.6850, 3.2731, 3.6970 and 3.9028. That is a pre-asymptotic transient, not a degraded order, and it is reported rather than hidden - the order claim is made on the asymptotic rungs only.</p>
+</section>
+
+<footer class="wrap">
+<p>Stem re-parsed from the original paper and cross-checked against the question bank, not typed. Final Exam 2 carries 12 items worth 8, 4, 8, 10, 10, 6, 6, 4, 6, 5, 4 and 10 points, total 81; item 12 carries 10, which is the maximum on that paper and 12.3457 percent of it, and it is the last item. No marking scheme exists in any of the five course files, so every claim here about what earns marks is an inference from the phrasing. Full working, all thirteen variation families and the drill answer key: <code>notes\Q19.7 - Find k from an average value.md</code>.</p>
+</footer>
+
+</main>

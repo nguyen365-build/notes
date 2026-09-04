@@ -1,0 +1,327 @@
+<div class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; FINAL EXAM 2 &#183; ITEM 5 &#183; TEN POINTS, THE PAPER'S JOINT HEAVIEST</div>
+  <h1>Not A Cube</h1>
+  <p class="stand">Every optimization question you have met so far ended in a symmetric shape. The rectangle of least perimeter is a square; the box of least surface area is a cube. So the instinct arrives ready-made, and this question is built to punish it. The cheapest box here is <b>2 : 4 : 3</b>. Worse, the cube a student reaches for is <em>cheaper</em> than the correct answer while being illegal, so the reflex of asking "does my number look sensible" rewards the mistake. This page is about where the symmetry went.</p>
+</div>
+
+<main class="wrap">
+
+<section>
+<h2><span class="sn154">01</span> The question, and the four answers it wants</h2>
+
+<p class="quote154">What are the dimensions of the cheapest rectangular box that can be constructed if the material for the box is 1.20 dollars per square cm and the cost for the lid is 1.50 dollars per square cm. The length of the base is twice as long as it is wide and the volume must be \(120\text{ cm}^3\)? What is the minimum cost?<span class="qp154">Final Exam 2, item 5, ten points. That is the joint heaviest item on the paper: nothing outranks it and three items tie with it. The value is printed on its own line <em>after</em> the item, which is this paper's convention. No "no credit" clause, no hint, no "show your work", no permission to leave an answer unsimplified. The sentence period before "The length of the base" and the question mark after the volume are the paper's own punctuation, quoted rather than repaired.</span></p>
+
+<div class="tscroll vtab">
+<table class="ans154">
+<thead><tr><th>&#160;</th><th>exact</th><th>decimal</th><th>what it is, and why it is that</th></tr></thead>
+<tbody>
+<tr><td class="dl154">base <b>width</b> \(w\)</td><td class="hi154">\(2\sqrt[3]{5} = \sqrt[3]{40}\)</td><td class="mono154">3.4199518934</td><td>the only real root of \(w^3 = 40\)</td></tr>
+<tr><td class="dl154">base <b>length</b> \(l\)</td><td class="hi154">\(4\sqrt[3]{5}\)</td><td class="mono154">6.8399037867</td><td>exactly \(2w\), because the stem says so</td></tr>
+<tr><td class="dl154"><b>height</b> \(h\)</td><td class="hi154">\(3\sqrt[3]{5}\)</td><td class="mono154">5.1299278400</td><td>exactly \(\tfrac32 w\), and that is not a coincidence</td></tr>
+<tr><td class="dl154">minimum <b>cost</b></td><td class="hi154">\(\dfrac{324}{\sqrt[3]{5}} = 16.2\cdot 40^{2/3}\)</td><td class="mono154">189.4763494362</td><td>189.48 dollars to the cent</td></tr>
+<tr><td class="dl154">the <b>proportions</b></td><td class="win154">\(2 : 4 : 3\)</td><td class="win154">2 : 4 : 3</td><td>not \(1:1:1\), and it never could have been</td></tr>
+<tr><td class="dl154">\(C''\) at the answer</td><td>\(10.8 + \tfrac{864}{40}\)</td><td class="mono154">32.4</td><td>positive, and positive for <em>every</em> \(w>0\)</td></tr>
+<tr><td class="dl154">points where \(C'\) is undefined</td><td class="non154">none on \(w>0\)</td><td class="non154">none</td><td>so that box is empty, and saying so is free</td></tr>
+<tr><td class="dl154">the <b>maximum</b> cost</td><td class="los154">does not exist</td><td class="los154">unbounded</td><td>the domain is open and \(C\to\infty\) at both ends</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="note">Every printed digit on this page was recomputed in Python before it was written down. Harness sections <span class="mono154">q154</span>, <span class="mono154">q154d</span>, <span class="mono154">q154c</span>, <span class="mono154">q154e</span> and <span class="mono154">q154s</span>: <b>830 assertions, 0 failures, 151 seeded controls</b>. No number anywhere on this page describes the shared harness <em>file</em>, because that file is appended to concurrently by other runs and any whole-file byte count or banner count of it is stale within minutes of being printed.</p>
+
+<p class="entry154">What to type into M&#246;bius: <span class="kbd">2*5^(1/3)</span>, <span class="kbd">4*5^(1/3)</span>, <span class="kbd">3*5^(1/3)</span> and <span class="kbd">324/5^(1/3)</span>. Bracket the fractional exponent. <span class="kbd">40^1/3</span> reads as \(40/3 = 13.33\), which is \(3.9\) times the true width, and the machine marks it wrong without comment.</p>
+</section>
+
+<section>
+<h2><span class="sn154">02</span> Where the symmetry went</h2>
+
+<p>A cube is not a general fact about boxes. It is what you get when two separate conditions both hold, and this stem breaks both of them.</p>
+
+<div class="pgrid two154g">
+  <div class="pcard main"><p class="pk">Condition one</p><p class="pv">A FREE BASE</p><p class="pd">The base has to be allowed to become square. This stem pins \(l = 2w\), so it cannot. Drop that clause and let \(l\) float, and the same cost function really does want a square base, of side \(\sqrt[3]{288/2.7} = 4.7425244060\) at a cost of \(182.1814557052\). The clause costs \(7.2948937310\) dollars, and that is a measured number, not a rhetorical one.</p></div>
+  <div class="pcard los"><p class="pk">Condition two</p><p class="pv">ONE RATE</p><p class="pd">Every face has to cost the same per unit area. Here the lid costs 25 percent more than everything else, so the two horizontal faces are dearer, on average, than the four vertical ones. An expensive face gets made <b>smaller</b>, so the box shrinks in plan and grows in height.</p></div>
+</div>
+
+<p>Write the base as \(w\) by \(l\) with \(l = kw\), let the base cost \(c_b\) per unit area, the lid \(c_t\), the sides \(c_s\), and fix the volume at \(V\). Then the whole family collapses to two formulas.</p>
+
+<p class="dspwrap154">$$C(w) = (c_b+c_t)k\,w^2 + \frac{2c_s(1+k)V}{k}\cdot\frac{1}{w}, \qquad w^3 = \frac{c_s(1+k)V}{k^2(c_b+c_t)}, \qquad \frac{h}{w} = \frac{k(c_b+c_t)}{c_s(1+k)}.$$</p>
+
+<p>The second formula is the size. <b>The third is the shape, and it is the one to read.</b> Notice what is missing from it: the volume. The proportions of the cheapest box depend on the cost ratios and on \(k\), and not at all on how big the box is. Double the volume and every dimension is multiplied by \(2^{1/3} = 1.2599\) while \(h/w\) does not move, which was checked at \(V = 1\), \(60\), \(120\), \(1000\) and \(99999\).</p>
+
+<p class="pull154">For this stem \(h/w = 2(2.7)/(1.2\cdot 3) = 3/2\) exactly, and \(l/w = 2\). Halve the width and the three dimensions are 2, 4 and 3.</p>
+
+<div class="tscroll vtab">
+<table class="cube154t">
+<thead><tr><th>instance</th><th>\(k\)</th><th>rates</th><th>\(h/w\)</th><th>a cube?</th></tr></thead>
+<tbody>
+<tr><td>square base, one rate</td><td class="mono154">1</td><td>all equal</td><td class="ok154">\(1\)</td><td class="ok154"><b>yes</b>, side \(V^{1/3}\)</td></tr>
+<tr><td>square base, the exam's rates</td><td class="mono154">1</td><td>lid dearer</td><td class="mono154">\(9/8\)</td><td class="bad154">no</td></tr>
+<tr><td>the exam's \(k\), one rate</td><td class="mono154">2</td><td>all equal</td><td class="mono154">\(4/3\)</td><td class="bad154">no</td></tr>
+<tr><td><b>the exam itself</b></td><td class="mono154">2</td><td>lid dearer</td><td class="win154">\(3/2\)</td><td class="bad154">no</td></tr>
+<tr><td>open top, square base, one rate</td><td class="mono154">1</td><td>no lid</td><td class="mono154">\(1/2\)</td><td class="bad154">no, twice as wide as tall</td></tr>
+<tr><td>square base, base twice the sides, no lid</td><td class="mono154">1</td><td>dear base</td><td class="ok154">\(1\)</td><td class="ok154"><b>yes</b>, by accident</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read the last row rather than skipping it. A cube can come back out of an asymmetric problem when the numbers happen to cancel, which is exactly why "it should be a cube" is not an argument in either direction. The shape is whatever the formula says.</p>
+</section>
+
+<section>
+<h2><span class="sn154">03</span> Reading the rates, which is where the marks actually go</h2>
+
+<p>The stem gives two prices and no diagram, so the reading has to come from the words. The lid is named separately, so "the material for the box" is everything else: the base and the four sides.</p>
+
+<div class="tscroll vtab">
+<table class="rate154">
+<thead><tr><th>faces</th><th>area with \(l=2w\)</th><th>rate</th><th>contribution</th></tr></thead>
+<tbody>
+<tr><td>base</td><td>\(wl = 2w^2\)</td><td class="mono154">1.20</td><td>\(2.4w^2\)</td></tr>
+<tr><td>lid</td><td>\(wl = 2w^2\)</td><td class="mono154">1.50</td><td>\(3.0w^2\)</td></tr>
+<tr><td>four sides</td><td>\(2(w+l)h = 6wh\)</td><td class="mono154">1.20</td><td>\(7.2wh = 432/w\)</td></tr>
+<tr><td class="dl154"><b>total</b></td><td>\(4w^2 + 6wh\)</td><td>&#160;</td><td class="hi154">\(C(w) = 5.4w^2 + \dfrac{432}{w}\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>This is the most expensive misreading in the question, and no numeric check catches it.</b> Every alternative reading is a perfectly well-formed problem with a perfectly plausible answer, so nothing downstream complains. The course notes get it wrong: <span class="mono154">MATH265_Review.md</span>'s own setup line reads "Cost = (sides area x 1.20) + (lid area x 1.50)", which leaves the <b>base unpaid</b> and gives a width of \(4.1602\) at a cost of \(155.7630\).</p>
+
+<p>What does catch it is a dimensional check, run before any calculus. A rate is dollars per square centimetre, so multiplying it by an area gives dollars and multiplying it by anything else does not.</p>
+
+<div class="tscroll vtab">
+<table class="dim154">
+<thead><tr><th>expression</th><th>dimension</th><th>verdict</th></tr></thead>
+<tbody>
+<tr><td>\(c\cdot wl\)</td><td>(dollars per cm\(^2\)) times cm\(^2\)</td><td class="ok154">a cost, in dollars</td></tr>
+<tr><td>\(c\cdot wlh\)</td><td>(dollars per cm\(^2\)) times cm\(^3\)</td><td class="bad154">dollars times a length, not a cost</td></tr>
+<tr><td>\(V/(wl)\)</td><td>cm\(^3\)/cm\(^2\) = cm</td><td class="ok154">a height</td></tr>
+<tr><td>\(V/w\)</td><td>cm\(^3\)/cm = cm\(^2\)</td><td class="bad154">not a height</td></tr>
+<tr><td>\(432/w\)</td><td>(dollars times cm) divided by cm</td><td class="ok154">a cost, in dollars</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Look at the last row. The constant \(432\) is <em>not</em> a plain number of dollars: it carries a length, because it arrived as a rate times an area divided by a width. That is precisely the check that tells you \(432/w\) belongs in a money sum while \(432w\) would not. In this run the gate was proved live against eight seeded rejections before it was trusted, including "cost equals rate times volume", which is the slip it exists for.</p>
+</section>
+
+<section>
+<h2><span class="sn154">04</span> The cost, drawn</h2>
+
+<p>Two things are worth seeing rather than reading. The first is that the cost is a sum of one rising piece and one falling piece, and that at the bottom the falling piece is exactly <b>twice</b> the rising one. The second is that the frame has no ends: the edges are dashed because the domain runs to zero on one side and to infinity on the other, and neither is a place you can evaluate.</p>
+
+<div class="figbox">
+<!--FIGA-->
+</div>
+
+<p class="fcap154">Panel A. The two components cross-trade: at a narrow base the four sides are enormous because the box has to be tall, and at a wide base the base and lid are enormous because they are large. The minimum is not where the two curves meet. It is where the falling one is twice the rising one, which is what the tie line marks.</p>
+
+<p>The second figure is the answer against its neighbours. All six boxes hold exactly \(120\text{ cm}^3\); the five solid ones also obey \(l=2w\). The dashed one is the cube.</p>
+
+<div class="figbox">
+<!--FIGB-->
+</div>
+
+<p class="fcap154">Panel B. The cube is cheaper, at \(182.4661\) against \(189.4763\), and it is illegal: its length equals its width where the stem demands twice. So the \(l=2w\) clause costs \(7.0102895690\) dollars, and a "my answer is cheaper, so it must be better" check <b>rewards the wrong box</b>. That is the single most useful sentence on this page.</p>
+</section>
+
+<section>
+<h2><span class="sn154">05</span> No endpoints, so justify instead of compare</h2>
+
+<p>The feasible set is \((0,\infty)\), open at both ends, and the stem never prints it. You write it down yourself, and it changes the method.</p>
+
+<div class="pgrid three154g">
+  <div class="pcard fam"><p class="pk">Q15.1's method</p><p class="pv">COMPARE</p><p class="pd">A printed closed interval. Find the critical points, add <b>both</b> endpoints, evaluate everything, pick the largest and the smallest. The Extreme Value Theorem is what licenses the comparison, by guaranteeing the extremes exist in the first place.</p></div>
+  <div class="pcard los"><p class="pk">Here</p><p class="pv">UNAVAILABLE</p><p class="pd">There is no left endpoint and no right endpoint, so the candidate table has two empty rows and the comparison cannot be run at all. Measured: \(C(10^{-9}) &gt; 4\times 10^{11}\) and \(C(10^{9}) &gt; 5\times 10^{18}\), monotone over eight decades in each direction.</p></div>
+  <div class="pcard main"><p class="pk">Instead</p><p class="pv">JUSTIFY</p><p class="pd">Convexity, a sign change, or the limits at both ends. Any one of the three is enough, and the words <b>"for all \(w&gt;0\)"</b> are the entire difference between proving a local minimum and proving the global one.</p></div>
+</div>
+
+<div class="tscroll vtab">
+<table class="jus154">
+<thead><tr><th>argument</th><th>what you write</th><th>when to reach for it</th></tr></thead>
+<tbody>
+<tr><td class="dl154"><b>convexity</b></td><td>\(C'' = 10.8 + 864/w^3 &gt; 0\) for every \(w&gt;0\), so the local minimum is global</td><td class="ok154">first choice: one line, settles everything</td></tr>
+<tr><td class="dl154"><b>sign change</b></td><td>\(C' = \dfrac{10.8(w^3-40)}{w^2}\), negative before \(\sqrt[3]{40}\) and positive after</td><td>always available, and survives \(C''=0\)</td></tr>
+<tr><td class="dl154"><b>the two ends</b></td><td>\(C\to\infty\) as \(w\to 0^{+}\) and as \(w\to\infty\), so a minimum exists and cannot escape</td><td>the honest one: the only argument that explains why a minimum exists</td></tr>
+<tr><td class="dl154"><b>three-term AM-GM</b></td><td>\(5.4w^2 + \dfrac{216}{w} + \dfrac{216}{w} \ge 3\sqrt[3]{5.4\cdot 216^2}\), equality at \(w^3=40\)</td><td>a complete global proof with no calculus at all</td></tr>
+</tbody>
+</table>
+</div>
+
+<p class="pull154">Two-term AM-GM does <b>not</b> work here. It gives \(2\sqrt{5.4\cdot 432} = 96.5981\), a true lower bound sitting at roughly half the real minimum, so it bounds nothing useful. Split the reciprocal term into \(q\) copies and the power term into \(p\) copies, and then it is exact.</p>
+
+<p>The general recipe behind that last row: for \(a w^p + b w^{-q}\), use \(p\) copies of \(\tfrac{a}{p}w^p\) and \(q\) copies of \(\tfrac{b}{q}w^{-q}\). Here \(p=2\) and \(q=1\), so it is one copy of the square term and two copies of half the reciprocal term, and each of the three is \(63.1587831454\) at the answer.</p>
+</section>
+
+<section>
+<h2><span class="sn154">06</span> The write-up, as it should appear on the paper</h2>
+
+<p class="script154">Let the base be \(w\) wide and \(l\) long and the box \(h\) tall, in cm, with \(w&gt;0\).<br>
+The stem gives \(l=2w\) and \(wlh=120\), so \(2w^2h=120\) and \(h=60/w^2\).<br>
+The base and lid each have area \(2w^2\); the four sides have total area \(2(w+l)h = 6wh\).<br>
+Cost \(= 1.20(2w^2+6wh) + 1.50(2w^2)\), which is \(5.4w^2 + 7.2wh\), and after the height goes in \(5.4w^2 + 432/w\) dollars, for \(w&gt;0\).<br>
+The domain is open at both ends, so there are no endpoints to test.<br>
+\(C'(w) = 10.8w - 432/w^2 = 0\) gives \(w^3 = 40\), so \(w=\sqrt[3]{40}\), the only real root and positive.<br>
+\(C''(w) = 10.8 + 864/w^3 &gt; 0\) for <b>all</b> \(w&gt;0\), so \(C\) is convex and this is the <b>global</b> minimum.<br>
+Then \(l = 2\sqrt[3]{40}\) and \(h = 60/w^2 = \tfrac32\sqrt[3]{40}\), and \(w\cdot l\cdot h = 120\) as required.<br>
+<b>Dimensions</b> \(3.42\) cm by \(6.84\) cm by \(5.13\) cm. <b>Minimum cost</b> \(16.2\cdot 40^{2/3} \approx 189.48\) dollars.</p>
+
+<p>One step in that is worth pausing on, because it is where the clean answer comes from. Since \(w^3 = 40\) exactly, \(\dfrac{60}{w^2} = \dfrac{60w}{w^3}\), which is \(\dfrac{60w}{40}\), which is \(\dfrac{3w}{2}\), with no decimals anywhere. The height is a rational multiple of the width, so the box is \(2:4:3\) and the volume checks in integers: \(2\cdot 4\cdot 3\cdot 5 = 120\).</p>
+
+<p class="note">There is no marking scheme anywhere in the four course files, so any claim about which sentences earn marks is inference and is flagged as such. Zero occurrences of "rubric", "marking scheme" or "part marks" across all four files, re-verified this run for the thirteenth consecutive time. What can be said is which sentences a marker can see went missing, and there are six: the model, the two constraints, the elimination, the derivative, the justification, and the four reported numbers with their units.</p>
+</section>
+
+<section>
+<h2><span class="sn154">07</span> Checking yourself, and the two checks that cannot work</h2>
+
+<p>Q15.2 established that a reported minimum cannot check a reported minimiser, because the objective is flat where it matters. Here it is worse, and it is worth seeing the numbers.</p>
+
+<div class="tscroll vtab">
+<table class="chk154">
+<thead><tr><th>a width of</th><th>wrong by</th><th>its cost</th><th>cost wrong by</th><th>volume constraint</th></tr></thead>
+<tbody>
+<tr><td class="hi154">\(3.4199518934\)</td><td class="mono154">the answer</td><td class="hi154">\(189.4763494362\)</td><td class="mono154">the answer</td><td class="ok154">exact</td></tr>
+<tr><td class="mono154">\(3.42\)</td><td class="mono154">0.0014 percent</td><td class="mono154">agrees to nine figures</td><td class="bad154">3 parts in \(10^{8}\)</td><td class="bad154">exact anyway</td></tr>
+<tr><td class="mono154">\(3.5\)</td><td class="mono154">2.3 percent</td><td class="mono154">\(189.5786\)</td><td class="bad154">0.054 percent</td><td class="bad154">exact anyway</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Read the last column. The volume constraint holds <b>exactly</b> for any width you pick, because \(h\) was <em>defined</em> by the constraint: \(3.42 \times 6.84 \times (60/3.42^2)\) is \(120\) on the nose. So the constraint check can only catch a dimension you recovered wrongly. It can never catch a critical point you solved wrongly.</p>
+
+<p class="pull154">Never validate the minimiser using the minimum, and never validate it using the constraint. Only the derivative sees a nearly-right width.</p>
+
+<p>The cheap version of the derivative check is the ratio. At the minimum of \(aw^2+b/w\) the reciprocal term is exactly twice the power term, so multiply and compare.</p>
+
+<div class="tscroll vtab">
+<table class="rat154">
+<thead><tr><th>objective</th><th>where it comes from</th><th>\(p:q\)</th><th>the ratio at the minimum</th></tr></thead>
+<tbody>
+<tr><td>\(5.4w^2 + 432/w\)</td><td>this question</td><td class="mono154">2 : 1</td><td class="hi154">\(2\)</td></tr>
+<tr><td>\(2w + 440/w\)</td><td>Q15.2, the rectangle</td><td class="mono154">1 : 1</td><td class="mono154">\(1\)</td></tr>
+<tr><td>\(w^3 + 1/w\)</td><td>a cost with a cubic term</td><td class="mono154">3 : 1</td><td class="mono154">\(3\)</td></tr>
+<tr><td>\(w + 1/w^2\)</td><td>a squared penalty</td><td class="mono154">1 : 2</td><td class="mono154">\(1/2\)</td></tr>
+<tr><td>\(7w^2 + 13/w^3\)</td><td>an invented control</td><td class="mono154">2 : 3</td><td class="mono154">\(2/3\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Q15.2's famous "the two terms are equal at the minimum" is the \(p=q\) row of that table and nothing more. Forcing them equal here gives \(w = \sqrt{432/5.4} = 8.944\), off by a factor of \(2.6\).</p>
+
+<p>And the ratio check has a resolution limit of its own, which is worth knowing before you trust it: at \(w=3.5\) the ratio is \(1.8659\), which is visibly not two, but at \(w=3.42\) it is \(1.9999\), which is inside a hand-arithmetic slip. A magnitude bracket helps, and the useful one comes from the <b>surface area</b> rather than the cost, because it is independent of the rate reading: \(152.0489\) cm\(^2\) at rates between 1.20 and 1.50 must land between \(182.46\) and \(228.07\) dollars.</p>
+</section>
+
+<section>
+<h2><span class="sn154">08</span> The wrong answers, and the one that hides</h2>
+
+<p>Sixteen mutilations of this model were scanned in this run with nothing excluded as degenerate, including the cube and both equal-two-sides cases. Fifteen show and <b>one</b> hides.</p>
+
+<div class="tscroll vtab">
+<table class="cens154">
+<thead><tr><th>the slip</th><th>its width</th><th>its cost</th><th>show or hide</th></tr></thead>
+<tbody>
+<tr><td class="hi154">the truth</td><td class="hi154">\(3.419952\)</td><td class="hi154">\(189.476349\)</td><td class="hi154">&#160;</td></tr>
+<tr><td>read \(l=2w\) backwards, as \(w=2l\)</td><td class="mono154">\(6.839904\)</td><td class="mono154">\(189.476349\)</td><td class="los154"><b>HIDES</b></td></tr>
+<tr><td>omit the lid entirely</td><td class="mono154">\(4.481405\)</td><td class="mono154">\(144.597517\)</td><td class="ok154">shows</td></tr>
+<tr><td>count the four sides as \(4wh\)</td><td class="mono154">\(2.987603\)</td><td class="mono154">\(144.597517\)</td><td class="ok154">shows</td></tr>
+<tr><td>leave the base unpaid (the notes' reading)</td><td class="mono154">\(4.160168\)</td><td class="mono154">\(155.762954\)</td><td class="ok154">shows</td></tr>
+<tr><td>a uniform 1.20 on all six faces</td><td class="mono154">\(3.556893\)</td><td class="mono154">\(182.181456\)</td><td class="ok154">shows</td></tr>
+<tr><td>a uniform 1.50 on all six faces</td><td class="mono154">\(3.556893\)</td><td class="mono154">\(227.726820\)</td><td class="ok154">shows</td></tr>
+<tr><td>minimise surface area, not cost</td><td class="mono154">\(3.556893\)</td><td class="mono154">\(151.817880\)</td><td class="ok154">shows</td></tr>
+<tr><td>\(h = 120/w^2\), forgetting the 2 in the base</td><td class="mono154">\(4.308869\)</td><td class="mono154">\(300.774956\)</td><td class="ok154">shows</td></tr>
+<tr><td>the CUBE prior, \(s^3 = 120\)</td><td class="mono154">\(4.932424\)</td><td class="mono154">\(182.466060\)</td><td class="ok154">shows, and is cheaper</td></tr>
+<tr><td>force \(h = w\)</td><td class="mono154">\(3.914868\)</td><td class="mono154">\(193.109977\)</td><td class="ok154">shows</td></tr>
+<tr><td>force \(h = l\)</td><td class="mono154">\(3.107233\)</td><td class="mono154">\(191.166898\)</td><td class="ok154">shows</td></tr>
+</tbody>
+</table>
+</div>
+
+<p><b>The one that hides is the most interesting result of the run.</b> Reading "the length of the base is twice as long as it is wide" backwards gives the base area \(w^2/2\), the height \(240/w^2\) and the objective \(1.35w^2 + 864/w\), whose minimum sits at \(w^3 = 320\). Different equation, different root, and yet the box that comes out is \(6.8399\) by \(3.4200\) by \(5.1299\): <b>the same box, with the labels \(w\) and \(l\) exchanged</b>. The cost is identical to twelve figures.</p>
+
+<p>The reason is worth carrying to any question in this family. The cost sees the base only through its <b>area</b> and its <b>perimeter</b>, and both are symmetric in \(w\) and \(l\). So Q15.2's involution survives into three dimensions after all, and what breaks the symmetry is not the pricing but the <em>constraint</em>. The asymmetry that stops the answer being a cube lives between the horizontal direction and the vertical one, where \(h\) is genuinely not interchangeable with either base edge.</p>
+
+<h3 class="sh154">Two wrong models can agree with each other</h3>
+
+<p>For \(C = Aw^2 + B/w\) the minimiser is \((B/2A)^{1/3}\) and the minimum is \(3(AB^2/4)^{1/3}\). So the <b>dimensions</b> depend only on \(B/A\) and the <b>cost</b> depends only on \(AB^2\), and those two quantities move independently.</p>
+
+<div class="pgrid two154g">
+  <div class="pcard fam"><p class="pk">Same \(B/A\)</p><p class="pv">DIMENSIONS AGREE</p><p class="pd">The uniform-1.20 reading, the uniform-1.50 reading and the least-area problem all share \(B/A = 90\), so all three return the same width \(3.556893\) with three different costs. Getting the same dimensions twice proves nothing if both routes share a modelling error.</p></div>
+  <div class="pcard los"><p class="pk">Same \(AB^2\)</p><p class="pv">COST AGREES</p><p class="pd">Omitting the lid and counting the sides as \(4wh\) share \(AB^2 = 447897.6\), so both return \(144.597517\) from two quite different widths. Two students with different wrong models can hand in the same wrong cost.</p></div>
+</div>
+</section>
+
+<section>
+<h2><span class="sn154">09</span> Every version of this question</h2>
+
+<p>Ten families, grouped by the tool the variation forces rather than by how it looks. Every row is one substitution into the two formulas of section 02, so the whole catalog contains exactly two magnitudes and the rest is arithmetic.</p>
+
+<div class="tscroll vtab">
+<table class="fam154t">
+<thead><tr><th>family</th><th>the trigger</th><th>what changes</th><th>the shape it gives</th></tr></thead>
+<tbody>
+<tr><td class="fk154">0 &#183; per-face rates</td><td>two or more prices, and \(l = kw\)</td><td>nothing; this is the exam</td><td>\(h/w = k(c_b+c_t)/(c_s(1+k))\)</td></tr>
+<tr><td class="fk154">1 &#183; no lid</td><td>"an open box", "no top"</td><td>\(c_t = 0\)</td><td>one rate and \(k=1\) gives <b>twice as wide as tall</b></td></tr>
+<tr><td class="fk154">2 &#183; square base</td><td>"the base is square", or no relation given</td><td>\(k=1\)</td><td>the only place a cube can appear</td></tr>
+<tr><td class="fk154">3 &#183; reinforced base</td><td>"the bottom is three times as expensive"</td><td>\(c_b \ne c_s\)</td><td>taller and narrower, monotonically in \(c_b\)</td></tr>
+<tr><td class="fk154">4 &#183; the dual</td><td>"you have 300 dollars, find the largest box"</td><td>constraint and objective swap</td><td>same box; but the domain becomes <b>closed</b> at the far end</td></tr>
+<tr><td class="fk154">5 &#183; a cylinder</td><td>"a cylindrical can", "a tin"</td><td>\(r\) for \(w\), \(\pi r^2 h = V\)</td><td>\(h/r = f\,c_e/c_s\): a closed one-rate can has <b>height equal to diameter</b></td></tr>
+<tr><td class="fk154">6 &#183; least area</td><td>"the least material", no prices</td><td>all rates 1</td><td>a <b>different box</b>: \(3.556893\), not \(3.419952\)</td></tr>
+<tr><td class="fk154">7 &#183; a cap</td><td>"the width cannot exceed 3 cm"</td><td>the domain closes</td><td>the comparison returns, and the answer may sit at the cap</td></tr>
+<tr><td class="fk154">8 &#183; power sums</td><td>any \(aw^p + bw^{-q}\)</td><td>the exponents</td><td>term ratio \(p:q\); the equal-terms rule is the \(p=q\) row</td></tr>
+<tr><td class="fk154">9 &#183; point or value</td><td>every question in the topic</td><td>read the stem twice</td><td>three lengths and one amount of money</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3 class="sh154">Family 6 is the one that catches people</h3>
+
+<p>The cheapest box and the box of least material are <b>not the same box</b>, and both penalties are tiny, which is why the confusion survives. The cheapest box uses \(0.152\) percent more material than the box of least material, and the box of least material costs \(0.296\) dollars more than the cheapest box. Neither number looks wrong. The only thing separating the two problems is which objective you differentiated.</p>
+
+<h3 class="sh154">Family 7 restores the Extreme Value Theorem</h3>
+
+<div class="tscroll vtab">
+<table class="cap154t">
+<thead><tr><th>restriction</th><th>domain</th><th>where the minimum sits</th><th>cost</th><th>is there a maximum?</th></tr></thead>
+<tbody>
+<tr><td>none</td><td>\((0,\infty)\)</td><td>interior, \(\sqrt[3]{40}\)</td><td class="hi154">\(189.4763\)</td><td class="los154">no</td></tr>
+<tr><td>\(w \le 3\)</td><td>\((0,3]\)</td><td class="win154">the endpoint \(w=3\)</td><td class="mono154">\(192.60\)</td><td class="los154">no</td></tr>
+<tr><td>\(w \ge 4\)</td><td>\([4,\infty)\)</td><td class="win154">the endpoint \(w=4\)</td><td class="mono154">\(194.40\)</td><td class="los154">no</td></tr>
+<tr><td>\(3 \le w \le 4\)</td><td>\([3,4]\)</td><td>interior again</td><td class="hi154">\(189.4763\)</td><td class="ok154">yes, at \(w=4\)</td></tr>
+</tbody>
+</table>
+</div>
+
+<p>A cap only bites if it <b>excludes</b> the critical point. The last row's cap contains \(3.42\) and changes nothing at all except that a maximum now exists.</p>
+</section>
+
+<section>
+<h2><span class="sn154">10</span> How every number here was checked</h2>
+
+<p>The constraint and the cost objective were checked against the stem's own numbers <b>in exact rationals, before any calculus</b>, face by face at five widths, with three alternative rate readings explicitly rejected. The dimensional gate was built as exponent vectors over centimetres and dollars and proved live against eight seeded rejections.</p>
+
+<p>\(C'\) was recovered twice without ever seeing its closed form, by complex-step differentiation and by a bounded Richardson ladder whose fourth-order convergence was measured on a separate <em>curved</em> control, since a centred quotient differentiates the quadratic part exactly and would have measured nothing. \(C''\) got its own arm, a Richardson-extrapolated second difference, rather than being obtained by re-differentiating the claimed \(C'\).</p>
+
+<p>The critical point was found four ways: bisection on \(C'\), Newton on \(C'\), a sign-change sweep that steps over an exact zero, and local minima of \(\lvert C' \rvert\) refined by golden section. The census machinery was controlled in both directions first, returning \(3\) on \(x^3-x\) at both grid parities, \(0\) on a touch zero, \(2\) on \(x^2-1\) and \(0\) on \(x^2+1\). The grid-parity trap that decided the answer on Q15.1 and Q15.3 <b>cannot fire here</b>, because \(\sqrt[3]{40}\) is irrational and no rational grid point lands on it, and that was asserted rather than assumed.</p>
+
+<p>Global minimality was established four ways on the actual open domain: the limits at both ends over eight decades each, a sign scan of 2000 widths per side, convexity at 4000 widths over six decades, and a refined dense sweep independent of the candidate list. That sweep was judged against a <b>derived</b> bound, \(\sqrt{2\varepsilon C^{*}/C''}\), which is \(5.0961\times 10^{-8}\), never an invented tolerance.</p>
+
+<div class="tscroll vtab">
+<table class="ver154">
+<thead><tr><th>harness section</th><th>what it covers</th><th>assertions</th><th>failures</th><th>seeded controls</th></tr></thead>
+<tbody>
+<tr><td class="mono154">q154</td><td>provenance, the model, the dimensional gate, both derivatives, the root census, global minimality, the census of wrong answers, the routes, the course files</td><td class="mono154">387</td><td class="ok154">0</td><td class="mono154">87</td></tr>
+<tr><td class="mono154">q154d</td><td>ten variation families and twelve drills, each solved twice with a per-instance derived tolerance, then digit-locked</td><td class="mono154">307</td><td class="ok154">0</td><td class="mono154">33</td></tr>
+<tr><td class="mono154">q154c</td><td>corrections: the label-permutation hiding point, and the two invariants</td><td class="mono154">47</td><td class="ok154">0</td><td class="mono154">18</td></tr>
+<tr><td class="mono154">q154e</td><td>erratum: a tolerance looser than the gap it had to see</td><td class="mono154">10</td><td class="ok154">0</td><td class="mono154">5</td></tr><tr><td class="mono154">q154s</td><td>every number the two figures on this page state, re-derived from the shipped SVG</td><td class="mono154">79</td><td class="ok154">0</td><td class="mono154">8</td></tr>
+<tr><td class="dl154"><b>total</b></td><td>&#160;</td><td class="hi154"><b>830</b></td><td class="ok154"><b>0</b></td><td class="hi154"><b>151</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<p>Sixty-three apparent errors were investigated during this run and every one was the check, the draft prose or a typed decimal, never the mathematics. Forty-four were typed decimal literals sitting beside a correct closed form, which remains by some distance the most repeated defect in this series. Thirty-four of those forty-four came from one habit and were closed by one redesign: the variation catalog originally passed a hand-predicted answer into each row's checker, so the fix was to stop passing expected values at all and let each row compute its own from the face-by-face sum and a blind sweep, print it, and lock the printed digits afterwards.</p>
+
+<p>Eight further assertions <b>could not fail</b> and were removed before anything was appended, found by reading every label against its own expression rather than by any run. And one wrong value <b>passed</b>, which is the sharpest finding here: the derived resolution bound was typed as \(5.0967\times 10^{-8}\) where it is \(5.0961\times 10^{-8}\), and the assertion's absolute tolerance of \(10^{-11}\) was larger than the \(5.75\times 10^{-12}\) gap it had to discriminate. For a quantity of order \(10^{-8}\) an absolute tolerance of \(10^{-11}\) resolves three significant figures and no more. A separate claims pass over the finished page caught it, and <span class="mono154">q154e</span> replaces the check with a relative one.</p>
+
+<p class="note">Sources. The question: <span class="mono154">notes\MATH265.md</span> Part B, and <span class="mono154">notes\MATH265\MATH265.md</span> Final Exam 2 item 5, which carry the same sentence once the math markup is stripped. Siblings: the Q15.2 tutorial for the modelling layer and the open-domain justification, the Q15.3 tutorial for the Extreme Value Theorem's hypotheses, the Q15.1 tutorial for the candidate table this question cannot use. Course files: <span class="mono154">MATH265_Review.md</span> gets the cost line wrong as described in section 03, never finishes the arithmetic (the strings 189.47, 3.4199 and 5.1299 each occur zero times, and so does the word "cheapest"), never mentions an open interval or the absence of a maximum, and offers "check endpoints" as the verification for a question that has none. <span class="mono154">MATH265_Categorized.md</span> is cp1252 rather than UTF-8, failing a UTF-8 decode at byte 318, and has no entry for this topic at all.</p>
+</section>
+
+</main>

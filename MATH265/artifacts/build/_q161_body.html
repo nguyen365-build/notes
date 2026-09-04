@@ -1,0 +1,430 @@
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 8 &middot; 20 POINTS &middot; Q16.1</div>
+  <h1>A Search, Not a Lookup</h1>
+  <p class="stand">Five integrals, and the first integration question in the bank. Everything before
+  it was differential calculus, so this one is not testing a technique - it is testing whether you
+  own the ladder.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="sn161">01</span>The question</h2>
+
+  <div class="stem161">
+    <p>Compute the value of each of the integrals listed below.</p>
+    <div class="tscroll vtab">
+      <table>
+        <thead><tr><th>part</th><th>integral</th><th>answer</th><th>decimal</th></tr></thead>
+        <tbody>
+          <tr><td class="pk161">a</td><td>$\int (x^2-x)\sqrt{3x}\,dx$</td>
+              <td class="hi161">$\dfrac{2\sqrt3}{7}x^{7/2}-\dfrac{2\sqrt3}{5}x^{5/2}+C$</td>
+              <td class="num161">$x\ge0$</td></tr>
+          <tr><td class="pk161">b</td><td>$\int \sin(2x)\cos x\,dx$</td>
+              <td class="hi161">$-\dfrac{2}{3}\cos^3x+C$</td>
+              <td class="num161">all $x$</td></tr>
+          <tr><td class="pk161">c</td><td>$\int_a^b (x+\cos 2x)\,dx$</td>
+              <td class="hi161">$\dfrac{b^2-a^2}{2}+\dfrac{\sin 2b-\sin 2a}{2}$</td>
+              <td class="num161">0.954648713413 at $a{=}0,b{=}1$</td></tr>
+          <tr><td class="pk161">d</td><td>$\int (x^2-4)^2\,dx$</td>
+              <td class="hi161">$\dfrac{x^5}{5}-\dfrac{8x^3}{3}+16x+C$</td>
+              <td class="num161">all $x$</td></tr>
+          <tr><td class="pk161">e</td><td>$\int_2^4 x\sqrt{x-1}\,dx$</td>
+              <td class="hi161">$\dfrac{28\sqrt3}{5}-\dfrac{16}{15}$</td>
+              <td class="num161">8.632817855719</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="prov161">Question text from <span class="mono161">notes\MATH265.md</span> lines
+    460-469. Point value and exam identity from <span class="mono161">MATH265\MATH265.md</span>
+    line 201, inside the Final Exam 1 block that begins at line 164.
+    <b>No marking scheme exists in any course file</b>, so the 4-points-per-part split, and every
+    statement below about what earns marks, is inference.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn161">02</span>The 30-second version</h2>
+  <p>Integration is a <b>search</b>, not a lookup. Walk the ladder from the top and stop at the
+  first rung that fires.</p>
+  <pre class="ladder161"><code>RUNG 1  Can ALGEBRA make this a sum of powers?      -&gt; power rule, term by term
+        (multiply out, split the fraction, pull constants)
+RUNG 2  Is the inner function LINEAR (ax+b)?         -&gt; integrate outside, divide by a
+RUNG 3  Is some inner function's DERIVATIVE present  -&gt; u-substitution
+        in the rest, up to a constant factor?
+RUNG 4  Is it a trig product with no du in sight?    -&gt; IDENTITY first, re-enter at 1
+
+then always:   + C   (indefinite only)
+then always:   DIFFERENTIATE YOUR ANSWER BACK</code></pre>
+  <p class="note">Q16.1's five parts are rungs <b>1, 4, 2, 1, 3</b> in order. That is not a
+  coincidence - it is the whole ladder, laid out as one question.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">03</span>The ladder, and what the check can see</h2>
+  <div class="figbox">
+    __FIG__
+  </div>
+  <p class="cap161">Panel A places each part on the rung its search stopped at; part (b) is the
+  only one that has to fall to rung 4 and re-enter higher. Panel B is the measured wrong-answer
+  census from harness section <span class="mono161">q161c</span>: 26 seeded errors, 16 caught,
+  10 missed, and the split is exact rather than approximate.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">04</span>Why there is no last-operation test here</h2>
+  <p>Q8.1 builds its whole rule-selection method on the <b>last-operation test</b>: ask what the
+  outermost operation is, and the rule follows. It works because differentiation is structural.
+  Q8.1 puts it plainly - the test <i>never looks at the whole expression</i>.</p>
+  <p>Integration has no such test, and understanding why is worth more than any single technique.</p>
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th></th><th>differentiation (Q8.1)</th><th>integration (Q16.1)</th></tr></thead>
+      <tbody>
+        <tr><td class="pk161">what you inspect</td><td>the <b>last operation</b> only</td>
+            <td class="chn161">the <b>whole integrand</b> at once</td></tr>
+        <tr><td class="pk161">rule for a product</td><td>the product rule</td>
+            <td class="los161">does not exist</td></tr>
+        <tr><td class="pk161">rule for a quotient</td><td>the quotient rule</td>
+            <td class="los161">does not exist</td></tr>
+        <tr><td class="pk161">rule for a composition</td><td>the chain rule</td>
+            <td class="los161">does not exist - substitution is a guess</td></tr>
+        <tr><td class="pk161">the procedure</td><td>a decision, taken once</td>
+            <td class="chn161">a <b>search</b>, with backtracking</td></tr>
+        <tr><td class="pk161">can it fail?</td><td>no</td>
+            <td class="los161">yes - some functions have no elementary antiderivative</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="warn161">So the mirror of the last-operation test is not another one-glance test. It is
+  the ladder, walked from the top. The question it puts first, every time, is
+  <b>&ldquo;can algebra kill this before I reach for a technique?&rdquo;</b> - and on Q16.1 that
+  disposes of two of the five parts.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">05</span>The five parts</h2>
+
+  <h3 class="sh161">(a) &nbsp; $\int (x^2-x)\sqrt{3x}\,dx$ &nbsp; <span class="rung161">rung 1</span></h3>
+  <p>It looks like a product. It is not a product problem. Pull the constant out of the root, then
+  multiply out:</p>
+  <p>$$(x^2-x)\sqrt3\,x^{1/2}=\sqrt3\left(x^{5/2}-x^{3/2}\right)$$</p>
+  <p>$$\int = \frac{2\sqrt3}{7}x^{7/2}-\frac{2\sqrt3}{5}x^{5/2}+C$$</p>
+  <p class="note"><b>Domain.</b> $\sqrt{3x}$ needs $x\ge0$. That restriction is real, and section
+  07 shows it is invisible to every check you can run in the exam.</p>
+
+  <h3 class="sh161">(b) &nbsp; $\int \sin(2x)\cos x\,dx$ &nbsp; <span class="rung161">rung 4, then 3</span></h3>
+  <p>Both substitution candidates fail. $u=\sin 2x$ needs a $\cos 2x$ that is not there;
+  $u=\cos x$ needs a $\sin x$, and there is a $\sin 2x$ instead. Two failures is the cue for an
+  identity.</p>
+  <p>$$\sin 2x\cos x = 2\sin x\cos^2 x \;\Longrightarrow\; \int = -\frac{2}{3}\cos^3x+C$$</p>
+  <p>The product-to-sum route gives $-\tfrac16\cos 3x-\tfrac12\cos x+C$. Substituting
+  $\cos 3x=4\cos^3x-3\cos x$ collapses it to the same function - the two routes differ by a
+  constant, and here that constant is <b>exactly zero</b>. Verified across seven sample points to
+  $10^{-13}$. Worth seeing once, because it is the exception: two correct antiderivatives normally
+  differ by a non-zero constant, and both are still correct.</p>
+
+  <h3 class="sh161">(c) &nbsp; $\int_a^b (x+\cos 2x)\,dx$ &nbsp; <span class="rung161">rungs 1 and 2</span></h3>
+  <p>A sum splits, so each term goes its own way. The second term is the $1/a$ rule with $a=2$.</p>
+  <p>$$\left[\frac{x^2}{2}+\frac{\sin 2x}{2}\right]_a^b
+     =\frac{b^2-a^2}{2}+\frac{\sin 2b-\sin 2a}{2}$$</p>
+  <p class="note"><b>No $+C$</b> - the limits are there, so the answer is a number. Verified on six
+  $(a,b)$ pairs including $a=b$, which gives exactly $0$, and $b&lt;a$, which negates. Neither was
+  excluded as degenerate.</p>
+
+  <h3 class="sh161">(d) &nbsp; $\int (x^2-4)^2\,dx$ &nbsp; <span class="rung161">rung 1</span></h3>
+  <p>The bracket's power is 2, so expand.</p>
+  <p>$$\int\left(x^4-8x^2+16\right)dx=\frac{x^5}{5}-\frac{8x^3}{3}+16x+C$$</p>
+  <p class="warn161">The trap this part exists to punish is running the chain rule backwards and
+  writing $\tfrac13(x^2-4)^3$. There is no backwards chain rule. That answer differentiates back to
+  the integrand times $2x$, and the check catches it with a relative gap of
+  <span class="mono161">1.120e+01</span>.</p>
+
+  <h3 class="sh161">(e) &nbsp; $\int_2^4 x\sqrt{x-1}\,dx$ &nbsp; <span class="rung161">rung 3</span></h3>
+  <p>Put $u=x-1$, so $x=u+1$ and $dx=du$. <b>Change the limits</b>: $x=2$ gives $u=1$, and $x=4$
+  gives $u=3$.</p>
+  <p>$$\int_1^3\left(u^{3/2}+u^{1/2}\right)du
+     =\left[\frac{2}{5}u^{5/2}+\frac{2}{3}u^{3/2}\right]_1^3
+     =\frac{28\sqrt3}{5}-\frac{16}{15}$$</p>
+  <p class="warn161">The step that carries the marks is rewriting $x$ as $u+1$. Leaving the $x$ in
+  place is this part's defining error - and it is exactly what the ladder means by
+  <b>convert $dx$ completely</b>. Differentiating back does catch it, with a gap of
+  <span class="mono161">1.384e+00</span>.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">06</span>Which route to use under pressure</h2>
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>part</th><th>route</th><th>verdict</th></tr></thead>
+      <tbody>
+        <tr><td class="pk161">a</td><td>expand to powers</td><td class="win161">always - there is no competitor</td></tr>
+        <tr><td class="pk161">b</td><td>double angle, then $u=\cos x$</td><td class="win161">use this</td></tr>
+        <tr><td class="pk161">b</td><td>product-to-sum</td><td class="los161">the formula is not on the note sheet</td></tr>
+        <tr><td class="pk161">d</td><td>expand</td><td class="win161">use this - the power is only 2</td></tr>
+        <tr><td class="pk161">e</td><td>substitute, <b>change the limits</b></td><td class="win161">use this</td></tr>
+        <tr><td class="pk161">e</td><td>substitute, then back-substitute to $x$</td><td class="los161">two extra lines, and a stray $x$ can survive</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="warn161">Expand whenever the bracket power is 2 or 3. Substitute and change the limits
+  whenever there are limits. Reach for an identity only when two substitution candidates have both
+  failed.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">07</span>The check, and its two blind spots</h2>
+  <p>Differentiating your answer back is the <b>only</b> verification available to you in a Mobius
+  exam. It costs about eight seconds per part. Twenty-six wrong answers were seeded and
+  differentiated back; the result is not a matter of degree.</p>
+  <p class="thesis161">Differentiating back detects every error that changes the function, and is
+  structurally blind to every error that does not.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>seeded error</th><th>relative gap at the worst point</th><th>caught?</th></tr></thead>
+      <tbody>
+        <tr><td>(a) dropped the $\sqrt3$ entirely</td><td class="mono161">4.226e-01</td><td class="win161">yes</td></tr>
+        <tr><td>(b) dropped the 2 from the double angle</td><td class="mono161">3.846e-01</td><td class="win161">yes</td></tr>
+        <tr><td>(c) forgot the $1/2$ on $\sin 2x$</td><td class="mono161">1.000e+00</td><td class="win161">yes</td></tr>
+        <tr><td>(d) dropped the 8 on the middle term</td><td class="mono161">4.714e+00</td><td class="win161">yes</td></tr>
+        <tr><td>(d) ran the chain rule backwards</td><td class="mono161">1.120e+01</td><td class="win161">yes</td></tr>
+        <tr><td>(e) left a stray $x$</td><td class="mono161">1.384e+00</td><td class="win161">yes</td></tr>
+        <tr><td>(a) power rule as $x^n\to x^{n-1}$</td><td class="mono161">9.944e-01</td><td class="win161">yes</td></tr>
+        <tr><td class="los161">any wrong or missing $+C$</td><td class="mono161">0.000e+00</td><td class="los161">NO</td></tr>
+        <tr><td class="los161">the domain restriction on (a) and (e)</td><td class="mono161">6.66e-16</td><td class="los161">NO</td></tr>
+        <tr><td class="los161">swapped limits on a definite integral</td><td class="mono161">5.13e-16</td><td class="los161">NO</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3 class="sh161">What to do about each blind spot</h3>
+  <div class="pgrid161">
+    <div class="pcard161">
+      <div class="pk161">THE CONSTANT</div>
+      <p>$\tfrac{d}{dx}C=0$, so a missing $+C$ is invisible. Adding $10^6$ to part (d)'s answer
+      still differentiates back perfectly.</p>
+      <p class="pd161"><b>Remedy:</b> it is a checklist item, not a check. Look at the answer and
+      confirm the letter $C$ is physically there. The control that proves this arm measures
+      something: a <i>non-constant</i> perturbation of the same size <b>is</b> detected.</p>
+    </div>
+    <div class="pcard161">
+      <div class="pk161">THE DOMAIN</div>
+      <p>$F'=f$ is a pointwise identity. It holds wherever both sides are defined and says nothing
+      about where that is. Part (a) needs $x\ge0$, part (e) needs $x\ge1$.</p>
+      <p class="pd161"><b>Remedy:</b> read the domain off the original <i>integrand</i>, not off
+      your answer. Every even root and every denominator in the integrand is a restriction.</p>
+    </div>
+    <div class="pcard161">
+      <div class="pk161">THE LIMITS</div>
+      <p>On a definite integral the antiderivative can be flawless while the evaluation runs
+      backwards. $F(2)-F(4)$ on part (e) rests on a perfect antiderivative and is still wrong by a
+      sign.</p>
+      <p class="pd161"><b>Remedy:</b> a sign-and-magnitude sanity check. $x\sqrt{x-1}$ is positive
+      on $[2,4]$, so the answer must be positive. It is: 8.63.</p>
+    </div>
+  </div>
+
+  <p class="note"><b>The fastest structural check there is:</b> every exponent in your answer must
+  be one <i>higher</i> than the matching one in the integrand. If any is lower, you have
+  differentiated instead of integrated.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">08</span>Answer entry</h2>
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>do</th><th>do not</th></tr></thead>
+      <tbody>
+        <tr><td class="mono161 win161">x^(7/2)</td><td class="mono161 los161">x^7/2 - parses as $x^7/2$</td></tr>
+        <tr><td class="mono161 win161">(cos(x))^3</td><td class="mono161 los161">cos^3(x)</td></tr>
+        <tr><td class="mono161 win161">sqrt(3)</td><td class="mono161 los161">sqrt3</td></tr>
+        <tr><td class="mono161 win161">(2/3)*(cos(x))^3</td><td class="mono161 los161">2/3cos(x)^3</td></tr>
+        <tr><td class="mono161 win161">28*sqrt(3)/5 - 16/15</td><td class="mono161 los161">a rounded decimal</td></tr>
+        <tr><td class="mono161 win161">+ C on every indefinite integral</td><td class="mono161 los161">+ C on a definite one</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="warn161">The single most expensive typo on this question is
+  <span class="mono161">x^7/2</span>. Part (a)'s answer carries two fractional exponents and both
+  need brackets. Second most expensive is the missing <span class="mono161">+ C</span>, and
+  section 07 proves nothing will remind you. <b>Preview every answer before submitting</b> - Mobius
+  renders what it parsed.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">09</span>The variation catalog</h2>
+  <p>Read each family as <b>structure</b>, not as a list of facts. Across all six families there
+  are only <b>four distinct tools</b>: the power rule, the $1/a$ factor, a substitution, and a trig
+  identity. Every row is one of those four reached by a different-looking route.</p>
+  <p class="note">Every antiderivative below was differentiated back by complex-step at many
+  in-domain points, and every definite value was checked against tanh-sinh quadrature that never
+  saw the closed form.</p>
+
+  <h3 class="sh161">Family 0 &middot; already a sum of powers</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integrand</th><th>antiderivative</th><th>a definite check</th></tr></thead>
+    <tbody>
+      <tr><td>$(x^2-4)^2$ <span class="pk161">part d</span></td><td>$\dfrac{x^5}{5}-\dfrac{8x^3}{3}+16x+C$</td><td class="mono161">$\int_0^2=17.0666666667$</td></tr>
+      <tr><td>$3x^4-2x+7$</td><td>$\dfrac{3x^5}{5}-x^2+7x+C$</td><td class="mono161">$\int_0^1=6.6000000000$</td></tr>
+      <tr><td>$(x^3+1)^2$</td><td>$\dfrac{x^7}{7}+\dfrac{x^4}{2}+x+C$</td><td class="mono161">$\int_0^{1.5}=6.4720982143$</td></tr>
+      <tr><td>$(2x-5)^2$</td><td>$\dfrac{4x^3}{3}-5x^2+25x+C$</td><td class="mono161">$\int_0^3=21.0000000000$</td></tr>
+    </tbody></table></div>
+  <p class="note">The last row is deliberate: $(2x-5)^2$ works at rung 1 <i>or</i> rung 2. Rung 2
+  gives $\tfrac16(2x-5)^3+C$. The two differ by $-125/6$, which is exactly what $+C$ absorbs.</p>
+
+  <h3 class="sh161">Family 1 &middot; algebra first, then the power rule</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integrand</th><th>antiderivative</th><th>a definite check</th></tr></thead>
+    <tbody>
+      <tr><td>$(x^2-x)\sqrt{3x}$ <span class="pk161">part a</span></td><td>$\dfrac{2\sqrt3}{7}x^{7/2}-\dfrac{2\sqrt3}{5}x^{5/2}+C$</td><td class="mono161">$\int_0^4=41.1733220542$</td></tr>
+      <tr><td>$(x+1)\sqrt x$</td><td>$\dfrac{2}{5}x^{5/2}+\dfrac{2}{3}x^{3/2}+C$</td><td class="mono161">$\int_0^4=18.1333333333$</td></tr>
+      <tr><td>$\dfrac{x^3+\sqrt{5x}-4}{x^2}$ <span class="pk161">Q16.2c</span></td><td>$\dfrac{x^2}{2}-2\sqrt5\,x^{-1/2}+\dfrac{4}{x}+C$</td><td class="mono161">$\int_1^4=6.7360679775$</td></tr>
+      <tr><td>$\dfrac{x^2(x-3)}{\sqrt x}$</td><td>$\dfrac{2}{7}x^{7/2}-\dfrac{6}{5}x^{5/2}+C$</td><td class="mono161">$\int_0^4=-1.8285714286$</td></tr>
+      <tr><td>$\dfrac{1}{x^2}-\dfrac{1}{x^3}$</td><td>$-\dfrac{1}{x}+\dfrac{1}{2x^2}+C$</td><td class="mono161">$\int_1^4=0.2812500000$</td></tr>
+    </tbody></table></div>
+  <p class="warn161">The third row is Q16.2 part (c), and it is this family's whole point. It looks
+  like it needs the quotient rule. There is no quotient rule for integrals. Split the fraction over
+  $x^2$ and it is family 0.</p>
+
+  <h3 class="sh161">Family 2 &middot; a linear inner function, the $1/a$ factor</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integrand</th><th>antiderivative</th><th>a definite check</th></tr></thead>
+    <tbody>
+      <tr><td>$x+\cos 2x$ <span class="pk161">part c</span></td><td>$\dfrac{x^2}{2}+\dfrac{\sin 2x}{2}+C$</td><td class="mono161">$\int_0^1=0.9546487134$</td></tr>
+      <tr><td>$\sin 5x$</td><td>$-\dfrac{\cos 5x}{5}+C$</td><td class="mono161">$\int_0^1=0.1432675629$</td></tr>
+      <tr><td>$(2x-5)^7$</td><td>$\dfrac{(2x-5)^8}{16}+C$</td><td class="mono161">$\int_0^2=-24414.0000000000$</td></tr>
+      <tr><td>$\dfrac{1}{(3x+1)^2}$</td><td>$-\dfrac{1}{3(3x+1)}+C$</td><td class="mono161">$\int_0^2=0.2857142857$</td></tr>
+      <tr><td>$\sqrt{4x+9}$</td><td>$\dfrac{(4x+9)^{3/2}}{6}+C$</td><td class="mono161">$\int_0^4=16.3333333333$</td></tr>
+    </tbody></table></div>
+  <p class="note">Read the denominators as structure - 5, 16, 3, 6 - each is the outside
+  integration's own denominator multiplied by $a$. One rule wearing five costumes. The $(2x-5)^7$
+  row is family 0's fourth row with the power raised: at power 2 you expand, at power 7 you do not.
+  <b>The winning rung depends on the exponent, not on the shape.</b></p>
+
+  <h3 class="sh161">Family 3 &middot; a genuine substitution</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integrand</th><th>antiderivative</th><th>a definite check</th></tr></thead>
+    <tbody>
+      <tr><td>$x\sqrt{x-1}$ <span class="pk161">part e</span></td><td>$\dfrac{2}{5}(x-1)^{5/2}+\dfrac{2}{3}(x-1)^{3/2}+C$</td><td class="mono161">$\int_2^4=8.6328178557$</td></tr>
+      <tr><td>$x(x^2+1)^4$</td><td>$\dfrac{(x^2+1)^5}{10}+C$</td><td class="mono161">$\int_0^1=3.1000000000$</td></tr>
+      <tr><td>$\tan x\sec^2x$ <span class="pk161">Q16.2b</span></td><td>$\dfrac{\tan^2x}{2}+C$</td><td class="mono161">$\int_0^1=1.2127594104$</td></tr>
+      <tr><td>$\dfrac{\cos\sqrt{2x}}{\sqrt x}$ <span class="pk161">Q16.2a</span></td><td>$\sqrt2\,\sin\sqrt{2x}+C$</td><td class="mono161">$\int_{0.5}^4=-0.7543404428$</td></tr>
+      <tr><td>$x^2\sqrt{x^3+2}$</td><td>$\dfrac{2}{9}(x^3+2)^{3/2}+C$</td><td class="mono161">$\int_0^2=6.3987443282$</td></tr>
+      <tr><td>$\sec^3x\tan x$ <span class="pk161">Q16.2d</span></td><td>$\dfrac{\sec^3x}{3}+C$</td><td class="mono161">$\int_0^1=1.7800013583$</td></tr>
+    </tbody></table></div>
+  <p class="warn161">The first row is the only one in the family where the substitution does not
+  clear the integrand by itself. Everywhere else $u$ and $du$ consume everything; in part (e) a
+  lone $x$ survives and must become $u+1$. That is the family's hard case, and it is the one on
+  the exam.</p>
+
+  <h3 class="sh161">Family 4 &middot; a trig identity first</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integrand</th><th>antiderivative</th><th>a definite check</th></tr></thead>
+    <tbody>
+      <tr><td>$\sin 2x\cos x$ <span class="pk161">part b</span></td><td>$-\dfrac{2}{3}\cos^3x+C$</td><td class="mono161">$\int_0^1=0.5615142632$</td></tr>
+      <tr><td>$\sin 2x\cos x$ <span class="fam161">route 2</span></td><td>$-\dfrac{\cos 3x}{6}-\dfrac{\cos x}{2}+C$</td><td class="mono161">$\int_0^1=0.5615142632$</td></tr>
+      <tr><td>$\sin^2x$</td><td>$\dfrac{x}{2}-\dfrac{\sin 2x}{4}+C$</td><td class="mono161">$\int_0^\pi=1.5707963268$</td></tr>
+      <tr><td>$\cos^23x$</td><td>$\dfrac{x}{2}+\dfrac{\sin 6x}{12}+C$</td><td class="mono161">$\int_0^1=0.4767153752$</td></tr>
+      <tr><td>$\sin 3x\cos 3x$</td><td>$\dfrac{\sin^23x}{6}+C$</td><td class="mono161">$\int_0^1=0.0033191428$</td></tr>
+      <tr><td>$\sin^3x$</td><td>$\dfrac{\cos^3x}{3}-\cos x+C$</td><td class="mono161">$\int_0^\pi=1.3333333333$</td></tr>
+    </tbody></table></div>
+  <p class="note">Rows one and two are the same integral by two routes, and their definite values
+  agree to every printed digit. The family's one real decision is even versus odd power: an
+  <b>even</b> power takes the half-angle identity and the answer contains a bare $x$ term; an
+  <b>odd</b> power peels one factor off and becomes a rung-3 substitution, and the answer has no
+  bare $x$. That presence or absence is a complete check on which identity you used.</p>
+
+  <h3 class="sh161">Family 5 &middot; definite integrals, where the limits are the trap</h3>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>integral</th><th>value</th><th>the trap it carries</th></tr></thead>
+    <tbody>
+      <tr><td>$\int_2^4 x\sqrt{x-1}\,dx$ <span class="pk161">part e</span></td><td class="mono161">8.6328178557</td><td class="los161">forgetting to convert the limits</td></tr>
+      <tr><td>$\int_a^b (x+\cos 2x)\,dx$ <span class="pk161">part c</span></td><td class="mono161">symbolic</td><td class="los161">writing $+C$ on a definite integral</td></tr>
+      <tr><td>$\int_1^5 x\sqrt{x-1}\,dx$</td><td class="mono161">18.1333333333</td><td class="chn161">identical to $\int_0^4(x+1)\sqrt x\,dx$ - the same integral in disguise</td></tr>
+      <tr><td>$\int_{-1}^{1}\sin 3x\cos 3x\,dx$</td><td class="mono161">0.0000000000</td><td class="chn161">odd integrand, symmetric interval - check the symmetry first</td></tr>
+      <tr><td>$\int_{2.7}^{2.7}(x+\cos 2x)\,dx$</td><td class="mono161">0.0000000000</td><td class="chn161">the degenerate case is legal and is exactly zero</td></tr>
+    </tbody></table></div>
+</section>
+
+<section>
+  <h2><span class="sn161">10</span>The trap list</h2>
+  <ol class="traps161">
+    <li><span><b>The missing $+C$.</b> Three of five parts need it, nothing you can check will
+    remind you, and it is the cheapest mark on the page to lose.</span></li>
+    <li><span><b>A stray $x$ after substitution.</b> Part (e)'s defining error. Differentiating
+    back does catch it, so the eight-second check saves it.</span></li>
+    <li><span><b>The unbracketed fractional exponent.</b> A method-perfect part (a) scoring
+    zero.</span></li>
+    <li><span><b>Running the chain rule backwards.</b> Substitution only works when $du$ is
+    actually present.</span></li>
+    <li><span><b>Dropping the $1/a$.</b> Part (c)'s $\cos 2x$ integrates to $\tfrac12\sin 2x$, not
+    $\sin 2x$.</span></li>
+    <li><span><b>Forgetting to convert the limits.</b> Nothing in the algebra looks wrong. Write
+    the new limits at the moment you write the substitution, not later.</span></li>
+    <li><span><b>Reaching for a technique before trying algebra.</b> Parts (a) and (d) punish this,
+    and Q16.2c punishes it harder.</span></li>
+    <li><span><b>Writing $+C$ on a definite integral.</b> The mirror of trap 1.</span></li>
+    <li><span><b>Missing the domain restriction.</b> Structurally invisible - read it off the
+    integrand.</span></li>
+    <li><span><b>Swapping the limits.</b> Gives exactly the negative, on a flawless
+    antiderivative.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="sn161">11</span>Drills</h2>
+  <p class="note">Score <b>sign</b> separately from <b>magnitude</b> - they are different failures
+  needing different fixes. A sign error is usually a dropped minus or a
+  $\int\sin=-\cos$ slip; a magnitude error is usually a dropped constant or a missing $1/a$.</p>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>#</th><th>integral</th><th>antiderivative</th><th>a definite check</th><th>family</th></tr></thead>
+    <tbody>
+      <tr><td class="pk161">1</td><td>$\int (x^2+3)^2dx$</td><td>$\dfrac{x^5}{5}+2x^3+9x+C$</td><td class="mono161">$\int_0^2=40.4000000000$</td><td class="fam161">F0</td></tr>
+      <tr><td class="pk161">2</td><td>$\int (x-2)\sqrt x\,dx$</td><td>$\dfrac{2}{5}x^{5/2}-\dfrac{4}{3}x^{3/2}+C$</td><td class="mono161">$\int_0^4=2.1333333333$</td><td class="fam161">F1</td></tr>
+      <tr><td class="pk161">3</td><td>$\int \cos 7x\,dx$</td><td>$\dfrac{\sin 7x}{7}+C$</td><td class="mono161">$\int_0^1=0.0938552284$</td><td class="fam161">F2</td></tr>
+      <tr><td class="pk161">4</td><td>$\int (5x-2)^4dx$</td><td>$\dfrac{(5x-2)^5}{25}+C$</td><td class="mono161">$\int_0^1=11.0000000000$</td><td class="fam161">F2</td></tr>
+      <tr><td class="pk161">5</td><td>$\int x\sqrt{x+3}\,dx$</td><td>$\dfrac{2}{5}(x+3)^{5/2}-2(x+3)^{3/2}+C$</td><td class="mono161">$\int_0^6=47.3569219382$</td><td class="fam161">F3</td></tr>
+      <tr><td class="pk161">6</td><td>$\int x^3(x^4-1)^5dx$</td><td>$\dfrac{(x^4-1)^6}{24}+C$</td><td class="mono161">$\int_0^{1.5}=187.2631743774$</td><td class="fam161">F3</td></tr>
+      <tr><td class="pk161">7</td><td>$\int \sin 4x\cos 4x\,dx$</td><td>$\dfrac{\sin^24x}{8}+C$</td><td class="mono161">$\int_0^1=0.0715937521$</td><td class="fam161">F4 then F3</td></tr>
+      <tr><td class="pk161">8</td><td>$\int \cos^2x\,dx$</td><td>$\dfrac{x}{2}+\dfrac{\sin 2x}{4}+C$</td><td class="mono161">$\int_0^\pi=1.5707963268$</td><td class="fam161">F4</td></tr>
+      <tr><td class="pk161">9</td><td>$\int \dfrac{x^3-2x}{x}dx$</td><td>$\dfrac{x^3}{3}-2x+C$</td><td class="mono161">$\int_1^3=4.6666666667$</td><td class="fam161">F1</td></tr>
+      <tr><td class="pk161">10</td><td>$\int \dfrac{dx}{\sqrt{2x+7}}$</td><td>$\sqrt{2x+7}+C$</td><td class="mono161">$\int_0^4=1.2272320351$</td><td class="fam161">F2</td></tr>
+      <tr><td class="pk161">11</td><td>$\int x^2\sqrt{x^3+5}\,dx$</td><td>$\dfrac{2}{9}(x^3+5)^{3/2}+C$</td><td class="mono161">$\int_0^2=7.9315170430$</td><td class="fam161">F3</td></tr>
+      <tr><td class="pk161">12</td><td>$\int (2x+1)(x^2+x)^3dx$</td><td>$\dfrac{(x^2+x)^4}{4}+C$</td><td class="mono161">$\int_1^2=320.0000000000$</td><td class="fam161">F3</td></tr>
+    </tbody></table></div>
+  <p class="warn161">Drill 5 is the one to look at hardest: it is part (e)'s exact shape with
+  $x=u-3$ instead of $x=u+1$, and it is the only drill where a stray $x$ can survive.</p>
+</section>
+
+<section>
+  <h2><span class="sn161">12</span>Provenance and verification</h2>
+  <div class="tscroll vtab"><table>
+    <thead><tr><th>harness section</th><th>scope</th><th>PASS</th><th>FAIL</th><th>controls</th></tr></thead>
+    <tbody>
+      <tr><td class="mono161">q161</td><td>the five parts: symbolic derivative back, Richardson ladder, quadrature</td><td class="mono161 win161">118</td><td class="mono161">0</td><td class="mono161">5</td></tr>
+      <tr><td class="mono161">q161c</td><td>the 26-case wrong-answer census</td><td class="mono161 win161">43</td><td class="mono161">0</td><td class="mono161">4</td></tr>
+      <tr><td class="mono161">q161d</td><td>the variation catalog and the twelve drills</td><td class="mono161 win161">115</td><td class="mono161">0</td><td class="mono161">5</td></tr>
+      <tr><td class="mono161"><b>total</b></td><td></td><td class="mono161 win161"><b>276</b></td><td class="mono161"><b>0</b></td><td class="mono161"><b>14</b></td></tr>
+    </tbody></table></div>
+  <p>Methods, and why each is there:</p>
+  <ul class="meth161">
+    <li><b>Complex-step differentiation</b> at $h=10^{-30}$ for every claim that an antiderivative
+    differentiates back - exact to machine precision, with no subtractive cancellation.</li>
+    <li><b>A bounded Richardson ladder</b> as an independent second arm, with its convergence order
+    <i>measured</i> (2.000, 2.000, 2.000) rather than assumed.</li>
+    <li><b>Tanh-sinh quadrature</b> for every $F(b)-F(a)$ comparison, adopted after Gauss-Legendre
+    was measured to stall at <span class="mono161">3.7e-06</span> on integrands with a half-power
+    endpoint while tanh-sinh reached <span class="mono161">1.4e-14</span> on the same integral.</li>
+    <li><b>Measured convergence order before any digit was locked.</b> Simpson measures 4.00 on a
+    smooth control and 1.67 on a cusp control, confirming the order test discriminates.</li>
+    <li><b>Every printed decimal computed, printed and then digit-locked.</b> No decimal on this
+    page was typed by hand.</li>
+  </ul>
+  <p class="prov161">Cross-referenced tutorial: <span class="mono161">notes\Q8.1 - Four
+  derivatives, power chain and quotient rules.md</span>, whose last-operation test is the mirror of
+  the technique selection here. Markdown companion:
+  <span class="mono161">notes\Q16.1 - Five integrals.md</span>. Date 2026-09-02.</p>
+</section>
+
+</main>

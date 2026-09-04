@@ -1,0 +1,802 @@
+<meta charset="utf-8">
+<title>Two Answers, One Integral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+/* ---- Q19.8 FIGURE CSS. Emitted BEFORE the body, inside this same block.
+   Semantic roles, one role one token: amber = forward motion and the signed
+   answer; blue = the backward piece that creates the gap; teal = the unsigned
+   odometer; rust = a wrong answer and nothing else; slate = a FOURTH neutral
+   for axes and ticks, which carry no meaning. The inherited -soft tokens are
+   10-13 percent alpha and vanish as an area fill, so the two bands below carry
+   their own stronger fills. No gridlines are drawn. */
+/* 21.7: the first build hard-coded these two fills, so ONE theme's palette was
+   being applied in BOTH. They are tokens now, defined in the bare :root for
+   light and redefined in all three dark/light stamps, exactly like the inherited
+   set. The inherited -soft tokens are 10-13 percent alpha and disappear as an
+   area fill, which is why these are their own tokens rather than a reuse. */
+:root{--fwdfill:rgba(217,138,31,.22);--bwdfill:rgba(63,100,147,.20)}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--fwdfill:rgba(242,165,60,.17);--bwdfill:rgba(126,155,196,.22)}
+}
+:root[data-theme="dark"]{--fwdfill:rgba(242,165,60,.17);--bwdfill:rgba(126,155,196,.22)}
+:root[data-theme="light"]{--fwdfill:rgba(217,138,31,.22);--bwdfill:rgba(63,100,147,.20)}
+.lab{font-family:var(--mono)}
+.fig198{width:100%;height:auto;display:block;background:transparent}
+.fbg198{fill:var(--sunk)}
+.fwd198{fill:var(--fwdfill);stroke:none}
+.bwd198{fill:var(--bwdfill);stroke:none}
+.ax198{stroke:var(--plot);stroke-width:1.2;fill:none}
+.curve198{fill:none;stroke:var(--ink);stroke-width:2.1;stroke-linejoin:round}
+.odo198{fill:none;stroke:var(--fam);stroke-width:2.4;stroke-linejoin:round}
+.pos198{fill:none;stroke:var(--rul);stroke-width:2.4;stroke-linejoin:round}
+.tie198{stroke:var(--plot);stroke-width:1.1;stroke-dasharray:3 3;fill:none}
+.root198{fill:var(--chn);stroke:var(--sunk);stroke-width:1.6}
+.endpos198{fill:var(--rul);stroke:var(--sunk);stroke-width:1.6}
+.endodo198{fill:var(--fam);stroke:var(--sunk);stroke-width:1.6}
+.tick198{fill:var(--plotlab);font-family:var(--mono);font-size:12.5px}
+.axlab198{fill:var(--plotlab);font-family:var(--mono);font-size:12.5px;letter-spacing:.04em}
+.areaf198{fill:var(--rul);font-family:var(--mono);font-size:12.5px;font-weight:600}
+.areab198{fill:var(--chn);font-family:var(--mono);font-size:12.5px;font-weight:600}
+.note198{fill:var(--ink2);font-family:var(--mono);font-size:12.5px}
+.lodo198{fill:var(--fam);font-family:var(--mono);font-size:12.5px;font-weight:600}
+.lpos198{fill:var(--rul);font-family:var(--mono);font-size:12.5px;font-weight:600}
+.lsub198{fill:var(--ink3);font-family:var(--mono);font-size:11px;letter-spacing:.05em}
+
+/* ---- Q19.8 page classes. Every invented name carries the 198 suffix.
+   Three DELIBERATE overrides of inherited names are declared below and each is
+   asserted actually defined: --sans and .tscroll are absent from the slice
+   (29.8), and .wide198 is new rather than an override. */
+:root{--sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+.tscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:16px 0}
+
+.ansbar198{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));
+  gap:14px;margin:30px 0 6px}
+.acard198{background:var(--surface);border:1px solid var(--line);border-radius:3px;
+  padding:15px 17px 16px;display:flex;flex-direction:column;gap:5px}
+.alab198{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink3)}
+.aval198{font-size:27px;line-height:1.15;font-weight:600;font-variant-numeric:tabular-nums}
+.asub198{font-size:12.5px;color:var(--ink2)}
+.mono198{font-family:var(--mono);font-size:19px;letter-spacing:.02em}
+.sig198{color:var(--rul)}
+.uns198{color:var(--fam)}
+.no198{color:var(--los)}
+.ok198{color:var(--ok)}
+
+.steps198{margin:14px 0 0;padding-left:22px}
+.steps198 li{margin:9px 0}
+.hi198{background:var(--rul-soft);border-bottom:1px solid var(--rul-line);padding:1px 3px}
+.chk198{margin-top:18px;padding:13px 16px;background:var(--sunk);
+  border-left:2px solid var(--fam);border-radius:2px;font-size:14.5px}
+
+.disp198{margin:18px 0;overflow-x:auto}
+.note2198{font-size:14.5px;color:var(--ink2)}
+
+.callout198{margin:20px 0;padding:16px 18px;background:var(--rul-soft);
+  border:1px solid var(--rul-line);border-radius:3px}
+.blind198{margin:20px 0;padding:16px 18px;background:var(--sunk);
+  border:1px solid var(--line);border-left:2px solid var(--ink3);border-radius:3px}
+.colab198{font-family:var(--mono);font-size:10.5px;letter-spacing:.15em;text-transform:uppercase;
+  color:var(--ink3);margin-bottom:7px}
+.callout198 p,.blind198 p{margin:0}
+
+.tab198{border-collapse:collapse;width:100%;min-width:640px;font-size:14px}
+.tab198.wide198{min-width:880px}
+.tab198 th{text-align:left;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink3);border-bottom:1px solid var(--line);
+  padding:8px 12px 8px 0;font-weight:500}
+.tab198 td{padding:9px 12px 9px 0;border-bottom:1px solid var(--line-soft);
+  vertical-align:top}
+.tab198 tr:last-child td{border-bottom:none}
+.num198{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.nw198{white-space:nowrap}
+.yes198{color:var(--fam);font-weight:600}
+.dead198{color:var(--ink3)}
+.live198{color:var(--fam);font-weight:600}
+.exam198 td{background:var(--rul-soft)}
+.tag198{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--rul);border:1px solid var(--rul-line);border-radius:2px;padding:1px 5px}
+
+.traps198{margin:14px 0 0;padding-left:22px}
+.traps198 li{margin:8px 0}
+.tree198{background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;
+  line-height:1.6;color:var(--ink2);white-space:pre}
+
+@media (max-width:760px){
+  .tab198{min-width:600px}
+  .tab198.wide198{min-width:820px}
+  .aval198{font-size:23px}
+}
+
+</style>
+<div class="wrap">
+
+<header class="mast">
+  <div class="eyebrow">MATH 265 &middot; Final Exam 2 &middot; Item 10 &middot; 5 points</div>
+  <h1>Two Answers, One Integral</h1>
+  <p class="deck">Displacement asks where the particle ended up. Distance asks what the odometer
+  read. They are the same integral with one difference: whether you keep the sign. On this
+  question the velocity changes sign twice inside the interval, so the two answers are forced
+  apart, and eleven of the nineteen wrong ways to do part (b) hand back part (a)'s number.</p>
+  <p class="stem">A particle moves along a line so that its velocity at time \(t\) is
+  \(v(t) = t^2 - 3t + 2\) (meter/sec). <b>(a)</b> Find the displacement of the particle during
+  the time period \([0, 3]\). <b>(b)</b> Find the distance traveled during this same time
+  period.</p>
+</header>
+
+<section class="ansbar198">
+  <div class="acard198">
+    <div class="alab198">Part (a) &middot; displacement</div>
+    <div class="aval198 sig198">\(\dfrac{3}{2}\)</div>
+    <div class="asub198">= 1.5 metres &middot; signed</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Part (b) &middot; distance</div>
+    <div class="aval198 uns198">\(\dfrac{11}{6}\)</div>
+    <div class="asub198">&#8776; 1.8333333333 metres &middot; unsigned</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Do they coincide?</div>
+    <div class="aval198 no198">No</div>
+    <div class="asub198">gap \(\tfrac{1}{3}\), twice the one negative piece</div>
+  </div>
+  <div class="acard198">
+    <div class="alab198">Type into M&ouml;bius</div>
+    <div class="aval198 mono198">3/2 &nbsp;|&nbsp; 11/6</div>
+    <div class="asub198">never a rounded decimal</div>
+  </div>
+</section>
+
+<section>
+  <h2>The whole method in four steps</h2>
+  <ol class="steps198">
+    <li><b>Factor.</b> \(v = t^2-3t+2 = (t-1)(t-2)\), so \(v = 0\) at \(t=1\) and \(t=2\).
+        <span class="hi198">Both are strictly inside \([0,3]\)</span>, which is the sentence
+        that decides the mark.</li>
+    <li><b>Antidifferentiate once.</b> \(S(t) = \dfrac{t^3}{3} - \dfrac{3t^2}{2} + 2t\), and
+        \(S' = v\) checks in one line.</li>
+    <li><b>Part (a) needs no split.</b>
+        \(\displaystyle\int_0^3 v\,dt = S(3)-S(0) = 9 - \tfrac{27}{2} + 6 = \tfrac{3}{2}\).</li>
+    <li><b>Part (b) splits at every sign change.</b> The three pieces are \(\tfrac{5}{6}\),
+        \(-\tfrac{1}{6}\) and \(\tfrac{5}{6}\); add their absolute values to get
+        \(\tfrac{11}{6}\).</li>
+  </ol>
+  <p class="chk198"><b>Eight-second check.</b> distance \(-\) displacement \(= \tfrac{11}{6} -
+  \tfrac{3}{2} = \tfrac{1}{3}\), which is exactly <b>twice</b> the one negative piece. If the
+  gap is not twice something you already computed, a piece was dropped or double-counted.</p>
+</section>
+
+<figure class="figbox">
+  <svg class="fig198" viewBox="0 0 760 330" role="img" aria-labelledby="q198f1-t q198f1-d" preserveAspectRatio="xMidYMid meet"><title id="q198f1-t">Velocity against time.</title><desc id="q198f1-d">The velocity curve v(t) = t squared minus 3t plus 2 on the interval 0 to 3, with the two regions where the velocity is positive shaded in amber and the region between t = 1 and t = 2 where it is negative shaded in blue. The three signed areas are five sixths, minus one sixth and five sixths.</desc>
+<rect class="fbg198" x="0" y="0" width="760" height="330"/>
+<polygon class="fwd198" points="83.037,228.100 83.037,56.100 85.355,58.956 87.674,61.791 89.992,64.604 92.310,67.397 94.628,70.168 96.947,72.918 99.265,75.646 101.583,78.354 103.901,81.040 106.219,83.705 108.538,86.349 110.856,88.971 113.174,91.572 115.492,94.152 117.811,96.711 120.129,99.249 122.447,101.765 124.765,104.260 127.084,106.734 129.402,109.186 131.720,111.618 134.038,114.028 136.357,116.417 138.675,118.784 140.993,121.131 143.311,123.456 145.630,125.760 147.948,128.043 150.266,130.304 152.584,132.544 154.903,134.763 157.221,136.961 159.539,139.138 161.857,141.293 164.176,143.427 166.494,145.540 168.812,147.632 171.130,149.702 173.449,151.751 175.767,153.779 178.085,155.786 180.403,157.771 182.722,159.735 185.040,161.678 187.358,163.600 189.676,165.500 191.995,167.380 194.313,169.238 196.631,171.075 198.949,172.890 201.267,174.684 203.586,176.458 205.904,178.209 208.222,179.940 210.540,181.649 212.859,183.338 215.177,185.004 217.495,186.650 219.813,188.275 222.132,189.878 224.450,191.460 226.768,193.020 229.086,194.560 231.405,196.078 233.723,197.575 236.041,199.051 238.359,200.506 240.678,201.939 242.996,203.351 245.314,204.742 247.632,206.112 249.951,207.460 252.269,208.787 254.587,210.093 256.905,211.378 259.224,212.641 261.542,213.883 263.860,215.104 266.178,216.304 268.497,217.483 270.815,218.640 273.133,219.776 275.451,220.891 277.770,221.984 280.088,223.057 282.406,224.108 284.724,225.138 287.043,226.146 289.361,227.134 291.679,228.100 291.679,228.100"/>
+<polygon class="bwd198" points="291.679,228.100 291.679,228.100 293.997,229.045 296.316,229.969 298.634,230.871 300.952,231.752 303.270,232.612 305.588,233.451 307.907,234.269 310.225,235.065 312.543,235.840 314.861,236.594 317.180,237.326 319.498,238.038 321.816,238.728 324.134,239.397 326.453,240.044 328.771,240.671 331.089,241.276 333.407,241.860 335.726,242.423 338.044,242.964 340.362,243.484 342.680,243.983 344.999,244.461 347.317,244.918 349.635,245.353 351.953,245.767 354.272,246.160 356.590,246.532 358.908,246.882 361.226,247.211 363.545,247.519 365.863,247.806 368.181,248.071 370.499,248.315 372.818,248.538 375.136,248.740 377.454,248.920 379.772,249.080 382.091,249.218 384.409,249.335 386.727,249.430 389.045,249.504 391.364,249.558 393.682,249.589 396.000,249.600 398.318,249.589 400.636,249.558 402.955,249.504 405.273,249.430 407.591,249.335 409.909,249.218 412.228,249.080 414.546,248.920 416.864,248.740 419.182,248.538 421.501,248.315 423.819,248.071 426.137,247.806 428.455,247.519 430.774,247.211 433.092,246.882 435.410,246.532 437.728,246.160 440.047,245.767 442.365,245.353 444.683,244.918 447.001,244.461 449.320,243.983 451.638,243.484 453.956,242.964 456.274,242.423 458.593,241.860 460.911,241.276 463.229,240.671 465.547,240.044 467.866,239.397 470.184,238.728 472.502,238.038 474.820,237.326 477.139,236.594 479.457,235.840 481.775,235.065 484.093,234.269 486.412,233.451 488.730,232.612 491.048,231.752 493.366,230.871 495.684,229.969 498.003,229.045 500.321,228.100 500.321,228.100"/>
+<polygon class="fwd198" points="500.321,228.100 500.321,228.100 502.639,227.134 504.957,226.146 507.276,225.138 509.594,224.108 511.912,223.057 514.230,221.984 516.549,220.891 518.867,219.776 521.185,218.640 523.503,217.483 525.822,216.304 528.140,215.104 530.458,213.883 532.776,212.641 535.095,211.378 537.413,210.093 539.731,208.787 542.049,207.460 544.368,206.112 546.686,204.742 549.004,203.351 551.322,201.939 553.641,200.506 555.959,199.051 558.277,197.575 560.595,196.078 562.914,194.560 565.232,193.020 567.550,191.460 569.868,189.878 572.187,188.275 574.505,186.650 576.823,185.004 579.141,183.338 581.460,181.649 583.778,179.940 586.096,178.209 588.414,176.458 590.733,174.684 593.051,172.890 595.369,171.075 597.687,169.238 600.005,167.380 602.324,165.500 604.642,163.600 606.960,161.678 609.278,159.735 611.597,157.771 613.915,155.786 616.233,153.779 618.551,151.751 620.870,149.702 623.188,147.632 625.506,145.540 627.824,143.427 630.143,141.293 632.461,139.138 634.779,136.961 637.097,134.763 639.416,132.544 641.734,130.304 644.052,128.043 646.370,125.760 648.689,123.456 651.007,121.131 653.325,118.784 655.643,116.417 657.962,114.028 660.280,111.618 662.598,109.186 664.916,106.734 667.235,104.260 669.553,101.765 671.871,99.249 674.189,96.711 676.508,94.152 678.826,91.572 681.144,88.971 683.462,86.349 685.781,83.705 688.099,81.040 690.417,78.354 692.735,75.646 695.053,72.918 697.372,70.168 699.690,67.397 702.008,64.604 704.326,61.791 706.645,58.956 708.963,56.100 708.963,228.100"/>
+<line class="ax198" x1="58.000" y1="228.100" x2="734.000" y2="228.100"/>
+<line class="ax198" x1="83.037" y1="284.000" x2="83.037" y2="26.000"/>
+<line class="ax198" x1="291.679" y1="228.100" x2="291.679" y2="232.100"/>
+<text class="lab tick198" x="291.68" y="251.10" text-anchor="middle">1</text>
+<line class="ax198" x1="500.321" y1="228.100" x2="500.321" y2="232.100"/>
+<text class="lab tick198" x="500.32" y="251.10" text-anchor="middle">2</text>
+<line class="ax198" x1="708.963" y1="228.100" x2="708.963" y2="232.100"/>
+<text class="lab tick198" x="708.96" y="251.10" text-anchor="middle">3</text>
+<line class="ax198" x1="79.037" y1="142.100" x2="83.037" y2="142.100"/>
+<text class="lab tick198" x="71.04" y="146.10" text-anchor="end">1</text>
+<line class="ax198" x1="79.037" y1="56.100" x2="83.037" y2="56.100"/>
+<text class="lab tick198" x="71.04" y="60.10" text-anchor="end">2</text>
+<text class="lab axlab198" x="730.00" y="219.10" text-anchor="end">t (sec)</text>
+<text class="lab axlab198" x="91.04" y="38.00" text-anchor="start">v (m/s)</text>
+<polyline class="curve198" points="83.037,56.100 85.123,58.671 87.210,61.226 89.296,63.763 91.383,66.282 93.469,68.785 95.556,71.270 97.642,73.739 99.728,76.190 101.815,78.623 103.901,81.040 105.988,83.439 108.074,85.822 110.160,88.187 112.247,90.534 114.333,92.865 116.420,95.178 118.506,97.475 120.593,99.754 122.679,102.015 124.765,104.260 126.852,106.487 128.938,108.698 131.025,110.891 133.111,113.066 135.198,115.225 137.284,117.366 139.370,119.491 141.457,121.598 143.543,123.687 145.630,125.760 147.716,127.815 149.802,129.854 151.889,131.875 153.975,133.878 156.062,135.865 158.148,137.834 160.235,139.787 162.321,141.722 164.407,143.639 166.494,145.540 168.580,147.423 170.667,149.290 172.753,151.139 174.840,152.970 176.926,154.785 179.012,156.582 181.099,158.363 183.185,160.126 185.272,161.871 187.358,163.600 189.444,165.311 191.531,167.006 193.617,168.683 195.704,170.342 197.790,171.985 199.877,173.610 201.963,175.219 204.049,176.810 206.136,178.383 208.222,179.940 210.309,181.479 212.395,183.002 214.481,184.507 216.568,185.994 218.654,187.465 220.741,188.918 222.827,190.355 224.914,191.774 227.000,193.175 229.086,194.560 231.173,195.927 233.259,197.278 235.346,198.611 237.432,199.926 239.519,201.225 241.605,202.506 243.691,203.771 245.778,205.018 247.864,206.247 249.951,207.460 252.037,208.655 254.123,209.834 256.210,210.995 258.296,212.138 260.383,213.265 262.469,214.374 264.556,215.467 266.642,216.542 268.728,217.599 270.815,218.640 272.901,219.663 274.988,220.670 277.074,221.659 279.160,222.630 281.247,223.585 283.333,224.522 285.420,225.443 287.506,226.346 289.593,227.231 291.679,228.100 293.765,228.951 295.852,229.786 297.938,230.603 300.025,231.402 302.111,232.185 304.198,232.950 306.284,233.699 308.370,234.430 310.457,235.143 312.543,235.840 314.630,236.519 316.716,237.182 318.802,237.827 320.889,238.454 322.975,239.065 325.062,239.658 327.148,240.235 329.235,240.794 331.321,241.335 333.407,241.860 335.494,242.367 337.580,242.858 339.667,243.331 341.753,243.786 343.840,244.225 345.926,244.646 348.012,245.051 350.099,245.438 352.185,245.807 354.272,246.160 356.358,246.495 358.444,246.814 360.531,247.115 362.617,247.398 364.704,247.665 366.790,247.914 368.877,248.147 370.963,248.362 373.049,248.559 375.136,248.740 377.222,248.903 379.309,249.050 381.395,249.179 383.481,249.290 385.568,249.385 387.654,249.462 389.741,249.523 391.827,249.566 393.914,249.591 396.000,249.600 398.086,249.591 400.173,249.566 402.259,249.523 404.346,249.462 406.432,249.385 408.519,249.290 410.605,249.179 412.691,249.050 414.778,248.903 416.864,248.740 418.951,248.559 421.037,248.362 423.123,248.147 425.210,247.914 427.296,247.665 429.383,247.398 431.469,247.115 433.556,246.814 435.642,246.495 437.728,246.160 439.815,245.807 441.901,245.438 443.988,245.051 446.074,244.646 448.160,244.225 450.247,243.786 452.333,243.331 454.420,242.858 456.506,242.367 458.593,241.860 460.679,241.335 462.765,240.794 464.852,240.235 466.938,239.658 469.025,239.065 471.111,238.454 473.198,237.827 475.284,237.182 477.370,236.519 479.457,235.840 481.543,235.143 483.630,234.430 485.716,233.699 487.802,232.950 489.889,232.185 491.975,231.402 494.062,230.603 496.148,229.786 498.235,228.951 500.321,228.100 502.407,227.231 504.494,226.346 506.580,225.443 508.667,224.522 510.753,223.585 512.840,222.630 514.926,221.659 517.012,220.670 519.099,219.663 521.185,218.640 523.272,217.599 525.358,216.542 527.444,215.467 529.531,214.374 531.617,213.265 533.704,212.138 535.790,210.995 537.877,209.834 539.963,208.655 542.049,207.460 544.136,206.247 546.222,205.018 548.309,203.771 550.395,202.506 552.481,201.225 554.568,199.926 556.654,198.611 558.741,197.278 560.827,195.927 562.914,194.560 565.000,193.175 567.086,191.774 569.173,190.355 571.259,188.918 573.346,187.465 575.432,185.994 577.519,184.507 579.605,183.002 581.691,181.479 583.778,179.940 585.864,178.383 587.951,176.810 590.037,175.219 592.123,173.610 594.210,171.985 596.296,170.342 598.383,168.683 600.469,167.006 602.556,165.311 604.642,163.600 606.728,161.871 608.815,160.126 610.901,158.363 612.988,156.582 615.074,154.785 617.160,152.970 619.247,151.139 621.333,149.290 623.420,147.423 625.506,145.540 627.593,143.639 629.679,141.722 631.765,139.787 633.852,137.834 635.938,135.865 638.025,133.878 640.111,131.875 642.198,129.854 644.284,127.815 646.370,125.760 648.457,123.687 650.543,121.598 652.630,119.491 654.716,117.366 656.802,115.225 658.889,113.066 660.975,110.891 663.062,108.698 665.148,106.487 667.235,104.260 669.321,102.015 671.407,99.754 673.494,97.475 675.580,95.178 677.667,92.865 679.753,90.534 681.840,88.187 683.926,85.822 686.012,83.439 688.099,81.040 690.185,78.623 692.272,76.190 694.358,73.739 696.444,71.270 698.531,68.785 700.617,66.282 702.704,63.763 704.790,61.226 706.877,58.671 708.963,56.100" />
+<circle class="root198" cx="291.679" cy="228.100" r="4.20"/>
+<circle class="root198" cx="500.321" cy="228.100" r="4.20"/>
+<text class="lab areaf198" x="187.36" y="199.72" text-anchor="middle">+5/6</text>
+<text class="lab areab198" x="396.00" y="271.10" text-anchor="middle">-1/6</text>
+<text class="lab areaf198" x="608.81" y="202.30" text-anchor="middle">+5/6</text>
+<text class="lab note198" x="396.00" y="88.78" text-anchor="middle">v changes sign at t = 1 and t = 2</text>
+<text class="lab note198" x="396.00" y="116.30" text-anchor="middle">both are INSIDE [0, 3]</text>
+</svg>
+  <figcaption><b>Figure 1. Where the difference comes from.</b> The velocity is positive on
+  \([0,1)\) and \((2,3]\) and negative on \((1,2)\). Displacement adds the three signed areas
+  and gets \(\tfrac{3}{2}\); distance adds their magnitudes and gets \(\tfrac{11}{6}\). The
+  blue sliver is the entire reason the two answers differ, and it is worth only
+  \(\tfrac{1}{6}\).</figcaption>
+</figure>
+
+<section>
+  <h2>Why the difference is twice the negative part</h2>
+  <p>Split the interval into the part where \(v \ge 0\) and the part where \(v &lt; 0\). Write
+  \(A\) for the integral over the first and \(B \le 0\) for the integral over the second.</p>
+  <p class="disp198">\[\text{displacement} = A + B, \qquad \text{distance} = A - B, \qquad
+  \text{distance} - \text{displacement} = 2\lvert B\rvert.\]</p>
+  <p>So the two answers agree <b>exactly when \(B = 0\)</b>, that is, exactly when the velocity
+  never changes sign on the interval. Nothing else matters: not the degree of \(v\), not
+  whether a root exists, only whether a root lies inside <em>and</em> the sign actually flips
+  there.</p>
+</section>
+
+<figure class="figbox">
+  <svg class="fig198" viewBox="0 0 760 330" role="img" aria-labelledby="q198f2-t q198f2-d" preserveAspectRatio="xMidYMid meet"><title id="q198f2-t">Position and odometer against time.</title><desc id="q198f2-d">Two curves on the interval 0 to 3. The position curve rises to five sixths, falls to two thirds, then rises to three halves. The odometer curve rises without ever falling, reaching eleven sixths. They are identical until t = 1 and separate by one third from t = 2 onward.</desc>
+<rect class="fbg198" x="0" y="0" width="760" height="330"/>
+<line class="ax198" x1="58.000" y1="266.409" x2="628.000" y2="266.409"/>
+<line class="ax198" x1="79.111" y1="284.000" x2="79.111" y2="26.000"/>
+<line class="ax198" x1="255.037" y1="266.409" x2="255.037" y2="270.409"/>
+<text class="lab tick198" x="255.04" y="289.41" text-anchor="middle">1</text>
+<line class="ax198" x1="430.963" y1="266.409" x2="430.963" y2="270.409"/>
+<text class="lab tick198" x="430.96" y="289.41" text-anchor="middle">2</text>
+<line class="ax198" x1="606.889" y1="266.409" x2="606.889" y2="270.409"/>
+<text class="lab tick198" x="606.89" y="289.41" text-anchor="middle">3</text>
+<line class="ax198" x1="75.111" y1="207.773" x2="79.111" y2="207.773"/>
+<text class="lab tick198" x="67.11" y="211.77" text-anchor="end">0.5</text>
+<line class="ax198" x1="75.111" y1="149.136" x2="79.111" y2="149.136"/>
+<text class="lab tick198" x="67.11" y="153.14" text-anchor="end">1</text>
+<line class="ax198" x1="75.111" y1="90.500" x2="79.111" y2="90.500"/>
+<text class="lab tick198" x="67.11" y="94.50" text-anchor="end">1.5</text>
+<text class="lab axlab198" x="624.00" y="257.41" text-anchor="end">t (sec)</text>
+<text class="lab axlab198" x="87.11" y="38.00" text-anchor="start">metres</text>
+<polyline class="odo198" points="79.111,266.409 80.870,264.081 82.630,261.788 84.389,259.530 86.148,257.306 87.907,255.117 89.667,252.961 91.426,250.839 93.185,248.751 94.944,246.696 96.704,244.675 98.463,242.686 100.222,240.729 101.981,238.805 103.741,236.913 105.500,235.053 107.259,233.225 109.019,231.428 110.778,229.662 112.537,227.928 114.296,226.224 116.056,224.550 117.815,222.907 119.574,221.294 121.333,219.710 123.093,218.156 124.852,216.632 126.611,215.136 128.370,213.670 130.130,212.231 131.889,210.822 133.648,209.440 135.407,208.087 137.167,206.761 138.926,205.462 140.685,204.191 142.444,202.947 144.204,201.729 145.963,200.538 147.722,199.373 149.481,198.235 151.241,197.122 153.000,196.034 154.759,194.972 156.519,193.935 158.278,192.923 160.037,191.936 161.796,190.973 163.556,190.034 165.315,189.119 167.074,188.227 168.833,187.359 170.593,186.515 172.352,185.693 174.111,184.894 175.870,184.118 177.630,183.364 179.389,182.632 181.148,181.921 182.907,181.233 184.667,180.565 186.426,179.919 188.185,179.294 189.944,178.689 191.704,178.105 193.463,177.541 195.222,176.997 196.981,176.472 198.741,175.967 200.500,175.481 202.259,175.015 204.019,174.567 205.778,174.137 207.537,173.726 209.296,173.333 211.056,172.957 212.815,172.600 214.574,172.259 216.333,171.936 218.093,171.630 219.852,171.340 221.611,171.067 223.370,170.810 225.130,170.568 226.889,170.343 228.648,170.133 230.407,169.938 232.167,169.759 233.926,169.594 235.685,169.443 237.444,169.307 239.204,169.185 240.963,169.077 242.722,168.983 244.481,168.901 246.241,168.833 248.000,168.778 249.759,168.736 251.519,168.706 253.278,168.688 255.037,168.682 256.796,168.676 258.556,168.659 260.315,168.630 262.074,168.591 263.833,168.540 265.593,168.479 267.352,168.408 269.111,168.327 270.870,168.235 272.630,168.135 274.389,168.024 276.148,167.905 277.907,167.777 279.667,167.640 281.426,167.494 283.185,167.341 284.944,167.179 286.704,167.010 288.463,166.833 290.222,166.649 291.981,166.458 293.741,166.260 295.500,166.056 297.259,165.845 299.019,165.628 300.778,165.405 302.537,165.177 304.296,164.943 306.056,164.704 307.815,164.460 309.574,164.211 311.333,163.958 313.093,163.701 314.852,163.440 316.611,163.175 318.370,162.906 320.130,162.635 321.889,162.360 323.648,162.082 325.407,161.802 327.167,161.519 328.926,161.235 330.685,160.948 332.444,160.660 334.204,160.370 335.963,160.079 337.722,159.788 339.481,159.495 341.241,159.202 343.000,158.909 344.759,158.616 346.519,158.323 348.278,158.031 350.037,157.739 351.796,157.448 353.556,157.158 355.315,156.870 357.074,156.584 358.833,156.299 360.593,156.016 362.352,155.736 364.111,155.458 365.870,155.184 367.630,154.912 369.389,154.643 371.148,154.378 372.907,154.117 374.667,153.860 376.426,153.607 378.185,153.358 379.944,153.114 381.704,152.875 383.463,152.642 385.222,152.413 386.981,152.190 388.741,151.973 390.500,151.763 392.259,151.558 394.019,151.360 395.778,151.169 397.537,150.985 399.296,150.808 401.056,150.639 402.815,150.477 404.574,150.324 406.333,150.178 408.093,150.041 409.852,149.913 411.611,149.794 413.370,149.684 415.130,149.583 416.889,149.492 418.648,149.410 420.407,149.339 422.167,149.278 423.926,149.228 425.685,149.188 427.444,149.160 429.204,149.142 430.963,149.136 432.722,149.130 434.481,149.113 436.241,149.083 438.000,149.040 439.759,148.985 441.519,148.917 443.278,148.836 445.037,148.741 446.796,148.633 448.556,148.511 450.315,148.375 452.074,148.224 453.833,148.060 455.593,147.880 457.352,147.685 459.111,147.475 460.870,147.250 462.630,147.009 464.389,146.751 466.148,146.478 467.907,146.188 469.667,145.882 471.426,145.559 473.185,145.219 474.944,144.861 476.704,144.485 478.463,144.092 480.222,143.681 481.981,143.252 483.741,142.804 485.500,142.337 487.259,141.851 489.019,141.346 490.778,140.822 492.537,140.277 494.296,139.713 496.056,139.129 497.815,138.524 499.574,137.899 501.333,137.253 503.093,136.585 504.852,135.897 506.611,135.186 508.370,134.454 510.130,133.700 511.889,132.924 513.648,132.125 515.407,131.303 517.167,130.459 518.926,129.591 520.685,128.700 522.444,127.785 524.204,126.846 525.963,125.883 527.722,124.895 529.481,123.883 531.241,122.846 533.000,121.784 534.759,120.697 536.519,119.584 538.278,118.445 540.037,117.280 541.796,116.089 543.556,114.871 545.315,113.627 547.074,112.356 548.833,111.057 550.593,109.731 552.352,108.378 554.111,106.996 555.870,105.587 557.630,104.149 559.389,102.682 561.148,101.187 562.907,99.662 564.667,98.108 566.426,96.525 568.185,94.911 569.944,93.268 571.704,91.595 573.463,89.891 575.222,88.156 576.981,86.390 578.741,84.593 580.500,82.765 582.259,80.905 584.019,79.013 585.778,77.089 587.537,75.133 589.296,73.144 591.056,71.122 592.815,69.067 594.574,66.979 596.333,64.857 598.093,62.701 599.852,60.512 601.611,58.288 603.370,56.030 605.130,53.737 606.889,51.409" />
+<polyline class="pos198" points="79.111,266.409 80.870,264.081 82.630,261.788 84.389,259.530 86.148,257.306 87.907,255.117 89.667,252.961 91.426,250.839 93.185,248.751 94.944,246.696 96.704,244.675 98.463,242.686 100.222,240.729 101.981,238.805 103.741,236.913 105.500,235.053 107.259,233.225 109.019,231.428 110.778,229.662 112.537,227.928 114.296,226.224 116.056,224.550 117.815,222.907 119.574,221.294 121.333,219.710 123.093,218.156 124.852,216.632 126.611,215.136 128.370,213.670 130.130,212.231 131.889,210.822 133.648,209.440 135.407,208.087 137.167,206.761 138.926,205.462 140.685,204.191 142.444,202.947 144.204,201.729 145.963,200.538 147.722,199.373 149.481,198.235 151.241,197.122 153.000,196.034 154.759,194.972 156.519,193.935 158.278,192.923 160.037,191.936 161.796,190.973 163.556,190.034 165.315,189.119 167.074,188.227 168.833,187.359 170.593,186.515 172.352,185.693 174.111,184.894 175.870,184.118 177.630,183.364 179.389,182.632 181.148,181.921 182.907,181.233 184.667,180.565 186.426,179.919 188.185,179.294 189.944,178.689 191.704,178.105 193.463,177.541 195.222,176.997 196.981,176.472 198.741,175.967 200.500,175.481 202.259,175.015 204.019,174.567 205.778,174.137 207.537,173.726 209.296,173.333 211.056,172.957 212.815,172.600 214.574,172.259 216.333,171.936 218.093,171.630 219.852,171.340 221.611,171.067 223.370,170.810 225.130,170.568 226.889,170.343 228.648,170.133 230.407,169.938 232.167,169.759 233.926,169.594 235.685,169.443 237.444,169.307 239.204,169.185 240.963,169.077 242.722,168.983 244.481,168.901 246.241,168.833 248.000,168.778 249.759,168.736 251.519,168.706 253.278,168.688 255.037,168.682 256.796,168.688 258.556,168.705 260.315,168.734 262.074,168.773 263.833,168.824 265.593,168.884 267.352,168.956 269.111,169.037 270.870,169.128 272.630,169.229 274.389,169.339 276.148,169.459 277.907,169.587 279.667,169.724 281.426,169.869 283.185,170.023 284.944,170.184 286.704,170.354 288.463,170.530 290.222,170.715 291.981,170.906 293.741,171.104 295.500,171.308 297.259,171.519 299.019,171.736 300.778,171.959 302.537,172.187 304.296,172.421 306.056,172.660 307.815,172.904 309.574,173.152 311.333,173.405 313.093,173.663 314.852,173.924 316.611,174.189 318.370,174.457 320.130,174.729 321.889,175.004 323.648,175.282 325.407,175.562 327.167,175.844 328.926,176.129 330.685,176.416 332.444,176.704 334.204,176.994 335.963,177.284 337.722,177.576 339.481,177.868 341.241,178.161 343.000,178.455 344.759,178.748 346.519,179.041 348.278,179.333 350.037,179.625 351.796,179.916 353.556,180.205 355.315,180.493 357.074,180.780 358.833,181.065 360.593,181.347 362.352,181.628 364.111,181.905 365.870,182.180 367.630,182.452 369.389,182.720 371.148,182.985 372.907,183.247 374.667,183.504 376.426,183.757 378.185,184.005 379.944,184.249 381.704,184.488 383.463,184.722 385.222,184.951 386.981,185.173 388.741,185.390 390.500,185.601 392.259,185.806 394.019,186.003 395.778,186.195 397.537,186.379 399.296,186.555 401.056,186.725 402.815,186.886 404.574,187.040 406.333,187.185 408.093,187.322 409.852,187.450 411.611,187.570 413.370,187.680 415.130,187.781 416.889,187.872 418.648,187.953 420.407,188.025 422.167,188.086 423.926,188.136 425.685,188.176 427.444,188.204 429.204,188.221 430.963,188.227 432.722,188.221 434.481,188.204 436.241,188.173 438.000,188.131 439.759,188.076 441.519,188.008 443.278,187.927 445.037,187.832 446.796,187.724 448.556,187.602 450.315,187.466 452.074,187.315 453.833,187.150 455.593,186.971 457.352,186.776 459.111,186.566 460.870,186.341 462.630,186.099 464.389,185.842 466.148,185.569 467.907,185.279 469.667,184.973 471.426,184.650 473.185,184.309 474.944,183.952 476.704,183.576 478.463,183.183 480.222,182.772 481.981,182.343 483.741,181.895 485.500,181.428 487.259,180.942 489.019,180.437 490.778,179.912 492.537,179.368 494.296,178.804 496.056,178.220 497.815,177.615 499.574,176.990 501.333,176.344 503.093,175.676 504.852,174.988 506.611,174.277 508.370,173.545 510.130,172.791 511.889,172.015 513.648,171.216 515.407,170.394 517.167,169.550 518.926,168.682 520.685,167.791 522.444,166.876 524.204,165.937 525.963,164.973 527.722,163.986 529.481,162.974 531.241,161.937 533.000,160.875 534.759,159.788 536.519,158.675 538.278,157.536 540.037,156.371 541.796,155.180 543.556,153.962 545.315,152.718 547.074,151.447 548.833,150.148 550.593,148.822 552.352,147.469 554.111,146.087 555.870,144.678 557.630,143.240 559.389,141.773 561.148,140.277 562.907,138.753 564.667,137.199 566.426,135.615 568.185,134.002 569.944,132.359 571.704,130.685 573.463,128.981 575.222,127.247 576.981,125.481 578.741,123.684 580.500,121.856 582.259,119.996 584.019,118.104 585.778,116.180 587.537,114.224 589.296,112.235 591.056,110.213 592.815,108.158 594.574,106.070 596.333,103.948 598.093,101.792 599.852,99.603 601.611,97.379 603.370,95.121 605.130,92.828 606.889,90.500" />
+<line class="tie198" x1="255.037" y1="168.682" x2="255.037" y2="168.682"/>
+<line class="tie198" x1="430.963" y1="188.227" x2="430.963" y2="149.136"/>
+<line class="tie198" x1="606.889" y1="90.500" x2="606.889" y2="51.409"/>
+<circle class="endpos198" cx="606.889" cy="90.500" r="4.20"/>
+<circle class="endodo198" cx="606.889" cy="51.409" r="4.20"/>
+<text class="lab lodo198" x="618.89" y="37.41" text-anchor="start">odometer 11/6</text>
+<text class="lab lsub198" x="618.89" y="58.41" text-anchor="start">distance</text>
+<text class="lab lpos198" x="618.89" y="98.50" text-anchor="start">position 3/2</text>
+<text class="lab lsub198" x="618.89" y="119.50" text-anchor="start">displacement</text>
+<text class="lab note198" x="343.00" y="48.28" text-anchor="middle">identical until the first sign change</text>
+<text class="lab note198" x="518.93" y="217.15" text-anchor="middle">gap 1/3, fixed after t = 2</text>
+</svg>
+  <figcaption><b>Figure 2. Position against odometer.</b> The two curves are identical until
+  the first sign change at \(t=1\). Between \(t=1\) and \(t=2\) the position falls while the
+  odometer keeps climbing, and after \(t=2\) they run parallel, permanently \(\tfrac{1}{3}\)
+  apart. An odometer can never go down; a position can.</figcaption>
+</figure>
+
+<section>
+  <h2>Read the noun, then decide</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>The wording says</th><th>You are being asked for</th>
+      <th class="nw198">Split at the zeros?</th></tr></thead>
+    <tbody>
+      <tr><td>displacement, net change in position</td><td>\(\int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td>how far is it from where it started</td><td>\(\lvert\int_a^b v\,dt\rvert\)</td><td>no</td></tr>
+      <tr><td><b>distance travelled, total distance</b></td><td>\(\int_a^b \lvert v\rvert\,dt\)</td>
+        <td class="yes198">yes</td></tr>
+      <tr><td>position at time \(b\)</td><td>\(x(a) + \int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td>average velocity</td><td>\(\frac{1}{b-a}\int_a^b v\,dt\)</td><td>no</td></tr>
+      <tr><td><b>average speed</b></td><td>\(\frac{1}{b-a}\int_a^b \lvert v\rvert\,dt\)</td>
+        <td class="yes198">yes</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note2198">Rows two and three are the pair to stare at. <b>How far it is from where
+  it started</b> is \(\lvert\int v\rvert = \tfrac{3}{2}\); <b>how far it travelled</b> is
+  \(\int\lvert v\rvert = \tfrac{11}{6}\). The absolute value goes <em>inside</em> the integral,
+  not outside.</p>
+</section>
+
+<section>
+  <h2>The wrong-answer census</h2>
+  <p>Thirty-four candidate methods, no exclusions, every value computed as an exact fraction.
+  <b>Fifteen of the thirty-four land on exactly \(\tfrac{3}{2}\).</b></p>
+  <div class="callout198">
+    <div class="colab198">The magnitude pattern</div>
+    <p>Eleven of the nineteen wrong values for part (b) are exactly \(\tfrac{3}{2}\), the
+    <em>correct answer to part (a)</em>. Call it a <b>cross-part collision</b>. It is worse
+    than a scattered wrong answer, because the number is one you have already written down and
+    checked, and every cheap sanity test it meets, it passes. It is a real answer to a real
+    question, just the wrong one.</p>
+  </div>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Check</th><th class="nw198">Rejects on (b)</th><th class="nw198">Rejects on (a)</th>
+      <th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td>positivity, value \(&gt; 0\)</td><td class="num198">0 of 19</td>
+        <td class="num198">5 of 10</td><td class="dead198">inert on part (b)</td></tr>
+      <tr><td>distance \(\ge\) \(\lvert\)displacement\(\rvert\)</td><td class="num198">4 of 19</td>
+        <td class="num198">-</td><td>too weak, the collisions are equal not smaller</td></tr>
+      <tr><td><b>distance \(&gt;\) displacement, strictly</b></td><td class="num198">15 of 19</td>
+        <td class="num198">-</td><td class="live198">the one that works</td></tr>
+      <tr><td>sandwich \(0 \le\) displacement \(\le 6\)</td><td class="num198">-</td>
+        <td class="num198">4 of 10</td><td>useful on part (a) only</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The strict inequality earns its keep only because you already established that \(v\)
+  changes sign. <b>Two genuine mistakes hide on part (a)</b> and <b>none hides on part (b)</b>.
+  A sign repair rescues nothing here: only 3 of the 34 candidates are negative and none has
+  \(\tfrac{3}{2}\) or \(\tfrac{11}{6}\) as its magnitude.</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Three that look like work and are not</th><th class="nw198">Returns</th>
+      <th>Why it collapses</th></tr></thead>
+    <tbody>
+      <tr><td>split at \(t=1\) only</td><td class="num198 no198">3/2</td>
+        <td>\(\tfrac{5}{6} + \tfrac{2}{3}\); the missed flip cancels the middle piece</td></tr>
+      <tr><td>split at \(t=2\) only</td><td class="num198 no198">3/2</td>
+        <td>\(\tfrac{2}{3} + \tfrac{5}{6}\), the mirror image of the same slip</td></tr>
+      <tr><td>split at the vertex \(t=\tfrac{3}{2}\)</td><td class="num198 no198">3/2</td>
+        <td>that is where \(a = 0\), not where \(v = 0\); you split at zeros of the
+        <em>velocity</em></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The constants are not optional</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>Given</th><th>Wanted</th><th>Extra condition needed</th></tr></thead>
+    <tbody>
+      <tr><td>\(v(t)\)</td><td>displacement</td><td class="ok198">none - it is a change,
+        and the constant cancels</td></tr>
+      <tr><td>\(v(t)\)</td><td>position \(x(b)\)</td><td>\(x(a)\)</td></tr>
+      <tr><td>\(a(t)\)</td><td>velocity \(v(b)\)</td><td>\(v(a)\)</td></tr>
+      <tr><td>\(a(t)\)</td><td>position \(x(b)\)</td><td><b>both</b> \(v(a)\) and \(x(a)\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Part (a) asks for <b>displacement</b>, not position, and that is deliberate: it is the one
+  quantity answerable without an initial condition. A student who forgets \(x(0)\) entirely
+  still scores part (a). That is precisely why the omission is invisible here and fatal the
+  moment the wording changes - which is what Q19.9 does next.</p>
+</section>
+
+<section>
+  <h2>The variation catalog, in one table</h2>
+  <p>Read it as structure. Only four magnitudes appear anywhere - \(\tfrac{5}{6}\),
+  \(\tfrac{1}{6}\), \(\tfrac{2}{3}\) and \(\tfrac{3}{2}\) - and the sign rule is one
+  line: a piece is negative exactly when it lies between \(t=1\) and \(t=2\).</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Interval</th><th class="nw198">Roots inside</th><th class="nw198">Displacement</th>
+      <th class="nw198">Distance</th><th>Agree?</th></tr></thead>
+    <tbody>
+      <tr class="exam198"><td>\([0,3]\) &nbsp;<span class="tag198">the exam</span></td>
+        <td>1, 2</td><td class="num198 sig198">3/2</td><td class="num198 uns198">11/6</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([0,2]\)</td><td>1</td><td class="num198">2/3</td><td class="num198">1</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([0,1]\)</td><td>none</td><td class="num198">5/6</td><td class="num198">5/6</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\([1,2]\)</td><td>none</td><td class="num198">-1/6</td><td class="num198">1/6</td>
+        <td class="ok198">in magnitude</td></tr>
+      <tr><td>\([0,4]\)</td><td>1, 2</td><td class="num198">16/3</td><td class="num198">17/3</td>
+        <td class="no198">no</td></tr>
+      <tr><td>\([2,5]\)</td><td>none</td><td class="num198">27/2</td><td class="num198">27/2</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\(v = (t-\tfrac{3}{2})^2\) on \([0,3]\)</td><td>1, a double root</td>
+        <td class="num198">9/4</td><td class="num198">9/4</td>
+        <td class="ok198">yes</td></tr>
+      <tr><td>\(v = \sin(\pi t)\) on \([0,2]\)</td><td>1</td><td class="num198">0</td>
+        <td class="num198">1.2732395447</td><td class="no198">no</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p class="note2198">The last two rows are the sharp ones. A <b>double root</b> is a zero
+  where the sign does not flip, and it splits nothing - the condition is a sign change,
+  not a zero. And the sine row shows the extreme: <b>zero displacement with a positive
+  distance</b>. The ratio has no upper bound.</p>
+</section>
+
+<section>
+  <h2>What the numerical check actually does</h2>
+  <p>\(\lvert v\rvert\) has <b>corners</b> at \(t=1\) and \(t=2\), so its quadrature behaviour
+  is not the textbook one. It was measured, not assumed.</p>
+  <div class="tscroll">
+  <table class="tab198 wide198">
+    <thead><tr><th>Rule</th><th>Alignment</th><th class="nw198">Observed order</th>
+      <th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>composite Simpson</td><td>\(n\) a multiple of 6</td>
+        <td class="num198 ok198">exact</td><td>error 0 at every \(n\) from 6 to 768</td></tr>
+      <tr><td>composite Simpson</td><td>\(3 \nmid n\)</td><td class="num198">3</td>
+        <td>error \(\times\, n^3 = 5.333333\) at \(n = 200\) through 3200</td></tr>
+      <tr><td>Gauss-Legendre, 16 nodes</td><td>unsplit</td><td class="num198">2</td>
+        <td>1.9747, 2.0126, 1.9937, 2.0032</td></tr>
+      <tr><td>any rule</td><td>split at \(t=1,2\)</td><td class="num198 ok198">exact</td>
+        <td>error \(2.2 \times 10^{-16}\)</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>Simpson is exact when the corners land on even node indices.</b> With \(h = 3/n\) the
+  corner at \(t=1\) sits at node index \(n/3\); Simpson pairs its panels, so a corner only
+  hurts when it falls strictly inside a pair.</p>
+  <p><b>The off-alignment order is 3, not the 2 you would expect</b>, and that is an accident
+  of this interval. The local Simpson error on a pair of half-width \(h\) with a corner at
+  offset \(s h\) from the midpoint is \(e(s) = \tfrac{h^2}{3}(4\lvert s\rvert - 1 - 3s^2)\),
+  which has a <b>root at \(\lvert s\rvert = \tfrac{1}{3}\)</b>. On \([0,3]\) the corner index is
+  always \(n/3\), so every even \(n\) not divisible by 3 puts it at exactly that offset
+  - checked for all 1334 such \(n\) up to 4000. The leading term vanishes, and order 3 is
+  what is left. Move the same integrand to \([0,\pi]\), where the corners fall at irrational
+  fractions of a panel, and error \(\times\, n^2\) oscillates in the band [0.0094, 1.3000]
+  without settling: that is the generic order 2.</p>
+  <div class="callout198">
+    <div class="colab198">The practical lesson is one line</div>
+    <p>Split at the corners. Unsplit 16-point Gauss-Legendre - a rule exact for
+    polynomials up to degree 31 - is dragged to order 2 by a single corner and still
+    carries an error of \(3.1 \times 10^{-6}\) at 40 panels. Splitting takes it to
+    \(2.2 \times 10^{-16}\): ten orders of magnitude, for no extra work.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Units, and what they cannot tell you</h2>
+  <div class="tscroll">
+  <table class="tab198">
+    <thead><tr><th>Quantity</th><th class="nw198">Dimension</th><th>Reads as</th></tr></thead>
+    <tbody>
+      <tr><td>\(v\)</td><td class="num198">\(L\,T^{-1}\)</td><td>m/s</td></tr>
+      <tr><td>\(\int v\,dt\) and \(\int \lvert v\rvert\,dt\)</td><td class="num198">\(L\)</td>
+        <td>metres, <b>both of them</b></td></tr>
+      <tr><td>\(a = v'\)</td><td class="num198">\(L\,T^{-2}\)</td><td>m/s&sup2;</td></tr>
+      <tr><td>\(\int a\,dt\)</td><td class="num198">\(L\,T^{-1}\)</td>
+        <td>a <b>velocity</b>, not a distance</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>Read literally, \(v(t) = t^2 - 3t + 2\) is dimensionally inhomogeneous: for the sum to be
+  a velocity, the numeral 1 must carry \(L\,T^{-3}\), the 3 must carry \(L\,T^{-2}\) and the 2
+  must carry \(L\,T^{-1}\). None of them is a pure number.</p>
+  <div class="blind198">
+    <div class="colab198">Named blind spot</div>
+    <p>The units gate <b>structurally cannot</b> tell part (a) from part (b): displacement and
+    distance are both lengths. All eleven cross-part errors pass it cleanly. Only the
+    sign-change argument catches them.</p>
+  </div>
+</section>
+
+<section>
+  <h2>The trap list</h2>
+  <ol class="traps198">
+    <li><b>Answering part (b) with part (a)'s number.</b> Eleven distinct wrong methods produce
+      it, and nothing about the answer looks wrong.</li>
+    <li><b>Never looking for the zeros.</b> The upstream cause of trap 1. Factor \(v\) before
+      anything else; it is a habit, not a technique.</li>
+    <li><b>Splitting at one root, or at the vertex.</b> Half the work, none of the benefit.</li>
+    <li><b>Writing \(\lvert\int v\rvert\) instead of \(\int\lvert v\rvert\).</b> Trap 1 in
+      symbols.</li>
+    <li><b>Forgetting the absolute values after correctly splitting.</b> The most painful one:
+      all the hard work done, and the answer is still \(\tfrac{3}{2}\).</li>
+    <li><b>Forgetting an initial condition</b> when the wording says position. Invisible here,
+      fatal on Q19.9.</li>
+    <li><b>Reading "speeding up" as \(a &gt; 0\).</b> It is \(v\) and \(a\) sharing a sign, so
+      here that is \((1,\tfrac{3}{2})\) and \((2,3)\) - and on the first of those the
+      acceleration is negative.</li>
+    <li><b>Rounding \(\tfrac{11}{6}\).</b> M&ouml;bius is machine-marked; 1.83 is not
+      \(\tfrac{11}{6}\).</li>
+  </ol>
+</section>
+
+<section>
+  <h2>The decision tree</h2>
+  <pre class="tree198">read the NOUN in the question
+   |
+   +-- displacement / net change ....... int v dt          (no split)
+   +-- how far from the start ......... |int v dt|         (no split)
+   +-- position at time b ............. x(a) + int v dt    (needs x(a))
+   +-- average of either .............. divide by (b - a)
+   +-- DISTANCE / total distance ...... int |v| dt
+             |
+             solve v(t) = 0
+             |
+             any root STRICTLY inside where v CHANGES SIGN?
+               |                              |
+              NO                             YES
+               |                              |
+        distance = |int v|         split at each one, integrate v on
+                                   each piece, add the ABSOLUTE VALUES
+
+CHECK 1  distance > |displacement|, strictly if a sign change exists
+CHECK 2  the gap = 2 x |sum of the negative pieces|
+CHECK 3  the answer is in metres, not m/s
+CHECK 4  the two parts are DIFFERENT numbers
+         then PREVIEW the rendered answer in Mobius</pre>
+  <p class="note2198">The single most valuable node is <b>where \(v\) changes sign</b>. Not
+  where \(v = 0\), and not where \(a = 0\). Getting that node right is worth the whole of part
+  (b).</p>
+</section>
+
+<footer>
+  <p><b>Provenance.</b> Stem parsed from the Final Exam 2 block of
+  <code>notes\MATH265\MATH265.md</code>, item 10. Final Exam 2 prints twelve numbered items and
+  twelve point markers summing to 81; the marker follows its item on this paper, making item 10
+  worth <b>5 points</b>, or 6.1728 percent. No marking scheme exists in any of the five course
+  files, so every claim here about how marks are allocated is inference from the point value
+  and the question's construction.</p>
+  <p><b>Verification.</b> Every value was computed before it was written: 37 core assertions,
+  17 on quadrature order, 16 on the corner analysis, 10 on the census, 65 on the variation
+  families and 34 on units and provenance, 179 in total with zero failures. The census is exact rational arithmetic with no
+  floating point. The root census was controlled in both directions and catches the case where
+  both roots land exactly on grid points. The Net Change Theorem itself is not re-derived here;
+  it is worked in full on the Q19.3 page, whose own catalog forward-references this question by
+  name.</p>
+</footer>
+
+</div>
+

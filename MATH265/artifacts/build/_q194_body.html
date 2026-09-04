@@ -1,0 +1,311 @@
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 13 &middot; 5 POINTS &middot; Q19.4</div>
+  <h1>Build the Integrand</h1>
+  <p class="lede194">Q19.1, Q19.2 and Q19.3 all handed you a function and asked you to integrate it.
+  This one does not. Nothing here is a function until you build one out of a picture, and the
+  picture's entire content is that a chain raised at one end has slices that travel
+  <em>different distances</em>.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <div class="ansbar194">
+    <div class="ac194">
+      <div class="al194">THE STEM</div>
+      <div class="av194 small194">A chain lying on the ground is 10 m long and its mass is 80 kg.
+      How much work is required to raise one end of the chain to a height of 6 m?</div>
+    </div>
+    <div class="ac194">
+      <div class="al194">THE ANSWER</div>
+      <div class="av194">$144g = 1411.2\ \text{J}$</div>
+    </div>
+    <div class="ac194">
+      <div class="al194">TYPE INTO M&Ouml;BIUS</div>
+      <div class="av194"><code class="kbd">1411.2</code></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>The picture is the question</h2>
+  <p>Because 6 m is less than the chain's 10 m, only part of the chain leaves the ground.
+  The final arrangement is 6 m hanging vertically and 4 m still lying down, which splits the
+  mass <b class="mov194">48 kg that moves</b> and <b class="stay194">32 kg that never
+  does</b>. Every slice of the hanging part rose a different distance: the slice that ends at
+  height $y$ started on the ground, so it rose exactly $y$.</p>
+
+  <figure>
+    <div class="figbox">FIG1</div>
+    <figcaption><b>Figure 1.</b> Before and after. The right-hand panel is the only thing you
+    need to write the integral: read off how far the slice at height $y$ travelled, and the
+    integrand is the weight of that slice times that distance.</figcaption>
+  </figure>
+
+  <div class="steps194">
+    <div class="sp194"><span class="sn194">1</span><span>Draw the <b>final</b> picture, choose a
+      slicing variable, and say where the origin is. The integrand depends on that choice; the
+      answer does not.</span></div>
+    <div class="sp194"><span class="sn194">2</span><span>Write the <b>weight</b> of one slice.
+      Here $\lambda = 80/10 = 8$ kg/m, so a slice of thickness $dy$ weighs $8g\,dy = 78.4\,dy$
+      newtons.</span></div>
+    <div class="sp194"><span class="sn194">3</span><span>Read the <b>rise of that slice</b> off
+      the picture. This is where the question is won or lost.</span></div>
+    <div class="sp194"><span class="sn194">4</span><span>Add them up. The work is the integral,
+      over the range of that variable, of <b>the weight of the slice times the rise of the
+      slice</b>.</span></div>
+  </div>
+
+  <div class="box194">
+    $$W = \int_0^{6} 78.4\,y\,dy \;=\; 78.4\left[\frac{y^{2}}{2}\right]_0^{6} \;=\; 78.4 \times 18 \;=\; 1411.2\ \text{J}$$
+  </div>
+</section>
+
+<section>
+  <h2>The same work, two origins</h2>
+  <p>On a modelling question the strongest available check is not to redo the arithmetic - it is
+  to <b>rebuild the integrand from a different origin</b>. Slice by height above the ground and
+  the rise is $y$ over $[0,6]$. Slice by arclength from the raised end and the rise is
+  $\max(6-s,0)$ over the whole chain $[0,10]$. Different variable, different origin, different
+  limits, and the two areas are the same number.</p>
+
+  <figure>
+    <div class="figbox">FIG2</div>
+    <figcaption><b>Figure 2.</b> Both shaded areas equal 18, so both integrals equal
+    $78.4 \times 18$. In Route B the last 4 m of chain sits on the axis and contributes nothing,
+    which is the picture saying "that part never moved". The two routes agree to the last bit of
+    floating point, not merely to a tolerance.</figcaption>
+  </figure>
+
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>Route</th><th>Variable and origin</th><th>Integral</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b></td><td>$y$, height above the ground</td>
+          <td class="mono">$\int_0^6 78.4\,y\,dy$</td>
+          <td class="ok194">use this one under pressure</td></tr>
+      <tr><td><b>B</b></td><td>$s$, arclength from the raised end</td>
+          <td class="mono">$\int_0^{10} 78.4\max(6-s,0)\,ds$</td>
+          <td>the independent check</td></tr>
+      <tr><td><b>C</b></td><td>$u$, arclength from the grounded end</td>
+          <td class="mono">$\int_4^{10} 78.4\,(u-4)\,du$</td>
+          <td>correct, rarely worth it</td></tr>
+      <tr><td><b>D</b></td><td>centre of mass of the moving part</td>
+          <td class="mono">$48 \times 9.8 \times 3$</td>
+          <td>an eight-second check, not the written method</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="note194"><b>Is the centre-of-mass shortcut valid here? Yes - but only on the part
+  that moves.</b> The hanging 6 m is uniform, so its centre of mass rises from $0$ to $3$ m and
+  $48\times 9.8\times 3 = 1411.2$ J. It works because the rise is <em>linear</em> in the slicing
+  variable, so the average rise equals the rise of the average position. Apply the same $3$ m to
+  the full $80$ kg and you get $2352$ J, because $32$ kg never left the ground. Replace the rise
+  $y$ with something non-linear such as $y^{2}/6$ and the shortcut returns $705.6$ J against a
+  true $940.8$ J.</div>
+</section>
+
+<section>
+  <h2>Weight or mass? The mark nobody sees themselves lose</h2>
+  <p>This stem gives a <b>mass</b>, in kilograms, so $g$ belongs in the integrand. Q19.5, the
+  next question in this category, is stated in foot-pounds, so inserting $g$ there is the same
+  mistake running the other way. No numerical check can see either one.</p>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>The stem gives you</th><th>What it is</th><th>Multiply by $g$?</th><th>On this page</th></tr></thead>
+    <tbody>
+      <tr><td>80 kg, 8 kg/m, "mass"</td><td>mass</td><td class="ok194">yes</td><td>Q19.4</td></tr>
+      <tr><td>500 N, 78.4 N/m</td><td>weight, a force</td><td class="no194">no</td><td>the same chain, restated</td></tr>
+      <tr><td>2 lb/ft, "weighs 25 lb"</td><td>weight, imperial</td><td class="no194">no</td><td>Family 4, and Q19.5</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>The constants carry units too: the $10$ is metres, the $80$ is kilograms, and the $80/10$ is
+  kilograms <em>per metre</em>. Redoing the whole problem in grams and centimetres gives
+  $1.4112 \times 10^{10}$ erg, which converts straight back to $1411.2$ J.</p>
+</section>
+
+<section>
+  <h2>The checks, in the order they catch things</h2>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>Check</th><th>On this question</th><th>Rejects</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tight bracket</b></td><td>$0 &lt; W &lt; 48g(6) = 2822.4$</td><td class="ok194">9 of 17</td></tr>
+      <tr><td>Trivial bracket</td><td>$0 &lt; W &lt; 80g(6) = 4704$</td><td>4 of 17</td></tr>
+      <tr><td>Units</td><td>(kg/m)(m/s$^2$)(m)(m) $=$ J</td><td>a missing or doubled $g$</td></tr>
+      <tr><td>Which mass moves</td><td>48 kg moves, 32 kg does not</td><td>anything using all 80 kg</td></tr>
+      <tr><td>Positivity</td><td>work is positive here</td><td class="no194">0 of 17 - inert</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>$1411.2$ is <b>exactly 30 percent</b> of the trivial upper bound and <b>exactly half</b> of
+  the tight one. Neither is a coincidence: the first is $H/(2L)$, and the second is the statement
+  that a uniform chain's average rise is half its maximum rise. That makes the halving a real
+  check rather than a numerological one.</p>
+</section>
+
+<section>
+  <h2>What goes wrong, and what hides</h2>
+  <p>Seventeen wrong answers were enumerated, each derived from a named mistake. Twelve are
+  larger than the truth and four are smaller. <b>Every one of them is positive</b>, so the
+  "an area is positive" repair that rescues Q19.1 and Q19.3 rejects none of them here.</p>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>Mistake</th><th>Value</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>every slice travels the full 6 m</td><td class="num194">4704</td><td>Family 2's formula on Family 0's question</td></tr>
+      <tr><td>lifted mass times full length</td><td class="num194">4704</td><td>collides with the row above</td></tr>
+      <tr><td>mass used as the linear density</td><td class="num194">14112</td><td>forgot to divide by 10</td></tr>
+      <tr><td>$g$ inserted twice</td><td class="num194">13829.76</td><td>a weight density multiplied by $g$ again</td></tr>
+      <tr><td>integrate to $L$ instead of $H$</td><td class="num194">3920</td><td>a perfectly sensible answer to another question</td></tr>
+      <tr><td>whole chain's centre of mass rises $L/2$</td><td class="num194">3920</td><td>collides with the row above</td></tr>
+      <tr class="hot194"><td>every slice of the lifted part travels 6 m</td><td class="num194">2822.4</td><td rowspan="3">a <b>triple</b> collision, and exactly twice the answer</td></tr>
+      <tr class="hot194"><td>the $\tfrac{1}{2}$ dropped from $\int y\,dy$</td><td class="num194">2822.4</td></tr>
+      <tr class="hot194"><td>a bare factor-of-two slip</td><td class="num194">2822.4</td></tr>
+      <tr><td>average distance applied to the whole weight</td><td class="num194">2352</td><td>the seductive one - every step is true of something</td></tr>
+      <tr><td>density taken as $M/H$</td><td class="num194">2352</td><td>collides with the row above</td></tr>
+      <tr><td>$g = 9.81$ instead of $9.8$</td><td class="num194">1412.64</td><td>a near-miss, not an error of method</td></tr>
+      <tr class="hid194"><td><b>rise measured downward, $6-y$ instead of $y$</b></td><td class="num194"><b>1411.2</b></td><td><b>HIDES</b> - see below</td></tr>
+      <tr><td>the rise $(6-s)$ run over the whole chain</td><td class="num194">784</td><td>lets the grounded part contribute negatively</td></tr>
+      <tr><td>answer halved</td><td class="num194">705.6</td><td>an extra centre-of-mass factor</td></tr>
+      <tr><td>$y\,dy$ read as $y$</td><td class="num194">470.4</td><td>no integration at all</td></tr>
+      <tr><td>$g$ omitted entirely</td><td class="num194">144</td><td>invisible to everything but a units check</td></tr>
+    </tbody>
+  </table>
+  </div>
+
+  <div class="warn194"><b>Exactly one candidate hides.</b> Measuring each slice's rise downward
+  as $6-y$ rather than $y$ returns $1411.2$ J from a wrong picture, because
+  $\int_0^6 y\,dy = \int_0^6 (6-y)\,dy = 18$ - the rise is symmetric about the interval's
+  midpoint, so reversing it changes nothing. That symmetry breaks the moment the interval does
+  not start at zero. Nine of the seventeen candidates sit on a value some other mistake also
+  produces, so "two methods agreed" is weak evidence here unless the two methods used different
+  origins.</div>
+
+  <h3>Which repair to reach for, measured across the category</h3>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>Question</th><th>The repair</th><th>What it does</th></tr></thead>
+    <tbody>
+      <tr><td>Q19.1</td><td>"an area is positive"</td><td class="ok194">rescues all three wrong candidates</td></tr>
+      <tr><td>Q19.2</td><td>"an area is positive"</td><td class="no194">produces a confident wrong answer</td></tr>
+      <tr><td>Q19.3</td><td>"an amount is positive"</td><td class="ok194">rescues the one sign error</td></tr>
+      <tr class="hid194"><td><b>Q19.4</b></td><td>"work is positive"</td><td><b>inert - it rejects nothing</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p>So this page changes what you should reach for. On an area or net-change question the sign is
+  the cheap discriminator. On a work question there is no sign to check, and the
+  <b>magnitude bracket is the only cheap check that discriminates</b>.</p>
+</section>
+
+<section>
+  <h2>Thirteen families, three questions each</h2>
+  <p>Read this as structure, not as thirteen facts. There are only two shapes in the whole topic,
+  and only three questions to answer for either: what indexes the slices, what does one slice
+  weigh, and how far does that slice go.</p>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>#</th><th>Family</th><th>Shape</th><th>Tool</th><th>Instance</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>one end raised, $H \le L$</td><td class="mov194">distance</td><td class="mono">$\tfrac12\lambda g h^2$</td><td>1411.2 J</td></tr>
+      <tr><td>1</td><td>one end raised, $H \ge L$</td><td class="mov194">distance</td><td class="mono">$\lambda g(\tfrac12 L^2 + L(h-L))$</td><td>$h=15$: 7840 J</td></tr>
+      <tr><td>2</td><td>uniform hoist</td><td class="stay194">neither</td><td class="mono">$Mgd$</td><td>4704 J</td></tr>
+      <tr><td>3</td><td>hanging chain hauled up</td><td class="mov194">distance</td><td class="mono">$\tfrac12\lambda g L^2$</td><td>3920 J</td></tr>
+      <tr><td>4</td><td>weight per length given</td><td class="mov194">distance</td><td class="mono">$\tfrac12 w h^2$, <b>no $g$</b></td><td>96 ft-lb</td></tr>
+      <tr><td>5</td><td>variable density</td><td class="mov194">distance</td><td class="mono">$\lambda(x)$ inside the integral</td><td>705.6 J</td></tr>
+      <tr><td>6</td><td>rope plus payload</td><td class="mov194">both</td><td class="mono">$mgh + \tfrac12\rho g h^2$</td><td>1528.8 J</td></tr>
+      <tr><td>7</td><td>leaky bucket</td><td class="stay194">force</td><td class="mono">$\int_0^h F(y)\,dy$</td><td>1715 J</td></tr>
+      <tr><td>8</td><td>pumping a tank</td><td class="mov194">distance</td><td class="mono">$\int \rho g A(y)(\text{rim}-y)\,dy$</td><td>$490000\pi$ J</td></tr>
+      <tr><td>9</td><td>spring - this is Q19.5</td><td class="stay194">force</td><td class="mono">$\int_a^b kx\,dx$, <b>no $g$</b></td><td>80 ft-lb</td></tr>
+      <tr><td>10</td><td>general variable force</td><td class="stay194">force</td><td class="mono">$\int_a^b F(x)\,dx$</td><td>72</td></tr>
+      <tr><td>11</td><td>run backwards</td><td>inverse</td><td class="mono">solve $\tfrac12\lambda g h^2 = W$</td><td>5.0508 m</td></tr>
+      <tr><td>12</td><td>a difference of works</td><td>inverse</td><td class="mono">$W(h_2)-W(h_1)$</td><td>1097.6 J</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <p><b>Family 7 is the reason the two shapes matter.</b> It produces a structurally identical
+  integral from the opposite physical argument - the whole object travels the whole distance and
+  it is the force that changes. Writing the right integral for the wrong reason is how a student
+  passes this question and fails the next one.</p>
+</section>
+
+<section>
+  <h2>Drills</h2>
+  <p>Score <b>magnitude</b> and <b>setup</b> separately. A magnitude error is arithmetic; a setup
+  error means you answered a different family's question, and the two need different repairs.</p>
+  <div class="tscroll">
+  <table class="tab194">
+    <thead><tr><th>#</th><th>Problem</th><th>Answer</th><th>Family</th></tr></thead>
+    <tbody>
+      <tr><td>D1</td><td>the same chain, one end raised to 10 m</td><td class="num194">3920 J</td><td>0, at $h=L$</td></tr>
+      <tr><td>D2</td><td>the same chain, one end raised to 4 m</td><td class="num194">627.2 J</td><td>0</td></tr>
+      <tr><td>D3</td><td>a 12 m chain of mass 60 kg, one end to 5 m</td><td class="num194">612.5 J</td><td>0, new $\lambda$</td></tr>
+      <tr><td>D4</td><td>a rope weighing 3 lb/ft, one end to 8 ft</td><td class="num194">96 ft-lb</td><td>4, <b>no $g$</b></td></tr>
+      <tr><td>D5</td><td>lift the entire chain to a height of 6 m</td><td class="num194">4704 J</td><td>2 - the trap answer to D1</td></tr>
+      <tr><td>D6</td><td>the chain hangs from a roof; haul all of it up</td><td class="num194">3920 J</td><td>3 - D1's number, other picture</td></tr>
+      <tr><td>D7</td><td>additional work from 6 m to 8 m</td><td class="num194">1097.6 J</td><td>12</td></tr>
+      <tr><td>D8</td><td>a 6 m chain of density $(2+x)$ kg/m, that end to 6 m</td><td class="num194">705.6 J</td><td>5</td></tr>
+      <tr><td>D9</td><td>a 10 kg bucket up 12 m on a 0.5 kg/m rope</td><td class="num194">1528.8 J</td><td>6</td></tr>
+      <tr><td>D10</td><td>a bucket of mass $(20-0.5y)$ kg raised 10 m</td><td class="num194">1715 J</td><td>7 - <b>force</b>, not distance</td></tr>
+      <tr><td>D11</td><td>how high for the work to be exactly 1000 J?</td><td class="num194">5.0508 m</td><td>11</td></tr>
+      <tr><td>D12</td><td>a 10 ft rope weighing 25 lb, one end to 6 ft</td><td class="num194">45 ft-lb</td><td>4, <b>no $g$</b></td></tr>
+    </tbody>
+  </table>
+  </div>
+</section>
+
+<section>
+  <h2>The decision tree</h2>
+  <pre class="tree194">Is a WORK question in front of you?
+|
++-- Does the WHOLE object move the SAME distance?
+|      YES -&gt; W = (total weight) x (distance).  No integral.        [Family 2]
+|      NO  -&gt; continue
+|
++-- Is it the FORCE that varies, one object on one path?
+|      YES -&gt; W = int F(x) dx over the path.        [Families 7, 9, 10]
+|      NO  -&gt; it is the DISTANCE that varies; slice it.
+|
++-- SLICE: pick a variable, STATE the origin
+|      chain raised at one end   -&gt; y = height,  rise = y,   0..h
+|      chain hanging, hauled up  -&gt; d = depth,   rise = d,   0..L
+|      liquid pumped out         -&gt; y = layer,   rise = top - y
+|
++-- WEIGHT of one slice
+|      stem gave MASS (kg)      -&gt; multiply by g
+|      stem gave WEIGHT (N, lb) -&gt; do NOT multiply by g
+|
++-- W = int (weight of slice) x (rise of slice)
+|
++-- CHECK
+|      units    -&gt; must come out in J (or ft-lb)
+|      moving?  -&gt; is it really ALL of the mass?
+|      bracket  -&gt; 0 &lt; W &lt; (moving weight) x (max rise)
+|      halfway  -&gt; a uniform chain gives exactly half that bound
+|
++-- PREVIEW the Mobius box.  Number only, no unit suffix.</pre>
+</section>
+
+<footer class="wrap">
+  <p><b>Provenance.</b> Final Exam 1 item 13, 5 points, re-parsed from the paper rather than
+  typed; the paper's fourteen values sum to 124, so this question is 4.03 percent of it. Item 13
+  carries no justification demand of any kind, and <b>no marking scheme, rubric or part-marks
+  statement exists anywhere in the four course files</b> - so every grading claim on this page is
+  flagged as an inference.</p>
+  <p><b>What was verified.</b> The answer was derived from three different origins plus a
+  centre-of-mass argument, all agreeing to the last bit of floating point, and evaluated by exact
+  antiderivative, by exact rational arithmetic ($g=49/5$ gives $W = 7056/5$), by Gauss-Legendre,
+  by tanh-sinh and by Simpson. The observed quadrature order on this integrand is
+  <b>unmeasurable</b> - it is linear, so Simpson is exact and every error on the ladder is
+  roundoff; exactness was asserted instead, and the instrument was demonstrated on a smooth
+  control converging to 4.00 and a cusp control converging to $5/3$. Route B's integrand does have
+  a corner, at $3/5$ of its interval, where Simpson's measured order is <b>2, not 4</b>, while
+  every $n$ divisible by 10 reports a spurious zero error. Units were checked as a separate
+  dimensional gate with seeded rejections. Full working:
+  <span class="mono">notes\Q19.4 - Work, raising one end of a chain.md</span>.</p>
+</footer>
+
+</main>

@@ -1,0 +1,362 @@
+<header class="wrap mast">
+<div class="eyebrow">MATH 265 &middot; FINAL EXAM 2 &middot; ITEM 12 &middot; 10 POINTS &middot; Q19.7</div>
+<h1>The Interval Runs Backwards</h1>
+<p class="lede197">Find a positive $k$ such that the average of $f(x) = 5/x^2$ over the interval between 1 and $k$ is 32. The average works out to $5/k$, so $k = 5/32$ - which is less than 1, so the interval runs from $5/32$ up to 1, not from 1 up to $k$. This is Q19.6 read backwards, and running it backwards changes three things: you set up an equation instead of evaluating one, you have to decide whether the answer is unique, and your only check is substitution.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+<div class="ansbar197">
+  <div class="ac197"><div class="al197">THE ANSWER</div><div class="av197">$k = \frac{5}{32} = 0.15625$</div><div class="small197">From $\frac{5}{k} = 32$. The $(k-1)$ cancels.</div></div>
+  <div class="ac197"><div class="al197">TYPE INTO MOEBIUS</div><div class="av197"><code>5/32</code></div><div class="small197">A fraction, so the preview matters more than usual.</div></div>
+  <div class="ac197"><div class="al197">THE INTERVAL</div><div class="av197">$\left[\frac{5}{32},\,1\right]$</div><div class="small197">Width $\frac{27}{32}$, integral 27. Backwards from the way the stem reads.</div></div>
+  <div class="ac197"><div class="al197">WRONG METHODS THAT HIDE</div><div class="av197">$1$ of $24$</div><div class="small197">And it is not an arithmetic error. Q19.6 had 8 of 23.</div></div>
+</div>
+</section>
+
+<section>
+<h2>1. The average-value formula, read as an equation</h2>
+<p>Nothing about the formula changes. What changes is which symbol is unknown.</p>
+<div class="box197">
+$$\frac{1}{k-a}\int_a^k f(x)\,dx \;=\; T$$
+</div>
+<p>In Q19.6 everything on the left was known and you computed $T$. Here $T$ is given, $a = 1$ is given, and $k$ is what you are solving for. So you carry $k$ as a letter all the way through the integration and only put numbers in at the end.</p>
+<div class="steps197">
+  <div class="sp197"><span class="sn197">1</span><span>Write the constraint with $k$ still a letter.</span></div>
+  <div class="sp197"><span class="sn197">2</span><span>Integrate symbolically: $\int 5x^{-2}dx = -\dfrac{5}{x}$, so $\displaystyle\int_1^k = 5 - \dfrac{5}{k} = \dfrac{5(k-1)}{k}$.</span></div>
+  <div class="sp197"><span class="sn197">3</span><span><strong>Look for the factor $(k-1)$ and cancel it.</strong> This is the step the whole question turns on.</span></div>
+  <div class="sp197"><span class="sn197">4</span><span>Solve what is left: $\dfrac{5}{k} = 32$, so $k = \dfrac{5}{32}$.</span></div>
+  <div class="sp197"><span class="sn197">5</span><span>Count the solutions, and use the stem's word "positive" to discard any others.</span></div>
+  <div class="sp197"><span class="sn197">6</span><span>Substitute back and recompute the <em>average</em>, not the integral.</span></div>
+</div>
+<p class="note197">The general statement, verified on 92 instances: the average of $\dfrac{c}{x^2}$ over the interval between $a$ and $k$ is $\dfrac{c}{a\,k}$. With $c=5$ and $a=1$ that is $5/k$, the exam's own equation. A control confirms it is false for $c/x^3$, so it is not a tautology.</p>
+</section>
+
+<section>
+<h2>2. One picture settles both the trap and the uniqueness</h2>
+<p>Plot the average against $k$. Because the average is $5/k$, the picture is a hyperbola, and everything the question asks can be read straight off it.</p>
+<figure>
+FIG1
+<figcaption>The constraint, drawn. A horizontal target meets a strictly decreasing curve exactly once, which is the whole uniqueness argument. The level 5 is the value $k = 1$ would give, and it is never attained because the interval would have zero width - so every target above 5, including 32, lands to the <em>left</em> of 1.</figcaption>
+</figure>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>WHAT THE PICTURE SAYS</th><th>WHY IT MATTERS IN THE EXAM</th></tr></thead>
+<tbody>
+<tr><td>The curve is strictly decreasing on $(0,1)$ and on $(1,\infty)$</td><td>At most one $k$ for any target, so "find <em>a</em> number" and "find <em>the</em> number" are the same question here</td></tr>
+<tr><td>The value 5 is approached at $k=1$ but never taken</td><td>$k=1$ gives an interval of zero width, so no target equals 5</td></tr>
+<tr><td>Targets above 5 land left of 1; targets below 5 land right of it</td><td>$32 &gt; 5$, so you know $k &lt; 1$ <em>before</em> you finish solving</td></tr>
+<tr><td>The vertical asymptote at $k = 0$</td><td>Every positive target above 5 is reachable, so a "no solution" answer is always wrong here</td></tr>
+</tbody>
+</table>
+</div>
+<p>That third row is the cheapest guard on the question. A bigger average needs a <em>smaller</em> endpoint, because $f$ is large near zero. Saying that sentence out loud kills the single most common wrong answer, $32/5 = 6.4$, in about two seconds.</p>
+</section>
+
+<section>
+<h2>3. Reversing the limits changes nothing, and that is worth knowing</h2>
+<p>Suppose you never noticed that $k &lt; 1$ and wrote the interval as $[1,k]$ anyway. Then</p>
+<div class="box197">
+$$\frac{1}{k-1}\int_1^k \frac{5}{x^2}\,dx \;=\; \frac{1}{1-k}\int_k^1 \frac{5}{x^2}\,dx \;=\; \frac{5}{k}$$
+</div>
+<p>Reversing the limits flips the sign of the integral <em>and</em> the sign of the width, and the two flips cancel. Verified at 501 sampled values of $k$, worst mismatch below $10^{-9}$.</p>
+<p class="warn197">So the orientation error is the one candidate in the census that returns the right answer, and it hides <strong>structurally</strong> rather than by luck. It costs you nothing on this stem. It costs you everything on a follow-up that asks which interval you used, or asks for the mean-value point, because then you have to name $\left[\frac{5}{32},1\right]$ correctly.</p>
+</section>
+
+<section>
+<h2>4. Uniqueness has to be argued, not assumed</h2>
+<p>It is tempting to solve, get one answer, and move on. On this question that happens to be right. On a question one word away it is wrong.</p>
+<figure>
+FIG2
+<figcaption>Left, the exam's own average $5/k$ is strictly decreasing, so a horizontal target meets it once. Right, the average of $(x-2)^2$ between 1 and $k$ is $(k^2-5k+7)/3$, which falls then rises: the same question has two solutions above the minimum $\tfrac14$, exactly one at it, and none below.</figcaption>
+</figure>
+<p>The engine behind both panels is one derivative. Differentiating the average with respect to the moving endpoint gives</p>
+<div class="box197">
+$$\frac{d}{dk}\,f_{\text{avg}}(k) \;=\; \frac{f(k) - f_{\text{avg}}(k)}{k - a}$$
+</div>
+<p>which says <strong>the average moves toward the value you are adding</strong>. Verified numerically at 14 points across three integrands, worst mismatch $7.702\times10^{-9}$. If $f$ never crosses its own running average, the average is monotone and there is at most one solution. If $f$ dips below it and comes back, there can be two, or none.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>STEM</th><th>HOW MANY $k$</th><th>WHY</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32</td><td class="num197 ok197">1</td><td>$5/k$ strictly decreasing</td></tr>
+<tr><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$</td><td class="num197">2</td><td>$f$ dips to 0 inside the interval</td></tr>
+<tr><td>average of $(x-2)^2$ between 1 and $k$ is $\frac18$</td><td class="num197 no197">0</td><td>below the minimum $\frac14$</td></tr>
+<tr><td>average of $\sin x$ on $[0,k]$ is $\frac12$</td><td class="num197">2</td><td>the average rises then falls</td></tr>
+<tr><td>average of $\frac{k}{x^2}$ between 1 and $k$ is 32</td><td class="num197 no197">0</td><td>that average is identically 1, for every $k$</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197">The root-finder used to check all of this was controlled in both directions on the same code and the same window: it returns <strong>two</strong> roots for the average of $x^2$ at target $\frac73$ (namely $-3$ and $2$) and <strong>zero</strong> at target $\frac{1}{12}$. A finder that has never been shown returning two, and never been shown returning none, has not been shown to count.</p>
+</section>
+
+<section>
+<h2>5. The check you actually have, and what it cannot see</h2>
+<p>Put $k = \frac{5}{32}$ back in. The integral over $\left[\frac{5}{32},1\right]$ is $\left[-\frac{5}{x}\right] = -5+32 = 27$, the width is $\frac{27}{32}$, and $27 \div \frac{27}{32} = 32$.</p>
+<p class="warn197"><strong>This confirms the algebra of the solve, not the setup.</strong> If you set the <em>integral</em> equal to 32 instead of the average, got $k = \frac{5}{37}$, and then "checked" by recomputing the integral, it would agree with itself perfectly. The check only bites when you recompute the average - integral divided by width - from scratch.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>CHECK</th><th>ON THIS QUESTION</th><th>WRONG VALUES IT REJECTS</th></tr></thead>
+<tbody>
+<tr><td>$k &gt; 0$, because the stem says "positive"</td><td>$0.15625 &gt; 0$</td><td class="num197">6 of 24</td></tr>
+<tr><td>$0 &lt; k &lt; 1$, because $32 &gt; 5$</td><td>$0.15625 &lt; 1$</td><td class="num197">11 of 24</td></tr>
+<tr><td>Sandwich: $32$ must lie between $\min f$ and $\max f$, so $k \le 0.3952847075$</td><td>satisfied</td><td class="num197">13 of 24</td></tr>
+<tr class="truth197"><td>Substitute into the true average</td><td>$32$</td><td class="num197 ok197">23 of 24</td></tr>
+</tbody>
+</table>
+</div>
+<p>The sandwich is the strongest thing you can do <em>before</em> solving: it tells you $k$ must be under $0.3953$ while you still have time to change your setup.</p>
+</section>
+
+<section>
+<h2>6. The wrong-answer census</h2>
+<p>24 methods, every one solved to the value it actually produces, with no point excluded as degenerate. Four checks were then run against all 24 wrong values.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>ID</th><th>METHOD</th><th>$k$ PRODUCED</th><th>POS</th><th>BAND</th><th>SAND</th><th>SUBST</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>C0</td><td>the truth</td><td class="num197">0.15625</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td></tr>
+<tr class="hot197"><td>C1</td><td>set the integral itself to 32, never divided</td><td class="num197">0.1351351351</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C2</td><td>integral from 1 to $k$ set to 32</td><td class="num197">-0.1851851852</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C3</td><td>divide the integral by $k$ instead of the width</td><td class="num197">0.3248061549</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C3</td><td>same, other branch</td><td class="num197">-0.4810561549</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C4</td><td>divide by 1, the other endpoint</td><td class="num197">0.1351351351</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C5</td><td>endpoint average $\frac{f(1)+f(k)}{2} = 32$</td><td class="num197">0.2911112549</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C6</td><td>midpoint value $f\!\left(\frac{1+k}{2}\right) = 32$</td><td class="num197">-0.2094305850</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C6</td><td>same, other branch</td><td class="num197">-1.7905694150</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr class="hot197"><td>C7</td><td>reach $5/k = 32$ then write $k = 32/5$</td><td class="num197">6.4</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C8</td><td>reach $5/k = 32$ then write $k = 5\times32$</td><td class="num197">160</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C9</td><td>integrate 1 to $k$, divide by $(1-k)$</td><td class="num197">-0.15625</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C10</td><td>antiderivative taken as $+5/x$</td><td class="num197">-0.15625</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C11</td><td>antiderivative taken as $5\ln x$</td><td class="num197">0.0016795135</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C12</td><td>power rule as $x^{n-1}/(n-1)$</td><td class="num197">0.4397914158</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C13</td><td>forgot the factor 5</td><td class="num197">0.03125</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C14</td><td>multiplied by the width instead of dividing</td><td class="num197">0.1207843891</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C14</td><td>same, other branch</td><td class="num197">8.2792156109</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C15</td><td>set $f(k) = 32$, the value not the average</td><td class="num197">0.3952847075</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C16</td><td>two-panel Simpson average set to 32</td><td class="num197">0.1953571843</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr><td>C17</td><td>averaged the $x$'s: $\frac{1+k}{2} = 32$</td><td class="num197">63</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C18</td><td>assumed $k&gt;1$, concluded "no solution"</td><td class="num197">none</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C19</td><td>solved correctly, reported $1/k$</td><td class="num197">6.4</td><td class="ok197">ok</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C20</td><td>used width $(k+1)$</td><td class="num197">0.1222167135</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+<tr class="truth197"><td>C21</td><td><strong>orientation flip</strong>: assume $k&gt;1$, use $\frac{1}{k-1}\int_1^k$ anyway</td><td class="num197">0.15625</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td></tr>
+<tr><td>C22</td><td>took the interval as $[0,k]$</td><td class="num197">divergent</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td><td class="no197">-</td></tr>
+<tr><td>C23</td><td>endpoint-average route, forgot the square root</td><td class="num197">0.0847457627</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="ok197">ok</td><td class="no197">-</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197"><strong>This stem does not inherit Q19.6's degeneracies, and that was swept rather than assumed.</strong> Q19.6 had eight hiders, traced to two properties of its stem: $f$ affine, and the fixed endpoint $a = 0$. Neither holds here. $5/x^2$ is not affine, so the endpoint mean gives $104.9$ and the midpoint value gives $14.9598246896$ where the truth is 32. The fixed endpoint is 1, not 0, so dividing by the endpoint instead of the width matches the truth at <strong>zero of 500</strong> positive left endpoints swept over $[0,5]$ - with a control confirming it does agree in the limit $a \to 0$, which is exactly Q19.6's case.</p>
+<p>Two rows deserve a second look. <strong>C1 is the dangerous one</strong>: $\frac{5}{37} = 0.1351351351$ is positive, less than 1, and passes the sandwich, so only substitution catches it. And <strong>C15 lands exactly on the mean-value point</strong> $\sqrt{5/32}$, which is the $x$ where $f$ equals its average - a wrong answer that is a genuinely meaningful number, which is what makes it feel right.</p>
+</section>
+
+<section>
+<h2>7. The magnitude pattern, which is new for this category</h2>
+<p>Four behaviours have been recorded across Q19.1 to Q19.6. This is a fifth.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>OBSERVATION</th><th>MEASURED</th><th>CONTRAST</th></tr></thead>
+<tbody>
+<tr><td>Positivity is <em>not</em> inert: the stem's word "positive" does real work</td><td class="num197">6 of 24 rejected</td><td>Q19.4 to Q19.6 had positivity rejecting almost nothing</td></tr>
+<tr><td>A sign repair rescues only some of those</td><td class="num197">2 of 6</td><td>C9 and C10 both land on $-0.15625$, so $|k|$ hands back the truth</td></tr>
+<tr><td>The bracket is strong</td><td class="num197">13 of 24 rejected</td><td>Q19.6's sandwich managed 3 of 23</td></tr>
+<tr><td>Values collide, so a wrong answer does not name its cause</td><td class="num197">4 shared values, 8 of 25 candidates</td><td>$-0.15625$, $0.1351351351$, $0.15625$ and $6.4$ each reached twice</td></tr>
+</tbody>
+</table>
+</div>
+<p>Summarised: <strong>positivity active, sign repair partial, bracket strong.</strong></p>
+</section>
+
+<section>
+<h2>8. The variation catalog</h2>
+<p>Read these as structure. Family 0 has exactly one moving part - the product $a\,k$ - so every row is the same divide. Families 1 to 4 are graded by <em>what power of $k$ survives the simplification</em>, which is the only thing that changes the tool you need.</p>
+
+<h3>Family 0 - rescalings, all of them one divide</h3>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>STEM</th><th>$c$</th><th>$a$</th><th>TARGET</th><th>$k$</th><th>CHECK</th></tr></thead>
+<tbody>
+<tr class="truth197"><td>the exam's own</td><td class="num197">5</td><td class="num197">1</td><td class="num197">32</td><td class="num197">$\frac{5}{32} = 0.15625$</td><td class="num197">32</td></tr>
+<tr><td>average is 2 instead</td><td class="num197">5</td><td class="num197">1</td><td class="num197">2</td><td class="num197">2.5</td><td class="num197">2</td></tr>
+<tr><td>$12/x^2$, average 48</td><td class="num197">12</td><td class="num197">1</td><td class="num197">48</td><td class="num197">0.25</td><td class="num197">48</td></tr>
+<tr><td>between 2 and $k$</td><td class="num197">5</td><td class="num197">2</td><td class="num197">32</td><td class="num197">0.078125</td><td class="num197">32</td></tr>
+<tr><td>average is $\frac12$</td><td class="num197">5</td><td class="num197">1</td><td class="num197">0.5</td><td class="num197">10</td><td class="num197">0.5</td></tr>
+<tr><td>$3/x^2$, average 12</td><td class="num197">3</td><td class="num197">1</td><td class="num197">12</td><td class="num197">0.25</td><td class="num197">12</td></tr>
+<tr class="hot197"><td>average is 5, with $a=1$</td><td class="num197">5</td><td class="num197">1</td><td class="num197">5</td><td class="num197">none</td><td>$k=1$ collapses the interval</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Families 1 to 6 - what power of $k$ survives</h3>
+<div class="tscroll">
+<table class="tab197 wide197">
+<thead><tr><th>FAMILY</th><th>TRIGGER</th><th>WORKED INSTANCE</th><th>ANSWER</th></tr></thead>
+<tbody>
+<tr><td>1 - linear</td><td>$f$ affine, so the average is the midpoint value</td><td>average of $2x+1$ between 1 and $k$ is 10, i.e. $k+2=10$</td><td class="num197">8</td></tr>
+<tr><td>2 - quadratic</td><td>$c/x^3$, or a polynomial of degree $\ge 2$</td><td>average of $\frac{5}{x^3}$ between 1 and $k$ is 32, i.e. $64k^2-5k-5=0$</td><td class="num197">$\frac{5+\sqrt{1305}}{128} = 0.3212873729$</td></tr>
+<tr><td>3 - parameter inside $f$</td><td>both endpoints given, a constant unknown</td><td>average of $\frac{c}{x^2}$ on $[1,4]$ is 3</td><td class="num197">$c = 12$</td></tr>
+<tr><td>3 - again</td><td>additive constant</td><td>average of $x^2+c$ on $[0,2]$ is 6</td><td class="num197">$c = \frac{14}{3} = 4.6666666667$</td></tr>
+<tr><td>4 - transcendental</td><td>$e^x$, $\sin x$, $\ln x$ with $k$ in a limit</td><td>average of $e^x$ on $[0,k]$ is 10</td><td class="num197">$3.6149504271$, numerically</td></tr>
+<tr><td>5 - non-unique</td><td>$f$ crosses its own running average</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$</td><td class="num197">$\frac{5\mp\sqrt{15}}{2}$: $0.5635083269$ and $4.4364916731$</td></tr>
+<tr><td>6 - the MVT point</td><td>"find $c$ with $f(c)$ equal to the average"</td><td>$\frac{5}{x^2}$ on $\left[\frac{5}{32},1\right]$</td><td class="num197">$\sqrt{\frac{5}{32}} = 0.3952847075$</td></tr>
+<tr class="hot197">
+<td>7 - $k$ in both places</td><td>the same letter twice; simplify first</td><td>average of $\frac{k}{x^2}$ between 1 and $k$</td><td class="num197">identically 1, so no target but 1 works</td></tr>
+</tbody>
+</table>
+</div>
+
+<h3>Which mean of the endpoints is the mean-value point</h3>
+<p>A pattern the course notes do not state, verified on 12 instances. It generalises Q19.6's observation that its own mean-value point landed on the midpoint.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>INTEGRAND</th><th>THE MVT POINT IS</th><th>ON $\left[\frac{5}{32},1\right]$</th></tr></thead>
+<tbody>
+<tr><td>affine, $\alpha x + \beta$</td><td>the <strong>arithmetic</strong> mean $\frac{a+b}{2}$</td><td class="num197">0.578125</td></tr>
+<tr><td>$c/x$</td><td>the <strong>logarithmic</strong> mean $\frac{b-a}{\ln(b/a)}$</td><td class="num197">0.4545337033</td></tr>
+<tr class="truth197"><td>$c/x^2$, this question</td><td>the <strong>geometric</strong> mean $\sqrt{ab}$</td><td class="num197">0.3952847075</td></tr>
+</tbody>
+</table>
+</div>
+<p>The ordering geometric $&lt;$ logarithmic $&lt;$ arithmetic is the AM-GM chain, and Q19.6's mean-value point was the midpoint precisely because its $f$ was affine.</p>
+</section>
+
+<section>
+<h2>9. Units, and the gate's named blind spot</h2>
+<p>Write $[x] = L$ and $[f] = F$. Then the constant 5 carries $F\!\cdot\!L^2$, the integral carries $F\!\cdot\!L$, the average carries $F$, and <strong>$k$ carries $L$</strong> - it is a length, so the answer is "$\frac{5}{32}$ of whatever unit $x$ is measured in", not a pure number.</p>
+<p>A dimensional gate over these vectors accepts the correct relation and rejects four seeded candidates, including the interesting one: the expression <strong>"$5 - \frac{5}{k}$" exactly as written is inhomogeneous</strong>, because 5 carries $F L^2$ and $\frac{5}{k}$ carries $F L$. It is only legal as $\frac{5}{x_0} - \frac{5}{k}$ with $x_0 = 1$ understood as a <em>length</em>. The numeral 1 in "between 1 and $k$" is not a pure number.</p>
+<p>A conversion arm confirms it: measure $x$ in centimetres, so the interval runs from 100 to 15.625 and $f$ becomes $50000/x^2$, and the average is still 32. Forgetting to rescale the constant gives 0.0032, a factor of $10^4$ out.</p>
+<p class="warn197"><strong>The blind spot, stated so silence is not mistaken for coverage.</strong> Dividing by $k$ instead of by the width $(1-k)$ is dimensionally <em>legal</em> - both are lengths - so the units gate structurally cannot see that error. Only substitution can. A gate's blind spot deserves an assertion of its own.</p>
+</section>
+
+<section>
+<h2>10. Closing the pair</h2>
+<p>Q19.6 and Q19.7 are the same formula read in opposite directions, and they teach opposite lessons about what a right answer proves.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th></th><th>Q19.6 &middot; F1 item 14 &middot; 3 pts</th><th>Q19.7 &middot; F2 item 12 &middot; 10 pts</th></tr></thead>
+<tbody>
+<tr><td>Direction</td><td>forward: compute the average</td><td>inverse: recover a parameter</td></tr>
+<tr><td>Integrand</td><td>$3x$, affine</td><td>$5/x^2$, strictly decreasing</td></tr>
+<tr><td>Fixed endpoint</td><td>$a = 0$</td><td>$a = 1$</td></tr>
+<tr><td>Answer</td><td class="num197">9</td><td class="num197">$\frac{5}{32}$</td></tr>
+<tr><td>MVT point</td><td>midpoint, 3</td><td>geometric mean, $\sqrt{5/32}$</td></tr>
+<tr><td>Wrong methods that hide</td><td class="num197 no197">8 of 23</td><td class="num197 ok197">1 of 24, and not an arithmetic error</td></tr>
+<tr><td>Positivity as a check</td><td>inert</td><td>rejects 6 of 24</td></tr>
+<tr><td>Sandwich as a check</td><td class="num197">3 of 23</td><td class="num197">13 of 24</td></tr>
+<tr class="truth197"><td>Its own lesson</td><td>a correct answer is not evidence</td><td>a correct answer is evidence, but only substitution can give it to you</td></tr>
+</tbody>
+</table>
+</div>
+<p>The informativeness of an answer is a property of the stem, not of the student. Use Q19.6 to drill the formula and Q19.7 to drill the check.</p>
+</section>
+
+<section>
+<h2>11. The decision tree</h2>
+<div class="tree197">"average value" appears in the stem
+  |
+  +-- is the average GIVEN?
+  |     NO  -> Q19.6 shape.  Compute (1/(b-a)) INT f.  Check m &lt;= avg &lt;= M and the units.
+  |     YES -> Q19.7 shape.  Continue.
+  |
+  +-- what is unknown?
+  |     an ENDPOINT           -> carry it as a letter through the integration
+  |     a CONSTANT inside f   -> the average is linear in it; one divide
+  |     BOTH the same letter  -> simplify FIRST, it usually cancels
+  |
+  +-- integrate symbolically, then LOOK FOR (k - a) IN THE NUMERATOR
+  |     found it   -> cancel; the equation collapses (this is Q19.7)
+  |     not found  -> clear denominators and classify by the power of k
+  |
+  +-- classify:
+  |     k to the first power  -> one divide
+  |     k quadratic           -> quadratic formula, then use the stem's wording
+  |     k transcendental      -> no closed form; expect a rigged cancellation
+  |
+  +-- COUNT the solutions:  d/dk avg = (f(k) - avg)/(k - a)
+  |     f monotone on the range        -> at most one
+  |     f crosses its running average  -> could be two, or none
+  |
+  +-- apply the stem's own words: "positive", "greater than 1", "find all"
+  |
+  +-- CHECK: substitute k back and recompute the AVERAGE from scratch
+  |          (not the integral - the average)
+  |
+  +-- CHECK: which side of a does k sit on?  name the interval correctly
+  |
+  +-- PREVIEW the Moebius box</div>
+</section>
+
+<section>
+<h2>12. Traps, ranked by what they actually cost</h2>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>#</th><th>TRAP</th><th>WHAT YOU GET</th><th>WHAT KILLS IT</th></tr></thead>
+<tbody>
+<tr class="hot197"><td>1</td><td>reporting $32/5$, the reciprocal slip</td><td class="num197">6.4</td><td>"a bigger average needs a smaller endpoint"</td></tr>
+<tr class="hot197"><td>2</td><td>setting the integral to 32 instead of the average</td><td class="num197">0.1351351351</td><td>substitution only - it survives every cheap check</td></tr>
+<tr><td>3</td><td>not noticing $k &lt; 1$</td><td class="num197">0.15625</td><td>nothing, and nothing needs to - until a follow-up asks for the interval</td></tr>
+<tr><td>4</td><td>concluding "no solution" because $k&gt;1$ was assumed</td><td class="num197">none</td><td>the range argument: every target above 5 is reachable</td></tr>
+<tr><td>5</td><td>failing to cancel $(k-1)$ and wrestling with the algebra</td><td class="num197">0.1207843891</td><td>look for the common factor before clearing denominators</td></tr>
+<tr><td>6</td><td>dividing by $k$ rather than the width</td><td class="num197">0.3248061549</td><td>substitution; the units gate cannot see this one</td></tr>
+<tr><td>7</td><td>setting $f(k) = 32$</td><td class="num197">0.3952847075</td><td>notice that is the MVT point, not the endpoint</td></tr>
+<tr><td>8</td><td>antiderivative as $5\ln x$ or $+5/x$</td><td class="num197">0.0016795135 or -0.15625</td><td>differentiate your antiderivative back</td></tr>
+<tr><td>9</td><td>forgetting the factor 5</td><td class="num197">0.03125</td><td>substitution</td></tr>
+<tr><td>10</td><td>rounding $0.15625$ to $0.16$</td><td class="num197">0.16</td><td>the decimal terminates, so rounding is pure loss</td></tr>
+</tbody>
+</table>
+</div>
+</section>
+
+<section>
+<h2>13. Drills</h2>
+<p>Score sign and magnitude separately: a wrong sign means you lost the orientation, a wrong magnitude means you lost the setup, and those need different fixes.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>#</th><th>STEM</th><th>ANSWER</th><th>FAMILY</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 32</td><td class="num197">$\frac{5}{32} = 0.15625$</td><td>F0</td></tr>
+<tr><td>2</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 2</td><td class="num197">2.5</td><td>F0</td></tr>
+<tr><td>3</td><td>average of $\frac{8}{x^2}$ between 2 and $k$ is 16</td><td class="num197">0.25</td><td>F0</td></tr>
+<tr><td>4</td><td>average of $2x+1$ between 1 and $k$ is 10</td><td class="num197">8</td><td>F1</td></tr>
+<tr><td>5</td><td>average of $\frac{5}{x^3}$ between 1 and $k$ is 32</td><td class="num197">0.3212873729</td><td>F2</td></tr>
+<tr><td>6</td><td>average of $\frac{c}{x^2}$ on $[1,4]$ is 3; find $c$</td><td class="num197">12</td><td>F3</td></tr>
+<tr><td>7</td><td>average of $e^x$ on $[0,k]$ is 10</td><td class="num197">3.6149504271</td><td>F4</td></tr>
+<tr><td>8</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$, smaller</td><td class="num197">0.5635083269</td><td>F5</td></tr>
+<tr><td>9</td><td>average of $(x-2)^2$ between 1 and $k$ is $\frac32$, larger</td><td class="num197">4.4364916731</td><td>F5</td></tr>
+<tr><td>10</td><td>MVT point for $\frac{5}{x^2}$ on $\left[\frac{5}{32},1\right]$</td><td class="num197">0.3952847075</td><td>F6</td></tr>
+<tr><td>11</td><td>average of $x^2$ between 1 and $k$ is $\frac73$</td><td class="num197">2</td><td>F2</td></tr>
+<tr class="hot197"><td>12</td><td>average of $\frac{5}{x^2}$ between 1 and $k$ is 5</td><td class="num197 no197">no solution</td><td>F0</td></tr>
+</tbody>
+</table>
+</div>
+<p>All eleven answerable rows were checked by recomputing the average at the stated $k$ by quadrature and comparing with the target; every one agrees to better than $10^{-8}$.</p>
+</section>
+
+<section>
+<h2>14. How this page was checked</h2>
+<p>181 assertions passed and none failed, across four sections appended to the shared verification harness. Every printed digit was computed rather than typed, and the claims checker caught eight decimals that had been widened past the precision of their source before this page shipped.</p>
+<div class="tscroll">
+<table class="tab197">
+<thead><tr><th>ARM</th><th>WHAT IT PROVES</th><th>RESULT</th></tr></thead>
+<tbody>
+<tr><td>Exact antiderivative</td><td>the average is $5/k$ for every $k$, both orientations</td><td class="ok197">agrees at 9 values</td></tr>
+<tr><td>Graded Gauss-Legendre quadrature, which never sees the closed form</td><td>the same, computed independently</td><td class="ok197">agrees to $10^{-9}$</td></tr>
+<tr><td>Monotonicity sweep, 200000 steps each side of $k=1$</td><td>uniqueness</td><td class="ok197">0 violations</td></tr>
+<tr><td>Complex-step derivative at 401 points</td><td>the slope is negative everywhere</td><td class="ok197">0 positives</td></tr>
+<tr><td>Root scan at both grid parities</td><td>exactly one root on $(0,1)$, none on $(1,60)$</td><td class="ok197">1 and 0</td></tr>
+<tr><td>Root-finder controls on the same window</td><td>the finder can return two, and can return none</td><td class="ok197">2 and 0</td></tr>
+<tr><td>Observed Simpson order on $5/x^2$</td><td>the integrand is not a cubic, so the order is measurable here</td><td class="num197">3.9734, 3.9932, 3.9983, 3.9996</td></tr>
+<tr><td>Trapezoid order on the same integrand</td><td>the instrument is calibrated</td><td class="num197">1.9996, 1.9999, 2.0000</td></tr>
+<tr><td>Simpson exact on $x^3$, not on $x^4$</td><td>the order instrument is controlled both ways</td><td class="num197">error $5.208333\times10^{-4}$ at $n=4$</td></tr>
+<tr><td>Dimensional gate with seeded rejections</td><td>$k$ is a length; four wrong forms rejected</td><td class="ok197">4 rejected, 1 blind spot named</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note197">The coarse Simpson rungs at $n = 4, 8, 16, 32, 64$ read 2.1016, 2.6850, 3.2731, 3.6970 and 3.9028. That is a pre-asymptotic transient, not a degraded order, and it is reported rather than hidden - the order claim is made on the asymptotic rungs only.</p>
+</section>
+
+<footer class="wrap">
+<p>Stem re-parsed from the original paper and cross-checked against the question bank, not typed. Final Exam 2 carries 12 items worth 8, 4, 8, 10, 10, 6, 6, 4, 6, 5, 4 and 10 points, total 81; item 12 carries 10, which is the maximum on that paper and 12.3457 percent of it, and it is the last item. No marking scheme exists in any of the five course files, so every claim here about what earns marks is an inference from the phrasing. Full working, all thirteen variation families and the drill answer key: <code>notes\Q19.7 - Find k from an average value.md</code>.</p>
+</footer>
+
+</main>

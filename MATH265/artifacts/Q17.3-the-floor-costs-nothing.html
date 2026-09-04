@@ -1,0 +1,813 @@
+<meta charset="utf-8">
+<title>The Floor Costs Nothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Q17.3 page classes ===================================================
+   Written fresh against the house token block; nothing sliced from a previous
+   page. Every class invented here carries a 173 suffix.
+
+   Role hues, used consistently:
+     rul  (amber) the comparison property and the correct bound
+     fam  (teal)  part (a), i.e. the extreme-value machinery this borrows
+     chn  (blue)  the tightening / splitting moves
+     los  (rust)  the dropped factor and every place a slip is caught
+     num  (plum)  measured numbers
+   ========================================================================= */
+
+.sn173{font-family:var(--mono);font-size:12px;color:var(--accent);
+  letter-spacing:.10em;margin-right:12px;font-weight:500;
+  font-variant-numeric:tabular-nums}
+.mono173{font-family:var(--mono);font-size:12.5px;color:var(--ink2);
+  word-break:break-word}
+
+.stand173{font-size:16.5px;line-height:1.62;color:var(--ink2);max-width:64ch;
+  margin:16px 0 0}
+
+.stem173{border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:3px;background:var(--surface);padding:18px 22px;margin:22px 0}
+.stem173 > p{max-width:72ch}
+.answer173{margin:14px 0 8px;padding:12px 0 2px;
+  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.ans173sub{font-size:13.5px;color:var(--ink2);margin:6px 0 10px}
+.prov173{font-size:12.5px;color:var(--ink3);margin:12px 0 0;max-width:78ch}
+
+.vgrid173{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:24px 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr))}
+.vcell173{background:var(--surface);padding:15px 17px;display:flex;
+  flex-direction:column;gap:7px}
+.vn173{font-family:var(--mono);font-size:21px;font-weight:600;color:var(--accent);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vt173{font-size:12.5px;color:var(--ink2);line-height:1.5}
+
+.thesis173{border-left:2px solid var(--fam-line);background:var(--fam-soft);
+  padding:13px 17px;border-radius:0 3px 3px 0;font-size:14px;max-width:80ch}
+
+.rule173{border:1px solid var(--accent-line);background:var(--accent-soft);
+  border-radius:3px;padding:15px 19px;margin:22px 0}
+.rl173{font-family:var(--mono);font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.rule173 p{margin:0;max-width:80ch}
+
+.tscroll{overflow-x:auto;margin:20px 0}
+.vtab{min-width:700px}
+.hot173 > td{background:var(--accent-soft)}
+.bad173row > td{background:var(--los-soft)}
+td.n{font-variant-numeric:tabular-nums}
+
+.tag173{font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  padding:2px 7px;border-radius:2px;white-space:nowrap;display:inline-block}
+.thid173{background:var(--los-soft);color:var(--los);border:1px solid var(--los-line)}
+.tcau173{background:var(--fam-soft);color:var(--fam);border:1px solid var(--fam-line)}
+
+.figcap173{font-size:12.5px;color:var(--ink3);max-width:82ch;margin:2px 0 20px}
+
+.warn173{border-left:3px solid var(--los-line);background:var(--los-soft);
+  padding:14px 18px;border-radius:0 3px 3px 0;max-width:82ch;font-size:14.5px}
+
+.write173{border:1px solid var(--line);border-left:3px solid var(--fam-line);
+  background:var(--surface);border-radius:3px;padding:16px 22px;margin:20px 0}
+.write173 p{margin:0 0 11px;max-width:76ch}
+.write173 p:last-child{margin-bottom:0}
+.aside173{border-left-color:var(--ink3);background:var(--sunk);
+  font-size:13.5px;color:var(--ink2)}
+
+.fam173{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:24px 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
+.fcard173{background:var(--surface);padding:16px 18px}
+.fcard173 h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--ink);
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.fno173{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--chn);border:1px solid var(--chn-line);
+  background:var(--chn-soft);padding:2px 6px;border-radius:2px;font-weight:500}
+.fcard173 p{margin:0 0 7px;font-size:13px;color:var(--ink2);max-width:none}
+.fcard173 p:last-child{margin-bottom:0}
+.trig173{font-size:12.5px;color:var(--ink3)}
+.danger173 .fno173{color:var(--los);border-color:var(--los-line);
+  background:var(--los-soft)}
+
+.cen173{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:22px 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+.ccell173{background:var(--surface);padding:15px 18px;display:flex;
+  flex-direction:column;gap:7px}
+.cn173{font-family:var(--mono);font-size:26px;font-weight:600;line-height:1;
+  font-variant-numeric:tabular-nums}
+.ct173{font-size:12.5px;color:var(--ink2);line-height:1.5}
+.cok173 .cn173{color:var(--fam)}
+.chid173 .cn173{color:var(--los)}
+.ccau173 .cn173{color:var(--accent)}
+
+.hid173{margin:16px 0 20px;padding:0;list-style:none;counter-reset:h173}
+.hid173 li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:0;
+  padding:9px 0;border-bottom:1px solid var(--line-soft)}
+.hid173 li:last-child{border-bottom:0}
+.hid173 li::before{counter-increment:h173;content:counter(h173);
+  font-family:var(--mono);font-size:11.5px;color:var(--los);padding-top:2px}
+.hid173 li > span{grid-column:2;font-size:14px;color:var(--ink2)}
+
+.traps173{margin:18px 0;padding:0;list-style:none;counter-reset:t173}
+.traps173 li{display:grid;grid-template-columns:32px minmax(0,1fr);
+  padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.traps173 li:last-child{border-bottom:0}
+.traps173 li::before{counter-increment:t173;content:counter(t173);
+  font-family:var(--mono);font-size:11.5px;color:var(--accent);padding-top:3px}
+.traps173 li > b{grid-column:2;font-size:14.5px;color:var(--ink)}
+.traps173 li > span{grid-column:2;font-size:13.5px;color:var(--ink2);
+  margin-top:4px;display:block}
+
+.tree173{font-family:var(--mono);font-size:12px;line-height:1.55;
+  color:var(--ink2);background:var(--sunk);border:1px solid var(--line);
+  border-radius:3px;padding:18px 20px;overflow-x:auto;margin:22px 0;
+  white-space:pre}
+
+.date173{font-size:12.5px;color:var(--ink3);margin-top:22px}
+
+@media (max-width:560px){
+  .vn173{font-size:19px}
+  .cn173{font-size:22px}
+}
+</style>
+<style>
+:root{
+  --f173-ax:#5B6472;
+  --f173-tick:#4C5665;
+  --f173-good:rgba(143,90,6,.30);
+  --f173-good-line:#8F5A06;
+  --f173-bad:rgba(168,73,47,.28);
+  --f173-bad-line:#A8492F;
+  --f173-true:#171B22;
+  --f173-pt:#2E6B63;
+  --f173-key:#79828F;
+  --f173-ok:#2E6B63;
+  --f173-curve:#7A3F63;
+  --f173-cpt:#171B22;
+  --f173-mline:#A8492F;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --f173-ax:#8B94A3;
+    --f173-tick:#A9B3C2;
+    --f173-good:rgba(242,165,60,.32);
+    --f173-good-line:#F2A53C;
+    --f173-bad:rgba(210,118,92,.30);
+    --f173-bad-line:#D2765C;
+    --f173-true:#E6EAF1;
+    --f173-pt:#6FA8A0;
+    --f173-key:#78818F;
+    --f173-ok:#6FA8A0;
+    --f173-curve:#B98BA6;
+    --f173-cpt:#E6EAF1;
+    --f173-mline:#D2765C;
+  }
+}
+:root[data-theme="dark"]{
+  --f173-ax:#8B94A3;
+  --f173-tick:#A9B3C2;
+  --f173-good:rgba(242,165,60,.32);
+  --f173-good-line:#F2A53C;
+  --f173-bad:rgba(210,118,92,.30);
+  --f173-bad-line:#D2765C;
+  --f173-true:#E6EAF1;
+  --f173-pt:#6FA8A0;
+  --f173-key:#78818F;
+  --f173-ok:#6FA8A0;
+  --f173-curve:#B98BA6;
+  --f173-cpt:#E6EAF1;
+  --f173-mline:#D2765C;
+}
+:root[data-theme="light"]{
+  --f173-ax:#5B6472;
+  --f173-tick:#4C5665;
+  --f173-good:rgba(143,90,6,.30);
+  --f173-good-line:#8F5A06;
+  --f173-bad:rgba(168,73,47,.28);
+  --f173-bad-line:#A8492F;
+  --f173-true:#171B22;
+  --f173-pt:#2E6B63;
+  --f173-key:#79828F;
+  --f173-ok:#2E6B63;
+  --f173-curve:#7A3F63;
+  --f173-cpt:#171B22;
+  --f173-mline:#A8492F;
+}
+.figbox{margin:26px 0 8px;overflow-x:auto}
+.figbox svg{display:block;min-width:700px}
+.ax173{stroke:var(--f173-ax);stroke-width:1.1;fill:none}
+.g173{stroke:var(--f173-ax);stroke-width:1;opacity:.55;fill:none}
+.mline173{stroke:var(--f173-mline);stroke-width:1;stroke-dasharray:2 3;opacity:.75;fill:none}
+.curve173{fill:none;stroke:var(--f173-curve);stroke-width:2.2}
+.cpt173{fill:var(--f173-cpt)}
+.good173{fill:var(--f173-good);stroke:var(--f173-good-line);stroke-width:1.2}
+.bad173{fill:var(--f173-bad);stroke:var(--f173-bad-line);stroke-width:1.2}
+.true173{stroke:var(--f173-true);stroke-width:1.4;stroke-dasharray:3 3;fill:none}
+.tdot173{fill:var(--f173-true)}
+.lab{font-family:var(--mono);font-size:11.5px;fill:var(--f173-tick)}
+.tick173{font-size:11px;fill:var(--f173-tick);opacity:.85}
+.key173{font-size:11px;fill:var(--f173-key)}
+.tv173{font-size:11.5px;fill:var(--f173-true);font-weight:500}
+.pt173{font-size:12px;fill:var(--f173-pt);letter-spacing:.05em;font-weight:600}
+.vgood173{font-size:12px;fill:var(--f173-ok);letter-spacing:.10em;font-weight:600}
+.cptlab173{font-size:10.5px;fill:var(--f173-tick)}
+.cusp173{font-size:11px;fill:var(--f173-bad-line);font-style:italic}
+.mlab173{font-size:11px;fill:var(--f173-mline)}
+</style>
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; category 17, question 3 of 3 &#183; Final Exam 2 item 7b &#183; 6 points, shared with 7a</div>
+  <h1>The Floor Costs Nothing</h1>
+  <p class="stand173">Item 7 of Final Exam 2 pairs two questions on the same non-negative, cusped function. Part (a) already found its largest and smallest values. Part (b) is this question, and because the function can actually reach zero, the floor of the bound is free - all the real work, and all the real risk, sits in the ceiling and in one multiplication everyone is tempted to skip.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="sn173">01</span>The question and the answer</h2>
+
+  <div class="stem173">
+    <p><b>Final Exam 2, item 7b.</b> "Use the properties of definite integrals to bound the value of the integral \(\displaystyle\int_{-2}^{3}(x^2+2x)^{2/3}\,dx\)."</p>
+    <div class="answer173">
+      $$0 \;\le\; \int_{-2}^{3}(x^2+2x)^{2/3}\,dx \;\le\; 5\cdot 15^{2/3}$$
+      <p class="ans173sub">that is \(0 \le I \le 30.4110099779\). The true value is \(10.6736300365\) - \(35.0979\%\) of the ceiling - and margins of \(10.6736300365\) above the floor and \(19.7373799414\) below the ceiling.</p>
+    </div>
+    <p class="prov173">Question text from <span class="mono173">notes\MATH265\MATH265.md</span> lines 290 to 294, cross-checked against the bank at <span class="mono173">notes\MATH265.md</span>. Type <span class="kbd">0</span> and <span class="kbd">5*15^(2/3)</span>. Never type <span class="kbd">15^2/3</span> - Möbius reads that as \(75\), not \(15^{2/3}\).</p>
+  </div>
+
+  <div class="vgrid173">
+    <div class="vcell173"><div class="vn173">0</div><div class="vt173">\(m\), from part (a) - attained at BOTH \(x=-2\) and the interior cusp \(x=0\)</div></div>
+    <div class="vcell173"><div class="vn173">15<sup>2&#8260;3</sup></div><div class="vt173">\(M\), also from part (a), at the right endpoint \(x=3\)</div></div>
+    <div class="vcell173"><div class="vn173">5</div><div class="vt173">\(b-a\), the width, and the factor that gets dropped</div></div>
+    <div class="vcell173"><div class="vn173">CAUGHT</div><div class="vt173">unlike Q17.1, dropping \((b-a)\) here excludes the true value</div></div>
+  </div>
+
+  <p class="thesis173">This is the <b>last</b> question of the category. Like Q17.2 it is part (b) of a paired item, so the work is two multiplications. Unlike Q17.2 and Q17.1, its integrand can reach zero, has a cusp, and is built from three monotone branches instead of one - and that changes what "tighter" and "estimate" mean here.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">02</span>Three verbs, one calculation</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>the verb, and whose question it is</th><th>what the marker wants on the page</th><th>the answer there</th></tr></thead>
+    <tbody>
+      <tr><td>"find an interval where the value is located" &#183; <b>Q17.1</b></td><td>two numbers presented as an interval</td><td class="n">\([\pi/3,\ 2\pi/3]\)</td></tr>
+      <tr><td>"estimate the value" &#183; <b>Q17.2</b></td><td>the sandwich <b>and</b> a single number</td><td class="n">\(1 \le I \le 2\), so \(I \approx 1.5\)</td></tr>
+      <tr class="hot173"><td>"bound the value" &#183; <b>Q17.3</b></td><td>an inequality; a loose but VALID one is complete</td><td class="n">\(0 \le I \le 30.4110099779\)</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="rule173">
+    <div class="rl173">the comparison property, unchanged since Q17.1</div>
+    <p>If \(m \le f(x) \le M\) for every \(x\) in \([a,b]\), then \(m\,(b-a) \le \displaystyle\int_a^b f(x)\,dx \le M\,(b-a)\).</p>
+  </div>
+
+  <div class="write173 aside173">
+    <p><b>A bound is not an estimate.</b> An estimate rewards the single closest number. A bound only has to be TRUE - it can be arbitrarily loose and looseness is not an error. What IS an error is an invalid \(m\) or \(M\): a value that does not actually bound \(f\), even if the resulting interval happens to still contain the answer. Section 09 below measures exactly how often each kind of mistake shows.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn173">03</span>Part (a) already did half of it</h2>
+
+  <p>Item 7 is one question with two parts sharing six points, both about \(f(x)=(x^2+2x)^{2/3}\) on \([-2,3]\). Part (a) is <span class="mono173">Q15.5</span>, the absolute-extrema question with the cusp. Its two answers ARE this question's two inputs.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>Final Exam 2 item</th><th>part (a) asks for</th><th>\(m\)</th><th>\(M\)</th><th>\(b-a\)</th><th>part (b) answer</th><th>true value</th></tr></thead>
+    <tbody>
+      <tr><td><b>item 3</b>, 8 pts</td><td>extremes of \(\frac{1}{x^2+1}\) on \([-1,1]\)</td><td class="n">\(\tfrac12\)</td><td class="n">\(1\)</td><td class="n">2</td><td class="n">\([1,\ 2]\)</td><td class="n">1.5707963268</td></tr>
+      <tr class="hot173"><td><b>item 7</b>, 6 pts</td><td>extremes of \((x^2+2x)^{2/3}\) on \([-2,3]\)</td><td class="n">\(0\)</td><td class="n">\(15^{2/3}\)</td><td class="n">5</td><td class="n">\([0,\ 30.4110099779]\)</td><td class="n">10.6736300365</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Q15.5's own minimum ties between the left endpoint \(x=-2\) and the interior cusp \(x=0\), both giving \(f=0\). Re-confirmed here rather than merely cited: a five-arm root census (strict sign change, exact grid zero, analytic enumeration, points where \(f'\) is undefined, and a value-turn scan) run on BOTH grid parities finds exactly three special points on \([-2,3]\) - \(x=-2\), \(x=-1\), \(x=0\) - whichever arm is on grid catches whichever fell off it. One-sided slopes at \(x=0\) diverge to \(\mp\infty\) (measured \(\mp491.20\) at \(h=10^{-8}\)), confirming a genuine cusp, not a removable zero.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">04</span>The shape, the cusp, and the two bounds</h2>
+
+  <p>The mistake this whole category punishes is writing \(m \le I \le M\) instead of \(m(b-a) \le I \le M(b-a)\). Here that mistake is CAUGHT by the student's own answer - unlike Q17.1, where it is invisible. The top panel below is the actual curve, sampled from the real function; the bottom two are the bound comparison, on a shared scale.</p>
+
+<div class="figbox">
+<svg viewBox="0 0 800 700" width="100%" role="img" aria-label="The function (x squared plus 2x) to the two-thirds power on [-2,3], its cusp at x=0, and two bounds compared against the true value of its integral.">
+  <text class="lab pt173" x="58.0" y="20.0" text-anchor="start">f(x) = (x&#178;+2x)&#178;&#8260;&#179; on [&#8722;2, 3]</text>
+  <line class="ax173" x1="62.0" y1="190.0" x2="680.0" y2="190.0"/>
+  <line class="g173" x1="70.0" y1="190.0" x2="70.0" y2="194.0"/>
+  <line class="g173" x1="190.0" y1="190.0" x2="190.0" y2="194.0"/>
+  <line class="g173" x1="310.0" y1="190.0" x2="310.0" y2="194.0"/>
+  <line class="g173" x1="430.0" y1="190.0" x2="430.0" y2="194.0"/>
+  <text class="lab tick173" x="430.0" y="210.0" text-anchor="middle">1</text>
+  <line class="g173" x1="550.0" y1="190.0" x2="550.0" y2="194.0"/>
+  <text class="lab tick173" x="550.0" y="210.0" text-anchor="middle">2</text>
+  <line class="g173" x1="670.0" y1="190.0" x2="670.0" y2="194.0"/>
+  <line class="mline173" x1="62.0" y1="60.0" x2="624.0" y2="60.0"/>
+  <text class="lab mlab173" x="678.0" y="64.0" text-anchor="start">M = 15&#178;&#8260;&#179;</text>
+  <text class="lab mlab173" x="678.0" y="208.0" text-anchor="start">m = 0</text>
+  <polyline class="curve173" points="70.00,190.00 72.31,187.58 74.62,186.18 76.92,185.03 79.23,184.02 81.54,183.11 83.85,182.27 86.15,181.49 88.46,180.76 90.77,180.08 93.08,179.43 95.38,178.82 97.69,178.24 100.00,177.68 102.31,177.15 104.62,176.65 106.92,176.17 109.23,175.70 111.54,175.26 113.85,174.84 116.15,174.44 118.46,174.05 120.77,173.68 123.08,173.33 125.38,172.99 127.69,172.67 130.00,172.36 132.31,172.06 134.62,171.78 136.92,171.51 139.23,171.26 141.54,171.02 143.85,170.79 146.15,170.57 148.46,170.37 150.77,170.18 153.08,170.00 155.38,169.83 157.69,169.67 160.00,169.53 162.31,169.39 164.62,169.27 166.92,169.16 169.23,169.06 171.54,168.96 173.85,168.89 176.15,168.82 178.46,168.76 180.77,168.71 183.08,168.67 185.38,168.65 187.69,168.63 190.00,168.63 192.31,168.63 194.62,168.65 196.92,168.67 199.23,168.71 201.54,168.76 203.85,168.82 206.15,168.89 208.46,168.96 210.77,169.06 213.08,169.16 215.38,169.27 217.69,169.39 220.00,169.53 222.31,169.67 224.62,169.83 226.92,170.00 229.23,170.18 231.54,170.37 233.85,170.57 236.15,170.79 238.46,171.02 240.77,171.26 243.08,171.51 245.38,171.78 247.69,172.06 250.00,172.36 252.31,172.67 254.62,172.99 256.92,173.33 259.23,173.68 261.54,174.05 263.85,174.44 266.15,174.84 268.46,175.26 270.77,175.70 273.08,176.17 275.38,176.65 277.69,177.15 280.00,177.68 282.31,178.24 284.62,178.82 286.92,179.43 289.23,180.08 291.54,180.76 293.85,181.49 296.15,182.27 298.46,183.11 300.77,184.02 303.08,185.03 305.38,186.18 307.69,187.58 310.00,190.00 312.31,187.55 314.62,186.08 316.92,184.84 319.23,183.71 321.54,182.65 323.85,181.65 326.15,180.69 328.46,179.77 330.77,178.86 333.08,177.98 335.38,177.12 337.69,176.27 340.00,175.44 342.31,174.61 344.62,173.80 346.92,172.99 349.23,172.19 351.54,171.39 353.85,170.61 356.15,169.82 358.46,169.04 360.77,168.27 363.08,167.50 365.38,166.73 367.69,165.96 370.00,165.20 372.31,164.44 374.62,163.68 376.92,162.92 379.23,162.16 381.54,161.40 383.85,160.65 386.15,159.89 388.46,159.14 390.77,158.38 393.08,157.63 395.38,156.87 397.69,156.12 400.00,155.37 402.31,154.61 404.62,153.86 406.92,153.11 409.23,152.35 411.54,151.60 413.85,150.84 416.15,150.09 418.46,149.33 420.77,148.57 423.08,147.82 425.38,147.06 427.69,146.30 430.00,145.54 432.31,144.78 434.62,144.02 436.92,143.26 439.23,142.49 441.54,141.73 443.85,140.96 446.15,140.20 448.46,139.43 450.77,138.66 453.08,137.90 455.38,137.13 457.69,136.35 460.00,135.58 462.31,134.81 464.62,134.03 466.92,133.26 469.23,132.48 471.54,131.70 473.85,130.92 476.15,130.14 478.46,129.36 480.77,128.58 483.08,127.80 485.38,127.01 487.69,126.22 490.00,125.44 492.31,124.65 494.62,123.86 496.92,123.07 499.23,122.27 501.54,121.48 503.85,120.68 506.15,119.89 508.46,119.09 510.77,118.29 513.08,117.49 515.38,116.69 517.69,115.88 520.00,115.08 522.31,114.27 524.62,113.47 526.92,112.66 529.23,111.85 531.54,111.04 533.85,110.23 536.15,109.41 538.46,108.60 540.77,107.78 543.08,106.96 545.38,106.15 547.69,105.33 550.00,104.50 552.31,103.68 554.62,102.86 556.92,102.03 559.23,101.21 561.54,100.38 563.85,99.55 566.15,98.72 568.46,97.89 570.77,97.05 573.08,96.22 575.38,95.38 577.69,94.55 580.00,93.71 582.31,92.87 584.62,92.03 586.92,91.18 589.23,90.34 591.54,89.49 593.85,88.65 596.15,87.80 598.46,86.95 600.77,86.10 603.08,85.25 605.38,84.40 607.69,83.54 610.00,82.69 612.31,81.83 614.62,80.97 616.92,80.11 619.23,79.25 621.54,78.39 623.85,77.53 626.15,76.66 628.46,75.80 630.77,74.93 633.08,74.06 635.38,73.19 637.69,72.32 640.00,71.45 642.31,70.58 644.62,69.70 646.92,68.83 649.23,67.95 651.54,67.07 653.85,66.19 656.15,65.31 658.46,64.43 660.77,63.55 663.08,62.66 665.38,61.78 667.69,60.89 670.00,60.00"/>
+  <circle class="cpt173" cx="70.0" cy="190.0" r="3.6"/>
+  <text class="lab cptlab173" x="70.0" y="212.0" text-anchor="middle">endpoint, m=0</text>
+  <circle class="cpt173" cx="190.0" cy="168.6" r="3.6"/>
+  <text class="lab cptlab173" x="190.0" y="156.6" text-anchor="middle">local max, f=1</text>
+  <circle class="cpt173" cx="310.0" cy="190.0" r="3.6"/>
+  <text class="lab cptlab173" x="310.0" y="212.0" text-anchor="middle">cusp, m=0</text>
+  <circle class="cpt173" cx="670.0" cy="60.0" r="3.6"/>
+  <text class="lab cptlab173" x="664.0" y="48.0" text-anchor="end">endpoint, M</text>
+  <text class="lab cusp173" x="310.0" y="234.0" text-anchor="middle">the cusp: opposite infinite one-sided slopes</text>
+  <text class="lab pt173" x="62.0" y="300.0" text-anchor="start">one-piece bound &#183; width 5</text>
+  <text class="lab vgood173" x="690.0" y="300.0" text-anchor="end">CAUGHT</text>
+  <line class="ax173" x1="62.0" y1="420.0" x2="680.0" y2="420.0"/>
+  <line class="g173" x1="70.0" y1="420.0" x2="70.0" y2="424.0"/>
+  <text class="lab tick173" x="70.0" y="440.0" text-anchor="middle">0</text>
+  <line class="g173" x1="163.8" y1="420.0" x2="163.8" y2="424.0"/>
+  <text class="lab tick173" x="163.8" y="440.0" text-anchor="middle">5</text>
+  <line class="g173" x1="257.5" y1="420.0" x2="257.5" y2="424.0"/>
+  <text class="lab tick173" x="257.5" y="440.0" text-anchor="middle">10</text>
+  <line class="g173" x1="351.2" y1="420.0" x2="351.2" y2="424.0"/>
+  <text class="lab tick173" x="351.2" y="440.0" text-anchor="middle">15</text>
+  <line class="g173" x1="445.0" y1="420.0" x2="445.0" y2="424.0"/>
+  <text class="lab tick173" x="445.0" y="440.0" text-anchor="middle">20</text>
+  <line class="g173" x1="538.8" y1="420.0" x2="538.8" y2="424.0"/>
+  <text class="lab tick173" x="538.8" y="440.0" text-anchor="middle">25</text>
+  <line class="g173" x1="632.5" y1="420.0" x2="632.5" y2="424.0"/>
+  <text class="lab tick173" x="632.5" y="440.0" text-anchor="middle">30</text>
+  <text class="lab key173" x="70.0" y="352.0" text-anchor="start">correct</text>
+  <rect class="good173" x="70.0" y="357.5" width="570.2" height="13"/>
+  <text class="lab key173" x="70.0" y="388.0" text-anchor="start">factor dropped</text>
+  <rect class="bad173" x="70.0" y="393.5" width="114.0" height="13"/>
+  <line class="true173" x1="270.1" y1="340.0" x2="270.1" y2="420.0"/>
+  <circle class="tdot173" cx="270.1" cy="340.0" r="3.4"/>
+  <text class="lab tv173" x="277.1" y="330.0" text-anchor="start">10.6736</text>
+  <text class="lab pt173" x="62.0" y="500.0" text-anchor="start">split at the critical points &#183; same floor, 33% tighter</text>
+  <text class="lab vgood173" x="690.0" y="500.0" text-anchor="end">TIGHTER</text>
+  <line class="ax173" x1="62.0" y1="620.0" x2="680.0" y2="620.0"/>
+  <line class="g173" x1="70.0" y1="620.0" x2="70.0" y2="624.0"/>
+  <text class="lab tick173" x="70.0" y="640.0" text-anchor="middle">0</text>
+  <line class="g173" x1="163.8" y1="620.0" x2="163.8" y2="624.0"/>
+  <text class="lab tick173" x="163.8" y="640.0" text-anchor="middle">5</text>
+  <line class="g173" x1="257.5" y1="620.0" x2="257.5" y2="624.0"/>
+  <text class="lab tick173" x="257.5" y="640.0" text-anchor="middle">10</text>
+  <line class="g173" x1="351.2" y1="620.0" x2="351.2" y2="624.0"/>
+  <text class="lab tick173" x="351.2" y="640.0" text-anchor="middle">15</text>
+  <line class="g173" x1="445.0" y1="620.0" x2="445.0" y2="624.0"/>
+  <text class="lab tick173" x="445.0" y="640.0" text-anchor="middle">20</text>
+  <line class="g173" x1="538.8" y1="620.0" x2="538.8" y2="624.0"/>
+  <text class="lab tick173" x="538.8" y="640.0" text-anchor="middle">25</text>
+  <line class="g173" x1="632.5" y1="620.0" x2="632.5" y2="624.0"/>
+  <text class="lab tick173" x="632.5" y="640.0" text-anchor="middle">30</text>
+  <text class="lab key173" x="70.0" y="552.0" text-anchor="start">correct</text>
+  <rect class="good173" x="70.0" y="557.5" width="379.6" height="13"/>
+  <text class="lab key173" x="70.0" y="588.0" text-anchor="start">1-piece ceiling</text>
+  <rect class="bad173" x="70.0" y="593.5" width="570.2" height="13"/>
+  <line class="true173" x1="270.1" y1="540.0" x2="270.1" y2="620.0"/>
+  <circle class="tdot173" cx="270.1" cy="540.0" r="3.4"/>
+  <text class="lab tv173" x="277.1" y="530.0" text-anchor="start">10.6736</text>
+</svg>
+</div>
+
+  <p class="figcap173">Top: \(f(x)=(x^2+2x)^{2/3}\) on \([-2,3]\), showing the local max at \(x=-1\), the cusp at \(x=0\), and the two attained extremes \(m=0\), \(M=15^{2/3}\). Middle: the correct one-piece bound (amber) against the mutilated bound obtained by dropping \((b-a)\) (rust) - the true value marker sits inside the correct bar and outside the mutilated one. Bottom: splitting at the three critical points keeps the same floor but cuts the ceiling by a third.</p>
+
+  <p>The general rule, derived from Q17.2's average-value form: the slip hides exactly when the interval's width is at most \(M/f_{\text{avg}}\). Here \(f_{\text{avg}} = I/(b-a) = 2.1347260073\), so the threshold is \(15^{2/3}/2.1347260073 = 2.8491722005\). The exam's width is \(5\), well past it - caught with room. Q17.1's threshold for its own integrand was \(4/\pi=1.2732395447\); Q17.2's was also \(4/\pi\); this is a genuinely different number because the integrand is different.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">05</span>Three routes, one to use under pressure</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>route</th><th>effort</th><th>ceiling produced</th><th>when to use it</th></tr></thead>
+    <tbody>
+      <tr class="hot173"><td><b>A</b> - copy \(m,M\) from part (a)</td><td>2 multiplications</td><td class="n">30.4110099779</td><td>always, when part (a) exists</td></tr>
+      <tr><td><b>B</b> - re-derive from scratch</td><td>full closed-interval method</td><td class="n">30.4110099779</td><td>part (a) missing, or as a self-check</td></tr>
+      <tr><td><b>C</b> - split at the branch points</td><td>3&#215; the multiplications</td><td class="n">20.2466059867</td><td>only if explicitly asked to tighten</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><b>Use Route A.</b> Routes B and C are correct and instructive, but a 6-point item that already paid for the extrema in part (a) is asking for two multiplications, not a second derivation.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">06</span>Verify before you commit</h2>
+
+  <div class="cen173">
+    <div class="ccell173 ccau173"><div class="cn173">35.0979%</div><div class="ct173">true value as a fraction of the ceiling - a loose bound, and that is fine</div></div>
+    <div class="ccell173 cok173"><div class="cn173">1.1&#215;10<sup>&#8722;14</sup></div><div class="ct173">agreement between two independent quadrature arms on the true value</div></div>
+    <div class="ccell173 chid173"><div class="cn173">1.6666</div><div class="ct173">Simpson's OBSERVED order on the raw cusp integrand - not 4</div></div>
+  </div>
+
+  <div class="warn173">
+    <p><b>Quadrature warning specific to this integrand.</b> Left un-split, tanh-sinh over \([-2,3]\) gives \(10.6733805848\) at level 8 - wrong by \(2.5\times10^{-4}\) - because double-exponential clustering only helps at the ends of a piece, not at an interior singularity. Split at \(x=0\) first. Composite Simpson on the raw integrand measures order \(1.6666\), confirmed on a bounded ladder from \(n=64\) to \(4096\); substituting away the cusp restores order \(4.0000\) on the same routine. A digit-lock here needs the substitution, not just two ladders agreeing - Q15.5 already found two resolutions of this same cusp shape agreeing to \(3\times10^{-9}\) while both being \(4.3\times10^{-9}\) wrong.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn173">07</span>Answer-entry rules</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>do</th><th>do not</th></tr></thead>
+    <tbody>
+      <tr><td><span class="kbd">5*15^(2/3)</span> for the ceiling</td><td><span class="kbd">15^2/3</span> - reads as \((15^2)/3=75\)</td></tr>
+      <tr><td><span class="kbd">0</span> for the floor, explicitly</td><td>leave the floor blank because "it's obviously zero"</td></tr>
+      <tr><td><span class="kbd">[0,5*15^(2/3)]</span> if one box wants the interval</td><td>type the decimal unless asked for it</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="warn173">The single most expensive typo: <span class="kbd">15^2/3</span> silently returns \(75\). The interval \([0,375]\) still happens to CONTAIN the true value, so a self-check by containment will not catch it - only a preview will. Preview the entry: it should read approximately \(30.41\), not \(375\).</p>
+</section>
+
+<section>
+  <h2><span class="sn173">08</span>The variation catalog, six families</h2>
+
+  <div class="fam173">
+    <div class="fcard173">
+      <h4>Family 0 <span class="fno173">the interval moves</span></h4>
+      <p class="trig173"><b>Trigger.</b> Same integrand, a different interval.</p>
+      <p>Re-run the closed-interval method for the new interval; multiply by its own width. Verified across eight intervals from \([-2,-1]\) (width 1, true/ceiling 73.92%) to the full \([-2,3]\) (35.10%). The two humps \([-2,-1]\) and \([-1,0]\) are the SAME integral (\(0.7391741598\) each), because \(f(-1+t)=f(-1-t)\).</p>
+    </div>
+    <div class="fcard173">
+      <h4>Family 1 <span class="fno173">splitting to tighten</span></h4>
+      <p class="trig173"><b>Trigger.</b> "Improve your bound" / a finer partition.</p>
+      <p>For \(k\) EQUAL pieces the width ratio converges to \(1.3288\), not \(1\) - because \(f\) has THREE monotone branches, and the ratio is \(\sum(\text{branch spans})/(M-m)\), not the branch count. Splitting AT the branch points (Route C) gets the full \(33.4\%\) ceiling cut in one step instead.</p>
+    </div>
+    <div class="fcard173">
+      <h4>Family 2 <span class="fno173">factor-wise sandwich</span></h4>
+      <p class="trig173"><b>Trigger.</b> The integrand factors into two bounded pieces.</p>
+      <p>On \([0,3]\), \((x^2+2x)^{2/3}=x^{2/3}(x+2)^{2/3}\) with \(2^{2/3}\le(x+2)^{2/3}\le5^{2/3}\), giving \([5.9434690480,\ 10.9479635920]\) - a \(72.6\%\) narrower gap than the crude one-piece bound on that subinterval, checked pointwise over 200001 samples with zero violations. Needs a factorable integrand; genuinely new to this question.</p>
+    </div>
+    <div class="fcard173">
+      <h4>Family 4 <span class="fno173">average value &amp; MVT</span></h4>
+      <p class="trig173"><b>Trigger.</b> Find \(c\) with \(f(c)=f_{\text{avg}}\).</p>
+      <p>\(f_{\text{avg}}=2.1347260073\), \(c=1.0295281386\), unique on \([-2,3]\) because \(f\) never exceeds \(f_{\text{avg}}\) on \([-2,0]\) (its local max there is only \(1\)). A wrong \(m'\) hides iff \(m'\le f_{\text{avg}}\); a wrong \(M'\) hides iff \(M'\ge f_{\text{avg}}\).</p>
+    </div>
+    <div class="fcard173 danger173">
+      <h4>Family 5 <span class="fno173">estimates go bad when m=0</span></h4>
+      <p class="trig173"><b>Trigger.</b> A follow-up asks for one number.</p>
+      <p>Q17.2 ranked "midpoint of the bounds" first. Here it is nearly the WORST of four estimates tested (error \(4.53\) vs the 3-piece midpoint's \(0.55\)), because with \(m=0\) it is just half the ceiling - zero information from the floor. Refine the bound before estimating from it.</p>
+    </div>
+    <div class="fcard173">
+      <h4>Family 7 <span class="fno173">cusp omission, tested not assumed</span></h4>
+      <p class="trig173"><b>Trigger.</b> Solving only \(f'=0\), missing where \(f'\) is undefined.</p>
+      <p>On the EXAM's own interval this is ABSORBED - \(x=-2\) independently forces \(m=0\). Tested on six other intervals: it propagates into a genuinely wrong bound on four of them, two still hiding and two caught. The absorption is a property of THIS interval, not of the mistake in general.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn173">09</span>Trap list and the census</h2>
+
+  <ol class="traps173">
+    <li><b>Dropping the \((b-a)\) factor.</b><span>Reports \([0,\,6.0822019956]\), excluding \(10.6736300365\). The category's defining error, and it shows here.</span></li>
+    <li><b>Typing \(15^2/3\) for the maximum's value.</b><span>Möbius returns \(75\) by operator precedence, not \(6.0822019956\).</span></li>
+    <li><b>Omitting the cusp candidate \(x=0\).</b><span>Harmless HERE (Family 7) - but costs marks if part (a) asks WHERE the minimum occurs, since the answer is \(x=-2\) AND \(x=0\).</span></li>
+    <li><b>Re-deriving \(m,M\) when part (a) already solved them.</b><span>Not wrong, just a time cost on a 6-point item.</span></li>
+    <li><b>Writing the interval backwards, \([M(b-a),\,m(b-a)]\).</b><span>An inverted interval is empty and contains nothing.</span></li>
+  </ol>
+
+  <div class="cen173">
+    <div class="ccell173 cok173"><div class="cn173">6</div><div class="ct173">valid and containing</div></div>
+    <div class="ccell173 chid173"><div class="cn173">6</div><div class="ct173">invalid but containing - these HIDE</div></div>
+    <div class="ccell173 ccau173"><div class="cn173">8</div><div class="ct173">caught</div></div>
+  </div>
+
+  <p>Twenty rows, tags computed rather than typed, indexed by the ERROR rather than by the interval it produces. Against Q17.1's \(6/4/8\) and Q17.2's \(5/3/10\). Loosening the bound in any direction was tested separately over 180001 samples: <b>zero</b> ever fail to contain the true value - a containment check can only ever catch over-tightening.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">10</span>Drill answer key</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>drill</th><th>family</th><th>bound</th><th>true value</th></tr></thead>
+    <tbody>
+      <tr><td>\([-2,3]\) - the exam</td><td>F0</td><td class="n">\([0,\ 30.4110099779]\)</td><td class="n">10.6736300365</td></tr>
+      <tr><td>\([-2,0]\)</td><td>F0</td><td class="n">\([0,\ 2.0000000000]\)</td><td class="n">1.4783483196</td></tr>
+      <tr><td>\([0,3]\)</td><td>F0</td><td class="n">\([0,\ 18.2466059867]\)</td><td class="n">9.1952817169</td></tr>
+      <tr><td>\([1,4]\)</td><td>F0/F7, monotone, no cusp needed</td><td class="n">\([6.2402514692,\ 24.9610058766]\)</td><td class="n">15.2436200294</td></tr>
+      <tr><td>\([-4,2]\)</td><td>F0/F7, candidates \(\{-4,-2,-1,0,2\}\), TWO ties</td><td class="n">\([0,\ 24.0000000000]\)</td><td class="n">9.8138394963</td></tr>
+      <tr class="hot173"><td>\([-2,3]\) split at critical points</td><td>F1 (Route C)</td><td class="n">\([0,\ 20.2466059867]\)</td><td class="n">10.6736300365</td></tr>
+      <tr><td>\([0,3]\) factor-wise sandwich</td><td>F2</td><td class="n">\([5.9434690480,\ 10.9479635920]\)</td><td class="n">9.1952817169</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Score sign and magnitude separately: a negative floor on this integrand is a sign error (it cannot be negative); a right-signed but wrong-size ceiling is a magnitude error in evaluating \(f\) at the true maximum.</p>
+</section>
+
+<section>
+  <h2><span class="sn173">11</span>Closing category 17</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>question</th><th>verb</th><th>\(m,M\) source</th><th>integrand shape</th><th>does the \((b-a)\)-drop hide?</th></tr></thead>
+    <tbody>
+      <tr><td>Q17.1</td><td>"interval"</td><td>derived in place</td><td>smooth, monotone, has a nearby pole</td><td class="n"><b>YES</b> - width 1.0472 vs threshold 1.2732</td></tr>
+      <tr><td>Q17.2</td><td>"estimate"</td><td>copied from Q15.3</td><td>smooth, even, one interior max</td><td class="n">no - width 2 vs threshold 1.2732</td></tr>
+      <tr class="hot173"><td>Q17.3</td><td>"bound"</td><td>copied from Q15.5</td><td>non-negative, cusped, 3 branches</td><td class="n">no - width 5 vs threshold 2.8492</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>The category's defining error hides on the question that opens it and is caught on both that follow. Q17.1 is the machinery and the one hiding case; Q17.2 is the free-inputs question, where the estimate ranking can invert; Q17.3 is the one-sided-bound question and the only non-smooth integrand - exactly why splitting helps more here and why \(m=0\) makes "bound" the honest verb.</p>
+
+  <div class="tree173">READ THE VERB
+  |
+  +-- "interval" / "bound"?  -&gt;  produce the inequality; do NOT collapse to one
+  |                              number unless separately asked
+  +-- "estimate"?            -&gt;  reduce to one number, but check m first: if m=0,
+                                 the naive midpoint-of-bounds is nearly worthless;
+                                 split the interval first, then estimate
+
+DOES A PAIRED PART (a) EXIST?
+  |
+  +-- YES -&gt; copy its max/min as M/m. DO NOT redo the closed-interval method.
+  +-- NO  -&gt; f'=0 candidates + f' UNDEFINED candidates + both endpoints, both ways.
+
+MULTIPLY m AND M BY (b - a).  &lt;-- the one line the whole category tests.
+
+CHECK: is (b-a) close to M/f_avg?
+  |
+  +-- close/under it  -&gt;  the drop-the-factor slip would HIDE; do not trust
+  |                       "my interval looks fine"
+  +-- well past it    -&gt;  the slip would be CAUGHT
+
+VERIFY: m &lt;= M, interval not empty, magnitude sane, true value falls inside.
+PREVIEW the Mobius entry string before submitting.</div>
+</section>
+
+<footer>
+  <p><b>Category 17 (properties of the definite integral) is now CLOSED.</b> Sources: <span class="mono173">notes\MATH265.md</span>, <span class="mono173">notes\MATH265\MATH265.md</span> lines 290-294, <span class="mono173">notes\Q15.5 - Absolute extremes of a function with a cusp.md</span>, <span class="mono173">notes\Q17.1 - Interval containing a secant integral.md</span>, <span class="mono173">notes\Q17.2 - Estimate an integral from its properties.md</span>. No marking scheme exists in any of the four course files; every claim above about how marks are awarded is inference from wording and point value.</p>
+  <p class="date173">Verified in Python: harness section <span class="mono173">q173</span>, 51 assertions, 0 failures, 8 seeded controls, scoped by grepping <span class="mono173">^PASS q173 </span> / <span class="mono173">^FAIL q173 </span> independently of any internal counter. September 2026.</p>
+</footer>
+
+</main>

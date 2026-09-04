@@ -1,0 +1,699 @@
+<title>The Factor People Drop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global', scale: 1.0 },
+  options: { enableMenu: false }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+/* ===== Q17.1 page classes ==================================================
+   The five role hues of the series carry a meaning specific to this page:
+     rul  (amber)  the comparison property itself, and the correct answer
+     fam  (teal)   m and M, i.e. the extreme-value machinery this borrows
+     chn  (blue)   the M side of the sandwich, and the paired F2 items
+     los  (rust)   the hiding error, and every place the property fails
+     num  (plum)   measured numbers
+   ========================================================================= */
+.sn171{font-family:var(--mono);font-size:12px;color:var(--accent);
+  letter-spacing:.10em;margin-right:12px;font-weight:500;
+  font-variant-numeric:tabular-nums}
+.mono171{font-family:var(--mono);font-size:12.5px;color:var(--ink2);
+  white-space:nowrap}
+
+.stem171{border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:3px;background:var(--surface);padding:18px 22px;margin:22px 0}
+.stem171 > p{max-width:74ch}
+.answer171{margin:16px 0 10px;padding:14px 0 4px;border-top:1px solid var(--line-soft);
+  border-bottom:1px solid var(--line-soft)}
+.ans171sub{margin:6px 0 0;font-size:14px;color:var(--ink2);text-align:center}
+.prov171{margin:12px 0 0;font-size:13px;color:var(--ink3);max-width:80ch}
+.thesis171{border-left:3px solid var(--rul);background:var(--rul-soft);
+  padding:14px 18px;border-radius:0 3px 3px 0;margin:22px 0 0;max-width:80ch}
+
+.rule171{border:1px solid var(--accent-line);background:var(--accent-soft);
+  border-radius:3px;padding:16px 20px;margin:22px 0}
+.rule171 .rl171{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.rule171 p{margin:0;max-width:76ch}
+.rule171.alt171{border-color:var(--num-line);background:var(--num-soft)}
+.rule171.alt171 .rl171{color:var(--num)}
+
+.steps171{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;margin:22px 0}
+.st171{background:var(--surface);padding:15px 18px;display:grid;
+  grid-template-columns:34px minmax(0,1fr);gap:14px;align-items:start}
+.st171 > div:last-child{max-width:78ch}
+.stn171{font-family:var(--mono);font-size:15px;color:var(--ink3);
+  font-variant-numeric:tabular-nums;line-height:1.5}
+.st171.hot171{background:var(--rul-soft)}
+.st171.hot171 .stn171{color:var(--rul)}
+
+.key171{border-left:3px solid var(--fam);background:var(--fam-soft);
+  padding:14px 18px;border-radius:0 3px 3px 0;margin:20px 0;max-width:82ch}
+.calm171{font-size:13px;color:var(--ink3);max-width:82ch;margin-top:18px}
+
+tr.bad171 td{background:var(--los-soft)}
+tr.bad171 td:first-child{box-shadow:inset 3px 0 0 var(--los)}
+
+.dodont171{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:22px 0}
+@media (min-width:820px){.dodont171{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.do171,.dont171{border:1px solid var(--line);border-radius:3px;
+  background:var(--surface);padding:15px 18px}
+.do171{border-top:2px solid var(--fam)}
+.dont171{border-top:2px solid var(--los)}
+.dl171{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;margin-bottom:10px}
+.do171 .dl171{color:var(--fam)}
+.dont171 .dl171{color:var(--los)}
+.do171 ul,.dont171 ul{margin:0;padding-left:18px}
+.do171 li,.dont171 li{font-size:14.5px;margin:7px 0}
+
+.fams171{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin:22px 0}
+@media (min-width:760px){.fams171{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (min-width:1160px){.fams171{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.fam171{border:1px solid var(--line);border-radius:3px;background:var(--surface);
+  padding:14px 16px;display:flex;flex-direction:column;gap:6px}
+.fam171 .fn171{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam)}
+.fam171 .ft171{font-size:14.5px;font-weight:600;color:var(--ink)}
+.fam171 p{margin:2px 0 0;font-size:13.5px;color:var(--ink2);max-width:none}
+
+.tscroll{overflow-x:auto;overflow-y:hidden;margin:20px 0;
+  border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+.tscroll table{margin:0;border:0}
+.vtab table{min-width:640px}
+</style>
+<style>
+/* Figure palette. LIGHT is defined on bare :root; the dark half sits INSIDE the
+   media query, and [data-theme="dark"] repeats it, so the un-stamped default
+   theme state resolves LIGHT rather than painting dark on white. */
+:root{
+  --f171-grid:rgba(23,27,34,.07);
+  --f171-ax:#5B6472;
+  --f171-tick:#4C5665;
+  --f171-hi:rgba(63,100,147,.13);
+  --f171-hi-ink:#33557F;
+  --f171-lo:rgba(46,107,99,.18);
+  --f171-lo-ink:#25584F;
+  --f171-ar:rgba(143,90,6,.22);
+  --f171-ar-ink:#7A4C05;
+  --f171-curve:#8F5A06;
+  --f171-dash:#8A93A2;
+  --f171-band:#8F5A06;
+  --f171-wrong:#A8492F;
+  --f171-true:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --f171-grid:rgba(230,234,241,.08);
+    --f171-ax:#8B94A3;
+    --f171-tick:#A9B3C2;
+    --f171-hi:rgba(126,155,196,.20);
+    --f171-hi-ink:#9DB6D8;
+    --f171-lo:rgba(90,183,168,.20);
+    --f171-lo-ink:#7FCBBB;
+    --f171-ar:rgba(242,165,60,.26);
+    --f171-ar-ink:#F2A53C;
+    --f171-curve:#F2A53C;
+    --f171-dash:#6E7789;
+    --f171-band:#F2A53C;
+    --f171-wrong:#D2765C;
+    --f171-true:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --f171-grid:rgba(230,234,241,.08);
+  --f171-ax:#8B94A3;
+  --f171-tick:#A9B3C2;
+  --f171-hi:rgba(126,155,196,.20);
+  --f171-hi-ink:#9DB6D8;
+  --f171-lo:rgba(90,183,168,.20);
+  --f171-lo-ink:#7FCBBB;
+  --f171-ar:rgba(242,165,60,.26);
+  --f171-ar-ink:#F2A53C;
+  --f171-curve:#F2A53C;
+  --f171-dash:#6E7789;
+  --f171-band:#F2A53C;
+  --f171-wrong:#D2765C;
+  --f171-true:#E6EAF1;
+}
+.fig171 .g171{stroke:var(--f171-grid);stroke-width:1;fill:none}
+.fig171 .ax171{stroke:var(--f171-ax);stroke-width:1.3;fill:none}
+.fig171 .hi171{fill:var(--f171-hi);stroke:none}
+.fig171 .lo171{fill:var(--f171-lo);stroke:none}
+.fig171 .ar171{fill:var(--f171-ar);stroke:none}
+.fig171 .c171{fill:none;stroke:var(--f171-curve);stroke-width:2.2;
+  stroke-linejoin:round;stroke-linecap:round}
+.fig171 .mline171{stroke:var(--f171-dash);stroke-width:1.2;stroke-dasharray:5 4;fill:none}
+.fig171 .tk171{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  fill:var(--f171-tick)}
+.fig171 .lb171{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.03em}
+.fig171 .lhi171{fill:var(--f171-hi-ink)}
+.fig171 .llo171{fill:var(--f171-lo-ink)}
+.fig171 .lar171{fill:var(--f171-ar-ink)}
+.fig171 .lc171{fill:var(--f171-curve)}
+.fig171 .nl171{stroke:var(--f171-ax);stroke-width:1.2;fill:none}
+.fig171 .band171{fill:var(--f171-band);opacity:.42}
+.fig171 .wrong171{fill:var(--f171-wrong);opacity:.42}
+.fig171 .true171{stroke:var(--f171-true);stroke-width:2;fill:none}
+.fig171 .lband171{fill:var(--f171-band)}
+.fig171 .lwrong171{fill:var(--f171-wrong)}
+</style>
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &middot; category 17, question 1 of 3 &middot; Final Exam 1 item 9 &middot; 5 points</div>
+  <h1>The Factor People Drop</h1>
+  <p class="stand">Bounding \(\int_0^{\pi/3}\sec x\,dx\) takes three numbers: the smallest value of the integrand, the largest, and the width of the interval. Almost everyone gets the first two. This page is about the third, and about why on this particular integral forgetting it produces an answer that still looks right.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="sn171">01</span>The question and the answer</h2>
+
+  <div class="stem171">
+    <p><b>Final Exam 1, item 9 (5 points).</b> "Use the properties of the integral to find an interval where the value of the integral \(\displaystyle\int_0^{\pi/3}\sec x\,dx\) is located."</p>
+    <div class="answer171">
+      $$\frac{\pi}{3} \;\le\; \int_0^{\pi/3}\sec x\,dx \;\le\; \frac{2\pi}{3}$$
+      <p class="ans171sub">that is, the interval \(\left[\tfrac{\pi}{3},\,\tfrac{2\pi}{3}\right] \approx [1.0471975512,\ 2.0943951024]\).</p>
+    </div>
+    <p class="prov171">Question text from <span class="mono171">notes\MATH265\MATH265.md</span> line 213, cross-checked against the bank at <span class="mono171">notes\MATH265.md</span>. Type <span class="kbd">pi/3</span> and <span class="kbd">2*pi/3</span> into M&ouml;bius, never <span class="kbd">2pi/3</span>.</p>
+  </div>
+
+  <div class="vgrid">
+    <div class="vcell"><div class="vn">1</div><div class="vt">m, the smallest value of sec on the interval</div></div>
+    <div class="vcell"><div class="vn">2</div><div class="vt">M, the largest value</div></div>
+    <div class="vcell"><div class="vn">&pi;/3</div><div class="vt">b &minus; a, the width, and the factor that gets dropped</div></div>
+    <div class="vcell"><div class="vn">1.3169578969</div><div class="vt">the true value, ln(2 + &radic;3), for checking only</div></div>
+  </div>
+
+  <p class="thesis171">This is the <b>first</b> of three questions in the category, and it is the one that builds the machinery. Q17.2 estimates an integral with the same property; Q17.3 bounds one. Everything below is written so those two are re-runs rather than new problems.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">02</span>Why the property is true: two rectangles and an area</h2>
+
+  <p>An integral of a positive function is the area under its graph. If the graph never dips below the horizontal line \(y=m\) and never rises above \(y=M\), then the area under it must be at least the area of the short rectangle and at most the area of the tall one. Both rectangles sit on the same base, of width \(b-a\). That is the entire content of the comparison property.</p>
+
+  <div class="rule171">
+    <div class="rl171">the comparison property</div>
+    <p>If \(m \le f(x) \le M\) for every \(x\) in \([a,b]\), then \(m\,(b-a) \le \displaystyle\int_a^b f(x)\,dx \le M\,(b-a)\).</p>
+  </div>
+
+  <figure>
+    <div class="fh">FIG. 1 - the sandwich, and the number line underneath it</div>
+    <div class="figbox fscroll"><svg viewBox="0 0 760 470" width="100%" role="img" aria-label="The area under sec x on 0 to pi over 3, trapped between a rectangle of height 1 and a rectangle of height 2." class="fig171">
+<line class="g171" x1="74.0" y1="258.0" x2="726.0" y2="258.0"/>
+<line class="g171" x1="74.0" y1="196.1" x2="726.0" y2="196.1"/>
+<line class="g171" x1="74.0" y1="134.1" x2="726.0" y2="134.1"/>
+<line class="g171" x1="74.0" y1="72.1" x2="726.0" y2="72.1"/>
+<rect class="lo171" x="74.0" y="196.1" width="615.1" height="123.9"/>
+<polygon class="ar171" points="74.00,196.07 74.00,196.07 76.37,196.07 78.73,196.06 81.10,196.06 83.46,196.05 85.83,196.04 88.19,196.03 90.56,196.02 92.93,196.00 95.29,195.99 97.66,195.97 100.02,195.95 102.39,195.92 104.75,195.90 107.12,195.87 109.49,195.84 111.85,195.81 114.22,195.78 116.58,195.74 118.95,195.70 121.31,195.67 123.68,195.62 126.05,195.58 128.41,195.53 130.78,195.49 133.14,195.44 135.51,195.39 137.88,195.33 140.24,195.28 142.61,195.22 144.97,195.16 147.34,195.10 149.70,195.03 152.07,194.97 154.44,194.90 156.80,194.83 159.17,194.75 161.53,194.68 163.90,194.60 166.26,194.52 168.63,194.44 171.00,194.36 173.36,194.27 175.73,194.19 178.09,194.10 180.46,194.00 182.82,193.91 185.19,193.81 187.56,193.72 189.92,193.62 192.29,193.51 194.65,193.41 197.02,193.30 199.38,193.19 201.75,193.08 204.12,192.96 206.48,192.85 208.85,192.73 211.21,192.61 213.58,192.48 215.94,192.36 218.31,192.23 220.68,192.10 223.04,191.97 225.41,191.83 227.77,191.70 230.14,191.56 232.51,191.41 234.87,191.27 237.24,191.12 239.60,190.97 241.97,190.82 244.33,190.67 246.70,190.51 249.07,190.35 251.43,190.19 253.80,190.03 256.16,189.86 258.53,189.69 260.89,189.52 263.26,189.34 265.63,189.17 267.99,188.99 270.36,188.81 272.72,188.62 275.09,188.43 277.45,188.24 279.82,188.05 282.19,187.85 284.55,187.66 286.92,187.46 289.28,187.25 291.65,187.04 294.01,186.84 296.38,186.62 298.75,186.41 301.11,186.19 303.48,185.97 305.84,185.75 308.21,185.52 310.57,185.29 312.94,185.06 315.31,184.82 317.67,184.58 320.04,184.34 322.40,184.10 324.77,183.85 327.13,183.60 329.50,183.34 331.87,183.08 334.23,182.82 336.60,182.56 338.96,182.29 341.33,182.02 343.70,181.75 346.06,181.47 348.43,181.19 350.79,180.91 353.16,180.62 355.52,180.33 357.89,180.04 360.26,179.74 362.62,179.44 364.99,179.13 367.35,178.82 369.72,178.51 372.08,178.20 374.45,177.88 376.82,177.55 379.18,177.23 381.55,176.90 383.91,176.56 386.28,176.22 388.64,175.88 391.01,175.53 393.38,175.18 395.74,174.83 398.11,174.47 400.47,174.11 402.84,173.74 405.20,173.37 407.57,172.99 409.94,172.61 412.30,172.23 414.67,171.84 417.03,171.45 419.40,171.05 421.76,170.65 424.13,170.24 426.50,169.83 428.86,169.41 431.23,168.99 433.59,168.56 435.96,168.13 438.33,167.70 440.69,167.26 443.06,166.81 445.42,166.36 447.79,165.91 450.15,165.44 452.52,164.98 454.89,164.51 457.25,164.03 459.62,163.55 461.98,163.06 464.35,162.56 466.71,162.06 469.08,161.56 471.45,161.05 473.81,160.53 476.18,160.01 478.54,159.48 480.91,158.94 483.27,158.40 485.64,157.85 488.01,157.30 490.37,156.74 492.74,156.17 495.10,155.60 497.47,155.02 499.83,154.43 502.20,153.83 504.57,153.23 506.93,152.63 509.30,152.01 511.66,151.39 514.03,150.76 516.39,150.12 518.76,149.47 521.13,148.82 523.49,148.16 525.86,147.49 528.22,146.81 530.59,146.13 532.96,145.44 535.32,144.73 537.69,144.02 540.05,143.31 542.42,142.58 544.78,141.84 547.15,141.10 549.52,140.34 551.88,139.58 554.25,138.80 556.61,138.02 558.98,137.23 561.34,136.42 563.71,135.61 566.08,134.79 568.44,133.95 570.81,133.11 573.17,132.25 575.54,131.39 577.90,130.51 580.27,129.62 582.64,128.72 585.00,127.81 587.37,126.89 589.73,125.95 592.10,125.00 594.46,124.04 596.83,123.07 599.20,122.08 601.56,121.09 603.93,120.07 606.29,119.05 608.66,118.01 611.02,116.95 613.39,115.88 615.76,114.80 618.12,113.70 620.49,112.59 622.85,111.46 625.22,110.32 627.58,109.15 629.95,107.98 632.32,106.78 634.68,105.57 637.05,104.35 639.41,103.10 641.78,101.84 644.15,100.55 646.51,99.25 648.88,97.93 651.24,96.59 653.61,95.23 655.97,93.85 658.34,92.45 660.71,91.03 663.07,89.59 665.44,88.12 667.80,86.63 670.17,85.12 672.53,83.59 674.90,82.03 677.27,80.44 679.63,78.83 682.00,77.20 684.36,75.54 686.73,73.85 689.09,72.14 689.09,196.07"/>
+<polygon class="hi171" points="74.00,196.07 76.37,196.07 78.73,196.06 81.10,196.06 83.46,196.05 85.83,196.04 88.19,196.03 90.56,196.02 92.93,196.00 95.29,195.99 97.66,195.97 100.02,195.95 102.39,195.92 104.75,195.90 107.12,195.87 109.49,195.84 111.85,195.81 114.22,195.78 116.58,195.74 118.95,195.70 121.31,195.67 123.68,195.62 126.05,195.58 128.41,195.53 130.78,195.49 133.14,195.44 135.51,195.39 137.88,195.33 140.24,195.28 142.61,195.22 144.97,195.16 147.34,195.10 149.70,195.03 152.07,194.97 154.44,194.90 156.80,194.83 159.17,194.75 161.53,194.68 163.90,194.60 166.26,194.52 168.63,194.44 171.00,194.36 173.36,194.27 175.73,194.19 178.09,194.10 180.46,194.00 182.82,193.91 185.19,193.81 187.56,193.72 189.92,193.62 192.29,193.51 194.65,193.41 197.02,193.30 199.38,193.19 201.75,193.08 204.12,192.96 206.48,192.85 208.85,192.73 211.21,192.61 213.58,192.48 215.94,192.36 218.31,192.23 220.68,192.10 223.04,191.97 225.41,191.83 227.77,191.70 230.14,191.56 232.51,191.41 234.87,191.27 237.24,191.12 239.60,190.97 241.97,190.82 244.33,190.67 246.70,190.51 249.07,190.35 251.43,190.19 253.80,190.03 256.16,189.86 258.53,189.69 260.89,189.52 263.26,189.34 265.63,189.17 267.99,188.99 270.36,188.81 272.72,188.62 275.09,188.43 277.45,188.24 279.82,188.05 282.19,187.85 284.55,187.66 286.92,187.46 289.28,187.25 291.65,187.04 294.01,186.84 296.38,186.62 298.75,186.41 301.11,186.19 303.48,185.97 305.84,185.75 308.21,185.52 310.57,185.29 312.94,185.06 315.31,184.82 317.67,184.58 320.04,184.34 322.40,184.10 324.77,183.85 327.13,183.60 329.50,183.34 331.87,183.08 334.23,182.82 336.60,182.56 338.96,182.29 341.33,182.02 343.70,181.75 346.06,181.47 348.43,181.19 350.79,180.91 353.16,180.62 355.52,180.33 357.89,180.04 360.26,179.74 362.62,179.44 364.99,179.13 367.35,178.82 369.72,178.51 372.08,178.20 374.45,177.88 376.82,177.55 379.18,177.23 381.55,176.90 383.91,176.56 386.28,176.22 388.64,175.88 391.01,175.53 393.38,175.18 395.74,174.83 398.11,174.47 400.47,174.11 402.84,173.74 405.20,173.37 407.57,172.99 409.94,172.61 412.30,172.23 414.67,171.84 417.03,171.45 419.40,171.05 421.76,170.65 424.13,170.24 426.50,169.83 428.86,169.41 431.23,168.99 433.59,168.56 435.96,168.13 438.33,167.70 440.69,167.26 443.06,166.81 445.42,166.36 447.79,165.91 450.15,165.44 452.52,164.98 454.89,164.51 457.25,164.03 459.62,163.55 461.98,163.06 464.35,162.56 466.71,162.06 469.08,161.56 471.45,161.05 473.81,160.53 476.18,160.01 478.54,159.48 480.91,158.94 483.27,158.40 485.64,157.85 488.01,157.30 490.37,156.74 492.74,156.17 495.10,155.60 497.47,155.02 499.83,154.43 502.20,153.83 504.57,153.23 506.93,152.63 509.30,152.01 511.66,151.39 514.03,150.76 516.39,150.12 518.76,149.47 521.13,148.82 523.49,148.16 525.86,147.49 528.22,146.81 530.59,146.13 532.96,145.44 535.32,144.73 537.69,144.02 540.05,143.31 542.42,142.58 544.78,141.84 547.15,141.10 549.52,140.34 551.88,139.58 554.25,138.80 556.61,138.02 558.98,137.23 561.34,136.42 563.71,135.61 566.08,134.79 568.44,133.95 570.81,133.11 573.17,132.25 575.54,131.39 577.90,130.51 580.27,129.62 582.64,128.72 585.00,127.81 587.37,126.89 589.73,125.95 592.10,125.00 594.46,124.04 596.83,123.07 599.20,122.08 601.56,121.09 603.93,120.07 606.29,119.05 608.66,118.01 611.02,116.95 613.39,115.88 615.76,114.80 618.12,113.70 620.49,112.59 622.85,111.46 625.22,110.32 627.58,109.15 629.95,107.98 632.32,106.78 634.68,105.57 637.05,104.35 639.41,103.10 641.78,101.84 644.15,100.55 646.51,99.25 648.88,97.93 651.24,96.59 653.61,95.23 655.97,93.85 658.34,92.45 660.71,91.03 663.07,89.59 665.44,88.12 667.80,86.63 670.17,85.12 672.53,83.59 674.90,82.03 677.27,80.44 679.63,78.83 682.00,77.20 684.36,75.54 686.73,73.85 689.09,72.14 689.09,72.14 74.00,72.14"/>
+<polyline class="c171" points="74.00,196.07 76.37,196.07 78.73,196.06 81.10,196.06 83.46,196.05 85.83,196.04 88.19,196.03 90.56,196.02 92.93,196.00 95.29,195.99 97.66,195.97 100.02,195.95 102.39,195.92 104.75,195.90 107.12,195.87 109.49,195.84 111.85,195.81 114.22,195.78 116.58,195.74 118.95,195.70 121.31,195.67 123.68,195.62 126.05,195.58 128.41,195.53 130.78,195.49 133.14,195.44 135.51,195.39 137.88,195.33 140.24,195.28 142.61,195.22 144.97,195.16 147.34,195.10 149.70,195.03 152.07,194.97 154.44,194.90 156.80,194.83 159.17,194.75 161.53,194.68 163.90,194.60 166.26,194.52 168.63,194.44 171.00,194.36 173.36,194.27 175.73,194.19 178.09,194.10 180.46,194.00 182.82,193.91 185.19,193.81 187.56,193.72 189.92,193.62 192.29,193.51 194.65,193.41 197.02,193.30 199.38,193.19 201.75,193.08 204.12,192.96 206.48,192.85 208.85,192.73 211.21,192.61 213.58,192.48 215.94,192.36 218.31,192.23 220.68,192.10 223.04,191.97 225.41,191.83 227.77,191.70 230.14,191.56 232.51,191.41 234.87,191.27 237.24,191.12 239.60,190.97 241.97,190.82 244.33,190.67 246.70,190.51 249.07,190.35 251.43,190.19 253.80,190.03 256.16,189.86 258.53,189.69 260.89,189.52 263.26,189.34 265.63,189.17 267.99,188.99 270.36,188.81 272.72,188.62 275.09,188.43 277.45,188.24 279.82,188.05 282.19,187.85 284.55,187.66 286.92,187.46 289.28,187.25 291.65,187.04 294.01,186.84 296.38,186.62 298.75,186.41 301.11,186.19 303.48,185.97 305.84,185.75 308.21,185.52 310.57,185.29 312.94,185.06 315.31,184.82 317.67,184.58 320.04,184.34 322.40,184.10 324.77,183.85 327.13,183.60 329.50,183.34 331.87,183.08 334.23,182.82 336.60,182.56 338.96,182.29 341.33,182.02 343.70,181.75 346.06,181.47 348.43,181.19 350.79,180.91 353.16,180.62 355.52,180.33 357.89,180.04 360.26,179.74 362.62,179.44 364.99,179.13 367.35,178.82 369.72,178.51 372.08,178.20 374.45,177.88 376.82,177.55 379.18,177.23 381.55,176.90 383.91,176.56 386.28,176.22 388.64,175.88 391.01,175.53 393.38,175.18 395.74,174.83 398.11,174.47 400.47,174.11 402.84,173.74 405.20,173.37 407.57,172.99 409.94,172.61 412.30,172.23 414.67,171.84 417.03,171.45 419.40,171.05 421.76,170.65 424.13,170.24 426.50,169.83 428.86,169.41 431.23,168.99 433.59,168.56 435.96,168.13 438.33,167.70 440.69,167.26 443.06,166.81 445.42,166.36 447.79,165.91 450.15,165.44 452.52,164.98 454.89,164.51 457.25,164.03 459.62,163.55 461.98,163.06 464.35,162.56 466.71,162.06 469.08,161.56 471.45,161.05 473.81,160.53 476.18,160.01 478.54,159.48 480.91,158.94 483.27,158.40 485.64,157.85 488.01,157.30 490.37,156.74 492.74,156.17 495.10,155.60 497.47,155.02 499.83,154.43 502.20,153.83 504.57,153.23 506.93,152.63 509.30,152.01 511.66,151.39 514.03,150.76 516.39,150.12 518.76,149.47 521.13,148.82 523.49,148.16 525.86,147.49 528.22,146.81 530.59,146.13 532.96,145.44 535.32,144.73 537.69,144.02 540.05,143.31 542.42,142.58 544.78,141.84 547.15,141.10 549.52,140.34 551.88,139.58 554.25,138.80 556.61,138.02 558.98,137.23 561.34,136.42 563.71,135.61 566.08,134.79 568.44,133.95 570.81,133.11 573.17,132.25 575.54,131.39 577.90,130.51 580.27,129.62 582.64,128.72 585.00,127.81 587.37,126.89 589.73,125.95 592.10,125.00 594.46,124.04 596.83,123.07 599.20,122.08 601.56,121.09 603.93,120.07 606.29,119.05 608.66,118.01 611.02,116.95 613.39,115.88 615.76,114.80 618.12,113.70 620.49,112.59 622.85,111.46 625.22,110.32 627.58,109.15 629.95,107.98 632.32,106.78 634.68,105.57 637.05,104.35 639.41,103.10 641.78,101.84 644.15,100.55 646.51,99.25 648.88,97.93 651.24,96.59 653.61,95.23 655.97,93.85 658.34,92.45 660.71,91.03 663.07,89.59 665.44,88.12 667.80,86.63 670.17,85.12 672.53,83.59 674.90,82.03 677.27,80.44 679.63,78.83 682.00,77.20 684.36,75.54 686.73,73.85 689.09,72.14"/>
+<line class="ax171" x1="74.0" y1="320.0" x2="726.0" y2="320.0"/>
+<line class="ax171" x1="74.0" y1="320.0" x2="74.0" y2="30.0"/>
+<line class="mline171" x1="74.0" y1="72.1" x2="726.0" y2="72.1"/>
+<line class="mline171" x1="74.0" y1="196.1" x2="726.0" y2="196.1"/>
+<text class="lab tk171" x="65.0" y="324.0" text-anchor="end">0</text>
+<text class="lab tk171" x="65.0" y="200.1" text-anchor="end">1</text>
+<text class="lab tk171" x="65.0" y="76.1" text-anchor="end">2</text>
+<text class="lab tk171" x="74.0" y="340.0" text-anchor="middle">0</text>
+<text class="lab tk171" x="689.1" y="340.0" text-anchor="middle">pi/3</text>
+<line class="ax171" x1="689.1" y1="320.0" x2="689.1" y2="326.0"/>
+<text class="lab lb171 lhi171" x="103.4" y="49.8">slack the upper bound adds = 0.7774</text>
+<text class="lab lb171 lar171" x="679.1" y="184.9" text-anchor="end">the extra real area = 0.2698</text>
+<text class="lab lb171 llo171" x="103.4" y="284.1">the lower bound already has this = 1.0472</text>
+<text class="lab lb171 lc171" x="426.4" y="109.3" text-anchor="end">y = sec x</text>
+<line class="nl171" x1="74.0" y1="392.0" x2="726.0" y2="392.0"/>
+<rect class="band171" x="150.2" y="387.5" width="541.9" height="9"/>
+<rect class="wrong171" x="125.7" y="373.0" width="517.5" height="9"/>
+<line class="true171" x1="289.8" y1="371.0" x2="289.8" y2="403.0"/>
+<text class="lab lb171 lwrong171" x="125.7" y="360.0">[1, 2] with the width dropped</text>
+<text class="lab lb171 lband171" x="150.2" y="418.0">the answer, pi/3 to 2pi/3</text>
+<text class="lab tk171" x="289.8" y="438.0" text-anchor="middle">true value 1.3169578969</text>
+</svg></div>
+    <figcaption>The plot is cut into three regions whose areas are exactly the three numbers this page reports. The teal slab is \(m(b-a) = \pi/3 = 1.0471975512\), the part the lower bound already accounts for. The amber sliver above it is the extra real area, \(0.2697603457\). The blue region between the curve and \(y=2\) is the slack the upper bound adds, \(0.7774372055\). The three sum to \(M(b-a) = 2\pi/3\). The strip beneath is a number line: the amber band is the answer \([\pi/3,\ 2\pi/3]\), and the rust band above it is \([1,2]\), what you get if you find \(m\) and \(M\) correctly and then forget to multiply by the width. Notice that the rust band still covers the true value.</figcaption>
+  </figure>
+
+  <p>Read the picture as a claim about <em>area</em>, not about the function. The bound does not say the function is nearly constant; it says the area is somewhere between the two boxes. When the function varies a lot the boxes are far apart and the bound is loose, and a loose bound is still a correct bound.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">03</span>The procedure, in five steps</h2>
+
+  <div class="steps171">
+    <div class="st171"><div class="stn171">1</div><div><b>State the domain.</b> Write down where the integrand is undefined and check that no such point lies in \([a,b]\). Here \(\sec x = 1/\cos x\) fails exactly where \(\cos x = 0\), that is at \(x = \pi/2 + k\pi\). The nearest is \(\pi/2 = 1.5707963268\), and \(\pi/3 = 1.0471975512\), so the clearance is \(\pi/6\) and the integrand is continuous on the whole closed interval.</div></div>
+    <div class="st171"><div class="stn171">2</div><div><b>Find \(m\) and \(M\) by the Q15 recipe.</b> Differentiate, solve \(f' = 0\) on the open interval, separately list every point where \(f'\) fails to exist, then evaluate \(f\) at those points <em>and at both endpoints</em>. Here \(f'(x) = \sec x\tan x\), which vanishes only where \(\tan x = 0\), i.e. at \(x=0\), an endpoint; and \(f'\) exists everywhere on \([0,\pi/3]\). So the candidate list is just \(\{0,\ \pi/3\}\), giving \(m = \sec 0 = 1\) and \(M = \sec(\pi/3) = 2\).</div></div>
+    <div class="st171 hot171"><div class="stn171">3</div><div><b>Compute \(b-a\) and write it on its own line.</b> \(b - a = \pi/3 - 0 = \pi/3\). This step exists only so you cannot skip it. It is the step the whole question is built around.</div></div>
+    <div class="st171"><div class="stn171">4</div><div><b>Assemble.</b> \(m(b-a) \le I \le M(b-a)\), so \(1\cdot\frac{\pi}{3} \le I \le 2\cdot\frac{\pi}{3}\), i.e. \(\pi/3 \le I \le 2\pi/3\). Keep \(\pi\) symbolic.</div></div>
+    <div class="st171"><div class="stn171">5</div><div><b>Check.</b> The bounds are in order, the width is \((M-m)(b-a)\), and any other estimate you can make must land inside. The midpoint rule gives \(\sec(\pi/6)\cdot\pi/3 = 1.2091995762\), which does.</div></div>
+  </div>
+
+  <p>Step 2 is where the cost varies, and it varies with the shape of the integrand rather than with how complicated its formula looks.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>shape on \([a,b]\)</th><th>how to get \(m\) and \(M\)</th><th>cost</th></tr></thead>
+      <tbody>
+        <tr class="pick"><td>monotone: \(f'\) has one sign throughout</td><td>read them off the two endpoints</td><td class="n">2 evaluations</td></tr>
+        <tr><td>one interior critical point</td><td>the endpoints plus that point</td><td class="n">3 evaluations</td></tr>
+        <tr><td>a corner or cusp, where \(f'\) does not exist</td><td>endpoints, zeros of \(f'\), and the non-differentiable points</td><td class="n">4 or more</td></tr>
+        <tr class="bad171"><td>discontinuous somewhere in \([a,b]\)</td><td>the property does not apply at all</td><td class="n">stop</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn171">04</span>The exam fact that halves the work on Final Exam 2</h2>
+
+  <p>On the second final, this category is welded to the extreme-value category. Two of the twelve items have a part (a) that asks for absolute extremes and a part (b) that asks you to bound an integral, and both times it is <b>the same function over the same interval</b>.</p>
+
+  <p class="key171">Part (a)'s absolute maximum <em>is</em> part (b)'s \(M\). Part (a)'s absolute minimum <em>is</em> part (b)'s \(m\). On those items you do not find \(m\) and \(M\) at all: you already have them, and part (b) is two multiplications and a sentence.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>F2 item</th><th>part (a)</th><th>its max = \(M\)</th><th>its min = \(m\)</th><th>part (b)</th><th>the bound</th><th>true value</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">3</td><td>Q15.3, \(\dfrac{1}{x^2+1}\) on \([-1,1]\)</td><td class="n">\(1\)</td><td class="n">\(\tfrac12\)</td><td>Q17.2</td><td class="n">\([1,\ 2]\)</td><td class="n">1.5707963268</td></tr>
+        <tr><td class="mono">7</td><td>Q15.5, \((x^2+2x)^{2/3}\) on \([-2,3]\)</td><td class="n">\(15^{2/3}\)</td><td class="n">\(0\)</td><td>Q17.3</td><td class="n">\([0,\ 30.4110099779]\)</td><td class="n">10.6736300365</td></tr>
+        <tr class="pick"><td class="mono">F1 #9</td><td>none - Q17.1 stands alone</td><td class="n">\(2\)</td><td class="n">\(1\)</td><td>Q17.1</td><td class="n">\([1.0471975512,\ 2.0943951024]\)</td><td class="n">1.3169578969</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>The last row is the reason Q17.1 belongs first in the category. It has no part (a) to lean on, so it is the question where you have to run the extreme-value machinery yourself. Do that once here and the two paired questions cost almost nothing.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">05</span>The trap: on this integral, the mistake hides</h2>
+
+  <p>Suppose you do everything right except step 3. You find \(m=1\) and \(M=2\) and you write \(1 \le I \le 2\). Is that caught?</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>question</th><th>correct interval</th><th>with \((b-a)\) dropped</th><th>true value</th><th>verdict</th></tr></thead>
+      <tbody>
+        <tr class="bad171"><td>Q17.1</td><td class="n">\([1.0472,\ 2.0944]\)</td><td class="n">\([1,\ 2]\)</td><td class="n">1.3169578969</td><td><b>still contains it</b> - invisible</td></tr>
+        <tr><td>Q17.2</td><td class="n">\([1,\ 2]\)</td><td class="n">\([\tfrac12,\ 1]\)</td><td class="n">1.5707963268</td><td>excludes it - caught</td></tr>
+        <tr><td>Q17.3</td><td class="n">\([0,\ 30.4110]\)</td><td class="n">\([0,\ 6.0822]\)</td><td class="n">10.6736300365</td><td>excludes it - caught</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="note">
+    <div class="nl">Q17.1 is the one question in this category where the defining mistake is undetectable by checking your own answer.</div>
+    <p>On the other two the wrong interval fails to contain the value, so a student who happens to know the answer catches it. Here it does not. The wrong interval \([1,2]\) is not even a subset of the right one, because \(1 < \pi/3\), and it still covers the truth. The only defence is procedural rather than numerical: make step 3 a line you physically write down.</p>
+  </div>
+</section>
+
+<section>
+  <h2><span class="sn171">06</span>A wrong \(m\) or \(M\) usually still gives a correct interval</h2>
+
+  <p>This is the deeper version of the same problem, and it is worth understanding because it changes what "checking your work" can mean. Eighteen plausible mistakes were enumerated and each one's interval was tested against the true value.</p>
+
+  <div class="vgrid">
+    <div class="vcell"><div class="vn">6</div><div class="vt">rows that are a valid bound and contain the value</div></div>
+    <div class="vcell"><div class="vn">4</div><div class="vt">rows with an invalid m or M that STILL contain it</div></div>
+    <div class="vcell"><div class="vn">8</div><div class="vt">rows actually caught by the containment test</div></div>
+  </div>
+
+  <p>The reason is structural. <b>Loosening a correct bound can never break containment.</b> Any \(m' \le 1\) and any \(M' \ge 2\) still produce a true statement; that was checked across 4002 sampled loosenings with zero failures. Only <em>tightening past the truth</em> is detectable, and the point where that starts is exact:</p>
+
+  <div class="rule171 alt171">
+    <div class="rl171">the tipping point</div>
+    <p>If you take \(m = \sec(x_0)\) for some \(x_0\) in the interval, the resulting interval still contains the true value <b>if and only if</b> \(x_0 \le c\), where \(c = 0.6515182915\) is the Mean Value Theorem point at which \(\sec c\) equals the average value \(1.2576021548\). That is \(62.22\%\) of the way along the interval.</p>
+  </div>
+
+  <p>So taking the midpoint \(\pi/6\) as your minimum hides, and taking \(\pi/4\) is caught. A scan over 1001 choices of \(x_0\) found \(62.24\%\) of them "work", matching \(c/(b-a)\) to within one grid step. The lesson to carry into the exam: <b>an answer that looks reasonable is not evidence that the method was right.</b> Justify \(m\) and \(M\); do not sanity-check them.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">07</span>Five routes, and which one to use</h2>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>route</th><th>what it needs</th><th>time</th><th>risk</th><th>verdict</th></tr></thead>
+      <tbody>
+        <tr><td><b>A</b> &nbsp;endpoints only</td><td>seeing that \(\sec\) increases</td><td class="n">30 s</td><td>forgetting \((b-a)\)</td><td>fast, but assert the monotonicity</td></tr>
+        <tr class="pick"><td><b>B</b> &nbsp;full Q15 candidate table</td><td>\(f'\), critical points, endpoints</td><td class="n">90 s</td><td>none</td><td><b>use this one under pressure</b></td></tr>
+        <tr><td><b>C</b> &nbsp;dominating function</td><td>inventing a valid comparison</td><td class="n">3 min+</td><td>the comparison may be false</td><td>wrong tool for this wording</td></tr>
+        <tr><td><b>D</b> &nbsp;split the interval</td><td>\(k\) evaluations</td><td class="n">grows with \(k\)</td><td>arithmetic slips</td><td>only when asked to sharpen</td></tr>
+        <tr><td><b>E</b> &nbsp;evaluate it exactly</td><td>the \(\sec\) antiderivative</td><td class="n">60 s</td><td>answers a different question</td><td>private check only</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Route B costs one line more than route A and produces the sentence a marker is looking for. It is also the same three lines you already write for every extreme-value question, so it is not new work. Route C is interesting: on this interval \(\sec x \le 1 + x^2\) holds everywhere (the two curves do not cross until \(x = 1.1025058244\), past \(\pi/3\)), which gives the much tighter ceiling \(\pi/3 + (\pi/3)^3/3 = 1.4299910905\) and removes \(85.46\%\) of the crude ceiling's slack. It is a better bound and the wrong answer to this question, because the question names the property it wants.</p>
+
+  <p class="calm171">No marking scheme exists in any of the four course files, so every statement here about what earns marks is an inference from the wording and the point value, not a quotation.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">08</span>Splitting: how a bound becomes an estimate</h2>
+
+  <p>Additivity lets you bound each piece of the interval separately with its own \(m_i\) and \(M_i\). For a monotone integrand cut into \(k\) equal pieces the total width of the sandwich is exactly \((M-m)(b-a)/k\), so the bound converges to the value.</p>
+
+  <div class="tscroll vtab">
+    <table>
+      <thead><tr><th>\(k\)</th><th>lower bound</th><th>upper bound</th><th>width</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1</td><td class="n">1.0471975512</td><td class="n">2.0943951024</td><td class="n">1.0471975512</td></tr>
+        <tr><td class="mono">2</td><td class="n">1.1281985637</td><td class="n">1.6517973393</td><td class="n">0.5235987756</td></tr>
+        <tr><td class="mono">4</td><td class="n">1.2053741969</td><td class="n">1.4671735847</td><td class="n">0.2617993878</td></tr>
+        <tr><td class="mono">10</td><td class="n">1.2677506328</td><td class="n">1.3724703879</td><td class="n">0.1047197551</td></tr>
+        <tr><td class="mono">100</td><td class="n">1.3117535646</td><td class="n">1.3222255401</td><td class="n">0.0104719755</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>Every row contains \(1.3169578969\). Reaching a width below \(0.01\) needs \(k = 105\), which is not exam work; the table is here to show that the crude bound and a Riemann sum are the same idea at two different resolutions.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">09</span>The eight families a reworded version can belong to</h2>
+
+  <p>Read these as one structure, not as eight facts. Every family answers the same question - what are \(m\) and \(M\), and what is the width - and they differ only in how much work the first half costs.</p>
+
+  <div class="fams171">
+    <div class="fam171"><div class="fn171">Family 0</div><div class="ft171">monotone integrand</div><p>\(f'\) has one sign. \(m\) and \(M\) are the two endpoint values; which is which depends on the sign, not on habit. \(\sec\) on \([0,\pi/3]\) is here, and so is \(\cos\) on \([0,\pi/3]\), where the ends swap.</p></div>
+    <div class="fam171"><div class="fn171">Family 1</div><div class="ft171">interior critical point</div><p>The full candidate recipe. \(x^2\) on \([-1,2]\), \(\sin\) on \([0,\pi]\), and both of the F2 paired functions live here.</p></div>
+    <div class="fam171"><div class="fn171">Family 2</div><div class="ft171">the paired F2 items</div><p>Part (a) already computed \(m\) and \(M\). Copy them. Two multiplications.</p></div>
+    <div class="fam171"><div class="fn171">Family 3</div><div class="ft171">dominating function</div><p>The wording is "show that \(I &lt; N\)". Use monotonicity with a non-constant comparison, and verify the comparison on the whole interval first.</p></div>
+    <div class="fam171"><div class="fn171">Family 4</div><div class="ft171">splitting</div><p>"Make the estimate as accurate as you like." Width \((M-m)(b-a)/k\).</p></div>
+    <div class="fam171"><div class="fn171">Family 5</div><div class="ft171">orientation and sign</div><p>Reversed limits or a negated integrand. Negate both bounds and swap them; note that \(-\sec\) has its minimum where \(\sec\) had its maximum.</p></div>
+    <div class="fam171"><div class="fn171">Family 6</div><div class="ft171">the property does not apply</div><p>A pole inside \([a,b]\). \(\int_0^{2\pi/3}\sec x\,dx\) is improper: the partial integrals to \(\pi/2-\varepsilon\) run 5.30, 7.60, 9.90, 12.21, 14.51 as \(\varepsilon\) shrinks by decades. There is no finite \(M\), so there is nothing to say.</p></div>
+    <div class="fam171"><div class="fn171">Family 7</div><div class="ft171">the three verbs</div><p>"Interval" wants both bounds as an interval. "Estimate" wants a number or the inequality. "Bound" may want only one side. Q17.1, Q17.2 and Q17.3 use all three on the same property.</p></div>
+  </div>
+
+  <p>The choice of interval in Q17.1 is deliberate, and Family 6 explains it: \(\pi/3\) is the largest friendly angle that stays clear of the pole at \(\pi/2\). Had the examiner written \([0,2\pi/3]\) the question would have no answer at all.</p>
+</section>
+
+<section>
+  <h2><span class="sn171">10</span>Before you submit</h2>
+
+  <div class="dodont171">
+    <div class="do171">
+      <div class="dl171">do</div>
+      <ul>
+        <li>Write \(b-a\) on its own line before assembling anything.</li>
+        <li>Justify why \(m\) is at the end you claim, from the sign of \(f'\).</li>
+        <li>Say in one clause why the integrand is continuous on \([a,b]\).</li>
+        <li>Present the answer as an interval, because the question asked for one.</li>
+        <li>Type <span class="kbd">pi/3</span> and <span class="kbd">2*pi/3</span>, lower bound first.</li>
+      </ul>
+    </div>
+    <div class="dont171">
+      <div class="dl171">do not</div>
+      <ul>
+        <li>Assume the minimum is at the left end; that is true only for increasing \(f\).</li>
+        <li>Treat a plausible-looking interval as confirmation of the method.</li>
+        <li>Apologise for a loose bound. A correct bound can be very loose and is still correct.</li>
+        <li>Answer with a single number, however accurate.</li>
+        <li>Type <span class="kbd">2pi/3</span>. It is one keystroke and the whole mark.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <p><b>Verification.</b> Every number on this page was computed in Python and digit-locked; none was typed from memory. The checks live in the shared MATH 265 harness as sections <code>q171</code> (116 PASS, 0 FAIL, 10 seeded controls) and <code>q171d</code> (121 PASS, 0 FAIL, 6 seeded controls), which is <b>237 PASS and 0 FAIL in this question's own scope</b>, confirmed by grepping those two prefixes rather than by trusting a shared counter.</p>
+  <p>The true value \(\ln(2+\sqrt3)\) was checked against four equivalent closed forms and two independent quadratures that agree with it and with each other to under \(10^{-14}\). Simpson's observed order was measured rather than assumed, over \(n = 16\ldots1024\), and reaches 3.9983 at the finest rung; the sequence rises toward 4 rather than degrading, which is the control confirming this integrand carries no cusp or branch-point penalty. The extremes \(m\) and \(M\) were established by a four-arm census (sign changes, exact grid zeros, an analytic root enumeration, and the points where \(f'\) fails to exist), each arm proved live on a control function and proved silent on another.</p>
+  <p>Full tutorial with the variation catalog, the trap list and a twelve-problem drill set: <code>C:\Users\mnguyen\notes\Q17.1 - Interval containing a secant integral.md</code>. Sources: <code>notes\MATH265\MATH265.md</code> (Final Exam 1, item 9), <code>notes\MATH265.md</code> (the bank), and the Q15.3 and Q15.5 tutorials for the paired items. <code>MATH265_Review.md</code> carries verified defects elsewhere in the course and is treated as a study aid rather than an authority.</p>
+</footer>
+
+</main>

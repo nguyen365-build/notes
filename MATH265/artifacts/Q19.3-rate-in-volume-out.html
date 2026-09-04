@@ -1,0 +1,708 @@
+<meta charset="utf-8">
+<title>Rate In, Volume Out</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ---- Q19.2 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig192{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig192 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig192 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig192 text{font-family:var(--mono)}
+
+
+/* ---- Q19.3 FIGURE CSS, emitted BEFORE the body and inside the SAME block ---- */
+.fig193{margin:26px 0 30px;border:1px solid var(--line);border-radius:2px;
+  background:var(--surface);overflow-x:auto}
+.fig193 svg{display:block;width:100%;height:auto;min-width:520px}
+.fig193 figcaption{padding:12px 18px 15px;border-top:1px solid var(--line);
+  font-size:12px;color:var(--ink3);line-height:1.6;max-width:none}
+.fig193 text{font-family:var(--mono)}
+/* SVG hooks that also need real rules, so the orphan guard can see them */
+.plotbg193{}
+.band193{}
+.brk193{}
+.rate193{}
+.dot193{}
+.conn193{}
+.tick193{}
+
+/* ---- Q19.3 page classes. Every invented name carries the 193 suffix so it cannot
+   shadow anything in the inherited token+base prefix. ---- */
+.mast193{padding:56px 22px 26px;border-bottom:1px solid var(--rul)}
+.mast193 h1{margin:8px 0 14px;font-size:clamp(30px,5.2vw,50px);line-height:1.04;
+  letter-spacing:-0.022em;text-wrap:balance}
+.ansbar193{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin-top:26px;
+  grid-template-columns:repeat(auto-fit,minmax(min(260px,100%),1fr))}
+.acell193{background:var(--surface);padding:15px 17px 17px;display:flex;
+  flex-direction:column;gap:7px;justify-content:flex-start}
+.alab193{font-family:var(--mono);font-size:9.5px;letter-spacing:0.13em;
+  text-transform:uppercase;color:var(--ink3);margin:0}
+.aval193{margin:0;font-size:14.5px;line-height:1.5;color:var(--ink)}
+.abig193{font-size:18px;color:var(--accent);font-weight:600}
+.snum193{font-family:var(--mono);font-size:0.62em;color:var(--accent);
+  letter-spacing:0.08em;margin-right:12px;vertical-align:0.18em}
+.steps193{list-style:none;counter-reset:s193;padding:0;margin:20px 0 26px;
+  display:flex;flex-direction:column;gap:13px}
+.steps193 li{counter-increment:s193;display:grid;grid-template-columns:30px minmax(0,1fr);
+  gap:2px;margin:0;padding:0}
+.steps193 li::before{content:counter(s193);font-family:var(--mono);font-size:11px;
+  color:var(--accent);padding-top:3px;grid-column:1}
+.steps193 li>span{grid-column:2;line-height:1.62}
+.traps193{list-style:none;counter-reset:t193;padding:0;margin:18px 0 8px;
+  display:flex;flex-direction:column;gap:11px}
+.traps193 li{counter-increment:t193;display:grid;grid-template-columns:32px minmax(0,1fr);
+  gap:2px;margin:0;padding:0}
+.traps193 li::before{content:counter(t193);font-family:var(--mono);font-size:11px;
+  color:var(--ink3);padding-top:3px;grid-column:1}
+.traps193 li>span{grid-column:2;line-height:1.6}
+.pipe193{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin:22px 0 8px;
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr))}
+.pc193{background:var(--surface);padding:15px 17px 16px;display:flex;
+  flex-direction:column;gap:9px}
+.pc193 p{margin:0;max-width:none}
+.pc193>p:nth-child(2){overflow-x:auto;font-size:14px}
+.pnum193{font-family:var(--mono);font-size:15px;color:var(--accent);
+  font-variant-numeric:tabular-nums}
+.cards193{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:2px;margin:22px 0 20px;
+  grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr))}
+.cd193{background:var(--surface);padding:16px 18px 18px;display:flex;
+  flex-direction:column;gap:10px}
+.cd193 p{margin:0;max-width:none;line-height:1.62}
+.fine193{font-size:12.5px;color:var(--ink3);border-top:1px solid var(--line);
+  padding-top:10px}
+.hot193{border-left:3px solid var(--los);background:var(--sunk);padding:15px 18px;
+  margin:22px 0;border-radius:0 2px 2px 0;display:flex;flex-direction:column;gap:11px}
+.hot193 p{margin:0;max-width:none;line-height:1.62}
+.note193{border-left:3px solid var(--accent);background:var(--sunk);padding:15px 18px;
+  margin:22px 0;border-radius:0 2px 2px 0}
+.note193 p{margin:0;max-width:none;line-height:1.62}
+.disp193{margin:16px 0;overflow-x:auto;max-width:none}
+/* .tscroll is the table-fit gate's markup hook; it must exist as a real rule,
+   not only as a selector the gate looks for. */
+.tscroll,.tscroll193{overflow-x:auto;margin:20px 0;border:1px solid var(--line);
+  border-radius:2px}
+.tab193{width:100%;min-width:660px;border-collapse:collapse;font-size:13px}
+.tabwide193{min-width:1020px}
+.tab193 th{text-align:left;font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  padding:11px 14px;border-bottom:1px solid var(--rul);background:var(--sunk)}
+.tab193 td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;
+  line-height:1.55;color:var(--ink2)}
+.tab193 tr:last-child td{border-bottom:none}
+.ra193{text-align:right}
+.num193{font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.fk193{font-family:var(--mono);font-size:11px;color:var(--ink3);white-space:nowrap}
+/* semantic colours must beat the table cell rule, so name both scopes explicitly */
+.tab193 td.fa193,.fa193{color:var(--fam);font-weight:500}
+.tab193 td.lo193,.lo193{color:var(--los);font-weight:500}
+/* a SEMANTIC COLOUR for a table cell, distinct from .hot193 which is a flex
+   BLOCK.  Reusing .hot193 on a td set display:flex on the cell - the Q10.2
+   class-reuse defect, caught by reading the CSS rather than by any gate. */
+.tab193 td.wa193,.wa193{color:var(--rul);font-weight:500}
+.tab193 tr.pick193 td{background:var(--sunk)}
+.tab193 code{font-size:11.5px;white-space:nowrap}
+mjx-container:not([display="true"]){display:inline-block!important;margin:0;
+  text-align:left;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden}
+.sub193{font-family:var(--mono);font-size:10.5px;letter-spacing:0.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:600;
+  margin:30px 0 6px;padding-top:14px;border-top:1px solid var(--line-soft)}
+.tab193 td.no193,.no193{color:var(--ink3)}
+.warn193{border-left:3px solid var(--los);background:var(--sunk);padding:15px 18px;
+  margin:22px 0;border-radius:0 2px 2px 0;line-height:1.62;max-width:none}
+.chk193{list-style:none;padding:0;margin:22px 0 6px;display:flex;
+  flex-direction:column;gap:12px}
+.chk193 li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:2px;
+  margin:0;padding:0;line-height:1.62;color:var(--ink2)}
+.chk193 li::before{content:"\2713";font-family:var(--mono);font-size:11px;
+  color:var(--fam);grid-column:1;padding-top:2px}
+.chk193 li>*{grid-column:2}
+.colo193{border-top:1px solid var(--rul);margin-top:44px;padding-top:18px}
+@media (max-width:560px){.mast193{padding:38px 16px 20px}}
+</style>
+<header class="wrap mast193">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 12 &middot; 3 POINTS &middot; Q19.3</p>
+  <h1>Rate In, Volume Out</h1>
+  <p class="lede">A rate tells you how fast something is changing. Integrate it and you get the <b>change</b> in the thing itself. That is the whole question, and it takes one line. The trap is that this question's numbers make three different questions have the same answer, so nothing you can compute will tell you which one you actually answered.</p>
+  <div class="ansbar193">
+    <div class="acell193"><p class="alab193">THE QUESTION</p><p class="aval193">Water leaves a tank at $r(t)=180-6t$ L/min. How much leaves in the first 15 minutes?</p></div>
+    <div class="acell193"><p class="alab193">THE ANSWER</p><p class="aval193 abig193">$\displaystyle\int_0^{15}\!(180-6t)\,dt = 2025$ L</p></div>
+    <div class="acell193"><p class="alab193">TYPE INTO M&Ouml;BIUS</p><p class="aval193"><code>2025</code></p></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="snum193">01</span> The theorem, in one sentence</h2>
+  <p>If a quantity $Q$ changes at rate $r$, so that $Q'=r$, then</p>
+  <p class="disp193">$$\int_a^b r(t)\,dt \;=\; Q(b)-Q(a)$$</p>
+  <p>The integral of a rate of change is the <b>net change</b> in the quantity. This is called the Net Change Theorem, and it is not a new theorem. It is the Fundamental Theorem of Calculus, Part 2, with the letters renamed: given a function and an antiderivative, the definite integral is the antiderivative's change across the interval. The only thing this question adds is a physical reading. <b>When $r$ is a flow rate, the antiderivative is a volume.</b></p>
+  <p>You can watch that happen in the units, and the units are the cheapest check on the whole page.</p>
+  <div class="pipe193">
+    <div class="pc193"><p class="alab193">THE RATE</p><p>litres per minute</p><p class="pnum193">L / min</p></div>
+    <div class="pc193"><p class="alab193">TIMES $dt$</p><p>minutes</p><p class="pnum193">min</p></div>
+    <div class="pc193"><p class="alab193">GIVES</p><p>the minutes cancel, and a volume comes out</p><p class="pnum193">L</p></div>
+  </div>
+  <p class="note193"><b>Do this as a cancellation, not as a sentence.</b> Writing "the answer is in litres because it is water" is not a check, because it stays true whatever you computed. Writing $\frac{\text{L}}{\text{min}}\times\text{min}=\text{L}$ is a check, because a wrong operation produces a wrong unit. In the verification behind this page the units are represented as exponent vectors over litre and minute, and the gate was proved to reject L/min, L$\cdot$min, min, min/L and the meaningless sum L + L/min before its acceptance of L was trusted.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">02</span> Four lines, and you are done</h2>
+  <ol class="steps193">
+    <li><span><b>Name the quantity.</b> $V$ is the volume that has flowed out, in litres, and $r=V'$. If you cannot name the quantity, you do not yet know what the integral means.</span></li>
+    <li><span><b>Antidifferentiate.</b> $R(t)=180t-3t^2$. Check it by differentiating back: $R'(t)=180-6t$, which is $r$. The check is faster than the antidifferentiation.</span></li>
+    <li><span><b>Evaluate upper minus lower.</b> $R(15)-R(0)=(2700-675)-0=2025$.</span></li>
+    <li><span><b>State the units and check the magnitude.</b> 2025 litres, and $135\times15=2025$ agrees with the average-rate shortcut.</span></li>
+  </ol>
+  <p>The picture below is the same statement drawn. The height of the curve is the rate; the <b>area</b> under it is the volume. The shaded amber region is the answer.</p>
+</section>
+
+<figure class="figbox fig193">
+  <svg viewBox="0 0 780 400" role="img" aria-label="The outflow rate r(t) = 180 minus 6t over 0 to 50 minutes. The shaded area over the first 15 minutes is the 2025 litre answer. The rate crosses zero at 30 minutes.">
+<rect class="plotbg193" x="76.0" y="34.0" width="674.0" height="300.0" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="316.4" x2="750.0" y2="316.4" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="263.4" x2="750.0" y2="263.4" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="210.5" x2="750.0" y2="210.5" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="157.5" x2="750.0" y2="157.5" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="104.6" x2="750.0" y2="104.6" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="51.6" x2="750.0" y2="51.6" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="76.0" y1="34.0" x2="76.0" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="210.8" y1="34.0" x2="210.8" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="345.6" y1="34.0" x2="345.6" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="480.4" y1="34.0" x2="480.4" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="615.2" y1="34.0" x2="615.2" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="750.0" y1="34.0" x2="750.0" y2="334.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="axist" x1="76.0" y1="210.5" x2="750.0" y2="210.5" stroke="var(--ink3)" stroke-width="1.3"/>
+<polygon class="band193" points="76.00,51.65 78.11,52.47 80.21,53.30 82.32,54.13 84.42,54.96 86.53,55.78 88.64,56.61 90.74,57.44 92.85,58.26 94.96,59.09 97.06,59.92 99.17,60.75 101.28,61.57 103.38,62.40 105.49,63.23 107.59,64.06 109.70,64.88 111.81,65.71 113.91,66.54 116.02,67.36 118.12,68.19 120.23,69.02 122.34,69.85 124.44,70.67 126.55,71.50 128.66,72.33 130.76,73.15 132.87,73.98 134.97,74.81 137.08,75.64 139.19,76.46 141.29,77.29 143.40,78.12 145.51,78.94 147.61,79.77 149.72,80.60 151.82,81.43 153.93,82.25 156.04,83.08 158.14,83.91 160.25,84.74 162.36,85.56 164.46,86.39 166.57,87.22 168.68,88.04 170.78,88.87 172.89,89.70 174.99,90.53 177.10,91.35 179.21,92.18 181.31,93.01 183.42,93.83 185.53,94.66 187.63,95.49 189.74,96.32 191.84,97.14 193.95,97.97 196.06,98.80 198.16,99.62 200.27,100.45 202.38,101.28 204.48,102.11 206.59,102.93 208.69,103.76 210.80,104.59 212.91,105.42 215.01,106.24 217.12,107.07 219.22,107.90 221.33,108.72 223.44,109.55 225.54,110.38 227.65,111.21 229.76,112.03 231.86,112.86 233.97,113.69 236.07,114.51 238.18,115.34 240.29,116.17 242.39,117.00 244.50,117.82 246.61,118.65 248.71,119.48 250.82,120.31 252.93,121.13 255.03,121.96 257.14,122.79 259.24,123.61 261.35,124.44 263.46,125.27 265.56,126.10 267.67,126.92 269.77,127.75 271.88,128.58 273.99,129.40 276.09,130.23 278.20,131.06 278.20,210.47 76.00,210.47" fill="var(--accent)" fill-opacity="0.55" stroke="var(--accent)" stroke-width="1"/>
+<polygon class="band193" points="278.20,131.06 280.31,131.89 282.41,132.71 284.52,133.54 286.62,134.37 288.73,135.19 290.84,136.02 292.94,136.85 295.05,137.68 297.16,138.50 299.26,139.33 301.37,140.16 303.48,140.99 305.58,141.81 307.69,142.64 309.79,143.47 311.90,144.29 314.01,145.12 316.11,145.95 318.22,146.78 320.32,147.60 322.43,148.43 324.54,149.26 326.64,150.08 328.75,150.91 330.86,151.74 332.96,152.57 335.07,153.39 337.18,154.22 339.28,155.05 341.39,155.88 343.49,156.70 345.60,157.53 347.71,158.36 349.81,159.18 351.92,160.01 354.02,160.84 356.13,161.67 358.24,162.49 360.34,163.32 362.45,164.15 364.56,164.97 366.66,165.80 368.77,166.63 370.88,167.46 372.98,168.28 375.09,169.11 377.19,169.94 379.30,170.76 381.41,171.59 383.51,172.42 385.62,173.25 387.73,174.07 389.83,174.90 391.94,175.73 394.04,176.56 396.15,177.38 398.26,178.21 400.36,179.04 402.47,179.86 404.57,180.69 406.68,181.52 408.79,182.35 410.89,183.17 413.00,184.00 415.11,184.83 417.21,185.65 419.32,186.48 421.42,187.31 423.53,188.14 425.64,188.96 427.74,189.79 429.85,190.62 431.96,191.44 434.06,192.27 436.17,193.10 438.27,193.93 440.38,194.75 442.49,195.58 444.59,196.41 446.70,197.24 448.81,198.06 450.91,198.89 453.02,199.72 455.12,200.54 457.23,201.37 459.34,202.20 461.44,203.03 463.55,203.85 465.66,204.68 467.76,205.51 469.87,206.33 471.98,207.16 474.08,207.99 476.19,208.82 478.29,209.64 480.40,210.47 480.40,210.47 278.20,210.47" fill="var(--chn)" fill-opacity="0.40" stroke="var(--chn)" stroke-width="1"/>
+<polygon class="band193" points="480.40,210.47 483.21,211.57 486.02,212.68 488.83,213.78 491.63,214.88 494.44,215.99 497.25,217.09 500.06,218.19 502.87,219.29 505.67,220.40 508.48,221.50 511.29,222.60 514.10,223.71 516.91,224.81 519.72,225.91 522.52,227.01 525.33,228.12 528.14,229.22 530.95,230.32 533.76,231.43 536.57,232.53 539.38,233.63 542.18,234.74 544.99,235.84 547.80,236.94 550.61,238.04 553.42,239.15 556.23,240.25 559.03,241.35 561.84,242.46 564.65,243.56 567.46,244.66 570.27,245.76 573.08,246.87 575.88,247.97 578.69,249.07 581.50,250.18 584.31,251.28 587.12,252.38 589.92,253.49 592.73,254.59 595.54,255.69 598.35,256.79 601.16,257.90 603.97,259.00 606.77,260.10 609.58,261.21 612.39,262.31 615.20,263.41 618.01,264.51 620.82,265.62 623.62,266.72 626.43,267.82 629.24,268.93 632.05,270.03 634.86,271.13 637.67,272.24 640.48,273.34 643.28,274.44 646.09,275.54 648.90,276.65 651.71,277.75 654.52,278.85 657.33,279.96 660.13,281.06 662.94,282.16 665.75,283.26 668.56,284.37 671.37,285.47 674.17,286.57 676.98,287.68 679.79,288.78 682.60,289.88 685.41,290.99 688.22,292.09 691.02,293.19 693.83,294.29 696.64,295.40 699.45,296.50 702.26,297.60 705.07,298.71 707.88,299.81 710.68,300.91 713.49,302.01 716.30,303.12 719.11,304.22 721.92,305.32 724.73,306.43 727.53,307.53 730.34,308.63 733.15,309.74 735.96,310.84 738.77,311.94 741.58,313.04 744.38,314.15 747.19,315.25 750.00,316.35 750.00,210.47 480.40,210.47" fill="var(--los)" fill-opacity="0.42" stroke="var(--los)" stroke-width="1"/>
+<polyline class="rate193" points="76.00,51.65 750.00,316.35" fill="none" stroke="var(--ink)" stroke-width="2"/>
+<text class="tick193" x="76.00" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">0</text>
+<text class="tick193" x="210.80" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">10</text>
+<text class="tick193" x="345.60" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">20</text>
+<text class="tick193" x="480.40" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">30</text>
+<text class="tick193" x="615.20" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">40</text>
+<text class="tick193" x="750.00" y="352.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">50</text>
+<text class="tick193" x="413.00" y="374.00" text-anchor="middle" font-size="10.0" font-weight="600" fill="var(--ink3)">t, MINUTES</text>
+<text class="tick193" x="67.00" y="319.95" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">-120</text>
+<text class="tick193" x="67.00" y="267.01" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">-60</text>
+<text class="tick193" x="67.00" y="214.07" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">0</text>
+<text class="tick193" x="67.00" y="161.13" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">60</text>
+<text class="tick193" x="67.00" y="108.19" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">120</text>
+<text class="tick193" x="67.00" y="55.25" text-anchor="end" font-size="10.5" font-weight="500" fill="var(--plotlab)">180</text>
+<text class="tick193" x="67.00" y="26.00" text-anchor="end" font-size="10.0" font-weight="600" fill="var(--ink3)">r, L/min</text>
+<text class="lab" x="143.10" y="154.37" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--accent)"><tspan x="143.10" dy="0.00">2025 L</tspan><tspan x="143.10" dy="14.50">the answer</tspan></text>
+<text class="lab" x="346.90" y="125.60" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--chn)"><tspan x="346.90" dy="0.00">675 L more</tspan></text>
+<line class="conn193" x1="376.38" y1="146.45" x2="372.56" y2="168.12" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="528.65" y="309.30" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--los)"><tspan x="528.65" dy="0.00">1200 L flows IN</tspan></text>
+<line class="conn193" x1="609.91" y1="279.16" x2="628.68" y2="263.41" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="410.25" y="267.84" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--ink2)"><tspan x="410.25" dy="0.00">r = 0 at t = 30</tspan></text>
+<line class="conn193" x1="470.48" y1="237.72" x2="480.40" y2="210.47" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="93.44" y="23.78" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--ink)"><tspan x="93.44" dy="0.00">r(t) = 180 - 6t</tspan></text>
+<line class="conn193" x1="129.69" y1="44.58" x2="116.44" y2="67.53" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="252.54" y="88.54" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--ink2)"><tspan x="252.54" dy="0.00">r(15) = 90</tspan></text>
+<line class="conn193" x1="282.02" y1="109.39" x2="278.20" y2="131.06" stroke="var(--line)" stroke-width="1"/>
+</svg>
+  <figcaption>The outflow rate over the stem's whole stated domain. Amber is the first 15 minutes, which is the 2025 litres the question asks for. Blue is the further 675 litres the model delivers before the rate reaches zero at $t=30$. Rust is what happens after that: the rate goes negative, which means water flowing back <i>into</i> the tank, and the stem's own sentence forbids that. The asked interval sits entirely inside the sensible part, which is why the defect costs nothing on the exam and everything on the next question.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum193">03</span> Change, final amount, or total moved</h2>
+  <p>Four different things could be asked about this tank, and they are four different numbers on a general question. Knowing which one the wording is asking for is where the mark actually lives.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>The wording</th><th>What to compute</th><th>Needs the starting volume?</th></tr></thead>
+    <tbody>
+      <tr><td>"the amount that flows from the tank"</td><td>$\int_0^{15} r$</td><td class="no193">no, and this is the exam question</td></tr>
+      <tr><td>"the net change in the volume in the tank"</td><td>$-\int_0^{15} r$</td><td class="no193">no</td></tr>
+      <tr><td>"how much water remains in the tank"</td><td>$V(0)-\int_0^{15} r$</td><td class="wa193">yes, and this is the classic lost mark</td></tr>
+      <tr><td>"the total volume of water moved"</td><td>$\int_0^{15}\lvert r\rvert$</td><td class="no193">no</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The integral is a change, not an amount.</b> It does not know how much water was in the tank to begin with, and it cannot tell you that you needed to know. If the question says "how much is left", the integral is half the answer and the starting volume is the other half.</p>
+  <p class="note193"><b>Q19.3 does not ask that</b>, which is exactly why the mark is so easy to lose later. You learn the shape on a question where the starting volume is absent, and then meet one where it is not.</p>
+
+  <h3 class="sub193">The sign convention, decided before you integrate</h3>
+  <p>Here $r$ is defined as the rate at which water flows <i>from</i> the tank, so $r&gt;0$ means water leaving. Two consistent bookkeepings exist and you must pick one and stay in it.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>Convention</th><th>The rate</th><th class="ra193">Over $[0,15]$</th><th>Reads as</th></tr></thead>
+    <tbody>
+      <tr><td><b>outflow positive</b>, which is the stem's</td><td>$r(t)=180-6t$</td><td class="ra193 num193">+2025</td><td>2025 L left the tank</td></tr>
+      <tr><td>tank contents</td><td>$V'(t)=-r(t)$</td><td class="ra193 num193">-2025</td><td>the tank lost 2025 L</td></tr>
+    </tbody>
+  </table></div>
+  <p>Both are correct statements about the same event. <b>The exam wants the first</b>, because it asks for an amount of water, and an amount of water is positive. Answering $-2025$ is answering a different, unasked question correctly.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">04</span> Why net change and total moved are the same here</h2>
+  <p>They differ only when the rate <b>changes sign inside the interval</b>. That is the whole condition, and it is worth knowing because it is the one thing this question cannot teach you by example.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>Interval</th><th class="ra193">Net change $\int r$</th><th class="ra193">Total moved $\int\lvert r\rvert$</th><th>Do they agree?</th></tr></thead>
+    <tbody>
+      <tr><td>$[0,15]$, the exam question</td><td class="ra193 num193">2025 L</td><td class="ra193 num193">2025 L</td><td class="fa193">yes, no sign change inside</td></tr>
+      <tr><td>$[0,30]$, to the shut-off</td><td class="ra193 num193">2700 L</td><td class="ra193 num193">2700 L</td><td class="fa193">yes, the zero is an endpoint</td></tr>
+      <tr><td>$[0,50]$, the stated domain</td><td class="ra193 num193">1500 L</td><td class="ra193 num193">3900 L</td><td class="lo193">no, $r$ crosses zero at $t=30$</td></tr>
+      <tr><td>$v=t^2-4$ on $[0,3]$, a velocity</td><td class="ra193 num193">-3 m</td><td class="ra193 num193">7.6666666667 m</td><td class="lo193">no, $v$ crosses zero at $t=2$</td></tr>
+    </tbody>
+  </table></div>
+  <p>Read the two number columns as a pair rather than as eight facts. The first row is the exam question, the columns agree, and <b>that is the hiding point</b>: on this question there is no computation you can do that would reveal you had confused the two.</p>
+  <p class="note193">Notice the third row. The integral over $[0,50]$ is <b>smaller</b> than the integral over $[0,15]$, despite covering more than three times as much time, because the model runs backwards after $t=30$. That is a genuinely counter-intuitive number and it is worth knowing it exists.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">05</span> The census, and the two answers nothing catches</h2>
+  <p>Seventeen candidate answers were enumerated and every one was computed rather than typed, with no point excluded as degenerate. Two of the sixteen wrong routes return <b>exactly 2025</b> and no check on this page can see them.</p>
+</section>
+
+<figure class="figbox fig193">
+  <svg viewBox="0 0 780 218" role="img" aria-label="The seventeen candidate answers on a value axis. Three sit exactly on 2025. The magnitude bracket from 1350 to 2700 is shaded.">
+<rect class="plotbg193" x="60.0" y="26.0" width="686.0" height="160.0" fill="var(--surface)" stroke="var(--line)" stroke-width="1"/>
+<rect class="brk193" x="285.9" y="100.0" width="225.9" height="68.0" fill="var(--fam)" fill-opacity="0.13" stroke="var(--fam)" stroke-width="1" stroke-dasharray="3 3"/>
+<line class="axist" x1="66.0" y1="160.0" x2="740.0" y2="160.0" stroke="var(--ink3)" stroke-width="1.2"/>
+<line class="gridl" x1="60.0" y1="26.0" x2="60.0" y2="160.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="227.3" y1="26.0" x2="227.3" y2="160.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="394.6" y1="26.0" x2="394.6" y2="160.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="562.0" y1="26.0" x2="562.0" y2="160.0" stroke="var(--grid)" stroke-width="1"/>
+<line class="gridl" x1="729.3" y1="26.0" x2="729.3" y2="160.0" stroke="var(--grid)" stroke-width="1"/>
+<circle class="dot193" cx="398.82" cy="149.00" r="5.4" fill="var(--accent)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="398.82" cy="134.00" r="4.6" fill="var(--los)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="398.82" cy="119.00" r="4.6" fill="var(--los)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="511.76" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="511.76" cy="134.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="285.88" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="285.88" cy="134.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="310.98" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="492.93" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="712.54" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="90.12" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<circle class="dot193" cx="75.06" cy="149.00" r="4.6" fill="var(--ink3)" stroke="var(--surface)" stroke-width="1.2"/>
+<text class="tick193" x="60.00" y="179.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">0</text>
+<text class="tick193" x="227.32" y="179.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">1000</text>
+<text class="tick193" x="394.63" y="179.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">2000</text>
+<text class="tick193" x="561.95" y="179.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">3000</text>
+<text class="tick193" x="729.27" y="179.00" text-anchor="middle" font-size="10.5" font-weight="500" fill="var(--plotlab)">4000</text>
+<text class="tick193" x="403.00" y="201.00" text-anchor="middle" font-size="10.0" font-weight="600" fill="var(--ink3)">CANDIDATE ANSWER, LITRES</text>
+<text class="lab" x="296.60" y="57.41" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--los)"><tspan x="296.60" dy="0.00">THREE routes land here:</tspan><tspan x="296.60" dy="14.50">the right one and two wrong</tspan></text>
+<line class="conn193" x1="394.22" y1="92.90" x2="398.82" y2="119.00" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="508.96" y="49.50" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--fam)"><tspan x="508.96" dy="0.00">the magnitude bracket,</tspan><tspan x="508.96" dy="14.50">1350 to 2700</tspan></text>
+<text class="lab" x="634.26" y="116.16" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--ink2)"><tspan x="634.26" dy="0.00">total moved, [0,50]</tspan></text>
+<line class="conn193" x1="708.09" y1="136.78" x2="712.54" y2="149.00" stroke="var(--line)" stroke-width="1"/>
+<text class="lab" x="12.66" y="108.72" text-anchor="start" font-size="11.0" font-weight="500" fill="var(--ink2)"><tspan x="12.66" dy="0.00">two RATES, caught by units</tspan></text>
+<line class="conn193" x1="86.31" y1="129.51" x2="75.06" y2="149.00" stroke="var(--line)" stroke-width="1"/>
+</svg>
+  <figcaption>Every candidate answer on one value axis. Three dots stack on 2025: the correct route, plus the midpoint-rate shortcut and the omitted lower limit, both of which are wrong reasoning that happens to land on the right number here. The dashed band is the magnitude bracket, which for a decreasing positive rate runs from $r(15)\times15=1350$ to $r(0)\times15=2700$; it rejects twelve of the sixteen wrong answers, more than any other single check. Five further candidates are negative and are not drawn here, because putting them on this axis would need a broken scale.</figcaption>
+</figure>
+
+<section>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>The mistake</th><th class="ra193">Value</th><th>What catches it</th></tr></thead>
+    <tbody>
+      <tr><td><b>the right answer</b></td><td class="ra193 num193">2025</td><td class="fa193">-</td></tr>
+      <tr><td>midpoint rate, $r(7.5)\times15$</td><td class="ra193 num193">2025</td><td class="lo193"><b>nothing - hides completely</b></td></tr>
+      <tr><td>omitted the lower limit, $R(15)$ alone</td><td class="ra193 num193">2025</td><td class="lo193"><b>nothing - hides completely</b></td></tr>
+      <tr><td>sign flip, $F(0)-F(15)$</td><td class="ra193 num193">-2025</td><td class="wa193">sign, and the student repairs it</td></tr>
+      <tr><td>initial rate, $r(0)\times15$</td><td class="ra193 num193">2700</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[0,30]$</td><td class="ra193 num193">2700</td><td class="fa193">reading the interval</td></tr>
+      <tr><td>final rate, $r(15)\times15$</td><td class="ra193 num193">1350</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>antiderivative $180t-6t^2$</td><td class="ra193 num193">1350</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>dropped the 6, $\int(180-t)$</td><td class="ra193 num193">2587.5</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[0,50]$</td><td class="ra193 num193">1500</td><td class="fa193">reading the interval</td></tr>
+      <tr><td>total moved over $[0,50]$</td><td class="ra193 num193">3900</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[15,50]$</td><td class="ra193 num193">-525</td><td class="fa193">sign and magnitude</td></tr>
+      <tr><td>answered $r(15)$, a rate</td><td class="ra193 num193">90</td><td class="fa193">units</td></tr>
+      <tr><td>answered $r(0)$, a rate</td><td class="ra193 num193">180</td><td class="fa193">units</td></tr>
+      <tr><td>differentiated, $r'(15)$</td><td class="ra193 num193">-6</td><td class="fa193">units</td></tr>
+      <tr><td>$\int(-6)\,dt$</td><td class="ra193 num193">-90</td><td class="fa193">units</td></tr>
+      <tr><td>antiderivative $180t-3t^3$</td><td class="ra193 num193">-7425</td><td class="fa193">sign and magnitude</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The midpoint shortcut hides because $r$ is linear</b>, so it is genuinely valid here and is not really an error at all until the rate curves. <b>The omitted lower limit hides because $R(0)=0$ exactly.</b> Both are properties of this question's particular numbers, and both disappear the moment the interval does not start at zero or the rate is not a straight line.</p>
+  <p>Three values are each produced by two different routes: 1350, 2025 and 2700. Eleven of the sixteen wrong answers are positive, so a positivity check rejects fewer than a third of them, and seven of the sixteen lie between half and double the correct answer, so a rough plausibility check is not much better.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">06</span> Q19.3 rewards the habit that Q19.2 punishes</h2>
+  <p>This is the pairing worth carrying away, and it is measured rather than asserted.</p>
+  <div class="cards193">
+    <div class="cd193">
+      <p class="alab193">Q19.1 &middot; AREA UNDER A PARABOLA</p>
+      <p>Three separate mistakes all evaluate to $-4.5$ where the answer is $4.5$. The magnitude is right and only the sign is wrong, so "an area is positive" repairs all three into the correct answer. <b>The repair rescues you.</b></p>
+    </div>
+    <div class="cd193">
+      <p class="alab193">Q19.2 &middot; AREA UNDER A COSINE</p>
+      <p>Three errors collide at $0.221$ against a true $0.828$. The magnitude is wrong, so the same repair converts a visibly broken answer into a confident, plausible, wrong one. <b>The repair costs the mark.</b></p>
+    </div>
+    <div class="cd193">
+      <p class="alab193">Q19.3 &middot; THIS QUESTION</p>
+      <p>Exactly one candidate has the right magnitude and the wrong sign, $-2025$, and "an amount of water is positive" repairs it correctly. <b>This is the Q19.1 pattern, and more forgiving still: nothing here punishes the repair.</b></p>
+    </div>
+  </div>
+  <p class="warn193"><b>That is the danger.</b> A student who learns on this question that a negative answer can simply be made positive will lose the mark on Q19.2, on Q19.8, and on any question where the flow reverses. Learn the rule here, where it is cheap. Do not learn the repair.</p>
+  <p>The rule itself is one sentence: <b>decide which quantity you are accumulating before you integrate, not after you see the sign.</b></p>
+</section>
+
+<section>
+  <h2><span class="snum193">07</span> Eight routes, and which two to carry</h2>
+  <p>All eight were evaluated independently and agree to $6.594\times10^{-12}$, which is roundoff.</p>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>Route</th><th>How it goes</th><th>Generalises?</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b> antiderivative</td><td>$[180t-3t^2]_0^{15}=2700-675$</td><td class="fa193">to every rate</td><td class="fa193"><b>use this one</b></td></tr>
+      <tr><td><b>B</b> trapezoid</td><td>$\tfrac{180+90}{2}\times15$</td><td class="lo193">linear rates only</td><td>a check, not a method</td></tr>
+      <tr><td><b>C</b> midpoint rate</td><td>$r(7.5)\times15=135\times15$</td><td class="lo193">linear rates only</td><td class="fa193"><b>fastest check</b></td></tr>
+      <tr><td><b>D</b> geometry</td><td>rectangle $1350$ plus triangle $675$</td><td class="lo193">linear rates only</td><td>good for a graph-given rate</td></tr>
+      <tr><td><b>E</b> substitution</td><td>$u=180-6t$, giving $\tfrac{180^2-90^2}{12}$</td><td class="fa193">to composite rates</td><td>overkill here</td></tr>
+      <tr><td><b>F</b> tanh-sinh quadrature</td><td>a double-exponential rule</td><td class="fa193">to anything</td><td>verification only</td></tr>
+      <tr><td><b>G</b> Simpson</td><td>eight values of $n$, all odd</td><td class="fa193">to anything</td><td>verification only</td></tr>
+      <tr><td><b>H</b> average rate</td><td>$\overline{r}\times15=135\times15$</td><td class="fa193">to every rate</td><td>the Q19.6 phrasing</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Use A and check with C.</b> They fail in different ways, so agreement between them is real evidence. But note carefully what C is not: routes B, C and D are exact <i>only because $r$ is linear</i>. On the exponential rate $r=60e^{-t/10}$ over $[0,20]$ the endpoint average gives $681.2011699$ against the true $518.7988301$, which is <b>31.3 percent high</b>. A student who leaves this question believing the shortcut is general carries a broken tool into the next one.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">08</span> The families the examiner can ask instead</h2>
+  <p>Read these as one structure, not as thirteen facts. Every family below is the same theorem. What changes is which of section 03's four questions is being asked, and whether the rate changes sign.</p>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>Family</th><th>The trigger</th><th>Instance</th><th class="ra193">Answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>F0</b> plain net change</td><td>"how much" and an interval</td><td>$r=180-6t$ on $[10,20]$</td><td class="ra193 num193">900 L</td></tr>
+      <tr><td><b>F1</b> final amount</td><td>"how much is left"</td><td>tank holds 4000 L at $t=0$</td><td class="ra193 num193">1975 L</td></tr>
+      <tr><td><b>F2</b> signed flow</td><td>the rate is zero inside</td><td>net, then total, on $[0,50]$</td><td class="ra193 num193">1500 / 3900 L</td></tr>
+      <tr><td><b>F3</b> solve for the time</td><td>"at what time has..."</td><td>when has 1000 L left?</td><td class="ra193 num193">6.1952385715 min</td></tr>
+      <tr><td><b>F4</b> a curved rate</td><td>exponential, trig, root</td><td>$r=60e^{-t/10}$ on $[0,20]$</td><td class="ra193 num193">518.7988300580 L</td></tr>
+      <tr><td><b>F5</b> two rates</td><td>water in and water out</td><td>in $5t$, out $100$, on $[0,40]$</td><td class="ra193 num193">0 / 2000 L</td></tr>
+      <tr><td><b>F6</b> average value</td><td>"average rate of flow"</td><td>average over $[0,15]$</td><td class="ra193 num193">135 L/min</td></tr>
+      <tr><td><b>F7</b> units</td><td>a different unit is wanted</td><td>the answer in cubic metres</td><td class="ra193 num193">2.025 m$^3$</td></tr>
+      <tr><td><b>F8</b> a table or a graph</td><td>no formula is given</td><td>trapezoid at $t=0,3,6,9,12,15$</td><td class="ra193 num193">2025 L</td></tr>
+      <tr><td><b>F9</b> the model's domain</td><td>the rate goes negative</td><td>everything the model delivers</td><td class="ra193 num193">2700 L</td></tr>
+      <tr><td><b>F10</b> run backwards</td><td>the answer is given, a constant is not</td><td>find $k$ with $\int_0^{15}(180-kt)=1800$</td><td class="ra193 num193">$k=8$</td></tr>
+      <tr><td><b>F11</b> velocity</td><td>displacement versus distance</td><td>$v=t^2-4$ on $[0,3]$</td><td class="ra193 num193">-3 / 7.6666666667 m</td></tr>
+      <tr><td><b>F12</b> not a volume</td><td>cost, population, charge</td><td>$C'(x)=3+0.02x$, 100 to 300 units</td><td class="ra193 num193">$1400</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note193"><b>F5 is the family's best teaching instance.</b> Water enters at $5t$ L/min and leaves at $100$ L/min over $[0,40]$. The net change is <b>exactly zero</b> and two thousand litres of water actually moved. "Nothing changed" and "nothing happened" are different statements, and only the second is refuted by the total.</p>
+  <p class="note193"><b>F3 has a second root, and it is not an answer.</b> $180T-3T^2=1000$ gives $T=6.1952385715$ and $T=53.8047614285$. The second is past the shut-off at $t=30$ and past the stated domain $t\le50$ as well, so it is doubly spurious. Say which root you rejected and why; that sentence is the difference between a solved equation and a solved problem.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">09</span> Eight seconds, in the order that catches things</h2>
+  <ol class="traps193">
+    <li><span><b>Units.</b> $(\text{L/min})\times\text{min}=\text{L}$. Catches answering with a rate, and catches differentiating instead of integrating. Rejects 4 of the 16.</span></li>
+    <li><span><b>Magnitude bracket.</b> For a decreasing positive rate the answer is strictly between $r(b)(b-a)$ and $r(a)(b-a)$, so here $1350&lt;A&lt;2700$. <b>Rejects 12 of the 16</b>, which is more than any other single check.</span></li>
+    <li><span><b>Midpoint.</b> $135\times15=2025$ agrees, which confirms the antiderivative's arithmetic.</span></li>
+    <li><span><b>Sign.</b> $r&gt;0$ throughout $[0,15]$, so the answer is positive. Decide this before integrating, never repair it after.</span></li>
+    <li><span><b>The check that cannot fire here.</b> $R(0)=0$, so forgetting to subtract the lower limit costs nothing on this question and everything on an interval starting anywhere else.</span></li>
+  </ol>
+  <p class="fine193">Answer entry: type <code>2025</code>. Not <code>2025 L</code>, because units are not part of a numeric answer. Not <code>2,025</code>, because a thousands separator is not a number. Not <code>-2025</code>. The single most expensive typo here is a leading minus, and unlike Q19.2 the fix really is to delete it, because the magnitude is already right. That is a dangerous thing to learn, which is what section 06 is about.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">10</span> How this page was checked</h2>
+  <p>Every number above was computed before it was written down, in the shared verification harness, across three sections. Nothing was typed beside a closed form.</p>
+  <div class="ansbar193">
+    <div class="acell193"><p class="alab193">ASSERTIONS</p><p class="aval193 abig193">249</p><p class="fine193">across sections q193, q193d and q193s, counted by grepping the prefixes rather than trusting a counter</p></div>
+    <div class="acell193"><p class="alab193">FAILURES</p><p class="aval193 abig193">0</p><p class="fine193">and the whole harness runs green, so any failure a later run sees is real</p></div>
+    <div class="acell193"><p class="alab193">SEEDED CONTROLS</p><p class="aval193 abig193">36</p><p class="fine193">each proving a gate can report the failure it exists to catch</p></div>
+  </div>
+  <ul class="chk193">
+    <li><span>The antiderivative was differentiated back at <b>69 sample points</b> by complex-step differentiation, an arm that never sees the claimed integral. A seeded wrong antiderivative, $180t-6t^2$, was rejected at 68 of the 69 points, agreeing only at $t=0$.</span></li>
+    <li><span>The definite integral was computed by <b>eight independent routes</b>, including tanh-sinh quadrature and Simpson at eight values of $n$ chosen odd and off multiples of 8.</span></li>
+    <li><span><b>The quadrature convergence order on this integrand is unmeasurable</b>, and that is the honest report rather than a nominal 4. The integrand is a straight line and Simpson is exact on cubics, so the error is zero at every $n$ and the ratio is $0/0$. The same routine was proved able to report a real order elsewhere: $4.0222, 4.0081, 4.0025, 4.0007$ on $\sin(t^2)$, and $1.6661$ rising to $1.6667$ on $\lvert t\rvert^{2/3}$.</span></li>
+    <li><span><b>A grid that happens to align with a corner reports perfection.</b> The function $\lvert r\rvert$ has a corner at $t=30$, exactly $3/5$ of the way across $[0,50]$. At $n=10,20,40,80,160$, all divisible by 5, the corner lands on a panel boundary and Simpson's error is exactly zero. At $n=6,12,24,48,96$ the errors are $44.4, 11.1, 2.78, 0.694, 0.174$ and the measured order is $2.0000$, not 4. The choice of $n$ has to be made deliberately, not inherited from a habit of powers of two.</span></li>
+    <li><span>The sign-change census was controlled to return 0, 1 and 2 on constructed cases, and was checked against a grid-alignment failure: at $n=50$ the grid lands exactly on $t=30$, and a census testing only for a change of sign between neighbours finds nothing at all.</span></li>
+    <li><span>Six checker defects were found and fixed during the run, and <b>all six were the check rather than the mathematics</b>: a quadrature routine that never halved its step, two counts typed instead of derived, a boundary comparison with no tolerance, and two defects in the claims checker itself, one of which made every sentence-final number invisible to it.</span></li>
+    <li><span>No marking scheme exists in any of the four course files, re-confirmed this run, so every grading claim on this page is flagged as inference. The point value was parsed from the paper rather than typed.</span></li>
+  </ul>
+</section>
+
+<section class="colo193">
+  <p class="fine193">Sources: question bank <code>notes\MATH265.md</code>; paper and point value <code>notes\MATH265\MATH265.md</code>, Final Exam 1 item 12; verification <code>Work\knowledge\topics\math265-answer-verification.py</code> sections <code>q193</code>, <code>q193d</code>, <code>q193s</code>. The Fundamental Theorem in both directions is set out on the Q18.1 page; the units rule and the difference between rates and totals on the Q6.1 page; the absolute-value split on the Q19.1 page; the repair that costs the mark on the Q19.2 page. Full tutorial with the drill set and answer key at <code>notes\Q19.3 - Net change, water flowing from a tank.md</code>.</p>
+</section>
+
+</main>
+

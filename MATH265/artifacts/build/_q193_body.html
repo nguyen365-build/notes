@@ -1,0 +1,224 @@
+<header class="wrap mast193">
+  <p class="eyebrow">MATH 265 &middot; FINAL EXAM 1 &middot; ITEM 12 &middot; 3 POINTS &middot; Q19.3</p>
+  <h1>Rate In, Volume Out</h1>
+  <p class="lede">A rate tells you how fast something is changing. Integrate it and you get the <b>change</b> in the thing itself. That is the whole question, and it takes one line. The trap is that this question's numbers make three different questions have the same answer, so nothing you can compute will tell you which one you actually answered.</p>
+  <div class="ansbar193">
+    <div class="acell193"><p class="alab193">THE QUESTION</p><p class="aval193">Water leaves a tank at $r(t)=180-6t$ L/min. How much leaves in the first 15 minutes?</p></div>
+    <div class="acell193"><p class="alab193">THE ANSWER</p><p class="aval193 abig193">$\displaystyle\int_0^{15}\!(180-6t)\,dt = 2025$ L</p></div>
+    <div class="acell193"><p class="alab193">TYPE INTO M&Ouml;BIUS</p><p class="aval193"><code>2025</code></p></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="snum193">01</span> The theorem, in one sentence</h2>
+  <p>If a quantity $Q$ changes at rate $r$, so that $Q'=r$, then</p>
+  <p class="disp193">$$\int_a^b r(t)\,dt \;=\; Q(b)-Q(a)$$</p>
+  <p>The integral of a rate of change is the <b>net change</b> in the quantity. This is called the Net Change Theorem, and it is not a new theorem. It is the Fundamental Theorem of Calculus, Part 2, with the letters renamed: given a function and an antiderivative, the definite integral is the antiderivative's change across the interval. The only thing this question adds is a physical reading. <b>When $r$ is a flow rate, the antiderivative is a volume.</b></p>
+  <p>You can watch that happen in the units, and the units are the cheapest check on the whole page.</p>
+  <div class="pipe193">
+    <div class="pc193"><p class="alab193">THE RATE</p><p>litres per minute</p><p class="pnum193">L / min</p></div>
+    <div class="pc193"><p class="alab193">TIMES $dt$</p><p>minutes</p><p class="pnum193">min</p></div>
+    <div class="pc193"><p class="alab193">GIVES</p><p>the minutes cancel, and a volume comes out</p><p class="pnum193">L</p></div>
+  </div>
+  <p class="note193"><b>Do this as a cancellation, not as a sentence.</b> Writing "the answer is in litres because it is water" is not a check, because it stays true whatever you computed. Writing $\frac{\text{L}}{\text{min}}\times\text{min}=\text{L}$ is a check, because a wrong operation produces a wrong unit. In the verification behind this page the units are represented as exponent vectors over litre and minute, and the gate was proved to reject L/min, L$\cdot$min, min, min/L and the meaningless sum L + L/min before its acceptance of L was trusted.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">02</span> Four lines, and you are done</h2>
+  <ol class="steps193">
+    <li><span><b>Name the quantity.</b> $V$ is the volume that has flowed out, in litres, and $r=V'$. If you cannot name the quantity, you do not yet know what the integral means.</span></li>
+    <li><span><b>Antidifferentiate.</b> $R(t)=180t-3t^2$. Check it by differentiating back: $R'(t)=180-6t$, which is $r$. The check is faster than the antidifferentiation.</span></li>
+    <li><span><b>Evaluate upper minus lower.</b> $R(15)-R(0)=(2700-675)-0=2025$.</span></li>
+    <li><span><b>State the units and check the magnitude.</b> 2025 litres, and $135\times15=2025$ agrees with the average-rate shortcut.</span></li>
+  </ol>
+  <p>The picture below is the same statement drawn. The height of the curve is the rate; the <b>area</b> under it is the volume. The shaded amber region is the answer.</p>
+</section>
+
+<figure class="figbox fig193">
+  __FIG1__
+  <figcaption>The outflow rate over the stem's whole stated domain. Amber is the first 15 minutes, which is the 2025 litres the question asks for. Blue is the further 675 litres the model delivers before the rate reaches zero at $t=30$. Rust is what happens after that: the rate goes negative, which means water flowing back <i>into</i> the tank, and the stem's own sentence forbids that. The asked interval sits entirely inside the sensible part, which is why the defect costs nothing on the exam and everything on the next question.</figcaption>
+</figure>
+
+<section>
+  <h2><span class="snum193">03</span> Change, final amount, or total moved</h2>
+  <p>Four different things could be asked about this tank, and they are four different numbers on a general question. Knowing which one the wording is asking for is where the mark actually lives.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>The wording</th><th>What to compute</th><th>Needs the starting volume?</th></tr></thead>
+    <tbody>
+      <tr><td>"the amount that flows from the tank"</td><td>$\int_0^{15} r$</td><td class="no193">no, and this is the exam question</td></tr>
+      <tr><td>"the net change in the volume in the tank"</td><td>$-\int_0^{15} r$</td><td class="no193">no</td></tr>
+      <tr><td>"how much water remains in the tank"</td><td>$V(0)-\int_0^{15} r$</td><td class="wa193">yes, and this is the classic lost mark</td></tr>
+      <tr><td>"the total volume of water moved"</td><td>$\int_0^{15}\lvert r\rvert$</td><td class="no193">no</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The integral is a change, not an amount.</b> It does not know how much water was in the tank to begin with, and it cannot tell you that you needed to know. If the question says "how much is left", the integral is half the answer and the starting volume is the other half.</p>
+  <p class="note193"><b>Q19.3 does not ask that</b>, which is exactly why the mark is so easy to lose later. You learn the shape on a question where the starting volume is absent, and then meet one where it is not.</p>
+
+  <h3 class="sub193">The sign convention, decided before you integrate</h3>
+  <p>Here $r$ is defined as the rate at which water flows <i>from</i> the tank, so $r&gt;0$ means water leaving. Two consistent bookkeepings exist and you must pick one and stay in it.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>Convention</th><th>The rate</th><th class="ra193">Over $[0,15]$</th><th>Reads as</th></tr></thead>
+    <tbody>
+      <tr><td><b>outflow positive</b>, which is the stem's</td><td>$r(t)=180-6t$</td><td class="ra193 num193">+2025</td><td>2025 L left the tank</td></tr>
+      <tr><td>tank contents</td><td>$V'(t)=-r(t)$</td><td class="ra193 num193">-2025</td><td>the tank lost 2025 L</td></tr>
+    </tbody>
+  </table></div>
+  <p>Both are correct statements about the same event. <b>The exam wants the first</b>, because it asks for an amount of water, and an amount of water is positive. Answering $-2025$ is answering a different, unasked question correctly.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">04</span> Why net change and total moved are the same here</h2>
+  <p>They differ only when the rate <b>changes sign inside the interval</b>. That is the whole condition, and it is worth knowing because it is the one thing this question cannot teach you by example.</p>
+  <div class="tscroll tscroll193"><table class="tab193">
+    <thead><tr><th>Interval</th><th class="ra193">Net change $\int r$</th><th class="ra193">Total moved $\int\lvert r\rvert$</th><th>Do they agree?</th></tr></thead>
+    <tbody>
+      <tr><td>$[0,15]$, the exam question</td><td class="ra193 num193">2025 L</td><td class="ra193 num193">2025 L</td><td class="fa193">yes, no sign change inside</td></tr>
+      <tr><td>$[0,30]$, to the shut-off</td><td class="ra193 num193">2700 L</td><td class="ra193 num193">2700 L</td><td class="fa193">yes, the zero is an endpoint</td></tr>
+      <tr><td>$[0,50]$, the stated domain</td><td class="ra193 num193">1500 L</td><td class="ra193 num193">3900 L</td><td class="lo193">no, $r$ crosses zero at $t=30$</td></tr>
+      <tr><td>$v=t^2-4$ on $[0,3]$, a velocity</td><td class="ra193 num193">-3 m</td><td class="ra193 num193">7.6666666667 m</td><td class="lo193">no, $v$ crosses zero at $t=2$</td></tr>
+    </tbody>
+  </table></div>
+  <p>Read the two number columns as a pair rather than as eight facts. The first row is the exam question, the columns agree, and <b>that is the hiding point</b>: on this question there is no computation you can do that would reveal you had confused the two.</p>
+  <p class="note193">Notice the third row. The integral over $[0,50]$ is <b>smaller</b> than the integral over $[0,15]$, despite covering more than three times as much time, because the model runs backwards after $t=30$. That is a genuinely counter-intuitive number and it is worth knowing it exists.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">05</span> The census, and the two answers nothing catches</h2>
+  <p>Seventeen candidate answers were enumerated and every one was computed rather than typed, with no point excluded as degenerate. Two of the sixteen wrong routes return <b>exactly 2025</b> and no check on this page can see them.</p>
+</section>
+
+<figure class="figbox fig193">
+  __FIG2__
+  <figcaption>Every candidate answer on one value axis. Three dots stack on 2025: the correct route, plus the midpoint-rate shortcut and the omitted lower limit, both of which are wrong reasoning that happens to land on the right number here. The dashed band is the magnitude bracket, which for a decreasing positive rate runs from $r(15)\times15=1350$ to $r(0)\times15=2700$; it rejects twelve of the sixteen wrong answers, more than any other single check. Five further candidates are negative and are not drawn here, because putting them on this axis would need a broken scale.</figcaption>
+</figure>
+
+<section>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>The mistake</th><th class="ra193">Value</th><th>What catches it</th></tr></thead>
+    <tbody>
+      <tr><td><b>the right answer</b></td><td class="ra193 num193">2025</td><td class="fa193">-</td></tr>
+      <tr><td>midpoint rate, $r(7.5)\times15$</td><td class="ra193 num193">2025</td><td class="lo193"><b>nothing - hides completely</b></td></tr>
+      <tr><td>omitted the lower limit, $R(15)$ alone</td><td class="ra193 num193">2025</td><td class="lo193"><b>nothing - hides completely</b></td></tr>
+      <tr><td>sign flip, $F(0)-F(15)$</td><td class="ra193 num193">-2025</td><td class="wa193">sign, and the student repairs it</td></tr>
+      <tr><td>initial rate, $r(0)\times15$</td><td class="ra193 num193">2700</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[0,30]$</td><td class="ra193 num193">2700</td><td class="fa193">reading the interval</td></tr>
+      <tr><td>final rate, $r(15)\times15$</td><td class="ra193 num193">1350</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>antiderivative $180t-6t^2$</td><td class="ra193 num193">1350</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>dropped the 6, $\int(180-t)$</td><td class="ra193 num193">2587.5</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[0,50]$</td><td class="ra193 num193">1500</td><td class="fa193">reading the interval</td></tr>
+      <tr><td>total moved over $[0,50]$</td><td class="ra193 num193">3900</td><td class="fa193">magnitude bracket</td></tr>
+      <tr><td>integrated over $[15,50]$</td><td class="ra193 num193">-525</td><td class="fa193">sign and magnitude</td></tr>
+      <tr><td>answered $r(15)$, a rate</td><td class="ra193 num193">90</td><td class="fa193">units</td></tr>
+      <tr><td>answered $r(0)$, a rate</td><td class="ra193 num193">180</td><td class="fa193">units</td></tr>
+      <tr><td>differentiated, $r'(15)$</td><td class="ra193 num193">-6</td><td class="fa193">units</td></tr>
+      <tr><td>$\int(-6)\,dt$</td><td class="ra193 num193">-90</td><td class="fa193">units</td></tr>
+      <tr><td>antiderivative $180t-3t^3$</td><td class="ra193 num193">-7425</td><td class="fa193">sign and magnitude</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>The midpoint shortcut hides because $r$ is linear</b>, so it is genuinely valid here and is not really an error at all until the rate curves. <b>The omitted lower limit hides because $R(0)=0$ exactly.</b> Both are properties of this question's particular numbers, and both disappear the moment the interval does not start at zero or the rate is not a straight line.</p>
+  <p>Three values are each produced by two different routes: 1350, 2025 and 2700. Eleven of the sixteen wrong answers are positive, so a positivity check rejects fewer than a third of them, and seven of the sixteen lie between half and double the correct answer, so a rough plausibility check is not much better.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">06</span> Q19.3 rewards the habit that Q19.2 punishes</h2>
+  <p>This is the pairing worth carrying away, and it is measured rather than asserted.</p>
+  <div class="cards193">
+    <div class="cd193">
+      <p class="alab193">Q19.1 &middot; AREA UNDER A PARABOLA</p>
+      <p>Three separate mistakes all evaluate to $-4.5$ where the answer is $4.5$. The magnitude is right and only the sign is wrong, so "an area is positive" repairs all three into the correct answer. <b>The repair rescues you.</b></p>
+    </div>
+    <div class="cd193">
+      <p class="alab193">Q19.2 &middot; AREA UNDER A COSINE</p>
+      <p>Three errors collide at $0.221$ against a true $0.828$. The magnitude is wrong, so the same repair converts a visibly broken answer into a confident, plausible, wrong one. <b>The repair costs the mark.</b></p>
+    </div>
+    <div class="cd193">
+      <p class="alab193">Q19.3 &middot; THIS QUESTION</p>
+      <p>Exactly one candidate has the right magnitude and the wrong sign, $-2025$, and "an amount of water is positive" repairs it correctly. <b>This is the Q19.1 pattern, and more forgiving still: nothing here punishes the repair.</b></p>
+    </div>
+  </div>
+  <p class="warn193"><b>That is the danger.</b> A student who learns on this question that a negative answer can simply be made positive will lose the mark on Q19.2, on Q19.8, and on any question where the flow reverses. Learn the rule here, where it is cheap. Do not learn the repair.</p>
+  <p>The rule itself is one sentence: <b>decide which quantity you are accumulating before you integrate, not after you see the sign.</b></p>
+</section>
+
+<section>
+  <h2><span class="snum193">07</span> Eight routes, and which two to carry</h2>
+  <p>All eight were evaluated independently and agree to $6.594\times10^{-12}$, which is roundoff.</p>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>Route</th><th>How it goes</th><th>Generalises?</th><th>Verdict</th></tr></thead>
+    <tbody>
+      <tr><td><b>A</b> antiderivative</td><td>$[180t-3t^2]_0^{15}=2700-675$</td><td class="fa193">to every rate</td><td class="fa193"><b>use this one</b></td></tr>
+      <tr><td><b>B</b> trapezoid</td><td>$\tfrac{180+90}{2}\times15$</td><td class="lo193">linear rates only</td><td>a check, not a method</td></tr>
+      <tr><td><b>C</b> midpoint rate</td><td>$r(7.5)\times15=135\times15$</td><td class="lo193">linear rates only</td><td class="fa193"><b>fastest check</b></td></tr>
+      <tr><td><b>D</b> geometry</td><td>rectangle $1350$ plus triangle $675$</td><td class="lo193">linear rates only</td><td>good for a graph-given rate</td></tr>
+      <tr><td><b>E</b> substitution</td><td>$u=180-6t$, giving $\tfrac{180^2-90^2}{12}$</td><td class="fa193">to composite rates</td><td>overkill here</td></tr>
+      <tr><td><b>F</b> tanh-sinh quadrature</td><td>a double-exponential rule</td><td class="fa193">to anything</td><td>verification only</td></tr>
+      <tr><td><b>G</b> Simpson</td><td>eight values of $n$, all odd</td><td class="fa193">to anything</td><td>verification only</td></tr>
+      <tr><td><b>H</b> average rate</td><td>$\overline{r}\times15=135\times15$</td><td class="fa193">to every rate</td><td>the Q19.6 phrasing</td></tr>
+    </tbody>
+  </table></div>
+  <p><b>Use A and check with C.</b> They fail in different ways, so agreement between them is real evidence. But note carefully what C is not: routes B, C and D are exact <i>only because $r$ is linear</i>. On the exponential rate $r=60e^{-t/10}$ over $[0,20]$ the endpoint average gives $681.2011699$ against the true $518.7988301$, which is <b>31.3 percent high</b>. A student who leaves this question believing the shortcut is general carries a broken tool into the next one.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">08</span> The families the examiner can ask instead</h2>
+  <p>Read these as one structure, not as thirteen facts. Every family below is the same theorem. What changes is which of section 03's four questions is being asked, and whether the rate changes sign.</p>
+  <div class="tscroll tscroll193"><table class="tab193 tabwide193">
+    <thead><tr><th>Family</th><th>The trigger</th><th>Instance</th><th class="ra193">Answer</th></tr></thead>
+    <tbody>
+      <tr><td><b>F0</b> plain net change</td><td>"how much" and an interval</td><td>$r=180-6t$ on $[10,20]$</td><td class="ra193 num193">900 L</td></tr>
+      <tr><td><b>F1</b> final amount</td><td>"how much is left"</td><td>tank holds 4000 L at $t=0$</td><td class="ra193 num193">1975 L</td></tr>
+      <tr><td><b>F2</b> signed flow</td><td>the rate is zero inside</td><td>net, then total, on $[0,50]$</td><td class="ra193 num193">1500 / 3900 L</td></tr>
+      <tr><td><b>F3</b> solve for the time</td><td>"at what time has..."</td><td>when has 1000 L left?</td><td class="ra193 num193">6.1952385715 min</td></tr>
+      <tr><td><b>F4</b> a curved rate</td><td>exponential, trig, root</td><td>$r=60e^{-t/10}$ on $[0,20]$</td><td class="ra193 num193">518.7988300580 L</td></tr>
+      <tr><td><b>F5</b> two rates</td><td>water in and water out</td><td>in $5t$, out $100$, on $[0,40]$</td><td class="ra193 num193">0 / 2000 L</td></tr>
+      <tr><td><b>F6</b> average value</td><td>"average rate of flow"</td><td>average over $[0,15]$</td><td class="ra193 num193">135 L/min</td></tr>
+      <tr><td><b>F7</b> units</td><td>a different unit is wanted</td><td>the answer in cubic metres</td><td class="ra193 num193">2.025 m$^3$</td></tr>
+      <tr><td><b>F8</b> a table or a graph</td><td>no formula is given</td><td>trapezoid at $t=0,3,6,9,12,15$</td><td class="ra193 num193">2025 L</td></tr>
+      <tr><td><b>F9</b> the model's domain</td><td>the rate goes negative</td><td>everything the model delivers</td><td class="ra193 num193">2700 L</td></tr>
+      <tr><td><b>F10</b> run backwards</td><td>the answer is given, a constant is not</td><td>find $k$ with $\int_0^{15}(180-kt)=1800$</td><td class="ra193 num193">$k=8$</td></tr>
+      <tr><td><b>F11</b> velocity</td><td>displacement versus distance</td><td>$v=t^2-4$ on $[0,3]$</td><td class="ra193 num193">-3 / 7.6666666667 m</td></tr>
+      <tr><td><b>F12</b> not a volume</td><td>cost, population, charge</td><td>$C'(x)=3+0.02x$, 100 to 300 units</td><td class="ra193 num193">$1400</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note193"><b>F5 is the family's best teaching instance.</b> Water enters at $5t$ L/min and leaves at $100$ L/min over $[0,40]$. The net change is <b>exactly zero</b> and two thousand litres of water actually moved. "Nothing changed" and "nothing happened" are different statements, and only the second is refuted by the total.</p>
+  <p class="note193"><b>F3 has a second root, and it is not an answer.</b> $180T-3T^2=1000$ gives $T=6.1952385715$ and $T=53.8047614285$. The second is past the shut-off at $t=30$ and past the stated domain $t\le50$ as well, so it is doubly spurious. Say which root you rejected and why; that sentence is the difference between a solved equation and a solved problem.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">09</span> Eight seconds, in the order that catches things</h2>
+  <ol class="traps193">
+    <li><span><b>Units.</b> $(\text{L/min})\times\text{min}=\text{L}$. Catches answering with a rate, and catches differentiating instead of integrating. Rejects 4 of the 16.</span></li>
+    <li><span><b>Magnitude bracket.</b> For a decreasing positive rate the answer is strictly between $r(b)(b-a)$ and $r(a)(b-a)$, so here $1350&lt;A&lt;2700$. <b>Rejects 12 of the 16</b>, which is more than any other single check.</span></li>
+    <li><span><b>Midpoint.</b> $135\times15=2025$ agrees, which confirms the antiderivative's arithmetic.</span></li>
+    <li><span><b>Sign.</b> $r&gt;0$ throughout $[0,15]$, so the answer is positive. Decide this before integrating, never repair it after.</span></li>
+    <li><span><b>The check that cannot fire here.</b> $R(0)=0$, so forgetting to subtract the lower limit costs nothing on this question and everything on an interval starting anywhere else.</span></li>
+  </ol>
+  <p class="fine193">Answer entry: type <code>2025</code>. Not <code>2025 L</code>, because units are not part of a numeric answer. Not <code>2,025</code>, because a thousands separator is not a number. Not <code>-2025</code>. The single most expensive typo here is a leading minus, and unlike Q19.2 the fix really is to delete it, because the magnitude is already right. That is a dangerous thing to learn, which is what section 06 is about.</p>
+</section>
+
+<section>
+  <h2><span class="snum193">10</span> How this page was checked</h2>
+  <p>Every number above was computed before it was written down, in the shared verification harness, across three sections. Nothing was typed beside a closed form.</p>
+  <div class="ansbar193">
+    <div class="acell193"><p class="alab193">ASSERTIONS</p><p class="aval193 abig193">249</p><p class="fine193">across sections q193, q193d and q193s, counted by grepping the prefixes rather than trusting a counter</p></div>
+    <div class="acell193"><p class="alab193">FAILURES</p><p class="aval193 abig193">0</p><p class="fine193">and the whole harness runs green, so any failure a later run sees is real</p></div>
+    <div class="acell193"><p class="alab193">SEEDED CONTROLS</p><p class="aval193 abig193">36</p><p class="fine193">each proving a gate can report the failure it exists to catch</p></div>
+  </div>
+  <ul class="chk193">
+    <li><span>The antiderivative was differentiated back at <b>69 sample points</b> by complex-step differentiation, an arm that never sees the claimed integral. A seeded wrong antiderivative, $180t-6t^2$, was rejected at 68 of the 69 points, agreeing only at $t=0$.</span></li>
+    <li><span>The definite integral was computed by <b>eight independent routes</b>, including tanh-sinh quadrature and Simpson at eight values of $n$ chosen odd and off multiples of 8.</span></li>
+    <li><span><b>The quadrature convergence order on this integrand is unmeasurable</b>, and that is the honest report rather than a nominal 4. The integrand is a straight line and Simpson is exact on cubics, so the error is zero at every $n$ and the ratio is $0/0$. The same routine was proved able to report a real order elsewhere: $4.0222, 4.0081, 4.0025, 4.0007$ on $\sin(t^2)$, and $1.6661$ rising to $1.6667$ on $\lvert t\rvert^{2/3}$.</span></li>
+    <li><span><b>A grid that happens to align with a corner reports perfection.</b> The function $\lvert r\rvert$ has a corner at $t=30$, exactly $3/5$ of the way across $[0,50]$. At $n=10,20,40,80,160$, all divisible by 5, the corner lands on a panel boundary and Simpson's error is exactly zero. At $n=6,12,24,48,96$ the errors are $44.4, 11.1, 2.78, 0.694, 0.174$ and the measured order is $2.0000$, not 4. The choice of $n$ has to be made deliberately, not inherited from a habit of powers of two.</span></li>
+    <li><span>The sign-change census was controlled to return 0, 1 and 2 on constructed cases, and was checked against a grid-alignment failure: at $n=50$ the grid lands exactly on $t=30$, and a census testing only for a change of sign between neighbours finds nothing at all.</span></li>
+    <li><span>Six checker defects were found and fixed during the run, and <b>all six were the check rather than the mathematics</b>: a quadrature routine that never halved its step, two counts typed instead of derived, a boundary comparison with no tolerance, and two defects in the claims checker itself, one of which made every sentence-final number invisible to it.</span></li>
+    <li><span>No marking scheme exists in any of the four course files, re-confirmed this run, so every grading claim on this page is flagged as inference. The point value was parsed from the paper rather than typed.</span></li>
+  </ul>
+</section>
+
+<section class="colo193">
+  <p class="fine193">Sources: question bank <code>notes\MATH265.md</code>; paper and point value <code>notes\MATH265\MATH265.md</code>, Final Exam 1 item 12; verification <code>Work\knowledge\topics\math265-answer-verification.py</code> sections <code>q193</code>, <code>q193d</code>, <code>q193s</code>. The Fundamental Theorem in both directions is set out on the Q18.1 page; the units rule and the difference between rates and totals on the Q6.1 page; the absolute-value split on the Q19.1 page; the repair that costs the mark on the Q19.2 page. Full tutorial with the drill set and answer key at <code>notes\Q19.3 - Net change, water flowing from a tank.md</code>.</p>
+</section>
+
+</main>

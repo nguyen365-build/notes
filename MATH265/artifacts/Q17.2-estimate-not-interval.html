@@ -1,0 +1,939 @@
+<title>Estimate, Not Interval</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,500;0,600;1,500&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['\\(','\\)'], ['$','$']],
+    displayMath: [['$$','$$']],
+    processEscapes: true
+  },
+  svg: { fontCache: 'global' },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js" id="MathJax-script" async></script>
+<style>
+:root{--mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+    --line:#2C3441; --line-soft:#232A35;
+    --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+    --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+    --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+    --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+    --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+    --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+    --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+    --ok:#6FA8A0;
+    --grid:rgba(230,234,241,.026);
+    --plot:#39424F; --plotlab:#8892A0;
+    --mj:#E6EAF1;
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#14181F; --surface:#1A1F28; --sunk:#11151B; --surface2:#212734;
+  --line:#2C3441; --line-soft:#232A35;
+  --ink:#E6EAF1; --ink2:#A9B3C2; --ink3:#78818F;
+  --accent:#F2A53C; --accent-soft:rgba(242,165,60,.12); --accent-line:rgba(242,165,60,.34);
+  --rul:#F2A53C;  --rul-soft:rgba(242,165,60,.13);  --rul-line:rgba(242,165,60,.42);
+  --chn:#7E9BC4;  --chn-soft:rgba(126,155,196,.12); --chn-line:rgba(126,155,196,.42);
+  --los:#D2765C;  --los-soft:rgba(210,118,92,.13);  --los-line:rgba(210,118,92,.42);
+  --fam:#6FA8A0;  --fam-soft:rgba(111,168,160,.13); --fam-line:rgba(111,168,160,.44);
+  --num:#B98BA6;  --num-soft:rgba(185,139,166,.13); --num-line:rgba(185,139,166,.44);
+  --ok:#6FA8A0;
+  --grid:rgba(230,234,241,.026);
+  --plot:#39424F; --plotlab:#8892A0;
+  --mj:#E6EAF1;
+}
+:root[data-theme="light"]{
+  --ground:#F2F3F6; --surface:#FFFFFF; --sunk:#E9ECF1; --surface2:#EAEDF2;
+  --line:#D6DAE3; --line-soft:#E6E9EF;
+  --ink:#171B22; --ink2:#4C5665; --ink3:#79828F;
+  --accent:#8F5A06; --accent-soft:rgba(217,138,31,.11); --accent-line:rgba(217,138,31,.42);
+  --rul:#8F5A06;  --rul-soft:rgba(217,138,31,.11);  --rul-line:rgba(217,138,31,.42);
+  --chn:#3F6493;  --chn-soft:rgba(63,100,147,.09);  --chn-line:rgba(63,100,147,.38);
+  --los:#A8492F;  --los-soft:rgba(168,73,47,.09);   --los-line:rgba(168,73,47,.38);
+  --fam:#2E6B63;  --fam-soft:rgba(46,107,99,.10);   --fam-line:rgba(46,107,99,.40);
+  --num:#7A3F63;  --num-soft:rgba(122,63,99,.10);   --num-line:rgba(122,63,99,.40);
+  --ok:#2E6B63;
+  --grid:rgba(23,27,34,.042);
+  --plot:#BCC3CE; --plotlab:#6C7583;
+  --mj:#171B22;
+}
+
+*{box-sizing:border-box}
+body{
+  background-color:var(--ground);
+  background-image:
+    repeating-linear-gradient(0deg,var(--grid) 0 1px,transparent 1px 32px),
+    repeating-linear-gradient(90deg,var(--grid) 0 1px,transparent 1px 32px);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px; line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+mjx-container{color:var(--mj)}
+/* MathJax ships its own sheet AFTER this one; inline math was resolving to a
+   centred BLOCK, which broke every sentence containing it onto three lines. */
+mjx-container:not([display="true"]){display:inline-block!important;margin:0!important;text-align:left!important;vertical-align:-0.15em}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
+mjx-assistive-mml{position:absolute!important;width:1px!important;height:1px!important;
+  overflow:hidden!important;clip:rect(1px,1px,1px,1px)!important}
+.wrap{max-width:1080px;margin:0 auto;padding:0 22px 110px}
+
+.mast{padding:56px 0 26px;border-bottom:1px solid var(--line)}
+.eyebrow{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11px;letter-spacing:.19em;text-transform:uppercase;
+  color:var(--accent);display:flex;align-items:center;gap:11px;margin-bottom:18px;
+}
+.eyebrow::after{content:"";flex:1;height:1px;background:var(--accent-line);max-width:200px}
+h1{
+  font-family:Spectral,Georgia,serif;font-weight:600;
+  font-size:clamp(30px,5.2vw,48px);line-height:1.1;margin:0 0 14px;
+  letter-spacing:-.015em;text-wrap:balance;
+}
+.deck{color:var(--ink2);font-size:16.5px;max-width:64ch;margin:0}
+.stem{
+  margin:22px 0 0;padding:15px 18px;background:var(--sunk);border:1px solid var(--line-soft);
+  border-left:2px solid var(--accent-line);border-radius:2px;
+  font-family:Spectral,Georgia,serif;font-style:italic;font-size:16px;color:var(--ink2);
+}
+
+.mark{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;border:1px solid var(--line);border-radius:2px;
+  padding:4px 9px;color:var(--ink3);white-space:nowrap;font-weight:500;
+}
+.mark.rul{border-color:var(--rul-line);color:var(--rul);background:var(--rul-soft)}
+.mark.chn{border-color:var(--chn-line);color:var(--chn);background:var(--chn-soft)}
+.mark.los{border-color:var(--los-line);color:var(--los);background:var(--los-soft)}
+.mark.fam{border-color:var(--fam-line);color:var(--fam);background:var(--fam-soft)}
+.mark.num{border-color:var(--num-line);color:var(--num);background:var(--num-soft)}
+
+.verdict{
+  display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--surface);
+  margin:26px 0 0;
+}
+.verdict > div{padding:20px 22px;min-width:0}
+.verdict > div:first-child{border-right:1px solid var(--line)}
+.vlab{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px;
+}
+.big{font-size:19px}
+code,.kbd{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:13px;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:2px;padding:2px 6px;
+  color:var(--accent);
+}
+
+section{padding-top:52px}
+h2{
+  font-family:Spectral,Georgia,serif;font-weight:600;font-size:26px;line-height:1.2;
+  margin:0 0 6px;letter-spacing:-.01em;text-wrap:balance;
+}
+h3{
+  font-family:"IBM Plex Sans",sans-serif;font-weight:600;font-size:15.5px;
+  margin:30px 0 8px;color:var(--ink);
+}
+.snum{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink3);display:block;margin-bottom:7px;
+}
+p{margin:0 0 13px;max-width:70ch}
+.lede{color:var(--ink2);font-size:15.5px;max-width:68ch}
+ul,ol{margin:0 0 13px;padding-left:22px;max-width:70ch}
+li{margin:0 0 7px}
+strong{font-weight:600}
+em{font-style:italic}
+
+.pipe{
+  display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;
+  border:1px solid var(--rul-line);border-radius:3px;overflow:hidden;
+  background:var(--surface);margin:22px 0 0;
+}
+.pipe > div{padding:16px 16px 18px;border-right:1px solid var(--line);min-width:0}
+.pipe > div:last-child{border-right:0}
+.pipe .st{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.15em;
+  text-transform:uppercase;color:var(--rul);margin-bottom:9px;display:block;
+}
+.pipe .sv{font-size:14px;color:var(--ink);margin:0 0 6px;min-height:2.6em;display:flex;align-items:center}
+.pipe .sn{font-size:12.5px;color:var(--ink3);margin:0;line-height:1.5}
+.pipe > div.hot{background:var(--los-soft)}
+.pipe > div.hot .st{color:var(--los)}
+
+.tw{overflow-x:auto;margin:16px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:520px}
+.tw.wide table{min-width:700px}
+th,td{padding:9px 13px;text-align:left;border-bottom:1px solid var(--line-soft);vertical-align:top}
+thead th{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);font-weight:500;
+  background:var(--surface2);border-bottom:1px solid var(--line);white-space:nowrap;
+}
+tbody tr:last-child td{border-bottom:0}
+td.n{font-variant-numeric:tabular-nums;white-space:nowrap}
+td.mono,th.mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px}
+tr.pick td{background:var(--rul-soft)}
+tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--rul)}
+
+pre{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;line-height:1.62;
+  background:var(--sunk);border:1px solid var(--line-soft);border-radius:3px;
+  padding:16px 18px;overflow-x:auto;margin:16px 0 0;color:var(--ink2);
+}
+pre b{color:var(--accent);font-weight:600}
+pre i{color:var(--los);font-style:normal}
+
+figure{margin:24px 0 0;border:1px solid var(--line);border-radius:3px;background:var(--surface);padding:18px 18px 14px}
+figure .fh{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink3);margin-bottom:12px;
+}
+.fscroll{overflow-x:auto}
+.figbox{display:block}
+figure svg{display:block;margin:0 auto;max-width:100%;height:auto}
+figcaption{font-size:13px;color:var(--ink2);margin-top:13px;max-width:74ch;line-height:1.6}
+.axis{stroke:var(--plot);stroke-width:1}
+.gridl{stroke:var(--plot);stroke-width:.6;opacity:.5}
+.curve{fill:none;stroke:var(--ink2);stroke-width:2}
+.given{fill:none;stroke:var(--chn);stroke-width:2}
+.tang{fill:none;stroke:var(--rul);stroke-width:2}
+.lev{fill:none;stroke:var(--rul);stroke-width:1.6;stroke-dasharray:5 4}
+.ra{fill:none;stroke:var(--los);stroke-width:1.6}
+.dot{fill:var(--rul);stroke:var(--surface);stroke-width:1.5}
+.dot2{fill:var(--los);stroke:var(--surface);stroke-width:1.5}
+.tl{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:9.5px;fill:var(--plotlab)}
+.al{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;font-weight:500}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(292px,1fr));gap:14px;margin-top:18px}
+.card{border:1px solid var(--line);border-left:2px solid var(--fam-line);border-radius:3px;
+  background:var(--surface);padding:15px 17px 17px;min-width:0}
+.card h4{font-family:"IBM Plex Sans",sans-serif;font-size:14px;font-weight:600;margin:0 0 4px}
+.card .trig{font-size:12.5px;color:var(--ink3);margin:0 0 9px;line-height:1.5}
+.card p{font-size:13.5px;margin:0 0 8px;color:var(--ink2)}
+.card .fno{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--fam);display:block;margin-bottom:6px}
+.card.danger{border-left-color:var(--los-line)}
+.card.danger .fno{color:var(--los)}
+
+.traps{counter-reset:t;margin:18px 0 0;padding:0;list-style:none;max-width:none}
+.traps li{
+  counter-increment:t;display:grid;grid-template-columns:34px minmax(0,1fr);gap:0 14px;
+  padding:13px 0;border-bottom:1px solid var(--line-soft);margin:0;
+}
+.traps li:last-child{border-bottom:0}
+.traps li::before{
+  content:counter(t,decimal-leading-zero);
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--los);
+  font-weight:600;padding-top:2px;
+}
+.traps li > b{grid-column:2;display:block;font-weight:600;margin-bottom:3px}
+.traps li > span{grid-column:2;display:block;font-size:13.5px;color:var(--ink2);max-width:80ch}
+.traps li > b{max-width:80ch}
+
+.note{
+  border:1px solid var(--los-line);border-left:2px solid var(--los);background:var(--los-soft);
+  border-radius:3px;padding:15px 18px;margin:20px 0 0;
+}
+.note .nl{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--los);margin-bottom:8px;
+}
+.note p{margin:0;font-size:14px;max-width:72ch}
+.note p + p{margin-top:9px}
+.note.calm{border-color:var(--num-line);border-left-color:var(--num);background:var(--num-soft)}
+.note.calm .nl{color:var(--num)}
+
+.vgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+.vcell{border:1px solid var(--num-line);border-radius:3px;background:var(--surface);padding:14px 16px}
+.vcell .vn{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:23px;color:var(--num);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vcell .vt{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--ink3);margin-top:7px}
+
+footer{margin-top:60px;padding-top:22px;border-top:1px solid var(--line);
+  font-size:12.5px;color:var(--ink3);max-width:78ch}
+footer p{max-width:78ch;font-size:12.5px}
+footer code{font-size:11.5px}
+a{color:var(--accent)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== Q17.2 page classes ===================================================
+   Written fresh against the house token block; nothing sliced from a previous
+   page. Every class invented here carries a 172 suffix, except the four the
+   token block declares as selector hooks but never styles (stand, tscroll,
+   vtab, warn), which are defined here for the first time.
+
+   Role hues, used consistently:
+     rul  (amber) the comparison property and the correct bound
+     fam  (teal)  part (a), i.e. the extreme-value machinery this borrows
+     chn  (blue)  the estimate ladder
+     los  (rust)  the dropped factor and every place the property fails
+     num  (plum)  measured numbers
+   ========================================================================= */
+
+.sn172{font-family:var(--mono);font-size:12px;color:var(--accent);
+  letter-spacing:.10em;margin-right:12px;font-weight:500;
+  font-variant-numeric:tabular-nums}
+.mono172{font-family:var(--mono);font-size:12.5px;color:var(--ink2);
+  white-space:nowrap}
+
+.stand172{font-size:16.5px;line-height:1.62;color:var(--ink2);max-width:64ch;
+  margin:16px 0 0}
+
+.stem172{border:1px solid var(--line);border-left:3px solid var(--accent);
+  border-radius:3px;background:var(--surface);padding:18px 22px;margin:22px 0}
+.stem172 > p{max-width:72ch}
+.answer172{margin:14px 0 8px;padding:12px 0 2px;
+  border-top:1px solid var(--line-soft);border-bottom:1px solid var(--line-soft)}
+.ans172sub{font-size:13.5px;color:var(--ink2);margin:6px 0 10px}
+.prov172{font-size:12.5px;color:var(--ink3);margin:12px 0 0;max-width:78ch}
+
+.vgrid172{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:24px 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(210px,100%),1fr))}
+.vcell172{background:var(--surface);padding:15px 17px;display:flex;
+  flex-direction:column;gap:7px}
+.vn172{font-family:var(--mono);font-size:21px;font-weight:600;color:var(--accent);
+  font-variant-numeric:tabular-nums;line-height:1.1}
+.vt172{font-size:12.5px;color:var(--ink2);line-height:1.5}
+
+.thesis172{border-left:2px solid var(--fam-line);background:var(--fam-soft);
+  padding:13px 17px;border-radius:0 3px 3px 0;font-size:14px;max-width:80ch}
+
+.rule172{border:1px solid var(--accent-line);background:var(--accent-soft);
+  border-radius:3px;padding:15px 19px;margin:22px 0}
+.rl172{font-family:var(--mono);font-size:11px;letter-spacing:.13em;
+  text-transform:uppercase;color:var(--accent);margin-bottom:9px}
+.rule172 p{margin:0;max-width:80ch}
+
+.tscroll{overflow-x:auto;margin:20px 0}
+.vtab{min-width:640px}
+.hot172 > td{background:var(--accent-soft)}
+.bad172row > td{background:var(--los-soft)}
+td.n{font-variant-numeric:tabular-nums}
+
+.tag172{font-family:var(--mono);font-size:11px;letter-spacing:.05em;
+  padding:2px 7px;border-radius:2px;white-space:nowrap;display:inline-block}
+.thid172{background:var(--los-soft);color:var(--los);border:1px solid var(--los-line)}
+.tcau172{background:var(--fam-soft);color:var(--fam);border:1px solid var(--fam-line)}
+
+.figcap172{font-size:12.5px;color:var(--ink3);max-width:82ch;margin:2px 0 20px}
+
+.warn172{border-left:3px solid var(--los-line);background:var(--los-soft);
+  padding:14px 18px;border-radius:0 3px 3px 0;max-width:82ch;font-size:14.5px}
+.warn{border-left:3px solid var(--los-line);background:var(--los-soft);
+  padding:14px 18px;border-radius:0 3px 3px 0;max-width:82ch}
+
+.write172{border:1px solid var(--line);border-left:3px solid var(--fam-line);
+  background:var(--surface);border-radius:3px;padding:16px 22px;margin:20px 0}
+.write172 p{margin:0 0 11px;max-width:76ch}
+.write172 p:last-child{margin-bottom:0}
+.aside172{border-left-color:var(--ink3);background:var(--sunk);
+  font-size:13.5px;color:var(--ink2)}
+
+.fam172{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:24px 0;
+  /* TEN family cards: a 3-track grid leaves one card alone in a ragged fourth row
+     (grid-fill measured cells 10, empty 2). At the 1036px content width this floor
+     yields exactly 2 tracks, so 10 items fill 5 complete rows. */
+  grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr))}
+.fcard172{background:var(--surface);padding:16px 18px}
+.fcard172 h4{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--ink);
+  display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.fno172{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--chn);border:1px solid var(--chn-line);
+  background:var(--chn-soft);padding:2px 6px;border-radius:2px;font-weight:500}
+.fcard172 p{margin:0 0 7px;font-size:13px;color:var(--ink2);max-width:none}
+.fcard172 p:last-child{margin-bottom:0}
+.trig172{font-size:12.5px;color:var(--ink3)}
+.danger172 .fno172{color:var(--los);border-color:var(--los-line);
+  background:var(--los-soft)}
+
+.cen172{display:grid;gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:3px;overflow:hidden;margin:22px 0;
+  grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))}
+.ccell172{background:var(--surface);padding:15px 18px;display:flex;
+  flex-direction:column;gap:7px}
+.cn172{font-family:var(--mono);font-size:26px;font-weight:600;line-height:1;
+  font-variant-numeric:tabular-nums}
+.ct172{font-size:12.5px;color:var(--ink2);line-height:1.5}
+.cok172 .cn172{color:var(--fam)}
+.chid172 .cn172{color:var(--los)}
+.ccau172 .cn172{color:var(--accent)}
+
+.hid172{margin:16px 0 20px;padding:0;list-style:none;counter-reset:h172}
+.hid172 li{display:grid;grid-template-columns:30px minmax(0,1fr);gap:0;
+  padding:9px 0;border-bottom:1px solid var(--line-soft)}
+.hid172 li:last-child{border-bottom:0}
+.hid172 li::before{counter-increment:h172;content:counter(h172);
+  font-family:var(--mono);font-size:11.5px;color:var(--los);padding-top:2px}
+.hid172 li > span{grid-column:2;font-size:14px;color:var(--ink2)}
+
+.traps172{margin:18px 0;padding:0;list-style:none;counter-reset:t172}
+.traps172 li{display:grid;grid-template-columns:32px minmax(0,1fr);
+  padding:11px 0;border-bottom:1px solid var(--line-soft)}
+.traps172 li:last-child{border-bottom:0}
+.traps172 li::before{counter-increment:t172;content:counter(t172);
+  font-family:var(--mono);font-size:11.5px;color:var(--accent);padding-top:3px}
+.traps172 li > b{grid-column:2;font-size:14.5px;color:var(--ink)}
+.traps172 li > span{grid-column:2;font-size:13.5px;color:var(--ink2);
+  margin-top:4px;display:block}
+
+.tree172{font-family:var(--mono);font-size:12px;line-height:1.55;
+  color:var(--ink2);background:var(--sunk);border:1px solid var(--line);
+  border-radius:3px;padding:18px 20px;overflow-x:auto;margin:22px 0;
+  white-space:pre}
+
+.date172{font-size:12.5px;color:var(--ink3);margin-top:22px}
+
+@media (max-width:560px){
+  .vn172{font-size:19px}
+  .cn172{font-size:22px}
+}
+</style>
+<style>
+/* Figure palette. LIGHT lives on bare :root; the dark half sits INSIDE the media
+   query and is repeated under [data-theme="dark"], so an un-stamped document
+   resolves LIGHT instead of painting the dark palette on a white ground. */
+:root{
+  --f172-ax:#5B6472;
+  --f172-tick:#4C5665;
+  --f172-good:rgba(143,90,6,.30);
+  --f172-good-line:#8F5A06;
+  --f172-bad:rgba(168,73,47,.28);
+  --f172-bad-line:#A8492F;
+  --f172-true:#171B22;
+  --f172-pt:#2E6B63;
+  --f172-key:#79828F;
+  --f172-ok:#2E6B63;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --f172-ax:#8B94A3;
+    --f172-tick:#A9B3C2;
+    --f172-good:rgba(242,165,60,.32);
+    --f172-good-line:#F2A53C;
+    --f172-bad:rgba(210,118,92,.30);
+    --f172-bad-line:#D2765C;
+    --f172-true:#E6EAF1;
+    --f172-pt:#6FA8A0;
+    --f172-key:#78818F;
+    --f172-ok:#6FA8A0;
+  }
+}
+:root[data-theme="dark"]{
+  --f172-ax:#8B94A3;
+  --f172-tick:#A9B3C2;
+  --f172-good:rgba(242,165,60,.32);
+  --f172-good-line:#F2A53C;
+  --f172-bad:rgba(210,118,92,.30);
+  --f172-bad-line:#D2765C;
+  --f172-true:#E6EAF1;
+  --f172-pt:#6FA8A0;
+  --f172-key:#78818F;
+  --f172-ok:#6FA8A0;
+}
+:root[data-theme="light"]{
+  --f172-ax:#5B6472;
+  --f172-tick:#4C5665;
+  --f172-good:rgba(143,90,6,.30);
+  --f172-good-line:#8F5A06;
+  --f172-bad:rgba(168,73,47,.28);
+  --f172-bad-line:#A8492F;
+  --f172-true:#171B22;
+  --f172-pt:#2E6B63;
+  --f172-key:#79828F;
+  --f172-ok:#2E6B63;
+}
+.figbox{margin:26px 0 8px;overflow-x:auto}
+.figbox svg{display:block;min-width:640px}
+.ax172{stroke:var(--f172-ax);stroke-width:1.1;fill:none}
+.g172{stroke:var(--f172-ax);stroke-width:1;opacity:.55;fill:none}
+.good172{fill:var(--f172-good);stroke:var(--f172-good-line);stroke-width:1.2}
+.bad172{fill:var(--f172-bad);stroke:var(--f172-bad-line);stroke-width:1.2}
+.true172{stroke:var(--f172-true);stroke-width:1.4;stroke-dasharray:3 3;fill:none}
+.tdot172{fill:var(--f172-true)}
+.lab{font-family:var(--mono);font-size:11.5px;fill:var(--f172-tick)}
+.tick172{font-size:11px;fill:var(--f172-tick);opacity:.85}
+.key172{font-size:11px;fill:var(--f172-key)}
+.tv172{font-size:11.5px;fill:var(--f172-true);font-weight:500}
+.pt172{font-size:12px;fill:var(--f172-pt);letter-spacing:.06em;font-weight:600}
+.vbad172{font-size:12px;fill:var(--f172-ok);letter-spacing:.10em;font-weight:600}
+.vhid172{font-size:12px;fill:var(--f172-bad-line);letter-spacing:.10em;font-weight:600}
+</style>
+<header class="wrap mast">
+  <div class="eyebrow">MATH 265 &#183; category 17, question 2 of 3 &#183; Final Exam 2 item 3b &#183; 8 points, shared with 3a</div>
+  <h1>Estimate, Not Interval</h1>
+  <p class="stand172">Item 3 of Final Exam 2 asks two questions about the same function over the same interval. Part (a) finds its largest and smallest values. Part (b) is this question, and it needs exactly those two numbers, one multiplication, and a decision about what to write down. This page is about that decision, because the verb changed and the calculation did not.</p>
+</header>
+
+<main class="wrap">
+
+<section>
+  <h2><span class="sn172">01</span>The question and the answer</h2>
+
+  <div class="stem172">
+    <p><b>Final Exam 2, item 3b.</b> "Use the properties of the definite integral to estimate the value of the integral \(\displaystyle\int_{-1}^{1}\frac{1}{x^2+1}\,dx\)."</p>
+    <div class="answer172">
+      $$1 \;\le\; \int_{-1}^{1}\frac{dx}{x^2+1} \;\le\; 2 \qquad\text{so}\qquad \int_{-1}^{1}\frac{dx}{x^2+1} \approx 1.5$$
+      <p class="ans172sub">The true value is \(\pi/2 \approx 1.5707963268\), which sits \(0.5707963268\) above the floor and \(0.4292036732\) below the ceiling.</p>
+    </div>
+    <p class="prov172">Question text from <span class="mono172">notes\MATH265\MATH265.md</span> lines 250 to 251, cross-checked against the bank at <span class="mono172">notes\MATH265.md</span>. Type <span class="kbd">1</span> and <span class="kbd">2</span> into the two bound boxes, <span class="kbd">3/2</span> if one box wants a single estimate, <span class="kbd">pi/2</span> if a box wants the exact value.</p>
+  </div>
+
+  <div class="vgrid172">
+    <div class="vcell172"><div class="vn172">1/2</div><div class="vt172">\(m\), the smallest value of the integrand on \([-1,1]\), from part (a)</div></div>
+    <div class="vcell172"><div class="vn172">1</div><div class="vt172">\(M\), the largest value, also from part (a)</div></div>
+    <div class="vcell172"><div class="vn172">2</div><div class="vt172">\(b-a\), the width, and the factor that gets dropped</div></div>
+    <div class="vcell172"><div class="vn172">1.5</div><div class="vt172">the estimate the verb is asking for</div></div>
+  </div>
+
+  <p class="thesis172">This is the <b>middle</b> question of the category. Q17.1 built the machinery on a question that stood alone. Q17.2 and Q17.3 both sit as part (b) of a two-part item whose part (a) hands them their inputs, so on both of them the work is two multiplications and a sentence.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">02</span>The verb is the question</h2>
+
+  <p>The three questions in this category run the identical calculation and differ only in the last line they ask you to write. Reading the verb before starting is the cheapest mark on the page.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>the verb, and whose question it is</th><th>what the marker wants on the page</th><th>the answer there</th></tr></thead>
+    <tbody>
+      <tr><td>"find an interval where the value is located" &#183; <b>Q17.1</b></td><td>two numbers presented as an interval</td><td class="n">\([\pi/3,\ 2\pi/3]\)</td></tr>
+      <tr><td>"estimate the value" &#183; <b>Q17.2</b></td><td>the sandwich <b>and</b> a single number</td><td class="n">\(1 \le I \le 2\), so \(I \approx 1.5\)</td></tr>
+      <tr><td>"bound the value" &#183; <b>Q17.3</b></td><td>an inequality; one side may be enough</td><td class="n">\(0 \le I \le 30.4110099779\)</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>"Estimate" is the only one of the three that asks for a number, and it is the reason a page that stops at \(1 \le I \le 2\) is an incomplete answer to <em>this</em> question while being a complete answer to Q17.1. One extra line closes it.</p>
+
+  <div class="rule172">
+    <div class="rl172">the comparison property</div>
+    <p>If \(m \le f(x) \le M\) for every \(x\) in \([a,b]\), then \(m\,(b-a) \le \displaystyle\int_a^b f(x)\,dx \le M\,(b-a)\).</p>
+  </div>
+
+  <p>Read it as two rectangles standing on the same base. The integral is the area under the curve; \(m(b-a)\) is the area of the rectangle that fits underneath it and \(M(b-a)\) is the area of the one that covers it. The \((b-a)\) is the width of both. Leaving it out does not shrink the answer slightly; it turns an area into a height.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">03</span>Part (a) has already done half of it</h2>
+
+  <p>Item 3 is one question with two parts sharing eight points, and both parts are about \(f(x) = \frac{1}{x^2+1}\) on \([-1,1]\). Part (a) is the Extreme Value Theorem question written up as <span class="mono172">Q15.3</span>. Its two answers are this question's two inputs.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>Final Exam 2 item</th><th>part (a) asks for</th><th>\(m\)</th><th>\(M\)</th><th>\(b-a\)</th><th>part (b) answer</th><th>true value</th></tr></thead>
+    <tbody>
+      <tr><td><b>item 3</b>, 8 pts</td><td>absolute extremes of \(\frac{1}{x^2+1}\) on \([-1,1]\)</td><td class="n">\(\tfrac12\)</td><td class="n">\(1\)</td><td class="n">2</td><td class="n">\([1,\ 2]\)</td><td class="n">1.5707963268</td></tr>
+      <tr><td><b>item 7</b>, 8 pts</td><td>absolute extremes of \((x^2+2x)^{2/3}\) on \([-2,3]\)</td><td class="n">\(0\)</td><td class="n">\(15^{2/3}\)</td><td class="n">5</td><td class="n">\([0,\ 30.4110099779]\)</td><td class="n">10.6736300365</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="note">Measured on the paper: exactly two of Final Exam 2's twelve items pair an extremes question with an integral bound on the same function over the same interval, and together they carry 14 of the paper's 81 points. Re-deriving the extremes in part (b) spends exam minutes reproducing numbers already written above.</p>
+
+  <p>Confirmed independently for this page rather than copied across. A four-arm root census on \(f'(x) = \frac{-2x}{(x^2+1)^2}\) finds exactly one critical point, at \(x=0\); \(f''(0) = -2 &lt; 0\), so it is a maximum; \(f'\) is never undefined, because \((x^2+1)^2 \ge 1 &gt; 0\); and a 400001-point grid scan reproduces \(\max f = 1\) and \(\min f = \tfrac12\), attained at both endpoints.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">04</span>Three numbers, and the one that disappears</h2>
+
+  <p>The mistake this whole category exists to punish is writing \(m \le I \le M\) instead of \(m(b-a) \le I \le M(b-a)\). On this question the mistake is caught by your own answer. On Q17.1 the identical mistake is invisible. The picture below is the same slip drawn twice, on one shared scale.</p>
+
+<div class="figbox">
+<svg viewBox="0 0 760 330" width="100%" role="img" aria-label="Two number lines comparing the correct integral bound with the bound obtained by dropping the width factor, on Q17.2 and Q17.1.">
+  <line class="ax172" x1="56.0" y1="118.0" x2="654.0" y2="118.0"/>
+  <line class="g172" x1="66.0" y1="118.0" x2="66.0" y2="122.0"/>
+  <text class="lab tick172" x="66.0" y="144.0" text-anchor="middle">0</text>
+  <line class="g172" x1="185.2" y1="118.0" x2="185.2" y2="122.0"/>
+  <text class="lab tick172" x="185.2" y="144.0" text-anchor="middle">0.5</text>
+  <line class="g172" x1="304.3" y1="118.0" x2="304.3" y2="122.0"/>
+  <text class="lab tick172" x="304.3" y="144.0" text-anchor="middle">1</text>
+  <line class="g172" x1="423.5" y1="118.0" x2="423.5" y2="122.0"/>
+  <text class="lab tick172" x="423.5" y="144.0" text-anchor="middle">1.5</text>
+  <line class="g172" x1="542.7" y1="118.0" x2="542.7" y2="122.0"/>
+  <text class="lab tick172" x="542.7" y="144.0" text-anchor="middle">2</text>
+  <rect class="good172" x="304.3" y="67.0" width="238.3" height="14"/>
+  <text class="lab key172" x="662.0" y="78.0" text-anchor="start">correct</text>
+  <rect class="bad172" x="185.2" y="89.0" width="119.2" height="14"/>
+  <text class="lab key172" x="662.0" y="100.0" text-anchor="start">b&#8722;a dropped</text>
+  <line class="true172" x1="440.4" y1="52.0" x2="440.4" y2="118.0"/>
+  <circle class="tdot172" cx="440.4" cy="52.0" r="3.4"/>
+  <text class="lab tv172" x="448.4" y="49.0" text-anchor="start">&#960;/2 = 1.5708</text>
+  <text class="lab pt172" x="56.0" y="44.0" text-anchor="start">Q17.2 &#183; width b&#8722;a = 2</text>
+  <text class="lab vbad172" x="662.0" y="44.0" text-anchor="start">CAUGHT</text>
+  <line class="ax172" x1="56.0" y1="270.0" x2="654.0" y2="270.0"/>
+  <line class="g172" x1="66.0" y1="270.0" x2="66.0" y2="274.0"/>
+  <text class="lab tick172" x="66.0" y="296.0" text-anchor="middle">0</text>
+  <line class="g172" x1="185.2" y1="270.0" x2="185.2" y2="274.0"/>
+  <text class="lab tick172" x="185.2" y="296.0" text-anchor="middle">0.5</text>
+  <line class="g172" x1="304.3" y1="270.0" x2="304.3" y2="274.0"/>
+  <text class="lab tick172" x="304.3" y="296.0" text-anchor="middle">1</text>
+  <line class="g172" x1="423.5" y1="270.0" x2="423.5" y2="274.0"/>
+  <text class="lab tick172" x="423.5" y="296.0" text-anchor="middle">1.5</text>
+  <line class="g172" x1="542.7" y1="270.0" x2="542.7" y2="274.0"/>
+  <text class="lab tick172" x="542.7" y="296.0" text-anchor="middle">2</text>
+  <rect class="good172" x="315.6" y="219.0" width="249.6" height="14"/>
+  <text class="lab key172" x="662.0" y="230.0" text-anchor="start">correct</text>
+  <rect class="bad172" x="304.3" y="241.0" width="238.3" height="14"/>
+  <text class="lab key172" x="662.0" y="252.0" text-anchor="start">b&#8722;a dropped</text>
+  <line class="true172" x1="379.9" y1="204.0" x2="379.9" y2="270.0"/>
+  <circle class="tdot172" cx="379.9" cy="204.0" r="3.4"/>
+  <text class="lab tv172" x="387.9" y="201.0" text-anchor="start">ln(2+&#8730;3) = 1.3170</text>
+  <text class="lab pt172" x="56.0" y="196.0" text-anchor="start">Q17.1 &#183; width b&#8722;a = 1.0472</text>
+  <text class="lab vhid172" x="662.0" y="196.0" text-anchor="start">HIDDEN</text>
+</svg>
+</div>
+
+  <p class="figcap172">Both panels show the correct bound in amber and the bound you get by dropping \(b-a\) in rust, with the true value marked. On Q17.2 the true value falls outside the rust bar. On Q17.1 it falls inside it.</p>
+
+  <p>The reason is not luck, it is the width. Dropping the factor divides your interval by \((b-a)\), so the slip survives a self-check exactly when \((b-a)\) is close to \(1\).</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>question</th><th>\(b-a\)</th><th>correct bound</th><th>with \(b-a\) dropped</th><th>true value</th><th>verdict</th></tr></thead>
+    <tbody>
+      <tr><td>Q17.1</td><td class="n">1.0471975512</td><td class="n">\([1.0471975512,\ 2.0943951024]\)</td><td class="n">\([1,\ 2]\)</td><td class="n">1.3169578969</td><td><span class="tag172 thid172">contains it &#183; hidden</span></td></tr>
+      <tr><td><b>Q17.2</b></td><td class="n">2</td><td class="n">\([1,\ 2]\)</td><td class="n">\([0.5,\ 1]\)</td><td class="n">1.5707963268</td><td><span class="tag172 tcau172">outside it &#183; caught</span></td></tr>
+      <tr><td>Q17.3</td><td class="n">5</td><td class="n">\([0,\ 30.4110099779]\)</td><td class="n">\([0,\ 6.0822019956]\)</td><td class="n">10.6736300365</td><td><span class="tag172 tcau172">outside it &#183; caught</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Q17.1's width is \(1.0472\), within five per cent of \(1\); this question's is \(2\). For this integrand the largest width at which the slip would still hide is \(M/\bar f = 4/\pi = 1.2732395447\), and \(2\) is comfortably past it.</p>
+
+  <p class="warn172">This contrast is the strongest argument in the category against trusting a self-check. The same student, making the same mistake, on two questions from the same category, is caught on one and not on the other, and nothing about the answer they wrote tells them which case they are in.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">05</span>Which number to write</h2>
+
+  <p>"Estimate" wants a number, and there are several plausible ones. They are not equally good, and the ranking is not the one you would guess.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>estimate</th><th>formula</th><th>value</th><th>error against 1.5707963268</th></tr></thead>
+    <tbody>
+      <tr><td>lower bound alone</td><td>\(m(b-a)\)</td><td class="n">1</td><td class="n">0.5707963268</td></tr>
+      <tr><td>upper bound alone</td><td>\(M(b-a)\)</td><td class="n">2</td><td class="n">0.4292036732</td></tr>
+      <tr class="hot172"><td><b>midpoint of the bounds</b></td><td>\(\frac{m+M}{2}(b-a)\)</td><td class="n"><b>1.5</b></td><td class="n"><b>0.0707963268</b></td></tr>
+      <tr><td>trapezoid on the endpoints</td><td>\(\frac{f(a)+f(b)}{2}(b-a)\)</td><td class="n">1</td><td class="n">0.5707963268</td></tr>
+      <tr><td>midpoint rule</td><td>\(f\!\left(\frac{a+b}{2}\right)(b-a)\)</td><td class="n">2</td><td class="n">0.4292036732</td></tr>
+      <tr><td>Simpson on three points</td><td>\(\frac{b-a}{6}\big(f(a)+4f(\tfrac{a+b}{2})+f(b)\big)\)</td><td class="n">1.6666666667</td><td class="n">0.0958703399</td></tr>
+      <tr><td>exact, by the Fundamental Theorem</td><td>\(\big[\arctan x\big]_{-1}^{1}\)</td><td class="n">1.5707963268</td><td class="n">0</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>The midpoint of the bounds is the best of the cheap estimates here. On Q17.1 it is the worst of them.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>question</th><th>midpoint of the bounds, error</th><th>midpoint rule, error</th><th>winner</th></tr></thead>
+    <tbody>
+      <tr><td>Q17.1, \(\int_0^{\pi/3}\sec x\,dx\)</td><td class="n">0.2538384299</td><td class="n">0.1077583208</td><td>the midpoint <b>rule</b></td></tr>
+      <tr><td>Q17.2, \(\int_{-1}^{1}\frac{dx}{x^2+1}\)</td><td class="n">0.0707963268</td><td class="n">0.4292036732</td><td>the midpoint of the <b>bounds</b></td></tr>
+    </tbody>
+  </table></div>
+
+  <p>The inversion is structural rather than lucky. On this question the maximum sits exactly at the interval midpoint, so the midpoint rule evaluates \(f\) at its highest point and returns \(M(b-a)\), which is the ceiling itself. A rule that hands you back one end of your own interval has estimated nothing.</p>
+
+  <p><b>So the answer to "which number" is the midpoint of the bounds</b>, because it is the only cheap option that cannot degenerate into a bound you already wrote down.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">06</span>What to write, in the order a marker reads it</h2>
+
+  <div class="write172">
+    <p>On \([-1,1]\) the function \(f(x) = \frac{1}{x^2+1}\) is continuous, since \(x^2+1 \ge 1 &gt; 0\) for every real \(x\).</p>
+    <p>By part (a), its absolute maximum on \([-1,1]\) is \(M = 1\) at \(x = 0\), and its absolute minimum is \(m = \tfrac12\) at \(x = \pm 1\).</p>
+    <p>The interval has width \(b - a = 1 - (-1) = 2\).</p>
+    <p>By the comparison property of the definite integral, $$m(b-a) \le \int_{-1}^{1} f(x)\,dx \le M(b-a), \qquad\text{that is}\qquad 1 \le \int_{-1}^{1}\frac{dx}{x^2+1} \le 2 .$$</p>
+    <p>Taking the midpoint of these bounds gives the estimate \(\displaystyle\int_{-1}^{1}\frac{dx}{x^2+1} \approx 1.5\).</p>
+  </div>
+
+  <p>Then, on a separate line, if there is time:</p>
+
+  <div class="write172 aside172">
+    <p>(For comparison, the exact value is \(\big[\arctan x\big]_{-1}^{1} = \tfrac{\pi}{2} \approx 1.571\), which lies inside the bounds.)</p>
+  </div>
+
+  <p><b>Why the exact value goes beside the estimate and not instead of it.</b> The question says "use the properties of the definite integral". That phrase names the method, so the marks are for producing \(m\), \(M\), \(b-a\) and the comparison property, not for producing a number that happens to be right. A page reading only \(\pi/2\) has skipped the entire requested method. This is an <b>inference</b>, not a quotation: no marking scheme for MATH 265 exists in any of the four course files. It is the safe inference, and it costs one line to satisfy both readings.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">07</span>The variation catalog</h2>
+
+  <p>Read each table as a structure rather than as a list of facts. Every row is the same three steps: find \(m\) and \(M\), find \(b-a\), multiply. What changes between families is only <b>where \(m\) and \(M\) come from</b>.</p>
+
+  <div class="fam172">
+    <div class="fcard172">
+      <h4><span class="fno172">Family 0</span>monotone integrand</h4>
+      <p class="trig172">Trigger: \(f'\) has no zero inside \([a,b]\).</p>
+      <p>Evaluate \(f(a)\) and \(f(b)\); the smaller is \(m\), the larger is \(M\). No table, no calculus.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 1</span>interior critical point</h4>
+      <p class="trig172">Trigger: \(f'\) has a zero strictly inside \([a,b]\). <b>This question.</b></p>
+      <p>Run the closed-interval method: critical points, points where \(f'\) is undefined, and both endpoints.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 2</span>part (a) supplies \(m\) and \(M\)</h4>
+      <p class="trig172">Trigger: a two-part item on one function. <b>Also this question.</b></p>
+      <p>Copy the two numbers, multiply by \(b-a\), stop.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 3</span>non-constant comparison</h4>
+      <p class="trig172">Trigger: the wording asks you to sharpen.</p>
+      <p>Find \(g \le f \le h\) with \(g,h\) integrable in closed form, then integrate those.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 4</span>additivity</h4>
+      <p class="trig172">Trigger: a long interval, or "as accurately as you can".</p>
+      <p>Split, bound each piece with its own \(m\) and \(M\), add.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 5</span>orientation and sign</h4>
+      <p class="trig172">Trigger: reversed limits, or a negative or odd integrand.</p>
+      <p>\(\int_b^a = -\int_a^b\), and multiplying an inequality by \(-1\) reverses it.</p>
+    </div>
+    <div class="fcard172 danger172">
+      <h4><span class="fno172">Family 6</span>the property does not apply</h4>
+      <p class="trig172">Trigger: the integrand is unbounded on \([a,b]\).</p>
+      <p>Say so. No finite \(M\) exists, so there is no ceiling to write.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 7</span>the three verbs</h4>
+      <p class="trig172">Trigger: read the verb before you start.</p>
+      <p>Interval, estimate, bound. Same calculation, three different last lines.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 8</span>the estimate ladder</h4>
+      <p class="trig172">Trigger: the verb is "estimate" and you must commit.</p>
+      <p>Midpoint of the bounds, unless the question names another rule.</p>
+    </div>
+    <div class="fcard172">
+      <h4><span class="fno172">Family 9</span>symmetry</h4>
+      <p class="trig172">Trigger: \(f\) even or odd on an interval symmetric about \(0\).</p>
+      <p>Even doubles the half-integral; odd gives exactly \(0\), which the property alone cannot see.</p>
+    </div>
+  </div>
+
+  <h3>Family 0 and Family 1, verified</h3>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>integral</th><th>family</th><th>\(m\)</th><th>\(M\)</th><th>\(b-a\)</th><th>bounds</th><th>true value</th></tr></thead>
+    <tbody>
+      <tr><td>\(\int_0^1 x^2\,dx\)</td><td>0</td><td class="n">\(0\)</td><td class="n">\(1\)</td><td class="n">1</td><td class="n">\([0,\ 1]\)</td><td class="n">0.3333333333</td></tr>
+      <tr><td>\(\int_1^2 \frac{dx}{x}\)</td><td>0</td><td class="n">\(\tfrac12\)</td><td class="n">\(1\)</td><td class="n">1</td><td class="n">\([0.5,\ 1]\)</td><td class="n">0.6931471806</td></tr>
+      <tr><td>\(\int_0^1 e^x\,dx\)</td><td>0</td><td class="n">\(1\)</td><td class="n">\(e\)</td><td class="n">1</td><td class="n">\([1,\ 2.7182818285]\)</td><td class="n">1.7182818285</td></tr>
+      <tr><td>\(\int_0^{\pi/2}\sin x\,dx\)</td><td>0</td><td class="n">\(0\)</td><td class="n">\(1\)</td><td class="n">\(\pi/2\)</td><td class="n">\([0,\ 1.5707963268]\)</td><td class="n">1</td></tr>
+      <tr><td>\(\int_0^{\pi/3}\sec x\,dx\) &#183; <b>Q17.1</b></td><td>0</td><td class="n">\(1\)</td><td class="n">\(2\)</td><td class="n">\(\pi/3\)</td><td class="n">\([1.0471975512,\ 2.0943951024]\)</td><td class="n">1.3169578969</td></tr>
+      <tr class="hot172"><td>\(\int_{-1}^{1}\frac{dx}{x^2+1}\) &#183; <b>Q17.2</b></td><td>1</td><td class="n">\(\tfrac12\)</td><td class="n">\(1\)</td><td class="n">2</td><td class="n">\([1,\ 2]\)</td><td class="n">1.5707963268</td></tr>
+      <tr><td>\(\int_{-1}^{1}\frac{dx}{x^2+4}\)</td><td>1</td><td class="n">\(\tfrac15\)</td><td class="n">\(\tfrac14\)</td><td class="n">2</td><td class="n">\([0.4,\ 0.5]\)</td><td class="n">0.4636476090</td></tr>
+      <tr><td>\(\int_{-2}^{2}\frac{dx}{x^2+1}\)</td><td>1</td><td class="n">\(\tfrac15\)</td><td class="n">\(1\)</td><td class="n">4</td><td class="n">\([0.8,\ 4]\)</td><td class="n">2.2142974356</td></tr>
+      <tr><td>\(\int_{-1}^{1}e^{-x^2}\,dx\)</td><td>1</td><td class="n">\(e^{-1}\)</td><td class="n">\(1\)</td><td class="n">2</td><td class="n">\([0.7357588823,\ 2]\)</td><td class="n">1.4936482656</td></tr>
+      <tr><td>\(\int_0^{\pi}\sin x\,dx\)</td><td>1</td><td class="n">\(0\)</td><td class="n">\(1\)</td><td class="n">\(\pi\)</td><td class="n">\([0,\ 3.1415926536]\)</td><td class="n">2</td></tr>
+      <tr><td>\(\int_{-1}^{1}(1-x^2)\,dx\)</td><td>1</td><td class="n">\(0\)</td><td class="n">\(1\)</td><td class="n">2</td><td class="n">\([0,\ 2]\)</td><td class="n">1.3333333333</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Only three distinct shapes appear there. Rows six, seven, nine and eleven have their maximum at the interval midpoint because each integrand is even on a symmetric interval; row eight is the same function on a longer interval; row ten is the one where the interior point supplies \(M\) for a different reason.</p>
+
+  <h3>Family 3: sharpening with a polynomial sandwich</h3>
+
+  <p>For \(u \ge 0\) the alternating expansion of \(\frac{1}{1+u}\) gives \(1 - u \le \frac{1}{1+u} \le 1 - u + u^2\). Put \(u = x^2\) and integrate over \([-1,1]\).</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>sandwich</th><th>lower</th><th>upper</th><th>width</th><th>contains \(\pi/2\)</th></tr></thead>
+    <tbody>
+      <tr><td>constants \(m=\tfrac12\), \(M=1\) &#183; what the question asked for</td><td class="n">1</td><td class="n">2</td><td class="n">1</td><td>yes</td></tr>
+      <tr><td>polynomials \(1-x^2\) and \(1-x^2+x^4\)</td><td class="n">1.3333333333</td><td class="n">1.7333333333</td><td class="n">0.4</td><td>yes</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Both comparisons were checked pointwise at 200001 samples with zero violations in either direction. The polynomial sandwich is strictly inside the constant one, and it is a better answer to a question nobody asked.</p>
+
+  <h3>Family 4: splitting sharpens, and the width formula has a catch</h3>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>pieces \(k\)</th><th>lower</th><th>upper</th><th>width</th></tr></thead>
+    <tbody>
+      <tr><td class="n">2</td><td class="n">1.0000000000</td><td class="n">2.0000000000</td><td class="n">1.0000000000</td></tr>
+      <tr><td class="n">4</td><td class="n">1.3000000000</td><td class="n">1.8000000000</td><td class="n">0.5000000000</td></tr>
+      <tr><td class="n">8</td><td class="n">1.4405882353</td><td class="n">1.6905882353</td><td class="n">0.2500000000</td></tr>
+      <tr><td class="n">20</td><td class="n">1.5199629945</td><td class="n">1.6199629945</td><td class="n">0.1000000000</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="note">The usual width formula \((M-m)(b-a)/k\) is derived by telescoping, and it telescopes <b>once per monotone branch</b>. This integrand has two branches on \([-1,1]\), so its width is \(2(M-m)h\), twice the textbook value: at \(k=20\) that is \(0.1\), not \(0.05\). Verified against the monotone half \([0,1]\), where the textbook formula does hold.</p>
+
+  <h3>Family 5 and Family 6, verified</h3>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>integral or integrand</th><th>bounds</th><th>true value</th><th>what it teaches</th></tr></thead>
+    <tbody>
+      <tr><td>\(\int_{1}^{-1}\frac{dx}{x^2+1}\)</td><td class="n">\([-2,\ -1]\)</td><td class="n">-1.5707963268</td><td>reversing the limits reverses the inequality</td></tr>
+      <tr><td>\(\int_{-1}^{1}\frac{-dx}{x^2+1}\)</td><td class="n">\([-2,\ -1]\)</td><td class="n">-1.5707963268</td><td>negating \(f\) swaps which bound is which</td></tr>
+      <tr><td>\(\int_{-1}^{1}\frac{x\,dx}{x^2+1}\)</td><td class="n">\([-1,\ 1]\)</td><td class="n">0</td><td>the property applies and says almost nothing; symmetry gives the exact answer</td></tr>
+      <tr><td>\(1\) for \(x&lt;0\), \(2\) for \(x \ge 0\), on \([-1,1]\)</td><td class="n">\([2,\ 4]\)</td><td class="n">3</td><td>bounded but discontinuous: the property still applies</td></tr>
+      <tr class="bad172row"><td>\(\frac{1}{x^2}\) on \([-1,1]\)</td><td class="n">none</td><td class="n">divergent</td><td>unbounded: no finite \(M\), so the property does not apply</td></tr>
+    </tbody>
+  </table></div>
+
+  <p>Row four is the one people get wrong. The comparison property needs <b>boundedness and integrability</b>, not continuity.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">08</span>What a self-check can and cannot catch</h2>
+
+  <p>The obvious check is "does my interval contain the true value". It is a genuinely useful check and it is <b>one-sided</b>: it catches a bound that is too tight and can never catch one that is too loose.</p>
+
+  <p>Proved rather than asserted. Over <b>201201</b> sampled loosenings, with \(m' \le \tfrac12\) in steps of \(0.001\) and \(M' \ge 1\) in steps of \(0.01\), <b>zero</b> failed to contain \(\pi/2\).</p>
+
+  <p>The eighteen-row census below takes every way of answering this question that came to hand, with no row dropped as degenerate, and tags each one by computation.</p>
+
+  <div class="cen172">
+    <div class="ccell172 cok172"><div class="cn172">5</div><div class="ct172">valid and containing &#183; \(m' \le m\), \(M' \ge M\), correct width</div></div>
+    <div class="ccell172 chid172"><div class="cn172">3</div><div class="ct172">invalid but containing &#183; unjustified, and the check cannot see it</div></div>
+    <div class="ccell172 ccau172"><div class="cn172">10</div><div class="ct172">caught &#183; the true value falls outside what was written</div></div>
+  </div>
+
+  <p>The three that hide are worth knowing by name.</p>
+
+  <ol class="hid172">
+    <li><span>The maximum read at \(x = 0.4\), which is still above the average value, so the ceiling drops but not far enough.</span></li>
+    <li><span>The maximum read at \(x = c\) exactly, the Mean Value Theorem for Integrals point, which gives \([1,\ \pi/2]\) and touches the true value at its upper end.</span></li>
+    <li><span>The answer written as the average value alone, \([\pi/2,\ \pi/2]\), which "contains" the true value by hitting it exactly while justifying nothing.</span></li>
+  </ol>
+
+  <p>The dividing line for a mis-read maximum is the point \(c\) where \(f(c)\) equals the average value \(\pi/4\):</p>
+
+  $$c = \sqrt{\frac{4}{\pi} - 1} = 0.5227232009 ,$$
+
+  <p>which is \(52.27\%\) of the way along the half-interval \([0,1]\), confirmed by an independent 1001-point scan rather than by re-deriving the formula. Reading \(M\) anywhere in \([0,c)\) hides; reading it beyond \(c\) is caught. The boundary is not the midpoint and it is not obvious.</p>
+
+  <p><b>Against Q17.1's census</b> (eighteen rows: 6 valid and containing, 4 invalid but containing, 8 caught), this question catches two more and hides one fewer. The row that flips is the headline one: the dropped \((b-a)\) factor hides there and is caught here. The other difference is in character, not count. Q17.1's hiders are all mis-read extremes; one of this question's three is a student who wrote no bound at all and simply guessed the right number.</p>
+
+  <p class="note">Two rows of the census land on the same interval \([0.5,\ 1]\) from different mistakes: dropping \((b-a)\), and using symmetry to reduce to \([0,1]\) and then forgetting to double back. A wrong answer does not identify its own cause.</p>
+</section>
+
+<section>
+  <h2><span class="sn172">09</span>The traps, ranked</h2>
+
+  <ol class="traps172">
+    <li><b>Dropping \((b-a)\).</b> <span>Caught on this question, invisible on Q17.1. Write \(b-a\) on its own line before multiplying.</span></li>
+    <li><b>Answering with an interval when the verb said "estimate".</b> <span>Costs the last mark, not the method marks. One extra line fixes it.</span></li>
+    <li><b>Answering with \(\pi/2\) alone.</b> <span>The question named the method. Give the sandwich first and the exact value as a bonus.</span></li>
+    <li><b>Reading the minimum at \(x=0\).</b> <span>That is where the maximum is. The resulting bound \([2,2]\) misses \(\pi/2\), so this one is caught.</span></li>
+    <li><b>Reading the maximum away from \(x=0\).</b> <span>Hides if you land before \(c = 0.5227232009\), caught after it.</span></li>
+    <li><b>Sign slips on \(b-a = 1-(-1)\).</b> <span>Two minus signs in one subtraction. Write the substitution out.</span></li>
+    <li><b>Using the property on an unbounded integrand.</b> <span>Screen for poles first. See Family 6.</span></li>
+    <li><b>Believing that containment is a check.</b> <span>It only catches over-tightening. See section 08.</span></li>
+  </ol>
+</section>
+
+<section>
+  <h2><span class="sn172">10</span>Entering it, and the decision tree</h2>
+
+  <p>Both exams are M&#246;bius, answer-only and machine-marked, so a right method with a bad keystroke scores zero. M&#246;bius runs two grading engines and one box can be parsed by either, so preview every answer.</p>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>do</th><th>do not</th></tr></thead>
+    <tbody>
+      <tr><td><span class="kbd">1</span> and <span class="kbd">2</span> in separate bound boxes</td><td><span class="kbd">1&lt;=I&lt;=2</span> in a numeric box</td></tr>
+      <tr><td><span class="kbd">3/2</span> or <span class="kbd">1.5</span> for a single estimate</td><td><span class="kbd">1,5</span> or <span class="kbd">1 1/2</span></td></tr>
+      <tr><td><span class="kbd">pi/2</span> if the exact value is asked for</td><td>the Greek letter pasted into the box</td></tr>
+      <tr><td><span class="kbd">2*pi/4</span> parses, but simplify first</td><td><span class="kbd">2pi/4</span> with no star</td></tr>
+    </tbody>
+  </table></div>
+
+  <p class="note">The single most expensive typo here is entering the interval into a box that wanted a number, or the reverse. The verb tells you which, and this question's verb is "estimate".</p>
+
+<pre class="tree172">
+                 "properties of the definite integral"
+                                |
+                 READ THE VERB ------------------------.
+                   |               |                   |
+              "interval"      "estimate"            "bound"
+              two numbers   sandwich + a NUMBER   an inequality
+                   |               |                   |
+                   '---------------+-------------------'
+                                   |
+                     Is f BOUNDED on [a,b]?
+                        |               |
+                       no              yes
+                        |               |
+              say the property     Is there a part (a) on the
+              does not apply       same f and the same [a,b]?
+              (Family 6)              |            |
+                                    yes            no
+                                      |             |
+                         COPY m and M          run the closed-interval
+                         from part (a)         method: f'=0, f' undefined,
+                         (Family 2)            both endpoints
+                                       \      /
+                                        \    /
+                            WRITE  b - a  ON ITS OWN LINE
+                                         |
+                              m(b-a)  &lt;=  I  &lt;=  M(b-a)
+                                         |
+                             verb was "estimate"?
+                                  |            |
+                                 yes           no
+                                  |            |
+                   add  I ~ (m+M)(b-a)/2    stop here
+                                  |
+       CHECK: is (1/(b-a)) x your estimate between m and M?
+       CHECK: did you multiply by (b-a)?   (it is 2 here)
+       PREVIEW the box before submitting.
+</pre>
+</section>
+
+<section>
+  <h2><span class="sn172">11</span>Provenance and verification</h2>
+
+  <div class="tscroll"><table class="vtab">
+    <thead><tr><th>what</th><th>where</th></tr></thead>
+    <tbody>
+      <tr><td>question text, canonical</td><td class="mono">notes\MATH265.md, Q17.2</td></tr>
+      <tr><td>original paper and point value</td><td class="mono">notes\MATH265\MATH265.md lines 250-251, F2 item 3b, 8 pts shared with 3a</td></tr>
+      <tr><td>part (a) of this very item</td><td class="mono">notes\Q15.3 - Absolute extremes by the Extreme Value Theorem.md</td></tr>
+      <tr><td>the category's first question</td><td class="mono">notes\Q17.1 - Interval containing a secant integral.md</td></tr>
+      <tr><td>verification harness</td><td class="mono">Work\knowledge\topics\math265-answer-verification.py, sections q172 and q172d</td></tr>
+      <tr><td>the full tutorial</td><td class="mono">notes\Q17.2 - Estimate an integral from its properties.md</td></tr>
+    </tbody>
+  </table></div>
+
+  <p><b>Verification counts, scoped to this question only.</b> Section <span class="mono172">q172</span>: <b>151 PASS, 0 FAIL</b>, including 21 seeded controls. Section <span class="mono172">q172d</span>: <b>138 PASS, 0 FAIL</b>, including 6 seeded controls. Total in scope: <b>289 PASS, 0 FAIL, 27 controls</b>. No number on this page describes the shared harness file as a whole, because other runs append to it concurrently and any whole-file measurement goes stale within minutes.</p>
+
+  <p><b>How the true value was pinned, and how many digits it is allowed to print.</b> \(\pi/2\) was checked against four equivalent closed forms and two independent quadratures; tanh-sinh at level 9 and Gauss-Legendre at \(n=40\) agree with the closed form and with each other to under \(10^{-13}\).</p>
+
+  <p>Two precision findings were measured rather than assumed. First, <b>Simpson's observed order on this integrand is 6, not the textbook 4</b>: \(5.9948605833\) at \(n = 64 \to 128\) and \(6.1019065780\) at \(n = 128 \to 256\). The reason is analytic and was verified: \(f'''(x) = \frac{24x(1-x^2)}{(x^2+1)^4}\) vanishes at <b>both</b> endpoints \(x = \pm 1\), which kills the \(h^4\) term of the Euler-Maclaurin error expansion. A control integrand whose third derivative does not vanish at the endpoints shows the textbook order 4 on the same meter, so the 6 belongs to this integrand and not to the instrument.</p>
+
+  <p>Second, <b>both quadrature ladders had to be bounded before they were read</b>. Simpson reaches the roundoff floor at \(n=256\), and past that rung the measured order goes negative, which is float noise rather than a degraded method. Tanh-sinh is best at levels 8 and 9 and gets <em>worse</em> from level 10 on as summation error accumulates. A digit-lock inherits the precision of the method that produced it, so no decimal on this page was widened past what the computation actually resolved.</p>
+
+  <p><b>The root census, and why its arms are reported separately.</b> \(f'\) has exactly one zero on \([-1,1]\), at \(x=0\), which is the exact centre of the interval. On a grid with an odd number of nodes \(x=0\) <b>is</b> a node, so a strict sign-change arm reports zero changes while an exact-grid-zero arm reports one; on an even grid the two swap. Both grids were run and both arms reported, and their sum is 1 either way. A census run only one way here would have printed \(0\) and looked exactly like a census that never ran. Two further arms: a value-turn arm reports 2, because \(f'\) turns at the inflection points \(x = \pm 1/\sqrt3 = \pm 0.5773502692\); and an undefined-point arm reports 0, because \((x^2+1)^2 \ge 1 &gt; 0\).</p>
+
+  <p><b>Course files, and what to distrust.</b> <span class="mono172">MATH265_Categorized.md</span> is cp1252 and a utf-8 read crashes at byte 318. <span class="mono172">MATH265_questions.md</span> is 99.9% a duplicate of the papers file, so a count across both double-counts one document. <span class="mono172">MATH265_Review.md</span> carries several verified defects elsewhere in the course. <b>No marking scheme exists in any of the four files</b>, so every statement on this page about what earns marks is an inference from the question's wording and point value, not a quotation.</p>
+
+  <p class="date172">Written 2026-09-02.</p>
+</section>
+
+</main>
