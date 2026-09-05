@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Exact Cosine Values</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -975,7 +976,7 @@ h4.angsub{
   <p class="sub">All three are legitimate and all three land on the same surd. They are not equally
   good under pressure.</p>
 
-  <h3>Route A &mdash; parity first, then the difference formula</h3>
+  <h3>Route A - parity first, then the difference formula</h3>
   <p>Cosine is even, so \(\cos\!\left(-\tfrac{\pi}{12}\right)=\cos\tfrac{\pi}{12}\). Then split the
   angle, checking the split before using it:
   \(\tfrac{\pi}{4}-\tfrac{\pi}{6}=\tfrac{3\pi-2\pi}{12}=\tfrac{\pi}{12}\). Good.</p>
@@ -983,14 +984,14 @@ h4.angsub{
   =\frac{\sqrt2}{2}\cdot\frac{\sqrt3}{2}+\frac{\sqrt2}{2}\cdot\frac{1}{2}
   =\frac{\sqrt6}{4}+\frac{\sqrt2}{4}=\frac{\sqrt6+\sqrt2}{4}$$
 
-  <h3>Route B &mdash; the same formula without using parity</h3>
+  <h3>Route B - the same formula without using parity</h3>
   <p>Keep the minus inside and split \(-\tfrac{\pi}{12}=\tfrac{\pi}{6}-\tfrac{\pi}{4}\), which gives
   \(\tfrac{\sqrt6}{4}+\tfrac{\sqrt2}{4}\) again. That is the point: cosine does not care about the
   order of the subtraction, because it is even. A third valid split is
   \(\tfrac{\pi}{12}=\tfrac{\pi}{3}-\tfrac{\pi}{4}\), also verified to give 0.9659258263. Useful as a
   cross-check, but it is one more thing to get right.</p>
 
-  <h3>Route C &mdash; half angle from \(\pi/6\)</h3>
+  <h3>Route C - half angle from \(\pi/6\)</h3>
   <p>\(\tfrac{\pi}{12}\) is half of \(\tfrac{\pi}{6}\), and it sits in quadrant I, so take the plus:</p>
   $$\cos\frac{\pi}{12}=+\sqrt{\frac{1+\cos(\pi/6)}{2}}=\sqrt{\frac{1+\frac{\sqrt3}{2}}{2}}
   =\sqrt{\frac{2+\sqrt3}{4}}=\frac{\sqrt{2+\sqrt3}}{2}$$
@@ -1070,7 +1071,7 @@ h4.angsub{
   <h2>Typing it without losing the mark</h2>
   <p class="sub">M&ouml;bius hides two different parsers behind one answer box and nothing in the
   interface tells you which one you are in. Grading is by mathematical equivalence, so a correct
-  answer is never rejected for its <em>form</em> &mdash; only for being <em>parsed</em> differently
+  answer is never rejected for its <em>form</em> - only for being <em>parsed</em> differently
   than you intended.</p>
   <div class="tw">
     <table>
@@ -1363,7 +1364,7 @@ h4.angsub{
   first, the three reciprocals in the second. The cos(&minus;x) column was retired in that split. It
   existed to make cosine's parity visible, and the <strong>even</strong> chips on the cos and sec
   headers now say the same thing in less width. Those cells are checked against the markup rather than
-  by re-derivation &mdash; the check parses the LaTeX back out of the source and evaluates it, so it
+  by re-derivation - the check parses the LaTeX back out of the source and evaluates it, so it
   fails if a printed cell is ever hand-edited. <strong>272 checks, 0 mismatches</strong> across the two
   tables: every radian entry, every defined function cell, every <span class="und">undef</span> marker,
   that both tables list the same 33 angles in the same order, and that no row exceeds five columns. It

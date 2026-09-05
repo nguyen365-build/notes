@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>Five Conditions, One Sketch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -395,7 +396,7 @@ a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-of
   <p>There is no unique answer, and that is the point: any function with these five features scores
   full marks, and the marks are spread over the five conditions. Here is one, chosen so that every
   landmark is a whole number or a small fraction.</p>
-  <p>$$f(x)=\begin{cases}-2x, & x \le 0\\[4pt] \dfrac{x}{1-x}, & 0 < x < 1\\[4pt] 3 + \dfrac{1}{x-1}, & x > 1\end{cases}$$</p>
+  <p>$$f(x)=\begin{cases}-2x, & x \le 0\\[4pt] \dfrac{x}{1-x}, & 0 &lt; x &lt; 1\\[4pt] 3 + \dfrac{1}{x-1}, & x > 1\end{cases}$$</p>
 
   <figure>
     <div class="figtop">The shipped answer, plotted from the function &middot; every coordinate evaluated, none drawn</div>
@@ -595,7 +596,7 @@ CHECK   Slope each side of 0?   -2 and +1.   DIFFERENT -> corner.
   <h3>Any numeric reword is one substitution</h3>
   <p>For the condition set &ldquo;\(\lim_{x\to\infty}f=H\); \(f(0)=v\); \(\lim_{x\to c}f=m\) with
   \(c&lt;0\); \(\lim_{x\to p}f=+\infty\) with \(p&gt;0\); continuous but not differentiable at \(0\)&rdquo;:</p>
-  <p>$$f(x)=\begin{cases} v + \dfrac{m-v}{c}\,x, & x\le0\\[8pt] v + \dfrac{x}{p-x}, & 0<x<p\\[8pt] H + \dfrac{1}{x-p}, & x>p \end{cases}$$</p>
+  <p>$$f(x)=\begin{cases} v + \dfrac{m-v}{c}\,x, & x\le0\\[8pt] v + \dfrac{x}{p-x}, & 0&lt;x&lt;p\\[8pt] H + \dfrac{1}{x-p}, & x>p \end{cases}$$</p>
   <p>The corner slopes are \(\frac{m-v}{c}\) and \(\frac1p\). Eight instances of this were audited
   against their own five conditions. There is exactly one way to get it wrong: if
   \(\frac{m-v}{c}=\frac1p\) the two slopes agree, the join is straight, and condition (e) fails
