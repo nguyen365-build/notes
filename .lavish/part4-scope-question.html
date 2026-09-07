@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Scope decision: Part 4 tables</title>
+<style>
+  :root {
+    --graphite: #14181F;
+    --graphite-2: #1c212b;
+    --graphite-3: #262c38;
+    --line: #333a48;
+    --text: #e8ebf1;
+    --text-dim: #9aa3b5;
+    --amber: #F2A53C;
+    --amber-dim: #b8823a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--graphite);
+    color: var(--text);
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 780px; margin: 0 auto; }
+  .kicker {
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 0.5rem;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin: 0 0 1.25rem;
+    color: var(--text);
+  }
+  .status-row {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.75rem;
+  }
+  .pill {
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.78rem;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--graphite-2);
+    color: var(--text-dim);
+    white-space: nowrap;
+  }
+  .pill.done { border-color: var(--amber-dim); color: var(--amber); }
+  .card {
+    background: var(--graphite-2);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 1.4rem 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .card h2 {
+    font-size: 0.95rem;
+    margin: 0 0 0.75rem;
+    color: var(--text);
+  }
+  .card p { color: var(--text-dim); margin: 0.4rem 0; font-size: 0.92rem; }
+  code, .mono {
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.85em;
+    color: var(--amber);
+    background: rgba(242,165,60,0.08);
+    padding: 0.05em 0.35em;
+    border-radius: 4px;
+  }
+  .example-block {
+    background: var(--graphite);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 0.9rem 1rem;
+    margin: 0.75rem 0;
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.82rem;
+    color: var(--text-dim);
+    overflow-x: auto;
+    white-space: pre-wrap;
+  }
+  .example-block b { color: var(--text); }
+  form.question {
+    background: var(--graphite-2);
+    border: 1px solid var(--amber-dim);
+    border-radius: 10px;
+    padding: 1.5rem;
+  }
+  .question-label {
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin: 0 0 1rem;
+  }
+  .option {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.9rem 1rem;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    margin-bottom: 0.7rem;
+    cursor: pointer;
+    transition: border-color 0.15s, background 0.15s;
+  }
+  .option:hover { border-color: var(--amber-dim); background: rgba(242,165,60,0.05); }
+  .option input[type="radio"] {
+    margin-top: 0.2rem;
+    accent-color: var(--amber);
+    flex-shrink: 0;
+  }
+  .option .opt-body strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.95rem;
+    margin-bottom: 0.2rem;
+  }
+  .option .opt-body span {
+    color: var(--text-dim);
+    font-size: 0.85rem;
+  }
+  .rec-tag {
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber-dim);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    margin-left: 0.5rem;
+  }
+  button[type="submit"] {
+    margin-top: 0.5rem;
+    background: var(--amber);
+    color: var(--graphite);
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-family: "Consolas", "SF Mono", monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 100%;
+  }
+  button[type="submit"]:hover { background: #ffb85c; }
+  .confirm {
+    display: none;
+    margin-top: 1rem;
+    padding: 0.9rem 1rem;
+    background: rgba(242,165,60,0.1);
+    border: 1px solid var(--amber-dim);
+    border-radius: 8px;
+    color: var(--amber);
+    font-size: 0.88rem;
+    font-family: "Consolas", "SF Mono", monospace;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="kicker">index.html &middot; step-list &rarr; table conversion</p>
+  <h1>Scope decision: does Part 4 also get converted?</h1>
+
+  <div class="status-row">
+    <span class="pill done">Special Limits / Quick Ref &mdash; nothing to convert (no step lists)</span>
+    <span class="pill done">Limits L1&ndash;L20 &mdash; 43 converted</span>
+    <span class="pill done">Derivatives D1&ndash;D18 &mdash; 45 converted</span>
+    <span class="pill done">Integrals I1&ndash;I22 &mdash; 33 converted</span>
+    <span class="pill">Part 4 exam questions &mdash; blocked, needs your call</span>
+  </div>
+
+  <div class="card">
+    <h2>Why this section is different</h2>
+    <p>Parts 1&ndash;3 (Limits, Derivatives, Integrals) wrote worked steps as numbered <code>&lt;ol&gt;</code> lists &mdash; those converted cleanly into a two-column table (Calculation | Method), like this:</p>
+    <div class="example-block"><b>Calculation                              | Method</b>
+$\lim_{x\to 2}\frac{x^3-4x+1}{x+3} = ...$ | Direct substitution
+$= \frac{8-8+1}{5}$                       | Arithmetic
+$= \frac{1}{5}$                           | Final value</div>
+    <p>Part 4 (the MATH265 exam questions &mdash; functions, transformations, sketching, tangent lines, Newton's method, optimization, integral properties) never used <code>&lt;ol&gt;</code> at all. It's ~140 blocks of bolded prose labels, each followed by its own equation paragraph:</p>
+    <div class="example-block"><b>Step 1: kill the minus sign.</b> Cosine is even, so ...
+$$\cos(-x) = \cos(x)$$
+
+<b>Step 2: ...</b>
+$$...$$</div>
+    <p>Converting Part 4 to match would mean restructuring roughly 140 step blocks across every exam question in that section &mdash; a much bigger job than Parts 1&ndash;3, and a different kind of edit (merging a bold-label paragraph + a separate equation paragraph into one table row), not just reformatting an existing list.</p>
+  </div>
+
+  <form class="question" data-lavish-question="part4-scope" onsubmit="handleSubmit(event)">
+    <p class="question-label">Your call</p>
+
+    <label class="option">
+      <input type="radio" name="scope" value="convert-all" />
+      <span class="opt-body">
+        <strong>Convert Part 4 too, for full consistency<span class="rec-tag">Recommended</span></strong>
+        <span>Same Calculation/Method table format, applied to all ~140 step blocks across Part 4. Biggest job, but the whole file ends up uniform.</span>
+      </span>
+    </label>
+
+    <label class="option">
+      <input type="radio" name="scope" value="leave-as-is" />
+      <span class="opt-body">
+        <strong>Leave Part 4 as-is</strong>
+        <span>Only Parts 1&ndash;3 (Limits, Derivatives, Integrals) get the table treatment. Part 4's bolded step-prose format stays untouched since it's already readable.</span>
+      </span>
+    </label>
+
+    <label class="option">
+      <input type="radio" name="scope" value="show-sample" />
+      <span class="opt-body">
+        <strong>Show me one converted example from Part 4 first</strong>
+        <span>Convert a single worked question (e.g. one tangent-line or optimization problem) into the table format so you can see it before deciding for the whole section.</span>
+      </span>
+    </label>
+
+    <button type="submit">Queue this answer</button>
+    <div class="confirm" id="confirm-msg">Answer queued &mdash; sending to Claude&hellip;</div>
+  </form>
+</div>
+
+<script>
+function handleSubmit(event) {
+  event.preventDefault();
+  const choice = new FormData(event.currentTarget).get('scope');
+  if (!choice) return;
+  const labels = {
+    'convert-all': 'Convert Part 4 too, for full consistency with Parts 1-3 (all ~140 step blocks into Calculation/Method tables)',
+    'leave-as-is': 'Leave Part 4 as-is; only Parts 1-3 get the table treatment',
+    'show-sample': 'Convert one sample Part 4 question into the table format first, then wait for a decision on the rest'
+  };
+  window.lavish.queuePrompt(labels[choice], {
+    tag: 'choice',
+    text: 'Part 4 scope: ' + choice,
+    element: event.currentTarget,
+    data: { question: 'part4-scope', answer: choice }
+  });
+  document.getElementById('confirm-msg').style.display = 'block';
+}
+</script>
+</body>
+</html>
