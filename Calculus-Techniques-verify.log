@@ -38,6 +38,30 @@ PASS L20b H_n - ln n -> Euler gamma   got=0.5772161649 want=0.5772156649
 PASS L20b2 ratio H_n/ln n decreasing toward 1   got=1 want=1
 PASS L20b3 ratio matches 1 + gamma/ln n   got=1.041780299 want=1.041780263
 PASS L20c ratio test 3^n/n! -> 0   got=0  want=0
+
+=== MATH265 exam-question additions: LIMITS ===
+PASS MQ L1 Q3.2c (6x-9)/(x^3-12x+3) at 0   got=-3  want=-3
+PASS MQ L2 Q3.2a (x^2-1)/(x^3-1)   got=2/3  want=2/3
+PASS MQ L2 Q4.1 simplified form matches (x+1)/(x+4)   got=0  want=0
+PASS MQ L2 Q4.1 hole value at x=4   got=0.625 want=0.625
+PASS MQ L2 Q4.1 VA left at x=-4   got=oo  want=oo
+PASS MQ L2 Q4.1 VA right at x=-4   got=-oo  want=-oo
+PASS MQ L2 Q4.1 HA as x->oo   got=1  want=1
+PASS MQ L3 Q3.1d double conjugate   got=1/2  want=1/2
+PASS MQ L5 Q3.1e sin(3x)/(x^2-x)   got=-3  want=-3
+PASS MQ L5 Q3.2b x^2/(1-cos2x)   got=1/2  want=1/2
+PASS MQ L6 Q3.3a squeeze*(deg comparison)   got=0  want=0
+PASS MQ L8 Q3.2d (5-2x^3)/(x^2+2) at oo   got=-oo  want=-oo
+PASS MQ L13 Q3.1b left +oo   got=oo  want=oo
+PASS MQ L13 Q3.1b right -oo   got=-oo  want=-oo
+PASS MQ L13 Q3.1c left -oo   got=-oo  want=-oo
+PASS MQ L13 Q3.1c right +oo   got=oo  want=oo
+PASS MQ L13 Q3.2e left -oo   got=-oo  want=-oo
+PASS MQ L13 Q3.2e right +oo   got=oo  want=oo
+PASS MQ L13 Q3.2f left +oo   got=oo  want=oo
+PASS MQ L13 Q3.2f right +oo   got=oo  want=oo
+PASS MQ L13 Q3.3b tan(5pi/2) left +oo   got=oo  want=oo
+PASS MQ L13 Q3.3b tan(5pi/2) right -oo   got=-oo  want=-oo
 PASS L18 |x^3/(x^2+y^2)| <= r over all angles   got=0.001 want=0.001
 PASS L18b path y=0 gives 0   got=0 want=0
 PASS L18c path y=x gives 1/2   got=0.5 want=0.5
@@ -86,6 +110,27 @@ PASS D18 central difference ln at 1, h=.01   got=1.000033335 want=1.000033336
 PASS D18b f(1.01)=ln1.01   got=0.009950330853 want=0.00995033085
 PASS D18c f(0.99)=ln0.99   got=-0.01005033585 want=-0.0100503359
 PASS D18d error ~3.33e-5 = h^2/3   got=3.333533348e-05 want=3.3336e-05
+
+=== MATH265 exam-question additions: DERIVATIVES ===
+PASS MQ D1 Q7.1 d/dx cot x by definition   got=-1/sin(x)**2  want=-csc(x)**2
+PASS MQ D2 Q8.1a poly derivative   got=20*x**4 + 12*x**3 - 18*x**2  want=20*x**4 + 12*x**3 - 18*x**2
+PASS MQ D3 Q8.3a product of sin and nested cos(sin(x^2))   got=-2*x*sin(x)*sin(sin(x**2))*cos(x**2) + cos(x)*cos(sin(x**2))  want=-2*x*sin(x)*sin(sin(x**2))*cos(x**2) + cos(x)*cos(sin(x**2))
+PASS MQ D4 Q8.1b quotient (2x-16)/(x+3)^2   got=0  want=0
+PASS MQ D4 Q8.4a tan(2x)/sqrt(x)   got=0  want=0
+PASS MQ D5 Q8.3c nested sqrt(1+sqrt(1+x))   got=0  want=0
+PASS MQ D5 Q8.4b cos^3(x^2) at x=sqrt(pi)/2   got=-1.879971206 want=-1.879971206
+PASS MQ D6 Q8.2b sec(x^2-3x)   got=(2*x - 3)*tan(x**2 - 3*x)*sec(x**2 - 3*x)  want=(2*x - 3)*tan(x**2 - 3*x)*sec(x**2 - 3*x)
+PASS MQ D8 Q10.1 implicit y'   got=0  want=0
+PASS MQ D8 Q10.2 slope at (1,1) = 2   got=2  want=2
+PASS MQ D8 Q10.2 point on curve   got=0  want=0
+PASS MQ D12 Q8.2a second derivative of cot(2x)   got=0  want=0
+PASS MQ D13 Q11.1 dh/dt = 1/(8pi)   got=1/(8*pi)  want=1/(8*pi)
+PASS MQ D13 Q11.2 dy/dt = 500 sqrt(41)   got=500*sqrt(41)  want=500*sqrt(41)
+PASS MQ D14 Q12.1 linear approx sqrt(9.2) = 91/30   got=91/30  want=91/30
+PASS MQ D14 Q12.1 true sqrt(9.2)   got=3.033150178 want=3.03315018
+PASS MQ D14 Q12.2 linear approx sin62   got=0.8834786963 want=0.8834787
+PASS MQ D14 Q12.2 true sin62deg   got=0.8829475929 want=0.8829476
+PASS MQ D17 Q18.1 d/dx int_{2x}^{x} sin(t^2) dt   got=sin(x**2) - 2*sin(4*x**2)  want=sin(x**2) - 2*sin(4*x**2)
 
 === PART 3: INTEGRALS ===
 PASS I1  int (x^3+2sqrt x)/x = x^3/3+4sqrt x
@@ -152,6 +197,18 @@ PASS I22b Green double integral of y over disk = 0   got=0  want=0
 PASS I22c direct line integral agrees = 0   got=0  want=0
 PASS I22d divergence thm flux = 4pi   got=4*pi  want=4*pi
 
+=== MATH265 exam-question additions: INTEGRALS ===
+PASS MQ I1 Q16.1a (x^2-x)sqrt(3x)
+PASS MQ I1 Q16.1d (x^2-4)^2
+PASS MQ I2 Q16.1e int_2^4 x sqrt(x-1)   got=-16/15 + 28*sqrt(3)/5  want=-16/15 + 28*sqrt(3)/5
+PASS MQ I2 Q16.2a cos(sqrt(2x))/sqrt(x)
+PASS MQ I5 Q16.1b sin(2x)cos(x)
+PASS MQ I5 Q16.2b int_0^{pi/3} tan x sec^2 x   got=3/2  want=3/2
+PASS MQ I5 Q16.2d sec^3(x)tan(x)
+PASS MQ I15 Q16.1c derivative of antiderivative matches integrand   got=0  want=0
+PASS MQ I15 Q19.1 area between y=x and y=2-x^2   got=9/2  want=9/2
+PASS MQ I15 Q19.3 net change water tank   got=2025  want=2025
+
 ============================================================
-148 checks run, 0 failed
+199 checks run, 0 failed
 ALL CHECKS PASSED
