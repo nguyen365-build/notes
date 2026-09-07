@@ -52,7 +52,7 @@
   #jump summary::-webkit-details-marker{display:none}
   #jump summary::before{content:"\25B8 "}
   #jump[open] summary::before{content:"\25BE "}
-  #jump .toc{font-size:2.48em; max-height:50vh; overflow-y:auto; padding:.4em .2em .1em; line-height:1.8}
+  #jump .toc{font-size:1em; max-height:50vh; overflow-y:auto; padding:.4em .2em .1em; line-height:1.8}
   #jump .toc ul{list-style:none; margin:0; padding-left:1.1em}
   #jump .toc > ul{padding-left:0}
   #jump .toc a{color:var(--text)}
@@ -104,8 +104,8 @@
 </li>
 <li><a href="#algebra-calculus-trig-quick-reference">Algebra / Calculus / Trig Quick Reference</a><ul>
 <li><a href="#1-quadratic-formula">1. Quadratic formula</a></li>
-<li><a href="#2-transformation-steps-for-y-afbx-h-k">2. Transformation steps for y = a·f(b·(x - h)) + k</a><ul>
-<li><a href="#order-of-transformations-apply-to-the-base-graph-y-fx">Order of transformations (apply to the base graph y = f(x))</a></li>
+<li><a href="#2-transformation-steps-for-568">2. Transformation steps for $y = a\cdot f(b\cdot(x - h)) + k$</a><ul>
+<li><a href="#order-of-transformations-apply-to-the-base-graph-584">Order of transformations (apply to the base graph $y = f(x)$)</a></li>
 </ul>
 </li>
 <li><a href="#3-techniques-for-evaluating-limits">3. Techniques for evaluating limits</a><ul>
@@ -350,20 +350,24 @@
 <tr>
 <th style="text-align: left;">Limit</th>
 <th style="text-align: left;">Value</th>
+<th style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to 0}\frac{x-\sin x}{x^3}$</td>
 <td style="text-align: left;">$\dfrac16$</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to 0}\frac{\tan x - x}{x^3}$</td>
 <td style="text-align: left;">$\dfrac13$</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to 0}\frac{\sin x - \tan x}{x^3}$</td>
 <td style="text-align: left;">$-\dfrac12$</td>
+<td style="text-align: left;">&nbsp;</td>
 </tr>
 </tbody>
 </table></div>
@@ -412,20 +416,24 @@
 <tr>
 <th style="text-align: left;">Limit</th>
 <th style="text-align: left;">Value</th>
+<th style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\left(1+\frac{1}{x}\right)^x$</td>
 <td style="text-align: left;">$e$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\left(1+\frac{a}{x}\right)^x$</td>
 <td style="text-align: left;">$e^a$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty}\left(1-\frac{1}{n}\right)^n$</td>
 <td style="text-align: left;">$e^{-1}$</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table></div>
@@ -440,40 +448,49 @@ Written smallest-growing to fastest-growing, each term is eventually dwarfed by 
 <tr>
 <th style="text-align: left;">Limit</th>
 <th style="text-align: left;">Value</th>
+<th style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\frac{\ln x}{x}$</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\frac{\ln x}{x^p}$ ($p&gt;0$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to 0^+} x\ln x$</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to 0^+} x^p\ln x$ ($p&gt;0$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\frac{x^n}{e^x}$ (any fixed $n$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty}\frac{e^x}{x^n}$ (any fixed $n$)</td>
 <td style="text-align: left;">$\infty$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty}\frac{a^n}{n!}$ (any fixed $a$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty}\frac{n!}{n^n}$</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table></div>
@@ -485,24 +502,29 @@ Written smallest-growing to fastest-growing, each term is eventually dwarfed by 
 <tr>
 <th style="text-align: left;">Limit</th>
 <th style="text-align: left;">Value</th>
+<th style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty} x^{1/x}$</td>
 <td style="text-align: left;">$1$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty} n^{1/n}$</td>
 <td style="text-align: left;">$1$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty} a^{1/n}$ ($a&gt;0$ fixed)</td>
 <td style="text-align: left;">$1$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{n\to\infty} \frac{(n!)^{1/n}}{n}$</td>
 <td style="text-align: left;">$e^{-1}$</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table></div>
@@ -725,24 +747,29 @@ Recognizing the pattern turns "memorize this limit" into "memorize one derivativ
 <tr>
 <th style="text-align: left;">Limit</th>
 <th style="text-align: left;">Value</th>
+<th style="text-align: left;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty} x^p$ ($p&gt;0$)</td>
 <td style="text-align: left;">$\infty$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty} \frac{1}{x^p}$ ($p&gt;0$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to-\infty} \frac{1}{x^p}$ ($p&gt;0$, defined)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 <tr>
 <td style="text-align: left;">$\displaystyle\lim_{x\to\infty} \frac{c}{x^p}$ (any constant $c$, $p&gt;0$)</td>
 <td style="text-align: left;">$0$</td>
+<td style="text-align: left;"></td>
 </tr>
 </tbody>
 </table></div>
@@ -782,9 +809,6 @@ $$f(x) = \frac{a_n x^n + \cdots + a_0}{b_m x^m + \cdots + b_0}:$$</p>
 <h2 id="6-lhopitals-rule">6. L'Hopital's rule</h2>
 <p>If $\displaystyle\lim_{x\to a} \frac{f(x)}{g(x)}$ is of the form $\dfrac{0}{0}$ or $\dfrac{\infty}{\infty}$, and $f$ and $g$ are differentiable near $a$ with $g'(x) \neq 0$ near $a$ (except possibly at $a$), then</p>
 <p>$$\lim_{x\to a} \frac{f(x)}{g(x)} = \lim_{x\to a} \frac{f'(x)}{g'(x)}$$</p>
-<p>provided the limit on the right exists (as a finite number or as $\pm\infty$).
-The rule applies at $a = \pm\infty$ as well as at a finite point, and it may be applied repeatedly if the new ratio is still $0/0$ or $\infty/\infty$.
-It does <strong>not</strong> apply directly to the other five indeterminate forms ($0\cdot\infty$, $\infty-\infty$, $1^\infty$, $0^0$, $\infty^0$); those must first be rewritten as a single fraction or run through a logarithm before L'Hopital's rule can fire (see <code>Calculus-Techniques-Limits-Derivatives-Integrals.md</code>, techniques L14-L15, for the rewrite steps).</p>
 <hr />
 <h2 id="7-continuity-stated-as-a-limit-equation">7. Continuity, stated as a limit equation</h2>
 <p>$f$ is continuous at $x=a$ if and only if all three conditions hold:</p>
@@ -793,48 +817,43 @@ It does <strong>not</strong> apply directly to the other five indeterminate form
 <li>$\displaystyle\lim_{x\to a} f(x)$ exists.</li>
 <li>$\displaystyle\lim_{x\to a} f(x) = f(a)$.</li>
 </ol>
-<p>Equivalently, continuity is the single equation $\displaystyle\lim_{x\to a} f(x) = f(a)$, since the equation cannot hold unless both sides are defined.
-This is also why "direct substitution" (row 10 of section 3) works: it is valid exactly when $f$ is continuous at the point being substituted.</p>
 <hr />
 <h2 id="8-the-derivative-defined-as-a-limit">8. The derivative, defined as a limit</h2>
 <p>$$f'(a) = \lim_{h\to 0} \frac{f(a+h)-f(a)}{h} = \lim_{x\to a} \frac{f(x)-f(a)}{x-a}$$</p>
-<p>Both forms are the same limit; the first uses a step size $h = x-a$, the second uses $x$ directly.
-Every "hidden derivative" special limit (section 6 of <code>Special-Limits.md</code>) is this formula applied to a specific $f$ and $a$.</p>
+
 <hr />
 <h2 id="9-the-definite-integral-defined-as-a-limit-of-riemann-sums">9. The definite integral, defined as a limit of Riemann sums</h2>
 <p>$$\int_a^b f(x)\,dx = \lim_{n\to\infty} \sum_{i=1}^{n} f(x_i^*)\,\Delta x, \qquad \Delta x = \frac{b-a}{n}$$</p>
-<p>where $x_i^*$ is any sample point in the $i$-th subinterval.
-This is the limit that technique L19 (recognizing a Riemann sum) reverses: given a sum with $i/n$ in it, you rebuild the $f$, $a$, $b$ that would have produced it.</p>
+
 <hr />
 <h2 id="10-limits-of-sequences">10. Limits of sequences</h2>
 <p><strong>Formal definition:</strong></p>
 <p>$$\lim_{n\to\infty} a_n = L$$</p>
 <p>means: for every $\varepsilon &gt; 0$, there is an integer $N$ such that $n &gt; N \Rightarrow |a_n - L| &lt; \varepsilon$.</p>
-<p><strong>Sequence limit laws</strong> mirror the function limit laws in section 3 exactly (sum, difference, constant multiple, product, quotient with nonzero denominator limit, power) since a sequence is just a function with domain restricted to the positive integers.</p>
-<p><strong>Squeeze theorem for sequences:</strong> if $b_n \le a_n \le c_n$ for all $n$ past some point, and $\lim b_n = \lim c_n = L$, then $\lim a_n = L$; same statement as section 5 with $n\to\infty$ in place of $x\to a$.</p>
-<p><strong>Monotone convergence theorem:</strong> a sequence that is monotonic (always increasing, or always decreasing) and bounded must converge; this proves a limit exists without computing its value.</p>
+<p><strong>Squeeze theorem for sequences:</strong> </p>
+<p>if $b_n \le a_n \le c_n$ for all $n$ </p>
+<p>and $\lim b_n = \lim c_n = L$ </p>
+<p>then $\lim a_n = L$</p>
 <hr />
-<h2 id="sources-and-cross-references">Sources and cross-references</h2>
-<p>Standard definitions and theorem statements collected from a first-calculus curriculum (matches the limits unit of AU MATH 265 / equivalent Calculus I courses).
-Where a formula here produces a specific numeric value worth memorizing, see <code>Special-Limits.md</code>.
-Where a formula here needs an algebraic rewrite before it applies, see the matching L-numbered technique in <code>Calculus-Techniques-Limits-Derivatives-Integrals.md</code>.</p>
+
 <h1 id="algebra-calculus-trig-quick-reference">Algebra / Calculus / Trig Quick Reference</h1>
 <h2 id="1-quadratic-formula">1. Quadratic formula</h2>
-<p>For <code>ax² + bx + c = 0</code> (a ≠ 0):</p>
-<pre><code>x = (-b ± √(b² - 4ac)) / (2a)
-</code></pre>
+<p>For $ax^2 + bx + c = 0$ ($a \ne 0$):</p>
+<p>$$x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}$$</p>
 <ul>
-<li>Discriminant <code>D = b² - 4ac</code></li>
-<li><code>D &gt; 0</code> → two distinct real roots</li>
-<li><code>D = 0</code> → one repeated real root, <code>x = -b/(2a)</code></li>
-<li><code>D &lt; 0</code> → two complex conjugate roots, <code>x = (-b ± i√(-D)) / (2a)</code></li>
+<li>Discriminant $D = b^2 - 4ac$</li>
+<li>$D &gt; 0$ → two distinct real roots</li>
+<li>$D = 0$ → one repeated real root, $x = -\dfrac{b}{2a}$</li>
+<li>$D &lt; 0$ → two complex conjugate roots, $x = \dfrac{-b \pm i\sqrt{-D}}{2a}$</li>
 </ul>
-<p>Related forms:
-- Sum of roots: <code>x₁ + x₂ = -b/a</code>
-- Product of roots: <code>x₁x₂ = c/a</code>
-- Vertex form via completing the square: <code>a(x + b/(2a))² + (c - b²/(4a))</code></p>
+<p>Related forms:</p>
+<ul>
+<li>Sum of roots: $x_1 + x_2 = -\dfrac{b}{a}$</li>
+<li>Product of roots: $x_1 x_2 = \dfrac{c}{a}$</li>
+<li>Vertex form via completing the square: $a\left(x + \dfrac{b}{2a}\right)^2 + \left(c - \dfrac{b^2}{4a}\right)$</li>
+</ul>
 <hr />
-<h2 id="2-transformation-steps-for-y-afbx-h-k">2. Transformation steps for <code>y = a·f(b·(x - h)) + k</code></h2>
+<h2 id="2-transformation-steps-for-568">2. Transformation steps for $y = a\cdot f(b\cdot(x - h)) + k$</h2>
 <div class="table-scroll"><table>
 <thead>
 <tr>
@@ -845,160 +864,136 @@ Where a formula here needs an algebraic rewrite before it applies, see the match
 </thead>
 <tbody>
 <tr>
-<td><code>a</code></td>
+<td>$a$</td>
 <td>vertical scale factor</td>
-<td>stretch if <code>|a| &gt; 1</code>, compress if <code>0 &lt; |a| &lt; 1</code>; reflects over the x-axis if <code>a &lt; 0</code></td>
+<td>stretch if $|a| &gt; 1$, compress if $0 &lt; |a| &lt; 1$; reflects over the x-axis if $a &lt; 0$</td>
 </tr>
 <tr>
-<td><code>b</code></td>
+<td>$b$</td>
 <td>horizontal scale factor (inside the function)</td>
-<td>stretch if <code>0 &lt; |b| &lt; 1</code>, compress if <code>|b| &gt; 1</code> (i.e. actual horizontal factor is <code>1/b</code>); reflects over the y-axis if <code>b &lt; 0</code></td>
+<td>stretch if $0 &lt; |b| &lt; 1$, compress if $|b| &gt; 1$ (i.e. actual horizontal factor is $1/b$); reflects over the y-axis if $b &lt; 0$</td>
 </tr>
 <tr>
-<td><code>h</code></td>
+<td>$h$</td>
 <td>horizontal shift</td>
-<td>shifts right if <code>h &gt; 0</code>, left if <code>h &lt; 0</code></td>
+<td>shifts right if $h &gt; 0$, left if $h &lt; 0$</td>
 </tr>
 <tr>
-<td><code>k</code></td>
+<td>$k$</td>
 <td>vertical shift</td>
-<td>shifts up if <code>k &gt; 0</code>, down if <code>k &lt; 0</code></td>
+<td>shifts up if $k &gt; 0$, down if $k &lt; 0$</td>
 </tr>
 </tbody>
 </table></div>
-<h3 id="order-of-transformations-apply-to-the-base-graph-y-fx">Order of transformations (apply to the base graph <code>y = f(x)</code>)</h3>
-<p>Because the argument is written as <code>b·(x - h)</code> (b is factored out first), horizontal operations must be applied in this order:</p>
+<h3 id="order-of-transformations-apply-to-the-base-graph-584">Order of transformations (apply to the base graph $y = f(x)$)</h3>
+<p>Because the argument is written as $b\cdot(x - h)$ ($b$ is factored out first), horizontal operations must be applied in this order:</p>
 <ol>
-<li>Horizontal stretch/compression by factor <code>1/b</code> (and reflect over y-axis if <code>b &lt; 0</code>)</li>
-<li>Horizontal shift by <code>h</code> (left/right)</li>
-<li>Vertical stretch/compression by factor <code>a</code> (and reflect over x-axis if <code>a &lt; 0</code>)</li>
-<li>Vertical shift by <code>k</code> (up/down)</li>
+<li>Horizontal stretch/compression by factor $1/b$ (and reflect over y-axis if $b &lt; 0$)</li>
+<li>Horizontal shift by $h$ (left/right)</li>
+<li>Vertical stretch/compression by factor $a$ (and reflect over x-axis if $a &lt; 0$)</li>
+<li>Vertical shift by $k$ (up/down)</li>
 </ol>
-<p>Steps 1-2 (horizontal group) and steps 3-4 (vertical group) act on independent variables, so the two groups can be done in either order relative to each other. Within each group, scale/reflect must come before shift, because the formula subtracts <code>h</code> from <code>x</code> only after <code>b</code> is factored out (and similarly <code>a</code> scales <code>f(...)</code> before <code>k</code> is added).</p>
-<p>If instead the equation were written as <code>y = a·f(bx - h) + k</code> (h not factored with b), the horizontal shift amount changes to <code>h/b</code> and the same "scale then shift" order still applies to the rewritten <code>b·(x - h/b)</code>.</p>
+<p>Steps 1-2 (horizontal group) and steps 3-4 (vertical group) act on independent variables, so the two groups can be done in either order relative to each other. Within each group, scale/reflect must come before shift, because the formula subtracts $h$ from $x$ only after $b$ is factored out (and similarly $a$ scales $f(\ldots)$ before $k$ is added).</p>
+<p>If instead the equation were written as $y = a\cdot f(bx - h) + k$ ($h$ not factored with $b$), the horizontal shift amount changes to $h/b$ and the same "scale then shift" order still applies to the rewritten $b\cdot(x - h/b)$.</p>
 <hr />
 <h2 id="3-techniques-for-evaluating-limits">3. Techniques for evaluating limits</h2>
 <p>General order of attack: try direct substitution first; if it produces an indeterminate form, pick a technique below based on the shape of the expression.</p>
 <h3 id="indeterminate-forms">Indeterminate forms</h3>
-<p><code>0/0</code>, <code>∞/∞</code>, <code>∞ - ∞</code>, <code>0·∞</code>, <code>1^∞</code>, <code>0⁰</code>, <code>∞⁰</code></p>
+<p>$\dfrac00$, $\dfrac{\infty}{\infty}$, $\infty - \infty$, $0\cdot\infty$, $1^\infty$, $0^0$, $\infty^0$</p>
 <h3 id="core-techniques">Core techniques</h3>
 <ol>
 <li><strong>Direct substitution</strong> - plug in the value; works whenever the function is continuous there.</li>
-<li><strong>Factoring</strong> - factor numerator/denominator and cancel the common factor causing <code>0/0</code>.
-   - e.g. <code>lim(x→2) (x² - 4)/(x - 2) = lim (x - 2)(x + 2)/(x - 2) = 4</code></li>
-<li><strong>Rationalizing (multiply by the conjugate)</strong> - for expressions with a single square root causing <code>0/0</code>; multiply top and bottom by the conjugate of the radical expression.</li>
+<li><strong>Factoring</strong> - factor numerator/denominator and cancel the common factor causing $0/0$.
+   - e.g. $\displaystyle\lim_{x\to 2}\dfrac{x^2 - 4}{x - 2} = \lim_{x\to 2}\dfrac{(x - 2)(x + 2)}{x - 2} = 4$</li>
+<li><strong>Rationalizing (multiply by the conjugate)</strong> - for expressions with a single square root causing $0/0$; multiply top and bottom by the conjugate of the radical expression.</li>
 <li><strong>Multiply by conjugate of both numerator and denominator</strong> - when both numerator and denominator contain radicals; multiply by each conjugate in turn (or their product) to clear both radicals.</li>
-<li><strong>Divide by the highest power of x in the denominator</strong> - for limits as <code>x → ±∞</code> of rational functions.
-   - degree(num) &lt; degree(denom) → limit is 0
+<li><strong>Divide by the highest power of x in the denominator</strong> - for limits as $x \to \pm\infty$ of rational functions.
+   - degree(num) &lt; degree(denom) → limit is $0$
    - degree(num) = degree(denom) → limit is ratio of leading coefficients
-   - degree(num) &gt; degree(denom) → limit is ±∞ (no horizontal asymptote)</li>
-<li><strong>L'Hopital's Rule</strong> - for <code>0/0</code> or <code>∞/∞</code>: <code>lim f(x)/g(x) = lim f'(x)/g'(x)</code>, provided the new limit exists (can reapply repeatedly).</li>
-<li><strong>Squeeze (Sandwich) Theorem</strong> - if <code>g(x) ≤ f(x) ≤ h(x)</code> near a point and <code>lim g = lim h = L</code>, then <code>lim f = L</code>.</li>
+   - degree(num) &gt; degree(denom) → limit is $\pm\infty$ (no horizontal asymptote)</li>
+<li><strong>L'Hopital's Rule</strong> - for $0/0$ or $\infty/\infty$: $\lim f(x)/g(x) = \lim f'(x)/g'(x)$, provided the new limit exists (can reapply repeatedly).</li>
+<li><strong>Squeeze (Sandwich) Theorem</strong> - if $g(x) \le f(x) \le h(x)$ near a point and $\lim g = \lim h = L$, then $\lim f = L$.</li>
 <li><strong>Special trig limits</strong>
-   - <code>lim(x→0) sin(x)/x = 1</code>
-   - <code>lim(x→0) (1 - cos(x))/x = 0</code>
-   - <code>lim(x→0) tan(x)/x = 1</code></li>
+   - $\displaystyle\lim_{x\to 0}\dfrac{\sin(x)}{x} = 1$
+   - $\displaystyle\lim_{x\to 0}\dfrac{1 - \cos(x)}{x} = 0$
+   - $\displaystyle\lim_{x\to 0}\dfrac{\tan(x)}{x} = 1$</li>
 <li><strong>One-sided limits</strong> - evaluate left-hand and right-hand limits separately; the two-sided limit exists only if they agree. Required for piecewise functions and functions with absolute values or vertical asymptotes.</li>
 <li><strong>Absolute value expressions</strong> - split into cases based on the sign of the inner expression, then take the matching one-sided limit.</li>
-<li><strong>Substitution / change of variable</strong> - let <code>u = g(x)</code> to turn an unfamiliar limit into a standard one (e.g. as <code>x → a</code>, <code>u → g(a)</code>).</li>
-<li><strong>The <code>e</code> limit</strong> - <code>lim(n→∞) (1 + 1/n)ⁿ = e</code>, and more generally <code>lim(x→0) (1 + x)^(1/x) = e</code>. Useful for <code>1^∞</code> forms.</li>
+<li><strong>Substitution / change of variable</strong> - let $u = g(x)$ to turn an unfamiliar limit into a standard one (e.g. as $x \to a$, $u \to g(a)$).</li>
+<li><strong>The $e$ limit</strong> - $\displaystyle\lim_{n\to\infty}\left(1 + \dfrac1n\right)^n = e$, and more generally $\displaystyle\lim_{x\to 0}(1 + x)^{1/x} = e$. Useful for $1^\infty$ forms.</li>
 </ol>
 <h3 id="workarounds-for-the-harder-indeterminate-forms">Workarounds for the harder indeterminate forms</h3>
 <ul>
-<li><strong><code>∞ - ∞</code></strong>: combine into a single fraction (common denominator), or rationalize if radicals are involved, then reduce to <code>0/0</code> or <code>∞/∞</code>.</li>
-<li><strong><code>0·∞</code></strong>: rewrite one factor as a reciprocal to convert to <code>0/0</code> or <code>∞/∞</code>, then apply L'Hopital or algebraic simplification.</li>
-<li><strong><code>1^∞</code>, <code>0⁰</code>, <code>∞⁰</code></strong>: take the natural log of the expression, evaluate <code>lim ln(y)</code> (usually now <code>0·∞</code> or <code>0/0</code>), then exponentiate: <code>lim y = e^(lim ln(y))</code>.</li>
-<li><strong>Limits at infinity with nested radicals</strong>: factor the highest power of <code>x</code> out from under each radical before simplifying.</li>
+<li><strong>$\infty - \infty$</strong>: combine into a single fraction (common denominator), or rationalize if radicals are involved, then reduce to $0/0$ or $\infty/\infty$.</li>
+<li><strong>$0\cdot\infty$</strong>: rewrite one factor as a reciprocal to convert to $0/0$ or $\infty/\infty$, then apply L'Hopital or algebraic simplification.</li>
+<li><strong>$1^\infty$, $0^0$, $\infty^0$</strong>: take the natural log of the expression, evaluate $\lim \ln(y)$ (usually now $0\cdot\infty$ or $0/0$), then exponentiate: $\lim y = e^{\lim \ln(y)}$.</li>
+<li><strong>Limits at infinity with nested radicals</strong>: factor the highest power of $x$ out from under each radical before simplifying.</li>
 </ul>
 <hr />
 <h2 id="4-factoring-formulas-powers-2-through-5">4. Factoring formulas (powers 2 through 5)</h2>
 <h3 id="difference-and-sum-of-squares">Difference and sum of squares</h3>
-<pre><code>a² - b² = (a - b)(a + b)
-a² + b² = does not factor over the reals
-        = (a + bi)(a - bi)   [over the complex numbers]
-</code></pre>
+<p>$$a^2 - b^2 = (a - b)(a + b)$$</p>
+<p>$a^2 + b^2$ does not factor over the reals; over the complex numbers, $a^2 + b^2 = (a + bi)(a - bi)$.</p>
 <h3 id="difference-and-sum-of-cubes">Difference and sum of cubes</h3>
-<pre><code>a³ - b³ = (a - b)(a² + ab + b²)
-a³ + b³ = (a + b)(a² - ab + b²)
-</code></pre>
+<p>$$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$
+$$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$</p>
 <p>Mnemonic: "SOAP" - Same sign, Opposite sign, Always Positive (for the sign of the middle term).</p>
 <h3 id="difference-and-sum-of-4th-powers">Difference and sum of 4th powers</h3>
-<pre><code>a⁴ - b⁴ = (a - b)(a + b)(a² + b²)              [difference of squares, applied twice]
-a⁴ + b⁴ = (a² + √2·ab + b²)(a² - √2·ab + b²)   [not a rational factorization]
-</code></pre>
+<p>$$a^4 - b^4 = (a - b)(a + b)(a^2 + b^2) \quad \text{[difference of squares, applied twice]}$$
+$$a^4 + b^4 = (a^2 + \sqrt{2}\,ab + b^2)(a^2 - \sqrt{2}\,ab + b^2) \quad \text{[not a rational factorization]}$$</p>
 <h3 id="difference-and-sum-of-5th-powers">Difference and sum of 5th powers</h3>
-<pre><code>a⁵ - b⁵ = (a - b)(a⁴ + a³b + a²b² + ab³ + b⁴)
-a⁵ + b⁵ = (a + b)(a⁴ - a³b + a²b² - ab³ + b⁴)
-</code></pre>
+<p>$$a^5 - b^5 = (a - b)(a^4 + a^3b + a^2b^2 + ab^3 + b^4)$$
+$$a^5 + b^5 = (a + b)(a^4 - a^3b + a^2b^2 - ab^3 + b^4)$$</p>
 <h3 id="general-pattern-any-positive-integer-n">General pattern (any positive integer n)</h3>
-<pre><code>aⁿ - bⁿ = (a - b)(aⁿ⁻¹ + aⁿ⁻²b + aⁿ⁻³b² + ... + bⁿ⁻¹)
-</code></pre>
+<p>$$a^n - b^n = (a - b)(a^{n-1} + a^{n-2}b + a^{n-3}b^2 + \cdots + b^{n-1})$$</p>
 <p>always factors this way.</p>
-<pre><code>aⁿ + bⁿ = (a + b)(aⁿ⁻¹ - aⁿ⁻²b + aⁿ⁻³b² - ... + bⁿ⁻¹)
-</code></pre>
-<p>only factors this way when <code>n</code> is <strong>odd</strong>. When <code>n</code> is even, <code>aⁿ + bⁿ</code> has no such rational factorization (for n=2, it doesn't factor over the reals at all; for n=4, only the irrational factorization above exists).</p>
+<p>$$a^n + b^n = (a + b)(a^{n-1} - a^{n-2}b + a^{n-3}b^2 - \cdots + b^{n-1})$$</p>
+<p>only factors this way when $n$ is <strong>odd</strong>. When $n$ is even, $a^n + b^n$ has no such rational factorization (for n=2, it doesn't factor over the reals at all; for n=4, only the irrational factorization above exists).</p>
 <hr />
 <h2 id="5-trigonometric-identities">5. Trigonometric identities</h2>
 <h3 id="pythagorean-identities">Pythagorean identities</h3>
-<pre><code>sin²(x) + cos²(x) = 1
-1 + tan²(x) = sec²(x)
-1 + cot²(x) = csc²(x)
-</code></pre>
+<p>$$\sin^2(x) + \cos^2(x) = 1$$
+$$1 + \tan^2(x) = \sec^2(x)$$
+$$1 + \cot^2(x) = \csc^2(x)$$</p>
 <h3 id="reciprocal-identities">Reciprocal identities</h3>
-<pre><code>csc(x) = 1/sin(x)
-sec(x) = 1/cos(x)
-cot(x) = 1/tan(x)
-</code></pre>
+<p>$$\csc(x) = \frac{1}{\sin(x)} \qquad \sec(x) = \frac{1}{\cos(x)} \qquad \cot(x) = \frac{1}{\tan(x)}$$</p>
 <h3 id="quotient-identities">Quotient identities</h3>
-<pre><code>tan(x) = sin(x)/cos(x)
-cot(x) = cos(x)/sin(x)
-</code></pre>
+<p>$$\tan(x) = \frac{\sin(x)}{\cos(x)} \qquad \cot(x) = \frac{\cos(x)}{\sin(x)}$$</p>
 <h3 id="evenodd-negative-angle-identities">Even/odd (negative angle) identities</h3>
-<pre><code>sin(-x) = -sin(x)        [odd]
-cos(-x) = cos(x)         [even]
-tan(-x) = -tan(x)        [odd]
-</code></pre>
+<p>$$\sin(-x) = -\sin(x) \quad \text{[odd]}$$
+$$\cos(-x) = \cos(x) \quad \text{[even]}$$
+$$\tan(-x) = -\tan(x) \quad \text{[odd]}$$</p>
 <h3 id="co-function-identities">Co-function identities</h3>
-<pre><code>sin(π/2 - x) = cos(x)
-cos(π/2 - x) = sin(x)
-tan(π/2 - x) = cot(x)
-</code></pre>
+<p>$$\sin\left(\frac{\pi}{2} - x\right) = \cos(x)$$
+$$\cos\left(\frac{\pi}{2} - x\right) = \sin(x)$$
+$$\tan\left(\frac{\pi}{2} - x\right) = \cot(x)$$</p>
 <h3 id="sum-and-difference-identities">Sum and difference identities</h3>
-<pre><code>sin(a ± b) = sin(a)cos(b) ± cos(a)sin(b)
-cos(a ± b) = cos(a)cos(b) ∓ sin(a)sin(b)
-tan(a ± b) = (tan(a) ± tan(b)) / (1 ∓ tan(a)tan(b))
-</code></pre>
+<p>$$\sin(a \pm b) = \sin(a)\cos(b) \pm \cos(a)\sin(b)$$
+$$\cos(a \pm b) = \cos(a)\cos(b) \mp \sin(a)\sin(b)$$
+$$\tan(a \pm b) = \frac{\tan(a) \pm \tan(b)}{1 \mp \tan(a)\tan(b)}$$</p>
 <h3 id="double-angle-identities">Double angle identities</h3>
-<pre><code>sin(2x) = 2sin(x)cos(x)
-cos(2x) = cos²(x) - sin²(x)
-        = 1 - 2sin²(x)
-        = 2cos²(x) - 1
-tan(2x) = 2tan(x) / (1 - tan²(x))
-</code></pre>
+<p>$$\sin(2x) = 2\sin(x)\cos(x)$$
+$$\cos(2x) = \cos^2(x) - \sin^2(x) = 1 - 2\sin^2(x) = 2\cos^2(x) - 1$$
+$$\tan(2x) = \frac{2\tan(x)}{1 - \tan^2(x)}$$</p>
 <h3 id="power-reduction-identities-rearranged-double-angle">Power-reduction identities (rearranged double angle)</h3>
-<pre><code>sin²(x) = (1 - cos(2x)) / 2      ⇔   1 - cos(2x) = 2sin²(x)
-cos²(x) = (1 + cos(2x)) / 2      ⇔   1 + cos(2x) = 2cos²(x)
-tan²(x) = (1 - cos(2x)) / (1 + cos(2x))
-</code></pre>
+<p>$$\sin^2(x) = \frac{1 - \cos(2x)}{2} \iff 1 - \cos(2x) = 2\sin^2(x)$$
+$$\cos^2(x) = \frac{1 + \cos(2x)}{2} \iff 1 + \cos(2x) = 2\cos^2(x)$$
+$$\tan^2(x) = \frac{1 - \cos(2x)}{1 + \cos(2x)}$$</p>
 <h3 id="half-angle-identities">Half-angle identities</h3>
-<pre><code>sin(x/2) = ± √((1 - cos(x)) / 2)
-cos(x/2) = ± √((1 + cos(x)) / 2)
-tan(x/2) = (1 - cos(x)) / sin(x)
-         = sin(x) / (1 + cos(x))
-</code></pre>
-<p>(sign in the √ is chosen based on which quadrant <code>x/2</code> falls in)</p>
+<p>$$\sin\left(\frac{x}{2}\right) = \pm\sqrt{\frac{1 - \cos(x)}{2}}$$
+$$\cos\left(\frac{x}{2}\right) = \pm\sqrt{\frac{1 + \cos(x)}{2}}$$
+$$\tan\left(\frac{x}{2}\right) = \frac{1 - \cos(x)}{\sin(x)} = \frac{\sin(x)}{1 + \cos(x)}$$</p>
+<p>(the $\pm$ sign is chosen based on which quadrant $x/2$ falls in)</p>
 <h3 id="product-to-sum-identities">Product-to-sum identities</h3>
-<pre><code>sin(a)cos(b) = 1/2 [sin(a+b) + sin(a-b)]
-cos(a)sin(b) = 1/2 [sin(a+b) - sin(a-b)]
-cos(a)cos(b) = 1/2 [cos(a-b) + cos(a+b)]
-sin(a)sin(b) = 1/2 [cos(a-b) - cos(a+b)]
-</code></pre>
+<p>$$\sin(a)\cos(b) = \frac12\left[\sin(a+b) + \sin(a-b)\right]$$
+$$\cos(a)\sin(b) = \frac12\left[\sin(a+b) - \sin(a-b)\right]$$
+$$\cos(a)\cos(b) = \frac12\left[\cos(a-b) + \cos(a+b)\right]$$
+$$\sin(a)\sin(b) = \frac12\left[\cos(a-b) - \cos(a+b)\right]$$</p>
 <h3 id="sum-to-product-identities">Sum-to-product identities</h3>
-<pre><code>sin(a) + sin(b) = 2sin((a+b)/2)cos((a-b)/2)
-sin(a) - sin(b) = 2cos((a+b)/2)sin((a-b)/2)
-cos(a) + cos(b) = 2cos((a+b)/2)cos((a-b)/2)
-cos(a) - cos(b) = -2sin((a+b)/2)sin((a-b)/2)
-</code></pre>
+<p>$$\sin(a) + \sin(b) = 2\sin\left(\frac{a+b}{2}\right)\cos\left(\frac{a-b}{2}\right)$$
+$$\sin(a) - \sin(b) = 2\cos\left(\frac{a+b}{2}\right)\sin\left(\frac{a-b}{2}\right)$$
+$$\cos(a) + \cos(b) = 2\cos\left(\frac{a+b}{2}\right)\cos\left(\frac{a-b}{2}\right)$$
+$$\cos(a) - \cos(b) = -2\sin\left(\frac{a+b}{2}\right)\sin\left(\frac{a-b}{2}\right)$$</p>
 <h1 id="techniques-for-evaluating-limits-derivatives-and-integrals">Techniques for Evaluating Limits, Derivatives, and Integrals</h1>
 <p>A complete catalog of the standard techniques, each with a worked example and the steps used to solve it.
 The organizing idea is that evaluation is a <em>routing</em> problem: the hard part is rarely the algebra, it is recognizing which of the thirty-odd techniques the expression is asking for.
