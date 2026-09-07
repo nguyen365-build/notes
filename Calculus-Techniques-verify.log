@@ -1,0 +1,157 @@
+=== PART 1: LIMITS ===
+PASS L1  (x^3-4x+1)/(x+3) at 2   got=1/5  want=1/5
+PASS L2  (x^2-9)/(x^2-x-6)   got=6/5  want=6/5
+PASS L2b (x^3-1)/(x^4-1)   got=3/4  want=3/4
+PASS L3  (sqrt(x+4)-2)/x   got=1/4  want=1/4
+PASS L3b (x-9)/(sqrt(x)-3)   got=6  want=6
+PASS L3c (sqrt(1+x)-sqrt(1-x))/x   got=1  want=1
+PASS L4  (1/x-1/2)/(x-2)   got=-1/4  want=-1/4
+PASS L4b 1/sin(x)-1/x   got=0  want=0
+PASS L5  sin(5x)/sin(3x)   got=5/3  want=5/3
+PASS L5b (1-cos x)/(x sin x)   got=1/2  want=1/2
+PASS L6  x^2 sin(1/x)   got=0  want=0
+PASS L7  (3x^2-2x+7)/(5x^2+x-1)   got=3/5  want=3/5
+PASS L8  (4x^3+x)/(2x^3-9)   got=2  want=2
+PASS L8b (x^2+1)/x^3 at -oo   got=0  want=0
+PASS L8c x^3/(x^2+1) at -oo = -oo   got=-oo  want=-oo
+PASS L9  sqrt(4x^2+x)/x at -oo   got=-2  want=-2
+PASS L9b sqrt(4x^2+x)/x at +oo   got=2  want=2
+PASS L9c sqrt(x^2+3x)-x   got=3/2  want=3/2
+PASS L9d sqrt(x^2+bx+c)-x = b/2   got=7/2  want=7/2
+PASS L10 (e^x-1-x)/x^2   got=1/2  want=1/2
+PASS L11 (x-sin x)/x^3   got=1/6  want=1/6
+PASS L11b (cos x-1+x^2/2)/x^4   got=1/24  want=1/24
+PASS L12 (x^(1/3)-1)/(x-1)   got=1/3  want=1/3
+PASS L12b x sin(1/x) at oo   got=1  want=1
+PASS L13 |x|/x from right   got=1  want=1
+PASS L13b |x|/x from left   got=-1  want=-1
+PASS L14 x^x at 0+   got=1  want=1
+PASS L14b (1+3/x)^(2x)   got=exp(6)  want=exp(6)
+PASS L15 x ln x at 0+   got=0  want=0
+PASS L16 sin(x)/x at oo   got=0  want=0
+PASS L17 delta=eps/2 check |2x+1-7| at x=3+eps/2   got=1/10  want=1/10
+PASS L19 sum n/(n^2+i^2) -> pi/4   got=0.7853975384 want=0.7853981634
+PASS L19b (1/n)sum sqrt(i/n) -> 2/3   got=0.6666679158 want=0.6666666667
+PASS L20 a_{n+1}=sqrt(2+a_n) -> 2   got=2 want=2
+PASS L20a bounded above by 2 and increasing throughout   got=1 want=1
+PASS L20b H_n - ln n -> Euler gamma   got=0.5772161649 want=0.5772156649
+PASS L20b2 ratio H_n/ln n decreasing toward 1   got=1 want=1
+PASS L20b3 ratio matches 1 + gamma/ln n   got=1.041780299 want=1.041780263
+PASS L20c ratio test 3^n/n! -> 0   got=0  want=0
+PASS L18 |x^3/(x^2+y^2)| <= r over all angles   got=0.001 want=0.001
+PASS L18b path y=0 gives 0   got=0 want=0
+PASS L18c path y=x gives 1/2   got=0.5 want=0.5
+
+=== PART 2: DERIVATIVES ===
+PASS D1  d/dx sqrt(x) by definition   got=1/(2*sqrt(x))  want=1/(2*sqrt(x))
+PASS D1b d/dx 1/x by definition   got=-1/x**2  want=-1/x**2
+PASS D2  3x^4-2/x^3+5x^(1/3)-7   got=12*x**3 + 6/x**4 + 5/(3*x**(2/3))  want=12*x**3 + 6/x**4 + 5/(3*x**(2/3))
+PASS D3  x^2 e^x   got=x**2*exp(x) + 2*x*exp(x)  want=(x**2 + 2*x)*exp(x)
+PASS D3b x sin x cos x   got=-x*sin(x)**2 + x*cos(x)**2 + sin(x)*cos(x)  want=-x*sin(x)**2 + x*cos(x)**2 + sin(x)*cos(x)
+PASS D4  (2x+1)/(x^2+3)   got=-2*x*(2*x + 1)/(x**2 + 3)**2 + 2/(x**2 + 3)  want=(-2*x**2 - 2*x + 6)/(x**2 + 3)**2
+PASS D5  sin(3x^2+1)   got=6*x*cos(3*x**2 + 1)  want=6*x*cos(3*x**2 + 1)
+PASS D5b sqrt(1+tan 2x)   got=(tan(2*x)**2 + 1)/sqrt(tan(2*x) + 1)  want=sec(2*x)**2/sqrt(tan(2*x) + 1)
+PASS D6  5^(x^2)   got=2*5**(x**2)*x*log(5)  want=2*5**(x**2)*x*log(5)
+PASS D6b ln(x^2+1)   got=2*x/(x**2 + 1)  want=2*x/(x**2 + 1)
+PASS D7  arctan(x^2)   got=2*x/(x**4 + 1)  want=2*x/(x**4 + 1)
+PASS D8  circle y' = -x/y   got=-x/y  want=-x/y
+PASS D8b folium y'   got=(x**2 - 2*y)/(2*x - y**2)  want=(-x**2 + 2*y)/(-2*x + y**2)
+PASS D8c circle y'' = -25/y^3   got=-25/(25 - x**2)**(3/2)  want=-25/(25 - x**2)**(3/2)
+PASS D9  x^(sin x)   got=x**sin(x)*(log(x)*cos(x) + sin(x)/x)  want=x**sin(x)*(log(x)*cos(x) + sin(x)/x)
+PASS D9b log-diff stack   got=x**2*(x**2*(3*x + 2) - 15*x*(x**2 + 1) + 3*(3*x + 2)*(x**2 + 1))/((3*x + 2)**6*sqrt(x**2 + 1))  want=x**2*(x**2*(3*x + 2) - 15*x*(x**2 + 1) + 3*(3*x + 2)*(x**2 + 1))/((3*x + 2)**6*sqrt(x**2 + 1))
+PASS D10 (f^-1)'(4) = 1/5   got=1/5  want=1/5
+PASS D10b f(1)=4 anchor   got=4 want=4
+PASS D11 dy/dx at t=2 = 9/4   got=9/4  want=9/4
+PASS D11b d2y/dx2 at t=2 = 15/32   got=15/32  want=15/32
+PASS D11c polar dy/dx at pi/2 = 1   got=1  want=1
+PASS D12 nth deriv of x e^x, n=7   got=(x + 7)*exp(x)  want=(x + 7)*exp(x)
+PASS D12b 10th deriv of x^2 sin x   got=-x**2*sin(x) + 20*x*cos(x) + 90*sin(x)  want=-x**2*sin(x) + 20*x*cos(x) + 90*sin(x)
+PASS D13a y = sqrt(100-36) = 8   got=8  want=8
+PASS D13 ladder dy/dt = -3/2   got=-3/2  want=-3/2
+PASS D14 sqrt(4.1) approx 2.025   got=2.025 want=2.025
+PASS D14b true sqrt(4.1)   got=2.024845673 want=2.024845673
+PASS D14c linearization error ~1.5e-4   got=0.0001543268683 want=0.0001543
+PASS D14d dV = 4 pi r^2 dr at r=10,dr=.05   got=62.83185307 want=62.831853
+PASS D15 f_x   got=3*x**2*y**2 + y*exp(x*y)  want=3*x**2*y**2 + y*exp(x*y)
+PASS D15b f_y   got=2*x**3*y + x*exp(x*y)  want=2*x**3*y + x*exp(x*y)
+PASS D15c f_xy   got=6*x**2*y + x*y*exp(x*y) + exp(x*y)  want=6*x**2*y + (x*y + 1)*exp(x*y)
+PASS D15d Clairaut f_xy=f_yx   got=0  want=0
+PASS D16 dz/dt at t=0 = 1   got=1  want=1
+PASS D16b grad at (1,2) = <8,3>   got=Matrix([[8], [3]])  want=Matrix([[8], [3]])
+PASS D16c directional deriv = 36/5   got=36/5  want=36/5
+PASS D16d -F_x/F_y matches D8b   got=(x**2 - 2*y)/(2*x - y**2)  want=(x**2 - 2*y)/(2*x - y**2)
+PASS D17 d/dx int_1^{x^2} sqrt(1+t^3)   got=2*x*sqrt(x**6 + 1)  want=2*x*sqrt(x**6 + 1)
+PASS D17b d/dx int_x^{x^2} dt/t = 1/x   got=1/x  want=1/x
+PASS D18 central difference ln at 1, h=.01   got=1.000033335 want=1.000033336
+PASS D18b f(1.01)=ln1.01   got=0.009950330853 want=0.00995033085
+PASS D18c f(0.99)=ln0.99   got=-0.01005033585 want=-0.0100503359
+PASS D18d error ~3.33e-5 = h^2/3   got=3.333533348e-05 want=3.3336e-05
+
+=== PART 3: INTEGRALS ===
+PASS I1  int (x^3+2sqrt x)/x = x^3/3+4sqrt x
+PASS I2  int 2x sqrt(x^2+1)
+PASS I2b int_0^{pi/2} sin^3 cos = 1/4   got=1/4  want=1/4
+PASS I2c int x sqrt(x+1)
+PASS I3  int x e^x = (x-1)e^x
+PASS I3b int ln x = x ln x - x
+PASS I3c int arctan x
+PASS I3d int e^x sin x
+PASS I4  tabular int x^3 e^{2x}
+PASS I5  int sin^3 cos^2
+PASS I5b int sin^2 = x/2 - sin2x/4
+PASS I5c int sec^3
+PASS I5d int sin3x cos5x
+PASS I6  int sqrt(9-x^2)
+PASS I6b int dx/(x^2 sqrt(x^2+4))
+PASS I7  int dx/(x^2+4x+13)
+PASS I7b int (2x+7)/(x^2+4x+13)
+PASS I8  int (3x+11)/(x^2-x-6)
+PASS I8b int (2x+3)/((x-1)(x^2+1))
+PASS I9  int x^3/(x^2+1)
+PASS I10 int dx/(1+sin x) = -2/(1+tan(x/2))
+PASS I10b alt form tan x - sec x
+PASS I10c the two forms differ by a constant   got=((sin(x) - 1)*(tan(x/2) + 1)**2/cos(x)**2 + tan(x/2)**2 + 1)/(tan(x/2) + 1)**2  want=0
+PASS I11 int dx/(1+sqrt x)
+PASS I12 int sin^4
+PASS I12b Wallis int_0^{pi/2} sin^4 = 3pi/16   got=3*pi/16  want=3*pi/16
+PASS I13 int_{-2}^2 (x^3 cos x + x^2) = 16/3   got=16/3  want=16/3
+PASS I13b odd part alone is 0   got=0  want=0
+PASS I14 king: int_0^{pi/2} sin/(sin+cos) = pi/4   got=pi/4  want=pi/4
+PASS I15 int_1^2 (3x^2-2x) = 4   got=4  want=4
+PASS I15b int_{-1}^1 dx/x^2 diverges   got=oo  want=oo
+PASS I16 int_0^1 x^2 = 1/3 via Riemann sum   got=1/3  want=1/3
+PASS I17 int_1^oo dx/x^2 = 1   got=1  want=1
+PASS I17b int_0^1 dx/sqrt x = 2   got=2  want=2
+PASS I17c limit comparison ratio -> 1   got=1  want=1
+PASS I17d int_1^oo dx/sqrt(x^3+1) converges to a finite value   got=1 want=1
+PASS I18 Simpson node f0   got=1 want=1
+PASS I18 Simpson node f1   got=0.9394130628 want=0.939413063
+PASS I18 Simpson node f2   got=0.7788007831 want=0.778800783
+PASS I18 Simpson node f3   got=0.5697828247 want=0.569782825
+PASS I18 Simpson node f4   got=0.3678794412 want=0.367879441
+PASS I18b Simpson weighted sum   got=8.962264557 want=8.9622646
+PASS I18c Simpson estimate   got=0.7468553798 want=0.7468554
+PASS I18d true value   got=0.7468241328 want=0.746824133
+PASS I18e Simpson error ~3.1e-5   got=3.124697855e-05 want=3.087e-05
+PASS I19 term n=1 = -1/18   got=-0.05555555556 want=-0.05555555556
+PASS I19b term n=2 = 1/600   got=0.001666666667 want=0.001666666667
+PASS I19c term n=3 = -1/35280   got=-2.83446712e-05 want=-2.83446712e-05
+PASS I19d 4-term partial sum   got=0.9460827664 want=0.946082766
+PASS I19e true Si(1)   got=0.9460830704 want=0.94608307
+PASS I19f truncation err < 3e-7   got=3.039272737e-07 want=3.04e-07
+PASS I20 int_0^1 (x^a-1)/ln x = ln(a+1)   got=0  want=0
+PASS I20a2 numeric at a=3: ln 4   got=1.386294361 want=1.386294361
+PASS I20b at a=1 gives ln 2   got=0.6931471806 want=0.6931471806
+PASS I20c Frullani int_0^oo (e^-ax - e^-bx)/x = ln(b/a)   got=0  want=0
+PASS I21 swapped order int_0^1 int_x^1 e^{y^2} = (e-1)/2   got=-1/2 + E/2  want=-1/2 + E/2
+PASS I21b polar disk int r*r dr dth = 2pi/3   got=2*pi/3  want=2*pi/3
+PASS I21c Gaussian int_-oo^oo e^{-x^2} = sqrt(pi)   got=sqrt(pi)  want=sqrt(pi)
+PASS I21d inner polar int_0^oo r e^{-r^2} dr = 1/2   got=1/2  want=1/2
+PASS I22 Green integrand Q_x - P_y = y   got=y  want=y
+PASS I22b Green double integral of y over disk = 0   got=0  want=0
+PASS I22c direct line integral agrees = 0   got=0  want=0
+PASS I22d divergence thm flux = 4pi   got=4*pi  want=4*pi
+
+============================================================
+148 checks run, 0 failed
+ALL CHECKS PASSED
