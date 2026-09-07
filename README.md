@@ -15,8 +15,6 @@ These are the ones almost every other trig limit reduces to.
 | $\displaystyle\lim_{x\to 0}\frac{\arctan x}{x}$ | $1$ | Substitute $u=\arctan x$, so $x=\tan u$, and reuse $\tan u/u \to 1$ |
 | $\displaystyle\lim_{x\to 0}\frac{\sin(ax)}{bx}$ | $\dfrac{a}{b}$ ($b \ne 0$) | The general pattern behind every "manufacture the matching denominator" trick |
 
-**Third-order refinements** (the terms L'Hopital's rule needs three passes to reach, or a Taylor series reaches in one):
-
 | Limit | Value |
 | :--- | :--- |
 | $\displaystyle\lim_{x\to 0}\frac{x-\sin x}{x^3}$ | $\dfrac16$ |
@@ -26,8 +24,6 @@ These are the ones almost every other trig limit reduces to.
 ---
 
 ## 2. The exponential and logarithmic limits ($x \to 0$)
-
-These are the definitions of $e$ and $\ln$ wearing a limit costume; each is literally a derivative at a point (see section 6).
 
 | Limit | Value | Note |
 | :--- | :--- | :--- |
