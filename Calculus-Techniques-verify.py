@@ -108,6 +108,33 @@ chknum("L20b H_n - ln n -> Euler gamma", H6-math.log(10**6), 0.5772156649, tol=1
 chknum("L20b2 ratio H_n/ln n decreasing toward 1", 1.0 if 1 < r6 < r3 else 0.0, 1.0)
 chknum("L20b3 ratio matches 1 + gamma/ln n", r6, 1+0.5772156649/math.log(10**6), tol=1e-6)
 chk("L20c ratio test 3^n/n! -> 0", sp.limit(3**n/sp.factorial(n), n, sp.oo), 0)
+
+print()
+print("=== MATH265 exam-question additions: LIMITS ===")
+chk("MQ L1 Q3.2c (6x-9)/(x^3-12x+3) at 0", sp.limit((6*x-9)/(x**3-12*x+3), x, 0), -3)
+chk("MQ L2 Q3.2a (x^2-1)/(x^3-1)", sp.limit((x**2-1)/(x**3-1), x, 1), sp.Rational(2,3))
+f_q41 = (x**2-3*x-4)/(x**2-16)
+chk("MQ L2 Q4.1 simplified form matches (x+1)/(x+4)", sp.simplify(f_q41 - (x+1)/(x+4)), 0)
+chknum("MQ L2 Q4.1 hole value at x=4", ((x+1)/(x+4)).subs(x,4), sp.Rational(5,8))
+chk("MQ L2 Q4.1 VA left at x=-4", sp.limit(f_q41, x, -4, '-'), sp.oo)
+chk("MQ L2 Q4.1 VA right at x=-4", sp.limit(f_q41, x, -4, '+'), -sp.oo)
+chk("MQ L2 Q4.1 HA as x->oo", sp.limit(f_q41, x, sp.oo), 1)
+chk("MQ L3 Q3.1d double conjugate", sp.limit((sp.sqrt(6-x)-2)/(sp.sqrt(3-x)-1), x, 2), sp.Rational(1,2))
+chk("MQ L5 Q3.1e sin(3x)/(x^2-x)", sp.limit(sp.sin(3*x)/(x**2-x), x, 0), -3)
+chk("MQ L5 Q3.2b x^2/(1-cos2x)", sp.limit(x**2/(1-sp.cos(2*x)), x, 0), sp.Rational(1,2))
+chk("MQ L6 Q3.3a squeeze*(deg comparison)",
+    sp.limit(((3*x**2-4)/(2*x**4+2*x+4))*sp.sin(x), x, sp.oo), 0)
+chk("MQ L8 Q3.2d (5-2x^3)/(x^2+2) at oo", sp.limit((5-2*x**3)/(x**2+2), x, sp.oo), -sp.oo)
+chk("MQ L13 Q3.1b left +oo", sp.limit((3*x**2-2*x-16)/(x+2)**2, x, -2, '-'), sp.oo)
+chk("MQ L13 Q3.1b right -oo", sp.limit((3*x**2-2*x-16)/(x+2)**2, x, -2, '+'), -sp.oo)
+chk("MQ L13 Q3.1c left -oo", sp.limit((2*x**2-x+1)/(x-3), x, 3, '-'), -sp.oo)
+chk("MQ L13 Q3.1c right +oo", sp.limit((2*x**2-x+1)/(x-3), x, 3, '+'), sp.oo)
+chk("MQ L13 Q3.2e left -oo", sp.limit(sp.tan(2*x)/(3*x+sp.pi), x, -sp.pi/3, '-'), -sp.oo)
+chk("MQ L13 Q3.2e right +oo", sp.limit(sp.tan(2*x)/(3*x+sp.pi), x, -sp.pi/3, '+'), sp.oo)
+chk("MQ L13 Q3.2f left +oo", sp.limit(sp.cos(sp.pi*x)/(x-2)**2, x, 2, '-'), sp.oo)
+chk("MQ L13 Q3.2f right +oo", sp.limit(sp.cos(sp.pi*x)/(x-2)**2, x, 2, '+'), sp.oo)
+chk("MQ L13 Q3.3b tan(5pi/2) left +oo", sp.limit(sp.tan(x), x, sp.Rational(5,2)*sp.pi, '-'), sp.oo)
+chk("MQ L13 Q3.3b tan(5pi/2) right -oo", sp.limit(sp.tan(x), x, sp.Rational(5,2)*sp.pi, '+'), -sp.oo)
 # L18: x^3/(x^2+y^2) -> 0 in polar reduces to r*cos^3(theta), bounded by r for every angle
 import math
 worst = max(abs(rr*math.cos(a_)**3) for rr in [1e-3, 1e-4, 1e-5]
@@ -186,6 +213,57 @@ chknum("D18 central difference ln at 1, h=.01", sp.N(cd, 15), 1.0000333358, tol=
 chknum("D18b f(1.01)=ln1.01", sp.N(sp.log(sp.Rational(101,100)), 12), 0.00995033085, tol=1e-9)
 chknum("D18c f(0.99)=ln0.99", sp.N(sp.log(sp.Rational(99,100)), 12), -0.0100503359, tol=1e-9)
 chknum("D18d error ~3.33e-5 = h^2/3", abs(float(sp.N(cd))-1), 3.3336e-5, tol=1e-7)
+
+print()
+print("=== MATH265 exam-question additions: DERIVATIVES ===")
+chk("MQ D1 Q7.1 d/dx cot x by definition", sp.limit((sp.cot(x+h)-sp.cot(x))/h, h, 0), -sp.csc(x)**2)
+chk("MQ D2 Q8.1a poly derivative", sp.diff(4*x**5+3*x**4-6*x**3+6, x), 20*x**4+12*x**3-18*x**2)
+q83a = sp.sin(x)*sp.cos(sp.sin(x**2))
+chk("MQ D3 Q8.3a product of sin and nested cos(sin(x^2))",
+    sp.diff(q83a, x),
+    sp.cos(x)*sp.cos(sp.sin(x**2)) - sp.sin(x)*sp.sin(sp.sin(x**2))*sp.cos(x**2)*2*x)
+chk("MQ D4 Q8.1b quotient (2x-16)/(x+3)^2", sp.simplify(sp.diff((2*x-16)/(x+3)**2, x) - (38-2*x)/(x+3)**3), 0)
+chk("MQ D4 Q8.4a tan(2x)/sqrt(x)",
+    sp.simplify(sp.diff(sp.tan(2*x)/sp.sqrt(x), x) - (2*sp.sec(2*x)**2*sp.sqrt(x)-sp.tan(2*x)/(2*sp.sqrt(x)))/x), 0)
+chk("MQ D5 Q8.3c nested sqrt(1+sqrt(1+x))",
+    sp.simplify(sp.diff(sp.sqrt(1+sp.sqrt(1+x)), x) - 1/(4*sp.sqrt(1+x)*sp.sqrt(1+sp.sqrt(1+x)))), 0)
+chknum("MQ D5 Q8.4b cos^3(x^2) at x=sqrt(pi)/2",
+       sp.diff(sp.cos(x**2)**3, x).subs(x, sp.sqrt(sp.pi)/2), sp.N(-3*sp.sqrt(2*sp.pi)/4, 12))
+chk("MQ D6 Q8.2b sec(x^2-3x)", sp.diff(sp.sec(x**2-3*x), x), sp.sec(x**2-3*x)*sp.tan(x**2-3*x)*(2*x-3))
+# D8 implicit, Q10.1
+Y2 = sp.Function('Y')(x)
+eq101 = sp.Eq(x**3*Y2 + x*Y2**2, 4*x*Y2+7)
+sol101 = sp.solve(sp.Eq(sp.diff(eq101.lhs-eq101.rhs, x), 0), sp.Derivative(Y2, x))[0]
+want101 = (4*y-3*x**2*y-y**2)/(x**3+2*x*y-4*x)
+chk("MQ D8 Q10.1 implicit y'", sp.simplify(sol101.subs(Y2, y) - want101), 0)
+# D8 Q10.2 at the point (1,1)
+eq102 = sp.Eq(Y2**3+Y2*x**2+x**2, 3*Y2**2)
+sol102 = sp.solve(sp.Eq(sp.diff(eq102.lhs-eq102.rhs, x), 0), sp.Derivative(Y2, x))[0]
+chk("MQ D8 Q10.2 slope at (1,1) = 2", sol102.subs({Y2: y}).subs({x:1, y:1}), 2)
+chk("MQ D8 Q10.2 point on curve", (1**3+1*1**2+1**2) - 3*1**2, 0)
+chk("MQ D12 Q8.2a second derivative of cot(2x)", sp.simplify(sp.diff(sp.cot(2*x), x, 2) - 8*sp.csc(2*x)**2*sp.cot(2*x)), 0)
+# D13 Q11.1 gravel cone
+hh = sp.Symbol('hh', positive=True)
+dhdt = sp.Symbol('dhdt')
+Vrel = sp.pi*hh**3/12
+dVdt_expr = sp.diff(Vrel, hh)*dhdt
+sol_dh = sp.solve(sp.Eq(dVdt_expr.subs(hh, 4), sp.Rational(1,2)), dhdt)[0]
+chk("MQ D13 Q11.1 dh/dt = 1/(8pi)", sol_dh, 1/(8*sp.pi))
+# D13 Q11.2 rocket
+zz = sp.sqrt(41)
+dydt_sol = sp.solve(sp.Eq(zz*2000, 4*sp.Symbol('dydt')), sp.Symbol('dydt'))[0]
+chk("MQ D13 Q11.2 dy/dt = 500 sqrt(41)", dydt_sol, 500*sp.sqrt(41))
+# D14 Q12.1 sqrt(9.2)
+chk("MQ D14 Q12.1 linear approx sqrt(9.2) = 91/30", 3+sp.Rational(1,6)*sp.Rational(1,5), sp.Rational(91,30))
+chknum("MQ D14 Q12.1 true sqrt(9.2)", sp.N(sp.sqrt(sp.Rational(92,10)), 12), 3.03315018, tol=1e-6)
+# D14 Q12.2 sin(62deg)
+approx122 = sp.sqrt(3)/2 + sp.Rational(1,2)*sp.pi/90
+chknum("MQ D14 Q12.2 linear approx sin62", sp.N(approx122, 10), 0.8834787, tol=1e-6)
+chknum("MQ D14 Q12.2 true sin62deg", sp.N(sp.sin(62*sp.pi/180), 10), 0.8829476, tol=1e-6)
+# D17 Q18.1
+chk("MQ D17 Q18.1 d/dx int_{2x}^{x} sin(t^2) dt",
+    sp.diff(sp.Integral(sp.sin(t**2), (t, 2*x, x)), x).doit(),
+    sp.sin(x**2) - 2*sp.sin(4*x**2))
 
 print()
 print("=== PART 3: INTEGRALS ===")
@@ -283,6 +361,22 @@ tt = sp.Symbol('tt')
 direct = sp.integrate((sp.sin(tt)**2)*(-sp.sin(tt)) + 3*sp.cos(tt)*sp.sin(tt)*sp.cos(tt), (tt,0,2*sp.pi))
 chk("I22c direct line integral agrees = 0", direct, 0)
 chk("I22d divergence thm flux = 4pi", 3*sp.Rational(4,3)*sp.pi, 4*sp.pi)
+
+print()
+print("=== MATH265 exam-question additions: INTEGRALS ===")
+chk_anti("MQ I1 Q16.1a (x^2-x)sqrt(3x)",
+         sp.sqrt(3)*(sp.Rational(2,7)*x**sp.Rational(7,2) - sp.Rational(2,5)*x**sp.Rational(5,2)),
+         (x**2-x)*sp.sqrt(3*x))
+chk_anti("MQ I1 Q16.1d (x^2-4)^2", x**5/5 - sp.Rational(8,3)*x**3 + 16*x, (x**2-4)**2)
+chk("MQ I2 Q16.1e int_2^4 x sqrt(x-1)", sp.integrate(x*sp.sqrt(x-1), (x,2,4)), sp.simplify((84*sp.sqrt(3)-16)/15))
+chk_anti("MQ I2 Q16.2a cos(sqrt(2x))/sqrt(x)", sp.sqrt(2)*sp.sin(sp.sqrt(2*x)), sp.cos(sp.sqrt(2*x))/sp.sqrt(x))
+chk_anti("MQ I5 Q16.1b sin(2x)cos(x)", -sp.Rational(2,3)*sp.cos(x)**3, sp.sin(2*x)*sp.cos(x))
+chk("MQ I5 Q16.2b int_0^{pi/3} tan x sec^2 x", sp.integrate(sp.tan(x)*sp.sec(x)**2, (x,0,sp.pi/3)), sp.Rational(3,2))
+chk_anti("MQ I5 Q16.2d sec^3(x)tan(x)", sp.sec(x)**3/3, sp.sec(x)**3*sp.tan(x))
+chk("MQ I15 Q16.1c derivative of antiderivative matches integrand",
+    sp.diff(sp.Rational(1,2)*x**2 + sp.Rational(1,2)*sp.sin(2*x), x) - (x+sp.cos(2*x)), 0)
+chk("MQ I15 Q19.1 area between y=x and y=2-x^2", sp.integrate((2-x**2)-x, (x,-2,1)), sp.Rational(9,2))
+chk("MQ I15 Q19.3 net change water tank", sp.integrate(180-6*t, (t,0,15)), 2025)
 
 print()
 print("=" * 60)
