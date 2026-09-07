@@ -133,6 +133,12 @@ In particular $\frac{5}{0}$ is not indeterminate: it is an infinite limit or a o
 **Failure mode.** If substitution gives $\frac00$, $\frac{\infty}{\infty}$, or an undefined expression, this technique is done and the form tells you where to go next.
 Do not skip this step even when you expect it to fail, because the *kind* of failure is the routing information.
 
+**MATH265 exam question (Q3.2c).** Evaluate $\displaystyle\lim_{x\to 0}\frac{6x-9}{x^3-12x+3}$.
+
+1. This one is included specifically because it looks like it should need a technique and does not.
+2. Substitute directly: $\dfrac{6(0)-9}{0-0+3} = \dfrac{-9}{3} = -3$.
+3. The limit is $-3$, and the whole exercise is checking that you try substitution before reaching for machinery.
+
 ---
 
 ## L2. Factor and cancel
@@ -161,6 +167,22 @@ The limit ignores the single point $x=a$, so cancelling that common factor chang
 
 **Pattern worth memorizing.** $\displaystyle\lim_{x\to 1}\frac{x^m-1}{x^n-1} = \frac{m}{n}$, which is the general form of the example above.
 
+**MATH265 exam question (Q3.2a).** Evaluate $\displaystyle\lim_{x\to 1}\frac{x^2-1}{x^3-1}$.
+
+1. This is exactly the memorized pattern above with $m=2$, $n=3$, so the answer is $\dfrac23$ by inspection.
+2. Worked from scratch: factor both sides, $x^2-1=(x-1)(x+1)$ and $x^3-1=(x-1)(x^2+x+1)$.
+3. Cancel the shared $(x-1)$ and substitute $x=1$: $\dfrac{1+1}{1+1+1} = \dfrac23$.
+
+**MATH265 exam question (Q4.1) — factor/cancel feeding an asymptote analysis.** Find the vertical and horizontal asymptotes of $\displaystyle f(x)=\frac{x^2-3x-4}{x^2-16}$.
+
+1. Factor first, always: $x^2-3x-4=(x-4)(x+1)$ and $x^2-16=(x-4)(x+4)$.
+2. The $(x-4)$ factor cancels, leaving $f(x)=\dfrac{x+1}{x+4}$ for $x\ne4$: a **cancelled factor is a hole**, not an asymptote, sitting at $\left(4,\frac58\right)$.
+3. The surviving denominator zero $x=-4$ is a genuine vertical asymptote, confirmed because the numerator there is $-3\ne0$.
+4. The horizontal asymptote comes from L8 (degree comparison): both original degrees are $2$, so $y=\dfrac{1}{1}=1$.
+5. Result: vertical asymptote $x=-4$, horizontal asymptote $y=1$, hole at $\left(4,\frac58\right)$.
+
+**The trap this question is built around.** Reporting $x=4$ as a vertical asymptote before checking whether the offending factor cancels.
+
 ---
 
 ## L3. Conjugate multiplication (rationalizing)
@@ -184,6 +206,14 @@ The limit ignores the single point $x=a$, so cancelling that common factor chang
 **Variant with two roots.** $\displaystyle\lim_{x\to 0}\frac{\sqrt{1+x}-\sqrt{1-x}}{x}$: the conjugate gives numerator $(1+x)-(1-x) = 2x$, so the value is $\dfrac{2}{1+1} = 1$.
 
 **Cube roots.** Use the identity $a^3-b^3 = (a-b)(a^2+ab+b^2)$ instead, so the multiplier for $\sqrt[3]{A}-\sqrt[3]{B}$ is $\sqrt[3]{A^2}+\sqrt[3]{AB}+\sqrt[3]{B^2}$.
+
+**MATH265 exam question (Q3.1d) — a root on both top and bottom.** Evaluate $\displaystyle\lim_{x\to 2}\frac{\sqrt{6-x}-2}{\sqrt{3-x}-1}$.
+
+1. Substitute: $\dfrac{\sqrt4-2}{\sqrt1-1} = \dfrac00$, and there are two separate roots to clear.
+2. Multiply by both conjugates at once: $\left(\sqrt{6-x}+2\right)$ on top and $\left(\sqrt{3-x}+1\right)$ on the bottom (cross-multiplied so both differences of squares appear).
+3. The numerator conjugate product is $(6-x)-4 = 2-x$; the denominator conjugate product is $(3-x)-1 = 2-x$: the **same** factor appears on both sides.
+4. Cancel the shared $(2-x)$, leaving $\dfrac{\sqrt{3-x}+1}{\sqrt{6-x}+2}$, which is now continuous at $x=2$.
+5. Substitute: $\dfrac{\sqrt1+1}{\sqrt4+2} = \dfrac{2}{4} = \dfrac12$.
 
 ---
 
@@ -243,6 +273,21 @@ Every problem in this family is the work of arranging the expression until each 
 2. Numerator $\to \frac12$, denominator $\to 1$.
 3. The limit is $\dfrac{1}{2}$.
 
+**MATH265 exam question (Q3.1e).** Evaluate $\displaystyle\lim_{x\to 0}\frac{\sin(3x)}{x^2-x}$.
+
+1. Substitute: $\dfrac{\sin 0}{0-0} = \dfrac00$, and the sine says build the special limit.
+2. Factor the denominator: $x^2-x = x(x-1)$.
+3. Force a matching $3x$ underneath the sine: $\dfrac{\sin(3x)}{x(x-1)} = \dfrac{\sin(3x)}{3x}\cdot\dfrac{3x}{x(x-1)} = \dfrac{\sin(3x)}{3x}\cdot\dfrac{3}{x-1}$.
+4. The first factor $\to1$ by the standard limit; the second $\to\dfrac{3}{0-1}=-3$.
+5. The limit is $-3$.
+
+**MATH265 exam question (Q3.2b) — a $1-\cos$ form with a doubled argument.** Evaluate $\displaystyle\lim_{x\to 0}\frac{x^2}{1-\cos(2x)}$.
+
+1. Substitute: $\dfrac{0}{1-1} = \dfrac00$.
+2. Use the identity $1-\cos(2\theta) = 2\sin^2\theta$ with $\theta=x$, which removes the cosine entirely rather than reaching for the memorized $1-\cos$ limit directly: $\dfrac{x^2}{1-\cos(2x)} = \dfrac{x^2}{2\sin^2 x}$.
+3. Rewrite as a squared standard limit: $\dfrac12\left(\dfrac{x}{\sin x}\right)^2$.
+4. The bracket $\to 1$, so the limit is $\dfrac12$.
+
 ---
 
 ## L6. The squeeze (sandwich) theorem
@@ -263,6 +308,15 @@ Every problem in this family is the work of arranging the expression until each 
 
 **The step people get wrong.** Multiplying an inequality by a factor that can be negative flips it.
 State that $x^2 \ge 0$ explicitly, or use the absolute-value form $\left\lvert x^2\sin\frac1x\right\rvert \le x^2$ and conclude with $\lvert f\rvert \to 0 \implies f\to 0$.
+
+**MATH265 exam question (Q3.3a) — squeeze chained onto a degree comparison.** Evaluate $\displaystyle\lim_{x\to\infty}\left(\frac{3x^2-4}{2x^4+2x+4}\right)\sin x$.
+
+1. $\sin x$ has no limit, so do not try to evaluate the product directly; handle the rational factor $R(x)$ on its own first.
+2. By L8, the denominator's degree ($4$) beats the numerator's ($2$), so $\displaystyle\lim_{x\to\infty}R(x) = 0$.
+3. Bound the oscillating factor: $-1\le\sin x\le1$, so $-\lvert R(x)\rvert \le R(x)\sin x \le \lvert R(x)\rvert$.
+4. Both outer bounds $\to 0$ because $R(x)\to0$, so the middle is squeezed to $0$.
+
+This is the general pattern behind L16 as well: a bounded oscillating factor is harmless once it is multiplying something that already dies.
 
 ---
 
@@ -318,6 +372,13 @@ For $\displaystyle\lim_{x\to\pm\infty}\frac{P(x)}{Q(x)}$ with $\deg P = m$ and $
 3. As $x\to-\infty$ that is negative, so the limit is $-\infty$.
 
 **Use it as a check, not as the work.** On an exam that asks you to show your work, present L7 and use L8 to confirm you did not slip.
+
+**MATH265 exam question (Q3.2d).** Evaluate $\displaystyle\lim_{x\to\infty}\frac{5-2x^3}{x^2+2}$.
+
+1. Read the degrees: numerator degree $3$, denominator degree $2$, so $m>n$ and the top wins.
+2. By L7, dividing by $x^2$ leaves $\dfrac{\frac{5}{x^2}-2x}{1+\frac{2}{x^2}}$, whose numerator behaves like $-2x\to-\infty$ while the denominator $\to1$.
+3. The negative leading coefficient and $m-n=1$ (odd) send the ratio to $-\infty$.
+4. There is no horizontal asymptote here, only the answer $-\infty$.
 
 ---
 
@@ -460,6 +521,43 @@ continuous at $1$.
 1. Left limit: $1+a$.
 2. Right limit: $2$.
 3. Set them equal: $1+a = 2$, so $a=1$.
+
+**The two-step diagnosis this family always needs.** Substitute first; if the result is $\frac{k}{0}$ with $k\ne0$ (nothing to cancel, unlike L2's $\frac00$), go straight to the one-sided limits rather than hunting for an algebra step that does not exist.
+
+**MATH265 exam question (Q3.1c) — direct $k/0$, no cancelling.** Evaluate $\displaystyle\lim_{x\to 3}\frac{2x^2-x+1}{x-3}$.
+
+1. Numerator at $x=3$: $18-3+1=16\ne0$; denominator: $0$. This is $\frac{16}{0}$, so there is nothing to factor.
+2. From the left, $x-3\to0^-$, giving $\dfrac{16}{0^-}\to-\infty$.
+3. From the right, $x-3\to0^+$, giving $\dfrac{16}{0^+}\to+\infty$.
+4. The limit **does not exist**: $x=3$ is a vertical asymptote with opposite behavior on the two sides.
+
+**MATH265 exam question (Q3.1b) — a $\frac00$ that turns into $k/0$ after cancelling.** Evaluate $\displaystyle\lim_{x\to -2}\frac{3x^2-2x-16}{(x+2)^2}$.
+
+1. Substitute: $\dfrac{0}{0}$, so factor (L2). The numerator factors as $(x+2)(3x-8)$.
+2. Cancel one $(x+2)$: $\dfrac{3x-8}{x+2}$.
+3. Re-diagnose: at $x=-2$ this is now $\dfrac{-14}{0}$, a genuine $k/0$, so the remaining $(x+2)$ cannot be cancelled and the one-sided check takes over.
+4. Left: $x+2\to0^-$, so $\dfrac{-14}{0^-}\to+\infty$. Right: $x+2\to0^+$, so $\dfrac{-14}{0^+}\to-\infty$.
+5. The limit **does not exist**, because the two sides disagree.
+
+**MATH265 exam question (Q3.2e) — the $k/0$ disguised as a trig special limit.** Evaluate $\displaystyle\lim_{x\to-\pi/3}\frac{\tan(2x)}{3x+\pi}$.
+
+1. It is tempting to reach for $\frac{\tan u}{u}\to1$, but check the numerator first: at $x=-\frac\pi3$, $2x=-\frac{2\pi}{3}$ and $\tan\left(-\frac{2\pi}{3}\right)=\sqrt3\ne0$.
+2. So this is $\dfrac{\sqrt3}{0}$, not $\dfrac00$, and the special limit does not apply at all.
+3. Left: $3x+\pi\to0^-$, giving $\dfrac{\sqrt3}{0^-}\to-\infty$. Right: $3x+\pi\to0^+$, giving $\dfrac{\sqrt3}{0^+}\to+\infty$.
+4. The limit **does not exist**.
+
+**MATH265 exam question (Q3.2f) — an even-power denominator forces the same sign from both sides.** Evaluate $\displaystyle\lim_{x\to 2}\frac{\cos(\pi x)}{(x-2)^2}$.
+
+1. Numerator: $\cos(2\pi)=1$. Denominator: $(x-2)^2\to0^+$ from **both** sides, because a square is never negative.
+2. So both one-sided limits are $\dfrac{1}{0^+}\to+\infty$, and they agree.
+3. Unlike the previous three examples, this one is written $\displaystyle\lim_{x\to2}\frac{\cos(\pi x)}{(x-2)^2} = +\infty$: it does not exist as a finite number, but the sides agree well enough to name the shared infinite behavior.
+
+**MATH265 exam question (Q3.3b) — a coterminal angle at a tangent asymptote.** Evaluate $\displaystyle\lim_{x\to 5\pi/2}\tan x$.
+
+1. Reduce the angle: $\dfrac{5\pi}{2} = 2\pi+\dfrac{\pi}{2}$, coterminal with $\dfrac\pi2$, where $\cos x=0$.
+2. Write $\tan x = \dfrac{\sin x}{\cos x}$, with $\sin\left(\dfrac{5\pi}{2}\right)=1$.
+3. From the left, $\cos x\to0^+$, so $\tan x\to+\infty$. From the right, $\cos x\to0^-$, so $\tan x\to-\infty$.
+4. The limit **does not exist**; $x=\dfrac{5\pi}{2}$ is a vertical asymptote of the tangent.
 
 ---
 
@@ -686,6 +784,16 @@ $$f'(a) = \lim_{x\to a}\frac{f(x)-f(a)}{x-a}.$$
 **Differentiability check.** A function is differentiable at $a$ only if the left and right difference quotients agree.
 $f(x)=\lvert x\rvert$ is continuous at $0$ but its quotients give $+1$ and $-1$ (this is L13 in disguise), so it is not differentiable there.
 
+**MATH265 exam question (Q7.1) — a trig derivative from the definition.** Use the limit definition to find $\dfrac{d}{dx}\cot x$.
+
+1. Write the definition: $\dfrac{d}{dx}\cot x = \displaystyle\lim_{h\to0}\frac{\cot(x+h)-\cot x}{h}$.
+2. Convert to sine and cosine and combine over a common denominator: $\dfrac{\cos(x+h)\sin x - \cos x\sin(x+h)}{h\,\sin(x+h)\sin x}$.
+3. Recognize the numerator as the sine difference identity $\sin(A-B)$ with $A=x$, $B=x+h$: it collapses to $\sin(-h) = -\sin h$.
+4. Split off the special limit: $\displaystyle\lim_{h\to0}\left(-\frac{\sin h}{h}\right)\cdot\frac{1}{\sin(x+h)\sin x} = (-1)\cdot\frac{1}{\sin^2x}$.
+5. Result: $\dfrac{d}{dx}\cot x = -\dfrac{1}{\sin^2x} = -\csc^2x$, matching the D6 table entry.
+
+**The sign trap.** Writing $\sin\big(x-(x+h)\big)=\sin(h)$ loses the minus sign (sine is odd) and turns the answer into $+\csc^2x$.
+
 ---
 
 ## D2. Power, constant multiple, and sum rules
@@ -705,6 +813,12 @@ The power rule holds for every real $n$, not just integers, which is what makes 
 
 **Step 1 is the whole technique.** Most "hard" derivatives in this family are easy ones written in a disguise that the power rule cannot see.
 
+**MATH265 exam question (Q8.1a).** Differentiate $y = 4x^5+3x^4-6x^3+6$.
+
+1. Multiply each coefficient by its exponent and drop the exponent by one: $20x^4+12x^3-18x^2$.
+2. The constant $6$ differentiates to $0$.
+3. Result: $y' = 20x^4+12x^3-18x^2$.
+
 ---
 
 ## D3. The product rule
@@ -723,6 +837,14 @@ $$(fg)' = f'g + fg'.$$
 **Three factors.** $(fgh)' = f'gh + fg'h + fgh'$: differentiate each factor in turn, leaving the others alone.
 
 **Example.** $\dfrac{d}{dx}\left[x\sin x\cos x\right] = \sin x\cos x + x\cos^2 x - x\sin^2 x$.
+
+**MATH265 exam question (Q8.3a) — a product whose second factor is three chain-rule layers deep.** Differentiate $y = \sin x\cdot\cos\left(\sin x^2\right)$.
+
+1. The outer structure is a product, so the product rule runs first, leaving the hard part (differentiating the second factor) for after.
+2. Differentiate $\cos\left(\sin x^2\right)$ through its three layers — cosine, then sine, then $x^2$: $-\sin\left(\sin x^2\right)\cdot\cos\left(x^2\right)\cdot2x$.
+3. Assemble the product rule: $y' = \cos x\cos\left(\sin x^2\right) - \sin x\,\sin\left(\sin x^2\right)\cos\left(x^2\right)(2x)$.
+
+**The notation trap.** $\sin x^2$ means $\sin\left(x^2\right)$, not $(\sin x)^2$; the inner derivative is $\cos\left(x^2\right)\cdot2x$, not $2\sin x\cos x$.
 
 ---
 
@@ -744,6 +866,21 @@ The mnemonic "low d-high minus high d-low, over low squared" fixes it.
 
 **When not to use it.** If the denominator is a single power, rewrite instead.
 $\frac{x^3+1}{x} = x^2 + x^{-1}$ differentiates to $2x - x^{-2}$ with no rule at all.
+
+**MATH265 exam question (Q8.1b) — cancel a common factor after the quotient rule, before expanding.** Differentiate $\displaystyle y = \frac{2x-16}{(x+3)^2}$.
+
+1. $f=2x-16$, $f'=2$; $g=(x+3)^2$, $g'=2(x+3)$ by the chain rule.
+2. Quotient rule: $y' = \dfrac{2(x+3)^2 - (2x-16)\cdot2(x+3)}{(x+3)^4}$.
+3. Every term in the numerator carries a factor of $(x+3)$: cancel one against the $(x+3)^4$ in the denominator **before** expanding, dropping it to $(x+3)^3$.
+4. $y' = \dfrac{2(x+3)-2(2x-16)}{(x+3)^3} = \dfrac{38-2x}{(x+3)^3}$.
+
+Doing the cancellation in step 3 first avoids expanding a $(x+3)^2$ that was only going to be thrown away.
+
+**MATH265 exam question (Q8.4a) — naming the rules as you stack them.** Differentiate $\displaystyle\frac{d}{dx}\frac{\tan(2x)}{\sqrt{x}}$, stating which rules apply.
+
+1. Quotient rule on the outside; chain rule on $\tan(2x)$; power rule on $\sqrt{x}=x^{1/2}$.
+2. $f=\tan(2x)$, $f'=2\sec^2(2x)$; $g=x^{1/2}$, $g'=\dfrac{1}{2\sqrt{x}}$.
+3. Assemble: $\dfrac{2\sec^2(2x)\sqrt{x} - \tan(2x)\cdot\frac{1}{2\sqrt{x}}}{x}$, using $g^2=x$ in the denominator.
 
 ---
 
@@ -773,6 +910,21 @@ Repeat for every layer.
 
 **The most common slip.** Forgetting the innermost factor.
 $\frac{d}{dx}\sin(2x)$ is $2\cos 2x$, not $\cos 2x$.
+
+**MATH265 exam question (Q8.3c) — a root nested inside a root.** Differentiate $y = \sqrt{1+\sqrt{1+x}}$.
+
+1. Layers, outermost first: a square root, then $1+\sqrt{\cdot}$, then $1+x$.
+2. Peel the outer root: $y' = \dfrac{1}{2\sqrt{1+\sqrt{1+x}}}\cdot v'$ where $v=1+\sqrt{1+x}$.
+3. Differentiate the inner root: $v' = \dfrac{1}{2\sqrt{1+x}}$ (the constant $1$ contributes nothing).
+4. Multiply the two layers: $y' = \dfrac{1}{4\sqrt{1+x}\,\sqrt{1+\sqrt{1+x}}}$.
+
+**MATH265 exam question (Q8.4b) — chain rule evaluated at a point using exact trig values.** Find $\left.\dfrac{d}{dx}\cos^3\left(x^2\right)\right|_{x=\sqrt\pi/2}$.
+
+1. Read the notation first: $\cos^3\left(x^2\right)$ means $\left[\cos\left(x^2\right)\right]^3$, three layers (cube, cosine, $x^2$).
+2. Differentiate: $3\left[\cos\left(x^2\right)\right]^2\cdot\left(-\sin\left(x^2\right)\right)\cdot2x = -6x\cos^2\left(x^2\right)\sin\left(x^2\right)$.
+3. Find the inner value *before* substituting the trig functions, which is what makes the arithmetic clean: $x^2 = \left(\frac{\sqrt\pi}{2}\right)^2 = \frac\pi4$.
+4. Use the exact values at $\frac\pi4$: $\cos^2\frac\pi4=\frac12$, $\sin\frac\pi4=\frac{\sqrt2}{2}$.
+5. Substitute: $-6\cdot\dfrac{\sqrt\pi}{2}\cdot\dfrac12\cdot\dfrac{\sqrt2}{2} = -\dfrac{3\sqrt{2\pi}}{4} \approx -1.87997$.
 
 ---
 
@@ -805,6 +957,11 @@ Every co-function derivative carries a minus sign, which is the only thing that 
 3. Result: $2x\ln 5 \cdot 5^{x^2}$.
 
 **Example.** $\dfrac{d}{dx}\ln\left(x^2+1\right) = \dfrac{2x}{x^2+1}$, which is the $\frac{u'}{u}$ row.
+
+**MATH265 exam question (Q8.2b) — the secant row plus the chain rule.** Differentiate $\sec\left(x^2-3x\right)$.
+
+1. Table entry: $\dfrac{d}{dx}\sec u = \sec u\tan u$, with $u=x^2-3x$ and $u'=2x-3$.
+2. Result: $\sec\left(x^2-3x\right)\tan\left(x^2-3x\right)(2x-3)$.
 
 ---
 
@@ -852,6 +1009,25 @@ Note $\frac{d}{dx}\cosh x = +\sinh x$: unlike the circular case, no minus sign a
 
 **Second derivative implicitly.** Differentiate $y'$ again, then substitute the expression for $y'$ back in.
 For the circle: $y'' = \frac{d}{dx}\left(-\frac{x}{y}\right) = -\frac{y - xy'}{y^2} = -\frac{y + \frac{x^2}{y}}{y^2} = -\frac{x^2+y^2}{y^3} = -\frac{25}{y^3}$.
+
+**MATH265 exam question (Q10.1) — every term needs the product or chain rule.** Find $y'$ for $x^3y+xy^2=4xy+7$.
+
+1. Differentiate term by term: $\dfrac{d}{dx}\left(x^3y\right)=3x^2y+x^3y'$ (product rule); $\dfrac{d}{dx}\left(xy^2\right)=y^2+2xyy'$ (product then chain); $\dfrac{d}{dx}(4xy)=4y+4xy'$ (product rule); the constant $7$ vanishes.
+2. Collect: $3x^2y+x^3y'+y^2+2xyy' = 4y+4xy'$.
+3. Move every $y'$ term to one side: $y'\left(x^3+2xy-4x\right) = 4y-3x^2y-y^2$.
+4. Solve: $y' = \dfrac{4y-3x^2y-y^2}{x^3+2xy-4x}$.
+
+**The trap.** Differentiating $xy^2$ as just $2xyy'$ and dropping the $y^2$ term that the product rule also produces.
+
+**MATH265 exam question (Q10.2) — substitute the point immediately, not at the end.** Find the tangent line to $y^3+yx^2+x^2=3y^2$ at $(1,1)$.
+
+1. Confirm the point lies on the curve first: both sides equal $3$ at $(1,1)$.
+2. Differentiate implicitly: $3y^2y'+\left(y'x^2+2xy\right)+2x = 6yy'$.
+3. Because only one point is needed, substitute $x=1,y=1$ **now** rather than solving for $y'$ symbolically first: $3y'+y'+2+2=6y'$.
+4. Solve the now-numerical equation: $4y'+4=6y' \implies y'=2$.
+5. Point-slope form: $y-1=2(x-1)$, so the tangent line is $y=2x-1$.
+
+Substituting early (step 3) is faster and loses fewer terms than carrying the full symbolic $y'$ formula to the end.
 
 ---
 
@@ -952,6 +1128,13 @@ It is most useful when one factor is a polynomial, because that factor's derivat
 3. Cyclic derivatives of $\sin$: $g^{(8)} = \sin x$, $g^{(9)} = \cos x$, $g^{(10)} = -\sin x$.
 4. Result: $-x^2\sin x + 20x\cos x + 90\sin x$.
 
+**MATH265 exam question (Q8.2a) — a second derivative via the chain rule twice.** Find $\dfrac{d^2}{dx^2}\cot(2x)$.
+
+1. First derivative: $\dfrac{d}{dx}\cot u=-\csc^2u$ with $u=2x$, so $\dfrac{d}{dx}\cot(2x) = -2\csc^2(2x)$.
+2. Differentiate again: write $\csc^2(2x)=\left[\csc(2x)\right]^2$ and chain twice: $\dfrac{d}{dx}\csc(2x)=-2\csc(2x)\cot(2x)$, so $\dfrac{d}{dx}\csc^2(2x)=2\csc(2x)\cdot\left(-2\csc(2x)\cot(2x)\right)=-4\csc^2(2x)\cot(2x)$.
+3. Apply the leading $-2$ from step 1: $-2\cdot\left(-4\csc^2(2x)\cot(2x)\right)=8\csc^2(2x)\cot(2x)$.
+4. Result: $\dfrac{d^2}{dx^2}\cot(2x)=8\csc^2(2x)\cot(2x)$, positive despite the two minus signs along the way.
+
 ---
 
 ## D13. Related rates
@@ -981,6 +1164,26 @@ How fast is the top falling when the base is $6\,\text{ft}$ from the wall?
 
 **Why step 4 comes after step 3.** Substituting $x=6$ before differentiating makes it a constant, its derivative becomes $0$, and the answer collapses to nonsense.
 
+**MATH265 exam question (Q11.1) — eliminate the second variable before differentiating.** Gravel forms a cone whose base diameter always equals its height; $\dfrac{dV}{dt}=0.5\ \text{m}^3/\text{min}$. Find $\dfrac{dh}{dt}$ when $h=4$ m.
+
+1. Geometry: $V=\dfrac13\pi r^2h$, with the constraint "diameter equals height", i.e. $2r=h$, so $r=\dfrac h2$.
+2. Use the constraint to eliminate $r$ **before** differentiating, since there is no given rate for $r$: $V=\dfrac13\pi\left(\dfrac h2\right)^2h=\dfrac{\pi h^3}{12}$.
+3. Differentiate in $t$: $\dfrac{dV}{dt}=\dfrac{\pi h^2}{4}\dfrac{dh}{dt}$.
+4. Substitute $h=4$ and $\dfrac{dV}{dt}=0.5$: $0.5=4\pi\dfrac{dh}{dt}$.
+5. Solve: $\dfrac{dh}{dt}=\dfrac{1}{8\pi}\approx0.0398$ m/min.
+
+**The trap.** Reading "diameter equals height" as $r=h$ instead of $r=\frac h2$; that makes the final rate four times too small.
+
+**MATH265 exam question (Q11.2) — the hypotenuse is the one that changes.** A rocket rises vertically, tracked by radar $5$ mi from the pad. Find $\dfrac{dy}{dt}$ when the height $y=4$ mi and the line-of-sight distance $z$ changes at $\dfrac{dz}{dt}=2000$ mi/h.
+
+1. Relation: $z^2 = 5^2+y^2$, with the $5$ a fixed constant, which is what makes the problem solvable.
+2. Find the missing side at the instant of interest: $z=\sqrt{25+16}=\sqrt{41}$.
+3. Differentiate in $t$: $2z\dfrac{dz}{dt}=2y\dfrac{dy}{dt}$, i.e. $z\dfrac{dz}{dt}=y\dfrac{dy}{dt}$.
+4. Substitute: $\sqrt{41}(2000)=4\dfrac{dy}{dt}$, so $\dfrac{dy}{dt}=500\sqrt{41}\approx3201.6$ mi/h.
+5. Sanity check: the rocket's true speed must exceed the line-of-sight rate, since only part of its motion is along the sightline, and indeed $3201.6 > 2000$.
+
+**The trap.** Swapping the leg and the hypotenuse (using $z=4$, $y=\sqrt{41}$); the hypotenuse is always the longest side.
+
 ---
 
 ## D14. Differentials and linear approximation
@@ -1001,6 +1204,22 @@ $$f(x) \approx f(a) + f'(a)(x-a).$$
 
 **Error propagation.** If a sphere's radius is measured as $10\,\text{cm}$ with error up to $0.05\,\text{cm}$, then from $V = \frac43\pi r^3$ and $dV = 4\pi r^2\,dr$ the volume error is at most $4\pi(100)(0.05) \approx 62.8\,\text{cm}^3$.
 The *relative* error is cleaner: $\frac{dV}{V} = 3\frac{dr}{r}$, so a $0.5\%$ radius error gives a $1.5\%$ volume error.
+
+**MATH265 exam question (Q12.1) — a square root near a perfect square.** Use differentials to approximate $\sqrt{9.2}$.
+
+1. Choose $f(x)=\sqrt x$, base point $a=9$ (nearest perfect square), $dx=0.2$.
+2. $f(9)=3$ and $f'(x)=\dfrac{1}{2\sqrt x}$, so $f'(9)=\dfrac16$.
+3. $\sqrt{9.2}\approx 3+\dfrac16(0.2) = 3+\dfrac{1}{30} = \dfrac{91}{30}\approx3.0333$.
+4. The true value is $3.03315\ldots$, so the estimate is high by about $2\times10^{-4}$, consistent with $\sqrt x$ being concave down (its tangent line lies above the curve).
+
+**MATH265 exam question (Q12.2) — an angle, so the step must be converted to radians first.** Use linearization to estimate $\sin(62^\circ)$.
+
+1. Base point $a=60^\circ=\dfrac\pi3$ (nearest angle with exact values); the step is $dx=2^\circ=\dfrac{\pi}{90}\approx0.0349066$ — this conversion is the step that decides the whole answer, since the derivative formulas are only valid in radians.
+2. Linearization: $\sin(a+dx)\approx\sin a+\cos a\,dx = \dfrac{\sqrt3}{2}+\dfrac12\cdot\dfrac{\pi}{90}$.
+3. Evaluate: $\approx0.8660254+0.0174533=0.8834787$.
+4. The true value is $0.8829476$, high by about $5\times10^{-4}$; the companion question (MATH265 Q12.3a, $\cos 62^\circ$) uses the same $dx$ but the *opposite* sign flips which side the estimate lands on, since cosine is decreasing where sine is increasing here.
+
+**The trap common to both.** Using $dx=2$ instead of $dx=\frac{\pi}{90}$, which gives an impossible value like $1.87$ for a sine.
 
 ---
 
@@ -1083,6 +1302,15 @@ $$\frac{d}{dx}\int_{u(x)}^{v(x)}f(x,t)\,dt = f(x,v)v' - f(x,u)u' + \int_{u}^{v}\
 
 This rule read backwards is the integration technique I20.
 
+**MATH265 exam question (Q18.1) — both limits variable, worked from the split rule directly.** Evaluate $\displaystyle\frac{d}{dx}\int_{2x}^{x}\sin\left(t^2\right)dt$.
+
+1. Both limits depend on $x$, so the basic FTC-1 form does not apply directly; split at any constant $c$: $\displaystyle\int_{2x}^x = \int_c^x - \int_c^{2x}$.
+2. Differentiate the first piece (upper limit is exactly $x$): $\sin\left(x^2\right)$.
+3. Differentiate the second piece with the chain rule (upper limit is $2x$): evaluate the integrand at $2x$ and multiply by $\frac{d}{dx}(2x)=2$: $\sin\left((2x)^2\right)\cdot2 = 2\sin\left(4x^2\right)$.
+4. Subtract: $\dfrac{d}{dx}\displaystyle\int_{2x}^x\sin\left(t^2\right)dt = \sin\left(x^2\right) - 2\sin\left(4x^2\right)$.
+
+**The trap.** Writing $(2x)^2$ as $2x^2$ instead of $4x^2$, and dropping the chain-rule factor of $2$ — both errors hide inside the same term.
+
 ---
 
 ## D18. Numerical differentiation
@@ -1164,6 +1392,21 @@ Every derivative rule read backwards is an integration rule.
 
 **The $\frac{u'}{u}$ pattern.** $\displaystyle\int\frac{f'(x)}{f(x)}\,dx = \ln\lvert f(x)\rvert + C$ is worth recognizing on sight; it is where $\int\tan x\,dx$ comes from.
 
+**MATH265 exam question (Q16.1a) — pull the constant out of the root, then it is pure power rule.** Evaluate $\displaystyle\int\left(x^2-x\right)\sqrt{3x}\,dx$.
+
+1. There is no substitution here; the work is algebraic. Write $\sqrt{3x}=\sqrt3\,x^{1/2}$.
+2. Distribute: $\left(x^2-x\right)\sqrt3\,x^{1/2} = \sqrt3\left(x^{5/2}-x^{3/2}\right)$.
+3. Power rule on each term: $\displaystyle\int x^{5/2}dx=\frac27x^{7/2}$, $\displaystyle\int x^{3/2}dx=\frac25x^{5/2}$.
+4. Result: $\sqrt3\left(\dfrac27x^{7/2}-\dfrac25x^{5/2}\right)+C$.
+
+**MATH265 exam question (Q16.1d) — expand before reaching for substitution.** Evaluate $\displaystyle\int\left(x^2-4\right)^2dx$.
+
+1. There is no inner-derivative factor available, so a substitution $u=x^2-4$ would leave a stray $x$ behind; expand instead.
+2. $\left(x^2-4\right)^2 = x^4-8x^2+16$.
+3. Integrate term by term: $\dfrac{x^5}{5}-\dfrac{8x^3}{3}+16x+C$.
+
+**The trap.** Writing $\dfrac{\left(x^2-4\right)^3}{3}$ as if the chain rule ran backwards — that shortcut needs the inner derivative $2x$ to be present in the integrand, and it is not.
+
 ---
 
 ## I2. $u$-substitution
@@ -1195,6 +1438,22 @@ Converting the limits in step 2 is safer than back-substituting, because it remo
 
 **Example (an $x$ left over).** $\displaystyle\int x\sqrt{x+1}\,dx$: take $u = x+1$, so $x = u-1$ and $dx = du$.
 Then $\int (u-1)\sqrt{u}\,du = \int\left(u^{3/2}-u^{1/2}\right)du = \frac25 u^{5/2}-\frac23 u^{3/2}+C$.
+
+**MATH265 exam question (Q16.1e) — the same leftover-$x$ pattern, as a definite integral.** Evaluate $\displaystyle\int_{2}^{4}x\sqrt{x-1}\,dx$.
+
+1. Let $u=x-1$, so $x=u+1$ and $dx=du$.
+2. Convert the limits rather than back-substituting: $x=2\Rightarrow u=1$, $x=4\Rightarrow u=3$.
+3. Rewrite: $\displaystyle\int_1^3(u+1)u^{1/2}\,du = \int_1^3\left(u^{3/2}+u^{1/2}\right)du = \left[\frac25u^{5/2}+\frac23u^{3/2}\right]_1^3$.
+4. Using $3^{5/2}=9\sqrt3$ and $3^{3/2}=3\sqrt3$: at $u=3$ the bracket is $\dfrac{28\sqrt3}{5}$; at $u=1$ it is $\dfrac{16}{15}$.
+5. Subtract: $\dfrac{28\sqrt3}{5}-\dfrac{16}{15} = \dfrac{84\sqrt3-16}{15} \approx 8.6328$.
+
+**MATH265 exam question (Q16.2a) — solving for the exact piece that appears, rather than isolating $dx$ alone.** Evaluate $\displaystyle\int\frac{\cos\left(\sqrt{2x}\right)}{\sqrt{x}}\,dx$.
+
+1. Let $u=\sqrt{2x}=\sqrt2\,x^{1/2}$, the inside of the cosine.
+2. Differentiate: $du = \dfrac{\sqrt2}{2\sqrt x}\,dx$.
+3. Rather than solving for $dx$ alone, solve for exactly the combination that appears in the integrand: $\dfrac{dx}{\sqrt x} = \sqrt2\,du$.
+4. Rewrite and integrate: $\displaystyle\int\cos(u)\sqrt2\,du = \sqrt2\sin(u)+C = \sqrt2\sin\left(\sqrt{2x}\right)+C$.
+5. Verify by differentiating: $\sqrt2\cos\left(\sqrt{2x}\right)\cdot\dfrac{\sqrt2}{2\sqrt x} = \dfrac{\cos\left(\sqrt{2x}\right)}{\sqrt x}$, the original integrand.
 
 ---
 
@@ -1310,6 +1569,26 @@ $$\cos A\cos B = \tfrac12\left[\cos(A-B)+\cos(A+B)\right].$$
 **Example.** $\displaystyle\int\sin 3x\cos 5x\,dx = \frac12\int\left[\sin(-2x)+\sin 8x\right]dx = \frac{\cos 2x}{4}-\frac{\cos 8x}{16}+C$.
 
 This is also the calculation behind the orthogonality relations in Fourier series.
+
+**MATH265 exam question (Q16.1b) — mismatched frequencies removed with a double-angle identity, then Case A.** Evaluate $\displaystyle\int\sin(2x)\cos x\,dx$.
+
+1. The two different arguments $2x$ and $x$ block a direct substitution, so first rewrite $\sin(2x)=2\sin x\cos x$: the integral becomes $\displaystyle\int2\sin x\cos^2x\,dx$.
+2. This is now Case A with an odd power of sine: substitute $u=\cos x$, $du=-\sin x\,dx$: $-2\displaystyle\int u^2\,du$.
+3. Integrate and back-substitute: $-\dfrac{2}{3}\cos^3x+C$.
+4. Verify: $\dfrac{d}{dx}\left(-\frac23\cos^3x\right) = 2\sin x\cos^2x = \sin(2x)\cos x$. Confirmed.
+
+**MATH265 exam question (Q16.2b) — Case C recognized directly, as a definite integral.** Evaluate $\displaystyle\int_{0}^{\pi/3}\tan x\sec^2x\,dx$.
+
+1. $\sec^2x$ is exactly the derivative of $\tan x$, the Case C signal for an even secant power: $u=\tan x$, $du=\sec^2x\,dx$.
+2. Convert the limits: $x=0\Rightarrow u=0$; $x=\frac\pi3\Rightarrow u=\tan\frac\pi3=\sqrt3$.
+3. The integral becomes $\displaystyle\int_0^{\sqrt3}u\,du = \left[\frac{u^2}{2}\right]_0^{\sqrt3} = \frac32$.
+
+**MATH265 exam question (Q16.2d) — Case C with the hint already split out.** Evaluate $\displaystyle\int\sec^3x\tan x\,dx$, using $\sec^3x\tan x=\sec^2x\cdot(\sec x\tan x)$.
+
+1. The hint isolates the piece that will become $du$: let $u=\sec x$, so $du=\sec x\tan x\,dx$.
+2. Rewrite: $\displaystyle\int\sec^2x\left(\sec x\tan x\,dx\right) = \int u^2\,du$.
+3. Integrate and back-substitute: $\dfrac{u^3}{3}+C = \dfrac{\sec^3x}{3}+C$.
+4. Verify: $\dfrac{d}{dx}\dfrac{\sec^3x}{3} = \sec^2x\cdot\sec x\tan x = \sec^3x\tan x$. Confirmed.
 
 ---
 
@@ -1561,6 +1840,29 @@ It diverges.
 
 **Net change.** $\int_a^b f'(x)\,dx = f(b)-f(a)$ is the same statement read as "the integral of a rate is the total change", which is where displacement, total growth, and accumulated cost all come from.
 
+**MATH265 exam question (Q16.1c) — symbolic limits are still just numbers once evaluated.** Evaluate $\displaystyle\int_{a}^{b}\left(x+\cos(2x)\right)dx$.
+
+1. Antidifferentiate term by term: $\displaystyle\int x\,dx=\frac{x^2}{2}$, and $\displaystyle\int\cos(2x)\,dx=\frac{\sin(2x)}{2}$ (the $\frac12$ comes from the inner derivative of $2x$).
+2. Apply the limits: $\left[\dfrac{x^2}{2}+\dfrac{\sin(2x)}{2}\right]_a^b$.
+3. Result: $\dfrac{b^2-a^2}{2}+\dfrac{\sin(2b)-\sin(2a)}{2}$.
+
+**The trap.** This is a **definite** integral, so no $+C$ — the letters $a,b$ make it look symbolic, but it is a number as soon as they are assigned values.
+
+**MATH265 exam question (Q19.1) — a plain FTC-2 evaluation, dressed as an area-between-curves problem.** Find the area between $y=x$ and $y=2-x^2$.
+
+1. Intersect: $x=2-x^2 \implies x^2+x-2=0=(x+2)(x-1)$, giving $x=-2,\,1$.
+2. Test a point between them ($x=0$): the parabola ($2$) sits above the line ($0$) on the whole interval, so no split is needed.
+3. Set up top minus bottom: $A=\displaystyle\int_{-2}^{1}\left[(2-x^2)-x\right]dx$.
+4. Antidifferentiate and evaluate: $\left[2x-\dfrac{x^2}{2}-\dfrac{x^3}{3}\right]_{-2}^{1} = \dfrac76-\left(-\dfrac{10}{3}\right) = \dfrac{27}{6}=\dfrac92$.
+
+**The trap.** Integrating line minus parabola returns $-\frac92$; an area is positive, so a negative result means the top and bottom were swapped.
+
+**MATH265 exam question (Q19.3) — the "net change" reading of FTC-2, applied directly.** Water drains from a tank at $r(t)=180-6t$ L/min for $0\le t\le50$. Find the amount that leaves during the first $15$ minutes.
+
+1. A **rate** is given and a **total** is wanted — exactly the net-change reading above — so integrate the rate: $\text{Amount}=\displaystyle\int_0^{15}(180-6t)\,dt$.
+2. Antidifferentiate and evaluate: $\left[180t-3t^2\right]_0^{15} = 2700-675 = 2025$ litres.
+3. Sanity check: the rate falls linearly from $180$ to $90$ L/min, averaging $135$ L/min, and $135\times15=2025$ agrees.
+
 ---
 
 ## I16. Riemann sums from the definition
@@ -1797,19 +2099,22 @@ Nearly every wasted page in this subject comes from starting to compute before f
 # Verification record
 
 Every worked answer above was recomputed symbolically with SymPy 1.14.0 and, where a numeric value is quoted, checked against a direct floating-point evaluation.
+This includes every example labeled **MATH265 exam question**, pulled from the course question bank at `MATH265.md` (Part 5: every exam question, restated and solved) and re-verified independently here rather than trusted from that file.
 
 - Script: `Calculus-Techniques-verify.py` (in this folder).
 - Output: `Calculus-Techniques-verify.log`.
-- Result: **148 checks run, 0 failed.**
+- Result: **199 checks run, 0 failed.**
 
 Three kinds of check are used.
 
 1. **Limit and derivative claims** are recomputed with `sympy.limit` and `sympy.diff` and compared symbolically to the stated answer.
 2. **Antiderivative claims** are checked by differentiating the stated answer and requiring it to equal the integrand, which is the same test the document recommends doing by hand.
-3. **Numeric claims** (Simpson's nodes, the series partial sum, the finite-difference estimate) are compared against a high-precision evaluation.
+3. **Numeric claims** (Simpson's nodes, the series partial sum, the finite-difference estimate, the MATH265 differential-approximation examples) are compared against a high-precision evaluation.
 
 One error was caught this way and corrected: the Simpson's rule weighted sum in I18 was originally written as $8.9622600$, and the correct value is $8.9622646$, which moves the estimate from $0.7468550$ to $0.7468554$.
 That is exactly the class of slip the verification habit in the closing section exists to catch.
+
+**MATH265 additions.** 51 checks (of the 199) verify the MATH265 exam-question examples added throughout Parts 1-3: one-sided limits and DNE cases are checked as separate left- and right-hand `sympy.limit` calls rather than a single two-sided call, since a two-sided `sympy.limit` on a genuinely divergent one-sided pair does not reliably distinguish the two infinities.
 
 To re-run after editing this file:
 
