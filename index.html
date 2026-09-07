@@ -437,12 +437,8 @@
 </tr>
 </tbody>
 </table></div>
-<p>All three are the same limit as $(1+x)^{1/x}\to e$ in section 2, just with $x$ replaced by $1/x$ and sent to $0$ from the other side.</p>
 <hr />
 <h2 id="4-growth-rate-hierarchy-at-infinity">4. Growth-rate hierarchy at infinity</h2>
-<p>The recurring "who wins" question in $\infty/\infty$ and $\infty - \infty$ forms.
-Written smallest-growing to fastest-growing, each term is eventually dwarfed by everything to its right:</p>
-<p>$$\ln x \ \ll\ x^p \ (p&gt;0) \ \ll\ a^x \ (a&gt;1) \ \ll\ x! \ \ll\ x^x$$</p>
 <div class="table-scroll"><table>
 <thead>
 <tr>
@@ -494,7 +490,7 @@ Written smallest-growing to fastest-growing, each term is eventually dwarfed by 
 </tr>
 </tbody>
 </table></div>
-<p>Every row here is an $\infty/\infty$ or $0\cdot\infty$ form that yields to repeated L'Hopital's rule; the table just saves the repetition.</p>
+
 <hr />
 <h2 id="5-root-and-power-limits">5. Root and power limits</h2>
 <div class="table-scroll"><table>
@@ -528,7 +524,6 @@ Written smallest-growing to fastest-growing, each term is eventually dwarfed by 
 </tr>
 </tbody>
 </table></div>
-<p>The last one is a Stirling's-approximation consequence, rarely tested outside a second calculus course, but useful for recognizing the pattern when it appears.</p>
 <hr />
 <h2 id="6-rationalizing-and-hidden-derivative-limits">6. Rationalizing and "hidden derivative" limits</h2>
 <div class="table-scroll"><table>
@@ -562,9 +557,7 @@ Written smallest-growing to fastest-growing, each term is eventually dwarfed by 
 </tr>
 </tbody>
 </table></div>
-<p><strong>The pattern worth internalizing:</strong> every limit of the form $\displaystyle\lim_{x\to a}\frac{f(x)-f(a)}{x-a}$ is, by definition, $f'(a)$.
-Sections 1, 2, and this section are mostly that one definition applied to $\sin$, $e^x$, $\ln x$, and $\sqrt{x}$.
-Recognizing the pattern turns "memorize this limit" into "memorize one derivative rule."</p>
+<p><strong>Internalize the pattern:</strong> limit of form $\displaystyle\lim_{x\to a}\frac{f(x)-f(a)}{x-a}$ is, by definition, $f'(a)$.</p>
 <hr />
 <h2 id="7-squeeze-theorem-classics">7. Squeeze-theorem classics</h2>
 <p>Cases where the limit does not exist by substitution or algebra alone, only by trapping the expression between two functions that share the same limit.</p>
@@ -596,60 +589,11 @@ Recognizing the pattern turns "memorize this limit" into "memorize one derivativ
 </table></div>
 <p>The tell that a limit needs squeezing rather than algebra: a bounded-but-wildly-oscillating factor like $\sin(1/x)$ or $\cos(1/x)$ multiplied by a factor that shrinks to $0$.</p>
 <hr />
-<h2 id="8-indeterminate-forms-and-which-tool-actually-applies">8. Indeterminate forms, and which tool actually applies</h2>
-<p>Seven forms look like they need L'Hopital's rule, but only two are it applied directly; the rest need an algebra or logarithm step first to get there.</p>
-<div class="table-scroll"><table>
-<thead>
-<tr>
-<th style="text-align: left;">Form</th>
-<th style="text-align: left;">Direct tool</th>
-<th style="text-align: left;">Typical rewrite</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">$\dfrac00$</td>
-<td style="text-align: left;">L'Hopital directly</td>
-<td style="text-align: left;">(none needed)</td>
-</tr>
-<tr>
-<td style="text-align: left;">$\dfrac{\infty}{\infty}$</td>
-<td style="text-align: left;">L'Hopital directly</td>
-<td style="text-align: left;">(none needed)</td>
-</tr>
-<tr>
-<td style="text-align: left;">$0\cdot\infty$</td>
-<td style="text-align: left;">Rewrite, then L'Hopital</td>
-<td style="text-align: left;">$fg \to \dfrac{f}{1/g}$ or $\dfrac{g}{1/f}$</td>
-</tr>
-<tr>
-<td style="text-align: left;">$\infty-\infty$</td>
-<td style="text-align: left;">Rewrite, then L'Hopital</td>
-<td style="text-align: left;">common denominator, or conjugate multiplication</td>
-</tr>
-<tr>
-<td style="text-align: left;">$1^{\infty}$</td>
-<td style="text-align: left;">Take $\ln$, then L'Hopital</td>
-<td style="text-align: left;">$y=f^g \Rightarrow \ln y = g\ln f$, solve for $\lim \ln y$, exponentiate</td>
-</tr>
-<tr>
-<td style="text-align: left;">$0^0$</td>
-<td style="text-align: left;">Take $\ln$, then L'Hopital</td>
-<td style="text-align: left;">same $\ln$ trick as above</td>
-</tr>
-<tr>
-<td style="text-align: left;">$\infty^0$</td>
-<td style="text-align: left;">Take $\ln$, then L'Hopital</td>
-<td style="text-align: left;">same $\ln$ trick as above</td>
-</tr>
-</tbody>
-</table></div>
-<p>$0^\infty$ and $\infty^\infty$ are <strong>not</strong> indeterminate; they resolve directly to $0$ and $\infty$.</p>
+
 <hr />
-<h2 id="1-formal-epsilon-delta-definition-of-a-limit">1. Formal (epsilon-delta) definition of a limit</h2>
+<h2 id="1-formal-epsilon-delta-definition-of-a-limit">1. Formal definition of a limit</h2>
 <p>$$\lim_{x\to a} f(x) = L$$</p>
-<p>means: for every $\varepsilon &gt; 0$, there exists a $\delta &gt; 0$ such that whenever $0 &lt; |x-a| &lt; \delta$, it follows that $|f(x)-L| &lt; \varepsilon$.</p>
-<p>This is the definition every other rule on this page is ultimately built from.</p>
+
 <hr />
 <h2 id="2-one-sided-limits">2. One-sided limits</h2>
 <div class="table-scroll"><table>
@@ -730,17 +674,14 @@ Recognizing the pattern turns "memorize this limit" into "memorize one derivativ
 </tr>
 </tbody>
 </table></div>
-<p>Every one of these fails if the hypothesis (both individual limits existing, or $M \neq 0$ for the quotient rule) is not met; that is exactly the situation that produces an indeterminate form.</p>
+
 <hr />
 <h2 id="4-limits-involving-infinity">4. Limits involving infinity</h2>
 <p><strong>Infinite limit (vertical asymptote), formal definition:</strong></p>
 <p>$$\lim_{x\to a} f(x) = \infty$$</p>
-<p>means: for every $N &gt; 0$, there is a $\delta &gt; 0$ such that $0 &lt; |x-a| &lt; \delta \Rightarrow f(x) &gt; N$.
-($\lim_{x\to a} f(x) = -\infty$ is the mirror statement with $f(x) &lt; -N$.)</p>
 <p><strong>Limit at infinity (horizontal asymptote), formal definition:</strong></p>
 <p>$$\lim_{x\to\infty} f(x) = L$$</p>
-<p>means: for every $\varepsilon &gt; 0$, there is an $M &gt; 0$ such that $x &gt; M \Rightarrow |f(x)-L| &lt; \varepsilon$.
-($x \to -\infty$ is the mirror statement with $x &lt; -M$.)</p>
+
 <p><strong>Basic power-function limits:</strong></p>
 <div class="table-scroll"><table>
 <thead>
@@ -800,11 +741,11 @@ $$f(x) = \frac{a_n x^n + \cdots + a_0}{b_m x^m + \cdots + b_0}:$$</p>
 <p>The standard technique is to divide numerator and denominator by $x^m$ (the highest power in the denominator) before taking the limit; that mechanical step is what these three rows summarize.</p>
 <hr />
 <h2 id="5-squeeze-sandwich-theorem">5. Squeeze (sandwich) theorem</h2>
-<p>If $g(x) \le f(x) \le h(x)$ for all $x$ near $a$ (except possibly at $a$ itself), and</p>
+<p>If $g(x) \le f(x) \le h(x)$</p>
 <p>$$\lim_{x\to a} g(x) = \lim_{x\to a} h(x) = L,$$</p>
 <p>then</p>
 <p>$$\lim_{x\to a} f(x) = L.$$</p>
-<p>This is the only tool on this page that proves a limit exists without ever evaluating $f$ directly; it works by trapping $f$ between two functions whose limits are already known.</p>
+
 <hr />
 <h2 id="6-lhopitals-rule">6. L'Hopital's rule</h2>
 <p>If $\displaystyle\lim_{x\to a} \frac{f(x)}{g(x)}$ is of the form $\dfrac{0}{0}$ or $\dfrac{\infty}{\infty}$, and $f$ and $g$ are differentiable near $a$ with $g'(x) \neq 0$ near $a$ (except possibly at $a$), then</p>
@@ -893,8 +834,7 @@ $$f(x) = \frac{a_n x^n + \cdots + a_0}{b_m x^m + \cdots + b_0}:$$</p>
 <li>Vertical stretch/compression by factor $a$ (and reflect over x-axis if $a &lt; 0$)</li>
 <li>Vertical shift by $k$ (up/down)</li>
 </ol>
-<p>Steps 1-2 (horizontal group) and steps 3-4 (vertical group) act on independent variables, so the two groups can be done in either order relative to each other. Within each group, scale/reflect must come before shift, because the formula subtracts $h$ from $x$ only after $b$ is factored out (and similarly $a$ scales $f(\ldots)$ before $k$ is added).</p>
-<p>If instead the equation were written as $y = a\cdot f(bx - h) + k$ ($h$ not factored with $b$), the horizontal shift amount changes to $h/b$ and the same "scale then shift" order still applies to the rewritten $b\cdot(x - h/b)$.</p>
+
 <hr />
 <h2 id="3-techniques-for-evaluating-limits">3. Techniques for evaluating limits</h2>
 <p>General order of attack: try direct substitution first; if it produces an indeterminate form, pick a technique below based on the shape of the expression.</p>
@@ -931,24 +871,14 @@ $$f(x) = \frac{a_n x^n + \cdots + a_0}{b_m x^m + \cdots + b_0}:$$</p>
 </ul>
 <hr />
 <h2 id="4-factoring-formulas-powers-2-through-5">4. Factoring formulas (powers 2 through 5)</h2>
-<h3 id="difference-and-sum-of-squares">Difference and sum of squares</h3>
 <p>$$a^2 - b^2 = (a - b)(a + b)$$</p>
-<p>$a^2 + b^2$ does not factor over the reals; over the complex numbers, $a^2 + b^2 = (a + bi)(a - bi)$.</p>
-<h3 id="difference-and-sum-of-cubes">Difference and sum of cubes</h3>
 <p>$$a^3 - b^3 = (a - b)(a^2 + ab + b^2)$$
 $$a^3 + b^3 = (a + b)(a^2 - ab + b^2)$$</p>
-<p>Mnemonic: "SOAP" - Same sign, Opposite sign, Always Positive (for the sign of the middle term).</p>
-<h3 id="difference-and-sum-of-4th-powers">Difference and sum of 4th powers</h3>
-<p>$$a^4 - b^4 = (a - b)(a + b)(a^2 + b^2) \quad \text{[difference of squares, applied twice]}$$
-$$a^4 + b^4 = (a^2 + \sqrt{2}\,ab + b^2)(a^2 - \sqrt{2}\,ab + b^2) \quad \text{[not a rational factorization]}$$</p>
-<h3 id="difference-and-sum-of-5th-powers">Difference and sum of 5th powers</h3>
+<p>$$a^4 - b^4 = (a - b)(a + b)(a^2 + b^2) $$
+$$a^4 + b^4 = (a^2 + \sqrt{2}\,ab + b^2)(a^2 - \sqrt{2}\,ab + b^2) $$</p>
 <p>$$a^5 - b^5 = (a - b)(a^4 + a^3b + a^2b^2 + ab^3 + b^4)$$
 $$a^5 + b^5 = (a + b)(a^4 - a^3b + a^2b^2 - ab^3 + b^4)$$</p>
-<h3 id="general-pattern-any-positive-integer-n">General pattern (any positive integer n)</h3>
 <p>$$a^n - b^n = (a - b)(a^{n-1} + a^{n-2}b + a^{n-3}b^2 + \cdots + b^{n-1})$$</p>
-<p>always factors this way.</p>
-<p>$$a^n + b^n = (a + b)(a^{n-1} - a^{n-2}b + a^{n-3}b^2 - \cdots + b^{n-1})$$</p>
-<p>only factors this way when $n$ is <strong>odd</strong>. When $n$ is even, $a^n + b^n$ has no such rational factorization (for n=2, it doesn't factor over the reals at all; for n=4, only the irrational factorization above exists).</p>
 <hr />
 <h2 id="5-trigonometric-identities">5. Trigonometric identities</h2>
 <h3 id="pythagorean-identities">Pythagorean identities</h3>
@@ -994,409 +924,23 @@ $$\sin(a)\sin(b) = \frac12\left[\cos(a-b) - \cos(a+b)\right]$$</p>
 $$\sin(a) - \sin(b) = 2\cos\left(\frac{a+b}{2}\right)\sin\left(\frac{a-b}{2}\right)$$
 $$\cos(a) + \cos(b) = 2\cos\left(\frac{a+b}{2}\right)\cos\left(\frac{a-b}{2}\right)$$
 $$\cos(a) - \cos(b) = -2\sin\left(\frac{a+b}{2}\right)\sin\left(\frac{a-b}{2}\right)$$</p>
-<h1 id="techniques-for-evaluating-limits-derivatives-and-integrals">Techniques for Evaluating Limits, Derivatives, and Integrals</h1>
-<p>A complete catalog of the standard techniques, each with a worked example and the steps used to solve it.
-The organizing idea is that evaluation is a <em>routing</em> problem: the hard part is rarely the algebra, it is recognizing which of the thirty-odd techniques the expression is asking for.
-So each technique below leads with its <strong>trigger</strong> (what the problem looks like when this is the right tool) before the example.</p>
-<p>Every numeric answer in this file was independently recomputed with SymPy and checked against a direct numerical evaluation before being written down.
-The verification script and its output are recorded at the end of the file.</p>
-<p>Companion sheets in this folder: <code>Special-Limits.md</code> (the memorize-outright limit table) and <code>Algebra-Calc-Trig-Reference.md</code> (the identities these techniques assume).</p>
 <hr />
-<h2 id="how-to-use-this-file">How to use this file</h2>
-<ol>
-<li>Identify the <strong>form</strong> you are facing (a $0/0$, an $\infty-\infty$, a product of unlike functions, a radical, a rational function).</li>
-<li>Jump to the matching technique using the index below.</li>
-<li>Work the example, then the trigger line tells you when the technique will fail and what to escalate to.</li>
-</ol>
-<h3 id="index">Index</h3>
-<p><strong>Part 1 - Limits (L1 to L20)</strong></p>
-<div class="table-scroll"><table>
-<thead>
-<tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">Technique</th>
-<th style="text-align: left;">Trigger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">L1</td>
-<td style="text-align: left;">Direct substitution</td>
-<td style="text-align: left;">Function is continuous at the point</td>
-</tr>
-<tr>
-<td style="text-align: left;">L2</td>
-<td style="text-align: left;">Factor and cancel</td>
-<td style="text-align: left;">$0/0$ with polynomials</td>
-</tr>
-<tr>
-<td style="text-align: left;">L3</td>
-<td style="text-align: left;">Conjugate multiplication</td>
-<td style="text-align: left;">$0/0$ with a square root</td>
-</tr>
-<tr>
-<td style="text-align: left;">L4</td>
-<td style="text-align: left;">Combine into a single fraction</td>
-<td style="text-align: left;">$\infty-\infty$ or a compound fraction</td>
-</tr>
-<tr>
-<td style="text-align: left;">L5</td>
-<td style="text-align: left;">Standard trig limits</td>
-<td style="text-align: left;">$\sin$, $\tan$, $1-\cos$ over an argument going to $0$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L6</td>
-<td style="text-align: left;">Squeeze theorem</td>
-<td style="text-align: left;">A bounded factor times something going to $0$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L7</td>
-<td style="text-align: left;">Divide by the dominant power</td>
-<td style="text-align: left;">Rational function as $x\to\pm\infty$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L8</td>
-<td style="text-align: left;">Degree comparison shortcut</td>
-<td style="text-align: left;">Ratio of polynomials at infinity</td>
-</tr>
-<tr>
-<td style="text-align: left;">L9</td>
-<td style="text-align: left;">Radicals at infinity and the $\lvert x\rvert$ trap</td>
-<td style="text-align: left;">$\sqrt{\text{quadratic}}$ as $x\to-\infty$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L10</td>
-<td style="text-align: left;">L'Hopital's rule</td>
-<td style="text-align: left;">$0/0$ or $\infty/\infty$ after substitution</td>
-</tr>
-<tr>
-<td style="text-align: left;">L11</td>
-<td style="text-align: left;">Taylor / Maclaurin expansion</td>
-<td style="text-align: left;">$0/0$ needing several L'Hopital passes</td>
-</tr>
-<tr>
-<td style="text-align: left;">L12</td>
-<td style="text-align: left;">Change of variable</td>
-<td style="text-align: left;">Awkward root or nested argument</td>
-</tr>
-<tr>
-<td style="text-align: left;">L13</td>
-<td style="text-align: left;">One-sided limits</td>
-<td style="text-align: left;">Absolute value, piecewise, or a pole</td>
-</tr>
-<tr>
-<td style="text-align: left;">L14</td>
-<td style="text-align: left;">Logarithm trick for indeterminate powers</td>
-<td style="text-align: left;">$1^\infty$, $0^0$, $\infty^0$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L15</td>
-<td style="text-align: left;">Rewriting $0\cdot\infty$</td>
-<td style="text-align: left;">A product where one factor blows up</td>
-</tr>
-<tr>
-<td style="text-align: left;">L16</td>
-<td style="text-align: left;">Bounded over unbounded</td>
-<td style="text-align: left;">$\sin x / x$ as $x\to\infty$</td>
-</tr>
-<tr>
-<td style="text-align: left;">L17</td>
-<td style="text-align: left;">Epsilon-delta proof</td>
-<td style="text-align: left;">The question says "prove"</td>
-</tr>
-<tr>
-<td style="text-align: left;">L18</td>
-<td style="text-align: left;">Showing a limit does not exist</td>
-<td style="text-align: left;">Two paths give different values</td>
-</tr>
-<tr>
-<td style="text-align: left;">L19</td>
-<td style="text-align: left;">Recognizing a Riemann sum</td>
-<td style="text-align: left;">$\lim_{n\to\infty}$ of a sum with $i/n$ in it</td>
-</tr>
-<tr>
-<td style="text-align: left;">L20</td>
-<td style="text-align: left;">Sequence-specific tools</td>
-<td style="text-align: left;">Recursions, monotone convergence, Stolz-Cesaro</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Part 2 - Derivatives (D1 to D18)</strong></p>
-<div class="table-scroll"><table>
-<thead>
-<tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">Technique</th>
-<th style="text-align: left;">Trigger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">D1</td>
-<td style="text-align: left;">Definition / first principles</td>
-<td style="text-align: left;">The question says "by definition"</td>
-</tr>
-<tr>
-<td style="text-align: left;">D2</td>
-<td style="text-align: left;">Power, constant multiple, sum rules</td>
-<td style="text-align: left;">Polynomials and roots</td>
-</tr>
-<tr>
-<td style="text-align: left;">D3</td>
-<td style="text-align: left;">Product rule</td>
-<td style="text-align: left;">A product of two non-trivial factors</td>
-</tr>
-<tr>
-<td style="text-align: left;">D4</td>
-<td style="text-align: left;">Quotient rule</td>
-<td style="text-align: left;">A genuine fraction that will not simplify</td>
-</tr>
-<tr>
-<td style="text-align: left;">D5</td>
-<td style="text-align: left;">Chain rule</td>
-<td style="text-align: left;">A function inside a function</td>
-</tr>
-<tr>
-<td style="text-align: left;">D6</td>
-<td style="text-align: left;">Trig, exponential, log tables</td>
-<td style="text-align: left;">Named functions</td>
-</tr>
-<tr>
-<td style="text-align: left;">D7</td>
-<td style="text-align: left;">Inverse trig and hyperbolic</td>
-<td style="text-align: left;">$\arcsin$, $\arctan$, $\sinh$</td>
-</tr>
-<tr>
-<td style="text-align: left;">D8</td>
-<td style="text-align: left;">Implicit differentiation</td>
-<td style="text-align: left;">$y$ cannot be isolated</td>
-</tr>
-<tr>
-<td style="text-align: left;">D9</td>
-<td style="text-align: left;">Logarithmic differentiation</td>
-<td style="text-align: left;">Variable exponent, or a big product/quotient</td>
-</tr>
-<tr>
-<td style="text-align: left;">D10</td>
-<td style="text-align: left;">Inverse function derivative</td>
-<td style="text-align: left;">You need $(f^{-1})'$ without inverting $f$</td>
-</tr>
-<tr>
-<td style="text-align: left;">D11</td>
-<td style="text-align: left;">Parametric and polar</td>
-<td style="text-align: left;">$x(t), y(t)$ or $r(\theta)$</td>
-</tr>
-<tr>
-<td style="text-align: left;">D12</td>
-<td style="text-align: left;">Higher-order and Leibniz rule</td>
-<td style="text-align: left;">An $n$th derivative pattern</td>
-</tr>
-<tr>
-<td style="text-align: left;">D13</td>
-<td style="text-align: left;">Related rates</td>
-<td style="text-align: left;">Two quantities changing in time</td>
-</tr>
-<tr>
-<td style="text-align: left;">D14</td>
-<td style="text-align: left;">Differentials / linearization</td>
-<td style="text-align: left;">Approximate a nearby value</td>
-</tr>
-<tr>
-<td style="text-align: left;">D15</td>
-<td style="text-align: left;">Partial derivatives</td>
-<td style="text-align: left;">More than one input variable</td>
-</tr>
-<tr>
-<td style="text-align: left;">D16</td>
-<td style="text-align: left;">Multivariable chain rule and gradients</td>
-<td style="text-align: left;">Composition of multivariable maps</td>
-</tr>
-<tr>
-<td style="text-align: left;">D17</td>
-<td style="text-align: left;">Differentiating an integral (FTC 1 and Leibniz)</td>
-<td style="text-align: left;">The variable is in a limit of integration</td>
-</tr>
-<tr>
-<td style="text-align: left;">D18</td>
-<td style="text-align: left;">Numerical differentiation</td>
-<td style="text-align: left;">No formula, only data or a black box</td>
-</tr>
-</tbody>
-</table></div>
-<p><strong>Part 3 - Integrals (I1 to I22)</strong></p>
-<div class="table-scroll"><table>
-<thead>
-<tr>
-<th style="text-align: left;">#</th>
-<th style="text-align: left;">Technique</th>
-<th style="text-align: left;">Trigger</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">I1</td>
-<td style="text-align: left;">Reverse the derivative table</td>
-<td style="text-align: left;">The integrand is already a known derivative</td>
-</tr>
-<tr>
-<td style="text-align: left;">I2</td>
-<td style="text-align: left;">$u$-substitution</td>
-<td style="text-align: left;">An inner function and (a multiple of) its derivative</td>
-</tr>
-<tr>
-<td style="text-align: left;">I3</td>
-<td style="text-align: left;">Integration by parts</td>
-<td style="text-align: left;">A product of unlike types (LIATE)</td>
-</tr>
-<tr>
-<td style="text-align: left;">I4</td>
-<td style="text-align: left;">Tabular integration</td>
-<td style="text-align: left;">Polynomial times $e^{ax}$, $\sin$, $\cos$</td>
-</tr>
-<tr>
-<td style="text-align: left;">I5</td>
-<td style="text-align: left;">Trigonometric integrals</td>
-<td style="text-align: left;">Powers of $\sin/\cos$ or $\sec/\tan$</td>
-</tr>
-<tr>
-<td style="text-align: left;">I6</td>
-<td style="text-align: left;">Trigonometric substitution</td>
-<td style="text-align: left;">$\sqrt{a^2-x^2}$, $\sqrt{a^2+x^2}$, $\sqrt{x^2-a^2}$</td>
-</tr>
-<tr>
-<td style="text-align: left;">I7</td>
-<td style="text-align: left;">Completing the square</td>
-<td style="text-align: left;">An irreducible quadratic with a linear term</td>
-</tr>
-<tr>
-<td style="text-align: left;">I8</td>
-<td style="text-align: left;">Partial fractions</td>
-<td style="text-align: left;">A proper rational function</td>
-</tr>
-<tr>
-<td style="text-align: left;">I9</td>
-<td style="text-align: left;">Long division first</td>
-<td style="text-align: left;">An improper rational function</td>
-</tr>
-<tr>
-<td style="text-align: left;">I10</td>
-<td style="text-align: left;">Weierstrass substitution $t=\tan(x/2)$</td>
-<td style="text-align: left;">A rational function of $\sin$ and $\cos$</td>
-</tr>
-<tr>
-<td style="text-align: left;">I11</td>
-<td style="text-align: left;">Rationalizing substitutions</td>
-<td style="text-align: left;">Roots of a linear expression</td>
-</tr>
-<tr>
-<td style="text-align: left;">I12</td>
-<td style="text-align: left;">Reduction formulas</td>
-<td style="text-align: left;">A power $n$ left symbolic</td>
-</tr>
-<tr>
-<td style="text-align: left;">I13</td>
-<td style="text-align: left;">Symmetry and periodicity</td>
-<td style="text-align: left;">A symmetric interval</td>
-</tr>
-<tr>
-<td style="text-align: left;">I14</td>
-<td style="text-align: left;">The reflection (king) property</td>
-<td style="text-align: left;">$\int_a^b f(a+b-x)\,dx$ closes the loop</td>
-</tr>
-<tr>
-<td style="text-align: left;">I15</td>
-<td style="text-align: left;">Fundamental Theorem part 2</td>
-<td style="text-align: left;">A definite integral of a function you can antidifferentiate</td>
-</tr>
-<tr>
-<td style="text-align: left;">I16</td>
-<td style="text-align: left;">Riemann sums from the definition</td>
-<td style="text-align: left;">The question says "by definition"</td>
-</tr>
-<tr>
-<td style="text-align: left;">I17</td>
-<td style="text-align: left;">Improper integrals and convergence tests</td>
-<td style="text-align: left;">An infinite limit or an interior blow-up</td>
-</tr>
-<tr>
-<td style="text-align: left;">I18</td>
-<td style="text-align: left;">Numerical quadrature</td>
-<td style="text-align: left;">No elementary antiderivative</td>
-</tr>
-<tr>
-<td style="text-align: left;">I19</td>
-<td style="text-align: left;">Term-by-term series integration</td>
-<td style="text-align: left;">The integrand has a known power series</td>
-</tr>
-<tr>
-<td style="text-align: left;">I20</td>
-<td style="text-align: left;">Differentiation under the integral sign</td>
-<td style="text-align: left;">A parameter you can introduce and differentiate</td>
-</tr>
-<tr>
-<td style="text-align: left;">I21</td>
-<td style="text-align: left;">Multiple integrals and Jacobians</td>
-<td style="text-align: left;">Area, volume, or a change of coordinates</td>
-</tr>
-<tr>
-<td style="text-align: left;">I22</td>
-<td style="text-align: left;">Vector-calculus shortcuts</td>
-<td style="text-align: left;">A line or surface integral with a boundary</td>
-</tr>
-</tbody>
-</table></div>
+<h1 id="techniques-for-evaluating-limits-derivatives-and-integrals">Techniques for Evaluating Limits, Derivatives, and Integrals</h1>
+
 <hr />
 <h1 id="part-1-techniques-for-evaluating-limits">Part 1 - Techniques for Evaluating Limits</h1>
-<p>The single most useful habit: <strong>always substitute first</strong>.
-Substitution either gives the answer (L1) or tells you exactly which indeterminate form you have, and the form dictates the technique.</p>
-<p>The seven indeterminate forms and where each routes:</p>
-<div class="table-scroll"><table>
-<thead>
-<tr>
-<th style="text-align: left;">Form</th>
-<th style="text-align: left;">Route to</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align: left;">$\dfrac{0}{0}$</td>
-<td style="text-align: left;">L2, L3, L4, L5, L10, L11, L12</td>
-</tr>
-<tr>
-<td style="text-align: left;">$\dfrac{\infty}{\infty}$</td>
-<td style="text-align: left;">L7, L8, L10</td>
-</tr>
-<tr>
-<td style="text-align: left;">$\infty-\infty$</td>
-<td style="text-align: left;">L4, L9 (then re-check the form)</td>
-</tr>
-<tr>
-<td style="text-align: left;">$0\cdot\infty$</td>
-<td style="text-align: left;">L15 (rewrite as a quotient, then L10)</td>
-</tr>
-<tr>
-<td style="text-align: left;">$1^{\infty}$, $0^{0}$, $\infty^{0}$</td>
-<td style="text-align: left;">L14 (take logs, then L10 or L11)</td>
-</tr>
-</tbody>
-</table></div>
-<p>Anything that is <em>not</em> on that list is not indeterminate.
-In particular $\frac{5}{0}$ is not indeterminate: it is an infinite limit or a one-sided pair, and it routes to L13.</p>
-<hr />
+<p>The single most useful habit: <strong>always substitute first</strong>.</p>
 <h2 id="l1-direct-substitution-continuity">L1. Direct substitution (continuity)</h2>
-<p><strong>Trigger.</strong> The function is built from polynomials, roots, exponentials, logs, and trig, and the point is inside the domain.</p>
-<p><strong>Why it works.</strong> Every elementary function is continuous on its domain, and continuity is exactly the statement </p>
 <h2 id="572">$\lim_{x\to a} f(x) = f(a)$.</h2>
-<p><strong>Example.</strong> </p>
-<h2 id="evaluate-573">Evaluate $\displaystyle\lim_{x\to 2}\frac{x^3-4x+1}{x+3}$.</h2>
+<p><strong>Example:</strong></p>
+<p>Evaluate <strong>$\displaystyle\lim_{x\to 2}\frac{x^3-4x+1}{x+3}$</strong> </p>
 <p><em>Steps.</em></p>
 <ol>
-<li>Check the denominator at the point: $2+3 = 5 \ne 0$, so the point is in the domain.</li>
-<li>Substitute: numerator $= 8 - 8 + 1 = 1$.</li>
-<li>Divide: the limit is $\dfrac{1}{5}$.</li>
+<li>$\displaystyle\lim_{x\to 2}\frac{2^3-4*2+1}{2+3}$ (direct substitution).</li>
+<li>$\displaystyle\lim_{x\to 2}\frac{8-8+1}{5}$ (direct substitution).</li>
+<li>$\displaystyle\lim_{x\to 2}\frac{1}{5}$ (direct substitution).</li>
 </ol>
-<p><strong>Failure mode.</strong> If substitution gives $\frac00$, $\frac{\infty}{\infty}$, or an undefined expression, this technique is done and the form tells you where to go next.
-Do not skip this step even when you expect it to fail, because the <em>kind</em> of failure is the routing information.</p>
+
 <p><strong>MATH265 exam question (Q3.2c).</strong> </p>
 <h2 id="evaluate-579">Evaluate $\displaystyle\lim_{x\to 0}\frac{6x-9}{x^3-12x+3}$.</h2>
 <ol>
