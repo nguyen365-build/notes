@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs
+
+# printable-PDF build artifacts
+_pdf_preview/
+_pass1.pdf
+_verify.json

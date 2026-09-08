@@ -103,6 +103,234 @@
   };
 </script>
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.js"></script>
+<style id="print-overrides">
+/* ==========================================================================
+   print-overrides.css - turns the dark ops-console reference into a plain
+   black-on-white printable document. Injected by tools/print/build-print.mjs
+   into print.html; index.html itself is never modified.
+   ========================================================================== */
+
+/* 1. Kill every background fill and force pure black text.
+      Borders and rules are NOT backgrounds, so table/box rules survive. */
+*, *::before, *::after{
+  background:none !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  color:#000 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+}
+
+:root{
+  --bg:#ffffff;
+  --panel:#ffffff;
+  --line:#000000;
+  --text:#000000;
+  --muted:#000000;
+  --accent:#000000;
+  --fs-base:12pt;
+}
+
+html, body{
+  background:#ffffff !important;
+  color:#000000 !important;
+}
+
+body{
+  margin:0 !important;
+  padding:0 !important;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:12pt;
+  line-height:1.48;
+  -webkit-text-size-adjust:none;
+  text-size-adjust:none;
+}
+
+/* Use the full printable column - the 80ch cap wastes page width that the
+   wide tables and long display formulas need. */
+.wrap{ max-width:none !important; width:100% !important; margin:0 !important; }
+
+/* 2. Typography ---------------------------------------------------------- */
+h1,h2,h3{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  letter-spacing:0;
+}
+h1{
+  font-size:1.6em;
+  line-height:1.2;
+  margin:0 0 .55em;
+  border-bottom:2px solid #000 !important;
+  padding-bottom:.22em;
+}
+h2{
+  font-size:1.24em;
+  margin:1.25em 0 .5em;
+  padding-top:.3em;
+  border-top:1px solid #000 !important;
+}
+h3{ font-size:1.08em; margin:1em 0 .4em; border:none !important; }
+
+p,li{ margin:.45em 0; }
+ul,ol{ margin:.45em 0; padding-left:1.5em; }
+li{ margin:.28em 0; }
+strong{ font-weight:700; }
+em{ font-style:italic; }
+a, a:hover{ text-decoration:none !important; }
+
+/* 3. Code - outlined, never filled -------------------------------------- */
+code{
+  font-family:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  font-size:.9em;
+  border:1px solid #000000 !important;
+  border-radius:3px;
+  padding:0 .28em;
+  word-break:break-word;
+}
+pre{
+  border:1px solid #000000 !important;
+  border-radius:0;
+  padding:.6em .8em;
+  overflow:visible !important;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  break-inside:avoid;
+}
+pre code{ border:none !important; padding:0; font-size:.92em; }
+
+/* 4. Tables -------------------------------------------------------------- */
+/* On screen these scroll sideways; on paper there is nowhere to scroll, so
+   the clip has to become a wrap (print-fit.js shrinks whatever still
+   will not fit). */
+.table-scroll{
+  overflow:visible !important;
+  border:none !important;
+  border-radius:0 !important;
+  margin:.7em 0;
+}
+table{
+  border-collapse:collapse;
+  width:100%;
+  font-size:.94em;
+  table-layout:auto;
+}
+th,td{
+  border:1px solid #000000 !important;
+  padding:.32em .5em;
+  text-align:left;
+  vertical-align:top;
+  white-space:normal !important;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
+th{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  text-transform:none !important;
+  letter-spacing:0 !important;
+  font-size:1em !important;
+  border-bottom:2px solid #000 !important;
+}
+tr:last-child td{ border-bottom:1px solid #000000 !important; }
+thead{ display:table-header-group; }   /* repeat headers across page breaks */
+tr{ break-inside:avoid; page-break-inside:avoid; }
+
+/* 5. Math ---------------------------------------------------------------- */
+/* MathJax SVG glyphs paint with fill:currentColor, so the black above
+   already covers them. What is left is the horizontal clip. */
+mjx-container{
+  overflow:visible !important;
+  max-width:none !important;
+  color:#000 !important;
+}
+mjx-container svg{ overflow:visible !important; }
+/* Screen-reader MathML is never painted, but it is laid out - and it is the
+   only thing that pushed the page wider than the printable column. */
+/* Two selectors deep on purpose: MathJax injects its own
+   `mjx-assistive-mml{display:block!important}` at runtime, i.e. after this
+   sheet, so an equally specific rule here would lose the cascade. */
+mjx-container > mjx-assistive-mml{ display:none !important; }
+mjx-container[display="true"]{
+  margin:.6em 0 !important;
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+h1 mjx-container, h2 mjx-container, h3 mjx-container{
+  display:inline-block;
+  vertical-align:middle;
+}
+
+/* 6. Rules and chrome ---------------------------------------------------- */
+hr{ border:none; border-top:1px solid #000000 !important; margin:1.1em 0; }
+/* h1/h2 already carry their own rule, so an <hr> in front of one prints as a
+   doubled line - and in front of an h1 it strands a rule at the page foot. */
+hr:has(+ h1), hr:has(+ h2), hr:has(+ h3){ display:none; }
+.toc-back{ display:none !important; }  /* "back to contents" is screen-only */
+
+/* 7. Table of contents --------------------------------------------------- */
+/* No box around the TOC: it runs over several pages, and a fragmented box
+   redraws its left and right borders down the full height of every page it
+   touches, which reads as two stray vertical rules. */
+#toc{
+  border:none !important;
+  border-radius:0 !important;
+  padding:0;
+  margin:0 0 1.4em;
+}
+.toc-head{ border-bottom:1px solid #000 !important; padding-bottom:.6em; }
+.toc-kicker, .toc-step{
+  font-family:"IBM Plex Mono",Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+#toc h1.toc-title{ font-size:1.3em; margin:0; border:none !important; padding:0; }
+.toc-lede{ font-size:.9em; margin:.4em 0 0; }
+.toc-card{ border-bottom:1px solid #000000 !important; padding:.7em 0 .6em; break-inside:avoid; }
+.toc-card:last-child{ border-bottom:none !important; padding-bottom:0; }
+a.toc-card-title{
+  display:block; font-weight:700; font-size:1em; line-height:1.25; margin:.15em 0 0;
+}
+.toc-note{ font-size:.86em; margin:.2em 0 .4em; }
+#toc ul{ list-style:none; margin:.15em 0; padding:0 0 0 .9em; line-height:1.35; }
+/* Same fragmentation problem as the #toc box, and these lists are the part
+   that spans pages. Two columns instead, which also halves the TOC length. */
+#toc > .toc-card > ul{
+  border-left:none !important;
+  padding-left:.8em;
+  column-count:2;
+  column-gap:1.6em;
+}
+#toc li{ margin:.14em 0; font-size:.88em; break-inside:avoid; }
+#toc li > a{ display:block; }
+
+/* Page numbers. The box is a FIXED width and the placeholder pass uses the
+   same markup, so pass 1 (placeholders) and pass 2 (real numbers) lay out
+   identically - the numbers cannot invalidate the pagination they describe. */
+.toc-pg{
+  float:right;
+  display:inline-block;
+  width:2.5em;
+  margin-left:.7em;
+  text-align:right;
+  font-family:"IBM Plex Mono",Consolas,monospace;
+  font-size:.82em;
+  font-variant-numeric:tabular-nums;
+  /* A float has no baseline to share with its line, so match the parent's
+     line box by hand or the digits ride up like superscripts. */
+  line-height:1.62;
+}
+a.toc-card-title .toc-pg{ font-size:.78em; }
+
+/* 8. Pagination ---------------------------------------------------------- */
+.wrap > h1{ break-before:page; page-break-before:always; }
+#toc, #toc h1{ break-before:auto !important; page-break-before:auto !important; }
+.wrap > h1, h2, h3{ break-after:avoid; page-break-after:avoid; break-inside:avoid; }
+p{ orphans:3; widows:3; }
+
+/* The screen breakpoint must not fire at print width. */
+@media (max-width:640px){ :root{ --fs-base:12pt; } }
+
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -111,237 +339,237 @@
     <div class="toc-kicker">Jump to a section</div>
     <h1 class="toc-title">Table of contents</h1>
     <p class="toc-lede">Ordered from the most approachable material to the most demanding.
-Read it top to bottom, or jump straight to what you need - every section ends with a link back here.</p>
+Read it top to bottom, or jump straight to what you need.</p>
   </div>
   <section class="toc-card">
     <div class="toc-step">Step 01</div>
-    <a class="toc-card-title" href="#algebra-calculus-trig-quick-reference">Algebra / Calculus / Trig Quick Reference</a>
+    <a class="toc-card-title" href="#algebra-calculus-trig-quick-reference"><span class="toc-pg" data-for="algebra-calculus-trig-quick-reference">5</span>Algebra / Calculus / Trig Quick Reference</a>
     <p class="toc-note">Formulas you look up rather than derive: quadratic formula, graph transformations, factoring patterns, and the full trig identity and value tables.</p>
     <ul>
-      <li><a href="#1-quadratic-formula">1. Quadratic formula</a></li>
-      <li><a href="#2-transformation-steps-for-568">2. Transformation steps for $y = a\cdot f(b\cdot(x - h)) + k$</a>
+      <li><a href="#1-quadratic-formula"><span class="toc-pg" data-for="1-quadratic-formula">5</span>1. Quadratic formula</a></li>
+      <li><a href="#2-transformation-steps-for-568"><span class="toc-pg" data-for="2-transformation-steps-for-568">5</span>2. Transformation steps for $y = a\cdot f(b\cdot(x - h)) + k$</a>
         <ul>
-          <li><a href="#order-of-transformations-apply-to-the-base-graph-584">Order of transformations (apply to the base graph $y = f(x)$)</a></li>
+          <li><a href="#order-of-transformations-apply-to-the-base-graph-584"><span class="toc-pg" data-for="order-of-transformations-apply-to-the-base-graph-584">5</span>Order of transformations (apply to the base graph $y = f(x)$)</a></li>
         </ul>
       </li>
-      <li><a href="#3-techniques-for-evaluating-limits">3. Techniques for evaluating limits</a>
+      <li><a href="#3-techniques-for-evaluating-limits"><span class="toc-pg" data-for="3-techniques-for-evaluating-limits">6</span>3. Techniques for evaluating limits</a>
         <ul>
-          <li><a href="#indeterminate-forms">Indeterminate forms</a></li>
-          <li><a href="#core-techniques">Core techniques</a></li>
-          <li><a href="#workarounds-for-the-harder-indeterminate-forms">Workarounds for the harder indeterminate forms</a></li>
+          <li><a href="#indeterminate-forms"><span class="toc-pg" data-for="indeterminate-forms">6</span>Indeterminate forms</a></li>
+          <li><a href="#core-techniques"><span class="toc-pg" data-for="core-techniques">6</span>Core techniques</a></li>
+          <li><a href="#workarounds-for-the-harder-indeterminate-forms"><span class="toc-pg" data-for="workarounds-for-the-harder-indeterminate-forms">7</span>Workarounds for the harder indeterminate forms</a></li>
         </ul>
       </li>
-      <li><a href="#4-factoring-formulas-powers-2-through-5">4. Factoring formulas (powers 2 through 5)</a></li>
-      <li><a href="#5-trigonometric-identities">5. Trigonometric identities</a>
+      <li><a href="#4-factoring-formulas-powers-2-through-5"><span class="toc-pg" data-for="4-factoring-formulas-powers-2-through-5">7</span>4. Factoring formulas (powers 2 through 5)</a></li>
+      <li><a href="#5-trigonometric-identities"><span class="toc-pg" data-for="5-trigonometric-identities">7</span>5. Trigonometric identities</a>
         <ul>
-          <li><a href="#pythagorean-identities">Pythagorean identities</a></li>
-          <li><a href="#reciprocal-identities">Reciprocal identities</a></li>
-          <li><a href="#quotient-identities">Quotient identities</a></li>
-          <li><a href="#evenodd-negative-angle-identities">Even/odd (negative angle) identities</a></li>
-          <li><a href="#co-function-identities">Co-function identities</a></li>
-          <li><a href="#sum-and-difference-identities">Sum and difference identities</a></li>
-          <li><a href="#double-angle-identities">Double angle identities</a></li>
-          <li><a href="#power-reduction-identities-rearranged-double-angle">Power-reduction identities (rearranged double angle)</a></li>
-          <li><a href="#half-angle-identities">Half-angle identities</a></li>
-          <li><a href="#product-to-sum-identities">Product-to-sum identities</a></li>
-          <li><a href="#sum-to-product-identities">Sum-to-product identities</a></li>
-          <li><a href="#table-1-of-2-sine-cosine-and-tangent">Table 1 of 2 - sine, cosine and tangent</a></li>
-          <li><a href="#table-2-of-2-cosecant-secant-and-cotangent">Table 2 of 2 - cosecant, secant and cotangent</a></li>
+          <li><a href="#pythagorean-identities"><span class="toc-pg" data-for="pythagorean-identities">7</span>Pythagorean identities</a></li>
+          <li><a href="#reciprocal-identities"><span class="toc-pg" data-for="reciprocal-identities">7</span>Reciprocal identities</a></li>
+          <li><a href="#quotient-identities"><span class="toc-pg" data-for="quotient-identities">8</span>Quotient identities</a></li>
+          <li><a href="#evenodd-negative-angle-identities"><span class="toc-pg" data-for="evenodd-negative-angle-identities">8</span>Even/odd (negative angle) identities</a></li>
+          <li><a href="#co-function-identities"><span class="toc-pg" data-for="co-function-identities">8</span>Co-function identities</a></li>
+          <li><a href="#sum-and-difference-identities"><span class="toc-pg" data-for="sum-and-difference-identities">8</span>Sum and difference identities</a></li>
+          <li><a href="#double-angle-identities"><span class="toc-pg" data-for="double-angle-identities">8</span>Double angle identities</a></li>
+          <li><a href="#power-reduction-identities-rearranged-double-angle"><span class="toc-pg" data-for="power-reduction-identities-rearranged-double-angle">8</span>Power-reduction identities (rearranged double angle)</a></li>
+          <li><a href="#half-angle-identities"><span class="toc-pg" data-for="half-angle-identities">9</span>Half-angle identities</a></li>
+          <li><a href="#product-to-sum-identities"><span class="toc-pg" data-for="product-to-sum-identities">9</span>Product-to-sum identities</a></li>
+          <li><a href="#sum-to-product-identities"><span class="toc-pg" data-for="sum-to-product-identities">9</span>Sum-to-product identities</a></li>
+          <li><a href="#table-1-of-2-sine-cosine-and-tangent"><span class="toc-pg" data-for="table-1-of-2-sine-cosine-and-tangent">9</span>Table 1 of 2 - sine, cosine and tangent</a></li>
+          <li><a href="#table-2-of-2-cosecant-secant-and-cotangent"><span class="toc-pg" data-for="table-2-of-2-cosecant-secant-and-cotangent">11</span>Table 2 of 2 - cosecant, secant and cotangent</a></li>
         </ul>
       </li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 02</div>
-    <a class="toc-card-title" href="#limits-definitions-and-laws">Limits: Definitions and Laws</a>
+    <a class="toc-card-title" href="#limits-definitions-and-laws"><span class="toc-pg" data-for="limits-definitions-and-laws">15</span>Limits: Definitions and Laws</a>
     <p class="toc-note">What a limit actually says, the laws that let you break one apart, and the definitions of continuity, the derivative and the integral that are built on top of it.</p>
     <ul>
-      <li><a href="#1-formal-epsilon-delta-definition-of-a-limit">1. Formal definition of a limit</a></li>
-      <li><a href="#2-one-sided-limits">2. One-sided limits</a></li>
-      <li><a href="#3-algebra-of-limits-limit-laws">3. Algebra of limits (limit laws)</a></li>
-      <li><a href="#4-limits-involving-infinity">4. Limits involving infinity</a></li>
-      <li><a href="#5-squeeze-sandwich-theorem">5. Squeeze (sandwich) theorem</a></li>
-      <li><a href="#6-lhopitals-rule">6. L&#x27;Hopital&#x27;s rule</a></li>
-      <li><a href="#7-continuity-stated-as-a-limit-equation">7. Continuity, stated as a limit equation</a></li>
-      <li><a href="#8-the-derivative-defined-as-a-limit">8. The derivative, defined as a limit</a></li>
-      <li><a href="#9-the-definite-integral-defined-as-a-limit-of-riemann-sums">9. The definite integral, defined as a limit of Riemann sums</a></li>
-      <li><a href="#10-limits-of-sequences">10. Limits of sequences</a></li>
+      <li><a href="#1-formal-epsilon-delta-definition-of-a-limit"><span class="toc-pg" data-for="1-formal-epsilon-delta-definition-of-a-limit">15</span>1. Formal definition of a limit</a></li>
+      <li><a href="#2-one-sided-limits"><span class="toc-pg" data-for="2-one-sided-limits">15</span>2. One-sided limits</a></li>
+      <li><a href="#3-algebra-of-limits-limit-laws"><span class="toc-pg" data-for="3-algebra-of-limits-limit-laws">15</span>3. Algebra of limits (limit laws)</a></li>
+      <li><a href="#4-limits-involving-infinity"><span class="toc-pg" data-for="4-limits-involving-infinity">16</span>4. Limits involving infinity</a></li>
+      <li><a href="#5-squeeze-sandwich-theorem"><span class="toc-pg" data-for="5-squeeze-sandwich-theorem">17</span>5. Squeeze (sandwich) theorem</a></li>
+      <li><a href="#6-lhopitals-rule"><span class="toc-pg" data-for="6-lhopitals-rule">17</span>6. L&#x27;Hopital&#x27;s rule</a></li>
+      <li><a href="#7-continuity-stated-as-a-limit-equation"><span class="toc-pg" data-for="7-continuity-stated-as-a-limit-equation">17</span>7. Continuity, stated as a limit equation</a></li>
+      <li><a href="#8-the-derivative-defined-as-a-limit"><span class="toc-pg" data-for="8-the-derivative-defined-as-a-limit">17</span>8. The derivative, defined as a limit</a></li>
+      <li><a href="#9-the-definite-integral-defined-as-a-limit-of-riemann-sums"><span class="toc-pg" data-for="9-the-definite-integral-defined-as-a-limit-of-riemann-sums">17</span>9. The definite integral, defined as a limit of Riemann sums</a></li>
+      <li><a href="#10-limits-of-sequences"><span class="toc-pg" data-for="10-limits-of-sequences">17</span>10. Limits of sequences</a></li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 03</div>
-    <a class="toc-card-title" href="#special-limits-in-calculus">Special Limits in Calculus</a>
+    <a class="toc-card-title" href="#special-limits-in-calculus"><span class="toc-pg" data-for="special-limits-in-calculus">19</span>Special Limits in Calculus</a>
     <p class="toc-note">The short list of limits worth knowing cold, so you recognise them on sight instead of deriving them under time pressure.</p>
     <ul>
-      <li><a href="#1-the-trigonometric-limits-250">1. The trigonometric limits ($x \to 0$)</a></li>
-      <li><a href="#2-the-exponential-and-logarithmic-limits-285">2. The exponential and logarithmic limits ($x \to 0$)</a></li>
-      <li><a href="#3-the-number-304-as-a-limit-at-infinity">3. The number $e$ as a limit at infinity</a></li>
-      <li><a href="#4-growth-rate-hierarchy-at-infinity">4. Growth-rate hierarchy at infinity</a></li>
-      <li><a href="#5-root-and-power-limits">5. Root and power limits</a></li>
-      <li><a href="#6-rationalizing-and-hidden-derivative-limits">6. Rationalizing and &quot;hidden derivative&quot; limits</a></li>
-      <li><a href="#7-squeeze-theorem-classics">7. Squeeze-theorem classics</a></li>
+      <li><a href="#1-the-trigonometric-limits-250"><span class="toc-pg" data-for="1-the-trigonometric-limits-250">19</span>1. The trigonometric limits ($x \to 0$)</a></li>
+      <li><a href="#2-the-exponential-and-logarithmic-limits-285"><span class="toc-pg" data-for="2-the-exponential-and-logarithmic-limits-285">19</span>2. The exponential and logarithmic limits ($x \to 0$)</a></li>
+      <li><a href="#3-the-number-304-as-a-limit-at-infinity"><span class="toc-pg" data-for="3-the-number-304-as-a-limit-at-infinity">20</span>3. The number $e$ as a limit at infinity</a></li>
+      <li><a href="#4-growth-rate-hierarchy-at-infinity"><span class="toc-pg" data-for="4-growth-rate-hierarchy-at-infinity">20</span>4. Growth-rate hierarchy at infinity</a></li>
+      <li><a href="#5-root-and-power-limits"><span class="toc-pg" data-for="5-root-and-power-limits">21</span>5. Root and power limits</a></li>
+      <li><a href="#6-rationalizing-and-hidden-derivative-limits"><span class="toc-pg" data-for="6-rationalizing-and-hidden-derivative-limits">21</span>6. Rationalizing and &quot;hidden derivative&quot; limits</a></li>
+      <li><a href="#7-squeeze-theorem-classics"><span class="toc-pg" data-for="7-squeeze-theorem-classics">21</span>7. Squeeze-theorem classics</a></li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 04</div>
-    <a class="toc-card-title" href="#techniques-for-evaluating-limits-derivatives-and-integrals">Techniques for Evaluating Limits, Derivatives, and Integrals</a>
+    <a class="toc-card-title" href="#techniques-for-evaluating-limits-derivatives-and-integrals"><span class="toc-pg" data-for="techniques-for-evaluating-limits-derivatives-and-integrals">23</span>Techniques for Evaluating Limits, Derivatives, and Integrals</a>
     <p class="toc-note">How the three technique catalogues that follow are organised.</p>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 05</div>
-    <a class="toc-card-title" href="#part-1-techniques-for-evaluating-limits">Part 1 - Techniques for Evaluating Limits</a>
+    <a class="toc-card-title" href="#part-1-techniques-for-evaluating-limits"><span class="toc-pg" data-for="part-1-techniques-for-evaluating-limits">24</span>Part 1 - Techniques for Evaluating Limits</a>
     <p class="toc-note">Twenty ways to evaluate a limit, ordered from direct substitution up to epsilon-delta proofs, Riemann sums and sequences.</p>
     <ul>
-      <li><a href="#l1-direct-substitution-continuity">L1. Direct substitution (continuity)</a></li>
-      <li><a href="#l2-factor-and-cancel">L2. Factor and cancel</a></li>
-      <li><a href="#l3-conjugate-multiplication-rationalizing">L3. Conjugate multiplication (rationalizing)</a></li>
-      <li><a href="#l4-combine-into-a-single-fraction">L4. Combine into a single fraction</a></li>
-      <li><a href="#l5-the-standard-trigonometric-limits">L5. The standard trigonometric limits</a></li>
-      <li><a href="#l6-the-squeeze-sandwich-theorem">L6. The squeeze (sandwich) theorem</a></li>
-      <li><a href="#l7-divide-by-the-dominant-power-limits-at-infinity">L7. Divide by the dominant power (limits at infinity)</a></li>
-      <li><a href="#l8-degree-comparison-the-shortcut-for-l7">L8. Degree comparison (the shortcut for L7)</a></li>
-      <li><a href="#l9-radicals-at-infinity-and-the-794-trap">L9. Radicals at infinity, and the $\lvert x \rvert$ trap</a></li>
-      <li><a href="#l10-lhopitals-rule">L10. L&#x27;Hopital&#x27;s rule</a></li>
-      <li><a href="#l11-taylor-maclaurin-expansion">L11. Taylor / Maclaurin expansion</a></li>
-      <li><a href="#l12-change-of-variable-substitution">L12. Change of variable (substitution)</a></li>
-      <li><a href="#l13-one-sided-limits-and-piecewise-functions">L13. One-sided limits and piecewise functions</a></li>
-      <li><a href="#l14-the-logarithm-trick-for-indeterminate-powers">L14. The logarithm trick for indeterminate powers</a></li>
-      <li><a href="#l15-rewriting-a-995-product">L15. Rewriting a $0\cdot\infty$ product</a></li>
-      <li><a href="#l16-bounded-over-unbounded">L16. Bounded over unbounded</a></li>
-      <li><a href="#l17-epsilon-delta-proof">L17. Epsilon-delta proof</a></li>
-      <li><a href="#l18-showing-a-limit-does-not-exist">L18. Showing a limit does not exist</a></li>
-      <li><a href="#l19-recognizing-a-riemann-sum">L19. Recognizing a Riemann sum</a></li>
-      <li><a href="#l20-sequence-specific-tools">L20. Sequence-specific tools</a></li>
+      <li><a href="#l1-direct-substitution-continuity"><span class="toc-pg" data-for="l1-direct-substitution-continuity">24</span>L1. Direct substitution (continuity)</a></li>
+      <li><a href="#l2-factor-and-cancel"><span class="toc-pg" data-for="l2-factor-and-cancel">25</span>L2. Factor and cancel</a></li>
+      <li><a href="#l3-conjugate-multiplication-rationalizing"><span class="toc-pg" data-for="l3-conjugate-multiplication-rationalizing">27</span>L3. Conjugate multiplication (rationalizing)</a></li>
+      <li><a href="#l4-combine-into-a-single-fraction"><span class="toc-pg" data-for="l4-combine-into-a-single-fraction">28</span>L4. Combine into a single fraction</a></li>
+      <li><a href="#l5-the-standard-trigonometric-limits"><span class="toc-pg" data-for="l5-the-standard-trigonometric-limits">29</span>L5. The standard trigonometric limits</a></li>
+      <li><a href="#l6-the-squeeze-sandwich-theorem"><span class="toc-pg" data-for="l6-the-squeeze-sandwich-theorem">31</span>L6. The squeeze (sandwich) theorem</a></li>
+      <li><a href="#l7-divide-by-the-dominant-power-limits-at-infinity"><span class="toc-pg" data-for="l7-divide-by-the-dominant-power-limits-at-infinity">32</span>L7. Divide by the dominant power (limits at infinity)</a></li>
+      <li><a href="#l8-degree-comparison-the-shortcut-for-l7"><span class="toc-pg" data-for="l8-degree-comparison-the-shortcut-for-l7">33</span>L8. Degree comparison (the shortcut for L7)</a></li>
+      <li><a href="#l9-radicals-at-infinity-and-the-794-trap"><span class="toc-pg" data-for="l9-radicals-at-infinity-and-the-794-trap">34</span>L9. Radicals at infinity, and the $\lvert x \rvert$ trap</a></li>
+      <li><a href="#l10-lhopitals-rule"><span class="toc-pg" data-for="l10-lhopitals-rule">35</span>L10. L&#x27;Hopital&#x27;s rule</a></li>
+      <li><a href="#l11-taylor-maclaurin-expansion"><span class="toc-pg" data-for="l11-taylor-maclaurin-expansion">36</span>L11. Taylor / Maclaurin expansion</a></li>
+      <li><a href="#l12-change-of-variable-substitution"><span class="toc-pg" data-for="l12-change-of-variable-substitution">37</span>L12. Change of variable (substitution)</a></li>
+      <li><a href="#l13-one-sided-limits-and-piecewise-functions"><span class="toc-pg" data-for="l13-one-sided-limits-and-piecewise-functions">38</span>L13. One-sided limits and piecewise functions</a></li>
+      <li><a href="#l14-the-logarithm-trick-for-indeterminate-powers"><span class="toc-pg" data-for="l14-the-logarithm-trick-for-indeterminate-powers">41</span>L14. The logarithm trick for indeterminate powers</a></li>
+      <li><a href="#l15-rewriting-a-995-product"><span class="toc-pg" data-for="l15-rewriting-a-995-product">42</span>L15. Rewriting a $0\cdot\infty$ product</a></li>
+      <li><a href="#l16-bounded-over-unbounded"><span class="toc-pg" data-for="l16-bounded-over-unbounded">43</span>L16. Bounded over unbounded</a></li>
+      <li><a href="#l17-epsilon-delta-proof"><span class="toc-pg" data-for="l17-epsilon-delta-proof">44</span>L17. Epsilon-delta proof</a></li>
+      <li><a href="#l18-showing-a-limit-does-not-exist"><span class="toc-pg" data-for="l18-showing-a-limit-does-not-exist">44</span>L18. Showing a limit does not exist</a></li>
+      <li><a href="#l19-recognizing-a-riemann-sum"><span class="toc-pg" data-for="l19-recognizing-a-riemann-sum">45</span>L19. Recognizing a Riemann sum</a></li>
+      <li><a href="#l20-sequence-specific-tools"><span class="toc-pg" data-for="l20-sequence-specific-tools">46</span>L20. Sequence-specific tools</a></li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 06</div>
-    <a class="toc-card-title" href="#part-2-techniques-for-evaluating-derivatives">Part 2 - Techniques for Evaluating Derivatives</a>
+    <a class="toc-card-title" href="#part-2-techniques-for-evaluating-derivatives"><span class="toc-pg" data-for="part-2-techniques-for-evaluating-derivatives">48</span>Part 2 - Techniques for Evaluating Derivatives</a>
     <p class="toc-note">Eighteen differentiation techniques, from first principles and the product rule up to related rates, partials and the gradient.</p>
     <ul>
-      <li><a href="#d1-the-definition-first-principles">D1. The definition (first principles)</a></li>
-      <li><a href="#d2-power-constant-multiple-and-sum-rules">D2. Power, constant multiple, and sum rules</a></li>
-      <li><a href="#d3-the-product-rule">D3. The product rule</a></li>
-      <li><a href="#d4-the-quotient-rule">D4. The quotient rule</a></li>
-      <li><a href="#d5-the-chain-rule">D5. The chain rule</a></li>
-      <li><a href="#d6-the-named-function-tables">D6. The named-function tables</a></li>
-      <li><a href="#d7-inverse-trigonometric-and-hyperbolic-derivatives">D7. Inverse trigonometric and hyperbolic derivatives</a></li>
-      <li><a href="#d8-implicit-differentiation">D8. Implicit differentiation</a></li>
-      <li><a href="#d9-logarithmic-differentiation">D9. Logarithmic differentiation</a></li>
-      <li><a href="#d10-the-inverse-function-derivative">D10. The inverse function derivative</a></li>
-      <li><a href="#d11-parametric-and-polar-derivatives">D11. Parametric and polar derivatives</a></li>
-      <li><a href="#d12-higher-order-derivatives-and-the-leibniz-rule">D12. Higher-order derivatives and the Leibniz rule</a></li>
-      <li><a href="#d13-related-rates">D13. Related rates</a></li>
-      <li><a href="#d14-differentials-and-linear-approximation">D14. Differentials and linear approximation</a></li>
-      <li><a href="#d15-partial-derivatives">D15. Partial derivatives</a></li>
-      <li><a href="#d16-multivariable-chain-rule-gradient-and-directional-derivative">D16. Multivariable chain rule, gradient, and directional derivative</a></li>
-      <li><a href="#d17-differentiating-an-integral">D17. Differentiating an integral</a></li>
-      <li><a href="#d18-numerical-differentiation">D18. Numerical differentiation</a></li>
+      <li><a href="#d1-the-definition-first-principles"><span class="toc-pg" data-for="d1-the-definition-first-principles">48</span>D1. The definition (first principles)</a></li>
+      <li><a href="#d2-power-constant-multiple-and-sum-rules"><span class="toc-pg" data-for="d2-power-constant-multiple-and-sum-rules">49</span>D2. Power, constant multiple, and sum rules</a></li>
+      <li><a href="#d3-the-product-rule"><span class="toc-pg" data-for="d3-the-product-rule">50</span>D3. The product rule</a></li>
+      <li><a href="#d4-the-quotient-rule"><span class="toc-pg" data-for="d4-the-quotient-rule">51</span>D4. The quotient rule</a></li>
+      <li><a href="#d5-the-chain-rule"><span class="toc-pg" data-for="d5-the-chain-rule">54</span>D5. The chain rule</a></li>
+      <li><a href="#d6-the-named-function-tables"><span class="toc-pg" data-for="d6-the-named-function-tables">57</span>D6. The named-function tables</a></li>
+      <li><a href="#d7-inverse-trigonometric-and-hyperbolic-derivatives"><span class="toc-pg" data-for="d7-inverse-trigonometric-and-hyperbolic-derivatives">58</span>D7. Inverse trigonometric and hyperbolic derivatives</a></li>
+      <li><a href="#d8-implicit-differentiation"><span class="toc-pg" data-for="d8-implicit-differentiation">59</span>D8. Implicit differentiation</a></li>
+      <li><a href="#d9-logarithmic-differentiation"><span class="toc-pg" data-for="d9-logarithmic-differentiation">61</span>D9. Logarithmic differentiation</a></li>
+      <li><a href="#d10-the-inverse-function-derivative"><span class="toc-pg" data-for="d10-the-inverse-function-derivative">62</span>D10. The inverse function derivative</a></li>
+      <li><a href="#d11-parametric-and-polar-derivatives"><span class="toc-pg" data-for="d11-parametric-and-polar-derivatives">63</span>D11. Parametric and polar derivatives</a></li>
+      <li><a href="#d12-higher-order-derivatives-and-the-leibniz-rule"><span class="toc-pg" data-for="d12-higher-order-derivatives-and-the-leibniz-rule">64</span>D12. Higher-order derivatives and the Leibniz rule</a></li>
+      <li><a href="#d13-related-rates"><span class="toc-pg" data-for="d13-related-rates">65</span>D13. Related rates</a></li>
+      <li><a href="#d14-differentials-and-linear-approximation"><span class="toc-pg" data-for="d14-differentials-and-linear-approximation">67</span>D14. Differentials and linear approximation</a></li>
+      <li><a href="#d15-partial-derivatives"><span class="toc-pg" data-for="d15-partial-derivatives">69</span>D15. Partial derivatives</a></li>
+      <li><a href="#d16-multivariable-chain-rule-gradient-and-directional-derivative"><span class="toc-pg" data-for="d16-multivariable-chain-rule-gradient-and-directional-derivative">70</span>D16. Multivariable chain rule, gradient, and directional derivative</a></li>
+      <li><a href="#d17-differentiating-an-integral"><span class="toc-pg" data-for="d17-differentiating-an-integral">71</span>D17. Differentiating an integral</a></li>
+      <li><a href="#d18-numerical-differentiation"><span class="toc-pg" data-for="d18-numerical-differentiation">73</span>D18. Numerical differentiation</a></li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 07</div>
-    <a class="toc-card-title" href="#part-3-techniques-for-evaluating-integrals">Part 3 - Techniques for Evaluating Integrals</a>
+    <a class="toc-card-title" href="#part-3-techniques-for-evaluating-integrals"><span class="toc-pg" data-for="part-3-techniques-for-evaluating-integrals">75</span>Part 3 - Techniques for Evaluating Integrals</a>
     <p class="toc-note">Twenty-two integration techniques, from reversing the derivative table up to improper integrals, multiple integrals and vector calculus.</p>
     <ul>
-      <li><a href="#i1-reverse-the-derivative-table">I1. Reverse the derivative table</a></li>
-      <li><a href="#i2-1766-substitution">I2. $u$-substitution</a></li>
-      <li><a href="#i3-integration-by-parts">I3. Integration by parts</a></li>
-      <li><a href="#i4-tabular-integration">I4. Tabular integration</a></li>
-      <li><a href="#i5-trigonometric-integrals">I5. Trigonometric integrals</a></li>
-      <li><a href="#i6-trigonometric-substitution">I6. Trigonometric substitution</a></li>
-      <li><a href="#i7-completing-the-square">I7. Completing the square</a></li>
-      <li><a href="#i8-partial-fractions">I8. Partial fractions</a></li>
-      <li><a href="#i9-long-division-first">I9. Long division first</a></li>
-      <li><a href="#i10-the-weierstrass-substitution-2040">I10. The Weierstrass substitution $t=\tan\frac{x}{2}$</a></li>
-      <li><a href="#i11-rationalizing-substitutions">I11. Rationalizing substitutions</a></li>
-      <li><a href="#i12-reduction-formulas">I12. Reduction formulas</a></li>
-      <li><a href="#i13-symmetry-and-periodicity">I13. Symmetry and periodicity</a></li>
-      <li><a href="#i14-the-reflection-king-property">I14. The reflection (king) property</a></li>
-      <li><a href="#i15-the-fundamental-theorem-of-calculus-part-2">I15. The Fundamental Theorem of Calculus, part 2</a></li>
-      <li><a href="#i16-riemann-sums-from-the-definition">I16. Riemann sums from the definition</a></li>
-      <li><a href="#i17-improper-integrals-and-convergence-tests">I17. Improper integrals and convergence tests</a></li>
-      <li><a href="#i18-numerical-quadrature">I18. Numerical quadrature</a></li>
-      <li><a href="#i19-term-by-term-series-integration">I19. Term-by-term series integration</a></li>
-      <li><a href="#i20-differentiation-under-the-integral-sign-feynmans-trick">I20. Differentiation under the integral sign (Feynman&#x27;s trick)</a></li>
-      <li><a href="#i21-multiple-integrals-and-change-of-variables">I21. Multiple integrals and change of variables</a></li>
-      <li><a href="#i22-vector-calculus-shortcuts">I22. Vector-calculus shortcuts</a></li>
+      <li><a href="#i1-reverse-the-derivative-table"><span class="toc-pg" data-for="i1-reverse-the-derivative-table">75</span>I1. Reverse the derivative table</a></li>
+      <li><a href="#i2-1766-substitution"><span class="toc-pg" data-for="i2-1766-substitution">78</span>I2. $u$-substitution</a></li>
+      <li><a href="#i3-integration-by-parts"><span class="toc-pg" data-for="i3-integration-by-parts">80</span>I3. Integration by parts</a></li>
+      <li><a href="#i4-tabular-integration"><span class="toc-pg" data-for="i4-tabular-integration">82</span>I4. Tabular integration</a></li>
+      <li><a href="#i5-trigonometric-integrals"><span class="toc-pg" data-for="i5-trigonometric-integrals">82</span>I5. Trigonometric integrals</a></li>
+      <li><a href="#i6-trigonometric-substitution"><span class="toc-pg" data-for="i6-trigonometric-substitution">85</span>I6. Trigonometric substitution</a></li>
+      <li><a href="#i7-completing-the-square"><span class="toc-pg" data-for="i7-completing-the-square">86</span>I7. Completing the square</a></li>
+      <li><a href="#i8-partial-fractions"><span class="toc-pg" data-for="i8-partial-fractions">87</span>I8. Partial fractions</a></li>
+      <li><a href="#i9-long-division-first"><span class="toc-pg" data-for="i9-long-division-first">88</span>I9. Long division first</a></li>
+      <li><a href="#i10-the-weierstrass-substitution-2040"><span class="toc-pg" data-for="i10-the-weierstrass-substitution-2040">89</span>I10. The Weierstrass substitution $t=\tan\frac{x}{2}$</a></li>
+      <li><a href="#i11-rationalizing-substitutions"><span class="toc-pg" data-for="i11-rationalizing-substitutions">90</span>I11. Rationalizing substitutions</a></li>
+      <li><a href="#i12-reduction-formulas"><span class="toc-pg" data-for="i12-reduction-formulas">91</span>I12. Reduction formulas</a></li>
+      <li><a href="#i13-symmetry-and-periodicity"><span class="toc-pg" data-for="i13-symmetry-and-periodicity">91</span>I13. Symmetry and periodicity</a></li>
+      <li><a href="#i14-the-reflection-king-property"><span class="toc-pg" data-for="i14-the-reflection-king-property">92</span>I14. The reflection (king) property</a></li>
+      <li><a href="#i15-the-fundamental-theorem-of-calculus-part-2"><span class="toc-pg" data-for="i15-the-fundamental-theorem-of-calculus-part-2">93</span>I15. The Fundamental Theorem of Calculus, part 2</a></li>
+      <li><a href="#i16-riemann-sums-from-the-definition"><span class="toc-pg" data-for="i16-riemann-sums-from-the-definition">95</span>I16. Riemann sums from the definition</a></li>
+      <li><a href="#i17-improper-integrals-and-convergence-tests"><span class="toc-pg" data-for="i17-improper-integrals-and-convergence-tests">96</span>I17. Improper integrals and convergence tests</a></li>
+      <li><a href="#i18-numerical-quadrature"><span class="toc-pg" data-for="i18-numerical-quadrature">97</span>I18. Numerical quadrature</a></li>
+      <li><a href="#i19-term-by-term-series-integration"><span class="toc-pg" data-for="i19-term-by-term-series-integration">98</span>I19. Term-by-term series integration</a></li>
+      <li><a href="#i20-differentiation-under-the-integral-sign-feynmans-trick"><span class="toc-pg" data-for="i20-differentiation-under-the-integral-sign-feynmans-trick">99</span>I20. Differentiation under the integral sign (Feynman&#x27;s trick)</a></li>
+      <li><a href="#i21-multiple-integrals-and-change-of-variables"><span class="toc-pg" data-for="i21-multiple-integrals-and-change-of-variables">100</span>I21. Multiple integrals and change of variables</a></li>
+      <li><a href="#i22-vector-calculus-shortcuts"><span class="toc-pg" data-for="i22-vector-calculus-shortcuts">101</span>I22. Vector-calculus shortcuts</a></li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 08</div>
-    <a class="toc-card-title" href="#part-4-math265-exam-questions-precalculus-sketching-optimization-and-integration-applications">Part 4 - MATH265 Exam Questions: Precalculus, Sketching, Optimization, and Integration Applications</a>
+    <a class="toc-card-title" href="#part-4-math265-exam-questions-precalculus-sketching-optimization-and-integration-applications"><span class="toc-pg" data-for="part-4-math265-exam-questions-precalculus-sketching-optimization-and-integration-applications">103</span>Part 4 - MATH265 Exam Questions: Precalculus, Sketching, Optimization, and Integration Applications</a>
     <p class="toc-note">Full exam questions worked end to end - precalculus foundations, sketching from conditions, optimization, and the applied integral problems.</p>
     <ul>
-      <li><a href="#1-functions-and-precalculus-foundations">1. Functions and precalculus foundations</a>
+      <li><a href="#1-functions-and-precalculus-foundations"><span class="toc-pg" data-for="1-functions-and-precalculus-foundations">103</span>1. Functions and precalculus foundations</a>
         <ul>
-          <li><a href="#q11-exact-value-of-a-cosine">Q1.1 - Exact value of a cosine</a></li>
-          <li><a href="#q12-composite-functions-and-their-domains">Q1.2 - Composite functions and their domains</a></li>
-          <li><a href="#q13-which-equations-define-a-function-of-x">Q1.3 - Which equations define a function of x</a></li>
-          <li><a href="#q14-volume-of-a-cone-as-a-function-of-its-radius">Q1.4 - Volume of a cone as a function of its radius</a></li>
+          <li><a href="#q11-exact-value-of-a-cosine"><span class="toc-pg" data-for="q11-exact-value-of-a-cosine">103</span>Q1.1 - Exact value of a cosine</a></li>
+          <li><a href="#q12-composite-functions-and-their-domains"><span class="toc-pg" data-for="q12-composite-functions-and-their-domains">104</span>Q1.2 - Composite functions and their domains</a></li>
+          <li><a href="#q13-which-equations-define-a-function-of-x"><span class="toc-pg" data-for="q13-which-equations-define-a-function-of-x">105</span>Q1.3 - Which equations define a function of x</a></li>
+          <li><a href="#q14-volume-of-a-cone-as-a-function-of-its-radius"><span class="toc-pg" data-for="q14-volume-of-a-cone-as-a-function-of-its-radius">106</span>Q1.4 - Volume of a cone as a function of its radius</a></li>
         </ul>
       </li>
-      <li><a href="#2-graph-transformations">2. Graph transformations</a>
+      <li><a href="#2-graph-transformations"><span class="toc-pg" data-for="2-graph-transformations">107</span>2. Graph transformations</a>
         <ul>
-          <li><a href="#q21-graph-a-shifted-parabola-by-transformations">Q2.1 - Graph a shifted parabola by transformations</a></li>
-          <li><a href="#q22-graph-a-reflected-absolute-value-by-transformations">Q2.2 - Graph a reflected absolute value by transformations</a></li>
+          <li><a href="#q21-graph-a-shifted-parabola-by-transformations"><span class="toc-pg" data-for="q21-graph-a-shifted-parabola-by-transformations">107</span>Q2.1 - Graph a shifted parabola by transformations</a></li>
+          <li><a href="#q22-graph-a-reflected-absolute-value-by-transformations"><span class="toc-pg" data-for="q22-graph-a-reflected-absolute-value-by-transformations">108</span>Q2.2 - Graph a reflected absolute value by transformations</a></li>
         </ul>
       </li>
-      <li><a href="#5-graphical-interpretation-and-sketching-from-conditions">5. Graphical interpretation and sketching from conditions</a>
+      <li><a href="#5-graphical-interpretation-and-sketching-from-conditions"><span class="toc-pg" data-for="5-graphical-interpretation-and-sketching-from-conditions">109</span>5. Graphical interpretation and sketching from conditions</a>
         <ul>
-          <li><a href="#q51-sketch-a-function-from-four-conditions">Q5.1 - Sketch a function from four conditions</a></li>
-          <li><a href="#q52-interpret-five-conditions-then-sketch">Q5.2 - Interpret five conditions, then sketch</a></li>
-          <li><a href="#q53-interpret-six-conditions-then-sketch">Q5.3 - Interpret six conditions, then sketch</a></li>
+          <li><a href="#q51-sketch-a-function-from-four-conditions"><span class="toc-pg" data-for="q51-sketch-a-function-from-four-conditions">109</span>Q5.1 - Sketch a function from four conditions</a></li>
+          <li><a href="#q52-interpret-five-conditions-then-sketch"><span class="toc-pg" data-for="q52-interpret-five-conditions-then-sketch">109</span>Q5.2 - Interpret five conditions, then sketch</a></li>
+          <li><a href="#q53-interpret-six-conditions-then-sketch"><span class="toc-pg" data-for="q53-interpret-six-conditions-then-sketch">110</span>Q5.3 - Interpret six conditions, then sketch</a></li>
         </ul>
       </li>
-      <li><a href="#6-rates-of-change-interpretation">6. Rates of change - interpretation</a>
+      <li><a href="#6-rates-of-change-interpretation"><span class="toc-pg" data-for="6-rates-of-change-interpretation">111</span>6. Rates of change - interpretation</a>
         <ul>
-          <li><a href="#q61-average-and-instantaneous-rate-of-population-change">Q6.1 - Average and instantaneous rate of population change</a></li>
+          <li><a href="#q61-average-and-instantaneous-rate-of-population-change"><span class="toc-pg" data-for="q61-average-and-instantaneous-rate-of-population-change">111</span>Q6.1 - Average and instantaneous rate of population change</a></li>
         </ul>
       </li>
-      <li><a href="#9-tangent-lines">9. Tangent lines</a>
+      <li><a href="#9-tangent-lines"><span class="toc-pg" data-for="9-tangent-lines">112</span>9. Tangent lines</a>
         <ul>
-          <li><a href="#q91-tangent-line-perpendicular-to-a-given-line">Q9.1 - Tangent line perpendicular to a given line</a></li>
+          <li><a href="#q91-tangent-line-perpendicular-to-a-given-line"><span class="toc-pg" data-for="q91-tangent-line-perpendicular-to-a-given-line">112</span>Q9.1 - Tangent line perpendicular to a given line</a></li>
         </ul>
       </li>
-      <li><a href="#13-newtons-method">13. Newton&#x27;s method</a>
+      <li><a href="#13-newtons-method"><span class="toc-pg" data-for="13-newtons-method">113</span>13. Newton&#x27;s method</a>
         <ul>
-          <li><a href="#q131-approximate-a-root-with-newtons-method">Q13.1 - Approximate a root with Newton&#x27;s method</a></li>
+          <li><a href="#q131-approximate-a-root-with-newtons-method"><span class="toc-pg" data-for="q131-approximate-a-root-with-newtons-method">113</span>Q13.1 - Approximate a root with Newton&#x27;s method</a></li>
         </ul>
       </li>
-      <li><a href="#14-curve-sketching-with-calculus">14. Curve sketching with calculus</a>
+      <li><a href="#14-curve-sketching-with-calculus"><span class="toc-pg" data-for="14-curve-sketching-with-calculus">114</span>14. Curve sketching with calculus</a>
         <ul>
-          <li><a href="#q141-sketch-two-curves-with-a-full-calculus-analysis">Q14.1 - Sketch two curves with a full calculus analysis</a></li>
+          <li><a href="#q141-sketch-two-curves-with-a-full-calculus-analysis"><span class="toc-pg" data-for="q141-sketch-two-curves-with-a-full-calculus-analysis">114</span>Q14.1 - Sketch two curves with a full calculus analysis</a></li>
         </ul>
       </li>
-      <li><a href="#15-extreme-values-and-optimization">15. Extreme values and optimization</a>
+      <li><a href="#15-extreme-values-and-optimization"><span class="toc-pg" data-for="15-extreme-values-and-optimization">116</span>15. Extreme values and optimization</a>
         <ul>
-          <li><a href="#q151-all-maxima-and-minima-on-closed-intervals">Q15.1 - All maxima and minima on closed intervals</a></li>
-          <li><a href="#q152-rectangle-of-least-perimeter">Q15.2 - Rectangle of least perimeter</a></li>
-          <li><a href="#q153-absolute-extremes-by-the-extreme-value-theorem">Q15.3 - Absolute extremes by the Extreme Value Theorem</a></li>
-          <li><a href="#q154-cheapest-rectangular-box">Q15.4 - Cheapest rectangular box</a></li>
-          <li><a href="#q155-absolute-extremes-of-a-function-with-a-cusp">Q15.5 - Absolute extremes of a function with a cusp</a></li>
+          <li><a href="#q151-all-maxima-and-minima-on-closed-intervals"><span class="toc-pg" data-for="q151-all-maxima-and-minima-on-closed-intervals">116</span>Q15.1 - All maxima and minima on closed intervals</a></li>
+          <li><a href="#q152-rectangle-of-least-perimeter"><span class="toc-pg" data-for="q152-rectangle-of-least-perimeter">118</span>Q15.2 - Rectangle of least perimeter</a></li>
+          <li><a href="#q153-absolute-extremes-by-the-extreme-value-theorem"><span class="toc-pg" data-for="q153-absolute-extremes-by-the-extreme-value-theorem">118</span>Q15.3 - Absolute extremes by the Extreme Value Theorem</a></li>
+          <li><a href="#q154-cheapest-rectangular-box"><span class="toc-pg" data-for="q154-cheapest-rectangular-box">119</span>Q15.4 - Cheapest rectangular box</a></li>
+          <li><a href="#q155-absolute-extremes-of-a-function-with-a-cusp"><span class="toc-pg" data-for="q155-absolute-extremes-of-a-function-with-a-cusp">120</span>Q15.5 - Absolute extremes of a function with a cusp</a></li>
         </ul>
       </li>
-      <li><a href="#17-properties-of-the-definite-integral">17. Properties of the definite integral</a>
+      <li><a href="#17-properties-of-the-definite-integral"><span class="toc-pg" data-for="17-properties-of-the-definite-integral">121</span>17. Properties of the definite integral</a>
         <ul>
-          <li><a href="#q171-interval-containing-a-secant-integral">Q17.1 - Interval containing a secant integral</a></li>
-          <li><a href="#q172-estimate-an-integral-from-its-properties">Q17.2 - Estimate an integral from its properties</a></li>
-          <li><a href="#q173-bound-an-integral-from-its-properties">Q17.3 - Bound an integral from its properties</a></li>
-          <li><a href="#q192-area-between-a-cosine-and-a-horizontal-line">Q19.2 - Area between a cosine and a horizontal line</a></li>
-          <li><a href="#q194-work-raising-one-end-of-a-chain">Q19.4 - Work, raising one end of a chain</a></li>
-          <li><a href="#q195-work-stretching-a-spring">Q19.5 - Work, stretching a spring</a></li>
-          <li><a href="#q196-average-temperature-of-a-metal-rod">Q19.6 - Average temperature of a metal rod</a></li>
-          <li><a href="#q197-find-k-from-an-average-value">Q19.7 - Find k from an average value</a></li>
-          <li><a href="#q198-displacement-and-distance-travelled">Q19.8 - Displacement and distance travelled</a></li>
-          <li><a href="#q199-sprinter-with-piecewise-acceleration">Q19.9 - Sprinter with piecewise acceleration</a></li>
+          <li><a href="#q171-interval-containing-a-secant-integral"><span class="toc-pg" data-for="q171-interval-containing-a-secant-integral">121</span>Q17.1 - Interval containing a secant integral</a></li>
+          <li><a href="#q172-estimate-an-integral-from-its-properties"><span class="toc-pg" data-for="q172-estimate-an-integral-from-its-properties">122</span>Q17.2 - Estimate an integral from its properties</a></li>
+          <li><a href="#q173-bound-an-integral-from-its-properties"><span class="toc-pg" data-for="q173-bound-an-integral-from-its-properties">123</span>Q17.3 - Bound an integral from its properties</a></li>
+          <li><a href="#q192-area-between-a-cosine-and-a-horizontal-line"><span class="toc-pg" data-for="q192-area-between-a-cosine-and-a-horizontal-line">123</span>Q19.2 - Area between a cosine and a horizontal line</a></li>
+          <li><a href="#q194-work-raising-one-end-of-a-chain"><span class="toc-pg" data-for="q194-work-raising-one-end-of-a-chain">125</span>Q19.4 - Work, raising one end of a chain</a></li>
+          <li><a href="#q195-work-stretching-a-spring"><span class="toc-pg" data-for="q195-work-stretching-a-spring">126</span>Q19.5 - Work, stretching a spring</a></li>
+          <li><a href="#q196-average-temperature-of-a-metal-rod"><span class="toc-pg" data-for="q196-average-temperature-of-a-metal-rod">126</span>Q19.6 - Average temperature of a metal rod</a></li>
+          <li><a href="#q197-find-k-from-an-average-value"><span class="toc-pg" data-for="q197-find-k-from-an-average-value">127</span>Q19.7 - Find k from an average value</a></li>
+          <li><a href="#q198-displacement-and-distance-travelled"><span class="toc-pg" data-for="q198-displacement-and-distance-travelled">128</span>Q19.8 - Displacement and distance travelled</a></li>
+          <li><a href="#q199-sprinter-with-piecewise-acceleration"><span class="toc-pg" data-for="q199-sprinter-with-piecewise-acceleration">129</span>Q19.9 - Sprinter with piecewise acceleration</a></li>
         </ul>
       </li>
     </ul>
   </section>
   <section class="toc-card">
     <div class="toc-step">Step 09</div>
-    <a class="toc-card-title" href="#closing-the-two-habits-that-matter-most">Closing: the two habits that matter most</a>
+    <a class="toc-card-title" href="#closing-the-two-habits-that-matter-most"><span class="toc-pg" data-for="closing-the-two-habits-that-matter-most">130</span>Closing: the two habits that matter most</a>
     <p class="toc-note">The two habits to carry into the exam.</p>
   </section>
 </nav>
@@ -7516,5 +7744,193 @@ Find her time for the race.</p>
 <p class="toc-back"><a href="#toc"><span aria-hidden="true">&#8593;</span> Back to contents</a></p>
 
 </div>
+<script id="print-fit">
+/* ==========================================================================
+   print-fit.js - runs inside print.html AFTER MathJax has typeset.
+
+   The page is loaded at exactly the printable column width (see
+   render-pdf.mjs), so a box that overflows here is a box that would be
+   clipped on paper. Anything still too wide is scaled down just enough to
+   fit, and the results are left on window.__printReport so the build can
+   assert on them instead of trusting the render.
+   ========================================================================== */
+(function () {
+  'use strict';
+
+  var MIN_MATH_SCALE = 0.60;   // below this, math stops being exam-readable
+  var MIN_TABLE_SCALE = 0.62;
+
+  window.__printReady = false;
+  window.__printError = null;
+
+  function fitMath(avail, report) {
+    var nodes = document.querySelectorAll('mjx-container');
+    for (var i = 0; i < nodes.length; i++) {
+      var el = nodes[i];
+      // Measure the glyph box, not the container: a display container is a
+      // full-width block whose SVG child is the thing that overflows.
+      var svg = el.querySelector('svg');
+      if (!svg) continue;
+      var w = svg.getBoundingClientRect().width;
+      if (w <= avail + 0.5) continue;
+
+      var scale = avail / w;
+      if (scale < MIN_MATH_SCALE) scale = MIN_MATH_SCALE;
+      el.style.fontSize = (scale * 100).toFixed(2) + '%';
+
+      // Re-measure: font-size scaling is what MathJax itself uses, so this
+      // should now fit unless we hit the floor.
+      var after = svg.getBoundingClientRect().width;
+      report.mathScaled.push({
+        scale: Number(scale.toFixed(3)),
+        before: Math.round(w),
+        after: Math.round(after),
+        tex: (el.getAttribute('aria-label') || el.textContent || '').slice(0, 90)
+      });
+      if (after > avail + 1) {
+        report.mathStillWide.push({
+          over: Math.round(after - avail),
+          tex: (el.getAttribute('aria-label') || el.textContent || '').slice(0, 120)
+        });
+      }
+    }
+  }
+
+  function fitTables(avail, report) {
+    var tables = document.querySelectorAll('table');
+    for (var i = 0; i < tables.length; i++) {
+      var t = tables[i];
+      // scrollWidth is the width the table WANTS; clientWidth is what it got.
+      var want = t.scrollWidth;
+      if (want <= avail + 1) continue;
+
+      var scale = avail / want;
+      if (scale < MIN_TABLE_SCALE) scale = MIN_TABLE_SCALE;
+      t.style.zoom = scale.toFixed(3);   // zoom, not transform: it reflows
+
+      var after = t.scrollWidth * scale;
+      report.tablesScaled.push({
+        scale: Number(scale.toFixed(3)),
+        before: Math.round(want),
+        after: Math.round(after)
+      });
+      if (after > avail + 2) {
+        report.tablesStillWide.push({ over: Math.round(after - avail) });
+      }
+    }
+  }
+
+  /* Independent audit: walk the rendered tree and report any computed
+     background that is not fully transparent, and any text colour that is
+     not black. This is the check for "no background colors, black text" -
+     it reads the COMPUTED style, so it catches anything the overrides
+     missed rather than assuming they worked. */
+  function auditColors(report) {
+    var all = document.querySelectorAll('body, body *');
+    for (var i = 0; i < all.length; i++) {
+      var el = all[i];
+      var tag = el.tagName.toLowerCase();
+      if (tag === 'script' || tag === 'style' || tag === 'defs') continue;
+      var cs = getComputedStyle(el);
+
+      var bg = cs.backgroundColor;
+      if (bg && bg !== 'rgba(0, 0, 0, 0)' && bg !== 'transparent') {
+        if (!(tag === 'html' || tag === 'body') || bg !== 'rgb(255, 255, 255)') {
+          report.badBackgrounds.push(tag + ' :: ' + bg);
+        }
+      }
+      if (cs.backgroundImage && cs.backgroundImage !== 'none') {
+        report.badBackgrounds.push(tag + ' :: image ' + cs.backgroundImage.slice(0, 60));
+      }
+      if (cs.color && cs.color !== 'rgb(0, 0, 0)') {
+        report.badColors.push(tag + ' :: ' + cs.color);
+      }
+    }
+    report.badBackgrounds = report.badBackgrounds.slice(0, 25);
+    report.badColors = report.badColors.slice(0, 25);
+  }
+
+  function run() {
+    var report = {
+      availPx: 0,
+      mathTotal: document.querySelectorAll('mjx-container').length,
+      mathScaled: [],
+      mathStillWide: [],
+      tablesTotal: document.querySelectorAll('table').length,
+      tablesScaled: [],
+      tablesStillWide: [],
+      badBackgrounds: [],
+      badColors: [],
+      unrenderedTex: 0,
+      bodyOverflowPx: 0,
+      overflowing: [],
+      overflowCount: 0
+    };
+
+    var wrap = document.querySelector('.wrap');
+    var avail = wrap ? wrap.clientWidth : document.documentElement.clientWidth;
+    report.availPx = Math.round(avail);
+
+    fitMath(avail, report);
+    fitTables(avail, report);
+
+    // Any '$...$' left in the text means MathJax did not typeset it.
+    var body = document.body.innerText || '';
+    var leftovers = body.match(/\$[^$\n]{1,120}\$/g);
+    report.unrenderedTex = leftovers ? leftovers.length : 0;
+    report.unrenderedSample = leftovers ? leftovers.slice(0, 5) : [];
+
+    report.bodyOverflowPx = Math.max(
+      0,
+      Math.round(document.documentElement.scrollWidth - document.documentElement.clientWidth)
+    );
+
+    // A page-level overflow number says nothing about WHERE the clip is, so
+    // name every box whose right edge sits past the printable column.
+    var limit = (wrap ? wrap.getBoundingClientRect().right : avail);
+    var all = document.querySelectorAll('body *');
+    for (var k = 0; k < all.length; k++) {
+      var e = all[k];
+      var r = e.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) continue;
+      if (r.right > limit + 1) {
+        report.overflowing.push({
+          tag: e.tagName.toLowerCase(),
+          cls: (e.className && e.className.baseVal !== undefined ? e.className.baseVal : e.className) || '',
+          over: Math.round(r.right - limit),
+          text: (e.textContent || '').trim().slice(0, 70)
+        });
+      }
+    }
+    report.overflowCount = report.overflowing.length;
+    report.overflowing = report.overflowing.slice(0, 12);
+
+    auditColors(report);
+
+    window.__printReport = report;
+    window.__printReady = true;
+  }
+
+  function start() {
+    var mjReady = (window.MathJax && window.MathJax.startup && window.MathJax.startup.promise)
+      ? window.MathJax.startup.promise
+      : Promise.resolve();
+
+    mjReady
+      .then(function () { return document.fonts ? document.fonts.ready : null; })
+      // one frame so the post-typeset layout is settled before measuring
+      .then(function () { return new Promise(function (r) { requestAnimationFrame(function () { requestAnimationFrame(r); }); }); })
+      .then(run)
+      .catch(function (e) {
+        window.__printError = String((e && e.stack) || e);
+        window.__printReady = true;
+      });
+  }
+
+  if (document.readyState === 'complete') start();
+  else window.addEventListener('load', start);
+})();
+
+</script>
 </body>
 </html>

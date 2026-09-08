@@ -1,0 +1,225 @@
+/* ==========================================================================
+   print-overrides.css - turns the dark ops-console reference into a plain
+   black-on-white printable document. Injected by tools/print/build-print.mjs
+   into print.html; index.html itself is never modified.
+   ========================================================================== */
+
+/* 1. Kill every background fill and force pure black text.
+      Borders and rules are NOT backgrounds, so table/box rules survive. */
+*, *::before, *::after{
+  background:none !important;
+  background-color:transparent !important;
+  background-image:none !important;
+  color:#000 !important;
+  box-shadow:none !important;
+  text-shadow:none !important;
+}
+
+:root{
+  --bg:#ffffff;
+  --panel:#ffffff;
+  --line:#000000;
+  --text:#000000;
+  --muted:#000000;
+  --accent:#000000;
+  --fs-base:12pt;
+}
+
+html, body{
+  background:#ffffff !important;
+  color:#000000 !important;
+}
+
+body{
+  margin:0 !important;
+  padding:0 !important;
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:12pt;
+  line-height:1.48;
+  -webkit-text-size-adjust:none;
+  text-size-adjust:none;
+}
+
+/* Use the full printable column - the 80ch cap wastes page width that the
+   wide tables and long display formulas need. */
+.wrap{ max-width:none !important; width:100% !important; margin:0 !important; }
+
+/* 2. Typography ---------------------------------------------------------- */
+h1,h2,h3{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  letter-spacing:0;
+}
+h1{
+  font-size:1.6em;
+  line-height:1.2;
+  margin:0 0 .55em;
+  border-bottom:2px solid #000 !important;
+  padding-bottom:.22em;
+}
+h2{
+  font-size:1.24em;
+  margin:1.25em 0 .5em;
+  padding-top:.3em;
+  border-top:1px solid #000 !important;
+}
+h3{ font-size:1.08em; margin:1em 0 .4em; border:none !important; }
+
+p,li{ margin:.45em 0; }
+ul,ol{ margin:.45em 0; padding-left:1.5em; }
+li{ margin:.28em 0; }
+strong{ font-weight:700; }
+em{ font-style:italic; }
+a, a:hover{ text-decoration:none !important; }
+
+/* 3. Code - outlined, never filled -------------------------------------- */
+code{
+  font-family:"IBM Plex Mono",Consolas,"Courier New",monospace;
+  font-size:.9em;
+  border:1px solid #000000 !important;
+  border-radius:3px;
+  padding:0 .28em;
+  word-break:break-word;
+}
+pre{
+  border:1px solid #000000 !important;
+  border-radius:0;
+  padding:.6em .8em;
+  overflow:visible !important;
+  white-space:pre-wrap;
+  word-wrap:break-word;
+  break-inside:avoid;
+}
+pre code{ border:none !important; padding:0; font-size:.92em; }
+
+/* 4. Tables -------------------------------------------------------------- */
+/* On screen these scroll sideways; on paper there is nowhere to scroll, so
+   the clip has to become a wrap (print-fit.js shrinks whatever still
+   will not fit). */
+.table-scroll{
+  overflow:visible !important;
+  border:none !important;
+  border-radius:0 !important;
+  margin:.7em 0;
+}
+table{
+  border-collapse:collapse;
+  width:100%;
+  font-size:.94em;
+  table-layout:auto;
+}
+th,td{
+  border:1px solid #000000 !important;
+  padding:.32em .5em;
+  text-align:left;
+  vertical-align:top;
+  white-space:normal !important;
+  word-break:normal;
+  overflow-wrap:break-word;
+}
+th{
+  font-family:Georgia,"Times New Roman",serif;
+  font-weight:700;
+  text-transform:none !important;
+  letter-spacing:0 !important;
+  font-size:1em !important;
+  border-bottom:2px solid #000 !important;
+}
+tr:last-child td{ border-bottom:1px solid #000000 !important; }
+thead{ display:table-header-group; }   /* repeat headers across page breaks */
+tr{ break-inside:avoid; page-break-inside:avoid; }
+
+/* 5. Math ---------------------------------------------------------------- */
+/* MathJax SVG glyphs paint with fill:currentColor, so the black above
+   already covers them. What is left is the horizontal clip. */
+mjx-container{
+  overflow:visible !important;
+  max-width:none !important;
+  color:#000 !important;
+}
+mjx-container svg{ overflow:visible !important; }
+/* Screen-reader MathML is never painted, but it is laid out - and it is the
+   only thing that pushed the page wider than the printable column. */
+/* Two selectors deep on purpose: MathJax injects its own
+   `mjx-assistive-mml{display:block!important}` at runtime, i.e. after this
+   sheet, so an equally specific rule here would lose the cascade. */
+mjx-container > mjx-assistive-mml{ display:none !important; }
+mjx-container[display="true"]{
+  margin:.6em 0 !important;
+  break-inside:avoid;
+  page-break-inside:avoid;
+}
+h1 mjx-container, h2 mjx-container, h3 mjx-container{
+  display:inline-block;
+  vertical-align:middle;
+}
+
+/* 6. Rules and chrome ---------------------------------------------------- */
+hr{ border:none; border-top:1px solid #000000 !important; margin:1.1em 0; }
+/* h1/h2 already carry their own rule, so an <hr> in front of one prints as a
+   doubled line - and in front of an h1 it strands a rule at the page foot. */
+hr:has(+ h1), hr:has(+ h2), hr:has(+ h3){ display:none; }
+.toc-back{ display:none !important; }  /* "back to contents" is screen-only */
+
+/* 7. Table of contents --------------------------------------------------- */
+/* No box around the TOC: it runs over several pages, and a fragmented box
+   redraws its left and right borders down the full height of every page it
+   touches, which reads as two stray vertical rules. */
+#toc{
+  border:none !important;
+  border-radius:0 !important;
+  padding:0;
+  margin:0 0 1.4em;
+}
+.toc-head{ border-bottom:1px solid #000 !important; padding-bottom:.6em; }
+.toc-kicker, .toc-step{
+  font-family:"IBM Plex Mono",Consolas,monospace;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+#toc h1.toc-title{ font-size:1.3em; margin:0; border:none !important; padding:0; }
+.toc-lede{ font-size:.9em; margin:.4em 0 0; }
+.toc-card{ border-bottom:1px solid #000000 !important; padding:.7em 0 .6em; break-inside:avoid; }
+.toc-card:last-child{ border-bottom:none !important; padding-bottom:0; }
+a.toc-card-title{
+  display:block; font-weight:700; font-size:1em; line-height:1.25; margin:.15em 0 0;
+}
+.toc-note{ font-size:.86em; margin:.2em 0 .4em; }
+#toc ul{ list-style:none; margin:.15em 0; padding:0 0 0 .9em; line-height:1.35; }
+/* Same fragmentation problem as the #toc box, and these lists are the part
+   that spans pages. Two columns instead, which also halves the TOC length. */
+#toc > .toc-card > ul{
+  border-left:none !important;
+  padding-left:.8em;
+  column-count:2;
+  column-gap:1.6em;
+}
+#toc li{ margin:.14em 0; font-size:.88em; break-inside:avoid; }
+#toc li > a{ display:block; }
+
+/* Page numbers. The box is a FIXED width and the placeholder pass uses the
+   same markup, so pass 1 (placeholders) and pass 2 (real numbers) lay out
+   identically - the numbers cannot invalidate the pagination they describe. */
+.toc-pg{
+  float:right;
+  display:inline-block;
+  width:2.5em;
+  margin-left:.7em;
+  text-align:right;
+  font-family:"IBM Plex Mono",Consolas,monospace;
+  font-size:.82em;
+  font-variant-numeric:tabular-nums;
+  /* A float has no baseline to share with its line, so match the parent's
+     line box by hand or the digits ride up like superscripts. */
+  line-height:1.62;
+}
+a.toc-card-title .toc-pg{ font-size:.78em; }
+
+/* 8. Pagination ---------------------------------------------------------- */
+.wrap > h1{ break-before:page; page-break-before:always; }
+#toc, #toc h1{ break-before:auto !important; page-break-before:auto !important; }
+.wrap > h1, h2, h3{ break-after:avoid; page-break-after:avoid; break-inside:avoid; }
+p{ orphans:3; widows:3; }
+
+/* The screen breakpoint must not fire at print width. */
+@media (max-width:640px){ :root{ --fs-base:12pt; } }
