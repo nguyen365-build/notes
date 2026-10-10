@@ -91,7 +91,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .top-in{padding-top:6px;padding-bottom:6px;gap:8px;flex-wrap:nowrap}
   .brand{display:none}
   .tab,.jumpbtn{padding:8px 14px;font-size:13px}
-  .chips,.rail{display:none}
+  .chips{display:none}
+  .rail{display:flex;flex-wrap:wrap;gap:4px 6px;position:static;max-height:none;overflow:visible;padding:0;margin:0 auto 20px;max-width:760px;width:100%;box-sizing:border-box}
+  .rail h4{flex-basis:100%;margin:10px 0 2px}
+  .rail a{display:inline-flex;gap:6px;padding:4px 8px;border:1px solid var(--line);border-radius:4px;white-space:nowrap}
+  .rail a b{min-width:0}
+  .rail a.on{box-shadow:inset 0 -2px 0 var(--accent)}
   .wrap{grid-template-columns:minmax(0,1fr);padding-block:12px 64px}
   main{max-width:760px;margin:0 auto}
   .jumpbtn{display:inline-block}
@@ -135,7 +140,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   <nav class="tabs" aria-label="Sections">
     <a class="tab" href="#ST">★</a><a class="tab" href="#A1">A1</a><a class="tab" href="#A2">A2</a><a class="tab" href="#A3">A3</a><a class="tab" href="#FE">Final</a><a class="tab" href="#U1" data-u="U1">U1</a><a class="tab" href="#U2" data-u="U2">U2</a><a class="tab" href="#U3" data-u="U3">U3</a><a class="tab" href="#U4" data-u="U4">U4</a><a class="tab" href="#U5" data-u="U5">U5</a><a class="tab" href="#U6" data-u="U6">U6</a><a class="tab" href="#U7" data-u="U7">U7</a>
   </nav>
-  <button class="jumpbtn" id="jumpbtn" type="button">Jump to Q</button>
 </div><div class="chips" id="chips"></div></div>
 
 <div class="sheet" id="sheet" hidden><button class="x" id="sheetx" type="button">Close</button><div id="sheetbody"></div></div>
@@ -6455,7 +6459,7 @@ Best: A and B get 2m, C and D get m; \(2.0m = 1\) s gives m = 0.5 Mb, so A and B
     var s=document.createElement('a');s.href='#'+q.id;s.textContent=n;grid.appendChild(s);
   });
   var sh=document.getElementById('sheet');
-  document.getElementById('jumpbtn').onclick=function(){sh.hidden=false};
+  var jb=document.getElementById('jumpbtn');if(jb)jb.onclick=function(){sh.hidden=false};
   document.getElementById('sheetx').onclick=function(){sh.hidden=true};
   sheet.addEventListener('click',function(e){if(e.target.tagName==='A')sh.hidden=true});
 
@@ -6465,10 +6469,9 @@ Best: A and B get 2m, C and D get m; \(2.0m = 1\) s gives m = 0.5 Mb, so A and B
   qs.forEach(function(q){
     var g=grp(q), n=lbl(q);
     var unit=g.charAt(0)==='U';
-    if(unit){}
-    else if(g!==lg){lg=g;line=document.createElement('div');line.className='tg';line.innerHTML='<span class="tl"></span>';line.firstChild.textContent=groups[g];toc.appendChild(line);}
+    if(g!==lg){lg=g;line=document.createElement('div');line.className='tg';line.innerHTML='<span class="tl"></span>';line.firstChild.textContent=groups[g];toc.appendChild(line);}
     else{var sp=document.createElement('span');sp.className='sep';sp.textContent='·';line.appendChild(sp);}
-    if(!unit){var a=document.createElement('a');a.href='#'+q.id;a.innerHTML='<b>'+n+'</b><span></span>';a.lastChild.textContent=q.dataset.t;line.appendChild(a);}
+    {var a=document.createElement('a');a.href='#'+q.id;a.innerHTML='<b>'+n+'</b><span></span>';a.lastChild.textContent=q.dataset.t;line.appendChild(a);}
     var qa=document.createElement('span');qa.className='qa';
     var b=document.createElement('button');b.type='button';b.textContent='Show answer';b.setAttribute('aria-expanded','false');
     b.onclick=function(){var o=q.classList.toggle('open');b.textContent=o?'Hide answer':'Show answer';b.setAttribute('aria-expanded',String(o))};
