@@ -19,7 +19,7 @@ html{scroll-behavior:smooth;scroll-padding-top:110px}
 @media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
 body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 var(--sans);
   -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
-@media print{body{display:none!important}}
+
 a{color:inherit}
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
 .top-in{display:flex;align-items:center;gap:12px;padding:10px 16px;flex-wrap:wrap}
@@ -130,6 +130,97 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .unit-toc{display:flex;flex-wrap:wrap;gap:6px 18px}
 .sec-h.rest{margin-top:48px;padding-top:20px;border-top:2px solid var(--line)}
 .legend{font:500 12px/1.5 var(--mono);color:var(--muted);margin:0 0 16px}.legend b{color:var(--accent)}
+
+/* Submitted A2 2.4: upright math with native HTML fractions, no external renderer. */
+.submitted-answer h3{font-size:1.05em;line-height:1.4;margin:22px 0 10px}
+.submitted-answer .answer-label{margin-top:12px;margin-bottom:5px}
+.plain-math{font-family:"Cambria Math","Times New Roman",serif;font-style:normal;font-size:1.08em;white-space:normal}
+.plain-math sup,.plain-math sub{font-size:.75em;line-height:0}
+.plain-equation{line-height:1.9;font-size:1.1em;padding:12px;overflow:visible;overflow-wrap:anywhere}
+.fraction{display:inline-flex;flex-direction:column;align-items:stretch;text-align:center;vertical-align:middle;line-height:1.35;margin:0 .22em}
+.fraction>span{display:block;padding:.1em .22em}
+.fraction>span:first-child{border-bottom:1px solid currentColor}
+@media print{
+  @page{size:auto;margin:16mm}
+  :root{--bg:#fff;--panel:#fff;--line:#bbb;--fg:#000;--muted:#222;--accent:#000;--accent-ink:#fff;--ans:#fff;--good:#000;color-scheme:light}
+  body{display:block!important;background:#fff!important;color:#000!important;font:11pt/1.5 Arial,"Segoe UI",sans-serif;user-select:text}
+  .top,.rail,.toc,.sheet,.totop,.qa,.legend,.skip{display:none!important}
+  .wrap{display:block;max-width:none;margin:0;padding:0}
+  main{max-width:none}
+  .q{overflow:visible;border:0;border-radius:0;break-inside:auto;margin:0 0 18pt}
+  .q .ans,.q:not(.open) .ans{display:block!important}
+  .qh,.qt,.ans{background:#fff!important;color:#000!important}
+  .qh{padding:8pt 0;break-after:avoid}
+  .qt,.ans{padding:8pt 0}
+  .qt{break-after:avoid}
+  h2,h3,.part,.answer-label{break-after:avoid}
+  p{orphans:3;widows:3}
+  .eq{background:#fff;border:0;border-radius:0;overflow:visible;break-inside:avoid;font-size:1em}
+  .tw,pre{overflow:visible;white-space:pre-wrap;overflow-wrap:anywhere}
+  table{min-width:0;width:100%}tr,.fig{break-inside:avoid}
+  .r,code,.m{color:#000}
+  mjx-container{color:#000}
+}
+
+/* Submitted A3 2.4: ordinary upright symbols and tables that print across pages. */
+.submitted-rts-cts .tw table{min-width:0;width:100%;table-layout:fixed}
+.submitted-rts-cts th,.submitted-rts-cts td{white-space:normal;overflow-wrap:anywhere;vertical-align:top}
+.submitted-rts-cts td p,.submitted-rts-cts th p{margin:0 0 .35em}
+.submitted-rts-cts .timing-ledger{font-size:.9em}
+.submitted-rts-cts .timing-ledger th:nth-child(1){width:6%}
+.submitted-rts-cts .timing-ledger th:nth-child(2){width:16%}
+.submitted-rts-cts .timing-ledger th:nth-child(3),.submitted-rts-cts .timing-ledger th:nth-child(4){width:10%}
+.submitted-rts-cts .timing-ledger th:nth-child(5){width:27%}
+.submitted-rts-cts .timing-ledger th:nth-child(6){width:31%}
+.submitted-rts-cts .timing-explanation th:first-child{width:8%}
+@media(max-width:600px){
+  .submitted-rts-cts .tw .timing-ledger{min-width:660px;font-size:.9em}
+  .submitted-rts-cts .timing-ledger th,.submitted-rts-cts .timing-ledger td{padding:7px 4px}
+}
+@media print{
+  .submitted-rts-cts .tw{overflow:visible}
+  .submitted-rts-cts table{font-size:9pt}
+  .submitted-rts-cts th,.submitted-rts-cts td{padding:5pt;border:1px solid #bbb;background:#fff;color:#000}
+  .submitted-rts-cts thead{display:table-header-group}
+  .submitted-rts-cts tr{break-inside:avoid}
+}
+
+/* FE 2.1: merged solution, ordinary upright math and print-friendly explanation. */
+.satellite-answer .satellite-note{border-left:3px solid var(--good);padding:10px 14px;margin:14px 0;background:var(--bg)}
+.satellite-answer .satellite-result{font-weight:600;color:var(--accent);margin:12px 0}
+.satellite-answer .plain-math{font-family:var(--sans);font-style:normal}
+.satellite-answer .plain-equation{font-variant-numeric:tabular-nums;line-height:2.1}
+.satellite-answer table{table-layout:fixed;width:100%;min-width:0}
+.satellite-answer th,.satellite-answer td{overflow-wrap:anywhere}
+.satellite-answer caption{text-align:left;font-weight:600;margin:12px 0 8px}
+@media print{
+  .satellite-answer .satellite-note{background:#fff;border-left-color:#777}
+  .satellite-answer .satellite-result{color:#000}
+  .satellite-answer h3{margin-top:14pt}
+  .satellite-answer thead{display:table-header-group}
+  .satellite-answer caption{break-after:avoid}
+}
+
+/* FE 2.4: merged slow-link explanation with ordinary text math, independent of MathJax. */
+.http-answer .plain-math{font-family:var(--sans);font-style:normal;font-size:1em}
+.http-answer .plain-equation{text-align:left;line-height:1.8;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.http-answer h4{font-size:1em;line-height:1.4;margin:18px 0 8px;color:var(--accent)}
+.http-answer .http-summary{border-left:3px solid var(--good);padding:10px 14px;margin:0 0 14px;background:var(--bg)}
+.http-answer table{table-layout:fixed;width:100%;min-width:0}
+.http-answer th,.http-answer td{overflow-wrap:anywhere;white-space:normal}
+.http-answer th:first-child{width:46%}
+.http-answer caption{text-align:left;font-weight:600;margin:12px 0 8px}
+@media print{
+  .http-answer .http-summary{background:#fff;border-left-color:#777}
+  .http-answer h3,.http-answer h4{color:#000;break-after:avoid}
+  .http-answer h3{margin-top:14pt}
+  .http-answer .plain-equation{padding:7pt 0;margin:7pt 0}
+  .http-answer .tw{overflow:visible}
+  .http-answer table{font-size:10pt}
+  .http-answer th,.http-answer td{background:#fff;color:#000;padding:5pt}
+  .http-answer thead{display:table-header-group}
+  .http-answer caption{break-after:avoid}
+}
 </style>
 <script>window.MathJax={tex:{inlineMath:[['\\(','\\)']],displayMath:[['\\[','\\]']]},svg:{fontCache:'global'},options:{enableMenu:false}};</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js"></script>
@@ -162,16 +253,28 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <div class="eq">\[ D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \]</div>
 <p>The file is \(F = 21 \times 8 \times 10^{9} = 1.68 \times 10^{11}\) bits, so the two constant terms are:</p>
 <div class="eq">\[ \frac{F}{d_{\min}} = \frac{1.68 \times 10^{11}}{2 \times 10^{7}} = 8{,}400 \text{ seconds}, \qquad \frac{F}{u_s} = \frac{1.68 \times 10^{11}}{10^{9}} = 168 \text{ seconds} \]</div>
-<div class="tw"><table><tr><th>Peers N</th><th>Peer upload u</th><th>Client-server (seconds)</th><th>Peer-to-peer (seconds)</th></tr>
-<tr><td>10</td><td>300 kilobits per second</td><td>8,400</td><td>8,400</td></tr>
-<tr><td>10</td><td>2 megabits per second</td><td>8,400</td><td>8,400</td></tr>
-<tr><td>10</td><td>7 megabits per second</td><td>8,400</td><td>8,400</td></tr>
-<tr><td>100</td><td>300 kilobits per second</td><td>16,800</td><td>16,311</td></tr>
-<tr><td>100</td><td>2 megabits per second</td><td>16,800</td><td>14,000</td></tr>
-<tr><td>100</td><td>7 megabits per second</td><td>16,800</td><td>9,882</td></tr>
-<tr><td>1,000</td><td>300 kilobits per second</td><td>168,000</td><td>129,231</td></tr>
-<tr><td>1,000</td><td>2 megabits per second</td><td>168,000</td><td>56,000</td></tr>
-<tr><td>1,000</td><td>7 megabits per second</td><td>168,000</td><td>21,000</td></tr></table></div>
+<p><b>Client-server</b></p>
+<div class="tw"><table><tr><th>Peers N</th><th>Peer upload u</th><th>Calculation (seconds)</th></tr>
+<tr><td>10</td><td>300 kilobits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{10 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 1{,}680,\; 8{,}400 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>10</td><td>2 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{10 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 1{,}680,\; 8{,}400 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>10</td><td>7 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{10 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 1{,}680,\; 8{,}400 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>100</td><td>300 kilobits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{100 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 16{,}800,\; 8{,}400 \right) \)<br><b>= 16,800 seconds</b></td></tr>
+<tr><td>100</td><td>2 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{100 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 16{,}800,\; 8{,}400 \right) \)<br><b>= 16,800 seconds</b></td></tr>
+<tr><td>100</td><td>7 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{100 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 16{,}800,\; 8{,}400 \right) \)<br><b>= 16,800 seconds</b></td></tr>
+<tr><td>1,000</td><td>300 kilobits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 168{,}000,\; 8{,}400 \right) \)<br><b>= 168,000 seconds</b></td></tr>
+<tr><td>1,000</td><td>2 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 168{,}000,\; 8{,}400 \right) \)<br><b>= 168,000 seconds</b></td></tr>
+<tr><td>1,000</td><td>7 megabits per second</td><td>\( D_{\text{cs}} = \max\!\left( \frac{N F}{u_s},\; \frac{F}{d_{\min}} \right) \)<br>\( = \max\!\left( \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}} \right) \)<br>\( = \max\!\left( 168{,}000,\; 8{,}400 \right) \)<br><b>= 168,000 seconds</b></td></tr></table></div>
+<p><b>Peer-to-peer</b></p>
+<div class="tw"><table><tr><th>Peers N</th><th>Peer upload u</th><th>Calculation (seconds)</th></tr>
+<tr><td>10</td><td>300 kilobits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{10 \times 1.68 \times 10^{11}}{10^{9} + 10 \times 3 \times 10^{5}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 1{,}675 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>10</td><td>2 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{10 \times 1.68 \times 10^{11}}{10^{9} + 10 \times 2 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 1{,}647 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>10</td><td>7 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{10 \times 1.68 \times 10^{11}}{10^{9} + 10 \times 7 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 1{,}570 \right) \)<br><b>= 8,400 seconds</b></td></tr>
+<tr><td>100</td><td>300 kilobits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{100 \times 1.68 \times 10^{11}}{10^{9} + 100 \times 3 \times 10^{5}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 16{,}311 \right) \)<br><b>= 16,311 seconds</b></td></tr>
+<tr><td>100</td><td>2 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{100 \times 1.68 \times 10^{11}}{10^{9} + 100 \times 2 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 14{,}000 \right) \)<br><b>= 14,000 seconds</b></td></tr>
+<tr><td>100</td><td>7 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{100 \times 1.68 \times 10^{11}}{10^{9} + 100 \times 7 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 9{,}882 \right) \)<br><b>= 9,882 seconds</b></td></tr>
+<tr><td>1,000</td><td>300 kilobits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9} + 1{,}000 \times 3 \times 10^{5}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 129{,}231 \right) \)<br><b>= 129,231 seconds</b></td></tr>
+<tr><td>1,000</td><td>2 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9} + 1{,}000 \times 2 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 56{,}000 \right) \)<br><b>= 56,000 seconds</b></td></tr>
+<tr><td>1,000</td><td>7 megabits per second</td><td>\( D_{\text{P2P}} = \max\!\left( \frac{F}{u_s},\; \frac{F}{d_{\min}},\; \frac{N F}{u_s + N u} \right) \)<br>\( = \max\!\left( \frac{1.68 \times 10^{11}}{10^{9}},\; \frac{1.68 \times 10^{11}}{2 \times 10^{7}},\; \frac{1{,}000 \times 1.68 \times 10^{11}}{10^{9} + 1{,}000 \times 7 \times 10^{6}} \right) \)<br>\( = \max\!\left( 168,\; 8{,}400,\; 21{,}000 \right) \)<br><b>= 21,000 seconds</b></td></tr></table></div>
 <p>Client-server distribution time grows linearly with N because the server alone must send every copy, while the peers' upload capacity sits unused. It is, however, simple, predictable and fully controlled by the operator.</p>
 <p>Peer-to-peer distribution scales much better because every new peer also adds upload capacity, so the time grows slowly and approaches \(F/u\) as N grows. Its advantage increases with both N and u, reaching eight times faster at 1,000 peers uploading at 7 megabits per second, but it depends on peers staying and uploading.</p>
 <p>With only 10 peers, both modes take 8,400 seconds because the peers' own 20 megabits per second download rate is the limit, so the mode makes no difference.</p></div></article>
@@ -224,21 +327,49 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <p><b>192.53.40.6:</b> masking with /23 gives 192.53.40.0, which matches the third entry, so the packet is sent to <span class="r">Router 2</span>.</p>
 <p><b>192.53.56.7:</b> masking with /23 gives 192.53.56.0, which matches no entry, so the packet is sent to <span class="r">Router 3</span> by the default route.</p></div></article>
 
-<article class="q" id="A2-2.4" data-t="TCP on 1 Gbps link" data-star="K&amp;R Ch 3 TCP throughput calculation"><div class="qh"><span class="id">A2 · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 3 TCP throughput calculation">★</span></span><span class="wt">20%</span></div>
+<article class="q open" id="A2-2.4" data-t="TCP on 1 Gbps link" data-star="K&amp;R Ch 3 TCP throughput calculation"><div class="qh"><span class="id">A2 · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 3 TCP throughput calculation">★</span></span><span class="wt">20%</span></div>
 <div class="qt">A single Transmission Control Protocol (TCP) connection uses a 1 gigabit per second link that buffers no data and is the only congested link. The sender has a huge file, the receive buffer is much larger than the congestion window, each segment is 1,500 bytes, the two-way propagation delay is 15 milliseconds, and the connection is always in congestion avoidance.
 <ol type="a"><li>What is the maximum window size (in segments) that this connection can achieve?</li><li>What is the average window size (in segments) and average throughput (in bits per second)?</li><li>How long does it take to reach the maximum window again after recovering from a packet loss?</li><li>If the link buffers a finite number of segments and must always stay busy, how would you choose the buffer size? Justify your answer.</li></ol></div>
-<div class="ans">
-<p><b>(a)</b> A loss occurs when the sending rate, one window per round-trip time, reaches the link rate. Each segment is \(1{,}500 \times 8 = 12{,}000\) bits, so:</p>
-<div class="eq">\[ W = \frac{R \times RTT}{\text{segment size}} = \frac{10^{9} \times 0.015}{12{,}000} = 1{,}250 \text{ segments} \]</div>
-<p>The maximum window is <span class="r">1,250 segments</span>.</p>
-<p><b>(b)</b> The window grows steadily from \(W/2\) to \(W\) and then halves, so its average is three quarters of the maximum:</p>
-<div class="eq">\[ \bar{W} = \frac{3}{4} W = 937.5 \text{ segments}, \qquad \text{throughput} = \frac{3}{4} \times 10^{9} = 750 \text{ megabits per second} \]</div>
-<p>The average window is <span class="r">937.5 segments</span> and the average throughput is <span class="r">750 megabits per second</span>.</p>
-<p><b>(c)</b> After a loss, the window restarts at 625 segments and grows by one segment per round-trip time, so it needs 625 round-trip times:</p>
-<div class="eq">\[ t = 625 \times 0.015 = 9.375 \text{ seconds} \]</div>
-<p><b>(d)</b> The buffer should equal the bandwidth-delay product:</p>
-<div class="eq">\[ B = R \times RTT = 10^{9} \times 0.015 = 1.5 \times 10^{7} \text{ bits} = 1{,}250 \text{ segments} \]</div>
-<p>This is 1.875 megabytes. With this buffer, the queue built up before a loss keeps the link sending while the halved window grows back, so the link never goes idle.</p></div></article>
+<div class="ans submitted-answer">
+<p>TCP sends about one window of data per round-trip time (RTT). In congestion avoidance the window grows by one segment per RTT until a loss at window W, is then halved, and grows again (Kurose &amp; Ross, 2021, p. 273).</p>
+<p class="answer-label"><b>Given: </b></p>
+<p>Link rate <span class="plain-math">R</span> = 1 Gbps = <span class="plain-math">10<sup>9</sup></span> bits per second (bps); </p>
+<p>Maximum Segment Size (<span class="plain-math">MSS)</span> = 1,500 bytes = 12,000 bits; </p>
+<p>Round-Trip-Time (<span class="plain-math">RTT)</span> = 15 milliseconds (ms) = 0.015 seconds (s); </p>
+<p>no buffer at the link.</p>
+<h3>(a) What is the maximum window size?</h3>
+<p class="answer-label"><b>Formula</b></p>
+<div class="eq plain-equation"><span class="plain-math"><span class="fraction"><span>W⋅MSS</span><span>RTT</span></span>=R ⇒ W=<span class="fraction"><span>R⋅RTT</span><span>MSS</span></span></span></div>
+<p>Formula source: loss occurs when the sending rate W/RTT reaches the link rate (Kurose &amp; Ross, 2021, p. 273).</p>
+<p class="answer-label"><b>Calculation</b></p>
+<div class="eq plain-equation"><span class="plain-math">W=<span class="fraction"><span>10<sup>9</sup>×0.015 bits</span><span>12,000 bits/segment</span></span>=<span class="fraction"><span>15,000,000</span><span>12,000</span></span>=1,250 segments</span></div>
+<p>Answer: <span class="plain-math">W</span> = 1,250 segments.</p>
+<h3>(b) What is the average window size and average throughput?</h3>
+<p class="answer-label"><b>Formula</b></p>
+<div class="eq plain-equation"><span class="plain-math">W<sub>avg</sub>=<span class="fraction"><span>1</span><span>2</span></span>(<span class="fraction"><span>W</span><span>2</span></span>+W)=0.75 W  Throughput=<span class="fraction"><span>W<sub>avg</sub>⋅MSS</span><span>RTT</span></span></span></div>
+<p>Formula source: the window ramps linearly from W/2 to W; average throughput = 0.75 · W/RTT (Kurose &amp; Ross, 2021, p. 273).</p>
+<p class="answer-label"><b>Calculation</b></p>
+<div class="eq plain-equation"><span class="plain-math">W<sub>avg</sub>=0.75×1,250=937.5 segments</span></div>
+<div class="eq plain-equation"><span class="plain-math">Throughput=<span class="fraction"><span>937.5×12,000 bits</span><span>0.015 s</span></span>=750,000,000 bps</span></div>
+<p>Answer: average window = 937.5 segments; average throughput = 750,000,000 bps (750 megabits per second).</p>
+<h3>(c) How long will it take to reach the maximum window again after a loss?</h3>
+<p class="answer-label"><b>Formula</b></p>
+<div class="eq plain-equation"><span class="plain-math">t=(W-<span class="fraction"><span>W</span><span>2</span></span>)×RTT</span></div>
+<p>Formula source: after a loss the window is halved, then grows by one MSS per RTT (Kurose &amp; Ross, 2021, pp. 267-268, 273).</p>
+<p class="answer-label"><b>Calculation</b></p>
+<div class="eq plain-equation"><span class="plain-math">t=(1,250-625)×0.015 s=625×0.015 s=9.375 s</span></div>
+<p>Answer: about 9.375 seconds (625 RTTs).</p>
+<h3>(d) How would you choose a buffer size?</h3>
+<p>Answer: choose a buffer of at least <span class="plain-math">R⋅RTT</span> = 1,250 segments, which is 15,000,000 bits or 1.875 megabytes.</p>
+<p class="answer-label"><b>Formula</b></p>
+<div class="eq plain-equation"><span class="plain-math"><span class="fraction"><span>R⋅RTT+B</span><span>2</span></span> ≥ R⋅RTT ⇒ B ≥ R⋅RTT</span></div>
+<p>Formula source: derived from the model in (a)-(c); it matches the textbook&#x27;s buffer-sizing rule of thumb, buffer = RTT × link capacity (Kurose &amp; Ross, 2021, p. 323).</p>
+<p class="answer-label"><b>Where:</b></p>
+<p><span class="plain-math">B</span> = buffer size, in bits</p>
+<p><span class="plain-math">R⋅RTT+B</span> = largest window before a loss (bits on the link plus bits in the buffer); half of it is the smallest window, just after a loss</p>
+<p class="answer-label"><b>Calculation</b></p>
+<div class="eq plain-equation"><span class="plain-math">B≥10<sup>9</sup>×0.015=15,000,000 bits=1,250 segments</span></div>
+<p>Justification. With this buffer the window cycles between 1,250 and 2,500 segments, so even right after a loss it still fills the link, and utilization rises from 75% to 100%. A bigger buffer cannot push utilization past 100% and only adds queueing delay, so <span class="plain-math">R⋅RTT</span> is the right size (Kurose &amp; Ross, 2021, pp. 323-324).</p></div></article>
 
 <div class="part">From Assignment 3</div>
 
@@ -278,15 +409,38 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <div class="eq">\[ t = 1{,}024 + 3\,(1{,}024 + 8) + 900 = 5{,}020 \text{ ns} = 5.02\ \mu\text{s} \]</div>
 <p>A's packet is delivered at <span class="r">5.02 microseconds</span>.</p></div></article>
 
-<article class="q" id="A3-2.4" data-t="802.11 RTS/CTS timing" data-star="K&amp;R Ch 7 802.11 timing calculation"><div class="qh"><span class="id">A3 · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 7 802.11 timing calculation">★</span></span><span class="wt">10%</span></div>
+<article class="q open" id="A3-2.4" data-t="802.11 RTS/CTS timing" data-star="K&amp;R Ch 7 802.11 timing calculation"><div class="qh"><span class="id">A3 · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 7 802.11 timing calculation">★</span></span><span class="wt">10%</span></div>
 <div class="qt">An 802.11 station always reserves the channel with the Request to Send / Clear to Send (RTS/CTS) sequence. At t = 0 it wants to transmit 1,024 bytes of data, and all other stations are idle. At what time will the station complete the transmission? At what time can it receive the acknowledgement?</div>
-<div class="ans">
-<p>The question gives no rates, so this answer assumes 802.11b values. The channel rate is 11 megabits per second. The distributed inter-frame space (DIFS) is 50 microseconds, and the short inter-frame space (SIFS) is 10 microseconds. The Request to Send frame (RTS) is 20 bytes, and the Clear to Send (CTS) and acknowledgement (ACK) frames are 14 bytes each. There is no backoff, and propagation delay is ignored.</p>
-<p>Each frame's air time is its number of bits divided by the rate. The Request to Send frame takes 14.545 microseconds, the Clear to Send and acknowledgement frames take 10.182 microseconds each, and the 8,192-bit data frame takes 744.727 microseconds.</p>
-<div class="eq">\[ t_{\text{done}} = \text{DIFS} + \text{RTS} + \text{SIFS} + \text{CTS} + \text{SIFS} + \text{DATA} \]</div>
-<div class="eq">\[ t_{\text{done}} = 50 + 14.545 + 10 + 10.182 + 10 + 744.727 = 839.5\ \mu\text{s} \]</div>
-<div class="eq">\[ t_{\text{ACK}} = 839.455 + \text{SIFS} + \text{ACK} = 839.455 + 10 + 10.182 = 859.6\ \mu\text{s} \]</div>
-<p>The transmission is complete at <span class="r">839.5 microseconds</span>, and the acknowledgement is received at <span class="r">859.6 microseconds</span>.</p></div></article>
+<div class="ans submitted-answer submitted-rts-cts">
+<p>For Wi-Fi devices in the same network, only one of them can talk at a time. With Request to Send / Clear to Send (RTS/CTS), the station first asks the access point (the Wi-Fi base station it is sending to) for permission, and the access point&#x27;s reply also tells every other device to stay quiet until the exchange is over (Kurose &amp; Ross, 2021, pp. 551–552). Nobody else is sending, so the station only has to listen for one Distributed Inter-frame Space (DIFS) before it starts, with no random countdown (Kurose &amp; Ross, 2021, p. 550).</p>
+<p>The exchange then has eight steps, always in the same order (Kurose &amp; Ross, 2021, p. 552): </p>
+<ol>
+<li>DIFS: 50,000 nanoseconds</li>
+<li>RTS (the station asks to send): 20 bytes</li>
+<li>A Short Inter-frame Spacing (SIFS) pause: 10,000 nanoseconds</li>
+<li>The CTS (the access point says go ahead): 14 bytes</li>
+<li>A SIFS pause: 10,000 nanoseconds</li>
+<li>The data frame = data + 24 bytes header + 4 checks</li>
+<li>A SIFS pause: 10,000 nanoseconds</li>
+<li>The acknowledgment (ACK), the access point&#x27;s short reply saying the data arrived safely: 14 bytes</li>
+</ol>
+<p class="answer-label"><b>Formula</b></p>
+<div class="eq plain-equation"><span class="plain-math">t<sub>complete</sub> = D + T<sub>RTS</sub> + S + T<sub>CTS</sub> + S + T<sub>data</sub></span></div>
+<div class="eq plain-equation"><span class="plain-math">t<sub>acknowledged</sub> = t<sub>complete</sub> + S + T<sub>ACK</sub>  </span></div>
+<div class="eq plain-equation"><span class="plain-math">T<sub>data</sub> = <span class="fraction"><span>8 × frame bytes</span><span>R</span></span></span></div>
+<p>Formula source: Carrier Sense Multiple Access with Collision Avoidance with RTS/CTS (Kurose &amp; Ross, 2021, pp. 550–552); transmission delay L/R (Kurose &amp; Ross, 2021, p. 37).</p>
+<p class="answer-label"><b>Where:</b></p>
+<p><span class="plain-math">R</span> = sending speed = 11 megabits per second, the 802.11b rate, that is 11 bits every 1,000 nanoseconds, so one bit takes 1,000 ÷ 11 ≈ 90.909 nanoseconds</p>
+<p><span class="plain-math">D</span> = DIFS, the listen-first wait = 50,000 nanoseconds</p>
+<p><span class="plain-math">S</span> = SIFS, the short pause between the frames of one exchange = 10,000 nanoseconds </p>
+<p><span class="plain-math">T</span> = time to send one frame = number of bits × 1,000 ÷ 11 (in nanoseconds), where each byte is 8 bits</p>
+<p class="answer-label"><b>Data frame size = </b></p>
+<p>24-byte header + 1,024 data bytes + 4-byte error check = 1,052 bytes </p>
+<div class="tw"><table class="timing-ledger"><thead><tr><th scope="col"><p>Seq</p></th><th scope="col"><p>What happens</p></th><th scope="col"><p>Size </p><p>(bytes)</p></th><th scope="col"><p>Size </p><p>(bits)</p></th><th scope="col"><p>Time to send/pause</p><p>(nanoseconds)</p></th><th scope="col"><p>Running total</p><p></p></th></tr></thead><tbody><tr><td><p>1</p></td><td><p>D (DIFS)</p></td><td><p></p></td><td><p></p></td><td><p>50,000</p></td><td><p></p><p></p></td></tr><tr><td><p>2</p></td><td><p>RTS</p></td><td><p>20</p></td><td><p>160</p></td><td><p>160,000 ÷ 11 ≈ 14,545</p></td><td><p>50,000+14545= 64,545</p><p></p></td></tr><tr><td><p>3</p></td><td><p>S (SIFS)</p></td><td><p></p></td><td><p></p></td><td><p>10,000</p></td><td><p>64,545 + 10,000 = 74,545</p><p></p></td></tr><tr><td><p>4</p></td><td><p>CTS</p></td><td><p>14</p></td><td><p>112</p></td><td><p>112,000 ÷ 11 ≈ 10,182</p></td><td><p>74,545 + 10,182 = 84, 727</p><p></p></td></tr><tr><td><p>5</p></td><td><p>S (SIFS)</p></td><td><p></p></td><td><p></p></td><td><p>10,000</p></td><td><p>84,727 + 10,000 = 94,727</p><p></p></td></tr><tr><td><p>6</p></td><td><p>DATA FRAME</p></td><td><p>1052</p></td><td><p>8416</p></td><td><p>8,416,000 ÷ 11 ≈ 765,091</p></td><td><p>94,727 + 765,091 = 859,818</p><p>The transmission is completed.</p></td></tr><tr><td><p>7</p></td><td><p>S (SIFS)</p></td><td><p></p></td><td><p></p></td><td><p>10,000</p></td><td><p>859,818 + 10,000 = 869,818</p><p></p></td></tr><tr><td><p>8</p></td><td><p>ACK</p></td><td><p>14</p></td><td><p>112</p></td><td><p>112,000 ÷ 11 ≈ 10,182</p></td><td><p>869,818 + 10,182 = 880,000</p><p>The acknowledgement is received.</p></td></tr></tbody></table></div>
+<div class="tw"><table class="timing-explanation"><thead><tr><th scope="col"><p>Seq</p></th><th scope="col"><p>What happens</p></th></tr></thead><tbody><tr><td><p>1</p></td><td><p>The station starts listening to check that the air is quiet (DIFS)</p></td></tr><tr><td><p>2</p></td><td><p>The air stayed quiet, so the station started sending its RTS</p></td></tr><tr><td><p>3</p></td><td><p>The RTS is finished (50,000 + 14,545); everyone pauses for one SIFS</p></td></tr><tr><td><p>4</p></td><td><p>The access point starts sending its CTS; every other device hears it and stays quiet</p></td></tr><tr><td><p>5</p></td><td><p>The CTS is finished (74,545 + 10,182); everyone pauses for one SIFS</p></td></tr><tr><td><p>6</p></td><td><p>The station starts sending the 1,052-byte data frame.</p><p>The last bit of the data frame leaves the station (94,727 + 765,091): the transmission is complete</p></td></tr><tr><td><p>7</p></td><td><p>After one more SIFS pause, the access point starts sending the ACK</p></td></tr><tr><td><p>8</p></td><td><p>The last bit of the ACK reaches the station (869,818 + 10,182): the acknowledgment is received</p></td></tr></tbody></table></div>
+<div class="eq plain-equation"><span class="plain-math">t<sub>complete</sub> = 50,000 + 14,545 + 10,000 + 10,182 + 10,000 + 765,091 = 859,818 nanoseconds</span></div>
+<div class="eq plain-equation"><span class="plain-math">t<sub>acknowledged</sub> = 859,818 + 10,000 + 10,182 = 880,000 nanoseconds</span></div>
+<p>The station completes the transmission at t = 859,818 nanoseconds and receives the acknowledgment at t = 880,000 nanoseconds, both in less than a thousandth of a second.</p></div></article>
 
 <div class="part">From the sample final</div>
 
@@ -325,20 +479,114 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <p>The query is broadcast because the sender knows only the target's Internet Protocol address, not which adapter owns it, so it must ask every node on the subnet using the broadcast address FF-FF-FF-FF-FF-FF.</p>
 <p>The response is sent to a specific address because the responding node learned the sender's hardware address from the query. Only the sender needs the answer, so sending it directly avoids disturbing every other node.</p></div></article>
 
-<article class="q" id="FE-2.1" data-t="Satellite link" data-star="K&amp;R Ch 1 delay problem + geostationary-altitude trivia (Discord: reported on the practice exam)"><div class="qh"><span class="id">FE · 2.1 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 1 delay problem + geostationary-altitude trivia (Discord: reported on the practice exam)">★</span></span><span class="wt">15%</span></div>
+<article class="q open" id="FE-2.1" data-t="Satellite link" data-star="K&amp;R Ch 1 delay problem + geostationary-altitude trivia (Discord: reported on the practice exam)"><div class="qh"><span class="id">FE · 2.1 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 1 delay problem + geostationary-altitude trivia (Discord: reported on the practice exam)">★</span></span><span class="wt">15%</span></div>
 <div class="qt">There is a 10 megabits per second microwave link between a geostationary satellite and its base station on Earth. Every minute the satellite takes a digital photo and sends it to the base station. Assume a propagation speed of 2.4 × 10<sup>8</sup> metres per second.
 <ol type="a"><li>What is the propagation delay of the link?</li><li>What is the bandwidth-delay product, R · d<sub>prop</sub>?</li><li>Let x denote the size of the photo. What is the minimum value of x for the microwave link to be continuously transmitting?</li></ol></div>
-<div class="ans">
-<p>A geostationary satellite orbits at about 36,000 kilometres above the Earth.</p>
-<p><b>(a)</b></p>
-<div class="eq">\[ d_{\text{prop}} = \frac{d}{s} = \frac{3.6 \times 10^{7}\ \text{m}}{2.4 \times 10^{8}\ \text{m/s}} = 0.15 \text{ s} \]</div>
-<p>The propagation delay is <span class="r">0.15 seconds (150 milliseconds)</span>.</p>
-<p><b>(b)</b></p>
-<div class="eq">\[ R \cdot d_{\text{prop}} = 10^{7} \times 0.15 = 1.5 \times 10^{6} \text{ bits} \]</div>
-<p>The bandwidth-delay product is <span class="r">1.5 million bits</span>.</p>
-<p><b>(c)</b> For the link to transmit continuously, sending one photo must take the whole 60 seconds:</p>
-<div class="eq">\[ \frac{x}{R} \ge 60 \;\Rightarrow\; x = 10^{7} \times 60 = 6 \times 10^{8} \text{ bits} \]</div>
-<p>The minimum photo size is <span class="r">600 million bits (75 megabytes)</span>.</p></div></article>
+<div class="ans submitted-answer satellite-answer">
+<p>The three parts ask about three different things: the journey of one bit, the number of bits making that journey, and the time needed to send an entire photo.</p>
+<div class="satellite-note">
+<p><strong>The distance assumption:</strong> The original problem does not state the exact distance between the satellite and the station.
+Following the supplied guide, assume the satellite is directly above the station and use a rounded link distance of <strong>36,000 km</strong>.
+Answers (a) and (b) are approximate because they depend on this distance.
+Answer (c) does not depend on the distance.</p>
+</div>
+<p><strong>Useful conversions:</strong> 10 Mbps means 10,000,000 bits per second.
+One minute is 60 seconds.
+One kilometre is 1,000 metres.
+Eight bits make one byte.</p>
+
+<h3>(a) Find how long one bit takes to travel</h3>
+<p>To find a travel time, divide the distance by the travelling speed.
+Use metres for the distance because the speed is given in metres per second.</p>
+<div class="eq plain-equation plain-math">
+d<sub>prop</sub> = <span class="fraction"><span>d</span><span>s</span></span>
+= <span class="fraction"><span>3.6 × 10<sup>7</sup> m</span><span>2.4 × 10<sup>8</sup> m/s</span></span>
+= 0.15 s = 150 ms
+</div>
+<p>Distance = 36,000 km = 36,000,000 metres.
+Speed = 2.4 × 10<sup>8</sup> = 240,000,000 metres per second.
+Travel time = 36,000,000 ÷ 240,000,000 = <strong>0.15 seconds</strong>.</p>
+<p>That is 150 milliseconds, or fifteen hundredths of a second.
+Networking calls this travel time the <strong>propagation delay</strong>.</p>
+<p class="satellite-result">Answer (a): approximately 0.15 seconds, or 150 milliseconds.</p>
+<p>This is a one-way trip from the satellite to Earth.
+There is no return journey to add.</p>
+
+<h3>(b) Find how many bits can be travelling at once</h3>
+<p>The satellite keeps sending new bits while earlier bits are still travelling.
+For the first 0.15 seconds, it sends data but none of that data has reached Earth yet.</p>
+<p>Count how many bits it can send in those 0.15 seconds.
+Multiply the sending rate by the travel time.</p>
+<div class="eq plain-equation plain-math">
+R · d<sub>prop</sub> = 10<sup>7</sup> bits/s × 0.15 s = 1.5 × 10<sup>6</sup> bits
+</div>
+<p>Bits travelling = 10,000,000 bits per second × 0.15 seconds = <strong>1,500,000 bits</strong>.</p>
+<p>Once the stream has filled the link, bits arrive at Earth while new bits leave the satellite.
+With steady sending, about 1.5 million bits remain in transit at any moment.
+This quantity is called the <strong>bandwidth-delay product</strong>.</p>
+<p>In the question, <strong>R</strong> means the sending rate and <strong>d<sub>prop</sub></strong> means the one-way travel time.
+The dot in R·d<sub>prop</sub> means multiply.</p>
+<p class="satellite-result">Answer (b): approximately 1,500,000 bits, or 1.5 Mbit.</p>
+<p>The answer is a number of bits.
+The seconds cancel when bits per second are multiplied by seconds.</p>
+
+<h3>(c) Find the smallest photo that keeps the sender busy</h3>
+<p>A new photo becomes ready only once every 60 seconds.
+The current photo must therefore contain enough data to keep the satellite sending for all 60 seconds.</p>
+<p>At 10 million bits per second, calculate how many bits it can send in one minute:</p>
+<div class="eq plain-equation plain-math">
+<span class="fraction"><span>x</span><span>R</span></span> ≥ 60 s
+<br>x ≥ R × 60 s
+<br>x<sub>min</sub> = 10<sup>7</sup> bits/s × 60 s = 6 × 10<sup>8</sup> bits
+</div>
+<p>Minimum photo size = sending rate × time between photos.
+Minimum photo size = 10,000,000 × 60 = <strong>600,000,000 bits</strong>.</p>
+<p>Convert to bytes: 600,000,000 ÷ 8 = 75,000,000 bytes = <strong>75 MB</strong>.</p>
+<p>Here, MB means one million bytes.
+The photo size is also written as 600 Mbit, meaning 600 million bits.</p>
+<p class="satellite-result">Answer (c): x must be at least 600,000,000 bits; the minimum is 600 Mbit, or 75 MB.</p>
+<p>For example, if the first photo is ready at time zero, the satellite spends the next 60 seconds sending it.
+It finishes just as the second photo becomes ready, so it can immediately start the second photo.</p>
+<p>A smaller photo would finish too early and leave a waiting gap.
+A larger photo would keep the satellite busy, but each photo would take more than a minute to send, so unsent photos would build up in a queue.</p>
+<p>In formula form, sending a photo of x bits takes x/R seconds.
+To keep sending until the next photo, x/R must be at least 60.
+Therefore x must be at least 60R.</p>
+
+<h3>Why the 0.15-second journey does not change part (c)</h3>
+<p><strong>Sending time</strong> is how long it takes the satellite to put all the photo's bits onto the link.
+<strong>Travel time</strong> is how long each bit takes to reach Earth after it is sent.
+These activities overlap.</p>
+<p>The satellite can start sending the next photo while the last bits of the previous photo are still travelling.
+It does not need to wait for the ground station to receive the whole photo.</p>
+<p>At the minimum photo size, sending the first photo finishes at 60 seconds.
+The end of that photo reaches Earth at about 60.15 seconds.
+The satellite starts sending the next photo at 60 seconds.</p>
+<p>Do not add or subtract the 0.15-second travel time when finding the photo size.
+Part (c) asks for enough data to occupy the sender for the full 60 seconds between photos.</p>
+
+<h3>Why the answer to (b) is much smaller than the answer to (c)</h3>
+<p>The 1.5 million bits in part (b) are enough to occupy the link during one 0.15-second journey.
+A photo of that size takes only 0.15 seconds to send, leaving the satellite idle for the remaining 59.85 seconds before the next photo.</p>
+<p>The 600 million bits in part (c) are enough to keep the sender working for an entire minute.
+All those bits do not need to be travelling at once.
+Most of the early bits reach Earth while later bits are still being sent.</p>
+
+<div class="tw"><table>
+<caption>Final answers using the rounded 36,000 km link distance</caption>
+<thead><tr><th scope="col">Part</th><th scope="col">Calculation</th><th scope="col">Answer</th></tr></thead>
+<tbody>
+<tr><th scope="row">(a) Travel time</th><td>Distance ÷ travel speed</td><td>About 0.15 s = 150 ms</td></tr>
+<tr><th scope="row">(b) Bits in transit</th><td>Sending rate × travel time</td><td>About 1,500,000 bits</td></tr>
+<tr><th scope="row">(c) Photo size</th><td>Sending rate × 60 s</td><td>600,000,000 bits = 75 MB</td></tr>
+</tbody>
+</table></div>
+<p><strong>What to remember:</strong> Divide to find one bit's travel time.
+Multiply by that travel time to count bits in transit.
+Multiply by the time between photos to keep the sender busy.</p>
+
+<p class="note"><strong>Model used:</strong> Each complete photo is ready at the start of its sending period, with no extra headers, acknowledgements, errors, or pauses.</p>
+</div></article>
 
 <article class="q" id="FE-2.2" data-t="AIMD 6→12 MSS" data-star="K&amp;R Ch 3 AIMD calculation"><div class="qh"><span class="id">FE · 2.2 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 3 AIMD calculation">★</span></span><span class="wt">10%</span></div>
 <div class="qt">A large file is sent over a Transmission Control Protocol (TCP) connection with no loss.
@@ -358,19 +606,71 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 <div class="eq">\[ T = RTT_1 + RTT_2 + \dots + RTT_n + 2\,RTT_0 \]</div>
 <p>The total time is <span class="r">RTT<sub>1</sub> + ... + RTT<sub>n</sub> + 2 RTT<sub>0</sub></span>.</p></div></article>
 
-<article class="q" id="FE-2.4" data-t="HTTP over 150 bps" data-star="K&amp;R Ch 2 HTTP delay/throughput problem"><div class="qh"><span class="id">FE · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 2 HTTP delay/throughput problem">★</span></span><span class="wt">15%</span></div>
+<article class="q open" id="FE-2.4" data-t="HTTP over 150 bps" data-star="K&amp;R Ch 2 HTTP delay/throughput problem"><div class="qh"><span class="id">FE · 2.4 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 2 HTTP delay/throughput problem">★</span></span><span class="wt">15%</span></div>
 <div class="qt">A short 10-metre link carries 150 bits per second in each direction. Data packets are 100,000 bits and control packets (acknowledgement or handshaking) are 200 bits. N parallel connections each get 1/N of the bandwidth. Each object is 100 kilobits, and the first object references 10 more objects from the same sender.
 <ol type="a"><li>Would parallel downloads using parallel instances of non-persistent HyperText Transfer Protocol (HTTP) make sense here?</li><li>Would persistent HTTP give significant gains over the non-persistent case? Justify your answer.</li></ol></div>
-<div class="ans">
-<p>The propagation delay is \(10 / (3 \times 10^{8}) \approx 33\) nanoseconds, so it is negligible. Each non-persistent download needs three control packets (connection request, connection reply, and acknowledgement with request) and one data packet.</p>
-<p><b>(a)</b> The first object takes:</p>
-<div class="eq">\[ \frac{3 \times 200}{150} + \frac{100{,}000}{150} = 4 + 666.7 = 670.7 \text{ s} \]</div>
-<p>When the 10 objects are downloaded in parallel, each connection gets only 15 bits per second:</p>
-<div class="eq">\[ \frac{3 \times 200}{15} + \frac{100{,}000}{15} = 40 + 6{,}666.7 = 6{,}706.7 \text{ s} \]</div>
-<p>The parallel total is about 7,377 seconds, and downloading all 11 objects one after another also takes \(11 \times 670.7 \approx 7{,}377\) seconds. Parallel downloads therefore <b>do not make sense</b> here. The link itself is the bottleneck, so splitting its bandwidth only slows down each connection.</p>
-<p><b>(b)</b> With persistent connections, the handshake happens only once, and each later object needs only a request and the data:</p>
-<div class="eq">\[ 670.7 + 10 \times \frac{200 + 100{,}000}{150} = 670.7 + 6{,}680 \approx 7{,}351 \text{ s} \]</div>
-<p>This saves only about 27 seconds out of 7,377, or about 0.36%, so the gain is <b>not significant</b>. Sending the large objects dominates the total time, and persistent connections only remove handshake and propagation time, which are both tiny here.</p></div></article>
+<div class="ans submitted-answer http-answer">
+<p class="http-summary"><strong>(a) Parallel non-persistent HTTP gives no useful overall speed gain:</strong> both sequential and parallel downloads take <strong>7,377.33 seconds</strong> in this model.<br><strong>(b) Persistent HTTP helps only slightly:</strong> one reused connection takes <strong>7,350.67 seconds</strong>, saving <strong>26.67 seconds (about 0.36%)</strong>.</p>
+<p><strong>In plain language:</strong> the browser downloads the main page first, then the ten files it references, making eleven files altogether. Non-persistent HTTP opens a new connection for every file; persistent HTTP reuses one connection. Parallel downloads run together, but must divide the same 150 bits per second.</p>
+<h3>Why these answers follow</h3>
+<h4>Step 1: Work out what causes most of the waiting</h4>
+<p>A short cable does not automatically mean a quick download. A signal crosses the cable quickly, but the sender still needs time to put all 100,000 bits onto it. Think of reading a long message aloud: even to someone standing beside you, reading the whole message still takes time.</p>
+<p>The basic calculation is <strong>time = amount of data ÷ sending speed</strong>. Here, Kbits means thousands of bits, so 100 Kbits is 100,000 bits, not 100,000 bytes.</p>
+<p class="eq plain-equation plain-math">One file: 100,000 ÷ 150 = <strong>666.67 seconds</strong>, or about 11 minutes and 7 seconds.</p>
+<p class="eq plain-equation plain-math">One small control message: 200 ÷ 150 = <strong>1.33 seconds</strong>.</p>
+<p>Sending one file takes as long as sending 500 small control messages. This tells us that <strong>sending the actual files is the main source of delay</strong>.</p>
+<p class="note">The problem gives no signal travel speed. For perspective, assuming 200 million metres per second, a signal would cross 10 metres in 0.00000005 seconds. That assumed travel time is negligible next to the seconds or minutes needed to send the bits.</p>
+<h4>Step 2: Compare ten files one at a time with ten at once</h4>
+<p>Start with just the file data. We will account for the small messages afterward. The main page must arrive first in either method, because the browser needs it to discover the ten extra files.</p>
+<p><strong>One at a time:</strong> each extra file gets the full 150 bits per second. One file takes 666.67 seconds, and there are ten files to send.</p>
+<p class="eq plain-equation plain-math">Ten extra files one at a time: 10 × (100,000 ÷ 150) = <strong>6,666.67 seconds</strong>.</p>
+<p><strong>All ten at once:</strong> the ten connections share the available speed. Each gets 150 ÷ 10 = 15 bits per second. Each file now takes ten times longer, but all ten are being downloaded together.</p>
+<p class="eq plain-equation plain-math">Ten extra files at once: each takes 100,000 ÷ 15 = <strong>6,666.67 seconds</strong>. All ten finish together.</p>
+<p>Both methods finish the ten files in the same time. Running ten downloads does not create extra capacity. It simply divides the existing capacity into ten smaller shares.</p>
+<p><strong>The control messages must share the slower speed too.</strong> A 200-bit message takes 200 ÷ 15 = 13.33 seconds on each of the ten connections. It would be incorrect to slow down only the file data while letting every connection send its control messages at the full speed.</p>
+<p><strong>Answer to the first question:</strong> parallel non-persistent downloads provide no useful overall speed gain here. With the stated equal sharing and negligible signal travel time, the two schedules tie in the simplified model.</p>
+<h4>Step 3: See what keeping a connection open actually saves</h4>
+<p>Opening a connection is like exchanging greetings before asking for a file. Persistent HTTP lets the browser skip those repeated greetings. It still has to ask for each file and receive every bit of that file.</p>
+<p>Use this classroom counting convention: a new connection needs three 200-bit messages before the file data arrives.</p>
+<ol>
+<li>The browser asks to open the connection, called <strong>SYN</strong>.</li>
+<li>The server agrees, called <strong>SYN-ACK</strong>.</li>
+<li>The browser confirms and requests the file together, counted as one <strong>ACK + GET</strong> message.</li>
+</ol>
+<p>An already open connection needs only the file request. So reusing it saves two 200-bit setup messages for each later file.</p>
+<p class="eq plain-equation plain-math">Saving per later file: (2 × 200) ÷ 150 = <strong>2.67 seconds</strong>.<br>Saving across ten later files: 10 × (400 ÷ 150) = <strong>26.67 seconds</strong>.</p>
+<p class="eq plain-equation plain-math">Now compare that saving with the data that must still arrive:<br>Eleven files contain 11 × 100,000 = 1,100,000 bits.<br>Data alone takes 1,100,000 ÷ 150 = <strong>7,333.33 seconds</strong>, or about 122.22 minutes.</p>
+<p><strong>Answer to the second question:</strong> keeping the connection open helps a little, but it does not provide a significant gain. Saving about 27 seconds is a small improvement when the complete download lasts a little over two hours.</p>
+<h3>Complete calculations: main page plus ten extra files</h3>
+<p>These totals include the main page and all ten extra files. They use the three-message convention explained above, and calculations use unrounded values until the final result.</p>
+<h4>A new connection for every file</h4>
+<p>Each file needs three small messages plus its data:</p>
+<p class="eq plain-equation plain-math">One file: (3 × 200 + 100,000) ÷ 150 = 670.666… seconds.<br>All eleven sequentially: 11 × (100,600 ÷ 150) = <strong>7,377.33 seconds</strong>.</p>
+<p>For ten parallel extras, first fetch the main page at full speed. Then each extra connection runs at 15 bits per second:</p>
+<p class="eq plain-equation plain-math">Main page + parallel extras: (100,600 ÷ 150) + (100,600 ÷ 15) = <strong>7,377.33 seconds</strong>.</p>
+<h4>Keep the connection open and request one file at a time</h4>
+<p>The main page needs the initial setup. Each later file needs just one 200-bit request and its 100,000-bit data:</p>
+<p class="eq plain-equation plain-math">Persistent total: (100,600 ÷ 150) + 10 × (100,200 ÷ 150) = <strong>7,350.67 seconds</strong>.</p>
+<div class="tw"><table>
+<caption>Comparison using the same counting assumptions</caption>
+<thead><tr><th scope="col">Method</th><th scope="col">Total seconds</th><th scope="col">Time saved</th></tr></thead>
+<tbody>
+<tr><th scope="row">New connections, one file at a time</th><td>7,377.33</td><td>Baseline</td></tr>
+<tr><th scope="row">New connections, ten extras at once</th><td>7,377.33</td><td>0 seconds</td></tr>
+<tr><th scope="row">One reused connection, one request at a time</th><td>7,350.67</td><td>26.67 seconds, about 0.36%</td></tr>
+</tbody>
+</table></div>
+<h4>If requests are sent ahead of time</h4>
+<p>An optional further improvement is <strong>pipelining</strong>: after reading the main page, the browser sends requests for the extra files without waiting for each file to finish. The requests can travel toward the server while file data travels back. The link allows 150 bits per second in each direction simultaneously.</p>
+<p>The first extra request must arrive before its response can start. The remaining nine requests fit easily into the time spent receiving the first extra file. Their transmission time therefore overlaps the returning data.</p>
+<p class="eq plain-equation plain-math">Pipelined total: main page + first extra request + all extra data<br>= (100,600 ÷ 150) + (200 ÷ 150) + (1,000,000 ÷ 150)<br>= <strong>7,338.67 seconds</strong>.</p>
+<p>That saves 38.67 seconds, about 0.52% of the non-persistent total. The conclusion is unchanged: even sending requests early saves very little compared with the time required to send the files.</p>
+<p class="note">These are classroom-model totals, not exact real-browser timings. They ignore signal travel, DNS lookup, processing, loss, headers, TCP slow start, separate data acknowledgments, and connection closing, under the stated simplified counting convention. The final handshake acknowledgment and first request are counted together as one 200-bit message. Different packet-counting assumptions can change the small overhead totals without changing the main conclusion.</p>
+<h3>Final answer to remember</h3>
+<p><strong>Parallel downloads:</strong> no useful gain. Ten connections each get only 15 bits per second, so downloading ten files together takes as long as downloading them one at a time at 150 bits per second. Their control messages share the bandwidth too.</p>
+<p><strong>Persistent HTTP:</strong> a small gain, but no significant improvement. It saves repeated connection setup, while the same 1,100,000 data bits still have to pass through the slow link. In this model, reusing the connection saves about 27 seconds out of about 123 minutes.</p>
+<p><strong>Remember:</strong> more connections divide the same sending capacity. Reusing a connection saves setup messages. Neither reduces the amount of file data that must be sent.</p>
+</div></article>
 
 <article class="q" id="FE-2.5" data-t="1's complement (exam)" data-star="K&amp;R Ch 3 checksum problem"><div class="qh"><span class="id">FE · 2.5 <span class="star" title="Matches final-exam pattern: K&amp;R Ch 3 checksum problem">★</span></span><span class="wt">20%</span></div>
 <div class="qt">The User Datagram Protocol (UDP) and the Transmission Control Protocol (TCP) use 1's complement for their checksums. For the bytes 01010011, 01100110 and 01110100, what is the 1's complement of their 8-bit sum? How does the receiver detect errors? Why does UDP take the 1's complement of the sum instead of using the sum itself? Can a 1-bit error go undetected?</div>
@@ -6425,14 +6725,14 @@ Best: A and B get 2m, C and D get m; \(2.0m = 1\) s gives m = 0.5 Mb, so A and B
 
 <script>
 (function(){
-  // ---- block copy / select / right & middle click / save / print / view-source ----
+  // ---- block copy / select / right & middle click / save / view-source ----
   var stop=function(e){e.preventDefault();e.stopPropagation();return false};
   ['contextmenu','copy','cut','paste','selectstart','dragstart','drop'].forEach(function(t){document.addEventListener(t,stop,true)});
   document.addEventListener('mousedown',function(e){if(e.button!==0)return stop(e)},true);
   document.addEventListener('auxclick',stop,true);
   document.addEventListener('keydown',function(e){
     var k=(e.key||'').toLowerCase(), mod=e.ctrlKey||e.metaKey;
-    if(mod&&['c','x','a','s','u','p','v'].indexOf(k)>-1) return stop(e);
+    if(mod&&['c','x','a','s','u','v'].indexOf(k)>-1) return stop(e);
     if(mod&&e.shiftKey&&['i','j','c'].indexOf(k)>-1) return stop(e);
     if(k==='f12'||k==='contextmenu'||(e.shiftKey&&k==='f10')) return stop(e);
   },true);
@@ -6473,7 +6773,7 @@ Best: A and B get 2m, C and D get m; \(2.0m = 1\) s gives m = 0.5 Mb, so A and B
     else{var sp=document.createElement('span');sp.className='sep';sp.textContent='·';line.appendChild(sp);}
     {var a=document.createElement('a');a.href='#'+q.id;a.innerHTML='<b>'+n+'</b><span></span>';a.lastChild.textContent=q.dataset.t;line.appendChild(a);}
     var qa=document.createElement('span');qa.className='qa';
-    var b=document.createElement('button');b.type='button';b.textContent='Show answer';b.setAttribute('aria-expanded','false');
+    var b=document.createElement('button');b.type='button';b.textContent=q.classList.contains('open')?'Hide answer':'Show answer';b.setAttribute('aria-expanded',String(q.classList.contains('open')));
     b.onclick=function(){var o=q.classList.toggle('open');b.textContent=o?'Hide answer':'Show answer';b.setAttribute('aria-expanded',String(o))};
     var qt=q.querySelector('.qt');if(qt){qt.style.cursor='pointer';qt.title='Click to show/hide answer';qt.onclick=function(){b.click()};}
     var t=document.createElement('a');t.href='#toc';t.textContent='↑ Top';
