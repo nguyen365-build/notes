@@ -202,12 +202,12 @@ mark{background:var(--mark);color:inherit;border-radius:2px;padding:0 1px}
       <button class="btn" type="button" id="hidebtn" aria-pressed="false" aria-label="Show all answers">Show all</button>
     </div>
   </form>
-  <div class="row2"><button type="button" class="chip mode" id="modebtn" aria-pressed="false" title="Count only the questions where the phrase itself is underlined">Underlined only</button><span class="sep"></span><button type="button" class="chip tchip on" data-type="all" aria-pressed="true">All</button><button type="button" class="chip tchip" data-type="sg" aria-pressed="false" title="68 study guide questions">Study guide</button><button type="button" class="chip tchip" data-type="obj" aria-pressed="false" title="60 objective drills">Objectives</button><button type="button" class="chip tchip" data-type="r" aria-pressed="false" title="49 recall questions">Recall</button><button type="button" class="chip tchip" data-type="t" aria-pressed="false" title="77 term questions">Terms</button><button type="button" class="chip tchip" data-type="a" aria-pressed="false" title="96 applied questions">Applied</button><button type="button" class="chip tchip" data-type="mc" aria-pressed="false" title="126 multiple-choice questions">MC</button><button type="button" class="chip tchip" data-type="p" aria-pressed="false" title="123 people questions">People</button><button type="button" class="chip tchip" data-type="syn" aria-pressed="false" title="24 synthesis questions">Synthesis</button><span class="sep"></span><span class="status" id="status" role="status" aria-live="polite">623 questions</span></div>
+  <div class="row2"><span class="status" id="status" role="status" aria-live="polite">623 questions</span></div>
 </div></header>
 <main id="main">
   <div class="intro" id="intro"><div class="lbl">SCIE 326 Scientific Reasoning &middot; Midterm &middot; Units 1-8</div>
     <h1>Midterm question bank by key phrase</h1>
-    <p><b>623 questions</b> (68 study guide, 60 objective, 49 recall, 77 term, 96 applied, 126 multiple choice, 123 people, 24 synthesis) and <b>1,247 underlined key phrases</b>: the 500 questions of the Midterm Comprehensive Question Bank, plus 123 people questions with full answers, rebuilt from the "Who said what" cards of the earlier Midterm QA page. Pick a phrase to show only the questions whose wording contains it; switch on <b>Underlined only</b> to keep just the questions where that phrase is underlined. Tap a question to show or hide its answer.</p>
+    <p><b>623 questions</b> (68 study guide, 60 objective, 49 recall, 77 term, 96 applied, 126 multiple choice, 123 people, 24 synthesis) and <b>1,247 underlined key phrases</b>: the 500 questions of the Midterm Comprehensive Question Bank, plus 123 people questions with full answers, rebuilt from the "Who said what" cards of the earlier Midterm QA page. Pick a phrase to show only the questions whose wording contains it. Tap a question to show or hide its answer.</p>
   </div>
   <div class="result" id="result" hidden><span id="resulttext"></span><button class="btn" type="button" id="resultreset">Clear</button></div>
   <div class="empty" id="empty" hidden></div>
@@ -233,10 +233,8 @@ var findN=document.getElementById('findn'), findX=document.getElementById('findx
 var kwOpts=[].slice.call(kwList.querySelectorAll('.kwopt'));
 var optAll=kwOpts[0];
 var statusEl=document.getElementById('status'), emptyEl=document.getElementById('empty');
-var modeBtn=document.getElementById('modebtn');
 var state={kw:-1,type:'all',mode:'w'};
 var kwSel='';
-try{ if(localStorage.getItem('scie326-midterm-mode')==='u')state.mode='u'; }catch(e){}
 
 /* ---------- read-only: block context menu, copy, cut, drag, selection, copy shortcuts (the finder stays usable) */
 function inField(t){ return !!(t&&t.closest&&t.closest('input')); }
@@ -369,11 +367,6 @@ function refreshCounts(){
   });
   optAll.lastChild.textContent=t==='all'?cards.length:TYPES.filter(function(x){return x===t;}).length;
 }
-function setMode(m){
-  state.mode=m; modeBtn.setAttribute('aria-pressed',m==='u'?'true':'false');
-  try{ localStorage.setItem('scie326-midterm-mode',m); }catch(e){}
-}
-modeBtn.addEventListener('click',function(){ setMode(state.mode==='u'?'w':'u'); refreshCounts(); apply(state.kw>=0); });
 
 /* ---------- apply the filter */
 function escHtml(s){ return s.replace(/[&<>"]/g,function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
@@ -403,7 +396,7 @@ function apply(scrollTop){
   }
   if(!shown){
     emptyEl.hidden=false;
-    emptyEl.textContent='No '+what+(state.mode==='u'?' have “'+KW[state.kw].l+'” underlined':' contain “'+KW[state.kw].l+'”')+'. Tap All to include every type'+(state.mode==='u'?', switch off Underlined only,':'')+' or Reset.';
+    emptyEl.textContent='No '+what+(state.mode==='u'?' have “'+KW[state.kw].l+'” underlined':' contain “'+KW[state.kw].l+'”')+'. Tap Reset to clear the filter.';
   } else emptyEl.hidden=true;
   if(scrollTop)window.scrollTo(0,0);
 }
@@ -457,7 +450,7 @@ var ticking=false;
 window.addEventListener('scroll',function(){ if(ticking)return; ticking=true;
   requestAnimationFrame(function(){ topBtn.classList.toggle('show',window.scrollY>600); ticking=false; }); },{passive:true});
 
-setMode(state.mode); refreshCounts(); apply(false);
+refreshCounts(); apply(false);
 })();
 </script>
 </body></html>
